@@ -19,10 +19,7 @@ jobs:
         run: |
           set -euo pipefail
           cp -a hardware_test hardware_test_660prx
-          cat >> hardware_test_660prx/Makefile <<'EOF'
-          BUILD_PRX = 1
-          PSP_FW_VERSION = 660
-          EOF
+          sed -i '/^PSPSDK =/i BUILD_PRX = 1\nPSP_FW_VERSION = 660' hardware_test_660prx/Makefile
           sed -i 's/^PSP_EBOOT_TITLE =.*/PSP_EBOOT_TITLE = RIFT PRX TEST 660/' hardware_test_660prx/Makefile
           docker run --rm -v "$PWD/hardware_test_660prx:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP; psp-gcc --version'
           python3 - <<'PY'
