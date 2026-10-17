@@ -1,0 +1,86 @@
+name: Hardware-safe PSP startup probe
+
+on:
+  push:
+    paths:
+      - 'hardware_test/**'
+      - '.github/workflows/hardware-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hardware-compatibility:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile tiny standalone native PSP executable
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/hardware_test:/src" -w /src pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            psp-gcc --version
+            make clean
+            make -j2
+            test -s EBOOT.PBP
+          '
+          file hardware_test/EBOOT.PBP
+          sha256sum hardware_test/EBOOT.PBP | tee hardware_test/SHA256.txt
+
+      - name: Install headless PPSSPP dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libpulse0 pulseaudio pulseaudio-utils curl
+
+      - name: Download official PPSSPP AppImage
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+
+      - name: Capture on-screen hardware test and check emulator process
+        run: |
+          set -euo pipefail
+          mkdir -p probe-results
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_sink || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/hardware_test/EBOOT.PBP" > probe-results/ppsspp.log 2>&1 &
+            pid=$!
+            sleep 12
+            import -display "$DISPLAY" -window root probe-results/screenshot.png
+            if ! kill -0 "$pid" 2>/dev/null; then
+              echo "Emulator exited unexpectedly before 12 seconds" >&2
+              exit 1
+            fi
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s probe-results/screenshot.png
+          colors="$(identify -format '%k' probe-results/screenshot.png)"
+          echo "Screenshot colors: $colors"
+          if [ "$colors" -lt 8 ]; then
+             echo "No meaningful emulator rendering detected" >&2
+             exit 1
+          fi
+
+      - name: Publish hardware-safe diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-PSP-Hardware-Safe-Test
+          path: |
+            hardware_test/EBOOT.PBP
+            hardware_test/SHA256.txt
+            probe-results/
+          if-no-files-found: warn
