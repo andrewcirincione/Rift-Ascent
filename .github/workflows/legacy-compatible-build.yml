@@ -1,0 +1,97 @@
+name: Legacy PSP Loader Compatibility Builds
+on:
+  push:
+    paths:
+      - 'patches/legacy_one_segment.py'
+      - '.github/workflows/legacy-compatible-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-legacy-psp:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract game and enable single LOAD linker mode
+        run: |
+          set -euo pipefail
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          sed -i '/^PSPSDK =/i LDFLAGS += -Wl,-N' hardware_test/Makefile
+          sed -i '/^PSPSDK =/i LDFLAGS += -Wl,-N' GAME/Makefile
+          grep -n -- '-Wl,-N' hardware_test/Makefile GAME/Makefile
+      - name: Build both via official PSPDEV
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/root/work" -w /root/work pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            cd hardware_test
+            make clean
+            make -j2
+            cd ../GAME
+            make clean
+            make -j2
+          '
+      - name: Repackage to legacy one-segment ELF layout
+        run: |
+          set -euo pipefail
+          python3 patches/legacy_one_segment.py hardware_test/EBOOT.PBP hardware_test/EBOOT_LEGACY.PBP
+          python3 patches/legacy_one_segment.py GAME/EBOOT.PBP GAME/EBOOT_LEGACY.PBP
+          readelf --version | head -1
+          python3 - <<'PY'
+          import pathlib,struct
+          for file in ('hardware_test/EBOOT_LEGACY.PBP','GAME/EBOOT_LEGACY.PBP'):
+            b=pathlib.Path(file).read_bytes();off=struct.unpack_from('<8I',b,8)
+            e=b[off[6]:off[7]]
+            phoff=struct.unpack_from('<I',e,28)[0];p=struct.unpack_from('<8I',e,phoff)
+            print(file,'entry',hex(struct.unpack_from('<I',e,24)[0]),'PHNUM',struct.unpack_from('<H',e,44)[0],'LOAD',p)
+          PY
+      - name: Install PPSSPP software display
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libpulse0 pulseaudio pulseaudio-utils curl
+      - name: Download PPSSPP stable
+        run: |
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+      - name: Boot BOTH legacy-format programs in PPSSPP and capture screenshots
+        run: |
+          set -euo pipefail
+          mkdir -p compat-results
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_sink || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -eu
+            for candidate in hardware_test GAME; do
+              ./squashfs-root/AppRun "$PWD/$candidate/EBOOT_LEGACY.PBP" > "compat-results/$candidate.log" 2>&1 &
+              pid=$!
+              sleep 10
+              import -display "$DISPLAY" -window root "compat-results/$candidate.png"
+              if ! kill -0 "$pid" 2>/dev/null; then
+                echo "FAIL: $candidate exited early"
+                exit 1
+              fi
+              kill "$pid" 2>/dev/null || true
+              wait "$pid" 2>/dev/null || true
+              colors="$(identify -format '%k' "compat-results/$candidate.png")"
+              echo "$candidate image colors: $colors"
+              if [ "$colors" -lt 16 ]; then echo "FAIL: blank screenshot"; exit 1; fi
+            done
+          '
+      - name: Upload PSP hardware candidates and PPSSPP screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-PSP-CaveStyle-ELF-Compatibility
+          path: |
+            hardware_test/EBOOT_LEGACY.PBP
+            GAME/EBOOT_LEGACY.PBP
+            compat-results/
+          if-no-files-found: warn
