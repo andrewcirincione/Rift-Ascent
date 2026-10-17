@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          unzip -q Rift_Ascent_GitHub_OneClick_Setup.zip
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           cp -a GAME GAME_PRX
           cp -a hardware_test hardware_test_PRX
           sed -i '/^EXTRA_TARGETS/i BUILD_PRX = 1' hardware_test_PRX/Makefile
