@@ -1,0 +1,78 @@
+name: PPSSPP emulator launch and screenshot
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ppsspp-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract Rift Ascent source
+        run: |
+          set -euo pipefail
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          test -f GAME/Makefile
+
+      - name: Build actual EBOOT with PSPSDK
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/GAME:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+          python3 GAME/verify_eboot.py GAME/EBOOT.PBP
+
+      - name: Prepare software-rendered X display
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick mesa-utils libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 wget
+
+      - name: Download official stable PPSSPP Linux AppImage
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output PPSSPP.AppImage \
+            https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+          test -x squashfs-root/AppRun
+
+      - name: Launch compiled EBOOT for 25 seconds and capture screen
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p EMULATOR_OUTPUT
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_AUDIODRIVER=dummy
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/GAME/EBOOT.PBP" > EMULATOR_OUTPUT/ppsspp.log 2>&1 &
+            pid=$!
+            echo "Emulator PID: $pid"
+            sleep 25
+            import -display "$DISPLAY" -window root EMULATOR_OUTPUT/screenshot.png || true
+            if kill -0 "$pid" 2>/dev/null; then
+              echo "PPSSPP remained running at 25 seconds" | tee EMULATOR_OUTPUT/process-status.txt
+              kill "$pid" 2>/dev/null || true
+            else
+              echo "PPSSPP exited before 25 seconds" | tee EMULATOR_OUTPUT/process-status.txt
+            fi
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s EMULATOR_OUTPUT/screenshot.png
+          file EMULATOR_OUTPUT/screenshot.png
+          tail -120 EMULATOR_OUTPUT/ppsspp.log || true
+
+      - name: Upload emulator screenshot and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-Emulator-Smoke
+          path: |
+            EMULATOR_OUTPUT/
+          if-no-files-found: warn
