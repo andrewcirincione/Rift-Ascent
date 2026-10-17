@@ -1,0 +1,51 @@
+name: Compile Rift Ascent PSP EBOOT
+
+on:
+  push:
+    paths:
+      - 'Rift_Ascent_GitHub_Ready.zip'
+      - '.github/workflows/psp-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-psp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Extract the game package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s Rift_Ascent_GitHub_Ready.zip || { echo "Upload Rift_Ascent_GitHub_Ready.zip to the repository root first."; exit 1; }
+          unzip -q -o Rift_Ascent_GitHub_Ready.zip
+          test -f GAME/Makefile
+          test -f GAME/verify_eboot.py
+
+      - name: Compile with PSPDEV
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker pull pspdev/pspdev:v20261001
+          docker run --rm -v "$PWD/GAME:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; psp-gcc --version; rm -f EBOOT.PBP; make -j2; test -s EBOOT.PBP'
+
+      - name: Validate EBOOT
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 GAME/verify_eboot.py GAME/EBOOT.PBP
+          file GAME/EBOOT.PBP
+          sha256sum GAME/EBOOT.PBP | tee EBOOT_SHA256.txt
+
+      - name: Upload EBOOT
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-EBOOT
+          path: |
+            GAME/EBOOT.PBP
+            EBOOT_SHA256.txt
+          if-no-files-found: error
