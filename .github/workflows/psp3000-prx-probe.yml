@@ -1,0 +1,84 @@
+name: PSP-3000 6.60 PRX-only Minimal Compatibility Test
+on:
+  push:
+    paths:
+      - '.github/workflows/psp3000-prx-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prx-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build relocatable PRX test with PSPDEV
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a hardware_test hardware_test_660prx
+          cat >> hardware_test_660prx/Makefile <<'EOF'
+          BUILD_PRX = 1
+          PSP_FW_VERSION = 660
+          EOF
+          sed -i 's/^PSP_EBOOT_TITLE =.*/PSP_EBOOT_TITLE = RIFT PRX TEST 660/' hardware_test_660prx/Makefile
+          docker run --rm -v "$PWD/hardware_test_660prx:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP; psp-gcc --version'
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct,hashlib
+          p=Path('hardware_test_660prx/EBOOT.PBP');b=p.read_bytes()
+          assert b[:4]==b'\x00PBP'
+          offsets=struct.unpack_from('<8I',b,8)
+          payload=b[offsets[6]:offsets[7]]
+          assert payload[:4]==b'\x7fELF'
+          et,em=struct.unpack_from('<HH',payload,16)
+          assert et==0xffa0 and em==8, (hex(et),em)
+          print('PSP PRX output confirmed:', p, 'size',len(b),'SHA256',hashlib.sha256(b).hexdigest())
+          PY
+
+      - name: Install emulator and X11 headless dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libpulse0 pulseaudio pulseaudio-utils curl
+      - name: Fetch official PPSSPP stable emulator
+        run: |
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+      - name: Boot PRX in PPSSPP and capture screen
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/prx-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=probe_sink || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/hardware_test_660prx/EBOOT.PBP" >results/ppsspp.log 2>&1 &
+            pid=$!
+            sleep 10
+            import -display "$DISPLAY" -window root results/probe-screen.png
+            if ! kill -0 "$pid" 2>/dev/null; then echo "PRX emulator exited early" >&2; exit 1; fi
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s results/probe-screen.png
+          colors="$(identify -format '%k' results/probe-screen.png)"
+          echo "Visible distinct colors $colors"
+          test "$colors" -ge 12
+
+      - name: Publish minimal PRX PSP-3000 test and screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: RIFT-PSP3000-660-PRX-Hardware-Probe
+          path: |
+            hardware_test_660prx/EBOOT.PBP
+            results/
+          if-no-files-found: warn
