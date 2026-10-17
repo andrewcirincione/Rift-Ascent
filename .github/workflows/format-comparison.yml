@@ -1,0 +1,65 @@
+name: Compare static ELF and relocatable PRX PSP builds
+on:
+  push:
+    paths:
+      - '.github/workflows/format-comparison.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare-formats:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare source variants
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -q Rift_Ascent_GitHub_OneClick_Setup.zip
+          cp -a GAME GAME_PRX
+          cp -a hardware_test hardware_test_PRX
+          sed -i '/^EXTRA_TARGETS/i BUILD_PRX = 1' hardware_test_PRX/Makefile
+          sed -i '/^EXTRA_TARGETS/i BUILD_PRX = 1' GAME_PRX/Makefile
+          sed -i 's/^TARGET = rift_ascent/TARGET = rift_ascent_prx/' GAME_PRX/Makefile
+          sed -i 's/^TARGET = rift_hw_test/TARGET = rift_hw_test_prx/' hardware_test_PRX/Makefile
+      - name: Compile both PRX alternatives
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/work" -w /work pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            cd hardware_test_PRX
+            make clean
+            make -j2
+            test -s EBOOT.PBP
+            cd ../GAME_PRX
+            make clean
+            make -j2
+            test -s EBOOT.PBP
+          '
+      - name: Compare embedded executables
+        run: |
+          python3 - <<'PY'
+          import struct,pathlib
+          for f in ['hardware_test_PRX/EBOOT.PBP','GAME_PRX/EBOOT.PBP']:
+              b=pathlib.Path(f).read_bytes()
+              assert b[:4]==b'\x00PBP'
+              o=struct.unpack_from('<8I',b,8)
+              x=b[o[6]:o[7]]
+              assert x[:4]==b'\x7fELF', x[:8].hex()
+              ty,machine=struct.unpack_from('<HH',x,16)
+              print(f, "PBP size",len(b),"embedded ELF type",hex(ty),"MIPS machine",machine,"payload size",len(x))
+              assert machine==8
+              assert ty==0xffa0,("Expected relocatable PSP PRX",hex(ty))
+          PY
+      - name: Upload alternate EBOOT binaries for format comparison
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSP-PRX-format-alternates
+          path: |
+            hardware_test_PRX/EBOOT.PBP
+            GAME_PRX/EBOOT.PBP
+          if-no-files-found: error
