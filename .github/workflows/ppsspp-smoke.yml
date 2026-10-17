@@ -64,17 +64,20 @@ jobs:
             echo "Emulator PID: $pid"
             sleep 8
             import -display "$DISPLAY" -window root EMULATOR_OUTPUT/screenshot.png || true
-            win="$(xdotool search --onlyvisible --name PPSSPP | head -1 || true)"
-            echo "PPSSPP window: $win" > EMULATOR_OUTPUT/input-test.txt
-            if [ -n "$win" ]; then
-              xdotool windowactivate --sync "$win" || xdotool windowfocus "$win" || true
-              xdotool key --clearmodifiers z
-              sleep 4
-              import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-cross.png || true
-              xdotool key --clearmodifiers z
-              sleep 4
-              import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-second-cross.png || true
-            fi
+            {
+              echo "Active window:"
+              xdotool getactivewindow getwindowname 2>&1 || true
+              echo "Visible windows:"
+              xdotool search --onlyvisible --name . 2>/dev/null | while read w; do
+                echo "$w $(xdotool getwindowname "$w" 2>/dev/null || true)"
+              done
+            } > EMULATOR_OUTPUT/input-test.txt
+            xdotool key --clearmodifiers z
+            sleep 4
+            import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-cross.png || true
+            xdotool key --clearmodifiers z
+            sleep 4
+            import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-second-cross.png || true
             if kill -0 "$pid" 2>/dev/null; then
               echo "PPSSPP remained running after input test" | tee EMULATOR_OUTPUT/process-status.txt
               kill "$pid" 2>/dev/null || true
