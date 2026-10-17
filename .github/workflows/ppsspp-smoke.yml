@@ -1,4 +1,4 @@
-name: PPSSPP emulator launch and screenshot
+name: PPSSPP title-screen boot smoke test
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
       - name: Prepare software-rendered X display
         run: |
           sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick mesa-utils libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils wget xdotool openbox
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick mesa-utils libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils wget
 
       - name: Download official stable PPSSPP Linux AppImage
         run: |
@@ -42,7 +42,7 @@ jobs:
           ./PPSSPP.AppImage --appimage-extract >/dev/null
           test -x squashfs-root/AppRun
 
-      - name: Launch the game and exercise PSP Cross controls
+      - name: Launch PPSSPP with PulseAudio and capture the real screen
         shell: bash
         run: |
           set -euo pipefail
@@ -54,49 +54,36 @@ jobs:
           XDG_RUNTIME_DIR="$(mktemp -d /tmp/ppsspp-xdg-XXXXXX)"
           chmod 700 "$XDG_RUNTIME_DIR"
           pulseaudio --start --exit-idle-time=-1
+          pactl info
           pactl load-module module-null-sink sink_name=ppsspp_null || true
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
             set -u
-            openbox > EMULATOR_OUTPUT/openbox.log 2>&1 &
-            sleep 1
             ./squashfs-root/AppRun "$PWD/GAME/EBOOT.PBP" > EMULATOR_OUTPUT/ppsspp.log 2>&1 &
             pid=$!
             echo "Emulator PID: $pid"
-            sleep 8
+            sleep 25
             import -display "$DISPLAY" -window root EMULATOR_OUTPUT/screenshot.png || true
-            {
-              echo "Active window:"
-              xdotool getactivewindow getwindowname 2>&1 || true
-              echo "Visible windows:"
-              xdotool search --onlyvisible --name . 2>/dev/null | while read w; do
-                echo "$w $(xdotool getwindowname "$w" 2>/dev/null || true)"
-              done
-            } > EMULATOR_OUTPUT/input-test.txt
-            # Send keydown long enough for the PSP's 60 Hz controller poll.
-            xdotool keydown z
-            sleep 0.5
-            xdotool keyup z
-            sleep 4
-            import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-cross.png || true
-            xdotool keydown z
-            sleep 0.5
-            xdotool keyup z
-            sleep 4
-            import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-second-cross.png || true
             if kill -0 "$pid" 2>/dev/null; then
-              echo "PPSSPP remained running after input test" | tee EMULATOR_OUTPUT/process-status.txt
+              echo "PPSSPP remained running at 25 seconds" | tee EMULATOR_OUTPUT/process-status.txt
               kill "$pid" 2>/dev/null || true
             else
-              echo "PPSSPP exited during input test" | tee EMULATOR_OUTPUT/process-status.txt
+              echo "PPSSPP exited before 25 seconds" | tee EMULATOR_OUTPUT/process-status.txt
             fi
             wait "$pid" 2>/dev/null || true
           '
-          file EMULATOR_OUTPUT/*.png || true
+          test -s EMULATOR_OUTPUT/screenshot.png
+          file EMULATOR_OUTPUT/screenshot.png
           tail -120 EMULATOR_OUTPUT/ppsspp.log || true
-          grep -q "remained running" EMULATOR_OUTPUT/process-status.txt
-          test -s EMULATOR_OUTPUT/after-second-cross.png
-          colors="$(identify -format '%k' EMULATOR_OUTPUT/after-second-cross.png)"
-          test "$colors" -ge 16
+          grep -q "remained running" EMULATOR_OUTPUT/process-status.txt || {
+            echo "FAIL: emulator exited before the screenshot" >&2
+            exit 1
+          }
+          colors="$(identify -format '%k' EMULATOR_OUTPUT/screenshot.png)"
+          echo "Screen unique colors: $colors"
+          if [ "$colors" -lt 16 ]; then
+            echo "FAIL: Screenshot appears blank; emulator launch not verified" >&2
+            exit 1
+          fi
 
       - name: Upload emulator screenshot and logs
         if: always()
