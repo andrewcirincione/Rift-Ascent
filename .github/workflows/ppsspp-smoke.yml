@@ -72,10 +72,15 @@ jobs:
                 echo "$w $(xdotool getwindowname "$w" 2>/dev/null || true)"
               done
             } > EMULATOR_OUTPUT/input-test.txt
-            xdotool key --clearmodifiers z
+            # Send keydown long enough for the PSP's 60 Hz controller poll.
+            xdotool keydown z
+            sleep 0.5
+            xdotool keyup z
             sleep 4
             import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-cross.png || true
-            xdotool key --clearmodifiers z
+            xdotool keydown z
+            sleep 0.5
+            xdotool keyup z
             sleep 4
             import -display "$DISPLAY" -window root EMULATOR_OUTPUT/after-second-cross.png || true
             if kill -0 "$pid" 2>/dev/null; then
