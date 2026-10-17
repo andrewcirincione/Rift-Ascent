@@ -22,6 +22,11 @@ jobs:
           unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           test -f GAME/Makefile
 
+      - name: Insert PSP hardware startup diagnostics
+        run: |
+          set -euo pipefail
+          python3 patches/diagnose_psp_boot.py GAME/src/psp_main.c
+
       - name: Build actual EBOOT with PSPSDK
         run: |
           set -euo pipefail
