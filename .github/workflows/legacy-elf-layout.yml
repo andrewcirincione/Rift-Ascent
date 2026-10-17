@@ -1,0 +1,50 @@
+name: PSP Legacy ELF Linker Layout Comparison
+on:
+  push:
+    paths:
+      - '.github/workflows/legacy-elf-layout.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build one tiny PSP test with several linker options
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a hardware_test legacy-default
+          cp -a hardware_test legacy-nmagic
+          cp -a hardware_test legacy-nmagic-page
+          cp -a hardware_test legacy-page
+          sed -i '/^PSPSDK =/i LDFLAGS += -Wl,-N' legacy-nmagic/Makefile
+          sed -i '/^PSPSDK =/i LDFLAGS += -Wl,-N -Wl,-z,max-page-size=4096' legacy-nmagic-page/Makefile
+          sed -i '/^PSPSDK =/i LDFLAGS += -Wl,-z,max-page-size=4096' legacy-page/Makefile
+          for d in legacy-default legacy-nmagic legacy-nmagic-page legacy-page; do
+            echo "======= BUILDING $d ======="
+            docker run --rm -v "$PWD/$d:/source" -w /source pspdev/pspdev:v20261001 sh -c 'make clean && make -j2'
+            test -s "$d/EBOOT.PBP"
+          done
+      - name: Compare with working Cave Story executable structure
+        run: |
+          python3 - <<'PY'
+          import pathlib,struct
+          for d in ['legacy-default','legacy-nmagic','legacy-nmagic-page','legacy-page']:
+             p=pathlib.Path(d+'/EBOOT.PBP'); b=p.read_bytes()
+             o=struct.unpack_from('<8I',b,8); elf=b[o[6]:o[7]]
+             e=struct.unpack_from('<I',elf,24)[0]
+             po=struct.unpack_from('<I',elf,28)[0]
+             n=struct.unpack_from('<H',elf,44)[0]
+             ph=[struct.unpack_from('<IIIIIIII',elf,po+i*32) for i in range(n)]
+             print(d,'ENTRY',hex(e),'HEADERS',n,'LOADS',[(hex(a[1]),hex(a[2]),hex(a[6]),hex(a[7])) for a in ph if a[0]==1])
+          PY
+      - name: Export builds
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSP-Legacy-Linker-Experiment
+          path: |
+            legacy-*/EBOOT.PBP
+          if-no-files-found: error
