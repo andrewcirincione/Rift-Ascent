@@ -1,10 +1,11 @@
-name: Build Rift Ascent PSP EBOOT
+name: Build Rift Ascent PSP Hardware Diagnostic EBOOT
 
 on:
   push:
     paths:
       - 'Rift_Ascent_GitHub_OneClick_Setup.zip'
       - '.github/workflows/psp-build.yml'
+      - 'patches/diagnose_psp_boot.py'
   workflow_dispatch:
 
 permissions:
@@ -29,6 +30,12 @@ jobs:
           test -f GAME/src/psp_main.c
           echo "Extracted GAME sources and PSP build files."
           ls -lah GAME/src
+
+      - name: Insert hardware boot diagnostics
+        run: |
+          set -euo pipefail
+          python3 patches/diagnose_psp_boot.py GAME/src/psp_main.c
+          grep -q 'RIFT_BOOT_PATH' GAME/src/psp_main.c
 
       - name: Run native PSPDEV compiler and linker
         shell: bash
@@ -55,7 +62,7 @@ jobs:
       - name: Publish EBOOT and checksum
         uses: actions/upload-artifact@v4
         with:
-          name: Rift-Ascent-EBOOT
+          name: Rift-Ascent-Hardware-Diagnostic-EBOOT
           path: |
             GAME/EBOOT.PBP
             EBOOT_SHA256.txt
