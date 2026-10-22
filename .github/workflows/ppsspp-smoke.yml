@@ -27,11 +27,18 @@ jobs:
           set -euo pipefail
           python3 patches/diagnose_psp_boot.py GAME/src/psp_main.c
 
+      - name: Enforce user-mode-only PSP linker libraries
+        run: |
+          set -euo pipefail
+          sed -i 's/ -lpspkernel//g' GAME/Makefile
+          if grep -q -- '-lpspkernel' GAME/Makefile; then exit 1; fi
+
       - name: Build actual EBOOT with PSPSDK
         run: |
           set -euo pipefail
           docker run --rm -v "$PWD/GAME:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
           python3 GAME/verify_eboot.py GAME/EBOOT.PBP
+          python3 tools/audit_psp_imports.py GAME/EBOOT.PBP
 
       - name: Prepare software-rendered X display
         run: |
