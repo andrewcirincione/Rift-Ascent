@@ -56,7 +56,7 @@ static void map_select_reachable(Game*g) {
 put("static void enter_map(Game *g)", "static void enter_map(Game *g)") if False else None
 put("static void enter_map(Game *g)", "static void enter_map(Game *g)") if False else None
 put("static void enter_map(Game *g)", "static void enter_map(Game *g)") if False else None
-put("static void enter_map(Game*g){g->screen=MAP;g->selection=CLAMP(g->lane,0,2);}",
+put("static void enter_map(Game *g){g->screen=MAP;g->selection=CLAMP(g->lane,0,2);}",
 """static void enter_map(Game*g){
  g->screen=MAP;g->selection=CLAMP(g->lane,0,2);
  if(g->floor<MAP_ROWS&&!game_route_available(g,g->selection))
