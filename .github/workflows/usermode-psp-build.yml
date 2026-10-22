@@ -1,0 +1,60 @@
+name: Correct Usermode PSP Build and Import Audit
+on:
+  push:
+    paths:
+      - '.github/workflows/usermode-psp-build.yml'
+      - 'tools/audit_psp_imports.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-user-mode:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract source and remove kernel-only library from USERMODE apps
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          sed -i 's/ -lpspkernel//g' hardware_test/Makefile GAME/Makefile
+          grep -n '^LIBS' hardware_test/Makefile GAME/Makefile
+          if grep -q -- '-lpspkernel' hardware_test/Makefile GAME/Makefile; then
+            echo "ERROR: kernel library still linked"
+            exit 1
+          fi
+
+      - name: Native PSPDEV compile
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD:/work" -w /work pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            cd hardware_test
+            make clean
+            make -j2
+            cd ../GAME
+            make clean
+            make -j2
+          '
+          test -s GAME/EBOOT.PBP
+          test -s hardware_test/EBOOT.PBP
+
+      - name: Check kernel and user library imports in both actual EBOOTs
+        run: |
+          set -euo pipefail
+          python3 tools/audit_psp_imports.py hardware_test/EBOOT.PBP GAME/EBOOT.PBP | tee imports.txt
+          python3 GAME/verify_eboot.py GAME/EBOOT.PBP
+
+      - name: Publish *unverified-on-hardware* candidate for developer inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-Usermode-Import-Audit-NOT-Hardware-Tested
+          path: |
+            hardware_test/EBOOT.PBP
+            GAME/EBOOT.PBP
+            imports.txt
+          if-no-files-found: error
