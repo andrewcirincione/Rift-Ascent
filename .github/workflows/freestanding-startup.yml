@@ -52,8 +52,53 @@ jobs:
           assert '.lib.ent' in labels,labels
           print('PSP ELF type',ty,'module info/export present', 'size',len(e), 'sha256',hashlib.sha256(b).hexdigest())
           PY
+          python3 tools/audit_psp_imports.py startup_probe/EBOOT.PBP | tee results/imports.txt
           cp startup_probe/EBOOT.PBP results/EBOOT.pbp
           sha256sum results/EBOOT.pbp > results/SHA256.txt
+      - name: Prepare Linux software emulator display
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils curl
+
+      - name: Acquire PPSSPP 1.20.4
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+
+      - name: Capture actual PSP framebuffer before 15-second test exit
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/ppsspp-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=ppsspp_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/startup_probe/EBOOT.PBP" >results/ppsspp.log 2>&1 &
+            pid=$!
+            sleep 7
+            import -display "$DISPLAY" -window root results/startup.png
+            if ! kill -0 "$pid" 2>/dev/null; then
+              echo "Emulator exited before frame capture" >&2; exit 1
+            fi
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s results/startup.png
+          file results/startup.png
+          colors="$(identify -format '%k' results/startup.png)"
+          echo "Colors in screenshot: $colors"
+          test "$colors" -ge 12
+          tail -50 results/ppsspp.log || true
+
       - name: Upload isolated experiment (NOT PSP tested)
         if: always()
         uses: actions/upload-artifact@v4
