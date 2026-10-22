@@ -1,0 +1,191 @@
+name: Rift Ascent PSP Gameplay Overhaul
+
+on:
+  push:
+    paths:
+      - 'overhaul/**'
+      - '.github/workflows/overhaul-psp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile-and-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare full game modules with CRT-free entry
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          python3 overhaul/patch_engine.py GAME/src
+          python3 overhaul/patch_render.py GAME/src
+          cp overhaul/sound_v2.c GAME/src/sound.c
+          cp overhaul/sound_v2.h GAME/src/sound.h
+          mkdir -p portable_build
+          cp GAME/src/* portable_build/
+          cp portable/psp_start.c portable/mini_libc.c portable/boot_trace.c portable/boot_trace.h portable/file_syscalls.S portable/callback_syscalls.S portable_build/
+          cp startup_probe/user_syscalls.S portable_build/
+          python3 overhaul/patch_frontend.py portable_build/psp_start.c
+          cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
+          cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
+          cat > portable_build/Makefile <<'EOF'
+          TARGET = rift_ascent_crt_free
+          OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o
+          PSP_FW_VERSION = 660
+          PSP_LARGE_MEMORY = 0
+          CFLAGS = -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
+          LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
+          LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
+          EXTRA_TARGETS = EBOOT.PBP
+          PSP_EBOOT_TITLE = RIFT ASCENT - Gameplay 2.0
+          PSP_EBOOT_ICON = ICON0.PNG
+          PSP_EBOOT_PIC1 = PIC1.PNG
+          PSPSDK = $(shell psp-config --pspsdk-path)
+          include $(PSPSDK)/lib/build.mak
+          EOF
+
+      - name: Compile and run native deterministic gameplay tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+              -I GAME/src overhaul/test_engine.c GAME/src/game.c -o engine_tests
+          ASAN_OPTIONS=detect_leaks=1 ./engine_tests
+
+      - name: PSPDEV compile/link full gameplay + illustrated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/portable_build:/src" -w /src pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            make clean
+            make -j2
+            test -s EBOOT.PBP
+          '
+          python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
+          python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
+          sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
+
+      - name: Download Linux PPSSPP and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils curl
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+
+      - name: PPSSPP renders illustrated full-game main menu
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p emulator_results
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/portable_build/EBOOT.PBP" > emulator_results/ppsspp.log 2>&1 &
+            pid=$!
+            sleep 12
+            import -display "$DISPLAY" -window root emulator_results/game-title.png
+            if ! kill -0 "$pid" 2>/dev/null;then
+              echo "FAIL: PPSSPP exited unexpectedly";exit 1
+            fi
+            kill "$pid" || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s emulator_results/game-title.png
+          colors="$(identify -format '%k' emulator_results/game-title.png)"
+          echo "Unique screen colors: $colors"
+          test "$colors" -ge 64
+          tail -60 emulator_results/ppsspp.log || true
+
+      - name: Confirm PSP boot-trace file is actually written in PPSSPP
+        shell: bash
+        run: |
+          set -euo pipefail
+          find "$HOME" -name RIFT_BOOT.LOG -type f -print | tee emulator_results/trace-locations.txt
+          candidate="$(find "$HOME" -name RIFT_BOOT.LOG -type f -print -quit)"
+          if [ -z "$candidate" ]; then
+            echo "BOOT TRACE WAS NOT WRITTEN IN PPSSPP" >&2
+            exit 1
+          fi
+          cp "$candidate" emulator_results/boot-trace.log
+          cat emulator_results/boot-trace.log
+          grep -q 'PSP module start:' emulator_results/boot-trace.log
+          grep -q 'render first finished:' emulator_results/boot-trace.log
+          grep -q 'frame 1 rendered:' emulator_results/boot-trace.log
+          grep -q 'initial frame committed at vblank: 0' emulator_results/boot-trace.log
+          grep -q 'frame present vblank result: 0' emulator_results/boot-trace.log
+          grep -q 'frame flip result: 0' emulator_results/boot-trace.log
+          if grep -q 'FATAL' emulator_results/boot-trace.log; then
+            echo "Startup/present failed according to PSP trace" >&2
+            exit 1
+          fi
+
+      - name: Build deterministic internal-control gameplay smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a portable_build portable_demo
+          sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_SMOKE_DEMO /' portable_demo/Makefile
+          docker run --rm -v "$PWD/portable_demo:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+          python3 tools/audit_psp_imports.py portable_demo/EBOOT.PBP > portable_demo/imports.txt
+
+      - name: PPSSPP verifies that game actions advance the visual state
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-demo-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_demo_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/portable_demo/EBOOT.PBP" > emulator_results/ppsspp-demo.log 2>&1 &
+            pid=$!
+            sleep 13
+            import -display "$DISPLAY" -window root emulator_results/game-actions.png
+            if ! kill -0 "$pid" 2>/dev/null; then
+              echo "FAIL: PPSSPP exited during gameplay smoke test" >&2
+              exit 1
+            fi
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s emulator_results/game-actions.png
+          colors="$(identify -format '%k' emulator_results/game-actions.png)"
+          echo "Gameplay screenshot unique colors: $colors"
+          test "$colors" -gt 64
+          metric="$(compare -metric AE emulator_results/game-title.png emulator_results/game-actions.png null: 2>&1 || true)"
+          echo "Title-to-gameplay pixel difference: $metric"
+          if ! [[ "$metric" =~ ^[0-9]+$ ]]; then
+            echo "Could not compare screenshots" >&2; exit 1
+          fi
+          test "$metric" -gt 20000
+          tail -60 emulator_results/ppsspp-demo.log || true
+
+      - name: Upload fully compiled game and emulator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-Gameplay-Overhaul-PSP-Hardware-UNVERIFIED
+          path: |
+            portable_build/EBOOT.PBP
+            portable_build/SHA256.txt
+            portable_build/imports.txt
+            emulator_results/
+          if-no-files-found: warn
