@@ -16,14 +16,14 @@
     .word ((\count << 16) | 5)
     .word .Lnids_\label
     .word .Lstubs_\label
-    .section .rodata.stubidtable, "a", @progbits
+    .section .rodata.sceNid, "a", @progbits
 .Lnids_\label:
     .section .sceStub.text, "ax", @progbits
 .Lstubs_\label:
     .endm
 
     .macro PSP_FUNCTION name, nid
-    .section .rodata.stubidtable, "a", @progbits
+    .section .rodata.sceNid, "a", @progbits
     .word \nid
     .section .sceStub.text, "ax", @progbits
     .globl \name
