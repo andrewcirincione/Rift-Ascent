@@ -38,8 +38,10 @@ repl('''    if(fx)game_effect_start(fx,tick);
         game_render_feedback(&before_input,&game,key,tick);
 }''')
 repl('''    game_render_set_profile(&lifetime);
+    boot_trace("profile set",1);
     sceCtrlSetSamplingCycle(0);''',
 '''    game_render_set_profile(&lifetime);
+    boot_trace("profile set",1);
     rift_sound_reset(&music);
     game_render_set_overlay(0,0,0);
     sceCtrlSetSamplingCycle(0);''')
