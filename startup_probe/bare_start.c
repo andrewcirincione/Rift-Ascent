@@ -10,6 +10,31 @@
 #include <pspge.h>
 #include <psptypes.h>
 
+/* Boundary labels normally supplied by PSPSDK's crt0; define them
+ * explicitly because this probe deliberately does not link crt0. */
+__asm__(
+ ".section .lib.ent.top, \"a\", @progbits\n"
+ ".balign 4\n"
+ ".word 0\n"
+ ".globl __lib_ent_top\n"
+ "__lib_ent_top:\n"
+ ".section .lib.ent.btm, \"a\", @progbits\n"
+ ".balign 4\n"
+ ".globl __lib_ent_bottom\n"
+ "__lib_ent_bottom:\n"
+ ".word 0\n"
+ ".section .lib.stub.top, \"a\", @progbits\n"
+ ".balign 4\n"
+ ".word 0\n"
+ ".globl __lib_stub_top\n"
+ "__lib_stub_top:\n"
+ ".section .lib.stub.btm, \"a\", @progbits\n"
+ ".balign 4\n"
+ ".globl __lib_stub_bottom\n"
+ "__lib_stub_bottom:\n"
+ ".word 0\n"
+ ".text\n"
+);
 PSP_MODULE_INFO("Rift Bare Startup", PSP_MODULE_USER, 1, 1);
 
 #define WIDTH 480
