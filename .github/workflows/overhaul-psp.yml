@@ -29,6 +29,7 @@ jobs:
           python3 overhaul/make_font.py GAME/src/font_smooth.h
           python3 overhaul/patch_font.py GAME/src
           python3 overhaul/patch_polish.py GAME/src
+          python3 overhaul/patch_telegraphs.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
