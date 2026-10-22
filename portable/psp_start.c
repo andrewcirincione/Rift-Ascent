@@ -50,6 +50,25 @@ static int sound_worker(SceSize arglen,void *argp) {
     return 0;
 }
 
+/* OS exit callback: HOME can close the app when game threads are alive. */
+static int exit_callback(int a,int b,void *ctx) {
+    (void)a;(void)b;(void)ctx;
+    running=0;
+    sceKernelExitGame();
+    return 0;
+}
+static int callbacks_worker(SceSize count,void *data) {
+    (void)count;(void)data;
+    int callback=sceKernelCreateCallback("Rift HOME Exit",exit_callback,0);
+    if(callback>=0)sceKernelRegisterExitCallback(callback);
+    sceKernelSleepThreadCB();
+    return 0;
+}
+static void setup_home_callback(void) {
+    SceUID th=sceKernelCreateThread("Rift HOME monitor",callbacks_worker,
+                                   0x11,4096,PSP_THREAD_ATTR_USER,0);
+    if(th>=0)sceKernelStartThread(th,0,0);
+}
 static int button(unsigned int down) {
     if (down & PSP_CTRL_CROSS) return BTN_OK;
     if (down & PSP_CTRL_CIRCLE) return BTN_BACK;
@@ -93,7 +112,7 @@ static int run_game(SceSize bytes,void *argp) {
         sceKernelExitGame();return -2;
     }
     /* Seed chosen without libc startup/time import; different in each new run. */
-    game_new(&game,0x93ab6711U);
+    game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
     game_load(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
     profile_init(&lifetime);
     profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
@@ -105,6 +124,7 @@ static int run_game(SceSize bytes,void *argp) {
                             PSP_DISPLAY_SETBUF_IMMEDIATE)<0) {
         sceKernelExitGame();return -3;
     }
+    setup_home_callback();
     unsigned int last=0;
     unsigned int frame=1;
     int held=0;
