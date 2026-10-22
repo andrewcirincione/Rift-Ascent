@@ -1,7 +1,7 @@
 /* Rift Ascent PSP-3000 CRT-free integration.
  * Keeps the actual game engine, UI, and all embedded sprite assets.
  * Built with -nostdlib -nostartfiles and explicit *user-mode* firmware imports.
- * No audio or file saves in this first integrated prototype.
+ * Audio is still disabled; saving uses user-mode PSP I/O.
  * Hardware PSP-3000/6.60/ARK-5 launch has NOT been verified.
  */
 #include <pspmoduleinfo.h>
@@ -61,7 +61,8 @@ static void step_action(int key,unsigned tick) {
     }
     game_action(&game,key);
     if(game.screen==VICTORY || game.screen==DEFEAT) {
-        if(game.screen!=oldscreen)profile_record(&lifetime,&game);
+        if(game.screen!=oldscreen && profile_record(&lifetime,&game))
+            profile_save(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
     }
     if(oldscreen==COMBAT && key==BTN_BACK && game.hp<oldhp)fx=4;
     if(fx)game_effect_start(fx,tick);
@@ -76,7 +77,9 @@ static int run_game(SceSize bytes,void *argp) {
     }
     /* Seed chosen without libc startup/time import; different in each new run. */
     game_new(&game,0x93ab6711U);
+    game_load(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
     profile_init(&lifetime);
+    profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
     game_render_set_profile(&lifetime);
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
@@ -88,6 +91,7 @@ static int run_game(SceSize bytes,void *argp) {
     unsigned int last=0;
     unsigned int frame=1;
     int held=0;
+    int last_screen=game.screen, last_act=game.act, last_floor=game.floor;
     SceCtrlData pad;
     while(running) {
         sceCtrlPeekBufferPositive(&pad,1);
@@ -107,6 +111,14 @@ static int run_game(SceSize bytes,void *argp) {
         if(frame==220)key=BTN_OK;
 #endif
         step_action(key,frame);
+        if(key && game.screen!=TITLE && game.screen!=HELP &&
+           game.screen!=COMBAT && game.screen!=DEFEAT)
+            game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
+        if(game.screen!=last_screen || game.act!=last_act || game.floor!=last_floor) {
+            if(game.screen==MAP || game.screen==VICTORY || game.screen==DEFEAT)
+                game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
+            last_screen=game.screen;last_act=game.act;last_floor=game.floor;
+        }
         game_update(&game);
         game_render_frame(&game,uncached,STRIDE,frame);
         /* Uncached EDRAM writes: no cache-flush dependency. */
