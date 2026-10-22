@@ -24,6 +24,11 @@ jobs:
           unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           python3 overhaul/patch_engine.py GAME/src
           python3 overhaul/patch_render.py GAME/src
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pil fonts-dejavu-core
+          python3 overhaul/make_font.py GAME/src/font_smooth.h
+          python3 overhaul/patch_font.py GAME/src
+          python3 overhaul/patch_polish.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -31,6 +36,7 @@ jobs:
           cp portable/psp_start.c portable/mini_libc.c portable/boot_trace.c portable/boot_trace.h portable/file_syscalls.S portable/callback_syscalls.S portable_build/
           cp startup_probe/user_syscalls.S portable_build/
           python3 overhaul/patch_frontend.py portable_build/psp_start.c
+          python3 overhaul/patch_windup.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
