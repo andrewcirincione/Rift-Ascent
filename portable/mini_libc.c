@@ -98,13 +98,55 @@ int snprintf(char *s,size_t cap,const char *fmt,...) {
     int n=vsnprintf(s,cap,fmt,va);va_end(va);return n;
 }
 
-/* Saving is deliberately disabled pending native PSP I/O validation.
-   Return failure, not fake success, so UI and game state stay consistent. */
-FILE *fopen(const char *path,const char *mode) {(void)path;(void)mode;return 0;}
+/* Portable file backend implemented with PSP's user-mode IoFileMgrForUser
+ * syscalls. No newlib startup, errno or FILE internals are required.
+ * "FILE *" is only an opaque token to this game's own fread/fwrite calls.
+ */
+#include <pspiofilemgr.h>
+typedef struct {
+    SceUID handle;
+    int in_use;
+} FileHandle;
+static FileHandle open_handles[4];
+
+FILE *fopen(const char *path,const char *mode) {
+    int flags;
+    if(!path || !mode)return 0;
+    if(mode[0]=='r')flags=PSP_O_RDONLY;
+    else if(mode[0]=='w')flags=PSP_O_WRONLY|PSP_O_CREAT|PSP_O_TRUNC;
+    else return 0;
+    int slot=-1;
+    for(int i=0;i<4;i++)if(!open_handles[i].in_use){slot=i;break;}
+    if(slot<0)return 0;
+    SceUID fd=sceIoOpen(path,flags,0777);
+    if(fd<0)return 0;
+    open_handles[slot].handle=fd;
+    open_handles[slot].in_use=1;
+    return (FILE *)&open_handles[slot];
+}
+static FileHandle *validate_file(FILE *f) {
+    for(int i=0;i<4;i++)if((FILE*)&open_handles[i]==f && open_handles[i].in_use)
+        return &open_handles[i];
+    return 0;
+}
 size_t fread(void *dst,size_t size,size_t n,FILE *stream) {
-    (void)dst;(void)size;(void)n;(void)stream;return 0;
+    FileHandle *f=validate_file(stream);
+    if(!f || !size || !dst || n>(size_t)(0x7fffffffu/size))return 0;
+    size_t count=size*n;
+    int read=sceIoRead(f->handle,dst,(SceSize)count);
+    return read>=0?(size_t)read/size:0;
 }
 size_t fwrite(const void *src,size_t size,size_t n,FILE *stream) {
-    (void)src;(void)size;(void)n;(void)stream;return 0;
+    FileHandle *f=validate_file(stream);
+    if(!f || !size || !src || n>(size_t)(0x7fffffffu/size))return 0;
+    size_t count=size*n;
+    int written=sceIoWrite(f->handle,src,(SceSize)count);
+    return written>=0?(size_t)written/size:0;
 }
-int fclose(FILE *stream) {(void)stream;return -1;}
+int fclose(FILE *stream) {
+    FileHandle *f=validate_file(stream);
+    if(!f)return -1;
+    int result=sceIoClose(f->handle);
+    f->in_use=0;
+    return result>=0?0:-1;
+}
