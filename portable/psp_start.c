@@ -15,6 +15,7 @@
 #include "game.h"
 #include "sound.h"
 #include <pspaudio.h>
+#include "boot_trace.h"
 
 /* PSPSDK crt0 usually declares linker boundary symbols. */
 __asm__(
@@ -105,33 +106,48 @@ static void step_action(int key,unsigned tick) {
 }
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
+    boot_trace("worker entered",1);
     void *vram=sceGeEdramGetAddr();
-    if(!vram) {sceKernelExitGame();return -1;}
+    boot_trace("EDRAM base", (int)(uintptr_t)vram);
+    if(!vram) {boot_trace("FATAL EDRAM", -1);sceKernelExitGame();return -1;}
     const unsigned frame_words=STRIDE*H;
     const unsigned frame_bytes=frame_words*4U;
-    if(sceGeEdramGetSize()<2U*frame_bytes) {
+    unsigned vram_size=sceGeEdramGetSize();
+    boot_trace("VRAM size bytes",(int)vram_size);
+    if(vram_size<2U*frame_bytes) {
+        boot_trace("FATAL small VRAM", (int)vram_size);
         sceKernelExitGame();return -4;
     }
     uint32_t *uncached0=(uint32_t*)((uintptr_t)vram | (uintptr_t)0x40000000U);
     uint32_t *uncached1=(uint32_t*)(((uintptr_t)vram+frame_bytes) |
                                     (uintptr_t)0x40000000U);
-    if(sceDisplaySetMode(PSP_DISPLAY_MODE_LCD,W,H)<0) {
+    int mode_result=sceDisplaySetMode(PSP_DISPLAY_MODE_LCD,W,H);
+    boot_trace("sceDisplaySetMode",mode_result);
+    if(mode_result<0) {
         sceKernelExitGame();return -2;
     }
     /* Seed chosen without libc startup/time import; different in each new run. */
+    boot_trace("game_new entering",1);
     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
-    game_load(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
+    boot_trace("game_new finished",game.screen);
+    boot_trace("save load result",game_load(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT"));
     profile_init(&lifetime);
-    profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
+    boot_trace("profile load result",profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT"));
     game_render_set_profile(&lifetime);
+    boot_trace("profile set",1);
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
+    boot_trace("render first entering",1);
     game_render_frame(&game,uncached0,STRIDE,0);
-    if(sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
-                            PSP_DISPLAY_SETBUF_IMMEDIATE)<0) {
+    boot_trace("render first finished",1);
+    int fb_result=sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
+                            PSP_DISPLAY_SETBUF_IMMEDIATE);
+    boot_trace("first framebuffer result",fb_result);
+    if(fb_result<0) {
         sceKernelExitGame();return -3;
     }
     setup_home_callback();
+    boot_trace("exit callback setup",1);
     unsigned int last=0;
     unsigned int frame=1;
     int held=0;
@@ -167,11 +183,14 @@ static int run_game(SceSize bytes,void *argp) {
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
         game_render_frame(&game,next_frame,STRIDE,frame);
         music_battle=(game.screen==COMBAT);
+        if(frame==1)boot_trace("frame 1 rendered",game.screen);
         if(frame==12) {
+            boot_trace("audio thread start",1);
             /* Audio starts only after the display has been rendered repeatedly. */
             audio_thread_id=sceKernelCreateThread("Rift audio",sound_worker,
                                                 0x18,8192,PSP_THREAD_ATTR_USER,0);
-            if(audio_thread_id>=0)sceKernelStartThread(audio_thread_id,0,0);
+            boot_trace("audio thread ID",audio_thread_id);
+            if(audio_thread_id>=0)boot_trace("audio launch result",sceKernelStartThread(audio_thread_id,0,0));
         }
         /* Present completed offscreen frame only during VBlank.
            Double buffering prevents partially drawn UI from appearing. */
@@ -180,6 +199,8 @@ static int run_game(SceSize bytes,void *argp) {
                               (frame&1U)*frame_bytes),
                               STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
                               PSP_DISPLAY_SETBUF_IMMEDIATE);
+        if(frame==60)boot_trace("frame 60 reached",game.screen);
+        if(frame==180)boot_trace("frame 180 reached",game.screen);
         last=down;
         frame++;
     }
@@ -188,9 +209,13 @@ static int run_game(SceSize bytes,void *argp) {
 }
 int _start(SceSize args,void *argp) {
     (void)args;(void)argp;
+    boot_trace_reset();
+    boot_trace("PSP module start",1);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
                                   128*1024,PSP_THREAD_ATTR_USER,0);
-    if(th>=0)sceKernelStartThread(th,0,0);
+    boot_trace("main thread ID",th);
+    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
+    else boot_trace("FATAL could not create thread",th);
     return 0;
 }
 static const unsigned int rift_entries[4]
