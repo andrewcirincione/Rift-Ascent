@@ -112,6 +112,13 @@ jobs:
           grep -q 'PSP module start:' emulator_results/boot-trace.log
           grep -q 'render first finished:' emulator_results/boot-trace.log
           grep -q 'frame 1 rendered:' emulator_results/boot-trace.log
+          grep -q 'initial frame committed at vblank: 0' emulator_results/boot-trace.log
+          grep -q 'frame present vblank result: 0' emulator_results/boot-trace.log
+          grep -q 'frame flip result: 0' emulator_results/boot-trace.log
+          if grep -q 'FATAL' emulator_results/boot-trace.log; then
+            echo "Startup/present failed according to PSP trace" >&2
+            exit 1
+          fi
 
       - name: Build deterministic internal-control gameplay smoke test
         shell: bash
