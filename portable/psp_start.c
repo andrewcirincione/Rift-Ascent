@@ -1,7 +1,7 @@
 /* Rift Ascent PSP-3000 CRT-free integration.
  * Keeps the actual game engine, UI, and all embedded sprite assets.
  * Built with -nostdlib -nostartfiles and explicit *user-mode* firmware imports.
- * Audio is still disabled; saving uses user-mode PSP I/O.
+ * Audio uses a deferred user-mode PSP thread; saving uses user-mode PSP I/O.
  * Hardware PSP-3000/6.60/ARK-5 launch has NOT been verified.
  */
 #include <pspmoduleinfo.h>
@@ -13,6 +13,8 @@
 #include <psptypes.h>
 #include <stdint.h>
 #include "game.h"
+#include "sound.h"
+#include <pspaudio.h>
 
 /* PSPSDK crt0 usually declares linker boundary symbols. */
 __asm__(
@@ -32,6 +34,21 @@ PSP_MODULE_INFO("Rift Ascent Bare", PSP_MODULE_USER, 1, 1);
 static Game game;
 static RiftProfile lifetime;
 static volatile int running=1;
+static volatile int music_battle=0;
+static RiftSound music;
+static short audio_buffer[1024] __attribute__((aligned(64)));
+static int audio_thread_id=-1;
+static int sound_worker(SceSize arglen,void *argp) {
+    (void)arglen;(void)argp;
+    int channel=sceAudioChReserve(-1,512,PSP_AUDIO_FORMAT_STEREO);
+    if(channel<0)return 0;
+    while(running) {
+        rift_audio_generate(&music,audio_buffer,512,music_battle,0);
+        if(sceAudioOutputBlocking(channel,0x4000,audio_buffer)<0)break;
+    }
+    sceAudioChRelease(channel);
+    return 0;
+}
 
 static int button(unsigned int down) {
     if (down & PSP_CTRL_CROSS) return BTN_OK;
@@ -121,6 +138,13 @@ static int run_game(SceSize bytes,void *argp) {
         }
         game_update(&game);
         game_render_frame(&game,uncached,STRIDE,frame);
+        music_battle=(game.screen==COMBAT);
+        if(frame==12) {
+            /* Audio starts only after the display has been rendered repeatedly. */
+            audio_thread_id=sceKernelCreateThread("Rift audio",sound_worker,
+                                                0x18,8192,PSP_THREAD_ATTR_USER,0);
+            if(audio_thread_id>=0)sceKernelStartThread(audio_thread_id,0,0);
+        }
         /* Uncached EDRAM writes: no cache-flush dependency. */
         sceDisplayWaitVblankStart();
         last=down;
