@@ -149,6 +149,15 @@ static int run_game(SceSize bytes,void *argp) {
     if(fb_result<0) {
         sceKernelExitGame();return -3;
     }
+    /* sync=NEXTVSYNC queues the image for a FUTURE vertical blank.
+       Let the display actually latch framebuffer 0 before drawing
+       anything into the alternate framebuffer. */
+    int initial_vblank=sceDisplayWaitVblankStart();
+    boot_trace("initial frame committed at vblank",initial_vblank);
+    if(initial_vblank<0) {
+        boot_trace("FATAL initial vblank",initial_vblank);
+        sceKernelExitGame();return -6;
+    }
     setup_home_callback();
     boot_trace("exit callback setup",1);
     unsigned int last=0;
@@ -195,9 +204,11 @@ static int run_game(SceSize bytes,void *argp) {
             boot_trace("audio thread ID",audio_thread_id);
             if(audio_thread_id>=0)boot_trace("audio launch result",sceKernelStartThread(audio_thread_id,0,0));
         }
-        /* Present completed offscreen frame only during VBlank.
-           Double buffering prevents partially drawn UI from appearing. */
-        sceDisplayWaitVblankStart();
+        /* PSP_DISPLAY_SETBUF_NEXTVSYNC queues a future swap.
+           Queue -> wait for VBlank -> reuse the old backbuffer.
+           Previously we waited BEFORE scheduling the switch, then
+           immediately rendered into the still-visible buffer on
+           real PSP hardware; that produces alternating UI flicker. */
         int flip_result=sceDisplaySetFrameBuf((void*)((uintptr_t)vram+
                               (frame&1U)*frame_bytes),
                               STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
@@ -207,6 +218,13 @@ static int run_game(SceSize bytes,void *argp) {
             boot_trace("FATAL framebuffer flip",flip_result);
             sceKernelExitGame();
             return -5;
+        }
+        int vblank_result=sceDisplayWaitVblankStart();
+        if(frame==1 || frame==60)boot_trace("frame present vblank result",vblank_result);
+        if(vblank_result<0) {
+            boot_trace("FATAL frame vblank",vblank_result);
+            sceKernelExitGame();
+            return -7;
         }
         if(frame==60)boot_trace("frame 60 reached",game.screen);
         if(frame==180)boot_trace("frame 180 reached",game.screen);
