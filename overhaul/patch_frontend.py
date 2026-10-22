@@ -8,6 +8,7 @@ def repl(a,b):
  global s
  if a not in s:raise RuntimeError("psp frontend anchor missing "+a[:90])
  s=s.replace(a,b,1)
+repl("music_battle=(game.screen==COMBAT);","music_battle=(game.act-1)*2+(game.screen==COMBAT?1:0);")
 repl('#include "sound.h"',
 '''#include "sound.h"
 void game_render_set_overlay(int kind,int tab,int potion);
