@@ -14,9 +14,9 @@ static int enemy_windup;
 static const Game *card_combat_context;
 void game_render_set_enemy_windup(int ticks){enemy_windup=ticks;}
 """)
-edit(""" wrapped_text(x+5,y+21+arth,card_description(raw),(w-12)/7,maxrows,
+edit(""" if(maxrows>0)wrapped_text(x+5,y+21+arth,card_description(raw),(w-12)/7,maxrows,
                            selected?WHITE:MUTED);""",
-""" wrapped_text(x+5,y+21+arth,card_description(raw),(w-12)/7,maxrows,
+""" if(maxrows>0)wrapped_text(x+5,y+21+arth,card_description(raw),(w-12)/7,maxrows,
                            selected?WHITE:MUTED);
  if(!tall&&card_combat_context&&d->type==0){
    int preview=game_effective_damage(card_combat_context,raw,card_combat_context->target);
