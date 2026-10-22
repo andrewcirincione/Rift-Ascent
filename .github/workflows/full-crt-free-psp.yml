@@ -1,0 +1,110 @@
+name: CRT-free Full Rift Ascent PSP Prototype
+
+on:
+  push:
+    paths:
+      - 'portable/**'
+      - '.github/workflows/full-crt-free-psp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile-and-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare full game modules with CRT-free entry
+        shell: bash
+        run: |
+          set -euo pipefail
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          mkdir -p portable_build
+          cp GAME/src/* portable_build/
+          cp portable/psp_start.c portable/mini_libc.c portable_build/
+          cp startup_probe/user_syscalls.S portable_build/
+          cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
+          cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
+          cat > portable_build/Makefile <<'EOF'
+          TARGET = rift_ascent_crt_free
+          OBJS = psp_start.o mini_libc.o user_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o
+          PSP_FW_VERSION = 660
+          PSP_LARGE_MEMORY = 0
+          CFLAGS = -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
+          LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
+          LIBS = -lpspdisplay -lpspge -lpspctrl -lgcc
+          EXTRA_TARGETS = EBOOT.PBP
+          PSP_EBOOT_TITLE = RIFT ASCENT (CRT-free prototype)
+          PSP_EBOOT_ICON = ICON0.PNG
+          PSP_EBOOT_PIC1 = PIC1.PNG
+          PSPSDK = $(shell psp-config --pspsdk-path)
+          include $(PSPSDK)/lib/build.mak
+          EOF
+
+      - name: PSPDEV compile/link full gameplay + illustrated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/portable_build:/src" -w /src pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            make clean
+            make -j2
+            test -s EBOOT.PBP
+          '
+          python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
+          python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
+          sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
+
+      - name: Download Linux PPSSPP and dependencies
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb imagemagick libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils curl
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+
+      - name: PPSSPP renders illustrated full-game main menu
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p emulator_results
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/portable_build/EBOOT.PBP" > emulator_results/ppsspp.log 2>&1 &
+            pid=$!
+            sleep 12
+            import -display "$DISPLAY" -window root emulator_results/game-title.png
+            if ! kill -0 "$pid" 2>/dev/null;then
+              echo "FAIL: PPSSPP exited unexpectedly";exit 1
+            fi
+            kill "$pid" || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s emulator_results/game-title.png
+          colors="$(identify -format '%k' emulator_results/game-title.png)"
+          echo "Unique screen colors: $colors"
+          test "$colors" -ge 64
+          tail -60 emulator_results/ppsspp.log || true
+
+      - name: Upload fully compiled game and emulator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-CRT-free-Prototype-NOT-Hardware-Verified
+          path: |
+            portable_build/EBOOT.PBP
+            portable_build/SHA256.txt
+            portable_build/imports.txt
+            emulator_results/
+          if-no-files-found: warn
