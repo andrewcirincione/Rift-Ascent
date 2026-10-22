@@ -29,8 +29,9 @@ def parse(path):
     def read_va(addr,length):
         for x in loads:
             off,v,size=x[1],x[2],x[4]
-            if v<=addr and addr+length<=v+size:
-                return e[off+addr-v:off+addr-v+length]
+            if v<=addr and addr<v+size:
+                take=min(length, v+size-addr)
+                return e[off+addr-v:off+addr-v+take]
         return b""
     values=e[stub[4]:stub[4]+stub[5]]
     if len(values)%20:raise ValueError("Stub length is not multiple of 20")
