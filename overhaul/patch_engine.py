@@ -123,7 +123,7 @@ int game_effective_damage(const Game *g,int raw,int target) {
  switch(id){
  case 0:base=6+3*up;break;case 2:base=8+3*up;break;
  case 3:base=8+3*up;break;case 7:base=15+6*up;break;
- case 10:base=(4+2*up)*g->energy;break;
+ case 10:base=4+2*up;break;
  case 11:base=7+3*up;break;case 12:base=7+3*up;break;
  case 13:base=5+3*up;break;case 14:base=4+3*up;break;
  case 15:base=22+6*up;break;case 19:base=9+3*up;break;
@@ -143,7 +143,7 @@ int game_effective_damage(const Game *g,int raw,int target) {
  if(g->turn_played==0&&relic(g,3))dmg+=5;
  if(relic(g,26)&&g->hp==1)dmg+=2;
  if(id==27||id==22)dmg*= (id==27?2:4+up);
- if(id==10)dmg=MAX(0,base+g->strength)*(g->weak?3:4)/4*(g->energy?1:0);
+ if(id==10)dmg*=g->energy;
  return dmg;
 }
 static void init_enemy(Game*g,Enemy*e,int id){""")
