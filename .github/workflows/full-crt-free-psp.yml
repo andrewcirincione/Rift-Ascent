@@ -97,6 +97,51 @@ jobs:
           test "$colors" -ge 64
           tail -60 emulator_results/ppsspp.log || true
 
+      - name: Build deterministic internal-control gameplay smoke test
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a portable_build portable_demo
+          sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_SMOKE_DEMO /' portable_demo/Makefile
+          docker run --rm -v "$PWD/portable_demo:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+          python3 tools/audit_psp_imports.py portable_demo/EBOOT.PBP > portable_demo/imports.txt
+
+      - name: PPSSPP verifies that game actions advance the visual state
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-demo-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_demo_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -u
+            ./squashfs-root/AppRun "$PWD/portable_demo/EBOOT.PBP" > emulator_results/ppsspp-demo.log 2>&1 &
+            pid=$!
+            sleep 13
+            import -display "$DISPLAY" -window root emulator_results/game-actions.png
+            if ! kill -0 "$pid" 2>/dev/null; then
+              echo "FAIL: PPSSPP exited during gameplay smoke test" >&2
+              exit 1
+            fi
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          test -s emulator_results/game-actions.png
+          colors="$(identify -format '%k' emulator_results/game-actions.png)"
+          echo "Gameplay screenshot unique colors: $colors"
+          test "$colors" -gt 64
+          metric="$(compare -metric AE emulator_results/game-title.png emulator_results/game-actions.png null: 2>&1 || true)"
+          echo "Title-to-gameplay pixel difference: $metric"
+          if ! [[ "$metric" =~ ^[0-9]+$ ]]; then
+            echo "Could not compare screenshots" >&2; exit 1
+          fi
+          test "$metric" -gt 20000
+          tail -60 emulator_results/ppsspp-demo.log || true
+
       - name: Upload fully compiled game and emulator evidence
         if: always()
         uses: actions/upload-artifact@v4
