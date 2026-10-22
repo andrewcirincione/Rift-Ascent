@@ -97,6 +97,22 @@ jobs:
           test "$colors" -ge 64
           tail -60 emulator_results/ppsspp.log || true
 
+      - name: Confirm PSP boot-trace file is actually written in PPSSPP
+        shell: bash
+        run: |
+          set -euo pipefail
+          find "$HOME" -name RIFT_BOOT.LOG -type f -print | tee emulator_results/trace-locations.txt
+          candidate="$(find "$HOME" -name RIFT_BOOT.LOG -type f -print -quit)"
+          if [ -z "$candidate" ]; then
+            echo "BOOT TRACE WAS NOT WRITTEN IN PPSSPP" >&2
+            exit 1
+          fi
+          cp "$candidate" emulator_results/boot-trace.log
+          cat emulator_results/boot-trace.log
+          grep -q 'PSP module start:' emulator_results/boot-trace.log
+          grep -q 'render first finished:' emulator_results/boot-trace.log
+          grep -q 'frame 1 rendered:' emulator_results/boot-trace.log
+
       - name: Build deterministic internal-control gameplay smoke test
         shell: bash
         run: |
