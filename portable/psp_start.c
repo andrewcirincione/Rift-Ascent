@@ -149,10 +149,10 @@ static int run_game(SceSize bytes,void *argp) {
         } else held=0;
 #ifdef RIFT_SMOKE_DEMO
         /* CI-only deterministic virtual input, not included in release builds. */
-        if(frame==60)key=BTN_OK;
-        if(frame==120)key=BTN_OK;
-        if(frame==170)key=BTN_OK;
-        if(frame==220)key=BTN_OK;
+        if(frame==4)key=BTN_OK;
+        if(frame==9)key=BTN_OK;
+        if(frame==14)key=BTN_OK;
+        if(frame==19)key=BTN_OK;
 #endif
         step_action(key,frame);
         if(key && game.screen!=TITLE && game.screen!=HELP &&
