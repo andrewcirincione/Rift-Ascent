@@ -30,12 +30,12 @@ jobs:
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
           TARGET = rift_ascent_crt_free
-          OBJS = psp_start.o mini_libc.o user_syscalls.o file_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o
+          OBJS = psp_start.o mini_libc.o user_syscalls.o file_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o
           PSP_FW_VERSION = 660
           PSP_LARGE_MEMORY = 0
           CFLAGS = -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
-          LIBS = -lpspdisplay -lpspge -lpspctrl -lgcc
+          LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
           PSP_EBOOT_TITLE = RIFT ASCENT (CRT-free prototype)
           PSP_EBOOT_ICON = ICON0.PNG
