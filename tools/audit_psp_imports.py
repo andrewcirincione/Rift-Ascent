@@ -4,7 +4,7 @@ import sys
 import struct
 from pathlib import Path
 
-BAD = ("ForKernel", "Kernel_Library", "sceKernelLibrary")
+BAD = ("ForKernel",) # Kernel_Library is audited separately by exact NID.
 # Some kernel-designated export groups are *not* necessarily fatal; this
 # rejects direct kernel-only imports from an app declared to run usermode.
 def parse(path):
@@ -39,7 +39,7 @@ def parse(path):
         addr,flags,meta,nids,table=struct.unpack_from("<IIIII",values,i)
         lib=read_va(addr,128).split(b"\0",1)[0].decode("ascii","replace")
         if not lib:raise ValueError("Unresolvable import stub name")
-        imports.append((lib,flags))
+        count=(meta >> 16) & 0xFF\n        ids=struct.unpack("<"+str(count)+"I",read_va(nids,4*count)) if count else ()\n        imports.append((lib,flags,ids))
     return imports
 if __name__=="__main__":
     for path in sys.argv[1:]:
