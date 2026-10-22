@@ -28,7 +28,14 @@ for code in range(32,127):
     if glyph in "gjpqy":y+=2
     draw.text((x,y),glyph,fill=255,font=font,stroke_width=0)
     reduced=board.resize((7,11),Image.Resampling.LANCZOS)
-    rows.append(list(reduced.getdata()))
+    # Preserve high-contrast stems on the tiny physical LCD while retaining
+    # 2-3 opacity levels along the glyph contours.
+    levels=[]
+    for value in reduced.getdata():
+        if value<38:levels.append(0)
+        elif value>170:levels.append(255)
+        else:levels.append(min(255,50+(value-38)*205//132))
+    rows.append(levels)
 # All intensity values are composited, not turned back into hard on/off bits.
 lines=[
  "#ifndef RIFT_SMOOTH_FONT_H",
