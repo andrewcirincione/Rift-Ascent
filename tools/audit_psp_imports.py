@@ -39,15 +39,19 @@ def parse(path):
         addr,flags,meta,nids,table=struct.unpack_from("<IIIII",values,i)
         lib=read_va(addr,128).split(b"\0",1)[0].decode("ascii","replace")
         if not lib:raise ValueError("Unresolvable import stub name")
-        count=(meta >> 16) & 0xFF\n        ids=struct.unpack("<"+str(count)+"I",read_va(nids,4*count)) if count else ()\n        imports.append((lib,flags,ids))
+        count=(meta >> 16) & 0xFF
+        ids=struct.unpack("<"+str(count)+"I",read_va(nids,4*count)) if count else ()
+        imports.append((lib,flags,ids))
     return imports
 if __name__=="__main__":
     for path in sys.argv[1:]:
         imports=parse(path)
         print(path)
-        for name,flags in imports:
-            print("  %s 0x%08x"%(name,flags))
-        unsafe=[n for n,f in imports if any(tag in n for tag in BAD)]
+        for name,flags,ids in imports:
+            print("  %s 0x%08x NIDs %s"%(name,flags,", ".join("0x%08x"%i for i in ids)))
+        unsafe=[n for n,f,ids in imports if any(tag in n for tag in BAD)]
+        if any(n=="Kernel_Library" for n,f,ids in imports):
+            print("NOTICE: Kernel_Library imports require NID-level review; not automatically prohibited.")
         if unsafe:
             print("FAIL: Kernel-only import libraries found: "+", ".join(unsafe),file=sys.stderr)
             sys.exit(2)
