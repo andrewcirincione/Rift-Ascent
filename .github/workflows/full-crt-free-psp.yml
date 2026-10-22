@@ -24,13 +24,13 @@ jobs:
           unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           mkdir -p portable_build
           cp GAME/src/* portable_build/
-          cp portable/psp_start.c portable/mini_libc.c portable_build/
+          cp portable/psp_start.c portable/mini_libc.c portable/file_syscalls.S portable_build/
           cp startup_probe/user_syscalls.S portable_build/
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
           TARGET = rift_ascent_crt_free
-          OBJS = psp_start.o mini_libc.o user_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o
+          OBJS = psp_start.o mini_libc.o user_syscalls.o file_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o
           PSP_FW_VERSION = 660
           PSP_LARGE_MEMORY = 0
           CFLAGS = -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
@@ -101,7 +101,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Rift-Ascent-CRT-free-Prototype-NOT-Hardware-Verified
+          name: Rift-Ascent-CRT-free-With-Saves-NOT-Hardware-Verified
           path: |
             portable_build/EBOOT.PBP
             portable_build/SHA256.txt
