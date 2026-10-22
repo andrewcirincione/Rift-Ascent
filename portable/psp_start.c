@@ -107,7 +107,14 @@ static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
     void *vram=sceGeEdramGetAddr();
     if(!vram) {sceKernelExitGame();return -1;}
-    uint32_t *uncached=(uint32_t*)((uintptr_t)vram | (uintptr_t)0x40000000U);
+    const unsigned frame_words=STRIDE*H;
+    const unsigned frame_bytes=frame_words*4U;
+    if(sceGeEdramGetSize()<2U*frame_bytes) {
+        sceKernelExitGame();return -4;
+    }
+    uint32_t *uncached0=(uint32_t*)((uintptr_t)vram | (uintptr_t)0x40000000U);
+    uint32_t *uncached1=(uint32_t*)(((uintptr_t)vram+frame_bytes) |
+                                    (uintptr_t)0x40000000U);
     if(sceDisplaySetMode(PSP_DISPLAY_MODE_LCD,W,H)<0) {
         sceKernelExitGame();return -2;
     }
@@ -119,7 +126,7 @@ static int run_game(SceSize bytes,void *argp) {
     game_render_set_profile(&lifetime);
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
-    game_render_frame(&game,uncached,STRIDE,0);
+    game_render_frame(&game,uncached0,STRIDE,0);
     if(sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
                             PSP_DISPLAY_SETBUF_IMMEDIATE)<0) {
         sceKernelExitGame();return -3;
@@ -157,7 +164,8 @@ static int run_game(SceSize bytes,void *argp) {
             last_screen=game.screen;last_act=game.act;last_floor=game.floor;
         }
         game_update(&game);
-        game_render_frame(&game,uncached,STRIDE,frame);
+        uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
+        game_render_frame(&game,next_frame,STRIDE,frame);
         music_battle=(game.screen==COMBAT);
         if(frame==12) {
             /* Audio starts only after the display has been rendered repeatedly. */
@@ -165,8 +173,13 @@ static int run_game(SceSize bytes,void *argp) {
                                                 0x18,8192,PSP_THREAD_ATTR_USER,0);
             if(audio_thread_id>=0)sceKernelStartThread(audio_thread_id,0,0);
         }
-        /* Uncached EDRAM writes: no cache-flush dependency. */
+        /* Present completed offscreen frame only during VBlank.
+           Double buffering prevents partially drawn UI from appearing. */
         sceDisplayWaitVblankStart();
+        sceDisplaySetFrameBuf((void*)((uintptr_t)vram+
+                              (frame&1U)*frame_bytes),
+                              STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
+                              PSP_DISPLAY_SETBUF_IMMEDIATE);
         last=down;
         frame++;
     }
