@@ -1,0 +1,65 @@
+name: Freestanding PSP startup isolation - CI only
+on:
+  push:
+    paths:
+      - 'startup_probe/**'
+      - '.github/workflows/freestanding-startup.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile alternate CRT-free PSP startup
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/startup_probe:/src" -w /src pspdev/pspdev:v20261001 sh -c '
+            set -eu
+            psp-gcc --version
+            make clean
+            make V=1 -j2
+            test -s EBOOT.PBP
+          '
+      - name: Inspect module export and program image
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct,hashlib
+          b=Path("startup_probe/EBOOT.PBP").read_bytes()
+          assert b[:4]==b'\x00PBP'
+          o=struct.unpack_from('<8I',b,8)
+          e=b[o[6]:o[7]]
+          assert e[:4]==b'\x7fELF'
+          ty,machine=struct.unpack_from('<HH',e,16)
+          assert (ty,machine)==(2,8)
+          shoff=struct.unpack_from('<I',e,32)[0]
+          shsize,shnum,shstr=struct.unpack_from('<HHH',e,46)
+          secs=[struct.unpack_from('<IIIIIIIIII',e,shoff+shsize*i) for i in range(shnum)]
+          stringsec=secs[shstr]
+          names=e[stringsec[4]:stringsec[4]+stringsec[5]]
+          labels=[]
+          for p in secs:
+            end=names.find(b'\0',p[0])
+            labels.append(names[p[0]:end].decode('ascii','replace') if end>=0 else '')
+          assert '.rodata.sceModuleInfo' in labels,labels
+          assert '.lib.ent' in labels,labels
+          print('PSP ELF type',ty,'module info/export present', 'size',len(e), 'sha256',hashlib.sha256(b).hexdigest())
+          PY
+          cp startup_probe/EBOOT.PBP results/EBOOT.pbp
+          sha256sum results/EBOOT.pbp > results/SHA256.txt
+      - name: Upload isolated experiment (NOT PSP tested)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PSP-Freestanding-Startup-Not-Hardware-Verified
+          path: |
+            results/
+            startup_probe/bareboot.map
+          if-no-files-found: warn
