@@ -140,8 +140,11 @@ static int run_game(SceSize bytes,void *argp) {
     boot_trace("render first entering",1);
     game_render_frame(&game,uncached0,STRIDE,0);
     boot_trace("render first finished",1);
+    /* Physical PSP-3000: sync=0 was rejected as 0x80000107.
+       Queue framebuffer for next vertical sync (sync=1). */
+    boot_trace("initial framebuffer sync",PSP_DISPLAY_SETBUF_NEXTVSYNC);
     int fb_result=sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
-                            PSP_DISPLAY_SETBUF_IMMEDIATE);
+                            PSP_DISPLAY_SETBUF_NEXTVSYNC);
     boot_trace("first framebuffer result",fb_result);
     if(fb_result<0) {
         sceKernelExitGame();return -3;
@@ -195,10 +198,16 @@ static int run_game(SceSize bytes,void *argp) {
         /* Present completed offscreen frame only during VBlank.
            Double buffering prevents partially drawn UI from appearing. */
         sceDisplayWaitVblankStart();
-        sceDisplaySetFrameBuf((void*)((uintptr_t)vram+
+        int flip_result=sceDisplaySetFrameBuf((void*)((uintptr_t)vram+
                               (frame&1U)*frame_bytes),
                               STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,
-                              PSP_DISPLAY_SETBUF_IMMEDIATE);
+                              PSP_DISPLAY_SETBUF_NEXTVSYNC);
+        if(frame==1 || frame==60)boot_trace("frame flip result",flip_result);
+        if(flip_result<0) {
+            boot_trace("FATAL framebuffer flip",flip_result);
+            sceKernelExitGame();
+            return -5;
+        }
         if(frame==60)boot_trace("frame 60 reached",game.screen);
         if(frame==180)boot_trace("frame 180 reached",game.screen);
         last=down;
