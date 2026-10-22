@@ -184,6 +184,51 @@ jobs:
           test "$metric" -gt 20000
           tail -60 emulator_results/ppsspp-demo.log || true
 
+      - name: Compile alternate route-map and glossary previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp -a portable_build portable_map
+          cp -a portable_build portable_inspect
+          sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_MAP_DEMO /' portable_map/Makefile
+          sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_SMOKE_DEMO -DRIFT_INSPECT_DEMO /' portable_inspect/Makefile
+          python3 overhaul/patch_ci_demos.py portable_map/psp_start.c
+          python3 overhaul/patch_ci_demos.py portable_inspect/psp_start.c
+          for name in portable_map portable_inspect; do
+            docker run --rm -v "$PWD/$name:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+            python3 tools/audit_psp_imports.py "$name/EBOOT.PBP" > "$name/imports.txt"
+          done
+
+      - name: Check screenshots of branching map and expanded enemy glossary
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LIBGL_ALWAYS_SOFTWARE=1
+          export SDL_VIDEODRIVER=x11
+          export SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-panels-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=rift_panels_null || true
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -eu
+            for name in portable_map portable_inspect; do
+              ./squashfs-root/AppRun "$PWD/$name/EBOOT.PBP" > "emulator_results/$name.log" 2>&1 &
+              pid=$!
+              sleep 13
+              import -display "$DISPLAY" -window root "emulator_results/$name.png"
+              if ! kill -0 "$pid" 2>/dev/null; then echo "PPSSPP died for $name" >&2; exit 1; fi
+              kill "$pid" 2>/dev/null || true
+              wait "$pid" 2>/dev/null || true
+            done
+          '
+          for name in portable_map portable_inspect; do
+            test -s "emulator_results/$name.png"
+            colors="$(identify -format '%k' "emulator_results/$name.png")"
+            echo "$name colors: $colors"
+            test "$colors" -gt 64
+          done
+
       - name: Upload fully compiled game and emulator evidence
         if: always()
         uses: actions/upload-artifact@v4
