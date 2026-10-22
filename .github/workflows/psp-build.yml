@@ -37,6 +37,12 @@ jobs:
           python3 patches/diagnose_psp_boot.py GAME/src/psp_main.c
           grep -q 'RIFT_BOOT_PATH' GAME/src/psp_main.c
 
+      - name: Enforce user-mode-only PSP linker libraries
+        run: |
+          set -euo pipefail
+          sed -i 's/ -lpspkernel//g' GAME/Makefile
+          if grep -q -- '-lpspkernel' GAME/Makefile; then exit 1; fi
+
       - name: Run native PSPDEV compiler and linker
         shell: bash
         run: |
@@ -57,12 +63,13 @@ jobs:
         run: |
           set -euo pipefail
           python3 GAME/verify_eboot.py GAME/EBOOT.PBP
+          python3 tools/audit_psp_imports.py GAME/EBOOT.PBP
           sha256sum GAME/EBOOT.PBP | tee EBOOT_SHA256.txt
 
       - name: Publish EBOOT and checksum
         uses: actions/upload-artifact@v4
         with:
-          name: Rift-Ascent-Hardware-Diagnostic-EBOOT
+          name: Rift-Ascent-Usermode-Candidate-NOT-Hardware-Verified
           path: |
             GAME/EBOOT.PBP
             EBOOT_SHA256.txt
