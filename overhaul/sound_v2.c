@@ -10,7 +10,17 @@ static volatile int fx_request=0;
 void rift_sound_effect(int kind) {
  fx_request=kind; fx_serial++;
 }
-void rift_sound_reset(RiftSound *s){if(!s)return;s->pos=s->lead=s->bass=0;s->noise=0xCA49FE12u;s->last_step=0;}
+void rift_sound_reset(RiftSound *s){
+ if(!s)return;
+ s->pos=s->lead=s->bass=0;
+ s->noise=0xCA49FE12u;
+ s->last_step=0;
+ s->pad_phase1=s->pad_phase2=s->sfx_phase=0;
+ s->delay_pos=0;
+ s->observed_serial=fx_serial;
+ s->fx_kind=0;s->fx_age=65536;
+ for(unsigned i=0;i<4096;i++)s->ambience_delay[i]=0;
+}
 
 static const unsigned short lead_calm[64]={
  220,0,262,0,330,0,392,349, 330,0,294,262,0,220,196,0,
@@ -37,19 +47,14 @@ static int pulse(uint32_t phase,int duty) {
 void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accent){
  if(!s||!out||frames<=0)return;
  /* Persistent audio event envelope does not need dynamically allocated voices. */
- static unsigned observed_serial=0;
- static int fx_kind=0,fx_age=65536;
- static unsigned sfx_phase=0;
- static uint32_t pad_phase1=0,pad_phase2=0;
- static int16_t ambience_delay[4096];
- static unsigned delay_pos=0;
+ /* Per-instance state is reset by rift_sound_reset(). */
  unsigned theme=(unsigned)(battle<0?0:battle);
  unsigned act=theme/2u;
  battle=(int)(theme&1u);
  const unsigned step_samples=battle?5880u:9180u;  /* 112 or 188 BPM-feel subdivisions */
  for(int i=0;i<frames;i++){
-  if(observed_serial!=fx_serial){
-   observed_serial=fx_serial;fx_kind=fx_request;fx_age=0;sfx_phase=0;
+  if(s->observed_serial!=fx_serial){
+   s->observed_serial=fx_serial;s->fx_kind=fx_request;s->fx_age=0;s->sfx_phase=0;
   }
   unsigned step=(s->pos/step_samples)&63u;
   unsigned elapsed=s->pos%step_samples;
@@ -69,8 +74,8 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
   if(act>=2)pad_root=pad_root*4u/3u;
   s->lead += (uint32_t)(((uint64_t)note*65536u)/44100u);
   s->bass += (uint32_t)(((uint64_t)root*65536u)/44100u);
-  pad_phase1+=(uint32_t)(((uint64_t)pad_root*65536u)/44100u);
-  pad_phase2+=(uint32_t)(((uint64_t)pad_root*3u*65536u/2u)/44100u);
+  s->pad_phase1+=(uint32_t)(((uint64_t)pad_root*65536u)/44100u);
+  s->pad_phase2+=(uint32_t)(((uint64_t)pad_root*3u*65536u/2u)/44100u);
   s->noise ^= s->noise<<13;s->noise ^= s->noise>>17;s->noise ^= s->noise<<5;
   if(!s->noise)s->noise=0x9e3779b9u;
   int env=elapsed<260u?(int)(elapsed/2u): (elapsed<step_samples*2u/3u?130:70);
@@ -79,8 +84,8 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
   int tri=(a<32768?a:65535-a)-16384;
   int low=root?tri*(battle?920:720)/16384:0;
   int bassharm=root?pulse(s->bass,120)*(battle?130:100):0;
-  int t1=(int)(pad_phase1&65535u);t1=t1<32768?t1:65535-t1;
-  int t2=(int)(pad_phase2&65535u);t2=t2<32768?t2:65535-t2;
+  int t1=(int)(s->pad_phase1&65535u);t1=t1<32768?t1:65535-t1;
+  int t2=(int)(s->pad_phase2&65535u);t2=t2<32768?t2:65535-t2;
   int pad=((t1-16384)*180+(t2-16384)*130)/16384;
   int kick=step%4u==0&&elapsed<1000u?
        ((s->noise&1u)?1:-1)*(int)(1000u-elapsed)*2:0;
@@ -89,28 +94,28 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
   int hat=elapsed<320u&&(step%2u==0)?
        ((s->noise&1u)?1:-1)*(battle?460:240):0;
   int sfx=0;
-  if(fx_age<6000){
-    int amp=(6000-fx_age)/4;
-    switch(fx_kind){
+  if(s->fx_age<6000){
+    int amp=(6000-s->fx_age)/4;
+    switch(s->fx_kind){
       case 1: /* strike: falling pitch, noise transient */
-        sfx=((s->noise&1u)?amp:-amp)+pulse(sfx_phase,100)*amp;
-        sfx_phase+=(unsigned)(1550-((fx_age*1300)/6000));break;
+        sfx=((s->noise&1u)?amp:-amp)+pulse(s->sfx_phase,100)*amp;
+        s->sfx_phase+=(unsigned)(1550-((s->fx_age*1300)/6000));break;
       case 2: /* guard: high bell */
-        sfx=pulse(sfx_phase,70)*amp;sfx_phase+=850;break;
+        sfx=pulse(s->sfx_phase,70)*amp;s->sfx_phase+=850;break;
       case 3: /* potion: sparkling rising trill */
-        sfx=pulse(sfx_phase,80)*amp;sfx_phase+=640+fx_age/24;break;
+        sfx=pulse(s->sfx_phase,80)*amp;s->sfx_phase+=640+s->fx_age/24;break;
       case 4: /* enemy hit: heavy low impact */
-        sfx=((s->noise&1u)?amp:-amp)*2;sfx_phase+=200;break;
+        sfx=((s->noise&1u)?amp:-amp)*2;s->sfx_phase+=200;break;
       case 5: /* reward */
-        sfx=pulse(sfx_phase,90)*amp;sfx_phase+=840+fx_age/28;break;
+        sfx=pulse(s->sfx_phase,90)*amp;s->sfx_phase+=840+s->fx_age/28;break;
     }
-    fx_age++;
+    s->fx_age++;
   }
   int l=voice+low+bassharm+pad+kick+snare+hat+sfx;
   int r=voice+low+bassharm+pad+kick-snare+hat+sfx;
-  int echo=ambience_delay[delay_pos];
-  ambience_delay[delay_pos]=(int16_t)((l+r)/4+echo/3);
-  delay_pos=(delay_pos+1u)&4095u;
+  int echo=s->ambience_delay[s->delay_pos];
+  s->ambience_delay[s->delay_pos]=(int16_t)((l+r)/4+echo/3);
+  s->delay_pos=(s->delay_pos+1u)&4095u;
   l+=echo/4;
   r+=echo/3;
   out[i*2]=limit(l);
