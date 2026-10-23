@@ -116,5 +116,8 @@ sub(''' case VICTORY:case DEFEAT:''',''' case RELIC_VIEW:
   else if(b==BTN_BACK||b==BTN_OK)enter_map(g);
   break;
  case VICTORY:case DEFEAT:''')
+# Restore meaningful foe durability, especially elite and boss encounters.
+sub(" e->maxhp=(short)((d->hp*(d->tier==2?80:85)+50)/100+(g->floor>8?3:0));",
+    " e->maxhp=(short)((d->hp*(d->tier==2?120:(d->tier==1?115:100))+50)/100+(g->floor>8?3:0));")
 h.write_text(hs);g.write_text(s)
 print("Version 1.0.1 engine patch applied.")
