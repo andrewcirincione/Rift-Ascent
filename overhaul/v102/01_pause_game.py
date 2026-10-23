@@ -13,11 +13,12 @@ def rend(old,new):
 assert "RELIC_VIEW};" in hs
 hs=hs.replace("RELIC_VIEW};","RELIC_VIEW,PAUSE_MENU};",1)
 hs=hs.replace("BTN_START=256};","BTN_START=256,BTN_PAUSE=512};",1)
-edit("void game_action(Game*g,int b){",'''void game_action(Game*g,int b){
+hs=hs.replace("void game_action(Game *g,int button);","void game_action(Game *g,int button);\nint game_pause_source(void);",1)
+edit("void game_action(Game*g,int b){",'''static int paused_from_screen=MAP;\nint game_pause_source(void){return paused_from_screen;}\nvoid game_action(Game*g,int b){
  if(b==BTN_PAUSE){
-   if(g->screen==PAUSE_MENU){g->screen=g->prior_screen;return;}
+   if(g->screen==PAUSE_MENU){g->screen=paused_from_screen;return;}
    if(g->screen!=TITLE&&g->screen!=VICTORY&&g->screen!=DEFEAT){
-     g->prior_screen=g->screen;g->screen=PAUSE_MENU;return;
+     paused_from_screen=g->screen;g->screen=PAUSE_MENU;return;
    }
  }''')
 edit(" case RELIC_VIEW:",''' case PAUSE_MENU:
@@ -29,7 +30,7 @@ edit("g->screen>BOSS_REWARD","g->screen>PAUSE_MENU")
 # Game struct fields and version=16, so old save compatibility is unchanged.
 rend(" case RELIC_VIEW:relic_screen(g);break;",''' case RELIC_VIEW:relic_screen(g);break;
  case PAUSE_MENU: {
-   Game frame=*g;frame.screen=g->prior_screen;
+   Game frame=*g;frame.screen=game_pause_source();
    game_render_frame(&frame,pixels,stride,tick);
    dark_rect(0,24,W,231,209);
    gilded_panel(76,59,328,158,1);
