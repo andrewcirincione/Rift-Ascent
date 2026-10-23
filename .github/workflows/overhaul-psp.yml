@@ -64,6 +64,14 @@ jobs:
               -I GAME/src overhaul/test_engine.c GAME/src/game.c -o engine_tests
           ASAN_OPTIONS=detect_leaks=1 ./engine_tests
 
+      - name: Test PCM synthesis and buffer safety
+        shell: bash
+        run: |
+          set -euo pipefail
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+              -I overhaul overhaul/test_sound.c overhaul/sound_v2.c -o audio_tests
+          ASAN_OPTIONS=detect_leaks=1 ./audio_tests
+
       - name: PSPDEV compile/link full gameplay + illustrated assets
         shell: bash
         run: |
