@@ -7,7 +7,7 @@ Outputs C source in GAME/src; user art, no binary external asset dependencies.
 """
 from pathlib import Path
 import re,sys
-from PIL import Image,ImageDraw
+from PIL import Image,ImageDraw,ImageFont
 root=Path(sys.argv[1]);S=4
 def P(v):return int(round(v*S))
 def polygon(d,points,color):d.polygon([(P(x),P(y)) for x,y in points],fill=color)
@@ -73,10 +73,11 @@ def icon(n):
   ellipse(d,(17,12,21,16),(26,33,46,255))
   polygon(d,[(15,16),(13,19),(17,19)],(26,33,46,255))
   for x in (12,15,18):stroke(d,[(x,21),(x,24)],(36,38,41,255),1)
- elif n==2:
-  ellipse(d,(9,7,21,19),None,(136,225,239,255))
-  stroke(d,[(17,17),(17,20),(13,20)],(136,225,239,255),3)
-  ellipse(d,(12,23,18,27),(136,225,239,255))
+ elif n==2: # unmistakable question mark for a mystery event
+  font=ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",P(23))
+  d.text((P(15),P(14)),"?",font=font,anchor="mm",
+         fill=(150,231,243,255),stroke_width=P(.3),
+         stroke_fill=(24,56,76,255))
  elif n==3:
   polygon(d,[(11,6),(19,6),(17,11),(21,13),(23,22),(19,25),(10,25),(7,22),(9,14),(13,11)],(215,169,70,255))
   stroke(d,[(12,11),(18,11)],(80,64,45,255),2)
