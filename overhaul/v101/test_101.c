@@ -23,7 +23,7 @@ int main(void){
  ASSERT(g.next_screen==1 && g.screen==DECK_VIEW);
  game_action(&g,BTN_DOWN);
  game_action(&g,BTN_OK);
- ASSERT(g.screen==MAP && CARD_UP(g.deck[1]));
+ ASSERT(g.screen==MAP && CARD_UP(g.deck[3]));
  game_new(&g,0x10100103u);
  for(int trial=0;trial<12;trial++){
    game_start_battle(&g,NODE_ELITE);
