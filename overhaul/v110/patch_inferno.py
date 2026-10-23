@@ -14,9 +14,9 @@ def replace(a,b):
  s=s.replace(a,b,1)
 
 replace('{"Inferno","Lose 1 HP each turn; hurt all enemies.",1,2,2}',
-        '{"Inferno","Turn start: lose 1 HP. HP loss on your turn: deal 6 to ALL.",1,1,2}')
+        '{"Inferno","Start: lose 1 HP. On your turn, HP loss: 6 to ALL.",1,1,2}')
 replace('"Lose 1 HP each turn; deal 9 to all enemies."',
-        '"Turn start: lose 1 HP. HP loss on your turn: deal 9 to ALL."')
+        '"Start: lose 1 HP. On your turn, HP loss: 9 to ALL."')
 
 # used_potion was already repurposed for the Inferno Power in v1.0.3.
 # Keep same Game struct. High 16 bits = stacked copies, low 16 = AoE damage.
