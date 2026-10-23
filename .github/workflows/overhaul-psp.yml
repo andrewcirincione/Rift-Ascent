@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   compile-and-smoke:
@@ -32,7 +32,7 @@ jobs:
           python3 overhaul/patch_polish.py GAME/src
           python3 overhaul/patch_telegraphs.py GAME/src
           python3 overhaul/v101/patch_ui.py GAME/src
-          python3 overhaul/v101/patch_visuals.py GAME/src
+          python3 overhaul/v101/patch_visuals.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -257,3 +257,29 @@ jobs:
             portable_build/imports.txt
             emulator_results/
           if-no-files-found: warn
+
+      - name: Pin versioned successful PSP EBOOTs
+        if: success() && github.ref_name == 'release-1.0.1'
+        shell: bash
+        env:
+          GH_TOKEN: \${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin release-1.0.1
+          if [ "$(git rev-parse origin/release-1.0.1)" != "$GITHUB_SHA" ]; then
+            echo "Branch advanced; newer run will publish."
+            exit 0
+          fi
+          mkdir -p versions/1.0.0 versions/1.0.1
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12506795691/zip" > /tmp/rift100.zip
+          unzip -p /tmp/rift100.zip portable_build/EBOOT.PBP > versions/1.0.0/EBOOT.PBP
+          cp portable_build/EBOOT.PBP versions/1.0.1/EBOOT.PBP
+          (cd versions/1.0.0 && sha256sum EBOOT.PBP > SHA256.txt)
+          (cd versions/1.0.1 && sha256sum EBOOT.PBP > SHA256.txt)
+          test -s versions/1.0.0/EBOOT.PBP
+          test -s versions/1.0.1/EBOOT.PBP
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add versions/1.0.0/EBOOT.PBP versions/1.0.0/SHA256.txt versions/1.0.1/EBOOT.PBP versions/1.0.1/SHA256.txt
+          git commit -m "Archive versioned 1.0.0 and validated 1.0.1 PSP EBOOTs"
+          git push origin HEAD:release-1.0.1
