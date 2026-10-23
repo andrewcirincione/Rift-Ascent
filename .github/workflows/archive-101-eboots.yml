@@ -1,0 +1,38 @@
+name: Archive Verified Rift EBOOTs
+on:
+  push:
+    paths:
+      - '.github/workflows/archive-101-eboots.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  archive:
+    if: github.ref_name == 'release-1.0.1'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive successful 1.0.0 and 1.0.1 EBOOTs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p versions/1.0.0 versions/1.0.1
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12506795691/zip" >/tmp/rift100.zip
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12516844574/zip" >/tmp/rift101.zip
+          unzip -p /tmp/rift100.zip portable_build/EBOOT.PBP > versions/1.0.0/EBOOT.PBP
+          unzip -p /tmp/rift101.zip portable_build/EBOOT.PBP > versions/1.0.1/EBOOT.PBP
+          (cd versions/1.0.0 && sha256sum EBOOT.PBP > SHA256.txt)
+          (cd versions/1.0.1 && sha256sum EBOOT.PBP > SHA256.txt)
+          test -s versions/1.0.0/EBOOT.PBP
+          test -s versions/1.0.1/EBOOT.PBP
+          # The default repository .gitignore excludes every EBOOT.PBP.
+          # Explicitly force-add ONLY the two versioned release binaries.
+          git add -f versions/1.0.0/EBOOT.PBP versions/1.0.1/EBOOT.PBP
+          git add versions/1.0.0/SHA256.txt versions/1.0.1/SHA256.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Pin downloadable 1.0.0 and 1.0.1 PSP EBOOTs"
+          git push origin HEAD:release-1.0.1
