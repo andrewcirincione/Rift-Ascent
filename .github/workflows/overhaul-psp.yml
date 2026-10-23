@@ -31,6 +31,8 @@ jobs:
           python3 overhaul/patch_font.py GAME/src
           python3 overhaul/patch_polish.py GAME/src
           python3 overhaul/patch_telegraphs.py GAME/src
+          python3 overhaul/v101/patch_ui.py GAME/src
+          python3 overhaul/v101/patch_visuals.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -39,6 +41,7 @@ jobs:
           cp startup_probe/user_syscalls.S portable_build/
           python3 overhaul/patch_frontend.py portable_build/psp_start.c
           python3 overhaul/patch_windup.py portable_build/psp_start.c
+          python3 overhaul/v101/patch_controls.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
@@ -73,6 +76,9 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
               -I GAME/src overhaul/test_engine.c GAME/src/game.c -o engine_tests
           ASAN_OPTIONS=detect_leaks=1 ./engine_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+              -I GAME/src overhaul/v101/test_101.c GAME/src/game.c -o v101_tests
+          ASAN_OPTIONS=detect_leaks=1 ./v101_tests
 
       - name: PSPDEV compile/link full gameplay + illustrated assets
         shell: bash
