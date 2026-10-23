@@ -119,6 +119,8 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
   s->delay_pos=(s->delay_pos+1u)&4095u;
   l+=echo/4;
   r+=echo/3;
+  /* 1.0.3: retain impact, block and reward effects only. */
+  if(accent){l=sfx;r=sfx;}
   out[i*2]=limit(l);
   out[i*2+1]=limit(r);
   s->pos++;
