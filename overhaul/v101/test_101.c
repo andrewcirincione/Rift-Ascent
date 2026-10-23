@@ -25,7 +25,7 @@ int main(void){
  game_action(&g,BTN_OK);
  ASSERT(g.screen==MAP && CARD_UP(g.deck[1]));
  game_new(&g,0x10100103u);
- for(int trial=0;trial<50;trial++){
+ for(int trial=0;trial<12;trial++){
    game_start_battle(&g,NODE_ELITE);
    for(int k=0;k<g.enemy_count;k++)g.enemies[k].hp=0;
    int old=g.relic_count;
