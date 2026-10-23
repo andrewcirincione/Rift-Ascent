@@ -17,6 +17,13 @@ int main(void){
  CHECK(game_pause_source()==DECK_VIEW&&a.prior_screen==MAP);
  game_action(&a,BTN_PAUSE);
  CHECK(a.screen==DECK_VIEW&&a.prior_screen==MAP);
+ game_new(&a,6666);game_start_battle(&a,NODE_FIGHT);
+ a.selection=a.hand_count;
+ game_action(&a,BTN_PAUSE);
+ b=a;b.screen=game_pause_source();
+ CHECK(b.screen==COMBAT && game_save(&b,"/tmp/rift_102_pause.dat")==1);
+ CHECK(game_load(&b,"/tmp/rift_102_pause.dat")==1);
+ CHECK(b.selection==b.hand_count);
  remove("/tmp/rift_102_pause.dat");
  puts("PASS: SELECT pause, nested-menu resume and loadable snapshot");
  return 0;
