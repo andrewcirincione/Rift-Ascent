@@ -65,7 +65,7 @@ jobs:
           python3 overhaul/patch_windup.py portable_build/psp_start.c
           python3 overhaul/v101/patch_controls.py portable_build/psp_start.c
           python3 overhaul/v102/01_pause_psp.py portable_build/psp_start.c
-          python3 overhaul/v102/21_music_stream.py portable_build/psp_start.c
+          python3 overhaul/v102/23_embedded_music.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
@@ -109,6 +109,7 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
              -I GAME/src overhaul/v102/test_102.c GAME/src/game.c -o v102_tests
           ASAN_OPTIONS=detect_leaks=1 ./v102_tests
+          python3 tools/embed_churn.py --self-test
 
       - name: PSPDEV compile/link full gameplay + illustrated assets
         shell: bash
@@ -123,6 +124,8 @@ jobs:
           python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
           python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
           sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
+          python3 -c 'import math,struct,zlib,runpy; from pathlib import Path; c=runpy.run_path("tools/embed_churn.py"); base=Path("portable_build/EBOOT.PBP").read_bytes(); samples=[int(16000*math.sin(2*math.pi*330*i/11025)) for i in range(22050)]; encoded=c["encode"](samples); trailer=c["MAGIC"]+struct.pack("<III",len(encoded),len(samples),zlib.crc32(encoded)); Path("portable_build/EMBED_TEST.PBP").write_bytes(base+encoded+trailer)'
+          python3 tools/embed_churn.py --check portable_build/EMBED_TEST.PBP
 
       - name: Download Linux PPSSPP and dependencies
         shell: bash
@@ -147,7 +150,7 @@ jobs:
           pactl load-module module-null-sink sink_name=rift_null || true
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
             set -u
-            ./squashfs-root/AppRun "$PWD/portable_build/EBOOT.PBP" > emulator_results/ppsspp.log 2>&1 &
+            ./squashfs-root/AppRun "$PWD/portable_build/EMBED_TEST.PBP" > emulator_results/ppsspp.log 2>&1 &
             pid=$!
             sleep 12
             import -display "$DISPLAY" -window root emulator_results/game-title.png
