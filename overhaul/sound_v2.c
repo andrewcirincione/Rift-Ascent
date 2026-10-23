@@ -98,14 +98,15 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
     int amp=(6000-s->fx_age)/4;
     switch(s->fx_kind){
       case 1: /* strike: falling pitch, noise transient */
-        sfx=((s->noise&1u)?amp:-amp)+pulse(s->sfx_phase,100)*amp;
+        sfx=((s->noise&1u)?amp*2:-amp*2)+pulse(s->sfx_phase,100)*amp*2;
         s->sfx_phase+=(unsigned)(1550-((s->fx_age*1300)/6000));break;
       case 2: /* guard: high bell */
         sfx=pulse(s->sfx_phase,70)*amp;s->sfx_phase+=850;break;
       case 3: /* potion: sparkling rising trill */
         sfx=pulse(s->sfx_phase,80)*amp;s->sfx_phase+=640+s->fx_age/24;break;
       case 4: /* enemy hit: heavy low impact */
-        sfx=((s->noise&1u)?amp:-amp)*2;s->sfx_phase+=200;break;
+        sfx=((s->noise&1u)?amp*3:-amp*3)+pulse(s->sfx_phase,100)*amp*2;
+        s->sfx_phase+=(unsigned)(650-s->fx_age/14);break;
       case 5: /* reward */
         sfx=pulse(s->sfx_phase,90)*amp;s->sfx_phase+=840+s->fx_age/28;break;
     }
