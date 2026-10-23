@@ -26,33 +26,58 @@ for i,c in enumerate(colors):
 # The separate old weapon is the ONLY component in this rectangle.
 for y in range(36,69):
  for x in range(135,163):old.putpixel((x,y),(0,0,0,0))
-hero=Image.new("RGBA",(210*S,127*S));d=ImageDraw.Draw(hero)
-# Real steel blade: broad base, central fuller, tapered distal blade and tip.
-polygon(d,[(124,74),(134,64),(194,11),(205,6),(201,20),(146,72),(134,82)],(24,33,44,255))
-polygon(d,[(133,66),(197,11),(201,13),(195,24),(144,74)],(111,126,146,255))
-polygon(d,[(139,65),(199,10),(194,20),(146,72)],(199,207,208,255))
-polygon(d,[(142,65),(198,11),(188,25),(146,69)],(235,230,210,255))
-polygon(d,[(149,65),(194,18),(188,24),(150,67)],(93,116,135,255))
-stroke(d,[(136,68),(197,13)],(246,242,226,255),1.4)
-stroke(d,[(153,62),(188,27)],(58,81,104,255),1.4)
-# Two quillons, wrapped grip, and counterweighted pommel.
-stroke(d,[(132,69),(108,92)],(29,27,31,255),8)
-stroke(d,[(132,69),(108,92)],(93,61,40,255),5)
-for a in range(0,21,4):
- x,y=113+a*.85,86-a*.85
- stroke(d,[(x-1,y-3),(x+3,y+1)],(219,160,74,255),1.5)
-polygon(d,[(122,60),(127,56),(145,77),(140,82)],(31,33,37,255))
-polygon(d,[(120,58),(125,56),(143,77),(140,79)],(203,157,77,255))
-polygon(d,[(119,58),(123,56),(127,64),(125,65)],(237,211,124,255))
-polygon(d,[(138,77),(141,79),(147,81),(145,74)],(237,202,114,255))
-ellipse(d,(129,65,139,75),(217,170,81,255),(59,54,53,255))
-ellipse(d,(101,89,110,98),(31,29,37,255))
-ellipse(d,(103,91,108,95),(205,165,88,255))
-hero.alpha_composite(old.resize((164*S,127*S),Image.Resampling.NEAREST))
+# Hand-matched to the original gritty 164x127 sprite. Paint the weapon at
+# final PSP pixel resolution with the same subdued steel/bronze palette:
+# no vector-smooth glow, gold starburst, or skyward detached diagonal.
+# Length is proportional to the knight; the grip follows the existing glove.
+hero=Image.new("RGBA",(202,127))
 d=ImageDraw.Draw(hero)
-polygon(d,[(112,75),(119,71),(125,78),(120,83),(113,82)],(37,40,46,255))
-polygon(d,[(113,75),(119,72),(122,78),(115,79)],(120,117,106,255))
-hero=hero.resize((210,127),Image.Resampling.LANCZOS)
+offset=-7  # a slightly lowered forward guard, never above the knight's head
+# Worn, double-edged 2-handed sword pointing forward and down.
+d.polygon([(127,73+offset),(133,71+offset),(191,91+offset),
+           (201,98+offset),(193,102+offset),(133,86+offset),
+           (127,81+offset)],fill=(27,30,34,255))
+d.polygon([(133,74+offset),(191,94+offset),(197,98+offset),
+           (192,100+offset),(132,82+offset)],fill=(77,80,78,255))
+d.polygon([(134,75+offset),(191,95+offset),(194,97+offset),
+           (132,79+offset)],fill=(134,132,120,255))
+d.polygon([(133,83+offset),(193,100+offset),(188,100+offset),
+           (132,81+offset)],fill=(53,60,62,255))
+d.line([(137,76+offset),(191,95+offset)],fill=(158,153,136,255),width=1)
+d.line([(142,81+offset),(187,96+offset)],fill=(47,49,49,255),width=1)
+# Fixed-seed pixels weather the steel, like the original's gritty pixels.
+import random
+rng=random.Random(5542)
+for j in range(60):
+ t=rng.random()
+ x=int(140+48*t)
+ y=int(78+18*t+offset+rng.uniform(-2,4))
+ d.point((x,y),fill=rng.choice([
+   (107,101,88,255),(57,60,55,255),
+   (80,69,58,255),(118,112,100,255)]))
+# Narrow leather-wrapped two-handed grip aligned to the armored arm.
+d.line([(111,72+offset),(133,79+offset)],fill=(29,24,24,255),width=6)
+d.line([(113,73+offset),(131,79+offset)],fill=(77,49,40,255),width=4)
+for t in range(4):
+ x=116+4*t
+ y=74+offset+t
+ d.line([(x,y-2),(x+2,y+2)],fill=(110,83,53,255),width=1)
+# Restrained, weathered iron crossguard and slightly flared quillons.
+d.line([(134,68+offset),(126,88+offset)],fill=(29,28,27,255),width=5)
+d.line([(135,69+offset),(127,87+offset)],fill=(90,79,65,255),width=3)
+d.polygon([(134,67+offset),(137,69+offset),
+           (135,73+offset)],fill=(145,119,82,255))
+d.polygon([(125,86+offset),(127,91+offset),
+           (130,86+offset)],fill=(113,88,66,255))
+d.ellipse((130,75+offset,135,82+offset),
+          fill=(109,96,76,255),outline=(30,30,30,255))
+# Original helmet, cape, plate and hand retain exactly their native pixels.
+hero.alpha_composite(old)
+d=ImageDraw.Draw(hero)
+d.polygon([(110,69),(117,69),(124,75),(121,80),(114,77)],
+          fill=(35,36,36,255))
+d.line([(114,70),(121,77)],fill=(102,96,87,255),width=2)
+# Do not resize or apply LANCZOS to the weapon: the original is low-res.
 def icon(n):
  im=Image.new("RGBA",(30*S,30*S));d=ImageDraw.Draw(im)
  ellipse(d,(1,1,29,29),(16,26,39,248),(166,127,79,255))
@@ -111,12 +136,12 @@ def declaration(name,v):
  chunks=[",".join("0x%04x"%x for x in v[i:i+16]) for i in range(0,len(v),16)]
  return "static const uint16_t "+name+"["+str(len(v))+"]={\n"+",\n".join(chunks)+"\n};\n"
 heroval=rgb565(hero)
-hero_body="const uint16_t rift_hero[26670] = {\n"+",".join("0x%04x"%x for x in heroval)+"\n};"
+hero_body="const uint16_t rift_hero[25654] = {\n"+",".join("0x%04x"%x for x in heroval)+"\n};"
 source=source[:match.start()]+hero_body+source[match.end():]
 (root/"motion_art.c").write_text(source)
 h=(root/"motion_art.h").read_text()
-h=h.replace("#define RIFT_HERO_W 164","#define RIFT_HERO_W 210")
-h=h.replace("extern const uint16_t rift_hero[20828]","extern const uint16_t rift_hero[26670]")
+h=h.replace("#define RIFT_HERO_W 164","#define RIFT_HERO_W 202")
+h=h.replace("extern const uint16_t rift_hero[20828]","extern const uint16_t rift_hero[25654]")
 (root/"motion_art.h").write_text(h)
 out="#ifndef RIFT110_MAP_ICONS_H\n#define RIFT110_MAP_ICONS_H\n#include <stdint.h>\n"
 for i in range(7):out+=declaration("rift110_map_icon_"+str(i),rgb565(icon(i)))
