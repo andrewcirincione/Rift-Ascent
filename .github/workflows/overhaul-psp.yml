@@ -34,6 +34,27 @@ jobs:
           python3 overhaul/patch_telegraphs.py GAME/src
           python3 overhaul/v101/patch_ui.py GAME/src
           python3 overhaul/v101/patch_visuals.py GAME/src/render.c
+          python3 overhaul/v102/01_pause_game.py GAME/src
+          python3 overhaul/v102/02_cards_clear_hud.py GAME/src/render.c
+          python3 overhaul/v102/03_intent_weapon.py GAME/src/render.c
+          python3 overhaul/v102/04_sunder_preview.py GAME/src/render.c
+          python3 overhaul/v102/05_grid_controls.py GAME/src/game.c
+          python3 overhaul/v102/06_shop_details.py GAME/src/render.c
+          python3 overhaul/v102/07_footer_icons.py GAME/src/render.c
+          python3 overhaul/v102/08_event_reward_preview.py GAME/src
+          python3 overhaul/v102/09_full_card_text.py GAME/src/render.c
+          python3 overhaul/v102/10_status_chips.py GAME/src/render.c
+          python3 overhaul/v102/11_hide_no_attack.py GAME/src/render.c
+          python3 overhaul/v102/12_small_overflow_arrow.py GAME/src/render.c
+          python3 overhaul/v102/13_enemy_block.py GAME/src/render.c
+          python3 overhaul/v102/14_disable_unplayable.py GAME/src/render.c
+          python3 overhaul/v102/15_empty_energy.py GAME/src/render.c
+          python3 overhaul/v102/16_hand_animation.py GAME/src/render.c
+          python3 overhaul/v102/17_relic_claim_preview.py GAME/src
+          python3 overhaul/v102/18_map_hover.py GAME/src
+          python3 overhaul/v102/19_combat_deck.py GAME/src
+          python3 overhaul/v102/20_full_card_names.py GAME/src/render.c
+          python3 overhaul/v102/22_screenshot_polish.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -43,6 +64,8 @@ jobs:
           python3 overhaul/patch_frontend.py portable_build/psp_start.c
           python3 overhaul/patch_windup.py portable_build/psp_start.c
           python3 overhaul/v101/patch_controls.py portable_build/psp_start.c
+          python3 overhaul/v102/01_pause_psp.py portable_build/psp_start.c
+          python3 overhaul/v102/21_music_stream.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
@@ -80,6 +103,12 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
               -I GAME/src overhaul/v101/test_101.c GAME/src/game.c -o v101_tests
           ASAN_OPTIONS=detect_leaks=1 ./v101_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+             -I GAME/src overhaul/v102/test_pause.c GAME/src/game.c -o pause_tests
+          ASAN_OPTIONS=detect_leaks=1 ./pause_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+             -I GAME/src overhaul/v102/test_102.c GAME/src/game.c -o v102_tests
+          ASAN_OPTIONS=detect_leaks=1 ./v102_tests
 
       - name: PSPDEV compile/link full gameplay + illustrated assets
         shell: bash

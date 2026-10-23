@@ -1,0 +1,32 @@
+name: Archive Rift Ascent 1.0.2 EBOOT
+on:
+  push:
+    paths:
+      - '.github/workflows/archive-102-eboot.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  archive:
+    if: github.ref_name == 'release-1.0.2'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Save the validated 1.0.2 binary to the version folder
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p versions/1.0.2
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12521663110/zip" > /tmp/rift102.zip
+          unzip -p /tmp/rift102.zip portable_build/EBOOT.PBP > versions/1.0.2/EBOOT.PBP
+          test -s versions/1.0.2/EBOOT.PBP
+          (cd versions/1.0.2 && sha256sum EBOOT.PBP > SHA256.txt)
+          git add -f versions/1.0.2/EBOOT.PBP
+          git add versions/1.0.2/SHA256.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Archive verified v1.0.2 EBOOT.PBP"
+          git push origin HEAD:release-1.0.2
