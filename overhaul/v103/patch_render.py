@@ -20,9 +20,9 @@ change('''char coststr[12];snprintf(coststr,sizeof(coststr),"%d",d->cost<0?0:d->
  center(x+11,y+31,coststr,WHITE,1);''')
 change(''' int tall=h>=120,arth=tall?57:18;''',
 ''' /* Full compact combat cards preserve descriptive space at the bottom. */
- int tall=h>=120,arth=tall?48:(h>=95?10:15);''')
+ int tall=h>=120,arth=tall?48:(h>=88?8:15);''')
 change(''' int maxrows=CLAMP(room/11,0,tall?4:2);''',
-''' int maxrows=CLAMP(room/11,0,tall?5:(h>=95?7:3));''')
+''' int maxrows=CLAMP(room/11,0,tall?5:(h>=88?6:3));''')
 change('''     rect(x+w-22,y+arth+14,21,13,RGB(47,20,23));
      border(x+w-22,y+arth+14,21,13,RED);
      center(x+w-11,y+arth+15,num,GOLD,1);''',
