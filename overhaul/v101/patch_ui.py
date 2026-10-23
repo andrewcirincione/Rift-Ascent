@@ -267,5 +267,9 @@ sub("  if(i==g->target)border(ex-45,138,90,33,GOLD);",
     border(ex-45,138,90,33,GOLD);
   }''')
 
+# Freestanding PSP formatter does not implement the '+' printf sign flag.
+s=s.replace("%+d","%d")
+sub('footer("FOLLOW CONNECTED ROADS   X ENTER   SQUARE DECK");',
+    'footer("FOLLOW ROADS  X ENTER  SQUARE DECK  START RELICS");')
 p.write_text(s)
 print("Version 1.0.1 UI patch applied.")
