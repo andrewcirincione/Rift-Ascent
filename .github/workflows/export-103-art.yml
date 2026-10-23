@@ -1,0 +1,22 @@
+name: Export Rift Enemy Art for 1.0.3 Review
+on:
+  push:
+    paths:
+      - '.github/workflows/export-103-art.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  artwork:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract embedded 16-bit enemy sprites
+        run: |
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          mkdir -p review
+          cp GAME/src/enemy_art.c GAME/src/enemy_art.h review/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rift-103-Enemy-Source-Art
+          path: review/
