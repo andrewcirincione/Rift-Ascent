@@ -9,7 +9,7 @@
 .balign 4
 .word .Lfile_name
 .word 0x40090000
-.word (4 << 16) | 5
+.word (5 << 16) | 5
 .word .Lfile_nids
 .word .Lfile_stubs
 .section .rodata.sceNid, "a", @progbits
@@ -18,6 +18,7 @@
 .word 0x6A638D83  /* sceIoRead */
 .word 0x42EC03AC  /* sceIoWrite */
 .word 0x810C4BC3  /* sceIoClose */
+.word 0x68963324  /* sceIoLseek32 */
 .section .sceStub.text, "ax", @progbits
 .Lfile_stubs:
 .globl sceIoOpen
@@ -34,5 +35,9 @@ sceIoWrite:
     nop
 .globl sceIoClose
 sceIoClose:
+    jr $ra
+    nop
+.globl sceIoLseek32
+sceIoLseek32:
     jr $ra
     nop
