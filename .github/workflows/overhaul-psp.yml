@@ -116,6 +116,9 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_103.c GAME/src/game.c -o v103_tests
           ASAN_OPTIONS=detect_leaks=1 ./v103_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
+          ASAN_OPTIONS=detect_leaks=1 ./campaign_tests
           python3 tools/embed_soundtrack_103.py --self-test
           python3 tools/embed_churn.py --self-test
 
