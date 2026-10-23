@@ -53,6 +53,7 @@ jobs:
           python3 overhaul/v102/17_relic_claim_preview.py GAME/src
           python3 overhaul/v102/18_map_hover.py GAME/src
           python3 overhaul/v102/19_combat_deck.py GAME/src
+          python3 overhaul/v102/20_full_card_names.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
