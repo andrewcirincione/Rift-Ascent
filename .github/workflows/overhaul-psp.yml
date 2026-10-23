@@ -156,6 +156,12 @@ jobs:
           chmod 700 "$XDG_RUNTIME_DIR"
           pulseaudio --start --exit-idle-time=-1
           pactl load-module module-null-sink sink_name=rift_null || true
+          # The audio decoder reads its own EBOOT from ms0:, not the host path.
+          # PPSSPP locations vary across Linux releases, so populate both.
+          mkdir -p "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT"
+          mkdir -p "$HOME/.config/ppsspp/GAME/RIFTASCENT"
+          cp portable_build/EMBED_TEST.PBP "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT/EBOOT.PBP"
+          cp portable_build/EMBED_TEST.PBP "$HOME/.config/ppsspp/GAME/RIFTASCENT/EBOOT.PBP"
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
             set -u
             ./squashfs-root/AppRun "$PWD/portable_build/EMBED_TEST.PBP" > emulator_results/ppsspp.log 2>&1 &
@@ -192,6 +198,8 @@ jobs:
           grep -q 'initial frame committed at vblank: 0' emulator_results/boot-trace.log
           grep -q 'frame present vblank result: 0' emulator_results/boot-trace.log
           grep -q 'frame flip result: 0' emulator_results/boot-trace.log
+          # Prove the audio worker can open and validate the embedded index.
+          grep -q 'Rift 1.0.3 embedded music loaded: 10' emulator_results/boot-trace.log
           if grep -q 'FATAL' emulator_results/boot-trace.log; then
             echo "Startup/present failed according to PSP trace" >&2
             exit 1
