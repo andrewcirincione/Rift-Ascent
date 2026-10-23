@@ -36,6 +36,7 @@ jobs:
           python3 overhaul/v101/patch_visuals.py GAME/src/render.c
           python3 overhaul/v102/01_pause_game.py GAME/src
           python3 overhaul/v102/02_cards_clear_hud.py GAME/src/render.c
+          python3 overhaul/v102/03_intent_weapon.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
