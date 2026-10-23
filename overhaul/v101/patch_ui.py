@@ -259,7 +259,7 @@ sub(" int sx=17;",''' int py=78;
  int sx=17;''')
 sub("  if(i==g->target)border(ex-45,138,90,33,GOLD);",
 '''  if(i==g->target){
-    int px=ex+32,py=83;
+    int px=ex>395?443:ex+32,py=83;
     if(e->strength){rift_status_chip(px,py,"S",e->strength,GOLD);py+=20;}
     if(e->weak){rift_status_chip(px,py,"W",e->weak,RED);py+=20;}
     if(e->vulnerable){rift_status_chip(px,py,"V",e->vulnerable,PURPLE);py+=20;}
