@@ -139,7 +139,7 @@ s=s[:start]+'''static void relic_screen(const Game*g){
  char b[112];
  snprintf(b,sizeof(b),"%d RELICS",g->relic_count);
  text(351,49,b,GOLD,1);
- int first=CLAMP(g->selection-6,0,MAX(0,g->relic_count-10));
+ int first=CLAMP(g->selection-6,0,(g->relic_count>10?g->relic_count-10:0));
  for(int i=first;i<g->relic_count&&i<first+10;i++){
    int id=g->relics[i],y=66+(i-first)*18;
    if(i==g->selection)rect(16,y-2,448,17,RGB(75,63,44));
