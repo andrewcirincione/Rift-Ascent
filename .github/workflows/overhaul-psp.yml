@@ -222,6 +222,7 @@ jobs:
           set -euo pipefail
           cp -a portable_build portable_demo
           sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_SMOKE_DEMO /' portable_demo/Makefile
+          python3 overhaul/v110/demo_inferno_card.py portable_demo/psp_start.c
           docker run --rm -v "$PWD/portable_demo:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
           python3 tools/audit_psp_imports.py portable_demo/EBOOT.PBP > portable_demo/imports.txt
 
