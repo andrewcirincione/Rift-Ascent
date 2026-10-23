@@ -59,6 +59,7 @@ jobs:
           python3 overhaul/v103/patch_cards.py GAME/src
           python3 overhaul/v103/patch_render.py GAME/src/render.c
           python3 overhaul/v103/patch_art.py GAME/src/render.c
+          python3 overhaul/v103/patch_facing.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
