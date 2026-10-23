@@ -26,6 +26,8 @@ edit(" case RELIC_VIEW:",''' case PAUSE_MENU:
    break;
  case RELIC_VIEW:''')
 edit("g->screen>BOSS_REWARD","g->screen>PAUSE_MENU")
+# End-turn is a valid virtual selection, and must not block saving.
+edit("g->selection>=MAX(1,g->hand_count)","g->selection>g->hand_count")
 # Pause overlay does not enter saved snapshots. Preserve all remaining
 # Game struct fields and version=16, so old save compatibility is unchanged.
 rend(" case RELIC_VIEW:relic_screen(g);break;",''' case RELIC_VIEW:relic_screen(g);break;
