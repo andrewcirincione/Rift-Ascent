@@ -66,6 +66,16 @@ change('''  if(e->block){
     snprintf(b,sizeof(b),"%d/%d BLK%d",e->hp,e->maxhp,e->block);
     fittext(ex-39,143,b,11,WHITE);
   }''')
+# One HP caption only, overwritten using the block caption when present.
+change('''  snprintf(b,sizeof(b),"%d/%d",e->hp,e->maxhp);
+  center(ex,142,b,WHITE,1);''',
+'''  snprintf(b,sizeof(b),"%d/%d",e->hp,e->maxhp);
+  center(ex,142,b,WHITE,1);''')
+# Place cards below HP, with enlarged selected text and no hovering giant rectangle.
+change('''  int x=56+(i-start)*73,selected=(i==g->selection),y=selected?166+wave(animation_tick,60,1):177;''',
+'''  int x=56+(i-start)*73,selected=(i==g->selection),y=selected?168+wave(animation_tick,60,1):177;''')
+change('''card_render(x,y,70,selected?88:77,g->hand[i],selected,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''',
+'''card_render(x,y,70,selected?101:79,g->hand[i],selected,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''')
 # A selected card is painted LAST, larger and wider, inside the lower HUD.
 # The 120px width gives descriptive riders (Bash Vulnerable, Exhaust, etc.)
 # enough lines without restoring the obscuring battlefield tooltip.
@@ -85,16 +95,7 @@ change(''' if(hand_exchange&&animation_tick>=hand_exchange_tick){
  if(hand_exchange&&animation_tick>=hand_exchange_tick){
    unsigned age=animation_tick-hand_exchange_tick;''')
 
-# One HP caption only, overwritten using the block caption when present.
-change('''  snprintf(b,sizeof(b),"%d/%d",e->hp,e->maxhp);
-  center(ex,142,b,WHITE,1);''',
-'''  snprintf(b,sizeof(b),"%d/%d",e->hp,e->maxhp);
-  center(ex,142,b,WHITE,1);''')
-# Place cards below HP, with enlarged selected text and no hovering giant rectangle.
-change('''  int x=56+(i-start)*73,selected=(i==g->selection),y=selected?166+wave(animation_tick,60,1):177;''',
-'''  int x=56+(i-start)*73,selected=(i==g->selection),y=selected?168+wave(animation_tick,60,1):177;''')
-change('''card_render(x,y,70,selected?88:77,g->hand[i],selected,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''',
-'''card_render(x,y,70,selected?101:79,g->hand[i],selected,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''')
+
 start=s.index(" /* Compact physical cards, with an always-readable full card hover panel.")
 stop=s.index(" button(414,191",start)
 s=s[:start]+''' /* Full card rules are printed directly on the selected card.
