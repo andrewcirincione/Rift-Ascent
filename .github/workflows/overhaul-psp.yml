@@ -51,6 +51,7 @@ jobs:
           python3 overhaul/v102/15_empty_energy.py GAME/src/render.c
           python3 overhaul/v102/16_hand_animation.py GAME/src/render.c
           python3 overhaul/v102/17_relic_claim_preview.py GAME/src
+          python3 overhaul/v102/18_map_hover.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
