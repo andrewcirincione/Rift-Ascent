@@ -124,6 +124,8 @@ jobs:
           python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
           python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
           sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq ffmpeg
           ffmpeg -nostdin -hide_banner -loglevel error -f lavfi -i "sine=frequency=330:sample_rate=11025:duration=2" -y /tmp/rift-test-audio.wav
           python3 tools/embed_churn.py --wave /tmp/rift-test-audio.wav \
               --eboot portable_build/EBOOT.PBP --out portable_build/EMBED_TEST.PBP
