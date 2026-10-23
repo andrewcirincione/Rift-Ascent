@@ -6,5 +6,6 @@ Every explicitly named Rift Ascent version has its own `versions/<version>/` dir
 - [1.0.1 candidate](1.0.1/PATCH_NOTES.md) — user feedback, tracked implementation, regression checks and remaining work.
 - [1.0.2 candidate](1.0.2/PATCH_NOTES.md) — save/quit, clearer battle/deck/shop UI, previews, route inspection, CHURN battle music.
 - [1.0.3 revision](1.0.3/PATCH_NOTES.md) — full soundtrack replacement, new XMB art, combat HUD fixes, map/dead-target repairs and wider card rebalancing.
+- [1.1.0 revision](1.1.0/PATCH_NOTES.md) — integrated claymore hero sprite, smooth room icons, collision-free cards, wiki-accurate Inferno and boosted embedded soundtrack.
 
 The released binaries are checked into the repository by the isolated successful GitHub Actions publishing job. Always preserve an independent copy of the last verified physical-PSP EBOOT.
