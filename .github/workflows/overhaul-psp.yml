@@ -23,6 +23,7 @@ jobs:
           set -euo pipefail
           unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           python3 overhaul/patch_engine.py GAME/src
+          python3 overhaul/v101/patch_game.py GAME/src
           python3 overhaul/patch_render.py GAME/src
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pil fonts-dejavu-core
