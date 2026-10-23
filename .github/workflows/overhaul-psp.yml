@@ -56,6 +56,7 @@ jobs:
           python3 overhaul/v102/20_full_card_names.py GAME/src/render.c
           python3 overhaul/v102/22_screenshot_polish.py GAME/src/render.c
           python3 overhaul/v103/patch_game.py GAME/src
+          python3 overhaul/v103/patch_cards.py GAME/src
           python3 overhaul/v103/patch_render.py GAME/src/render.c
           python3 overhaul/v103/patch_art.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
