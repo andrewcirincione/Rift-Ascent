@@ -40,6 +40,7 @@ jobs:
           python3 overhaul/v102/04_sunder_preview.py GAME/src/render.c
           python3 overhaul/v102/05_grid_controls.py GAME/src/game.c
           python3 overhaul/v102/06_shop_details.py GAME/src/render.c
+          python3 overhaul/v102/07_footer_icons.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
