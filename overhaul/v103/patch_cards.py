@@ -60,7 +60,7 @@ effects=[
   'case 48:g->heal_after_battle=2+up;break;'),
 ]
 for a,b in effects:fix(a,b)
-fix('if(id==20||id==24||id==42||id==45||id==48)',
+fix('if(id==9||id==20||id==24||id==38||id==42||id==45||id==48)',
     'if(id==8||id==9||id==20||id==24||id==28||id==38||id==42||id==45||id==47||id==48)')
 # Use Game fields that were dormant; preserve save layout.
 fix("static void lose_hp(Game*g,int n){g->hp-=MAX(n,0);player_death(g);}",
