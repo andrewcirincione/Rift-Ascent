@@ -25,6 +25,9 @@ fix("""else if(b==BTN_DOWN&&g->scroll>0){
         if(game_route_available(g,k)){g->selection=k;break;}
   }""")
 
+# Forward declaration: played attacks can kill the currently selected enemy.
+fix("void game_play_card(Game*g,int index,int enemy){",
+    "static void select_live_enemy(Game*g,int direction);\nvoid game_play_card(Game*g,int index,int enemy){")
 # Dead bodies must never be user-selectable targets, even in two-enemy combat.
 fix("void game_action(Game*g,int b){",'''static void select_live_enemy(Game*g,int direction){
  if(g->enemy_count<=0){g->target=0;return;}
