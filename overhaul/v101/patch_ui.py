@@ -181,5 +181,91 @@ static void deck_screen(const Game*g){
 sub(''' case HELP:help_screen(g);break;''',
     ''' case HELP:help_screen(g);break;
  case RELIC_VIEW:relic_screen(g);break;''')
+
+# Contextual original event writing, not copied from another game.
+sub("static void event_screen(const Game*g){",'''static const char *rift_event_lore[12]={
+ "A scorched purse lies beneath an abandoned watchtower.",
+ "Pale moonwater ripples where no sky is visible.",
+ "A grimoire rests on a lectern, its pages still warm.",
+ "A forgotten monument vibrates with dormant power.",
+ "An ornate chest waits behind a nest of tripwires.",
+ "A weary pilgrim offers the last of their provisions.",
+ "Steel hangs from racks in a broken underground forge.",
+ "A stone altar asks blood in exchange for endurance.",
+ "A black spring promises relief and a permanent scar.",
+ "Coins shimmer in a fissure where the air feels thin.",
+ "Two empty rune sockets demand precious gold.",
+ "An unmoving sentinel watches an abandoned shrine."
+};
+static void event_screen(const Game*g){''')
+sub(" center(240,171,event_choices[g->effect_turn],WHITE,1);",
+''' fittext(42,88,rift_event_lore[g->effect_turn],56,WHITE);
+ center(240,171,event_choices[g->effect_turn],WHITE,1);''')
+sub(''' circle(240,133,34,RGB(46,46,62));
+ for(int i=0;i<8;i++){int x=240+(i-4)*11;line(x,125,x+5,145,PURPLE);}circle(238,117,12,GOLD);''',
+''' int style=g->effect_turn%4;
+ uint32_t event_ink=style==0?GOLD:style==1?BLUE:style==2?PURPLE:RED;
+ circle(240,136,32,RGB(36,42,61));
+ if(style==0) {
+    rect(216,120,48,32,event_ink);
+    border(217,120,46,30,WHITE);
+    line(216,136,264,136,BG);
+ }else if(style==1){
+    for(int i=0;i<6;i++)circle(208+i*13,136+(i%2)*5,5,event_ink);
+    triangle(240,106,226,145,254,145,WHITE);
+ }else if(style==2){
+    triangle(240,102,215,154,265,154,event_ink);
+    circle(240,132,10,GOLD);
+ }else{
+    for(int i=0;i<6;i++)line(215+i*9,110,215+i*9,155,event_ink);
+    circle(240,131,15,WHITE);
+ }''')
+# Lore plus progress indicator for elite reward acquisition.
+sub(''' center(240,54,"SPOILS OF BATTLE",GOLD,2);''',
+''' center(240,49,"SPOILS OF BATTLE",GOLD,2);
+ fittext(44,75,g->message,56,GREEN);''')
+# Relic reward descriptions are wrapped and visible within taller panels.
+start=s.index("static void boss_reward_screen(const Game*g){")
+end=s.index("static void rest_screen(",start)
+s=s[:start]+'''static void boss_reward_screen(const Game*g){
+ header(g,"GUARDIAN DEFEATED / SELECT A RELIC");
+ center(240,55,"CHOOSE YOUR SPOILS",GOLD,2);
+ for(int i=0;i<3;i++){
+  int x=30+i*148,y=83,selected=g->selection==i;
+  rect(x,y,131,148,RGB(30,38,50));border(x,y,131,148,selected?GOLD:RGB(75,83,92));
+  circle(x+65,y+29,22,RGB(65,49,67));
+  triangle(x+65,y+10,x+46,y+39,x+65,y+55,PURPLE);
+  triangle(x+65,y+10,x+84,y+39,x+65,y+55,GOLD);
+  if(g->reward[i]>=0){
+   fittext(x+5,y+64,relic_defs[g->reward[i]].name,17,GOLD);
+   wrapped_text(x+7,y+85,relic_defs[g->reward[i]].desc,16,5,WHITE);
+  }
+ }
+ footer("LEFT/RIGHT CHOOSE  X ACCEPT RELIC AND ASCEND");
+}
+'''+s[end:]
+# Iconized status readouts flank hero and currently selected enemy.
+sub("static void combat(const Game*g){",'''static void rift_status_chip(int x,int y,const char *glyph,int stacks,uint32_t ink){
+ char label[20];snprintf(label,sizeof(label),"%s%d",glyph,stacks);
+ circle(x+5,y+5,8,ink);
+ fittext(x,y,label,5,WHITE);
+}
+static void combat(const Game*g){''')
+sub(" int sx=17;",''' int py=78;
+ if(g->strength){rift_status_chip(22,py,"S",g->strength,GOLD);py+=20;}
+ if(g->weak){rift_status_chip(22,py,"W",g->weak,RED);py+=20;}
+ if(g->vulnerable){rift_status_chip(22,py,"V",g->vulnerable,PURPLE);py+=20;}
+ if(g->poison){rift_status_chip(22,py,"P",g->poison,GREEN);}
+ int sx=17;''')
+sub("  if(i==g->target)border(ex-45,138,90,33,GOLD);",
+'''  if(i==g->target){
+    int px=ex+32,py=83;
+    if(e->strength){rift_status_chip(px,py,"S",e->strength,GOLD);py+=20;}
+    if(e->weak){rift_status_chip(px,py,"W",e->weak,RED);py+=20;}
+    if(e->vulnerable){rift_status_chip(px,py,"V",e->vulnerable,PURPLE);py+=20;}
+    if(e->poison){rift_status_chip(px,py,"P",e->poison,GREEN);}
+    border(ex-45,138,90,33,GOLD);
+  }''')
+
 p.write_text(s)
 print("Version 1.0.1 UI patch applied.")
