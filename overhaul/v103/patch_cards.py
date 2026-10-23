@@ -19,7 +19,7 @@ changes=[
  ('{"Iron Tempest","All enemies: 12 damage",2,2,0}','{"Conflagration","Hit all enemies. Scales with attacks.",1,2,0}'),
  ('{"Bone Crusher","Deal 12; weak 2",2,2,0}','{"Uppercut","Deal 13. Apply Weak and Vulnerable.",2,2,0}'),
  ('{"Riposte","Block 6; deal 6",1,1,0}','{"Brawling Wave","Gain 5 Block. Deal 5 damage.",1,1,0}'),
- ('{"Decimate","Deal 28; exhaust",3,2,0}','{"Fiend Fire","Exhaust hand. Deal 7 per exhausted card.",2,2,0}'),
+ ('{"Bludgeon+","Deal 30 damage. Exhaust.",3,2,0}','{"Fiend Fire","Exhaust hand. Deal 7 per exhausted card.",2,2,0}'),
  ('{"Sacrifice","Lose 5 HP; draw 4",0,2,2}','{"Burning Pact","Exhaust 1 card. Draw 2 cards.",1,2,2}'),
  ('{"Firebrand","Deal 5; strength +1",1,2,0}','{"Anger","Deal 6. Add a copy to discard.",0,0,0}'),
  ('{"Mercy Blade","Deal 11; heal if kill",2,1,0}','{"Feed","Deal 10. On kill, gain 3 max HP.",1,2,0}'),
