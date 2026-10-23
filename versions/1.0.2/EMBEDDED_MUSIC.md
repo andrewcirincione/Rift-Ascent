@@ -28,3 +28,10 @@ Requires FFmpeg for conversion. The resulting single EBOOT includes both the pro
 Native PSPDEV compiler, user-mode import audit, standalone PBP footer test, and PPSSPP loading checks do not prove physical PSP-3000/6.60/ARK-5 compatibility. Because earlier builds hard-froze on the handheld, keep a verified EBOOT backup and try the new build only voluntarily. The music decoding and file-seeking implementation is new.
 
 The archived original `versions/1.0.2/EBOOT.PBP` on the base release branch still expects the separate CHURN.PCM. Do not mistake that original archival build for the updated embedded-music binary until an updated binary is explicitly published there.
+
+## Verified build and packaged revision (October 23, 2026)
+- CI: https://github.com/andrewcirincione/Rift-Ascent/actions/runs/40006489890 — **success**, including PSPDEV, import audit, PPSSPP launch of a PBP with an ADPCM trailer, and existing gameplay smoke checks.
+- Self-contained final EBOOT with the complete CHURN track: **3,891,081 bytes**.
+- SHA256: `e60e4642f4b62322b0cc2e00912ba96946e1f3b4320e1b5eec9937410306d3b2`.
+- Encoded music: 1,027,870 bytes, 2,055,739 samples (186.46 seconds).
+- The final binary has been delivered as a conversation attachment. The older archived `versions/1.0.2/EBOOT.PBP` in GitHub has **not** been replaced; use the attached standalone build rather than confusing it with the older external-music archive.
