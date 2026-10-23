@@ -1,0 +1,22 @@
+name: Export Rift 1.1.0 Hero Art
+on:
+  push:
+    paths:
+      - '.github/workflows/export-110-hero.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Export hero sprite source
+        run: |
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          mkdir -p hero_sources
+          find GAME/src -maxdepth 1 -type f -name '*art*' -exec cp '{}' hero_sources/ \;
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rift-110-Hero-Source
+          path: hero_sources/
