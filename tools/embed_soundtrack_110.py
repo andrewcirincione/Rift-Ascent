@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Rift 1.1.0 soundtrack packer: normalize perceptual loudness before ADPCM.
+"""Rift 1.1.0 soundtrack packer: raise practical PSP playback level before ADPCM.
 
 Same single-EBOOT 10-track indexed format as 1.0.3 and same 11,025 Hz
-mono IMA compression. Use FFmpeg loudnorm to -14 LUFS, -1dB true peak.
+mono IMA compression. Apply +4 dB with an output limiter; quieter sections become more audible.
 """
 from pathlib import Path
 import argparse,array,importlib.util,subprocess,sys
@@ -14,7 +14,7 @@ spec.loader.exec_module(pack103)
 def loud_wav(path):
     p=subprocess.run([
         "ffmpeg","-nostdin","-hide_banner","-loglevel","error",
-        "-i",str(path),"-af","loudnorm=I=-14:TP=-1.0:LRA=9",
+        "-i",str(path),"-af","volume=4dB,alimiter=limit=0.95:level=0",
         "-ac","1","-ar","11025","-acodec","pcm_s16le","-f","s16le","-"
     ],capture_output=True,check=True)
     output=array.array("h");output.frombytes(p.stdout)
