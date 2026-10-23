@@ -45,6 +45,7 @@ jobs:
           python3 overhaul/v102/09_full_card_text.py GAME/src/render.c
           python3 overhaul/v102/10_status_chips.py GAME/src/render.c
           python3 overhaul/v102/11_hide_no_attack.py GAME/src/render.c
+          python3 overhaul/v102/12_small_overflow_arrow.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
