@@ -22,7 +22,7 @@ edit("void game_action(Game*g,int b){",'''static int paused_from_screen=MAP;\nin
    }
  }''')
 edit(" case RELIC_VIEW:",''' case PAUSE_MENU:
-   if(b==BTN_BACK)g->screen=g->prior_screen;
+   if(b==BTN_BACK)g->screen=paused_from_screen;
    break;
  case RELIC_VIEW:''')
 edit("g->screen>BOSS_REWARD","g->screen>PAUSE_MENU")
