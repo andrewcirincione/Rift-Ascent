@@ -56,6 +56,15 @@ jobs:
           include $(PSPSDK)/lib/build.mak
           EOF
 
+      - name: Export 1.0.1 engine sources for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-Engine-Sources
+          path: |
+            GAME/src/game.c
+            GAME/src/game.h
+            GAME/src/render.c
+
       - name: Compile and run native deterministic gameplay tests
         shell: bash
         run: |
