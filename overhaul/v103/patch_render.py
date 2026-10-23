@@ -66,6 +66,25 @@ change('''  if(e->block){
     snprintf(b,sizeof(b),"%d/%d BLK%d",e->hp,e->maxhp,e->block);
     fittext(ex-39,143,b,11,WHITE);
   }''')
+# A selected card is painted LAST, larger and wider, inside the lower HUD.
+# The 120px width gives descriptive riders (Bash Vulnerable, Exhaust, etc.)
+# enough lines without restoring the obscuring battlefield tooltip.
+change('''card_render(x,y,70,selected?101:79,g->hand[i],selected,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''',
+'''if(!selected)card_render(x,y,70,79,g->hand[i],0,cards[id].cost!=-2&&(cards[id].cost<=g->energy||cards[id].cost==-1));''')
+change(''' if(hand_exchange&&animation_tick>=hand_exchange_tick){
+   unsigned age=animation_tick-hand_exchange_tick;''',
+''' if(g->selection>=start && g->selection<g->hand_count &&
+    g->selection<start+visible){
+    int idx=g->selection;
+    int x=CLAMP(56+(idx-start)*73-18,54,292);
+    int id=CARD_ID(g->hand[idx]);
+    int active=cards[id].cost!=-2 &&
+         (cards[id].cost<=g->energy||cards[id].cost==-1);
+    card_render(x,164,120,91,g->hand[idx],1,active);
+ }
+ if(hand_exchange&&animation_tick>=hand_exchange_tick){
+   unsigned age=animation_tick-hand_exchange_tick;''')
+
 # One HP caption only, overwritten using the block caption when present.
 change('''  snprintf(b,sizeof(b),"%d/%d",e->hp,e->maxhp);
   center(ex,142,b,WHITE,1);''',
