@@ -1,0 +1,23 @@
+name: Export Rift Engine Sources
+on:
+  push:
+    paths:
+      - '.github/workflows/export-engine-sources.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract original game sources
+        run: |
+          unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
+          mkdir -p export
+          cp GAME/src/game.c GAME/src/game.h GAME/src/render.c export/
+          cp GAME/src/cards.h export/ 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Engine-Sources-For-Refactor
+          path: export/

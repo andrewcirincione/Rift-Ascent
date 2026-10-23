@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+  actions: read
 
 jobs:
   compile-and-smoke:
@@ -23,6 +24,7 @@ jobs:
           set -euo pipefail
           unzip -q -o Rift_Ascent_GitHub_OneClick_Setup.zip
           python3 overhaul/patch_engine.py GAME/src
+          python3 overhaul/v101/patch_game.py GAME/src
           python3 overhaul/patch_render.py GAME/src
           sudo apt-get update -qq
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3-pil fonts-dejavu-core
@@ -30,6 +32,8 @@ jobs:
           python3 overhaul/patch_font.py GAME/src
           python3 overhaul/patch_polish.py GAME/src
           python3 overhaul/patch_telegraphs.py GAME/src
+          python3 overhaul/v101/patch_ui.py GAME/src
+          python3 overhaul/v101/patch_visuals.py GAME/src/render.c
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -38,6 +42,7 @@ jobs:
           cp startup_probe/user_syscalls.S portable_build/
           python3 overhaul/patch_frontend.py portable_build/psp_start.c
           python3 overhaul/patch_windup.py portable_build/psp_start.c
+          python3 overhaul/v101/patch_controls.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
@@ -56,6 +61,15 @@ jobs:
           include $(PSPSDK)/lib/build.mak
           EOF
 
+      - name: Export 1.0.1 engine sources for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-Engine-Sources
+          path: |
+            GAME/src/game.c
+            GAME/src/game.h
+            GAME/src/render.c
+
       - name: Compile and run native deterministic gameplay tests
         shell: bash
         run: |
@@ -63,6 +77,9 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
               -I GAME/src overhaul/test_engine.c GAME/src/game.c -o engine_tests
           ASAN_OPTIONS=detect_leaks=1 ./engine_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+              -I GAME/src overhaul/v101/test_101.c GAME/src/game.c -o v101_tests
+          ASAN_OPTIONS=detect_leaks=1 ./v101_tests
 
       - name: PSPDEV compile/link full gameplay + illustrated assets
         shell: bash
@@ -241,3 +258,29 @@ jobs:
             portable_build/imports.txt
             emulator_results/
           if-no-files-found: warn
+
+      - name: Pin versioned successful PSP EBOOTs
+        if: success() && github.ref_name == 'release-1.0.1'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git fetch origin release-1.0.1
+          if [ "$(git rev-parse origin/release-1.0.1)" != "$GITHUB_SHA" ]; then
+            echo "Branch advanced; newer run will publish."
+            exit 0
+          fi
+          mkdir -p versions/1.0.0 versions/1.0.1
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12506795691/zip" > /tmp/rift100.zip
+          unzip -p /tmp/rift100.zip portable_build/EBOOT.PBP > versions/1.0.0/EBOOT.PBP
+          cp portable_build/EBOOT.PBP versions/1.0.1/EBOOT.PBP
+          (cd versions/1.0.0 && sha256sum EBOOT.PBP > SHA256.txt)
+          (cd versions/1.0.1 && sha256sum EBOOT.PBP > SHA256.txt)
+          test -s versions/1.0.0/EBOOT.PBP
+          test -s versions/1.0.1/EBOOT.PBP
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add versions/1.0.0/EBOOT.PBP versions/1.0.0/SHA256.txt versions/1.0.1/EBOOT.PBP versions/1.0.1/SHA256.txt
+          git commit -m "Archive versioned 1.0.0 and validated 1.0.1 PSP EBOOTs"
+          git push origin HEAD:release-1.0.1
