@@ -152,6 +152,9 @@ jobs:
             -I GAME/src overhaul/v111/test_full_87.c GAME/src/game.c -o full_87_tests
           ASAN_OPTIONS=detect_leaks=1 ./full_87_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v111/test_87_upgrades.c GAME/src/game.c -o all_upgrade_tests
+          ASAN_OPTIONS=detect_leaks=1 ./all_upgrade_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
           ASAN_OPTIONS=detect_leaks=1 ./campaign_tests
           python3 tools/embed_soundtrack_103.py --self-test
