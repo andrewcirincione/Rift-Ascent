@@ -456,7 +456,7 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           eboot=Path('portable_build/EBOOT.PBP').read_bytes()
-          assert eboot[:4]==b'\\x00PBP', 'Not a PSP executable'
+          assert eboot[:4]==bytes([0])+b'PBP', 'Not a PSP executable'
           assert eboot[-96:-88]!=b'RIFTM103', 'Private audio cannot enter a public release'
           PY
           version="$(sed -n 's/^PSP_EBOOT_TITLE = RIFT ASCENT //p' portable_build/Makefile | head -n1)"
