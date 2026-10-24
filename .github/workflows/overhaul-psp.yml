@@ -442,3 +442,58 @@ jobs:
           git add versions/1.0.0/EBOOT.PBP versions/1.0.0/SHA256.txt versions/1.0.1/EBOOT.PBP versions/1.0.1/SHA256.txt
           git commit -m "Archive versioned 1.0.0 and validated 1.0.1 PSP EBOOTs"
           git push origin HEAD:release-1.0.1
+
+      - name: Archive successful EBOOT permanently in GitHub Releases
+        if: success() && github.event_name != 'pull_request'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          source_eboot="portable_build/EBOOT.PBP"
+          test -s "$source_eboot"
+          # Do not imply that the public CI artifact contains the user's private music.
+          python3 - <<'PY'
+          from pathlib import Path
+          eboot=Path('portable_build/EBOOT.PBP').read_bytes()
+          assert eboot[:4]==b'\\x00PBP', 'Not a PSP executable'
+          assert eboot[-96:-88]!=b'RIFTM103', 'Private audio cannot enter a public release'
+          PY
+          version="$(sed -n 's/^PSP_EBOOT_TITLE = RIFT ASCENT //p' portable_build/Makefile | head -n1)"
+          test -n "$version"
+          safe_branch="$(printf '%s' "$GITHUB_REF_NAME" | tr -cs 'A-Za-z0-9._-' '-')"
+          tag="psp-${safe_branch}-build-${GITHUB_RUN_NUMBER}"
+          mkdir -p permanent-release
+          filename="Rift-Ascent-v${version}-build-${GITHUB_RUN_NUMBER}-NO-MUSIC-EBOOT.PBP"
+          cp "$source_eboot" "permanent-release/$filename"
+          (cd permanent-release && sha256sum "$filename" > "${filename}.sha256")
+          cat > permanent-release/RELEASE-NOTES.md <<EOF
+          # Rift Ascent ${version} — PSP build ${GITHUB_RUN_NUMBER}
+
+          **Experimental PSP/ARK-5 build; real PSP hardware is not verified.**
+
+          - Branch: \`${GITHUB_REF_NAME}\`
+          - Commit: \`${GITHUB_SHA}\`
+          - Full automated test run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - SHA-256 checksum included as a separate downloadable asset.
+
+          **Audio:** This public GitHub build does **not** contain the ten privately
+          provided soundtrack recordings. It also does **not** generate synthetic
+          background music. Sound effects work. The complete user-soundtrack
+          edition is maintained separately in the owner's ChatGPT Rift Ascent Library.
+
+          To install: rename the downloaded PBP to \`EBOOT.PBP\` and place it at
+          \`PSP/GAME/RIFTASCENT/EBOOT.PBP\`.
+          EOF
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists; preserving original build."
+          else
+            gh release create "$tag" \
+              "permanent-release/$filename" \
+              "permanent-release/${filename}.sha256" \
+              --target "$GITHUB_SHA" \
+              --title "Rift Ascent ${version} — build ${GITHUB_RUN_NUMBER} (NO MUSIC)" \
+              --notes-file permanent-release/RELEASE-NOTES.md \
+              --prerelease
+          fi
+          echo "Permanent EBOOT download: https://github.com/$GITHUB_REPOSITORY/releases/tag/$tag"
