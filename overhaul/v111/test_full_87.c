@@ -69,7 +69,7 @@ int main(void){
  ASSERT(game_card_cost_now(&g,1)==0);
  g.hand_count=1;g.hand[0]=1;
  game_play_card(&g,0,0);ASSERT(g.exhaust_count>=1);
- prep(&g,8713);g.hand_count=1;g.hand[0]=77|UPBIT;
+ prep(&g,8713);g.hand_count=2;g.hand[0]=77|UPBIT;g.hand[1]=0;
  game_play_card(&g,0,0);ASSERT(g.hand_count>0);
  int found=0;for(int i=0;i<g.hand_count;i++)
   if(CARD_ID(g.hand[i])==91){found++;ASSERT(CARD_UP(g.hand[i]));}
