@@ -6,8 +6,8 @@ import sys, re, hashlib, base64, io
 
 p=Path(sys.argv[1]); source=(p/"motion_art.c").read_text()
 render=(p/"render.c").read_text(); scenes=(p/"rift112_scene_art.h").read_text()
-assert len(re.findall(r"const uint16_t rift_hero\\[26670\\]",source))==1, "hero not embedded"
-hero_body=re.search(r"const uint16_t rift_hero\\[26670\\]\\s*=\\s*\\{([^}]+)\\}",source,re.S)
+assert len(re.findall(r"const uint16_t rift_hero\[26670\]",source))==1, "hero not embedded"
+hero_body=re.search(r"const uint16_t rift_hero\[26670\]\s*=\s*\{([^}]+)\}",source,re.S)
 assert hero_body and len(re.findall(r"0x[0-9a-fA-F]{4}",hero_body.group(1)))==26670
 assert source.count("rift_hero[26670]")==1
 assert '#include "rift112_scene_art.h"' in render
