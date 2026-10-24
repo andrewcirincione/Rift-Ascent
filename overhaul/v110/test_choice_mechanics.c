@@ -37,7 +37,7 @@ int main(void){
  g.hand_count=1;g.hand[0]=36;game_play_card(&g,0,0);
  CHECK(g.enemies[0].hp==242-6-8);
  start(&g,47);g.hand_count=1;g.hand[0]=41;g.energy=3;
- game_play_card(&g,0,0);CHECK(g.shop_cards[0]==1&&g.exhaust_count>=1);
+ game_play_card(&g,0,0);CHECK(g.shop_cards[0]==1); /* Powers leave play; not the Exhaust pile */
  g.hand_count=1;g.hand[0]=29;hp=g.hp;game_play_card(&g,0,0);
  CHECK(g.hp==hp-2&&g.strength==1);
  start(&g,48);g.hand_count=1;g.hand[0]=24;g.energy=3;
