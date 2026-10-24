@@ -117,6 +117,12 @@ v=sub(v,
     'static void boss_reward_screen(const Game*g){\n header(g,"GUARDIAN DEFEATED / SELECT A RELIC");',
     'static void boss_reward_screen(const Game*g){\n rect(0,28,W,64,BG);\n header(g,"GUARDIAN DEFEATED / SELECT A RELIC");',
     "boss reward background ghost heading")
+# The background image also had a baked-in SKIP button below the
+# boss reward relic cards. Mask that bottom strip without covering card text.
+v=sub(v,
+  ' footer("LEFT/RIGHT CHOOSE  X ACCEPT RELIC AND ASCEND");',
+  ' rect(0,232,W,23,BG);\n footer("LEFT/RIGHT CHOOSE  X ACCEPT RELIC AND ASCEND");',
+  "ghost skip beneath boss rewards")
 # Current/reward UI is intentionally a single title, with victory replay in
 # the battle scene and no second label burned underneath the overlay.
 
