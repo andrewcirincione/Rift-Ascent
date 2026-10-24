@@ -45,11 +45,11 @@ int main(void){
  g.enemies[0].intent=g.enemies[1].intent=0;
  g.enemies[0].intent_value=g.enemies[1].intent_value=1;
  game_end_turn(&g);CHECK(g.enemies[0].hp==246&&g.enemies[1].hp==246);
- start(&g,49);g.hand_count=2;g.hand[0]=26;g.hand[1]=0;g.energy=3;
- g.draw_count=2;g.draw[0]=0;g.draw[1]=1;
+ start(&g,49);g.hand_count=1;g.hand[0]=25;g.energy=3;
+ g.discard_count=2;g.discard[0]=0;g.discard[1]=1;
  game_play_card(&g,0,0);CHECK(g.screen==CARD_CHOICE);
  int count=g.draw_count;game_action(&g,BTN_OK);
  CHECK(g.screen==COMBAT&&g.draw_count==count+1);
- puts("PASS: save/load mid-selection, Brand, Armaments, Burning Pact, True Grit, War Cry, Flame Barrier, Rupture, Rage and Conflagration");
+ puts("PASS: save/load mid-selection, Brand, Armaments, Burning Pact, True Grit, Headbutt, Flame Barrier, Rupture, Rage and Conflagration");
  return 0;
 }
