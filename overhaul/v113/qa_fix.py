@@ -107,6 +107,16 @@ if v.count(relic_line)==2:
     v=v.replace(relic_line+"\n   "+relic_line,relic_line,1)
 elif v.count(relic_line)!=1:
     raise RuntimeError("Boss relic title/description anchor missing")
+# The artwork reused behind rewards contains faint baked-in "Spoils of Battle"
+# lettering. Remove that area before drawing the live reward HUD.
+v=sub(v,
+    'static void reward_screen(const Game*g){\n header(g,"SPOILS OF BATTLE / CHOOSE A CARD");',
+    'static void reward_screen(const Game*g){\n rect(0,28,W,64,BG);\n header(g,"SPOILS OF BATTLE / CHOOSE A CARD");',
+    "reward background ghost heading")
+v=sub(v,
+    'static void boss_reward_screen(const Game*g){\n header(g,"GUARDIAN DEFEATED / SELECT A RELIC");',
+    'static void boss_reward_screen(const Game*g){\n rect(0,28,W,64,BG);\n header(g,"GUARDIAN DEFEATED / SELECT A RELIC");',
+    "boss reward background ghost heading")
 # Current/reward UI is intentionally a single title, with victory replay in
 # the battle scene and no second label burned underneath the overlay.
 
