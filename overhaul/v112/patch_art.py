@@ -40,7 +40,7 @@ def definition(name, values):
 hero = load("hero").convert("RGBA")
 assert hero.size == (210, 127), f"Unexpected hero sprite size {hero.size}"
 hero_src = (game / "motion_art.c").read_text()
-pattern = r"const uint16_t rift_hero\\[26670\\]\\s*=\\s*\\{.*?\\};"
+pattern = r"const uint16_t rift_hero\[26670\]\s*=\s*\{.*?\};"
 new_hero = definition("rift_hero", pack565(hero)).replace("static const uint16_t", "const uint16_t", 1)
 hero_src, count = re.subn(pattern, lambda m: new_hero, hero_src, count=1, flags=re.S)
 if count != 1:
