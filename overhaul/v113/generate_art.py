@@ -59,7 +59,7 @@ def composite_hero():
  seg(d,[(140,88),(121,106)],(153,106,64,255),2)
  ellipse(d,(116,104,124,113),(207,170,101,255),(31,37,45,255),1)
  return im.resize((210,127),Image.Resampling.LANCZOS)
-def backdrop(kind):
+def backdrop(kind, full_res=False):
  rnd=random.Random(447 if kind=="event" else 892)
  im=Image.new("RGB",(240*SCALE,136*SCALE));d=ImageDraw.Draw(im)
  for y in range(136):
@@ -119,7 +119,7 @@ def backdrop(kind):
   for j in range(30):
    x=rnd.randrange(240);y=rnd.randrange(18,133)
    ellipse(d,(x,y,x+1,y+1),(188,101,65))
- return im.resize((240,136),Image.Resampling.LANCZOS)
+ return im.resize((480,272) if full_res else (240,136),Image.Resampling.LANCZOS)
 def pack565(im):
  out=[]
  for r,g,b,a in im.convert("RGBA").getdata():
@@ -144,7 +144,7 @@ headers.append("#endif")
 (root/"rift112_scene_art.h").write_text("\n".join(headers))
 # A genuine native 480x272 PIC1, not resized/stretched from a wide thumbnail.
 # The warrior is the exact asset compiled as the playable 210x127 sprite.
-splash=backdrop("event").resize((480,272),Image.Resampling.LANCZOS).convert("RGBA")
+splash=backdrop("event",full_res=True).convert("RGBA")
 hero_big=hero.resize((300,182),Image.Resampling.LANCZOS)
 splash.alpha_composite(hero_big,(4,70))
 dd=ImageDraw.Draw(splash)
