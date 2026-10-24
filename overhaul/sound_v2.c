@@ -52,30 +52,40 @@ void rift_audio_generate(RiftSound*s,int16_t*out,int frames,int battle,int accen
  unsigned act=theme/2u;
  battle=(int)(theme&1u);
  const unsigned step_samples=battle?5880u:9180u;  /* 112 or 188 BPM-feel subdivisions */
+ unsigned cached_step=64u;
+ uint32_t lead_delta=0,bass_delta=0,pad1_delta=0,pad2_delta=0;
+ unsigned short note=0,root=0;
  for(int i=0;i<frames;i++){
   if(s->observed_serial!=fx_serial){
    s->observed_serial=fx_serial;s->fx_kind=fx_request;s->fx_age=0;s->sfx_phase=0;
   }
   unsigned step=(s->pos/step_samples)&63u;
   unsigned elapsed=s->pos%step_samples;
-  unsigned phrase=(s->pos/(step_samples*64u));
-  unsigned tune=step;
-  unsigned short note=(battle?lead_battle:lead_calm)[tune];
-  if(act==1 && note)note=(unsigned short)(note*6u/5u);
-  if(act>=2 && note)note=(unsigned short)(note*4u/3u);
-  if(phrase&1u && note)note=(unsigned short)(note*9u/8u);
-  if(phrase&2u && note)note=(unsigned short)(note*3u/4u);
-  unsigned short root=(battle?bass_battle:bass_calm)[(step/4u)&15u];
-  if(act==1 && root)root=(unsigned short)(root*6u/5u);
-  if(act>=2 && root)root=(unsigned short)(root*4u/3u);
-  static const unsigned short pad_chords[8]={110,131,98,147,110,123,92,131};
-  unsigned pad_root=pad_chords[(step/8u)&7u];
-  if(act==1)pad_root=pad_root*6u/5u;
-  if(act>=2)pad_root=pad_root*4u/3u;
-  s->lead += (uint32_t)(((uint64_t)note*65536u)/44100u);
-  s->bass += (uint32_t)(((uint64_t)root*65536u)/44100u);
-  s->pad_phase1+=(uint32_t)(((uint64_t)pad_root*65536u)/44100u);
-  s->pad_phase2+=(uint32_t)(((uint64_t)pad_root*3u*65536u/2u)/44100u);
+  if(step!=cached_step){
+   cached_step=step;
+   unsigned phrase=s->pos/(step_samples*64u);
+   note=(battle?lead_battle:lead_calm)[step];
+   if(act==1 && note)note=(unsigned short)(note*6u/5u);
+   if(act>=2 && note)note=(unsigned short)(note*4u/3u);
+   if(phrase&1u && note)note=(unsigned short)(note*9u/8u);
+   if(phrase&2u && note)note=(unsigned short)(note*3u/4u);
+   root=(battle?bass_battle:bass_calm)[(step/4u)&15u];
+   if(act==1 && root)root=(unsigned short)(root*6u/5u);
+   if(act>=2 && root)root=(unsigned short)(root*4u/3u);
+   static const unsigned short pad_chords[8]={110,131,98,147,110,123,92,131};
+   unsigned pad_root=pad_chords[(step/8u)&7u];
+   if(act==1)pad_root=pad_root*6u/5u;
+   if(act>=2)pad_root=pad_root*4u/3u;
+   /* Frequency products fit in unsigned 32 bits for every table note. */
+   lead_delta=(uint32_t)note*65536u/44100u;
+   bass_delta=(uint32_t)root*65536u/44100u;
+   pad1_delta=(uint32_t)pad_root*65536u/44100u;
+   pad2_delta=((uint32_t)pad_root*3u*65536u/2u)/44100u;
+  }
+  s->lead+=lead_delta;
+  s->bass+=bass_delta;
+  s->pad_phase1+=pad1_delta;
+  s->pad_phase2+=pad2_delta;
   s->noise ^= s->noise<<13;s->noise ^= s->noise>>17;s->noise ^= s->noise<<5;
   if(!s->noise)s->noise=0x9e3779b9u;
   int env=elapsed<260u?(int)(elapsed/2u): (elapsed<step_samples*2u/3u?130:70);
