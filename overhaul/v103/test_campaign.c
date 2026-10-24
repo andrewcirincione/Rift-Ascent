@@ -11,8 +11,17 @@ int main(void){
    case TITLE:game_action(&g,BTN_OK);break;
    case MAP:{
     if(g.floor>=MAP_ROWS){game_action(&g,BTN_OK);break;}
-    int dest=-1;
-    for(int i=0;i<MAP_LANES;i++)if(game_route_available(&g,i)){dest=i;break;}
+    int dest=-1,best=-1000;
+    for(int i=0;i<MAP_LANES;i++)if(game_route_available(&g,i)){
+      int type=g.map[g.floor][i],score=0;
+      if(type==NODE_SHOP&&shops==0)score+=100;
+      if(type==NODE_EVENT&&events==0)score+=100;
+      if(type==NODE_REST&&rests==0)score+=100;
+      if(type==NODE_ELITE||type==NODE_FIGHT)score+=20;
+      if(type==NODE_BOSS)score+=10;
+      score-=i;
+      if(score>best){best=score;dest=i;}
+    }
     REQUIRE(dest>=0);
     g.selection=dest;game_action(&g,BTN_OK);break;
    }
