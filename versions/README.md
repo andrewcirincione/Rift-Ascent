@@ -9,3 +9,5 @@ Every explicitly named Rift Ascent version has its own `versions/<version>/` dir
 - [1.1.0 revision](1.1.0/PATCH_NOTES.md) — integrated claymore hero sprite, smooth room icons, collision-free cards, wiki-accurate Inferno and boosted embedded soundtrack.
 
 The released binaries are checked into the repository by the isolated successful GitHub Actions publishing job. Always preserve an independent copy of the last verified physical-PSP EBOOT.
+
+- [1.1.0 87-card Ironclad expansion](1.1.0/IRONCLAD_87_RELEASE.md) — complete [87-card catalog](1.1.0/IRONCLAD_87_CATALOG.md), migrated saves, and verified PSP EBOOT.
