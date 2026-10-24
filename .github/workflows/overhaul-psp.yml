@@ -68,6 +68,11 @@ jobs:
           python3 overhaul/v110/expand_ironclad_roster.py GAME/src
           python3 overhaul/v110/finalize_five_cards.py GAME/src
           python3 overhaul/v110/patch_latest_wiki.py GAME/src
+          python3 overhaul/v111/01_catalog.py GAME/src
+          python3 overhaul/v111/02_power_hooks.py GAME/src
+          python3 overhaul/v111/03_card_effects.py GAME/src
+          python3 overhaul/v112/patch_art.py GAME/src
+          python3 overhaul/v112/test_art.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -83,6 +88,7 @@ jobs:
           python3 overhaul/v110/keep_choice_music.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
+          cp GAME/src/rift112_pic1.png portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
           TARGET = rift_ascent_crt_free
           OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o
@@ -92,7 +98,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.0
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.2
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
@@ -145,6 +151,12 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v110/test_latest_wiki.c GAME/src/game.c -o latest_wiki_tests
           ASAN_OPTIONS=detect_leaks=1 ./latest_wiki_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v111/test_full_87.c GAME/src/game.c -o full_87_tests
+          ASAN_OPTIONS=detect_leaks=1 ./full_87_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v111/test_87_upgrades.c GAME/src/game.c -o all_upgrade_tests
+          ASAN_OPTIONS=detect_leaks=1 ./all_upgrade_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
           ASAN_OPTIONS=detect_leaks=1 ./campaign_tests
