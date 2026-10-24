@@ -9,7 +9,7 @@
 - XMB PIC1.PNG is generated at exactly **480 × 272** pixels; no forced aspect distortion.
 - New dedicated illustrated backgrounds for mystery/event and merchant/shop rooms; neither reuses the combat screenshot.
 - Generated **92 distinct card-art illustrations**, indexed by actual card ID.
-- Restored audible procedural music when the standalone EBOOT lacks an embedded music index, and made the audio worker recover channel and Memory Stick errors after suspend/resume instead of permanently stopping. **The previous optional user-supplied WAV soundtrack is not packaged unless the actual source music files are available.**
+- No synthesized music is allowed in the release: source-only EBOOT is music-silent, while the packaged standalone release contains the exact ten user-provided WAV recordings compressed as indexed ADPCM. PSP SFX remain available.
 - Added clear event choice descriptions, including what Dread does; existing card/relic/upgrade inspection remains available.
 - Made random Exhaust effects explicitly report the card selected.
 - Removed confusing duplicate/obsolete status labels above enemies and constrained intention text to its black background.
@@ -25,3 +25,8 @@ Use **GitHub → Actions → Rift Ascent PSP Gameplay Overhaul → latest succes
 The Actions workflow compiles with PSPDEV, runs native engine tests with sanitizers, launches under PPSSPP, validates the startup trace, screenshots a combat interaction, and checks route/map and enemy glossary screens. **Passing emulator checks does not guarantee hardware compatibility or a suspend/resume fix on the real handheld.**
 
 Keep your previously working EBOOT as a backup.
+## User's soundtrack — mandatory release procedure
+
+The GitHub Actions artifact intentionally has **no soundtrack**, because the recordings were privately supplied outside the repository. It must **not** be used as the distributable game. The complete EBOOT must append ten original tracks in this exact order using `tools/embed_soundtrack_110.py`: Checkers (1), RiftMenu, BARBARICE (1), BREAKER (1), Cof (1), Devour (1), DIRE (1), Drudge (1), OVERT (1), STAMMER (1). Original recorded audio only; never generate background music. A 96-byte `RIFTM103` index footer and CRC32 must validate before delivering the final EBOOT.
+
+Native sound generator is now `overhaul/v113/sfx_only.c`. `overhaul/v113/test_qa.c` ensures background remains silent under all ten scene settings until an explicit SFX triggers. `overhaul/v113/test_audio_policy.py` statically excludes synthesizer sources. **The earlier source-only ~3 MB EBOOT is no longer considered a complete music release.**
