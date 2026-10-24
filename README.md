@@ -4,12 +4,20 @@
 
 # Rift Ascent — PSP build repository
 
-This repository will build **Rift Ascent** into `EBOOT.PBP` with the official PSPDEV toolchain.
+## Download compiled PSP EBOOTs
 
-## Source archive upload
+**[Browse Rift Ascent GitHub Releases](https://github.com/andrewcirincione/Rift-Ascent/releases)**
 
-Upload the previously prepared `Rift_Ascent_GitHub_Ready.zip` file to the **repository root** using GitHub's **Add file → Upload files → Commit changes**. Do not unpack the archive; the GitHub Actions workflow unpacks it in its isolated build environment.
+Every **successful** build from the maintained `v1.1.3` branch is archived as a separately versioned, permanent GitHub Release. Releases provide a download of the exact compiled `.PBP` file and a matching SHA-256 checksum. The **Actions** tab additionally retains emulator test screenshots and build logs for a limited period.
 
-On a successful build, download the **Rift-Ascent-EBOOT** artifact from the latest successful workflow run under **Actions**.
+**Music and copyright:** This is a **public** repository. Publicly downloadable CI builds are labeled **NO MUSIC** and intentionally exclude the ten privately supplied soundtrack recordings. The game does not synthesize background music. The original-soundtrack EBOOT is stored separately in the owner's ChatGPT Library, not on the public GitHub repository.
 
-**Current status:** Awaiting the project source ZIP. Build and PSP/PPSSPP boot verification are not complete.
+**Install note:** A downloaded filename like `Rift-Ascent-v1.1.3-build-123-NO-MUSIC-EBOOT.PBP` must be renamed to `EBOOT.PBP` for the PSP homebrew folder at `PSP/GAME/RIFTASCENT/`. Hardware compatibility has not been confirmed on PSP-3000/ARK-5, so keep a known-working backup.
+
+## Source and testing
+
+- Project sources: `Rift_Ascent_GitHub_OneClick_Setup.zip` plus sequential updates in `overhaul/`
+- Maintained release branch: [`v1.1.3`](https://github.com/andrewcirincione/Rift-Ascent/tree/v1.1.3)
+- Automated workflow: [PSP gameplay overhaul](https://github.com/andrewcirincione/Rift-Ascent/actions/workflows/overhaul-psp.yml)
+- Earlier EBOOT snapshots also appear where available under `versions/`.
+
