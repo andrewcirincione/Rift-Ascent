@@ -6,7 +6,7 @@ All 92 cards get deterministic individually rendered 60x40 illustrations.
 """
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
-import colorsys, math, random, re, sys
+import colorsys, math, random, re, sys, base64, io
 root=Path(sys.argv[1]); SCALE=3
 def P(v):return round(v*SCALE)
 def poly(d,pts,fill): d.polygon([(P(x),P(y)) for x,y in pts],fill=fill)
@@ -131,7 +131,8 @@ def pack565(im):
 def declare(name,vals):
  return "static const uint16_t "+name+"["+str(len(vals))+"]={\n"+",\n".join(
   ",".join("0x%04x"%v for v in vals[i:i+40]) for i in range(0,len(vals),40))+"\n};\n"
-hero=composite_hero()
+hero=Image.open(io.BytesIO(base64.b64decode((Path(__file__).parent/"assets/hero.b64").read_text()))).convert("RGBA")
+assert hero.size==(210,127)
 hero_src=(root/"motion_art.c").read_text()
 hero_values=pack565(hero)
 match=re.search(r"const uint16_t rift_hero\[26670\]\s*=\s*\{.*?\};",hero_src,re.S)
