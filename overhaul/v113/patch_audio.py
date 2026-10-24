@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """1.1.3: recover the PSP audio channel and embedded soundtrack on resume.
-Procedural soundtrack is an audible fallback if the EBOOT is moved/renamed."""
+Only explicitly supplied music tracks are permitted; an unreadable EBOOT stays music-silent."""
 from pathlib import Path
 import sys
 p=Path(sys.argv[1]);s=p.read_text()
@@ -18,12 +18,12 @@ rep('''    soundtrack_open();
             soundtrack_open();
         if(channel<0) {
             channel=sceAudioChReserve(-1,512,PSP_AUDIO_FORMAT_STEREO);
-            if(channel<0)continue;
+            if(channel<0){sceKernelDelayThread(50000);continue;}
         }''')
 rep('''        rift_audio_generate(&music,audio_buffer,512,track,1);''',
-'''        /* Never render silence when embedded music isn't readable:
-           the native procedural score plays until streams recover. */
-        rift_audio_generate(&music,audio_buffer,512,track,soundtrack_active?1:0);''')
+'''        /* SFX only. NEVER enable a synthesized music fallback. The
+           final EBOOT is packaged with the user's ten supplied WAV tracks. */
+        rift_audio_generate(&music,audio_buffer,512,track,1);''')
 rep('''           }else audio_last=0;
            int l=audio_last+(int)audio_buffer[i*2]*2/3;
            int r=audio_last+(int)audio_buffer[i*2+1]*2/3;''',
@@ -52,4 +52,4 @@ rep('''    sceAudioChRelease(channel);
 rep('''     if(audio_length<=0)return 0;''',
 '''     if(audio_length<=0){soundtrack_close();return 0;}''')
 p.write_text(s)
-print("PASS 1.1.3: recover audio on channel failure / suspend, reopen and fallback score")
+print("PASS 1.1.3: recover audio on channel failure / suspend, reopen and user-supplied music only")
