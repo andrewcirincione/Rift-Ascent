@@ -75,10 +75,11 @@ t=patch(t,'dark_rect(283,29,129,46,237);','dark_rect(270,29,145,56,245);','legac
 # Display the last random effect/card in a compact notification.
 t=patch(t,'header(g,"BATTLE");',
 '''header(g,"BATTLE");
- if(!strncmp(g->message,"Random exhaust:",15)) {
+ if(!memcmp(g->message,"Random exhaust:",15)) {
    dark_rect(20,46,236,18,222);
    fittext(27,50,g->message,32,GOLD);
  }''','random effect toast')
+t=patch(t,'header(g,"VICTORY / CHOOSE A CARD TO ADD");','header(g,"SPOILS OF BATTLE / CHOOSE A CARD");','reward header')
 # The reward title was underneath a second dynamically drawn title panel.
 t=patch(t,'center(240,49,"SPOILS OF BATTLE",GOLD,2);','/* Selected card preview occupies this region; only one reward heading. */','reward duplicate')
 # Render only viable map nodes/edges, preventing stranded ghost nodes.
@@ -110,7 +111,7 @@ details=r"""static const char *rift113_event_details[12]={
  "Restore 28 HP. Add Injury: an unplayable card diluting future draws.",
  "Gain 110 gold, lose 16 HP. This can be fatal.",
  "Pay 12 gold. Choose TWO eligible deck cards to upgrade; effects previewed.",
- "Gain an unknown relic. Add Dread curse: unplayable, drains 1 energy when drawn."
+ "Gain an unknown relic. Add Dread curse: unplayable; costs 1 energy next turn if held."
 };
 """
 t=t.replace(start,details+start,1)
