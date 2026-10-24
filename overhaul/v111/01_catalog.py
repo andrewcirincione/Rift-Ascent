@@ -138,15 +138,12 @@ draw('if(CARD_UP(raw)||id>=50)text(351,168,"MAX UPGRADED",RED,1);',
 a='int game_load(Game*g,const char*path){Game temp;uint32_t check;FILE*f=fopen(path,"rb");if(!f)return 0;int ok=fread(&check,4,1,f)==1&&fread(&temp,sizeof(temp),1,f)==1;fclose(f);if(!ok||check!=hash_bytes((const unsigned char*)&temp,sizeof(temp))||!game_validate(&temp))return 0;*g=temp;return 1;}'
 b='''int game_load(Game*g,const char*path){
  Game temp;uint32_t check;FILE*f=fopen(path,"rb");if(!f)return 0;
- if(fseek(f,0,SEEK_END)){fclose(f);return 0;}
- long len=ftell(f);rewind(f);
  size_t legacy=offsetof(Game,ic),now=sizeof(Game),n;
- if(len==(long)(now+4))n=now;
- else if(len==(long)(legacy+4))n=legacy;
- else {fclose(f);return 0;}
  memset(&temp,0,sizeof(temp));
- int ok=fread(&check,4,1,f)==1&&fread(&temp,n,1,f)==1;
+ int ok=fread(&check,4,1,f)==1;
+ n=ok?fread(&temp,1,now,f):0;
  fclose(f);
+ if(n!=now&&n!=legacy)return 0;
  if(!ok||check!=hash_bytes((const unsigned char*)&temp,n))return 0;
  if(n==legacy&&temp.version==16)temp.version=GAME_VERSION;
  if(!game_validate(&temp))return 0;
