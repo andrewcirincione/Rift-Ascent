@@ -66,6 +66,7 @@ jobs:
           python3 overhaul/v110/audit_cards_patch.py GAME/src
           python3 overhaul/v110/fix_remaining_mechanics.py GAME/src
           python3 overhaul/v110/expand_ironclad_roster.py GAME/src
+          python3 overhaul/v110/finalize_five_cards.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -137,6 +138,9 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v110/test_expanded_roster.c GAME/src/game.c -o expanded_roster_tests
           ASAN_OPTIONS=detect_leaks=1 ./expanded_roster_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_final_five.c GAME/src/game.c -o final_five_tests
+          ASAN_OPTIONS=detect_leaks=1 ./final_five_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
           ASAN_OPTIONS=detect_leaks=1 ./campaign_tests
