@@ -203,7 +203,8 @@ fix('damage_player(g,raw);\n if(g->shop_cards[1]>0)',
 # Replay Howl from Beyond from Exhaust, Stampede before normal Hand discard,
 # track future attack effects as player turn (not enemy turn).
 fix('void game_end_turn(Game*g){\n if(g->screen!=COMBAT)return;',
-'''void game_end_turn(Game*g){
+'''static void all_damage(Game*g,int n);
+void game_end_turn(Game*g){
  if(g->screen!=COMBAT)return;
  if(g->ic[IC_STAMPEDE]>0&&g->hand_count>0){
   int copies=MIN(4,g->ic[IC_STAMPEDE]);
