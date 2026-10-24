@@ -101,11 +101,12 @@ v=sub(v,
    return;
  }''',"start glyph")
 # The boss relic title area was drawn twice in the original renderer.
-v=sub(v,
-'''   wrapped_text(x+7,y+85,relic_defs[g->reward[i]].desc,16,5,WHITE);
-   wrapped_text(x+7,y+85,relic_defs[g->reward[i]].desc,16,5,WHITE);''',
-'''   wrapped_text(x+7,y+85,relic_defs[g->reward[i]].desc,16,5,WHITE);''',
-"boss relic duplicate")
+# One of the earlier generators may already have removed the second line.
+relic_line="wrapped_text(x+7,y+85,relic_defs[g->reward[i]].desc,16,5,WHITE);"
+if v.count(relic_line)==2:
+    v=v.replace(relic_line+"\n   "+relic_line,relic_line,1)
+elif v.count(relic_line)!=1:
+    raise RuntimeError("Boss relic title/description anchor missing")
 # Current/reward UI is intentionally a single title, with victory replay in
 # the battle scene and no second label burned underneath the overlay.
 
