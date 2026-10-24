@@ -1,36 +1,29 @@
 #!/usr/bin/env python3
-"""Emulator ONLY: cycle actual event/shop/reward/boss/map render code.
-Never added to production EBOOT: injected after production source copied.
-"""
+"""Emulator-only independent QA screenshots, never compiled into production."""
 from pathlib import Path
 import sys
-p=Path(sys.argv[1]);s=p.read_text()
-a="        game_update(&game);"
-b='''#ifdef RIFT_QA_SCENES
-        /* Reproduce each requested UI screen, holding still for screenshots. */
-        /* Wall-clock gates keep CI screens comparable even when software
-           PSP emulation renders fewer than 60 frames per second. */
-        static unsigned qa_start_us=0;
-        static int qa_last_scene=-1;
-        unsigned qa_now_us=sceKernelGetSystemTimeLow();
-        if(!qa_start_us)qa_start_us=qa_now_us;
-        unsigned qa_elapsed=(qa_now_us-qa_start_us)/1000000u;
-        int qa_scene=(qa_elapsed<3u)?0:(qa_elapsed<5u)?1:
-                     (qa_elapsed<8u)?2:(qa_elapsed<10u)?3:4;
-        if(qa_scene!=qa_last_scene){
-          qa_last_scene=qa_scene;
-          if(qa_scene==0){game.screen=EVENT;game.effect_turn=11;game.selection=0;}
-          if(qa_scene==1){game.screen=SHOP;game.selection=3;game.shop_relic=1;}
-          if(qa_scene==2){game.screen=REWARD;game.selection=0;
-             game.reward[0]=3;game.reward[1]=8;game.reward[2]=10;
-             game.message[0]=0;}
-          if(qa_scene==3){game.screen=BOSS_REWARD;game.selection=0;
-             game.reward[0]=1;game.reward[1]=3;game.reward[2]=4;}
-          if(qa_scene==4){game.screen=MAP;game.floor=11;game.lane=1;
-             game.scroll=0;game.selection=1;}
+p=Path(sys.argv[1]);src=p.read_text()
+anchor="        game_update(&game);"
+injection='''#if defined(RIFT_QA_EVENT) || defined(RIFT_QA_SHOP) || defined(RIFT_QA_REWARD) || defined(RIFT_QA_BOSS) || defined(RIFT_QA_MAP)
+        static int qa_injected=0;
+        if(!qa_injected&&frame>=6){
+          qa_injected=1;
+#ifdef RIFT_QA_EVENT
+          game.screen=EVENT;game.effect_turn=11;game.selection=0;
+#elif defined(RIFT_QA_SHOP)
+          game.screen=SHOP;game.selection=3;game.shop_relic=1;
+#elif defined(RIFT_QA_REWARD)
+          game.screen=REWARD;game.selection=0;game.reward[0]=3;
+          game.reward[1]=8;game.reward[2]=10;game.message[0]=0;
+#elif defined(RIFT_QA_BOSS)
+          game.screen=BOSS_REWARD;game.selection=0;
+          game.reward[0]=1;game.reward[1]=3;game.reward[2]=4;
+#elif defined(RIFT_QA_MAP)
+          game.screen=MAP;game.floor=11;game.lane=1;game.scroll=0;game.selection=1;
+#endif
         }
 #endif
         game_update(&game);'''
-if a not in s:raise RuntimeError("Missing CI scene hook")
-p.write_text(s.replace(a,b,1))
-print("PASS QA scene cycling emulator-only, isolated from PSP release binary")
+if src.count(anchor)!=1:raise RuntimeError("QA hook missing or ambiguous")
+p.write_text(src.replace(anchor,injection,1))
+print("PASS QA: independent isolated scene demo")
