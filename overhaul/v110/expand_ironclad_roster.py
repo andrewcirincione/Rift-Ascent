@@ -34,11 +34,20 @@ for a,b in [
 ]:fix(a,b)
 fix("int game_effective_damage(const Game *g,int raw,int target) {",
     "static int strike_count(const Game*g);\nint game_effective_damage(const Game *g,int raw,int target) {")
+fix("static void all_damage(Game*g,int n){",'''static int has_strike_tag(const char *name){
+ for(;*name;name++){
+  const char *p=name,*key="Strike";
+  while(*p&&*key&&*p==*key){p++;key++;}
+  if(!*key)return 1;
+ }
+ return 0;
+}
+static void all_damage(Game*g,int n){''')
 fix("static void all_damage(Game*g,int n){",'''static int strike_count(const Game*g){
  int count=0;
  for(int i=0;i<g->deck_count;i++){
   int id=CARD_ID(g->deck[i]);
-  if(id>=0&&id<CARD_COUNT&&strstr(cards[id].name,"Strike"))count++;
+  if(id>=0&&id<CARD_COUNT&&has_strike_tag(cards[id].name))count++;
  }
  return count;
 }
