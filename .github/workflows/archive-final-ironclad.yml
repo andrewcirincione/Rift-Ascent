@@ -1,0 +1,32 @@
+name: Archive Verified Ironclad Engine
+on:
+  push:
+    paths:
+      - '.github/workflows/archive-final-ironclad.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  archive:
+    if: github.ref_name == 'fix-ironclad-mechanics-110'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Archive PSPDEV engine binary (private soundtracks excluded)
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p versions/1.1.0
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12567218452/zip" > /tmp/rift_ironclad_build.zip
+          unzip -p /tmp/rift_ironclad_build.zip portable_build/EBOOT.PBP > versions/1.1.0/IRONCLAD_ENGINE_EBOOT.PBP
+          test -s versions/1.1.0/IRONCLAD_ENGINE_EBOOT.PBP
+          (cd versions/1.1.0 && sha256sum IRONCLAD_ENGINE_EBOOT.PBP > IRONCLAD_ENGINE_SHA256.txt)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f versions/1.1.0/IRONCLAD_ENGINE_EBOOT.PBP
+          git add versions/1.1.0/IRONCLAD_ENGINE_SHA256.txt
+          git commit -m "Archive validated Ironclad engine-only EBOOT and checksum"
+          git push origin HEAD:fix-ironclad-mechanics-110

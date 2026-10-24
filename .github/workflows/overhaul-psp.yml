@@ -63,6 +63,11 @@ jobs:
           python3 overhaul/v110/generate_art.py GAME/src
           python3 overhaul/v110/patch_inferno.py GAME/src
           python3 overhaul/v110/patch_render.py GAME/src/render.c
+          python3 overhaul/v110/audit_cards_patch.py GAME/src
+          python3 overhaul/v110/fix_remaining_mechanics.py GAME/src
+          python3 overhaul/v110/expand_ironclad_roster.py GAME/src
+          python3 overhaul/v110/finalize_five_cards.py GAME/src
+          python3 overhaul/v110/patch_latest_wiki.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -75,6 +80,7 @@ jobs:
           python3 overhaul/v102/01_pause_psp.py portable_build/psp_start.c
           python3 overhaul/v103/patch_audio.py portable_build/psp_start.c
           python3 overhaul/v110/patch_audio_gain.py portable_build/psp_start.c
+          python3 overhaul/v110/keep_choice_music.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cat > portable_build/Makefile <<'EOF'
@@ -124,6 +130,21 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v110/test_inferno.c GAME/src/game.c -o inferno_tests
           ASAN_OPTIONS=detect_leaks=1 ./inferno_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_card_audit.c GAME/src/game.c -o card_audit_tests
+          ASAN_OPTIONS=detect_leaks=1 ./card_audit_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_choice_mechanics.c GAME/src/game.c -o choice_tests
+          ASAN_OPTIONS=detect_leaks=1 ./choice_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_expanded_roster.c GAME/src/game.c -o expanded_roster_tests
+          ASAN_OPTIONS=detect_leaks=1 ./expanded_roster_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_final_five.c GAME/src/game.c -o final_five_tests
+          ASAN_OPTIONS=detect_leaks=1 ./final_five_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v110/test_latest_wiki.c GAME/src/game.c -o latest_wiki_tests
+          ASAN_OPTIONS=detect_leaks=1 ./latest_wiki_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
           ASAN_OPTIONS=detect_leaks=1 ./campaign_tests

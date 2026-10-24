@@ -31,6 +31,7 @@ int main(void){
     break;
    }
    case REWARD:g.selection=0;game_action(&g,BTN_OK);break;
+   case CARD_CHOICE:game_action(&g,BTN_OK);break;
    case REST:rests++;g.selection=0;game_action(&g,BTN_OK);break;
    case SHOP:shops++;game_action(&g,BTN_BACK);break;
    case EVENT:events++;g.selection=1;game_action(&g,BTN_OK);break;
