@@ -76,7 +76,9 @@ jobs:
           python3 overhaul/v113/patch_game_ui.py GAME/src
           python3 overhaul/v113/generate_art.py GAME/src
           python3 overhaul/v113/qa_fix.py GAME/src
-          cp overhaul/sound_v2.c GAME/src/sound.c
+          cp overhaul/v113/sfx_only.c GAME/src/sound.c
+          # The only actual music in the distributed EBOOT is later packaged
+          # privately from the ten user-provided WAV files, not stored in Git.
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
           cp GAME/src/* portable_build/
@@ -117,6 +119,20 @@ jobs:
             GAME/src/game.c
             GAME/src/game.h
             GAME/src/render.c
+
+      - name: Audit music-source policy (strictly user's ten recordings)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 overhaul/v113/test_audio_policy.py GAME/src/sound.c
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("portable_build/psp_start.c").read_text()
+          assert "rift_audio_generate(&music,audio_buffer,512,track,1);" in p
+          assert "soundtrack_active?1:0" not in p
+          assert "soundtrack_open();" in p
+          print("PASS: PSP mixes embedded songs plus SFX, never synthesizes music")
+          PY
 
       - name: Compile and run native deterministic gameplay tests
         shell: bash
