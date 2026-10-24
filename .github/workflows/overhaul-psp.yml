@@ -347,55 +347,48 @@ jobs:
             test "$colors" -gt 64
           done
 
-      - name: Playtest five real gameplay screens in PPSSPP (event/shop/reward/boss/map)
+      - name: Playtest independently booted event/shop/reward/boss/map scenes in PPSSPP
         shell: bash
         run: |
           set -euo pipefail
-          cp -a portable_build portable_qa
-          sed -i 's/^CFLAGS = /CFLAGS = -DRIFT_QA_SCENES /' portable_qa/Makefile
-          python3 overhaul/v113/qa_scenes.py portable_qa/psp_start.c
-          docker run --rm -v "$PWD/portable_qa:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+          for scene in event shop reward boss map; do
+            echo "Preparing $scene screen"
+            cp -a portable_build "portable_qa_$scene"
+            macro="$(printf '%s' "$scene" | tr '[:lower:]' '[:upper:]')"
+            sed -i "s/^CFLAGS = /CFLAGS = -DRIFT_QA_$macro /" "portable_qa_$scene/Makefile"
+            python3 overhaul/v113/qa_scenes.py "portable_qa_$scene/psp_start.c"
+            docker run --rm -v "$PWD/portable_qa_$scene:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; test -s EBOOT.PBP'
+          done
           export LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulseaudio
           export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift-qa-xdg-XXXXXX)"
           chmod 700 "$XDG_RUNTIME_DIR"
           pulseaudio --start --exit-idle-time=-1
           pactl load-module module-null-sink sink_name=rift_qa_null || true
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
-            set -e
-            ./squashfs-root/AppRun "$PWD/portable_qa/EBOOT.PBP" > emulator_results/qa-screens.log 2>&1 &
-            pid=$!
-            sleep 2
-            import -display "$DISPLAY" -window root emulator_results/qa-event.png
-            sleep 2.5
-            import -display "$DISPLAY" -window root emulator_results/qa-shop.png
-            sleep 2.5
-            import -display "$DISPLAY" -window root emulator_results/qa-reward.png
-            sleep 2.5
-            import -display "$DISPLAY" -window root emulator_results/qa-boss-reward.png
-            sleep 3
-            import -display "$DISPLAY" -window root emulator_results/qa-late-map.png
-            kill "$pid" || true
-            wait "$pid" 2>/dev/null || true
+            set -eu
+            for scene in event shop reward boss map; do
+              ./squashfs-root/AppRun "$PWD/portable_qa_$scene/EBOOT.PBP" > "emulator_results/qa-$scene.log" 2>&1 &
+              pid=$!
+              sleep 9
+              import -display "$DISPLAY" -window root "emulator_results/qa-$scene.png"
+              kill "$pid" || true
+              wait "$pid" 2>/dev/null || true
+              test -s "emulator_results/qa-$scene.png"
+            done
           '
-          for scene in event shop reward boss-reward late-map; do
-            test -s "emulator_results/qa-$scene.png"
-            colors="$(identify -format '%k' "emulator_results/qa-$scene.png")"
-            echo "QA $scene colors: $colors"
-            test "$colors" -ge 64
-          done
           python3 - <<'PY'
-          from PIL import Image,ImageChops
+          from PIL import Image, ImageChops
           from pathlib import Path
-          names=['event','shop','reward','boss-reward','late-map']
+          names=['event','shop','reward','boss','map']
           ims=[Image.open(Path('emulator_results')/f'qa-{n}.png').convert('RGB') for n in names]
-          # These are actual emulator frames; menus must not all be the same scene.
-          unique={im.crop((160,88,1120,610)).tobytes()[:1024] for im in ims}
           for i in range(len(ims)-1):
-              diff=ImageChops.difference(ims[i],ims[i+1]).getbbox()
-              assert diff is not None, f'Duplicate QA screen {names[i]}'
-          print('PASS: five actual PPSSPP frames differ, no blank screens')
+              assert ImageChops.difference(ims[i],ims[i+1]).getbbox() is not None, (
+                 f'Same rendered screen for {names[i]} and {names[i+1]}')
+          for name,im in zip(names,ims):
+              assert len(im.getcolors(65536) or [])>64, f'Blank screen: {name}'
+          print('PASS: Five independently booted PSP screens are nonblank and distinct')
           PY
-          
+
       - name: Upload fully compiled game and emulator evidence
         if: always()
         uses: actions/upload-artifact@v4
