@@ -119,7 +119,12 @@ def backdrop(kind, full_res=False):
   for j in range(30):
    x=rnd.randrange(240);y=rnd.randrange(18,133)
    ellipse(d,(x,y,x+1,y+1),(188,101,65))
- return im.resize((480,272) if full_res else (240,136),Image.Resampling.LANCZOS)
+ if not full_res:
+  asset=Path(__file__).parent/"assets"/(kind+".b64")
+  image=Image.open(io.BytesIO(base64.b64decode(asset.read_text()))).convert("RGB")
+  if image.size!=(240,136):raise RuntimeError("Incorrect "+kind+" art size")
+  return image
+ return im.resize((480,272),Image.Resampling.LANCZOS)
 def pack565(im):
  out=[]
  for r,g,b,a in im.convert("RGBA").getdata():
