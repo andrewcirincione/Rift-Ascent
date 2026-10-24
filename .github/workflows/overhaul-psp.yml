@@ -68,6 +68,9 @@ jobs:
           python3 overhaul/v110/expand_ironclad_roster.py GAME/src
           python3 overhaul/v110/finalize_five_cards.py GAME/src
           python3 overhaul/v110/patch_latest_wiki.py GAME/src
+          python3 overhaul/v111/01_catalog.py GAME/src
+          python3 overhaul/v111/02_power_hooks.py GAME/src
+          python3 overhaul/v111/03_card_effects.py GAME/src
           cp overhaul/sound_v2.c GAME/src/sound.c
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
@@ -145,6 +148,12 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v110/test_latest_wiki.c GAME/src/game.c -o latest_wiki_tests
           ASAN_OPTIONS=detect_leaks=1 ./latest_wiki_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v111/test_full_87.c GAME/src/game.c -o full_87_tests
+          ASAN_OPTIONS=detect_leaks=1 ./full_87_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+            -I GAME/src overhaul/v111/test_87_upgrades.c GAME/src/game.c -o all_upgrade_tests
+          ASAN_OPTIONS=detect_leaks=1 ./all_upgrade_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
             -I GAME/src overhaul/v103/test_campaign.c GAME/src/game.c -o campaign_tests
           ASAN_OPTIONS=detect_leaks=1 ./campaign_tests

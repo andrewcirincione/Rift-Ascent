@@ -1,0 +1,32 @@
+name: Archive 87-Card PSP Engine
+on:
+  push:
+    paths:
+      - '.github/workflows/archive-87-engine.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  archive:
+    if: github.ref_name == 'ironclad-all-87-110'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Store verified 87-card PSPDEV engine in version directory
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p versions/1.1.0
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12568148752/zip" > /tmp/ironclad87.zip
+          unzip -p /tmp/ironclad87.zip portable_build/EBOOT.PBP > versions/1.1.0/IRONCLAD_87_ENGINE_EBOOT.PBP
+          test -s versions/1.1.0/IRONCLAD_87_ENGINE_EBOOT.PBP
+          (cd versions/1.1.0 && sha256sum IRONCLAD_87_ENGINE_EBOOT.PBP > IRONCLAD_87_ENGINE_SHA256.txt)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f versions/1.1.0/IRONCLAD_87_ENGINE_EBOOT.PBP
+          git add versions/1.1.0/IRONCLAD_87_ENGINE_SHA256.txt
+          git commit -m "Archive successful 87-card engine-only PSP EBOOT"
+          git push origin HEAD:ironclad-all-87-110
