@@ -1,5 +1,8 @@
 # Rift Ascent — 1.1.0 Ironclad card-by-card audit
 
+**Historical pre-fix baseline (superseded).** For the corrected 50-card playable roster, consult [IRONCLAD_FINAL_50.md](IRONCLAD_FINAL_50.md). The detailed mismatches below describe the earlier 1.1.0 build and are retained as the audit trail.
+
+
 **Baseline:** release-1.1.0 compiled source from successful GitHub Actions run #40029123085. **Reference:** current 87-card Ironclad roster at https://sts2-wiki.org/slay-the-spire-2-cards?character=ironclad, plus card-specific details from https://sts.wiki/cards/ and individual entries (which may describe different patch versions).
 
 **Scope:** 50 playable cards, IDs 0–49, plus four Rift-specific status cards (Burn, Daze, Injury, Dread). This audits actual `cards[]`, `upgrade_descriptions[]`, `game_play_card()`, `game_card_cost()`, and the embedded combat renderer — not just names. `rarity` in Rift has only three buckets (starter/common/rare), so it cannot faithfully distinguish STS2 Uncommon from Rare yet. Base names overlap **30 of 87** official roster entries; 57 official names are not represented. Several overlapping names were inaccurate prior to audit fixes.
