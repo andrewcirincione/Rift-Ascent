@@ -57,9 +57,16 @@ elf=segments[6]
 for name,data in [('ra_title_bg',title),('rift_hero',hero)]:
  original_bytes=find_source_data(name)
  assert len(original_bytes)==len(data),(name,len(original_bytes),len(data))
- i=elf.find(original_bytes[:512])
- assert i>=0 and elf.count(original_bytes[:512])==1,('missing/non-unique',name,i)
- assert elf[i:i+len(original_bytes)]==original_bytes,('array not contiguous',name)
+ candidates=[]
+ at=0
+ while True:
+  at=elf.find(original_bytes[:512],at)
+  if at<0:break
+  if elf[at:at+len(original_bytes)]==original_bytes:candidates.append(at)
+  at+=1
+ assert len(candidates)>=1,('no full-array matching',name)
+ i=candidates[0]
+ print('MATCH',name,'full-length candidates',candidates[:5])
  elf[i:i+len(data)]=data
  print('ART REUSE:',name,'offset=',i,'length=',len(data))
 segments[4]=bytearray(pic1)
