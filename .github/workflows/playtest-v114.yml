@@ -23,6 +23,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3-pil
           mkdir -p qa_runtime qa_evidence
           cat qa/v114/parts/part_*.txt | base64 -d | xz -d > qa_runtime/EBOOT.PBP
           echo '1475fd73468d325da6c8cafc5a5670acdc18847f257b72e9918dbb839a05733e  qa_runtime/EBOOT.PBP' | sha256sum -c -
