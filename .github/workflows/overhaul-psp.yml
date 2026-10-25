@@ -80,6 +80,7 @@ jobs:
           python3 overhaul/v113/qa_fix.py GAME/src
           python3 qa/v115/show_card_art.py GAME/src/render.c
           python3 qa/v116/patch_combat.py GAME/src
+          python3 qa/v116/remove_baked_telegraph.py GAME/src/render.c
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
           # The only actual music in the distributed EBOOT is later packaged
           # privately from the ten user-provided WAV files, not stored in Git.
