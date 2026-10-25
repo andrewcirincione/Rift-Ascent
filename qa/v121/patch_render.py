@@ -188,5 +188,37 @@ one('''if(rows>0)rift117_wrapped_text(x+5,y+30+arth,rules,
        columns,rows,selected?WHITE:MUTED,cw,ch);''',
     'paged expanded descriptions')
 
+
+# Seven actual merchant options, without the retired heal placeholder.
+one(''' for(int i=0;i<8;i++){
+   int y=57+i*23,chosen=(i==selected);''',
+''' for(int i=0;i<7;i++){
+   int y=57+i*23,chosen=(i==selected);''','7 shop rows')
+one('''   else if(i==4)snprintf(label,sizeof(label),"NO HEALING SERVICE");
+   else if(i==5)snprintf(label,sizeof(label),"SERVICE REMOVE CARD");
+   else if(i==6)snprintf(label,sizeof(label),"LEAVE THE STORE");
+   else snprintf(label,sizeof(label),"POTION RANDOM");''',
+'''   else if(i==4)snprintf(label,sizeof(label),"SERVICE REMOVE CARD");
+   else if(i==5)snprintf(label,sizeof(label),"POTION RANDOM");
+   else if(i==6)snprintf(label,sizeof(label),"LEAVE THE STORE");''',
+ 'shop label order')
+one(''' }else if(selected==4){
+    snprintf(title,sizeof(title),"HEALING SERVICE");
+    snprintf(caption,sizeof(caption),"Restore 18 HP, up to your maximum health. One purchase per selection.");
+    price=45;
+ }else if(selected==5){
+    snprintf(title,sizeof(title),"CARD REMOVAL");
+    snprintf(caption,sizeof(caption),"Choose one card from your deck and remove it permanently.");
+    price=60;''',
+''' }else if(selected==4){
+    snprintf(title,sizeof(title),"CARD REMOVAL");
+    snprintf(caption,sizeof(caption),"Permanently remove one card from the deck. You pay only upon removal.");
+    price=60;
+ }else if(selected==5){
+    kind="POTION";
+    snprintf(title,sizeof(title),"RANDOM POTION");
+    snprintf(caption,sizeof(caption),"Buy one random potion if your belt has an empty slot.");
+    price=50;''','shop details')
+
 p.write_text(s)
 print("PASS 1.2.1: unified HUD, card animation, final blow, logs, paths, clean enemy silhouettes")
