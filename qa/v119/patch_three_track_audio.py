@@ -25,12 +25,14 @@ replace('if(!soundtrack_active||track<0||track>=10)return 0;',
 replace('boot_trace("Rift 1.0.3 embedded music loaded",10);',
         'boot_trace("Rift 1.1.9 original tracks loaded",RIFT_TRACK_COUNT);',"boot logging")
 replace('?2+(int)((game.seed+(unsigned)(game.floor*3+game.act))%8u)',
-        '?2',"every battle uses RiftFight")
+        '?(game.battle_type==NODE_ELITE||game.battle_type==NODE_BOSS?0:2)',
+        "elite and act bosses use Checkers; regular battles use RiftFight")
 # This is audio-only; no generated music regardless of whether EBOOT index loads.
 assert 'rift_audio_generate(&music,audio_buffer,512,track,1);' in s
 assert '2+(int)((game.seed' not in s
+assert 'game.battle_type==NODE_ELITE||game.battle_type==NODE_BOSS?0:2' in s
 assert '#define RIFT_TRACK_COUNT 3' in s
 assert 'footer+88' not in s
 assert 'track>=10' not in s
 p.write_text(s)
-print("PASS v1.1.9: title=Checkers, other menus=RiftMenu, all battles=RiftFight, only 3 indexed tracks")
+print("PASS v1.1.9: title=Checkers, other menus=RiftMenu, regular battles=RiftFight, elite/boss fights=Checkers, only 3 indexed tracks")
