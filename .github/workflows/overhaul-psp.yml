@@ -10,6 +10,7 @@ on:
       - 'qa/v118/**'
       - 'qa/v119/**'
       - 'qa/v120/**'
+      - 'qa/v121/**'
       - '.github/workflows/overhaul-psp.yml'
   workflow_dispatch:
 
@@ -92,6 +93,8 @@ jobs:
           python3 qa/v120/patch_game.py GAME/src
           python3 qa/v120/generate_art.py GAME/src
           python3 qa/v120/patch_render.py GAME/src
+          python3 qa/v121/patch_game.py GAME/src
+          python3 qa/v121/patch_render.py GAME/src
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
           # Public GitHub artifacts contain NO private audio. The complete
           # user EBOOT is privately packaged with Checkers, RiftMenu, RiftFight.
@@ -122,7 +125,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.2.0
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.2.1
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
@@ -168,6 +171,9 @@ jobs:
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
               -I GAME/src qa/v120/test_120.c GAME/src/game.c -o v120_tests
           ASAN_OPTIONS=detect_leaks=1 ./v120_tests
+          gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
+              -I GAME/src qa/v121/test_121.c GAME/src/game.c -o v121_tests
+          ASAN_OPTIONS=detect_leaks=1 ./v121_tests
           gcc -std=c11 -O1 -g -Wall -Wextra -fsanitize=address,undefined \
               -I GAME/src overhaul/test_engine.c GAME/src/game.c -o engine_tests
           ASAN_OPTIONS=detect_leaks=1 ./engine_tests
