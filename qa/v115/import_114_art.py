@@ -50,6 +50,36 @@ assert len(title)==261120 and len(hero)==53340
 assert hero.count(b'\x1f\xf8')>100
 pic1=original[orig_offsets[4]:orig_offsets[5]]
 
+# v1.1.8 entire-asset replacements, NOT overpainting old media.
+# These same source images were compiled into artwork.c and motion_art.c.
+new_assets=Path("qa/v118/assets")
+if (new_assets/"hero.png.b64").exists():
+ from PIL import Image
+ from io import BytesIO
+ def load_png64(name):
+  return Image.open(BytesIO(base64.b64decode((new_assets/name).read_text())))
+ def encode565(im,key=False):
+  p=bytearray()
+  for px in im.getdata():
+   rr,gg,bb=px[:3]
+   if key and px[3]<120:v=0xF81F
+   else:
+    v=((rr>>3)<<11)|((gg>>2)<<5)|(bb>>3)
+    if key and v==0xF81F:v=0xF81E
+   p+=struct.pack("<H",v)
+  return bytes(p)
+ knight=load_png64("hero.png.b64").convert("RGBA")
+ menu=load_png64("menu.jpg.b64").convert("RGB")
+ splash=load_png64("splash.jpg.b64").convert("RGB")
+ assert knight.size==(210,127) and menu.size==splash.size==(480,272)
+ hero=encode565(knight,True)
+ title=encode565(menu)
+ picture=BytesIO()
+ splash.save(picture,format="PNG",optimize=True)
+ pic1=picture.getvalue()
+ print("PASS: PBP splash/title/hero replaced entirely from approved v118 source art")
+
+
 # Use the arrays compiled into C source as an exact locator for binary blobs.
 # The compiler may shift these assets by thousands of bytes between versions.
 def find_source_data(name):
