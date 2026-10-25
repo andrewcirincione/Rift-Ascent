@@ -42,6 +42,13 @@ def find_source_data(name):
    vals=re.findall(r'0x([0-9a-fA-F]{4})',m.group(1))
    if len(vals)>250:
     return b''.join(struct.pack('<H',int(x,16)) for x in vals)
+ for fname in ('artwork.c','motion_art.c','artwork.h','motion_art.h'):
+  path=root/fname
+  if path.exists():
+   body=path.read_text()
+   at=body.find(name)
+   print('DEBUG',fname,'bytes',len(body),'match',at,
+         'declaration',repr(body[max(0,at-110):at+250]) if at>=0 else 'absent')
  raise RuntimeError('Cannot find original source texture '+name)
 current=pbp_path.read_bytes()
 o=list(struct.unpack_from('<8I',current,8))
