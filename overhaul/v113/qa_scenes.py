@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 p=Path(sys.argv[1]);src=p.read_text()
 anchor="        game_update(&game);"
-injection='''#if defined(RIFT_QA_EVENT) || defined(RIFT_QA_SHOP) || defined(RIFT_QA_REWARD) || defined(RIFT_QA_BOSS) || defined(RIFT_QA_MAP) || defined(RIFT_QA_REST) || defined(RIFT_QA_DECK)
+injection='''#if defined(RIFT_QA_EVENT) || defined(RIFT_QA_SHOP) || defined(RIFT_QA_REWARD) || defined(RIFT_QA_BOSS) || defined(RIFT_QA_MAP) || defined(RIFT_QA_REST) || defined(RIFT_QA_DECK) || defined(RIFT_QA_BLOCK)
         static int qa_injected=0;
         if(!qa_injected&&frame>=6){
           qa_injected=1;
@@ -27,6 +27,9 @@ injection='''#if defined(RIFT_QA_EVENT) || defined(RIFT_QA_SHOP) || defined(RIFT
 #elif defined(RIFT_QA_DECK)
           game_start_battle(&game,NODE_ELITE);
           game.screen=DECK_VIEW;game.prior_screen=COMBAT;game.scroll=2;game.selection=0;
+#elif defined(RIFT_QA_BLOCK)
+          game_start_battle(&game,NODE_ELITE);
+          game.block=14;game.enemies[0].block=9;game.strength=2;game.weak=2;
 #endif
         }
 #endif
