@@ -22,12 +22,12 @@ off,sz=struct.unpack_from('<II',logo,8)
 assert sz==480*272*2
 original[off:off+sz]=logo[16:]
 orig_offsets=struct.unpack_from('<8I',original,8)
-assert original[:4]==b'\\x00PBP'
+assert original[:4]==b'\x00PBP'
 oldelf=original[orig_offsets[6]:]
 title=oldelf[0x1b6890:0x1b6890+480*272*2]
 hero=oldelf[2085520:2085520+210*127*2]
 assert len(title)==261120 and len(hero)==53340
-assert hero.count(b'\\x1f\\xf8')>100
+assert hero.count(b'\x1f\xf8')>100
 pic1=original[orig_offsets[4]:orig_offsets[5]]
 
 # Use the arrays compiled into C source as an exact locator for binary blobs.
@@ -37,7 +37,7 @@ def find_source_data(name):
   p=root/fname
   if not p.exists():continue
   s=p.read_text()
-  m=re.search(r'\\b'+re.escape(name)+r'\\s*\\[[^]]*\\]\\s*=\\s*\\{(.*?)\\};',s,re.S)
+  m=re.search(r'\b'+re.escape(name)+r'\s*\[[^]]*\]\s*=\s*\{(.*?)\};',s,re.S)
   if m:
    vals=re.findall(r'0x([0-9a-fA-F]{4})',m.group(1))
    if len(vals)>250:
@@ -61,6 +61,6 @@ for section in segments:
  new_offsets.append(40+len(body));body.extend(section)
 struct.pack_into('<8I',header,8,*new_offsets)
 new=bytes(header)+body
-assert new[:4]==b'\\x00PBP'
+assert new[:4]==b'\x00PBP'
 pbp_path.write_bytes(new)
 print('PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets')
