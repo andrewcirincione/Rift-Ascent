@@ -30,7 +30,8 @@ int main(void){
  int relics=g.relic_count;
  game_action(&g,BTN_OK);
  C(g.screen==RELIC_RESULT && g.relic_count==relics+1 && g.act==1);
- game_action(&g,BTN_OK);C(g.screen==MAP && g.act==2 && g.floor==0);
+ game_action(&g,BTN_OK);C(g.screen==REWARD && g.act==1);
+ g.selection=3;game_action(&g,BTN_OK);C(g.screen==MAP && g.act==2 && g.floor==0);
  game_new(&g,0x10205050u);
  game_start_battle(&g,NODE_FIGHT);
  g.selection=1;int selected=g.selection;
