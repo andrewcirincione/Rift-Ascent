@@ -120,5 +120,23 @@ patch('if(id==5){for(int i=0;i<3;i++)draw_card(g);}',
       'if(id==5){for(int i=0;i<3+(bonus>0);i++)draw_card(g);}',
       'violet orb affects draw potion')
 
+
+# Preserve most recent auto-play card for the renderer (unused reserved ic slot).
+# No save layout change; nested Hellraiser/Havoc/Cascade/Stampede all use this.
+patch(''' g->ic[IC_CHAIN_DEPTH]++;
+ game_play_card(g,index,foe);
+ g->ic[IC_CHAIN_DEPTH]--;''',
+ ''' g->ic[IC_CHAIN_DEPTH]++;
+ g->ic[46]=CARD_ID(raw)+1;
+ game_play_card(g,index,foe);
+ g->ic[IC_CHAIN_DEPTH]--;''',
+ 'remember automatically played card')
+patch('''void game_action(Game*g,int b){
+ if(b==BTN_PAUSE){''',
+ '''void game_action(Game*g,int b){
+ if(g->screen==COMBAT)g->ic[46]=0;
+ if(b==BTN_PAUSE){''',
+ 'reset auto animation state on new input')
+
 p.write_text(s)
 print("PASS: v1.2.0 game fixes shop cancellation, boss relic/card, descriptions")
