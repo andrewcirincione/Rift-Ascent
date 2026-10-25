@@ -89,5 +89,36 @@ patch('{"Sun Token","Gain +1 max energy, lose 1 draw"}',
 patch('{"Old Compass","Gain 1 draw on turn one"}',
       '{"Old Compass","Draw 1 extra card on the first turn of combat."}',
       'old compass tooltip')
+
+# Relic audit based on implemented triggers and the balance patterns of the
+# STS2 relic pool: make weak situational relics useful without hidden drawbacks.
+patch('{"Wildflower","Gain 2 block when using potion"}',
+      '{"Wildflower","Gain 6 Block whenever you use a potion."}',
+      'wildflower description')
+patch('{"Scavenger","Gain +5 gold per reward"}',
+      '{"Scavenger","Gain 10 additional Gold after winning a battle."}',
+      'scavenger description')
+patch('{"Hollow Skull","Deals +2 damage at 1 HP"}',
+      '{"Hollow Skull","Deal +6 attack damage while at exactly 1 HP."}',
+      'hollow skull description')
+patch('if(relic(g,21))g->block+=2;',
+      'if(relic(g,21))g->block+=6;',
+      'wildflower actual effect')
+patch('if(relic(g,26)&&g->hp==1)amt+=2;',
+      'if(relic(g,26)&&g->hp==1)amt+=6;',
+      'hollow skull attack effect')
+patch('if(relic(g,26)&&g->hp==1)dmg+=2;',
+      'if(relic(g,26)&&g->hp==1)dmg+=6;',
+      'hollow skull card preview')
+patch('(relic(g,27)?5:0)',
+      '(relic(g,27)?10:0)',
+      'scavenger actual effect')
+patch('if(id==4)g->energy+=2;',
+      'if(id==4)g->energy+=2+(bonus>0);',
+      'violet orb affects energy potion')
+patch('if(id==5){for(int i=0;i<3;i++)draw_card(g);}',
+      'if(id==5){for(int i=0;i<3+(bonus>0);i++)draw_card(g);}',
+      'violet orb affects draw potion')
+
 p.write_text(s)
 print("PASS: v1.2.0 game fixes shop cancellation, boss relic/card, descriptions")
