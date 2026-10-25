@@ -26,6 +26,26 @@ assert original[:4]==b'\x00PBP'
 oldelf=original[orig_offsets[6]:]
 title=oldelf[0x1b6890:0x1b6890+480*272*2]
 hero=oldelf[2085520:2085520+210*127*2]
+# v1.1.7: preserve the excellent XMB/title paintings, but replace the
+# prior anime/chibi-style hero in the embedded ELF with a detailed great helm
+# knight carrying a real claymore, supplied as an original transparent PNG.
+asset=Path("qa/v117/assets/knight_210.png.b64")
+if asset.is_file():
+ from PIL import Image
+ from io import BytesIO
+ from base64 import b64decode
+ art=Image.open(BytesIO(b64decode(asset.read_text()))).convert("RGBA")
+ assert art.size==(210,127)
+ packed=bytearray()
+ for rr,gg,bb,aa in art.getdata():
+  if aa<118:value=0xf81f
+  else:
+   value=((rr>>3)<<11)|((gg>>2)<<5)|(bb>>3)
+   if value==0xf81f:value=0xf81e
+  packed+=struct.pack("<H",value)
+ hero=bytes(packed)
+ print("PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile")
+
 assert len(title)==261120 and len(hero)==53340
 assert hero.count(b'\x1f\xf8')>100
 pic1=original[orig_offsets[4]:orig_offsets[5]]
