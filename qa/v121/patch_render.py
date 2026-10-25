@@ -220,5 +220,12 @@ one(''' }else if(selected==4){
     snprintf(caption,sizeof(caption),"Buy one random potion if your belt has an empty slot.");
     price=50;''','shop details')
 
+
+# Widen enemy formation: 116px between centers so the front enemy's
+# shield number never touches the rear enemy's health capsule.
+count=s.count('284:380')
+assert count>=3, f"expected battle placement in 3+ UI locations, found {count}"
+s=s.replace('284:380','276:392')
+
 p.write_text(s)
 print("PASS 1.2.1: unified HUD, card animation, final blow, logs, paths, clean enemy silhouettes")
