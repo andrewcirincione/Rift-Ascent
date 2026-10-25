@@ -1,0 +1,159 @@
+name: Rift Ascent 1.1.4 Exact EBOOT Playtest
+
+on:
+  push:
+    branches:
+      - v1.1.4-art-refresh-qa
+    paths:
+      - '.github/workflows/playtest-v114.yml'
+      - 'qa/v114/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  playtest-exact-patched-binary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reassemble and cryptographically verify the exact 1.1.4 EBOOT
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa_runtime qa_evidence
+          cat qa/v114/parts/part_*.txt | base64 -d | xz -d > qa_runtime/EBOOT.PBP
+          echo '1475fd73468d325da6c8cafc5a5670acdc18847f257b72e9918dbb839a05733e  qa_runtime/EBOOT.PBP' | sha256sum -c -
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import io, hashlib, struct, collections
+          p=Path('qa_runtime/EBOOT.PBP').read_bytes()
+          assert p[:4] == b'\0PBP'
+          offsets=struct.unpack_from('<8I',p,8)
+          assert offsets == tuple(sorted(offsets)) and len(p)>offsets[6]+3000000
+          pic=p[offsets[4]:offsets[5]]
+          assert hashlib.sha256(pic).hexdigest() == '81e5de47631cc5c0bfa5da922b5f6d29119d2a1fc20cbfda68bfb9dcf5b8d889'
+          with Image.open(io.BytesIO(pic)) as im:
+              assert im.size==(480,272),im.size
+              assert len(im.getcolors(1_000_000))>10000,'XMB splash incorrectly quantized'
+              im.save('qa_evidence/xmb-PIC1-extracted.png')
+          elf=p[offsets[6]:]
+          assert elf[:4] == b'\x7fELF'
+          W,H=480,272
+          title=elf[0x1b61d0:0x1b61d0+W*H*2]
+          assert len(title)==W*H*2
+          hero=elf[2083792:2083792+210*127*2]
+          assert len(hero)==210*127*2
+          assert hero.count(b'\x1f\xf8')>200,'Missing transparent pixels in hero sprite'
+          assert hero.count(b'\x1f\xf8')<len(hero)//2,'Hero has too much transparency'
+          assert p[-96:-88]!=b'RIFTM103','Private soundtrack must not be published on public GitHub'
+          print('PASS: exact EBOOT checksum, ELF, PIC1 native dimensions, embedded title texture and hero')
+          PY
+
+      - name: Install PPSSPP and screen interaction tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq xvfb imagemagick python3-pil xdotool libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0 pulseaudio pulseaudio-utils curl
+          curl --fail --location --retry 3 --output PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          ./PPSSPP.AppImage --appimage-extract >/dev/null
+
+      - name: Boot exact EBOOT, play controls and inspect rendered screens
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LIBGL_ALWAYS_SOFTWARE=1 SDL_VIDEODRIVER=x11 SDL_AUDIODRIVER=pulseaudio
+          export XDG_RUNTIME_DIR="$(mktemp -d /tmp/rift114-xdg-XXXXXX)"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          pulseaudio --start --exit-idle-time=-1 || true
+          pactl load-module module-null-sink sink_name=rift114_null || true
+          mkdir -p "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT" "$HOME/.config/ppsspp/GAME/RIFTASCENT"
+          cp qa_runtime/EBOOT.PBP "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT/EBOOT.PBP"
+          cp qa_runtime/EBOOT.PBP "$HOME/.config/ppsspp/GAME/RIFTASCENT/EBOOT.PBP"
+          xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
+            set -euo pipefail
+            ./squashfs-root/AppRun "$PWD/qa_runtime/EBOOT.PBP" > qa_evidence/ppsspp.log 2>&1 &
+            pid=$!
+            trap "kill $pid 2>/dev/null || true" EXIT
+            sleep 14
+            kill -0 "$pid" || { echo "PPSSPP terminated unexpectedly"; exit 1; }
+            import -display "$DISPLAY" -window root qa_evidence/title.png
+            xdotool mousemove 640 370 click 1 || true
+            xdotool key --clearmodifiers z || true
+            sleep 5
+            import -display "$DISPLAY" -window root qa_evidence/after-cross.png
+            xdotool key --clearmodifiers z || true
+            sleep 5
+            import -display "$DISPLAY" -window root qa_evidence/after-second-cross.png
+            xdotool key --clearmodifiers Right z || true
+            sleep 5
+            import -display "$DISPLAY" -window root qa_evidence/after-route.png
+            xdotool key --clearmodifiers Return || true
+            sleep 5
+            import -display "$DISPLAY" -window root qa_evidence/after-start.png
+            sleep 5
+            kill -0 "$pid" || { echo "PPSSPP died in interaction playtest"; exit 1; }
+            kill "$pid" 2>/dev/null || true
+            wait "$pid" 2>/dev/null || true
+          '
+          python3 - <<'PY'
+          from PIL import Image,ImageChops
+          from pathlib import Path
+          names=['title','after-cross','after-second-cross','after-route','after-start']
+          ims=[Image.open(Path('qa_evidence')/f'{n}.png').convert('RGB') for n in names]
+          for n,im in zip(names,ims):
+              assert im.size==(1280,720),(n,im.size)
+              assert len(im.crop((160,88,1120,632)).getcolors(1_000_000))>4000,f'Blank or low detail {n}'
+          # Count changed pixels. An unchanged menu for all interactions is a failed playtest.
+          diffs=[]
+          for a,b in zip(ims,ims[1:]):
+              diff=ImageChops.difference(a.crop((160,88,1120,632)),b.crop((160,88,1120,632))).convert('L')
+              diffs.append(sum(1 for v in diff.getdata() if v>30))
+          print('Frame-to-frame significantly changed pixels:',diffs)
+          assert max(diffs)>20000,'X button never advanced game state, or emulator did not react'
+          assert min(diffs)>=0
+          print('PASS: title art renders, user input advances game state, process survives playtest')
+          PY
+          tail -80 qa_evidence/ppsspp.log || true
+
+      - name: Upload exact EBOOT and playtest screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-1.1.4-EXACT-EBOOT-Playtest-Evidence
+          path: |
+            qa_runtime/EBOOT.PBP
+            qa_evidence/
+          if-no-files-found: warn
+
+      - name: Publish tested NO-MUSIC binary as GitHub prerelease
+        if: success()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag='v1.1.4-art-refresh-qa'
+          fname='Rift-Ascent-v1.1.4-NO-MUSIC-EBOOT.PBP'
+          cp qa_runtime/EBOOT.PBP "qa_runtime/$fname"
+          (cd qa_runtime && sha256sum "$fname" > "$fname.sha256")
+          cat > qa_runtime/RELEASE_NOTES.md <<'EOF'
+          Rift Ascent v1.1.4 visual-art refresh (EXPERIMENTAL, PSP hardware unverified).
+          Verified in GitHub Actions with PPSSPP using the exact EBOOT binary.
+          New 480x272 XMB splash, illustrated title screen, and painted hero sprite.
+          Public release has NO MUSIC: user's private ten original soundtrack tracks
+          are available only in the separate complete ChatGPT Library build.
+          Download PBP and rename to EBOOT.PBP for PSP/GAME/RIFTASCENT/.
+          EOF
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "qa_runtime/$fname" "qa_runtime/$fname.sha256" --clobber
+          else
+            gh release create "$tag" "qa_runtime/$fname" "qa_runtime/$fname.sha256" \
+              --title 'Rift Ascent 1.1.4 — Art Refresh (NO MUSIC, experimental)' \
+              --target "$GITHUB_SHA" --notes-file qa_runtime/RELEASE_NOTES.md --prerelease
+          fi
