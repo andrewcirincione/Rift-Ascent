@@ -8,6 +8,7 @@ on:
       - 'qa/v116/**'
       - 'qa/v117/**'
       - 'qa/v118/**'
+      - 'qa/v119/**'
       - '.github/workflows/overhaul-psp.yml'
   workflow_dispatch:
 
@@ -88,8 +89,8 @@ jobs:
           python3 qa/v117/patch_hero_source.py GAME/src/motion_art.c
           python3 qa/v118/apply_new_art.py GAME/src
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
-          # The only actual music in the distributed EBOOT is later packaged
-          # privately from the ten user-provided WAV files, not stored in Git.
+          # Public GitHub artifacts contain NO private audio. The complete
+          # user EBOOT is privately packaged with Checkers, RiftMenu, RiftFight.
           cp overhaul/sound_v2.h GAME/src/sound.h
           mkdir -p portable_build
           cp GAME/src/* portable_build/
@@ -103,6 +104,7 @@ jobs:
           python3 overhaul/v110/patch_audio_gain.py portable_build/psp_start.c
           python3 overhaul/v110/keep_choice_music.py portable_build/psp_start.c
           python3 overhaul/v113/patch_audio.py portable_build/psp_start.c
+          python3 qa/v119/patch_three_track_audio.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cp GAME/src/rift112_pic1.png portable_build/PIC1.PNG
@@ -115,7 +117,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.8
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.9
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
@@ -142,7 +144,10 @@ jobs:
           assert "rift_audio_generate(&music,audio_buffer,512,track,1);" in p
           assert "soundtrack_active?1:0" not in p
           assert "soundtrack_open();" in p
-          print("PASS: PSP mixes embedded songs plus SFX, never synthesizes music")
+          assert "#define RIFT_TRACK_COUNT 3" in p
+          assert 'game.battle_type==NODE_ELITE||game.battle_type==NODE_BOSS?0:2' in p
+          assert 'RIFTM119' not in p or "M','1','1','9" in p
+          print("PASS: 3 original music tracks; title + elites + bosses Checkers, menu RiftMenu, normal fights RiftFight; no synth background score")
           PY
 
       - name: Compile and run native deterministic gameplay tests
@@ -214,7 +219,7 @@ jobs:
           python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
           python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
           sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
-          python3 overhaul/v103/test_audio_package.py portable_build/EBOOT.PBP portable_build/EMBED_TEST.PBP
+          python3 qa/v119/test_music_package.py portable_build/EBOOT.PBP portable_build/EMBED_TEST.PBP
 
 
       - name: Download Linux PPSSPP and dependencies
@@ -281,7 +286,7 @@ jobs:
           grep -q 'frame present vblank result: 0' emulator_results/boot-trace.log
           grep -q 'frame flip result: 0' emulator_results/boot-trace.log
           # Prove the audio worker can open and validate the embedded index.
-          grep -q 'Rift 1.0.3 embedded music loaded: 10' emulator_results/boot-trace.log
+          grep -q 'Rift 1.1.9 original tracks loaded: 3' emulator_results/boot-trace.log
           if grep -q 'FATAL' emulator_results/boot-trace.log; then
             echo "Startup/present failed according to PSP trace" >&2
             exit 1
