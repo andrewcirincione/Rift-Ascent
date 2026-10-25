@@ -205,5 +205,20 @@ replace(' if(g->screen==COMBAT)inspector(g);',
    inspector(g);
  }''',
  'show played card before visual effects settle')
+
+replace(''' int room=(y+h-4)-(y+30+arth);
+ int maxrows=CLAMP(room/11,0,tall?5:(h>=88?6:3));
+ if(maxrows>0)wrapped_text(x+5,y+30+arth,card_description(raw),(w-12)/7,maxrows,
+                           selected?WHITE:MUTED);''',
+ ''' int room=(y+h-4)-(y+30+arth);
+ const char *rules=card_description(raw);
+ int cw=5,ch=8,columns=(w-10)/5,rows=room/9;
+ if((int)strlen(rules)>columns*rows){
+    cw=4;ch=6;columns=(w-10)/4;rows=room/7;
+ }
+ if(rows>0)rift117_wrapped_text(x+5,y+30+arth,rules,
+       columns,rows,selected?WHITE:MUTED,cw,ch);''',
+ 'shorten card text by fitting compact font instead of truncated wide wraps')
+
 p.write_text(s)
 print("PASS: v1.2.0 combat HUD, histories, play animation, map, shop, rewards, backgrounds and cards")
