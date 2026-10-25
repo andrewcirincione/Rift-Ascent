@@ -42,7 +42,7 @@ replace('void game_render_feedback(const Game *before,const Game *after,int acti
    snprintf(linebuf,sizeof(linebuf),"SHIELD: +%d BLOCK",after->block-before->block);
    rift120_log_add(linebuf);
  }
- if(before->screen==COMBAT&&strcmp(before->message,after->message)!=0)
+ if(before->screen==COMBAT&&memcmp(before->message,after->message,sizeof(before->message))!=0)
    rift120_log_add(after->message);
  if(before->screen!=COMBAT&&after->screen==COMBAT){
    rift120_log_count=0;memset(rift120_log,0,sizeof(rift120_log));
@@ -104,8 +104,8 @@ replace('header(g,"BATTLE");',
  {
    char logline[160]="";
    for(int i=0;i<3;i++)if(rift120_log[i][0]){
-     if(logline[0])strncat(logline,"  /  ",sizeof(logline)-strlen(logline)-1);
-     strncat(logline,rift120_log[i],sizeof(logline)-strlen(logline)-1);
+     if(logline[0])snprintf(logline+strlen(logline),sizeof(logline)-strlen(logline),"%s"," / ");
+     snprintf(logline+strlen(logline),sizeof(logline)-strlen(logline),"%s",rift120_log[i]);
    }
    int chars=(int)strlen(logline);
    fittext(14,31,chars>61?logline+chars-61:logline,61,WHITE);
