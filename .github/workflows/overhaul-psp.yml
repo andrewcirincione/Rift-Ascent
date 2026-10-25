@@ -9,6 +9,7 @@ on:
       - 'qa/v117/**'
       - 'qa/v118/**'
       - 'qa/v119/**'
+      - 'qa/v120/**'
       - '.github/workflows/overhaul-psp.yml'
   workflow_dispatch:
 
@@ -117,7 +118,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.9
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.2.0
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
@@ -132,6 +133,11 @@ jobs:
             GAME/src/game.c
             GAME/src/game.h
             GAME/src/render.c
+            portable_build/psp_start.c
+            portable_build/artwork.c
+            portable_build/motion_art.c
+            portable_build/enemy_art.c
+            portable_build/game.h
 
       - name: Audit music-source policy (strictly user's ten recordings)
         shell: bash
