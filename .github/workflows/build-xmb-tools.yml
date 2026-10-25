@@ -1,0 +1,24 @@
+name: Build PSP XMB ATRAC3 encoder (1.2.1)
+on:
+  push:
+    paths:
+      - '.github/workflows/build-xmb-tools.yml'
+  workflow_dispatch:
+jobs:
+  encoder:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust ATRAC3 encoder with pure-Rust codec
+        run: |
+          set -euo pipefail
+          cargo install pspbuild --locked --root "$PWD/xmb-tool"
+          test -x xmb-tool/bin/pspbuild
+          xmb-tool/bin/pspbuild --help
+      - name: Export encoder executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-XMB-ATRAC3-Linux-tool
+          path: xmb-tool/bin/pspbuild
+          retention-days: 30
