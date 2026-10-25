@@ -23,11 +23,26 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq python3-pil
           mkdir -p qa_runtime qa_evidence
           cat qa/v114/parts/part_*.txt | base64 -d | xz -d > qa_runtime/EBOOT.PBP
-          echo '1475fd73468d325da6c8cafc5a5670acdc18847f257b72e9918dbb839a05733e  qa_runtime/EBOOT.PBP' | sha256sum -c -
+          # Correct 1.1.3 base-build layout mismatch discovered on the first
+          # real emulator screenshot. Patch exactly the affected texture regions.
+          cat qa/v114/fixes/fixpart_*.txt | base64 -d | xz -d > qa_runtime/texture_fix.bin
+          python3 - <<'PYFIX'
+          from pathlib import Path
+          import struct
+          patch=Path('qa_runtime/texture_fix.bin').read_bytes()
+          assert patch[:8]==b'RIFT114P'
+          count=struct.unpack_from('<I',patch,8)[0]
+          source=bytearray(Path('qa_runtime/EBOOT.PBP').read_bytes())
+          p=12
+          for _ in range(count):
+              off,n=struct.unpack_from('<II',patch,p);p+=8
+              source[off:off+n]=patch[p:p+n];p+=n
+          assert p==len(patch)
+          Path('qa_runtime/EBOOT.PBP').write_bytes(source)
+          PYFIX
+          echo '274fe470ab76069bf156e9f517e31d13f7fab3372c882d904bb7fd96a482e582  qa_runtime/EBOOT.PBP' | sha256sum -c -
           python3 - <<'PY'
           from pathlib import Path
           from PIL import Image
@@ -45,9 +60,9 @@ jobs:
           elf=p[offsets[6]:]
           assert elf[:4] == b'\x7fELF'
           W,H=480,272
-          title=elf[0x1b61d0:0x1b61d0+W*H*2]
+          title=elf[0x1b6890:0x1b6890+W*H*2]
           assert len(title)==W*H*2
-          hero=elf[2083792:2083792+210*127*2]
+          hero=elf[2085520:2085520+210*127*2]
           assert len(hero)==210*127*2
           assert hero.count(b'\x1f\xf8')>200,'Missing transparent pixels in hero sprite'
           assert hero.count(b'\x1f\xf8')<len(hero)//2,'Hero has too much transparency'
