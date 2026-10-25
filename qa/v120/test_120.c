@@ -25,13 +25,13 @@ static void boss_flow(int act){
 }
 int main(void){
  Game g;game_new(&g,0xabcddcba);
- g.screen=SHOP;g.selection=5;g.gold=70;
+ g.screen=SHOP;g.selection=4;g.gold=70;
  int old=g.deck_count;
  game_action(&g,BTN_OK);
  assert(g.screen==DECK_VIEW && g.gold==70 && g.prior_screen==SHOP);
  game_action(&g,BTN_BACK);
  assert(g.screen==SHOP && g.gold==70 && g.deck_count==old);
- g.selection=5;game_action(&g,BTN_OK);
+ g.selection=4;game_action(&g,BTN_OK);
  g.selection=0;game_action(&g,BTN_OK);
  assert(g.screen==SHOP && g.gold==10 && g.deck_count==old-1);
  boss_flow(1);boss_flow(2);boss_flow(3);
