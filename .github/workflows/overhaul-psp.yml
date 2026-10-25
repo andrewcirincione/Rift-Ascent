@@ -498,10 +498,13 @@ jobs:
           - Full automated test run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
           - SHA-256 checksum included as a separate downloadable asset.
 
-          **Audio:** This public GitHub build does **not** contain the ten privately
-          provided soundtrack recordings. It also does **not** generate synthetic
-          background music. Sound effects work. The complete user-soundtrack
-          edition is maintained separately in the owner's ChatGPT Rift Ascent Library.
+          **Audio:** This public GitHub build does **not** contain the three
+          privately provided original recordings. The complete user-soundtrack
+          EBOOT embeds Checkers (title, elites, bosses), RiftMenu (noncombat
+          menus), and RiftFight (all regular battles). The other seven recordings
+          have been removed. No synthesized music is played or shipped.
+          The full original-music EBOOT is available separately in the
+          owner's ChatGPT Rift Ascent Library.
 
           To install: rename the downloaded PBP to \`EBOOT.PBP\` and place it at
           \`PSP/GAME/RIFTASCENT/EBOOT.PBP\`.
