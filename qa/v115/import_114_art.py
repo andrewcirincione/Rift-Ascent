@@ -37,7 +37,7 @@ def find_source_data(name):
   p=root/fname
   if not p.exists():continue
   s=p.read_text()
-  m=re.search(r'\b'+re.escape(name)+r'\s*\[[^]]*\]\s*=\s*\{(.*?)\};',s,re.S)
+  m=re.search(r'\b'+re.escape(name)+r'\s*\[[^]]*\][^{;]{0,150}=\s*\{(.*?)\};',s,re.S)
   if m:
    vals=re.findall(r'0x([0-9a-fA-F]{4})',m.group(1))
    if len(vals)>250:
