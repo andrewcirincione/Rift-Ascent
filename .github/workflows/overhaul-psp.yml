@@ -138,6 +138,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 overhaul/v113/test_audio_policy.py GAME/src/sound.c
+          python3 qa/v119/test_music_routing.py portable_build/psp_start.c
           python3 - <<'PY'
           from pathlib import Path
           p=Path("portable_build/psp_start.c").read_text()
