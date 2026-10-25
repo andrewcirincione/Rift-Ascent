@@ -109,6 +109,7 @@ jobs:
           python3 overhaul/v110/keep_choice_music.py portable_build/psp_start.c
           python3 overhaul/v113/patch_audio.py portable_build/psp_start.c
           python3 qa/v119/patch_three_track_audio.py portable_build/psp_start.c
+          python3 qa/v120/patch_psp.py portable_build/psp_start.c
           cp GAME/assets/ICON0.PNG portable_build/ICON0.PNG
           cp GAME/assets/PIC1.PNG portable_build/PIC1.PNG
           cp GAME/src/rift112_pic1.png portable_build/PIC1.PNG
