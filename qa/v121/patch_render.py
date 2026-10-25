@@ -89,8 +89,6 @@ one(''' "Pay 12 gold. Choose TWO eligible deck cards to upgrade; effects preview
     ''' "Pay 12 gold to upgrade two eligible cards.",''','rusted forge unnecessary text')
 one('''   else if(i==4)snprintf(label,sizeof(label),"SERVICE HEAL 18 HP");''',
     '''   else if(i==4)snprintf(label,sizeof(label),"NO HEALING SERVICE");''','shop option label')
-one(''' "Restore 18 HP, up to your maximum health. One purchase per selection."''',
-    ''' "Merchants sell cards, relics and potions, not healing."''','merchant tooltip')
 # Avoid random attack/art-shaped particle geometry surrounding enemies.
 one('''      for(int k=0;k<12;k++){
         unsigned seed=particle_hash((unsigned)(i*97+k*2003));
