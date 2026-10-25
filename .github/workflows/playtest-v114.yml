@@ -60,7 +60,21 @@ jobs:
           data[off:off+n]=patch[16:]
           Path('qa_runtime/EBOOT.PBP').write_bytes(data)
           PYTITLE
-          echo '05c7219400f5457c7a74506e5ace0748d83852eb4fd8f7a350c3fb9e5089c243  qa_runtime/EBOOT.PBP' | sha256sum -c -
+          # The earlier executable still carried the 1.1.3 launcher title,
+          # despite being an art-refresh v1.1.4. Correct only PARAM.SFO.
+          python3 - <<'PYSFO'
+          from pathlib import Path
+          import struct
+          path=Path('qa_runtime/EBOOT.PBP')
+          b=bytearray(path.read_bytes())
+          o=struct.unpack_from('<8I',b,8)
+          old=b'RIFT ASCENT 1.1.3'
+          i=b.find(old,o[0],o[1])
+          assert i>=0 and b.count(old)==1
+          b[i:i+len(old)]=b'RIFT ASCENT 1.1.4'
+          path.write_bytes(b)
+          PYSFO
+          echo '25c66e3111ee964fb8f2c6b4702704b9b518061e16266050f9d4cd2e000d01fd  qa_runtime/EBOOT.PBP' | sha256sum -c -
           python3 - <<'PY'
           from pathlib import Path
           from PIL import Image
