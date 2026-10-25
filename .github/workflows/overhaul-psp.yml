@@ -200,6 +200,7 @@ jobs:
           '
           # Preserve approved 1.1.4 hero/title/XMB art in the new build
           # without hard-coding the newly compiled ELF's symbol offsets.
+          sudo chown "$(id -u):$(id -g)" portable_build/EBOOT.PBP
           python3 qa/v115/import_114_art.py GAME/src portable_build/EBOOT.PBP
           python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
           python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
