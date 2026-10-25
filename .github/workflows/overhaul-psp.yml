@@ -5,6 +5,7 @@ on:
     paths:
       - 'overhaul/**'
       - 'qa/v115/**'
+      - 'qa/v116/**'
       - '.github/workflows/overhaul-psp.yml'
   workflow_dispatch:
 
@@ -78,6 +79,7 @@ jobs:
           python3 overhaul/v113/generate_art.py GAME/src
           python3 overhaul/v113/qa_fix.py GAME/src
           python3 qa/v115/show_card_art.py GAME/src/render.c
+          python3 qa/v116/patch_combat.py GAME/src
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
           # The only actual music in the distributed EBOOT is later packaged
           # privately from the ten user-provided WAV files, not stored in Git.
@@ -106,7 +108,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.5
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.6
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
