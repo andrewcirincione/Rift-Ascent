@@ -76,6 +76,7 @@ jobs:
           python3 overhaul/v113/patch_game_ui.py GAME/src
           python3 overhaul/v113/generate_art.py GAME/src
           python3 overhaul/v113/qa_fix.py GAME/src
+          python3 qa/v115/show_card_art.py GAME/src/render.c
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
           # The only actual music in the distributed EBOOT is later packaged
           # privately from the ten user-provided WAV files, not stored in Git.
@@ -104,7 +105,7 @@ jobs:
           LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
           LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
           EXTRA_TARGETS = EBOOT.PBP
-          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.3
+          PSP_EBOOT_TITLE = RIFT ASCENT 1.1.5
           PSP_EBOOT_ICON = ICON0.PNG
           PSP_EBOOT_PIC1 = PIC1.PNG
           PSPSDK = $(shell psp-config --pspsdk-path)
@@ -186,7 +187,7 @@ jobs:
             overhaul/v113/test_qa.c GAME/src/game.c GAME/src/sound.c -o qa_tests
           ASAN_OPTIONS=detect_leaks=1 ./qa_tests
 
-      - name: PSPDEV compile/link full gameplay + illustrated v1.1.3 assets
+      - name: PSPDEV compile/link full gameplay + restored combat card paintings
         shell: bash
         run: |
           set -euo pipefail
@@ -196,6 +197,9 @@ jobs:
             make -j2
             test -s EBOOT.PBP
           '
+          # Preserve approved 1.1.4 hero/title/XMB art in the new build
+          # without hard-coding the newly compiled ELF's symbol offsets.
+          python3 qa/v115/import_114_art.py GAME/src portable_build/EBOOT.PBP
           python3 tools/audit_psp_imports.py portable_build/EBOOT.PBP | tee portable_build/imports.txt
           python3 GAME/verify_eboot.py portable_build/EBOOT.PBP
           sha256sum portable_build/EBOOT.PBP | tee portable_build/SHA256.txt
