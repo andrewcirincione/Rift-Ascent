@@ -34,7 +34,7 @@ lines[tileindices[28]]="{"+",".join(f"0x{v:04x}" for v in pixels)+"},"
 art.write_text(before+prefix+"\n".join(lines)+"};"+after)
 # Add 4x6 and 5x7 versions of the existing smooth typeface, rendered with
 # alpha sampled from the same 7x11 glyphs. Text never escapes the card box.
-small=String.raw if False else r'''
+small=r'''
 static void rift117_small_text(int x,int y,const char *s,uint32_t ink,int cw,int ch){
  if(!s)return;
  for(int n=0;s[n];n++){
@@ -89,7 +89,7 @@ r=r.replace(anchor,small+'\n'+anchor,1)
 old_ui='''    const int art_height=selected?30:23;
     const int art_top=y+20;'''
 new_ui='''    /* More room below the painting for true, non-overlapping rules text. */
-    const int art_height=selected?23:17;
+    const int art_height=selected?22:16;
     const int art_top=y+20;'''
 if r.count(old_ui)!=1:raise RuntimeError("Missing compact art sizing")
 r=r.replace(old_ui,new_ui,1)
@@ -102,11 +102,11 @@ new_body='''    int content_y=art_top+art_height+2;
        Switch to 4x6 on rare verbose selected cards. A 7px width / 11px
        baseline was why 1.1.6 chopped Inferno mid-sentence. */
     const char *description=card_description(raw);
-    int cw=selected?5:4,ch=selected?7:6;
+    int cw=selected?6:5,ch=selected?8:7;
     int lines=(y+h-3-content_y)/(ch+1);
     int columns=(w-10)/cw;
-    if(selected && (int)strlen(description)>columns*lines){
-      cw=4;ch=6;
+    if((int)strlen(description)>columns*lines){
+      cw=selected?5:4;ch=selected?7:6;
       lines=(y+h-3-content_y)/(ch+1);
       columns=(w-10)/cw;
     }
