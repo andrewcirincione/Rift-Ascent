@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'overhaul/**'
+      - 'qa/v115/**'
       - '.github/workflows/overhaul-psp.yml'
   workflow_dispatch:
 
