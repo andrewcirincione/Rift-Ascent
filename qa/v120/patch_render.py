@@ -220,5 +220,38 @@ replace(''' int room=(y+h-4)-(y+30+arth);
        columns,rows,selected?WHITE:MUTED,cw,ch);''',
  'shorten card text by fitting compact font instead of truncated wide wraps')
 
+
+replace('static int rift120_played_card=-1;static unsigned rift120_play_tick=0;',
+        'static int rift120_played_card=-1,rift120_auto_card=-1;static unsigned rift120_play_tick=0;',
+        'autoplay animation slot')
+replace(''' if(before->screen==COMBAT&&after->hp<before->hp){''',
+ ''' if(before->screen==COMBAT&&after->ic[46]>0){
+    rift120_auto_card=after->ic[46]-1;
+    rift120_play_tick=tick;
+    char abuf[64];snprintf(abuf,sizeof(abuf),"AUTO %s",cards[rift120_auto_card].name);
+    rift120_log_add(abuf);
+ }
+ if(before->screen==COMBAT&&after->hp<before->hp){''',
+ 'automatic play added to battle log')
+replace('''   if(rift120_played_card>=0 && tick>=rift120_play_tick &&
+      tick-rift120_play_tick<14){
+     card_render(192,49,96,116,rift120_played_card,1,1);
+     border(190,47,100,120,GOLD);
+   }else if(tick>=rift120_play_tick&&tick-rift120_play_tick>=14)
+      rift120_played_card=-1;''',
+ '''   if(tick>=rift120_play_tick && tick-rift120_play_tick<26){
+     unsigned age=tick-rift120_play_tick;
+     int shown=age>=12&&rift120_auto_card>=0?rift120_auto_card:
+       rift120_played_card;
+     if(shown<0)shown=rift120_auto_card;
+     if(shown>=0){
+       card_render(192,49,96,116,shown,1,1);
+       border(190,47,100,120,age<12?GOLD:BLUE);
+     }
+   }else if(tick>=rift120_play_tick&&tick-rift120_play_tick>=26){
+      rift120_played_card=-1;rift120_auto_card=-1;
+   }''',
+ 'sequence manually played and automatically played card animations')
+
 p.write_text(s)
 print("PASS: v1.2.0 combat HUD, histories, play animation, map, shop, rewards, backgrounds and cards")
