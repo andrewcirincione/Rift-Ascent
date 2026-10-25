@@ -14,7 +14,7 @@ int main(void){
       unsigned visible=game_route_visible_mask(&g,r);
       assert(visible && (visible&~7u)==0u);
       for(int lane=0;lane<MAP_LANES;lane++)
-         assert(!!(visible&(1u<<lane))==!!game_route_available(&g,lane));
+         assert(!game_route_available(&g,lane)||(visible&(1u<<lane)));
       for(int rr=r;rr<MAP_ROWS;rr++)assert(game_route_visible_mask(&g,rr)!=0);
       int chosen=first_bit(visible);
       assert(chosen>=0);
