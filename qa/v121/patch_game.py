@@ -74,5 +74,22 @@ one('''"Cost 2. Skills cost 0 and Exhaust.",''',
  '''"Skills cost 0. Playing them Exhausts them.",''','card cost repetition')
 one('''"MULTIPLAYER: cost 0. Protect allies.",''',
  '''"Multiplayer-only: protects allies.",''','multiplayer description')
+
+# The merchant has SEVEN genuine options; don't leave a fake "no heal" row.
+one(''' else if(choice==4){msg(g,"No healing service. Use campfires or potions.");}''',
+''' else if(choice==4){if(g->gold>=60&&g->deck_count>1){
+   g->screen=DECK_VIEW;g->prior_screen=SHOP;g->selection=0;
+   msg(g,"Choose card to remove; charge only when confirmed.");
+ }else msg(g,"Not enough gold.");}''','shift removal to fourth purchase row')
+one(''' else if(choice==5){if(g->gold>=60&&g->deck_count>1){g->screen=DECK_VIEW;g->prior_screen=SHOP;g->selection=0;msg(g,"Choose card to remove. No charge until confirmed.");}else msg(g,"Not enough gold.");}''',
+''' else if(choice==5){if(g->gold>=50&&g->potion_count<MAX_POTIONS){
+   g->gold-=50;g->potions[g->potion_count++]=rnd(g,6);
+   msg(g,"Purchased a potion.");
+ }else msg(g,"No funds or potion slots.");}''','shift potion')
+one(''' else if(choice==7){if(g->gold>=50&&g->potion_count<MAX_POTIONS){g->gold-=50;g->potions[g->potion_count++]=rnd(g,6);msg(g,"Purchased a potion.");}else msg(g,"No funds or potion slots.");}''',
+ '''''','remove old potion slot')
+one(''' else if(b==BTN_DOWN)g->selection=MIN(7,g->selection+1);''',
+ ''' else if(b==BTN_DOWN)g->selection=MIN(6,g->selection+1);''','shop cursor seven rows')
+
 p.write_text(s)
 print("PASS 1.2.1: full route graph, tougher/multiple foes, no shop heal, spring partial payment, X-cost")
