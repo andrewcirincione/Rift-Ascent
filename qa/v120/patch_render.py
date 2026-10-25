@@ -253,5 +253,29 @@ replace('''   if(rift120_played_card>=0 && tick>=rift120_play_tick &&
    }''',
  'sequence manually played and automatically played card animations')
 
+
+replace(''' if(before->screen==COMBAT&&after->block>before->block){''',
+ ''' if(before->screen==COMBAT && after->weak>before->weak){
+   char b[64];snprintf(b,sizeof(b),"ENEMY APPLIES WEAK +%d",after->weak-before->weak);rift120_log_add(b);
+ }
+ if(before->screen==COMBAT && after->vulnerable>before->vulnerable){
+   char b[64];snprintf(b,sizeof(b),"ENEMY APPLIES VULNERABLE +%d",after->vulnerable-before->vulnerable);rift120_log_add(b);
+ }
+ if(before->screen==COMBAT && after->poison>before->poison){
+   char b[64];snprintf(b,sizeof(b),"ENEMY APPLIES POISON +%d",after->poison-before->poison);rift120_log_add(b);
+ }
+ if(before->screen==COMBAT&&after->block>before->block){''',
+ 'log incoming status effects')
+replace('''static void rift120_log_add(const char *s){''',
+ '''void game_render_preplay(const Game *g,unsigned tick){
+ if(g && g->screen==COMBAT && g->selection>=0 &&
+    g->selection<g->hand_count){
+   rift120_played_card=g->hand[g->selection];
+   rift120_auto_card=-1;rift120_play_tick=tick;
+ }
+}
+static void rift120_log_add(const char *s){''',
+ 'show card before game state mutation')
+
 p.write_text(s)
 print("PASS: v1.2.0 combat HUD, histories, play animation, map, shop, rewards, backgrounds and cards")
