@@ -401,7 +401,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for scene in event shop reward boss map rest deck; do
+          for scene in event shop reward boss map rest deck block; do
             echo "Preparing $scene screen"
             cp -a portable_build "portable_qa_$scene"
             macro="$(printf '%s' "$scene" | tr '[:lower:]' '[:upper:]')"
@@ -416,7 +416,7 @@ jobs:
           pactl load-module module-null-sink sink_name=rift_qa_null || true
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
             set -eu
-            for scene in event shop reward boss map rest deck; do
+            for scene in event shop reward boss map rest deck block; do
               ./squashfs-root/AppRun "$PWD/portable_qa_$scene/EBOOT.PBP" > "emulator_results/qa-$scene.log" 2>&1 &
               pid=$!
               sleep 9
@@ -429,14 +429,14 @@ jobs:
           python3 - <<'PY'
           from PIL import Image, ImageChops
           from pathlib import Path
-          names=['event','shop','reward','boss','map','rest','deck']
+          names=['event','shop','reward','boss','map','rest','deck','block']
           ims=[Image.open(Path('emulator_results')/f'qa-{n}.png').convert('RGB') for n in names]
           for i in range(len(ims)-1):
               assert ImageChops.difference(ims[i],ims[i+1]).getbbox() is not None, (
                  f'Same rendered screen for {names[i]} and {names[i+1]}')
           for name,im in zip(names,ims):
               assert len(im.getcolors(65536) or [])>64, f'Blank screen: {name}'
-          print('PASS: Seven independently booted PSP screens are nonblank and distinct')
+          print('PASS: Eight independently booted PSP screens are nonblank and distinct')
           PY
 
       - name: Upload fully compiled game and emulator evidence
