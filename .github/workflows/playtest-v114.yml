@@ -91,7 +91,20 @@ jobs:
           chmod 700 "$XDG_RUNTIME_DIR"
           pulseaudio --start --exit-idle-time=-1 || true
           pactl load-module module-null-sink sink_name=rift114_null || true
-          mkdir -p "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT" "$HOME/.config/ppsspp/GAME/RIFTASCENT"
+          mkdir -p "$HOME/.config/ppsspp/PSP/SYSTEM" "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT" "$HOME/.config/ppsspp/GAME/RIFTASCENT"
+          cat > "$HOME/.config/ppsspp/PSP/SYSTEM/controls.ini" <<'CONTROLS'
+          [ControlMapping]
+          Cross = 1-54
+          Circle = 1-52
+          Square = 1-29
+          Triangle = 1-47
+          Up = 1-19
+          Down = 1-20
+          Left = 1-21
+          Right = 1-22
+          Start = 1-62
+          Select = 1-66
+          CONTROLS
           cp qa_runtime/EBOOT.PBP "$HOME/.config/ppsspp/PSP/GAME/RIFTASCENT/EBOOT.PBP"
           cp qa_runtime/EBOOT.PBP "$HOME/.config/ppsspp/GAME/RIFTASCENT/EBOOT.PBP"
           xvfb-run -a -s '-screen 0 1280x720x24' bash -c '
@@ -102,17 +115,24 @@ jobs:
             sleep 14
             kill -0 "$pid" || { echo "PPSSPP terminated unexpectedly"; exit 1; }
             import -display "$DISPLAY" -window root qa_evidence/title.png
-            xdotool mousemove 640 370 click 1 || true
-            xdotool key --clearmodifiers z || true
+            # PPSSPP software rendering is slow under Xvfb. A 10ms key tap
+            # can be missed by the PSP controller poll. Focus the SDL window and
+            # hold each physical key for several emulated frames.
+            win="$(xdotool search --onlyvisible --name PPSSPP | head -n 1 || true)"
+            echo "PPSSPP window=$win" | tee -a qa_evidence/controls.log
+            if [ -n "$win" ]; then xdotool windowfocus "$win" || true; fi
+            xdotool getwindowfocus getwindowname | tee -a qa_evidence/controls.log || true
+            xdotool keydown z; sleep 2; xdotool keyup z
             sleep 5
             import -display "$DISPLAY" -window root qa_evidence/after-cross.png
-            xdotool key --clearmodifiers z || true
+            xdotool keydown z; sleep 2; xdotool keyup z
             sleep 5
             import -display "$DISPLAY" -window root qa_evidence/after-second-cross.png
-            xdotool key --clearmodifiers Right z || true
+            xdotool keydown Right; sleep 2; xdotool keyup Right
+            xdotool keydown z; sleep 2; xdotool keyup z
             sleep 5
             import -display "$DISPLAY" -window root qa_evidence/after-route.png
-            xdotool key --clearmodifiers Return || true
+            xdotool keydown Return; sleep 2; xdotool keyup Return
             sleep 5
             import -display "$DISPLAY" -window root qa_evidence/after-start.png
             sleep 5
