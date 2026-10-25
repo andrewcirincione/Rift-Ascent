@@ -145,5 +145,48 @@ s=s[:start]+'''   if(tick>=rift120_play_tick && tick-rift120_play_tick<24){
       rift120_played_card=-1;rift120_auto_card=-1;
    }
 '''+s[end:]
+
+# Long descriptions are paged slowly through their wrapped lines; no card
+# silently cuts a sentence off, including upgraded cards.
+one('static void card_render(int x,int y,int w,int h,int raw,int selected,int active){',
+'''static void rift121_rules(int x,int y,const char *src,int cols,int rows,
+                          uint32_t ink,int cw,int ch){
+ if(cols<4||rows<1||!src)return;
+ char lines[36][66];int n=0;
+ const char *p=src;
+ while(*p&&n<36){
+   while(*p==' ')p++;
+   if(!*p)break;
+   int k=0,last_space=-1;
+   while(p[k]&&p[k]!='\\n'&&k<cols&&k<63){
+      if(p[k]==' ')last_space=k;k++;
+   }
+   if(!k&&*p=='\\n'){p++;continue;}
+   if(p[k] && p[k]!='\\n' && k>=cols && last_space>0)
+      k=last_space;
+   memcpy(lines[n],p,(size_t)k);lines[n][k]=0;
+   while(k>0&&lines[n][k-1]==' ')lines[n][--k]=0;
+   n++;p+=k;
+   while(*p==' '||*p=='\\n')p++;
+ }
+ int scroll=n>rows?((int)(animation_tick/125u)%(n-rows+1)):0;
+ for(int i=0;i<rows&&i+scroll<n;i++){
+   rift117_wrapped_text(x,y+i*(ch+1),lines[i+scroll],cols,1,ink,cw,ch);
+ }
+ if(n>rows)text(x+cols*cw-9,y+(rows-1)*(ch+1),"v",GOLD,1);
+}
+static void card_render(int x,int y,int w,int h,int raw,int selected,int active){''',
+ 'paged long card descriptions')
+one('''if(lines>0)rift117_wrapped_text(x+5,content_y,description,
+                                   columns,lines,selected?WHITE:MUTED,cw,ch);''',
+    '''if(lines>0)rift121_rules(x+5,content_y,description,
+                                   columns,lines,selected?WHITE:MUTED,cw,ch);''',
+    'paged combat descriptions')
+one('''if(rows>0)rift117_wrapped_text(x+5,y+30+arth,rules,
+       columns,rows,selected?WHITE:MUTED,cw,ch);''',
+    '''if(rows>0)rift121_rules(x+5,y+30+arth,rules,
+       columns,rows,selected?WHITE:MUTED,cw,ch);''',
+    'paged expanded descriptions')
+
 p.write_text(s)
 print("PASS 1.2.1: unified HUD, card animation, final blow, logs, paths, clean enemy silhouettes")
