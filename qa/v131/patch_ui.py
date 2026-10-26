@@ -27,10 +27,16 @@ one(' art_blit(x+4,y+28,w-8,arth,rift120_cards[id],60,40);',
  rect(x+4,y+28,w-8,arth,RGB(12,16,27));
  art_blit(x+(w-aw)/2,y+28,aw,arth,rift120_cards[id],60,40);
  }''',"selected art aspect")
+one('int tall=h>=120,arth=tall?48:(h>=88?8:15);',
+ 'int tall=h>=105,arth=h>=128?48:(h>=105?36:(h>=88?8:15));',
+ "selected card layout proportional and sufficient rules")
 one('int x=CLAMP(56+(idx-start)*73-18,54,292);',
     'int x=CLAMP(56+(idx-start)*73-21,52,292);',"hand x")
 one('card_render(x,164,120,91,g->hand[idx],1,active);',
-    'card_render(x,118,110,130,g->hand[idx],1,active);',"selected hand proportions")
+'''rect(56+(idx-start)*73,180,70,68,RGB(21,26,37));
+ border(56+(idx-start)*73,180,70,68,GOLD);
+ card_render(147,138,96,110,g->hand[idx],1,active);''',
+ "center selected card between HP bars and preserve active hand slot")
 
 a=s.index('static void rift120_hp_meter(')
 b=s.index('static const uint16_t *rift130_fight(',a)
