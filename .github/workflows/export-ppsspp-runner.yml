@@ -26,3 +26,5 @@ jobs:
             PPSSPP.AppImage
             PPSSPP.AppImage.sha256
           retention-days: 10
+
+# Build-131 offline QA runner; extracts and runs with Xvfb after download.
