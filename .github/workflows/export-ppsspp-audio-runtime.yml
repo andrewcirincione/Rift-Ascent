@@ -15,7 +15,7 @@ jobs:
           set -eux
           mkdir -p packages runtime
           cd packages
-          apt download pulseaudio pulseaudio-utils libpulse0 libpulsedsp
+          apt download pulseaudio pulseaudio-utils libpulse0
           for p in *.deb; do dpkg-deb -x "$p" ../runtime; done
           cd ..
           tar -czf pulseaudio-runtime.tar.gz -C runtime .
