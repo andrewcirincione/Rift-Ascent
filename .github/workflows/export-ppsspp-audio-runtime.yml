@@ -24,3 +24,5 @@ jobs:
           name: PPSSPP-PulseAudio-daemon-runtime
           path: pulseaudio-runtime.tar.gz
           retention-days: 10
+
+# Local PPSSPP audio daemon for offline hotfix QA.
