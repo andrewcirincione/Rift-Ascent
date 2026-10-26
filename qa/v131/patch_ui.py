@@ -136,11 +136,20 @@ one('''       int x=188,y=59-rise;
        if(age>=17)dark_rect(x,y,110,130,(int)(age-16)*29);''',
  "single properly proportioned played card")
 helper='''static const char *rift131_clean_rules(const char *s){
+ static char clean[192];
+ int i=0,j=0;
  if(!s)return "";
- if(s[0]=='C'&&s[1]=='o'&&s[2]=='s'&&s[3]=='t'&&s[4]==' '&&
-    s[5]>='0'&&s[5]<='9'&&s[6]=='.'&&s[7]==' ')
-   return s+8;
- return s;
+ while(s[i]&&j<(int)sizeof(clean)-1){
+   if(s[i]=='C'&&s[i+1]=='o'&&s[i+2]=='s'&&s[i+3]=='t'&&
+      s[i+4]==' '&&s[i+5]>='0'&&s[i+5]<='9'&&
+      s[i+6]=='.'&&(s[i+7]==' '||s[i+7]=='\\0')){
+     i+=7;
+     if(s[i]==' ')i++;
+     continue;
+   }
+   clean[j++]=s[i++];
+ }
+ clean[j]=0;return clean;
 }
 '''
 s=s.replace('static void card_render(',helper+'static void card_render(',1)
