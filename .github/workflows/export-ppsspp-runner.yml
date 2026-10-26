@@ -1,0 +1,28 @@
+name: Export Linux PPSSPP runner for final-image QA
+on:
+  push:
+    paths:
+      - '.github/workflows/export-ppsspp-runner.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  emulator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Obtain official PPSSPP 1.20.4 binary
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 -o PPSSPP.AppImage https://github.com/hrydgard/ppsspp/releases/download/v1.20.4/PPSSPP-v1.20.4-anylinux-x86_64.AppImage
+          chmod +x PPSSPP.AppImage
+          test -s PPSSPP.AppImage
+          sha256sum PPSSPP.AppImage > PPSSPP.AppImage.sha256
+      - name: Export to local visual inspection machine
+        uses: actions/upload-artifact@v4
+        with:
+          name: PPSSPP-1.20.4-Linux-AppImage
+          path: |
+            PPSSPP.AppImage
+            PPSSPP.AppImage.sha256
+          retention-days: 10
