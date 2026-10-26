@@ -113,7 +113,8 @@ one(''' animation_tick=tick;
 ''' animation_tick=tick;
  if(g->screen==REWARD&&victory_replay&&tick>=victory_tick &&
     tick-victory_tick<30){
-   Game shot=victory_scene;
+   static Game shot;
+   shot=victory_scene;
    shot.screen=COMBAT;
    for(int i=0;i<shot.enemy_count;i++)if(shot.enemies[i].hp<=0)shot.enemies[i].hp=1;
    unsigned age=tick-victory_tick;
