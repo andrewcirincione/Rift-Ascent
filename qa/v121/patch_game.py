@@ -91,5 +91,10 @@ one(''' else if(choice==7){if(g->gold>=50&&g->potion_count<MAX_POTIONS){g->gold-
 one(''' else if(b==BTN_DOWN)g->selection=MIN(7,g->selection+1);''',
  ''' else if(b==BTN_DOWN)g->selection=MIN(6,g->selection+1);''','shop cursor seven rows')
 
+
+one('''g->screen=SHOP;g->selection=5;msg(g,"Card removed. 60 gold paid.");''',
+    '''g->screen=SHOP;g->selection=4;msg(g,"Card removed. 60 gold paid.");''',
+    'return selection to new remove-card row')
+
 p.write_text(s)
 print("PASS 1.2.1: full route graph, tougher/multiple foes, no shop heal, spring partial payment, X-cost")
