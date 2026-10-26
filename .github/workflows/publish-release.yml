@@ -1,0 +1,48 @@
+name: Publish PSP release
+
+on:
+  push:
+    branches: [main]
+    paths: ['release/current.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-psp-release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate and package the exact tested EBOOT
+        run: python3 tools/prepare_github_release.py
+      - name: Publish verified release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          release_tag=$(python3 -c 'import json; print(json.load(open("release/current.json"))["tag"])')
+          release_version=$(python3 -c 'import json; print(json.load(open("release/current.json"))["version"])')
+          release_notes=$(python3 -c 'import json; print(json.load(open("release/current.json"))["notes"])')
+          if gh release view "$release_tag" --json isDraft,targetCommitish > "$RUNNER_TEMP/existing-release.json"; then
+            python3 - "$RUNNER_TEMP/existing-release.json" <<'PY'
+          import json, os, sys
+          release = json.load(open(sys.argv[1]))
+          assert release['isDraft'], 'Already published: use a new tag for a changed release'
+          assert release['targetCommitish'] == os.environ['GITHUB_SHA'], 'Draft belongs to another commit'
+          PY
+          else
+            gh release create "$release_tag" --target "$GITHUB_SHA" \
+              --title "Rift Ascent $release_version" --notes-file "$release_notes" --draft
+          fi
+          gh release upload "$release_tag" dist/* --clobber
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$release_tag" > "$RUNNER_TEMP/uploaded-release.json"
+          python3 tools/check_release_upload.py "$RUNNER_TEMP/uploaded-release.json"
+          gh release edit "$release_tag" --draft=false --latest
+          gh release view "$release_tag" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
