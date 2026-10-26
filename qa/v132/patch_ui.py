@@ -85,8 +85,8 @@ one(''' card_render(147,138,96,110,g->hand[idx],1,active);
   int preview=rift132_preview_damage(g,g->hand[idx]);
   if(preview>0){
    char full[32];snprintf(full,sizeof(full),"TOTAL DMG %d",preview);
-   rect(151,124,88,14,RGB(40,21,28));
-   border(151,124,88,14,RGB(198,90,77));
+   rect(135,124,120,14,RGB(40,21,28));
+   border(135,124,120,14,RGB(198,90,77));
    center(195,126,full,GOLD,1);
   }
  }
