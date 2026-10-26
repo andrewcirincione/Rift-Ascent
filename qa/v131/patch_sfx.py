@@ -49,7 +49,8 @@ s=swap(s,'''    if(before_input.screen!=game.screen)rift_sound_effect(5);''',
     else if(before_input.screen==MAP && key==BTN_OK &&
             game.screen!=MAP)rift_sound_effect(7);
     else if(before_input.screen==game.screen &&
-            before_input.selection!=game.selection &&
+            (before_input.selection!=game.selection ||
+             (game.screen==MAP && before_input.scroll!=game.scroll)) &&
             (game.screen==MAP||game.screen==COMBAT||
              game.screen==CARD_CHOICE||game.screen==DECK_VIEW))
       rift_sound_effect(6);
