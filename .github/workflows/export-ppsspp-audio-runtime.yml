@@ -1,0 +1,26 @@
+name: Export headless audio runtime for PPSSPP
+on:
+  push:
+    paths:
+      - '.github/workflows/export-ppsspp-audio-runtime.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download standalone Ubuntu PulseAudio packages
+        run: |
+          set -eux
+          mkdir -p packages runtime
+          cd packages
+          apt download pulseaudio pulseaudio-utils
+          for p in *.deb; do dpkg-deb -x "$p" ../runtime; done
+          cd ..
+          tar -czf pulseaudio-runtime.tar.gz -C runtime .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PPSSPP-PulseAudio-daemon-runtime
+          path: pulseaudio-runtime.tar.gz
+          retention-days: 10
