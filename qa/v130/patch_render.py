@@ -78,5 +78,32 @@ s=s.replace('rift118_card_panel(x,y,w,h,selected);',
    put(x+4,y+h-5,GOLD);put(x+w-5,y+h-5,GOLD);
  }''')
 assert s.count('uint32_t etched')==2
+
+# Use full AI-painted textures for combat chrome, not placeholder polygons.
+one('#include "rift130_slots.h"',
+    '#include "rift130_slots.h"\n#include "rift130_ui.h"','UI art')
+one('rect(0,175,W,80,RGB(11,14,24));',
+    'art_blit(0,175,W,80,rift130_ui_hand,480,80);','painted hand plinth')
+i=s.index(' circle(26,218,25,RGB(126,95,57));')
+j=s.index(' int visible=5,start=0;',i)
+s=s[:i]+''' sprite_scaled(0,193,52,52,rift130_ui_energy,52,52);
+ snprintf(b,sizeof(b),"%d",g->energy);
+ center(26,207,b,WHITE,2);
+ text(5,241,"ENERGY",GOLD,1);
+'''+s[j:]
+i=s.index('static void rift120_hp_meter(')
+j=s.index('static const uint16_t *rift130_fight(',i)
+t=s[i:j]
+needle=' if(shield>0){'
+assert needle in t
+t=t.replace(needle,''' sprite_scaled(x-5,y-5,w+24,33,rift130_ui_hp,110,36);
+ if(shield>0){''',1)
+s=s[:i]+t+s[j:]
+needle='if(selected){rift118_round_outline(x-1,y-1,w+2,h+2,GOLD,5);}'
+assert s.count(needle)==2
+s=s.replace(needle,'''sprite_scaled(x,y,w,h,d->type==0?rift130_ui_attack:
+   d->type==1?rift130_ui_skill:rift130_ui_power,70,91);
+ if(selected){rift118_round_outline(x-1,y-1,w+2,h+2,GOLD,5);}''')
+
 p.write_text(s)
 print("PASS: 11 act-specific AI-scene slots, gothic hand and energy UI, typed card filigree")
