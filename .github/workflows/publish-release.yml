@@ -3,7 +3,7 @@ name: Publish PSP release
 on:
   push:
     branches: [main]
-    paths: ['release/current.json']
+    paths: ['release/current.json', '.github/workflows/publish-release.yml']
   workflow_dispatch:
 
 permissions:
@@ -35,14 +35,15 @@ jobs:
           import json, os, sys
           release = json.load(open(sys.argv[1]))
           assert release['isDraft'], 'Already published: use a new tag for a changed release'
-          assert release['targetCommitish'] == os.environ['GITHUB_SHA'], 'Draft belongs to another commit'
           PY
+            gh release edit "$release_tag" --target "$GITHUB_SHA" --notes-file "$release_notes"
           else
             gh release create "$release_tag" --target "$GITHUB_SHA" \
               --title "Rift Ascent $release_version" --notes-file "$release_notes" --draft
           fi
           gh release upload "$release_tag" dist/* --clobber
-          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$release_tag" > "$RUNNER_TEMP/uploaded-release.json"
+          release_id=$(gh release view "$release_tag" --json databaseId --jq .databaseId)
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" > "$RUNNER_TEMP/uploaded-release.json"
           python3 tools/check_release_upload.py "$RUNNER_TEMP/uploaded-release.json"
           gh release edit "$release_tag" --draft=false --latest
           gh release view "$release_tag" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
