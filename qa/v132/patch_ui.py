@@ -71,7 +71,7 @@ static int rift132_preview_damage(const Game *g,int raw){
 }
 static void card_render(int x,int y,int w,int h,int raw,int selected,int active){''',"total preview helper")
 one('int val=game_effective_damage(card_combat_context,raw,card_combat_context->target);',
-    'int val=rift132_preview_damage(card_combat_context);',"compact card")
+    'int val=rift132_preview_damage(card_combat_context,raw);',"compact card")
 one('''        rect(x+w-30,art_top+2,26,14,RGB(60,24,30));
         border(x+w-30,art_top+2,26,14,RED);
         center(x+w-17,art_top+3,amount,GOLD,1);''',
