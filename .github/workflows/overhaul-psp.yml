@@ -250,6 +250,15 @@ jobs:
           python3 qa/v119/test_music_package.py portable_build/EBOOT.PBP portable_build/EMBED_TEST.PBP
 
 
+      - name: Preserve freshly compiled v1.3.1 EBOOT before external emulator downloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: Rift-Ascent-v1.3.1-Compiled-EBOOT
+          path: |
+            portable_build/EBOOT.PBP
+            portable_build/SHA256.txt
+          if-no-files-found: error
+
       - name: Download Linux PPSSPP and dependencies
         shell: bash
         run: |
