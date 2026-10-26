@@ -1,0 +1,20 @@
+[
+  {
+    "file": "EBOO00649_2026-10-26_14-52-05.wav",
+    "rate": 44100,
+    "channels": 2,
+    "seconds": 38.085079365079366,
+    "peak": 12626,
+    "rms": 1705.16,
+    "complete": true
+  },
+  {
+    "file": "EBOO00649_2026-10-26_14-49-23.wav",
+    "rate": 44100,
+    "channels": 2,
+    "seconds": 11.656167800453515,
+    "peak": 9060,
+    "rms": 1338.05,
+    "complete": false
+  }
+]

@@ -1,0 +1,4 @@
+runs=1000 seed_start=40001 policy=0 wins=377 rate=0.377 stalled=0 mean_floor=37.84 turns=56398
+act=1 reached=1000 deaths=37 fights=12673 pairs=1266 pair_rate=0.100
+act=2 reached=963 deaths=155 fights=15076 pairs=2437 pair_rate=0.162
+act=3 reached=808 deaths=431 fights=12100 pairs=2509 pair_rate=0.207

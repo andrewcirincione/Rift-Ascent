@@ -1,0 +1,20 @@
+{
+  "generator": "OpenAI built-in image generation",
+  "source": "icons-original.png",
+  "assets": [
+    "strength",
+    "dexterity",
+    "cross",
+    "circle",
+    "square",
+    "start",
+    "weak",
+    "vulnerable",
+    "poison",
+    "energy_drain"
+  ],
+  "prompt": "Transparent 2-column 3-row Gothic game UI atlas: red bronze clenched gauntlet for Strength; silver and emerald winged boot for Dexterity; charcoal physical controller buttons displaying bold white X, O, hollow square, and a pill-shaped Start key with right-pointing triangle. Clean silhouettes for 22px status icons and 14px controls. No dividers, connecting elements, labels, background, or arbitrary etched lines.",
+  "processing": "Extracted at the observed transparent gutters and alpha-preserving Lanczos resampling. Native RGBA packed into rift135_art.h.",
+  "status_source": "status-original.png",
+  "status_prompt": "Transparent 2x2 Gothic status atlas: physical broken steel sword for Weak, fractured violet/crimson breastplate for Vulnerable, emerald skull poison flask for Poison, cracked depleted sapphire orb for Energy Drain. Clean recognizable shapes at 20px, no text, dividers, arbitrary decorative lines or floating effects."
+}

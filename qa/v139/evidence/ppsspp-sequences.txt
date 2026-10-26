@@ -1,0 +1,33 @@
+SHOT status-only-sequence-0
+status-only 0 {'animation_tick': 164, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-1
+status-only 1 {'animation_tick': 168, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-2
+status-only 2 {'animation_tick': 168, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-3
+status-only 3 {'animation_tick': 172, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-4
+status-only 4 {'animation_tick': 176, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-5
+status-only 5 {'animation_tick': 176, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-6
+status-only 6 {'animation_tick': 180, 'r137_start': 152, 'r137_count': 1}
+SHOT status-only-sequence-7
+status-only 7 {'animation_tick': 184, 'r137_start': 152, 'r137_count': 1}
+SHOT shrug-sequence-0
+shrug 0 {'animation_tick': 244, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-1
+shrug 1 {'animation_tick': 248, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-2
+shrug 2 {'animation_tick': 248, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-3
+shrug 3 {'animation_tick': 252, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-4
+shrug 4 {'animation_tick': 252, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-5
+shrug 5 {'animation_tick': 256, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-6
+shrug 6 {'animation_tick': 260, 'r137_start': 232, 'r137_count': 1}
+SHOT shrug-sequence-7
+shrug 7 {'animation_tick': 264, 'r137_start': 232, 'r137_count': 1}
+PASS actual PPSSPP screenshot sequences for status-only and non-Defend Block

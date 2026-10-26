@@ -1,0 +1,10 @@
+{
+  "version": "1.3.11",
+  "tag": "v1.3.11",
+  "eboot": "versions/1.3.11/EBOOT.PBP",
+  "eboot_sha256": "44bdf11de869d7355c2f14af2d5d99b649dae3734c6aba44a57b6e406417bfc6",
+  "notes": "versions/1.3.11/PATCH_NOTES.md",
+  "screenshot": "versions/1.3.11/Combat.png",
+  "canonical_source": "qa/v1311/source",
+  "validation": "qa/v1311/evidence/shorter-victory/ppsspp-final.txt"
+}

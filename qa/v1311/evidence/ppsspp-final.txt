@@ -1,0 +1,9 @@
+SHOT replacement-fight3
+PASS replacement RiftFight3 sample count 1159200 live non-silent PSP audio RMS 6505.59
+PASS stream 4 advances 2048 samples; RMS 6505.59
+PASS stream 2 advances 1536 samples; RMS 1273.53
+PASS stream 3 advances 1664 samples; RMS 4135.13
+SHOT short-victory-rewards
+PASS shorter victory completes before rewards, with music paused during the finishing sequence
+PASS final release EBOOT 1.3.11: shorter victory plus replacement RiftFight3; normal and elite audio playback
+SHA256 44bdf11de869d7355c2f14af2d5d99b649dae3734c6aba44a57b6e406417bfc6

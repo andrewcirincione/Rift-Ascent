@@ -1,0 +1,12 @@
+{
+  "version": "1.3.6",
+  "eboot_bytes": 10495624,
+  "sha256": "83ea8a64207002675bb999d56e73c034981e52d51cca73d01867b8251acc38d8",
+  "save_version": 18,
+  "save_struct_bytes": 3144,
+  "soundtrack_tail_sha256": "77c0d56c3d352eaf79e3d902d7c911dc254efe79dc8c282f870549b92640401a",
+  "ppsspp": "1.20.4",
+  "screenshot_source": "PPSSPP built-in PNG screenshot function, final release EBOOT",
+  "arithmetic_resolution_rng_cases": 39608,
+  "dynamic_layout_cases": 1472
+}

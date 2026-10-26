@@ -1,0 +1,48 @@
+{
+  "splash_codec": "ATRAC3, 44100 Hz stereo",
+  "splash_bytes": 198864,
+  "splash_source": "RiftBoss.wav",
+  "splash_metadata": {
+    "samples": 1058400,
+    "frames": 1035,
+    "delay": 1024,
+    "loop_start": 1024,
+    "loop_end": 1059423,
+    "bytes": 198864
+  },
+  "splash_decoded_non_silent": true,
+  "icon_matches_main_menu_logo": true,
+  "tracks": [
+    {
+      "name": "Checkers",
+      "seconds": 204.0,
+      "rms": 8261.948167884482,
+      "peak": 31006
+    },
+    {
+      "name": "RiftMenu",
+      "seconds": 68.57142857142857,
+      "rms": 7975.698156920116,
+      "peak": 32768
+    },
+    {
+      "name": "RiftFight",
+      "seconds": 109.71428571428571,
+      "rms": 9393.018440007341,
+      "peak": 32768
+    },
+    {
+      "name": "RiftFight2",
+      "seconds": 123.42857142857143,
+      "rms": 8632.222181880605,
+      "peak": 32768
+    },
+    {
+      "name": "RiftFight3",
+      "seconds": 105.14285714285714,
+      "rms": 10039.158903379472,
+      "peak": 32768
+    }
+  ],
+  "eboot_sha256": "2153916da770486390b39d8a8ecf9914670bbab2130c82907f8e2f7f29ba2e00"
+}

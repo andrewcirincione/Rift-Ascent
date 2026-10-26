@@ -1,0 +1,10 @@
+PASS final-binary PPSSPP 1.20.4 boot, native screenshots and actual controller tests.
+PASS active and negative Strength/Dexterity, Weak, Vulnerable, Poison, energy drain; zero values hidden; both enemy columns restored.
+PASS Square opens deck and Circle returns; Start opens/closes inventory.
+PASS compact card ascent, resolution and transparent fade remain functional.
+PASS all 184 base/upgraded previews retain full text and 29px painting height; natural card height 100-149.
+PASS native AddressSanitizer / UndefinedBehaviorSanitizer checks: 2,000 maps, 45-floor campaign, save/load, shop/relic regressions and independent block/damage audio.
+PASS all three original music tracks loaded; trailer unchanged byte-for-byte.
+PASS PBP/ELF structure and user-mode imports. Static memory: 8,177,660 bytes.
+Final EBOOT SHA-256: e90f08d441fd43f125b2bcefc07e0e3207465c0d18fc8124082f2938367885fd
+PASS PSP launcher title 1.3.5; executable payload byte-identical after metadata rebuild; final release boot retested.

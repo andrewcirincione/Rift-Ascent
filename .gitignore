@@ -1,0 +1,12 @@
+*.o
+*.elf
+*.prx
+*.sfo
+*.PBP
+!versions/*/EBOOT.PBP
+__pycache__/
+*.pyc
+dist/
+game.map
+SAVE.DAT
+PROFILE.DAT

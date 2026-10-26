@@ -1,0 +1,6 @@
+SHOT heavy-before
+BOOT heavy
+SHOT heavy
+PASS action heavy events 1 first event (1, -1, 0, 52, 0, 7)
+SHOT heavy-after
+PASS fixture heavy {'animation_tick': 61, 'r137_count': 1}

@@ -1,0 +1,97 @@
+[  1%] Building CXX object src/CMakeFiles/pcm_io.dir/pcm_io_sndfile.cpp.o
+[  3%] Generating atracdenc.1.gz
+[  9%] Built target fft_impl
+[ 13%] Built target oma
+[ 13%] Built target man-atracdenc
+[ 15%] Building C object src/lib/libgha/CMakeFiles/gha.dir/src/gha.c.o
+[ 17%] Building C object src/lib/libgha/CMakeFiles/gha.dir/src/sle.c.o
+[ 21%] Built target bitstream
+[ 23%] Linking C static library libgha.a
+[ 23%] Built target gha
+[ 28%] Building C object src/lib/libgha/CMakeFiles/main.dir/test/main.c.o
+[ 28%] Building C object src/lib/libgha/CMakeFiles/ut.dir/test/ut.c.o
+[ 28%] Building C object src/lib/libgha/CMakeFiles/dtmf.dir/test/dtmf.c.o
+[ 30%] Linking C executable dtmf
+[ 32%] Linking C executable main
+[ 32%] Built target dtmf
+[ 32%] Built target main
+In file included from /workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/test/ut.c:1:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h: In function ‘fct_ts_new’:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:267:5: warning: ‘__builtin_strncpy’ specified bound 256 equals destination size [-Wstringop-truncation]
+  267 |     strncpy(dst, src, num);
+      |     ^
+[ 34%] Linking CXX static library libpcm_io.a
+[ 34%] Built target pcm_io
+[ 38%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/wav.cpp.o
+[ 38%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/env.cpp.o
+[ 40%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/aea.cpp.o
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/env.cpp:23: warning: ignoring ‘#pragma STDC FENV_ACCESS’ [-Wunknown-pragmas]
+   23 | #pragma STDC FENV_ACCESS ON
+      | 
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h: In function ‘fct_test_new’:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:267:5: warning: ‘__builtin_strncpy’ specified bound 256 equals destination size [-Wstringop-truncation]
+In function ‘fct_nlist__clear’,
+    inlined from ‘fct_nlist__final’ at /workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:751:5,
+    inlined from ‘fct_test__del’ at /workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:956:5,
+    inlined from ‘fct_test__del’ at /workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:950:1,
+    inlined from ‘fct_test_new’ at /workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:991:9:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:736:41: warning: ‘((fct_nlist_t *)test)[1].used_itm_num’ may be used uninitialized [-Wmaybe-uninitialized]
+  736 |         for ( itm_i__=0; itm_i__ != list->used_itm_num; ++itm_i__ )
+      |                                     ~~~~^~~~~~~~~~~~~~
+[ 42%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/transient_detector.cpp.o
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h: In function ‘fct_xchk_fn’:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/lib/libgha/src/3rd/fctx/fct.h:267:5: warning: ‘__builtin_strncpy’ specified bound 256 equals destination size [-Wstringop-truncation]
+  267 |     strncpy(dst, src, num);
+      |     ^
+[ 44%] Linking C executable ut
+[ 44%] Built target ut
+[ 46%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/transient_spectral_upsampler.cpp.o
+[ 48%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac1denc.cpp.o
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/transient_detector.cpp:287:14: warning: ‘float NAtracDEnc::RegionRMS(const std::vector<float>&, int, int)’ defined but not used [-Wunused-function]
+  287 | static float RegionRMS(const std::vector<float>& in, int start, int end) {
+      |              ^~~~~~~~~
+[ 50%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1.cpp.o
+[ 51%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1_bitalloc.cpp.o
+[ 53%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at1/atrac1_dequantiser.cpp.o
+[ 55%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac_scale.cpp.o
+[ 57%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac_enc_cache.cpp.o
+[ 59%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac_psy_common.cpp.o
+[ 61%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/oma.cpp.o
+[ 63%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/rm.cpp.o
+[ 65%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/at3.cpp.o
+[ 67%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/raw.cpp.o
+[ 69%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac3denc.cpp.o
+[ 71%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3/atrac3.cpp.o
+[ 73%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3/atrac3_bitstream.cpp.o
+[ 75%] Building C object src/CMakeFiles/atracdenc_impl.dir/atrac/atrac3plus_pqf/atrac3plus_pqf.c.o
+[ 76%] Building C object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/ff/atrac3plusdsp.c.o
+[ 78%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p.cpp.o
+[ 80%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p_bitstream.cpp.o
+[ 82%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p_gha.cpp.o
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_gha.cpp:456: warning: ignoring ‘#pragma GCC nounroll’ [-Wunknown-pragmas]
+  456 |     #pragma GCC nounroll
+      | 
+[ 84%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p_mdct.cpp.o
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_bitstream.cpp: In static member function ‘static void NAtracDEnc::TQuantUnitsEncoder::EncodeQuSpectra(const int*, size_t, size_t, std::vector<std::pair<short unsigned int, unsigned char> >&)’:
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_bitstream.cpp:331:30: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  331 |                     signs[i] = t > 0 ? 1 : -1;
+      |                     ~~~~~~~~~^~~~~~~~~~~~~~~~
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_bitstream.cpp:320:20: note: at offset 4 into destination object ‘signs’ of size 4
+  320 |             int8_t signs[4] = {0};
+      |                    ^~~~~
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_bitstream.cpp:331:30: warning: writing 1 byte into a region of size 0 [-Wstringop-overflow=]
+  331 |                     signs[i] = t > 0 ? 1 : -1;
+      |                     ~~~~~~~~~^~~~~~~~~~~~~~~~
+/workspace/scratch/9a81aefb5adc/runtime/atracdenc/src/atrac/at3p/at3p_bitstream.cpp:320:20: note: at offset 4 into destination object ‘signs’ of size 4
+  320 |             int8_t signs[4] = {0};
+      |                    ^~~~~
+[ 86%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/atrac/at3p/at3p_tables.cpp.o
+[ 88%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/lib/mdct/mdct.cpp.o
+[ 90%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/lib/bs_encode/encode.cpp.o
+[ 92%] Building CXX object src/CMakeFiles/atracdenc_impl.dir/qmf/qmf.cpp.o
+[ 94%] Linking CXX static library libatracdenc_impl.a
+[ 94%] Built target atracdenc_impl
+[ 98%] Building CXX object src/CMakeFiles/atracdenc.dir/help.cpp.o
+[ 98%] Building CXX object src/CMakeFiles/atracdenc.dir/main.cpp.o
+[100%] Linking CXX executable atracdenc
+[100%] Built target atracdenc

@@ -1,0 +1,51 @@
+make: Entering directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_build'
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
+render.c: In function 'sprite_scaled_facing':
+render.c:203:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  203 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |    ^~
+render.c:203:15: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  203 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |               ^~
+render.c: In function 'r134_lines':
+render.c:274:3: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+  274 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |   ^~~~~
+render.c:274:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+  274 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |                               ^~
+render.c:278:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  278 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |   ^~
+render.c:278:14: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  278 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |              ^~~~~~
+render.c: In function 'combat':
+render.c:648:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  648 |   if((r134_energy[(yy-199)*46+xx-4]>>24)<32)continue;uint32_t c=pix[yy*sw+xx];int v=((c&255)*30+((c>>8)&255)*59+((c>>16)&255)*11)/100;pix[yy*sw+xx]=RGB(v,v,v);
+      |   ^~
+render.c:648:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  648 |   if((r134_energy[(yy-199)*46+xx-4]>>24)<32)continue;uint32_t c=pix[yy*sw+xx];int v=((c&255)*30+((c>>8)&255)*59+((c>>16)&255)*11)/100;pix[yy*sw+xx]=RGB(v,v,v);
+      |                                                      ^~~~~~~~
+render.c: In function 'map_screen':
+render.c:702:8: warning: unused variable 'available' [-Wunused-variable]
+  702 |        available=r==g->floor&&game_route_available(g,c);
+      |        ^~~~~~~~~
+render.c: At top level:
+render.c:327:12: warning: 'rift117_wrapped_text' defined but not used [-Wunused-function]
+  327 | static int rift117_wrapped_text(int x,int y,const char *source,
+      |            ^~~~~~~~~~~~~~~~~~~~
+render.c:310:13: warning: 'border' defined but not used [-Wunused-function]
+  310 | static void border(int x,int y,int w,int h,uint32_t c){rect(x,y,w,1,c);rect(x,y+h-1,w,1,c);rect(x,y,1,h,c);rect(x+w-1,y,1,h,c);}
+      |             ^~~~~~
+render.c:309:13: warning: 'triangle' defined but not used [-Wunused-function]
+  309 | static void triangle(int x1,int y1,int x2,int y2,int x3,int y3,uint32_t c){int minx=x1<x2?(x1<x3?x1:x3):(x2<x3?x2:x3);int maxx=x1>x2?(x1>x3?x1:x3):(x2>x3?x2:x3);int miny=y1<y2?(y1<y3?y1:y3):(y2<y3?y2:y3);int maxy=y1>y2?(y1>y3?y1:y3):(y2>y3?y2:y3);minx=minx<0?0:minx;miny=miny<0?0:miny;maxx=maxx>=W?W-1:maxx;maxy=maxy>=H?H-1:maxy;int det=(y2-y3)*(x1-x3)+(x3-x2)*(y1-y3);if(det==0)return;for(int y=miny;y<=maxy;y++)for(int x=minx;x<=maxx;x++){int a=(y2-y3)*(x-x3)+(x3-x2)*(y-y3),b=(y3-y1)*(x-x3)+(x1-x3)*(y-y3),d=det-a-b;if(det>0?(a>=0&&b>=0&&d>=0):(a<=0&&b<=0&&d<=0))put(x,y,c);}}
+      |             ^~~~~~~~
+render.c:308:13: warning: 'circle' defined but not used [-Wunused-function]
+  308 | static void circle(int xc,int yc,int r,uint32_t c){for(int y=-r;y<=r;y++)for(int x=-r;x<=r;x++)if(x*x+y*y<=r*r)put(xc+x,yc+y,c);}
+      |             ^~~~~~
+In file included from render.c:7:
+rift120_cards.h:1118:24: warning: 'rift120_art' defined but not used [-Wunused-function]
+ 1118 | static const uint16_t *rift120_art(int id,int x,int y){int n=((x/9+y/13)%5+5)%5;return id==0?rift120_strikes[n]:id==1?rift120_defends[n]:rift120_cards[id];}
+      |                        ^~~~~~~~~~~
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/lib -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128  psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf

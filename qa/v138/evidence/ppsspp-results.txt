@@ -1,0 +1,39 @@
+SHOT release-title
+SHOT combat-long-description
+SHOT map-current-position
+SHOT map-final-floors
+SHOT reward-first
+SHOT reward-selected
+SHOT combat-strength20
+SHOT attack-low
+AUDIO attack-low contacts 1
+PASS action attack-low events 1 first event (1, -1, 0, 6, 0, 0)
+SHOT attack-medium
+AUDIO attack-medium contacts 1
+PASS action attack-medium events 1 first event (1, -1, 0, 16, 0, 0)
+SHOT attack-heavy
+AUDIO attack-heavy contacts 1
+PASS action attack-heavy events 1 first event (1, -1, 0, 52, 0, 7)
+SHOT player-block
+AUDIO player-block contacts 0
+PASS action player-block events 1 first event (2, -1, -1, 5, 0, 1)
+SHOT player-power
+AUDIO player-power contacts 0
+PASS action player-power events 1 first event (3, -1, -1, 0, 0, 8)
+SHOT player-status-powers
+SHOT multi-hit
+AUDIO multi-hit contacts 2
+PASS action multi-hit events 2 first event (1, -1, 0, 10, 0, 27)
+SHOT enemy-attack-and-block
+PASS enemy attack/parry and enemy shield animation; no health loss through sufficient Block
+SHOT finisher
+AUDIO finisher contacts 1
+PASS action finisher events 1 first event (1, -1, 0, 52, 0, 7)
+SHOT boss-finisher
+AUDIO boss-finisher contacts 1
+PASS action boss-finisher events 1 first event (1, -1, 0, 52, 0, 7)
+SHOT lethal-enemy-hit
+SHOT death-collapse
+SHOT defeat-after-collapse
+SHOT combat-final
+PASS final PSP build: low/medium/heavy attacks, block, player Power, multi-hit, enemy attack/guard, capped flames; actual screenshots saved

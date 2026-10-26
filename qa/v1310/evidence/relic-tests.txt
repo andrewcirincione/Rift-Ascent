@@ -1,0 +1,1 @@
+PASS all 28 relic effects and all 9 entrance blessings; every-turn/first-turn/first-card/hit/act trigger boundaries

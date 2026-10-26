@@ -1,0 +1,22 @@
+{
+  "tool": "Built-in OpenAI image generation",
+  "originals": [
+    {
+      "path": "art/act.png",
+      "sha256": "031a90fa5c8146b2815e37c534942e7f2539f6359d8768a0060ff55d78777f1e"
+    },
+    {
+      "path": "art/plating.png",
+      "sha256": "dbcca1441a1543c1ff31ef036503b7d126930da203c434273cf85e77069533ba"
+    },
+    {
+      "path": "art/shop.png",
+      "sha256": "efef02955b5b55d31a80b73592fb7956b7d2999fa01b1996d4c6c1d37d62c2b8"
+    },
+    {
+      "path": "art/triangle.png",
+      "sha256": "53d568dc771de0a76c982b8a0043cf086069c650f9894bc3ea4073dea207eb47"
+    }
+  ],
+  "processing": "Alpha-bound crop and runtime size conversion. Connected sprite bounds for grounding; original enemy pixels unchanged. XMB icon reuses qa/v134/assets/logo.png."
+}

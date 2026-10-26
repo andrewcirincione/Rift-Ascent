@@ -1,0 +1,164 @@
+make: Entering directory '/workspace/scratch/9a81aefb5adc/rift-ascent-1310/portable_build'
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o psp_start.o psp_start.c
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o game.o game.c
+game.c: In function 'check_win':
+game.c:517:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  517 |  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
+      |  ^~
+game.c:517:26: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  517 |  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
+      |                          ^~
+game.c: In function 'game_start_battle':
+game.c:706:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  706 |  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+      |  ^~
+game.c:706:30: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  706 |  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+      |                              ^~
+game.c: In function 'game_start_turn':
+game.c:737:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  737 |  if(relic(g,20)&&g->turn%3==0)heal(g,4);if(relic(g,34)&&g->turn%3==0)g->strength++;
+      |  ^~
+game.c:737:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  737 |  if(relic(g,20)&&g->turn%3==0)heal(g,4);if(relic(g,34)&&g->turn%3==0)g->strength++;
+      |                                         ^~
+game.c: In function 'game_enemy_intent_text':
+game.c:800:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  800 |  if(!out||cap<=0)return;out[0]=0;
+      |  ^~
+game.c:800:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  800 |  if(!out||cap<=0)return;out[0]=0;
+      |                         ^~~
+game.c: In function 'game_play_card':
+game.c:1218:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1218 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+      |     ^~
+game.c:1218:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1218 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+      |                                                          ^~~~~
+game.c: In function 'game_load':
+game.c:1729:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1729 |  if(!game_validate(&temp))return 0;*g=temp;return 1;
+      |  ^~
+game.c:1729:36: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1729 |  if(!game_validate(&temp))return 0;*g=temp;return 1;
+      |                                    ^
+game.c: In function 'status_entries':
+game.c:1823:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1823 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+      |   ^~
+game.c:1823:63: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1823 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+      |                                                               ^
+game.c:1825:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1825 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+      |    ^~
+game.c:1825:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1825 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+      |                                                      ^
+game.c: In function 'game_status_line':
+game.c:1834:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1834 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+      |  ^~
+game.c:1834:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1834 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+      |                         ^~~~~~~~~~~~~~
+In file included from game.c:1837:
+card_preview.inc: In function 'game_card_description_now':
+card_preview.inc:81:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   81 |   if(!seen||p.low[e]<low)low=p.low[e];if(!seen||p.high[e]>high)high=p.high[e];seen=1;
+      |   ^~
+card_preview.inc:81:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   81 |   if(!seen||p.low[e]<low)low=p.low[e];if(!seen||p.high[e]>high)high=p.high[e];seen=1;
+      |                                       ^~
+card_preview.inc: In function 'game_enemy_status_line':
+card_preview.inc:127:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  127 |  if(out&&cap>0)out[0]=0;enemy_status_entries(g,e,index,out,cap);
+      |  ^~
+card_preview.inc:127:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  127 |  if(out&&cap>0)out[0]=0;enemy_status_entries(g,e,index,out,cap);
+      |                         ^~~~~~~~~~~~~~~~~~~~
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o sound.o sound.c
+mksfoex -d MEMSIZE=0  'RIFT ASCENT 1.3.10' PARAM.SFO
+render.c: In function 'sprite_scaled_facing':
+render.c:223:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  223 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |    ^~
+render.c:223:15: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  223 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |               ^~
+render.c: In function 'r134_lines':
+render.c:298:3: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+  298 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |   ^~~~~
+render.c:298:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+  298 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |                               ^~
+render.c:302:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  302 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |   ^~
+render.c:302:14: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  302 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |              ^~~~~~
+render.c: In function 'footer':
+render.c:500:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  500 |   if(width<=462)break;f=&r134_f8;
+      |   ^~
+render.c:500:23: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  500 |   if(width<=462)break;f=&r134_f8;
+      |                       ^
+In file included from render.c:690:
+combat_fx.inc: In function 'r137_scene':
+combat_fx.inc:140:92: warning: unused variable 'tier' [-Wunused-variable]
+  140 |  if(pa>=0){int a=r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)),tier=game_impact_tier(r137_events[pa].amount);
+      |                                                                                            ^~~~
+combat_fx.inc:145:7: warning: unused variable 'a' [-Wunused-variable]
+  145 |   int a=pre<9?pre:17-pre;dx=0;dy=0;lean=0;
+      |       ^
+combat_fx.inc:144:45: warning: unused variable 'c' [-Wunused-variable]
+  144 |  else if(pre<18&&r136_play_state_valid){int c=cards[CARD_ID(rift120_played_card)].type;
+      |                                             ^
+render.c: In function 'combat':
+render.c:714:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  714 |   if((r134_energy[(yy-199)*46+xx-4]>>24)<32)continue;uint32_t c=pix[yy*sw+xx];int v=((c&255)*30+((c>>8)&255)*59+((c>>16)&255)*11)/100;pix[yy*sw+xx]=RGB(v,v,v);
+      |   ^~
+render.c:714:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  714 |   if((r134_energy[(yy-199)*46+xx-4]>>24)<32)continue;uint32_t c=pix[yy*sw+xx];int v=((c&255)*30+((c>>8)&255)*59+((c>>16)&255)*11)/100;pix[yy*sw+xx]=RGB(v,v,v);
+      |                                                      ^~~~~~~~
+render.c: At top level:
+render.c:359:12: warning: 'rift117_wrapped_text' defined but not used [-Wunused-function]
+  359 | static int rift117_wrapped_text(int x,int y,const char *source,
+      |            ^~~~~~~~~~~~~~~~~~~~
+render.c:342:13: warning: 'border' defined but not used [-Wunused-function]
+  342 | static void border(int x,int y,int w,int h,uint32_t c){rect(x,y,w,1,c);rect(x,y+h-1,w,1,c);rect(x,y,1,h,c);rect(x+w-1,y,1,h,c);}
+      |             ^~~~~~
+render.c:341:13: warning: 'triangle' defined but not used [-Wunused-function]
+  341 | static void triangle(int x1,int y1,int x2,int y2,int x3,int y3,uint32_t c){int minx=x1<x2?(x1<x3?x1:x3):(x2<x3?x2:x3);int maxx=x1>x2?(x1>x3?x1:x3):(x2>x3?x2:x3);int miny=y1<y2?(y1<y3?y1:y3):(y2<y3?y2:y3);int maxy=y1>y2?(y1>y3?y1:y3):(y2>y3?y2:y3);minx=minx<0?0:minx;miny=miny<0?0:miny;maxx=maxx>=W?W-1:maxx;maxy=maxy>=H?H-1:maxy;int det=(y2-y3)*(x1-x3)+(x3-x2)*(y1-y3);if(det==0)return;for(int y=miny;y<=maxy;y++)for(int x=minx;x<=maxx;x++){int a=(y2-y3)*(x-x3)+(x3-x2)*(y-y3),b=(y3-y1)*(x-x3)+(x1-x3)*(y-y3),d=det-a-b;if(det>0?(a>=0&&b>=0&&d>=0):(a<=0&&b<=0&&d<=0))put(x,y,c);}}
+      |             ^~~~~~~~
+render.c:340:13: warning: 'circle' defined but not used [-Wunused-function]
+  340 | static void circle(int xc,int yc,int r,uint32_t c){for(int y=-r;y<=r;y++)for(int x=-r;x<=r;x++)if(x*x+y*y<=r*r)put(xc+x,yc+y,c);}
+      |             ^~~~~~
+render.c:213:13: warning: 'sprite_scaled_facing' defined but not used [-Wunused-function]
+  213 | static void sprite_scaled_facing(int dx,int dy,int dw,int dh,
+      |             ^~~~~~~~~~~~~~~~~~~~
+In file included from render.c:7:
+rift120_cards.h:1118:24: warning: 'rift120_art' defined but not used [-Wunused-function]
+ 1118 | static const uint16_t *rift120_art(int id,int x,int y){int n=((x/9+y/13)%5+5)%5;return id==0?rift120_strikes[n]:id==1?rift120_defends[n]:rift120_cards[id];}
+      |                        ^~~~~~~~~~~
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/lib -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128  psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf
+psp-fixup-imports rift_ascent_crt_free.elf
+psp-strip rift_ascent_crt_free.elf -o rift_ascent_crt_free_strip.elf
+pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
+	NULL NULL PIC1.PNG  \
+	NULL  rift_ascent_crt_free_strip.elf NULL
+[0]        324 bytes | PARAM.SFO
+[1]      21239 bytes | ICON0.PNG
+[2]          0 bytes | NULL
+[3]          0 bytes | NULL
+[4]      60202 bytes | PIC1.PNG
+[5]          0 bytes | NULL
+[6]   12776396 bytes | rift_ascent_crt_free_strip.elf
+[7]          0 bytes | NULL
+rm -f rift_ascent_crt_free_strip.elf
+make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent-1310/portable_build'

@@ -1,0 +1,187 @@
+[
+  {
+    "id": 0,
+    "name": "Cinder Heart",
+    "effect": "After each won combat, heal 6 HP."
+  },
+  {
+    "id": 1,
+    "name": "Copper Ring",
+    "effect": "On the first turn of each combat, gain 1 extra Energy."
+  },
+  {
+    "id": 2,
+    "name": "Spiked Mail",
+    "effect": "When an enemy attacks you, deal 4 damage to that enemy, even if you Block."
+  },
+  {
+    "id": 3,
+    "name": "Glass Emblem",
+    "effect": "Each turn, every hit of your first Attack card deals +5 damage."
+  },
+  {
+    "id": 4,
+    "name": "Stone Flask",
+    "effect": "On pickup, gain 14 maximum HP and heal 14 HP."
+  },
+  {
+    "id": 5,
+    "name": "Fury Censer",
+    "effect": "Every 3 Attack cards played in one turn, gain 1 Strength for this combat."
+  },
+  {
+    "id": 6,
+    "name": "Merchant Coin",
+    "effect": "Cards and relics cost 30 less Gold in shops."
+  },
+  {
+    "id": 7,
+    "name": "Old Compass",
+    "effect": "Draw 2 extra cards on the first turn of each combat."
+  },
+  {
+    "id": 8,
+    "name": "Resting Idol",
+    "effect": "Resting also lets you upgrade one card, if any are eligible."
+  },
+  {
+    "id": 9,
+    "name": "Rust Amulet",
+    "effect": "Each turn, your first Attack applies 2 Weak to each enemy it hits."
+  },
+  {
+    "id": 10,
+    "name": "Guardian Knot",
+    "effect": "Start each combat with 12 Block."
+  },
+  {
+    "id": 11,
+    "name": "Ashen Crown",
+    "effect": "On pickup, gain 1 Energy per turn; lose 12 maximum HP."
+  },
+  {
+    "id": 12,
+    "name": "Medal of Valor",
+    "effect": "After each won elite fight, gain 1 permanent Strength for future combats."
+  },
+  {
+    "id": 13,
+    "name": "Locket",
+    "effect": "Every card offered as a combat reward is upgraded."
+  },
+  {
+    "id": 14,
+    "name": "Burning Thorn",
+    "effect": "At turn start, if at half HP or less, gain 3 Strength. Once per combat."
+  },
+  {
+    "id": 15,
+    "name": "Fortress Pin",
+    "effect": "Each card effect that grants Block grants 2 extra Block."
+  },
+  {
+    "id": 16,
+    "name": "Gold Tooth",
+    "effect": "After each won combat, gain 20 extra Gold."
+  },
+  {
+    "id": 17,
+    "name": "Violet Orb",
+    "effect": "Potions: +5 healing, Block or damage; +1 Strength, Energy or card drawn."
+  },
+  {
+    "id": 18,
+    "name": "Sage's Ink",
+    "effect": "Draw 1 extra card at the start of every turn."
+  },
+  {
+    "id": 19,
+    "name": "Broken Clock",
+    "effect": "At combat start, apply 2 Vulnerable to all enemies."
+  },
+  {
+    "id": 20,
+    "name": "Iron Seed",
+    "effect": "At the start of turns 3, 6, 9 and so on, heal 4 HP."
+  },
+  {
+    "id": 21,
+    "name": "Wildflower",
+    "effect": "Whenever you use a potion, gain 12 Block."
+  },
+  {
+    "id": 22,
+    "name": "Worn Chain",
+    "effect": "Every 3 Skill cards played in one turn, gain 1 Dexterity for this combat."
+  },
+  {
+    "id": 23,
+    "name": "Last Ember",
+    "effect": "Once per act, lethal damage instead restores you to 25% of maximum HP."
+  },
+  {
+    "id": 24,
+    "name": "Bloodstone",
+    "effect": "Every 3 Attack cards played in one turn, heal 3 HP."
+  },
+  {
+    "id": 25,
+    "name": "Sun Token",
+    "effect": "Gain 1 Energy per turn. Draw 1 fewer card at each turn start."
+  },
+  {
+    "id": 26,
+    "name": "Hollow Skull",
+    "effect": "While at half HP or less, each hit of your Attacks deals +3 damage."
+  },
+  {
+    "id": 27,
+    "name": "Scavenger",
+    "effect": "Whenever you skip a combat card reward, heal 6 HP."
+  },
+  {
+    "id": 28,
+    "name": "Vow of Steel",
+    "effect": "Start every combat with 1 additional Strength."
+  },
+  {
+    "id": 29,
+    "name": "Sanctuary",
+    "effect": "Start every combat with 10 additional Block."
+  },
+  {
+    "id": 30,
+    "name": "Seer's Oath",
+    "effect": "Draw 2 additional cards on the first turn of every combat."
+  },
+  {
+    "id": 31,
+    "name": "Vital Offering",
+    "effect": "On pickup, gain 12 maximum HP and heal to full."
+  },
+  {
+    "id": 32,
+    "name": "Pilgrim's Purse",
+    "effect": "On pickup, gain 100 Gold."
+  },
+  {
+    "id": 33,
+    "name": "Ember Pact",
+    "effect": "Gain 1 additional Energy on the first turn of every combat."
+  },
+  {
+    "id": 34,
+    "name": "Blood Vow",
+    "effect": "At the start of turns 3, 6, 9 and so on, gain 1 Strength."
+  },
+  {
+    "id": 35,
+    "name": "Bulwark Oath",
+    "effect": "Start every combat with 1 additional Dexterity."
+  },
+  {
+    "id": 36,
+    "name": "Quiet Mercy",
+    "effect": "After every won combat, heal 3 additional HP."
+  }
+]

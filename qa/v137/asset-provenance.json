@@ -1,0 +1,14 @@
+{
+  "tool": "built-in image generation",
+  "source": "originals/combat-fx-atlas.png",
+  "layout": "6 columns x 4 rows, 256px cells; impact, shield, power, fire",
+  "processing": "crop atlas cells, RGBA resampling; preserve generated alpha",
+  "purpose": "in-game combat animation sprites",
+  "player_poses": {
+    "source": "originals/hero-atlas-final.png",
+    "reference": "originals/hero-reference.png",
+    "unique_poses": 12,
+    "animation_slots": 18,
+    "processing": "transparent gutter extraction; shared 0.40 scale and foot/torso anchors; repeated contact/recovery frames"
+  }
+}

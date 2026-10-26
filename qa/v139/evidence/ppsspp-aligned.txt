@@ -1,0 +1,27 @@
+SHOT final-low-before
+SHOT final-low-0
+SHOT final-low-1
+SHOT final-low-2
+SHOT final-low-3
+SHOT final-low-4
+SHOT final-heavy-before
+SHOT final-heavy-0
+SHOT final-heavy-1
+SHOT final-heavy-2
+SHOT final-heavy-3
+SHOT final-heavy-4
+SHOT final-shrug-before
+SHOT final-shrug-0
+SHOT final-shrug-1
+SHOT final-shrug-2
+SHOT final-shrug-3
+SHOT final-shrug-4
+SHOT final-status-only-before
+SHOT final-status-only-0
+SHOT final-status-only-1
+SHOT final-status-only-2
+SHOT final-status-only-3
+SHOT final-status-only-4
+SHOT final-combat
+SHOT final-upgrade
+PASS final aligned release EBOOT: attacks, Block, status-only, Cinder Hound, upgrade selection

@@ -1,0 +1,22 @@
+SHOT followup-shop-orb
+SHOT followup-hand-10
+SHOT followup-plating-combat
+SHOT followup-hand-right
+SHOT followup-power
+AUDIO followup-power contacts 0
+PASS action followup-power events 1 first event (3, -1, -1, 0, 0, 8)
+SHOT final-release-combat
+SHOT followup-finisher-slowmo
+SHOT followup-finisher-victory
+SHOT followup-finisher-result
+PASS finisher music pauses at impact with decoder sample counter frozen; victory banner then correct result
+SHOT followup-final-boss-slowmo
+SHOT followup-final-boss-victory
+SHOT followup-final-boss-result
+PASS final-boss music pauses at impact with decoder sample counter frozen; victory banner then correct result
+SHOT followup-endless-boss-slowmo
+SHOT followup-endless-boss-victory
+SHOT followup-endless-boss-result
+PASS endless-boss music pauses at impact with decoder sample counter frozen; victory banner then correct result
+PASS final release EBOOT 1.3.11 follow-up: Triangle, hand arrows, anchored Power, slow final blows, frozen soundtrack, victory before rewards/endings
+SHA256 2153916da770486390b39d8a8ecf9914670bbab2130c82907f8e2f7f29ba2e00

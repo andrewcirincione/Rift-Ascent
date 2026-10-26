@@ -1,0 +1,33 @@
+{
+  "version": "1.3.11",
+  "eboot_bytes": 17205960,
+  "eboot_sha256": "44bdf11de869d7355c2f14af2d5d99b649dae3734c6aba44a57b6e406417bfc6",
+  "save_version": 19,
+  "game_bytes": 3196,
+  "emulator": "PPSSPP 1.20.4",
+  "physical_psp_tested": false,
+  "followup": [
+    "RiftBoss XMB audio metadata",
+    "final-hit slow motion/music pause/victory",
+    "matching Triangle",
+    "bright hand arrows",
+    "anchored Power poses"
+  ],
+  "victory_banner_frames": 12,
+  "victory_fade_frames": 3,
+  "riftfight3_source": "RiftFight3(1).wav",
+  "music_tracks": [
+    "Checkers",
+    "RiftMenu",
+    "RiftFight",
+    "RiftFight2",
+    "RiftFight3"
+  ],
+  "standard_simulation": {
+    "runs": 1000,
+    "wins": 372,
+    "stalls": 0
+  },
+  "endless_transition_tests": 1000,
+  "attack_modifier_cases": 81312
+}

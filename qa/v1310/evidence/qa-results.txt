@@ -1,0 +1,23 @@
+PASS: 39608 arithmetic/resolution/RNG cases; all 184 card variants; all played Powers; enemy statuses; save ABI; modifier order, caps, death, random ranges, repeated hits and self-damage
+PASS: 1472 dynamic description layouts, maximum 149 px; complete text retained, preview stays below HP bars
+PASS normal/boss finishing blows and lethal enemy hit preserve final HP and complete before screen transitions
+PASS impact tier 1: energy 29679879861, peak 15410, tail sample 5903
+PASS impact tier 2: energy 111286290449, peak 21445, tail sample 8851
+PASS impact tier 3: energy 392092201631, peak 29554, tail sample 12993
+PASS: 1104 observer-invariance cases; tier boundaries, blocked/multi hits, player Power, enemy guard, exact hitstop, HUD isolation, Strength cap, overlapping independent audio
+PASS 1.3.8: 37 attack cards dispatch all contact audio once after skipped frames; music ducking; 4x combat timing; no-trace death hold; complete raised sword below HP
+PASS: 2,000 planar maps, utility spacing, shop browsing/removal, potion viewing, relic take/skip, elite/boss progression, 45-floor campaign, cursed-relic side effects, descriptions, powers, save roundtrip and damage audio
+PASS all six attack stance anchors remain within 1.5 pixels of the idle stance
+PASS Moon Spring: 25116 partial-payment, cap, missing-HP and zero-value cases
+PASS 27,000 reward cards: normal C/U/R 5744/3256/0; elite 4511/3580/909; boss 0/0/9000
+PASS Block animation events for 28 base/upgraded cards; all-act blessings, save/resume, full healing and reward browsing
+PASS relic card-vs-hit counters, Glass Emblem each-turn semantics, blocked retaliation and Last Ember rescue
+PASS independent arithmetic for all 38 Attack cards, base/upgraded: 51072 cases across Strength, Weak, both enemies' Vulnerable, Cruelty, Glass Emblem, Block and conditional branches
+PASS Whirlwind: 30240 independent cases, X=0..6, base/upgraded, negative/positive Strength, Weak, separate Vulnerable targets, Cruelty, Block, free cards, Unrelenting and One-Two Punch
+PASS Strength potion: 348 slot/relic/negative-Strength/temporary-buff cases; immediate preview update and persistence into next turn
+PASS all 14 written intents against resolution in 1568 modifier combinations
+PASS upgraded event reveal, save/resume without duplicate card, and persistent potion reward notices
+PASS potion invalidates rendered card descriptions; all 504 enemy-name/intent combinations fit the top rows
+PASS: all 184 base/upgraded previews retain complete text, serif titles and 29px art; heights 100-149 (formerly 166)
+PASS: all player/enemy core status icons, turn/stack values, negative stats, energy drain and zero-state suppression
+PASS: block mixes with attack and persists independently; all menus, 12 event illustrations, all card previews and nine animation frames rendered

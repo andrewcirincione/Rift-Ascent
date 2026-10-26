@@ -1,0 +1,11 @@
+PASS: 39608 arithmetic/resolution/RNG cases; all 184 card variants; all played Powers; enemy statuses; save ABI; modifier order, caps, death, random ranges, repeated hits and self-damage
+PASS: 1472 dynamic description layouts, maximum 149 px; complete text retained, preview stays below HP bars
+PASS normal/boss finishing blows and lethal enemy hit preserve final HP and complete before screen transitions
+PASS impact tier 1: energy 1251553752, peak 2895, tail sample 5826
+PASS impact tier 2: energy 10559006874, peak 5893, tail sample 8800
+PASS impact tier 3: energy 52229528483, peak 9655, tail sample 12886
+PASS: 1104 observer-invariance cases; tier boundaries, blocked/multi hits, player Power, enemy guard, exact hitstop, HUD isolation, Strength cap, overlapping independent audio
+PASS: 2,000 planar maps, utility spacing, shop browsing/removal, potion viewing, relic take/skip, elite/boss progression, 45-floor campaign, cursed-relic side effects, descriptions, powers, save roundtrip and damage audio
+PASS: all 184 base/upgraded previews retain complete text and 29px art; heights 100-149 (formerly 166)
+PASS: all player/enemy core status icons, turn/stack values, negative stats, energy drain and zero-state suppression
+PASS: block mixes with attack and persists independently; all menus, 12 event illustrations, all card previews and nine animation frames rendered

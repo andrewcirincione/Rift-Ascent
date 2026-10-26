@@ -1,0 +1,21 @@
+{
+  "generator": "OpenAI image generation",
+  "version": "1.3.4",
+  "generated_assets": {
+    "logo": "exec-260fe20f-2d9b-4671-855f-fc87c29da4da.png",
+    "hand_hud": "exec-c4abc13d-82a2-4b40-991f-18363a69e0ea.png",
+    "menu_panel": "exec-a0635388-fed6-4002-a90d-2753600e1fd9.png",
+    "health_frame": "exec-6f0a0dbf-7ce8-498b-bb29-1f91261e50ed.png",
+    "energy": "exec-5d9dd0e1-b931-4dc1-9803-802920ede6e1.png",
+    "card_frames": "exec-97345f7d-8caf-434a-9a18-40163495cf4b.png",
+    "map_icons": "exec-c23c5f2a-a936-4a33-8511-652dc52e1735.png",
+    "event_icons": "exec-fcac046e-e3ce-49f6-9f3b-f13a39703499.png",
+    "attack_fx": "exec-b5afaf6b-f861-4ccd-930c-87a1d6fa6999.png",
+    "target": "exec-7192c72b-29f1-4d00-aee1-8617b596be2f.png",
+    "utility_icons": "exec-6a5d00b5-5573-4cb6-aac4-bf12d7c42309.png"
+  },
+  "processing": "Atlas extraction, alpha-preserving Lanczos resampling, nine-slice runtime rendering. All UI assets are generated art; no procedural ornaments were added.",
+  "fonts": "DejaVu Sans regular and bold, native-size antialiased glyph atlases.",
+  "card_paintings": "Preserved approved 92 RGB565 paintings. Central crop and bilinear sampling; trim composited after the image.",
+  "campfire": "80px extraction from the generated map icon atlas."
+}

@@ -1,0 +1,13 @@
+PASS: final EBOOT boots in PPSSPP 1.20.4 and loads all three original music tracks.
+PASS: native 480x272 screenshot review of logo, full hand HUD, four card frames, readable energy, menu panels, shop, deck, potions, relics, rest, help, outcomes, all 12 events and map stages.
+PASS: actual Cross inputs play Defend, Inferno and Strike; cards rise from their hand slot, reach center and fade. Defend spends one energy and adds five block. Subsequent selection is usable after the animation.
+PASS: target switch moves the large crest to the other enemy. Ember Seer faces inward. Health, block and intent elements remain above character sprites and card previews.
+PASS: store Square opens deck, Circle returns, Triangle opens potions and Circle returns. Read-only browsing does not spend gold.
+PASS: held Down scrolls the status list to entries 23-29 of 29. Relic skip preserves relic count and returns to the map.
+PASS: audio recorded at 44,100 Hz stereo; native audio tests verify independent block and attack voices, nonzero block decay after main attack ends, and cursor input cannot truncate damage.
+PASS: native AddressSanitizer / UndefinedBehaviorSanitizer suite, 2,000 planar maps, utility spacing, 45-floor campaign, save/load, shop removal, relic side effects, all 92 card previews, all base/upgraded description fits and thumbnail title fits.
+PASS: generated assets and native font headers repack byte-for-byte using the included fonts.
+PASS: PBP/ELF structure and user-mode import audit. Static memory 8,137,772 bytes.
+Music trailer SHA-256: 77c0d56c3d352eaf79e3d902d7c911dc254efe79dc8c282f870549b92640401a
+Final EBOOT SHA-256: fc5ba7651760c63a31c926acd2522184b07675a3eed0b5471c03cb604d297287
+Physical PSP hardware was not available for testing.

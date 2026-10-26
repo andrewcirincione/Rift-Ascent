@@ -1,0 +1,7 @@
+SHOT replacement-fight3
+PASS replacement RiftFight3 sample count 1159200 live non-silent PSP audio RMS 4186.84
+PASS stream 4 advances 1792 samples; RMS 4186.84
+PASS stream 2 advances 1664 samples; RMS 1273.53
+PASS stream 3 advances 1920 samples; RMS 5096.9
+PASS final release EBOOT 1.3.11: replacement RiftFight3 plays in normal combat; original normal and elite tracks remain active
+SHA256 d50fd13888251e547a5bd32acfd737171a6feaf53ad67872480d6898cf829780

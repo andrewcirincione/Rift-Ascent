@@ -1,0 +1,6 @@
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 13089578
+elf_size: 12776396
+segments: 2
+static_memory: 13122732
+sha256: 2b6e51a5a7d2afe5911e64c48bf25abb8c45a2bbb474ed9064a6d281b694479c

@@ -1,0 +1,23 @@
+{
+  "version": "1.3.10",
+  "tool": "Built-in OpenAI image generation",
+  "assets": [
+    {
+      "file": "originals/arrow.png",
+      "sha256": "5307aa43c943adc7d0ac3c33adb43378b7a7e7fdf06549a4a6810a87607368b8"
+    },
+    {
+      "file": "originals/end.png",
+      "sha256": "04e8089cd2d27f24360c10cfb17ac2c40b767264ccdc3196f446f72c62087fc9"
+    },
+    {
+      "file": "originals/hound.png",
+      "sha256": "cf50d4af17ae4f1a562c06ac7e1a6037f9bcfa5755e4320613260489cf2daa84"
+    },
+    {
+      "file": "originals/setup.png",
+      "sha256": "df9e37aa25978f7d1d8261f28d0289ca9603d73ea1818846019980b15154e735"
+    }
+  ],
+  "processing": "Alpha-bounds crop and size conversion; Setup Strike keeps 240x135 source. Existing enemy sprite bounds recorded for larger in-game sampling. No decorative line substitutes."
+}

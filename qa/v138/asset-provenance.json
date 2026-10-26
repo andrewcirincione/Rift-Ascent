@@ -1,0 +1,29 @@
+{
+  "version": "1.3.8",
+  "generation": "OpenAI image generation; actual runtime raster assets",
+  "assets": [
+    {
+      "file": "originals/menu-scene.png",
+      "sha256": "75154510a96d61f202426d9b9d94cf6b6e3b5280c6d945f1dabe631b860e9018",
+      "brief": "Generated dark cathedral menu scene, armored greathelm knight at left, red eclipse, quiet carved stone alcove at right for existing title and buttons."
+    },
+    {
+      "file": "originals/ui-atlas.png",
+      "sha256": "cf01e29145b7af64625f9ae0b7115de2fa52c0b9a54f230080ae967d2094eb66",
+      "brief": "Generated silver and ivory gothic player health frame with helmet crest, transparent meter opening, carved ruby button plates. Only isolated frame and selected plate used."
+    },
+    {
+      "file": "originals/death-atlas.png",
+      "sha256": "fadd2f68c4f65b191f12456906d8db076532f07b3ab449e3aed06a244ab4eba6",
+      "brief": "Generated six matching knight death poses: wounded, kneeling, bracing hand, collapse, fallen, still. No gore. Extracted with uniform scale and floor anchor."
+    },
+    {
+      "file": "originals/markers-atlas.png",
+      "sha256": "93a879809c29e437b9fa4919450434788e7ec91c7a77a813a123557e62641caa",
+      "brief": "Generated isolated silver helmet pawn with red banner and gold winged ruby selection seal on transparent background."
+    }
+  ],
+  "processing": "prepare_art.py and extract_death.py: crop transparent cells, resize for PSP, embed RGBA and RGB565 data. No line-art replacement for requested redesigns.",
+  "font": "DejaVu Serif Bold, bundled license in fonts; rasterized 7/8/9/10px glyphs. 7px used only if a long hand title needs it.",
+  "map_reference": "https://megacrit.com/news/2024-11-07-neowsletter-issue-4/"
+}

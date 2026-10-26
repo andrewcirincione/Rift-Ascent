@@ -1,0 +1,17 @@
+{
+  "version": "1.3.9",
+  "eboot_bytes": 15059780,
+  "eboot_sha256": "b7c6455429e5e2a646dd4f5326fa66a408f3246249cd85f073c102504055db23",
+  "save_version": 18,
+  "save_game_bytes": 3144,
+  "emulator": "PPSSPP 1.20.4",
+  "physical_psp_tested": false,
+  "music": "All three original tracks preserved byte for byte",
+  "soundtrack_sha256": "77c0d56c3d352eaf79e3d902d7c911dc254efe79dc8c282f870549b92640401a",
+  "final_visual_check": "ppsspp-aligned.txt and ppSSPP-final screenshots: stable player stance, complete sword, Block and status-only effects, Hound contrast, END and card selection",
+  "independent_simulation": {
+    "seeds": 1000,
+    "wins": 377,
+    "stalls": 0
+  }
+}

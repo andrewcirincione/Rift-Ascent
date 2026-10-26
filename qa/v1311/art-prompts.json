@@ -1,0 +1,14 @@
+{
+  "tool": "Built-in OpenAI image generation",
+  "prompts": {
+    "act": "Actual raster art for a dark gothic PSP game act introduction. Monumental pointed cathedral doorway with narrow cold silver light through closed black iron gates, worn medieval stone, faint embers and deep shadows. Ominous painterly fantasy, desaturated iron and ash palette. Wide landscape 16:9, gate in middle third, outer edges fade to pure black, lower quarter black for separately rendered act title. No text, UI frames, decorative line overlays or characters. Readable at 480x272.",
+    "plating": "Single game status icon: compact stack of three overlapping thick dark steel armor scales, medieval plate with broad silver edges and restrained icy reflection. Distinct from shield. Strong silhouette readable at 18x18, frontal, isolated transparent background. Dark gothic painted asset. No text, circle, ornamental linework or particles.",
+    "shop": "Actual dark gothic UI selection backplate: extremely restrained shallow horizontal slab of blackened iron, softly beveled worn silver edges, subtle hammer texture, modest tapered ends. Wide 8:1 proportions, empty dark center, no icons, text, wings, gold, scrollwork or flourishes. Quiet compact shop row, isolated transparent background.",
+    "triangle": "Edit the existing gothic button atlas into one matching Triangle button: same charcoal face, aged bronze rim and four studs as X/Square; hollow ivory triangle, neutral monochrome glyph, transparent background. No green or colored glyph.",
+    "arrow_glow": "Edit the existing gothic hand arrow while preserving its silhouette and sculpted form. Bright moonlit ivory/silver metal, restrained localized warm-white halo, replace dark red inlays with light ivory. Readable at 36 by 28 pixels on a dark hand HUD, transparent background."
+  },
+  "followup_references": {
+    "triangle": "qa/v135/icons-original.png",
+    "arrow_glow": "qa/v1310/originals/arrow.png"
+  }
+}

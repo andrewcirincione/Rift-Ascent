@@ -1,0 +1,1 @@
+PASS actual PPSSPP final-build heavy-hit capture: 198528 frames, 44100 Hz, peak 5342, RMS 878.59; mixed output is non-silent and below limiter.

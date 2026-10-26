@@ -1,0 +1,49 @@
+SHOT release-title
+PASS new game, blessing, map
+SHOT gothic-hound
+SHOT sized-enemy-05
+SHOT sized-enemy-23
+SHOT sized-enemy-24
+SHOT hand-arrow-right
+SHOT hand-arrow-left
+SHOT setup-preview
+SHOT potion-reward
+SHOT ancient-lesson-reveal
+PASS upgraded mystery card is revealed; Continue returns to map without granting twice
+SHOT strength-potion-selected
+SHOT strength-potion-applied
+PASS actual Triangle > Up > Cross: selected Strength potion consumed; Strength 0 -> 2; inventory closes and confirmation appears
+SHOT strength-in-player-status
+SHOT whirlwind-preview
+SHOT whirlwind-resolved
+AUDIO whirlwind-resolved contacts 6
+PASS action whirlwind-resolved events 6 first event (1, -1, 0, 9, 9, 10)
+PASS Whirlwind X=3 STR=4 Weak=1: 3x9 against Vulnerable foe, 3x6 against other foe; enemy Block and HP exact
+SHOT whirlwind-repeat-preview
+SHOT whirlwind-repeat-resolved
+AUDIO whirlwind-repeat-resolved contacts 12
+PASS action whirlwind-repeat-resolved events 12 first event (1, -1, 0, 14, 12, 10)
+PASS One-Two Punch repeats all 3 Whirlwind hits per foe; Glass Emblem applies to first play only
+SHOT final-low-before
+SHOT final-low-0
+SHOT final-low-1
+SHOT final-low-2
+SHOT final-low-3
+SHOT final-heavy-before
+SHOT final-heavy-0
+SHOT final-heavy-1
+SHOT final-heavy-2
+SHOT final-heavy-3
+SHOT final-shrug-before
+SHOT final-shrug-0
+SHOT final-shrug-1
+SHOT final-shrug-2
+SHOT final-shrug-3
+SHOT final-status-only-before
+SHOT final-status-only-0
+SHOT final-status-only-1
+SHOT final-status-only-2
+SHOT final-status-only-3
+SHOT potion-reward-after-browse
+SHOT combat-final
+PASS release EBOOT: new art, all requested facings, actor scale, arrows, END, intent rows, readable Block, event reveal, Strength potion and modifier/repeat Whirlwind scenarios

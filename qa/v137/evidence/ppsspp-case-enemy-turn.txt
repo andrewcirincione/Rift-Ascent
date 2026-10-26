@@ -1,0 +1,5 @@
+SHOT enemy-turn-before
+BOOT enemy-turn
+SHOT enemy-turn-contact
+SHOT enemy-turn-after
+PASS fixture enemy-turn {'animation_tick': 54, 'r137_count': 2}

@@ -1,23 +1,29 @@
-> **HARDWARE SAFETY / RELEASE STATUS — 2026-10-22**
->
-> **NOT VERIFIED ON REAL PSP; DO NOT INSTALL THE EXPERIMENTAL EBOOT BUILDS.** A PSP-3000 running system software 6.60 and ARK-5 has repeatedly frozen on launch (black screen; HOME unresponsive; hard reset required), including with the tiny test. The 30-second auto-exit in that test only runs if its event loop executes, so it is *not* a hardware watchdog. Cave Story and other homebrew work normally on the same PSP. Compiling with PSPDEV and displaying a title screen in PPSSPP did not establish real-hardware compatibility. Repackaging as single-segment legacy ELF and compiling a firmware-6.60 PRX did not resolve the problem. Do not request further on-device testing without an evidence-based revision and explicit risk acknowledgement.
+# Rift Ascent for PSP
 
-# Rift Ascent — PSP build repository
+**[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-## Download compiled PSP EBOOTs
+Current version: **1.3.11**. Releases include the complete EBOOT with its intended
+soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
 
-**[Browse Rift Ascent GitHub Releases](https://github.com/andrewcirincione/Rift-Ascent/releases)**
+Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
+it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` and
+`PROFILE.DAT`. Version 1.3.11 migrates v16–v18 saves to v19.
 
-Every **successful** build from the maintained `v1.1.3` branch is archived as a separately versioned, permanent GitHub Release. Releases provide a download of the exact compiled `.PBP` file and a matching SHA-256 checksum. The **Actions** tab additionally retains emulator test screenshots and build logs for a limited period.
+## Source and validation
 
-**Music and copyright:** This is a **public** repository. Publicly downloadable CI builds are labeled **NO MUSIC** and intentionally exclude the ten privately supplied soundtrack recordings. The game does not synthesize background music. The original-soundtrack EBOOT is stored separately in the owner's ChatGPT Library, not on the public GitHub repository.
+- [Current patch notes](versions/1.3.11/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v1311/README.md)
+- Canonical source: `qa/v1311/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.3.11/EBOOT.PBP`
+- Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
+  Physical PSP playback was not independently tested for this build.
 
-**Install note:** A downloaded filename like `Rift-Ascent-v1.1.3-build-123-NO-MUSIC-EBOOT.PBP` must be renamed to `EBOOT.PBP` for the PSP homebrew folder at `PSP/GAME/RIFTASCENT/`. Hardware compatibility has not been confirmed on PSP-3000/ARK-5, so keep a known-working backup.
+## Publishing
 
-## Source and testing
+Every future release must include a source push and a GitHub Release. Updating
+`release/current.json` on `main` starts the [publishing workflow](.github/workflows/publish-release.yml).
+It validates the exact tested EBOOT and source, packages the downloads, verifies
+the uploaded checksums, and publishes the release. See [AGENTS.md](AGENTS.md) for
+the standing release requirements.
 
-- Project sources: `Rift_Ascent_GitHub_OneClick_Setup.zip` plus sequential updates in `overhaul/`
-- Maintained release branch: [`v1.1.3`](https://github.com/andrewcirincione/Rift-Ascent/tree/v1.1.3)
-- Automated workflow: [PSP gameplay overhaul](https://github.com/andrewcirincione/Rift-Ascent/actions/workflows/overhaul-psp.yml)
-- Earlier EBOOT snapshots also appear where available under `versions/`.
-
+The older NO MUSIC releases remain available in release history.

@@ -1,0 +1,19 @@
+{
+  "version": "1.3.7",
+  "eboot_bytes": 13184852,
+  "sha256": "36296f90afbcf6cbab28bdc7868356d374eead91254fb504abda7e23b37f426d",
+  "save_version": 18,
+  "save_struct_bytes": 3144,
+  "soundtrack_tail_sha256": "77c0d56c3d352eaf79e3d902d7c911dc254efe79dc8c282f870549b92640401a",
+  "ppsspp": "1.20.4",
+  "screenshot_source": "PPSSPP built-in PNG screenshot function, final release EBOOT",
+  "arithmetic_resolution_rng_cases": 39608,
+  "dynamic_layout_cases": 1472,
+  "observer_invariance_cases": 1104,
+  "impact_tiers": {
+    "low": "1-10",
+    "medium": "11-20",
+    "high": "21+"
+  },
+  "fire_strength_cap": 20
+}

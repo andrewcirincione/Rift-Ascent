@@ -1,0 +1,28 @@
+SHOT title-endless
+SHOT act-intro-fade
+SHOT blessing
+SHOT endless-map
+PASS main menu -> endless act intro -> blessing -> map
+SHOT plating-combat
+SHOT shop-orb
+SHOT ground-05
+SHOT ground-21
+SHOT ground-32
+SHOT plating-block-before-enemies
+PASS Plating adds 6 Block before enemies; exactly one activation; next turn Plating 5
+SHOT final-boss-finisher
+SHOT final-boss-result
+PASS final-boss finisher retains battle music, then correct result and menu music
+SHOT endless-boss-finisher
+SHOT endless-boss-result
+PASS endless-boss finisher retains battle music, then correct result and menu music
+SHOT act-four-introduction
+PASS endless boss rewards lead to Act 4 introduction and blessing
+SHOT music-normal-original
+PASS live music stream 2
+SHOT music-normal-new
+PASS live music stream 4
+SHOT music-elite
+PASS live music stream 3
+SHOT release-combat
+PASS PPSSPP 1.3.11 compiled EBOOT: visuals, controls, Plating phases, both boss endings, Act 4, all music routing

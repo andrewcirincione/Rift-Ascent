@@ -1,0 +1,11 @@
+/workspace/scratch/9a81aefb5adc/rift-ascent-138/qa/v115/import_114_art.py:40: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for rr,gg,bb,aa in art.getdata():
+/workspace/scratch/9a81aefb5adc/rift-ascent-138/qa/v115/import_114_art.py:63: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for px in im.getdata():
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [10347664]
+ART REUSE: ra_title_bg offset= 10347664 length= 261120
+MATCH rift_hero full-length candidates [10636944]
+ART REUSE: rift_hero offset= 10636944 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets

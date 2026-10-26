@@ -1,0 +1,13 @@
+{
+  "version": "1.3.11",
+  "replacement": "RiftFight3",
+  "source": "RiftFight3(1).wav",
+  "source_sha256": "8f344cdca1b127a33dcbbbcc6f489afc38a44b5247b25851cd6036f324f1f858",
+  "seconds": 105.14285714285714,
+  "samples": 1159200,
+  "rms": 7941.086694551945,
+  "correlation": 0.9990725728676687,
+  "executable_and_splash_unchanged": true,
+  "other_four_tracks_unchanged": true,
+  "eboot_sha256": "d50fd13888251e547a5bd32acfd737171a6feaf53ad67872480d6898cf829780"
+}

@@ -1,0 +1,7 @@
+SHOT final-strength-potion
+PASS rendered PSP card cache immediately displays: ['Deal 8 damage']
+SHOT final-release-combat
+SHOT final-release-combat-end
+SHOT final-ancient-lesson-reveal
+SHOT final-potion-reward
+PASS final release screenshots and PSP rendered Strength-potion description
