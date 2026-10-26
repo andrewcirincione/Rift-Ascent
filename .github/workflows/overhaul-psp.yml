@@ -97,6 +97,7 @@ jobs:
           python3 qa/v121/patch_game.py GAME/src
           python3 qa/v121/patch_render.py GAME/src
           python3 qa/v130/make_slots.py GAME/src
+          python3 qa/v130/make_ui_slots.py GAME/src
           python3 qa/v130/patch_render.py GAME/src
           cp overhaul/v113/sfx_only.c GAME/src/sound.c
           # Public GitHub artifacts contain NO private audio. The complete
