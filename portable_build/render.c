@@ -16,6 +16,7 @@
 #include "rift1311_art.h"
 #include "rift140_art.h"
 #include "rift150_art.h"
+#include "rift150b_art.h"
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
@@ -319,6 +320,12 @@ static int r134_wrap(int x,int y,int width,int maxrows,int leading,const char*s,
 }
 static uint32_t r134_565(uint16_t c){unsigned r=c>>11,g=(c>>5)&63,b=c&31;return RGB((r<<3)|(r>>2),(g<<2)|(g>>4),(b<<3)|(b>>2));}
 static void r134_card_art(int x,int y,int w,int h,int id){
+ if(id>=NINJA_FIRST&&id<NINJA_LAST){
+  int iw=180,ih=120,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/5;
+  const uint16_t*src=r150b_cards[id-NINJA_FIRST];
+  for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(src[(top+yy*crop/h)*iw+xx*iw/w]);}return;
+ }
+
  if(id>=92&&id<96){
   int iw=240,ih=160,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/6;
   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){
@@ -491,7 +498,7 @@ static void header(const Game*g,const char*caption){
  snprintf(b,sizeof(b),"%d GOLD",g->gold);r134_text(237,3,b,GOLD,&r134_f9);
  snprintf(b,sizeof(b),"ACT %d   FLOOR %02d",g->act,g->floor+1);r134_text(353,3,b,WHITE,&r134_f9);
  dark_rect(0,17,480,13,180);r134_text(12,19,caption,MUTED,&r134_f9);
- if(g->screen==HELP||g->screen==DECK_VIEW||g->screen==CARD_CHOICE||g->screen==RELIC_VIEW||g->screen==POTION_VIEW||g->screen==REWARD||g->screen==EVENT_RESULT||g->screen==EVENT_CARD||g->screen==VICTORY||g->screen==DEFEAT)gilded_panel(10,39,460,213,1);
+ if(g->screen==HELP||g->screen==DECK_VIEW||g->screen==CARD_CHOICE||g->screen==NINJA_CHOICE||g->screen==RELIC_VIEW||g->screen==POTION_VIEW||g->screen==REWARD||g->screen==EVENT_RESULT||g->screen==EVENT_CARD||g->screen==VICTORY||g->screen==DEFEAT)gilded_panel(10,39,460,213,1);
 }
 
 
@@ -581,14 +588,22 @@ static int r135_status_values(const Game*g,int enemy,int values[7]){
  int count=0;for(int i=0;i<7;i++)if(values[i])count++;return count;
 }
 static void r135_status_icons(const Game*g,int enemy,int x){
- int values[7],count=r135_status_values(g,enemy,values);if(!count)return;
- const uint32_t*icons[]={r135_strength,r135_dexterity,r135_weak,r135_vulnerable,r135_poison,r135_energy_drain,r1311_plating};
- int size=count>5?16:20,step=count>5?14:count>4?18:23,y=count>4?174-count*step:80,slot=0;
- for(int i=0;i<7;i++)if(values[i]){
-  int yy=y+slot*step;char b[16];r134_blit(x,yy,size,size,icons[i],22,22,255);
-  snprintf(b,sizeof(b),"%d",values[i]);int tx=x+22-r134_width(b,&r134_f9b);
-  r135_shadow_text(tx,yy+(count>5?5:10),b,values[i]<0?RED:WHITE,&r134_f9b);slot++;
+ int values[15]={0};r135_status_values(g,enemy,values);
+ const uint32_t*icons[15]={r135_strength,r135_dexterity,r135_weak,r135_vulnerable,r135_poison,r135_energy_drain,r1311_plating,r150b_icons[9],r150b_icons[10],r150b_icons[11],r150b_icons[12],r150b_icons[13],r150b_icons[14],r150b_icons[15],r150b_icons[1]};
+ if(enemy<0){values[7]=g->ninja.v[NS_THORNS];values[8]=g->ninja.v[NS_INTANGIBLE];values[9]=g->ninja.v[NS_SHADOW_NOW];values[10]=g->ninja.v[NS_SHADOWMELD];values[11]=g->ninja.v[NS_BLUR];values[12]=g->ninja.v[NS_BURST];values[13]=g->ninja.v[NS_POUNCE];values[14]=g->ninja.v[NS_CORROSIVE];}
+ if(enemy>=0){values[11]=g->ninja.v[NS_STRANGLE0+enemy];icons[11]=r150b_icons[14];}
+ int count=0;for(int i=0;i<15;i++)count+=values[i]!=0;if(!count)return;
+ int columns=(count+5)/6,rows=(count+columns-1)/columns,size=columns>1?17:20,step=rows>4?18:23,slot=0;
+ for(int i=0;i<15;i++)if(values[i]){
+  int xx=x+(slot/rows)*21,yy=80+(slot%rows)*step;char b[16];r134_blit(xx,yy,size,size,icons[i],i<7?22:80,i<7?22:80,255);
+  snprintf(b,sizeof(b),"%d",values[i]);int tx=xx+20-r134_width(b,&r134_f9b);
+  r135_shadow_text(tx,yy+9,b,values[i]<0?RED:WHITE,&r134_f9b);slot++;
  }
+}
+static void r150b_relic_icon(int x,int y,int size,int id){
+ if(id>=NR_SNAKE&&id<=NR_DRAKE)r134_blit(x,y,size,size,r150b_icons[id-NR_SNAKE],80,80,255);
+ else if(id>=40&&id<44)r134_blit(x,y,size,size,r150_relics[id-40],80,80,255);
+ else r134_blit(x,y,size,size,r134_utility_icons[1],40,40,255);
 }
 static void r134_card_frame(int x,int y,int w,int h,int type){
  /* Preserve the generated sculpture but reserve a rectangular text interior.
@@ -638,6 +653,10 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  if(energy==-1)snprintf(cost,sizeof(cost),"X");else if(energy==-2)snprintf(cost,sizeof(cost),"-");else snprintf(cost,sizeof(cost),"%d",energy);
  int orb=small?12:18;r134_blit(x+inset,arty,orb,orb,!active&&card_combat_context?r140_energy_empty:r134_energy,46,46,255);
  r134_center(x+inset+orb/2,arty+(small?1:4),cost,!active&&card_combat_context?RGB(255,135,110):WHITE,&r134_f9b);
+ if(id>=NINJA_FIRST&&(game_card_is_sly(card_combat_context,raw)||(raw&CARD_INKY))){
+  const char*mark=(raw&CARD_INKY)?"INKY":"SLY";int mw=r134_width(mark,&r134_f8)+4,mx=x+w/2-mw/2,my=arty+arth-9;
+  dark_rect(mx,my,mw,9,220);r134_center(x+w/2,my,mark,RGB(171,225,189),&r134_f8);
+ }
  int mod=CARD_MOD(raw);if(mod>0&&mod<MOD_COUNT){
   int seal=small?17:24;
   r134_blit(x+w-art_inset-seal,arty+(arth-seal)/2,seal,seal,r150_seals[mod-1],40,40,255);
@@ -832,7 +851,7 @@ static void relic_result_screen(const Game*g){
  gilded_panel(39,47,401,193,1);
  int id=g->reward[0];
  center(240,58,g->relic_pending?"A RELIC AWAITS":"RELIC ACQUIRED",GOLD,2);
- if(id>=40&&id<44)r134_blit(211,86,58,58,r150_relics[id-40],80,80,255);
+ if(id>=40&&id<RELIC_COUNT)r150b_relic_icon(211,86,58,id);
  else r134_blit(211,86,58,58,r134_utility_icons[1],40,40,255);
  if(id>=0&&id<RELIC_COUNT){
     center(240,150,relic_defs[id].name,GOLD,1);
@@ -1047,15 +1066,41 @@ static void relic_screen(const Game*g){
   if(chosen)r134_blit(23,y-4,208,28,r140_selection,208,28,255);
   r134_text(46,y+5,relic_defs[g->relics[i]].name,chosen?WHITE:MUTED,&r134_f9);
  }
- if(g->relic_count){int id=g->relics[g->selection];if(id>=40&&id<44)r134_blit(332,59,40,40,r150_relics[id-40],80,80,255);else r134_blit(332,59,40,40,r134_utility_icons[1],40,40,255);r134_wrap(264,111,178,2,13,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(264,144,178,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
+ if(g->relic_count){int id=g->relics[g->selection];r150b_relic_icon(332,59,40,id);r134_wrap(264,111,178,2,13,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(264,144,178,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
  footer("UP/DOWN BROWSE   X/CIRCLE RETURN");
+}
+static void character_screen(const Game*g){
+ Game display=*g;display.hp=display.maxhp=g->selection==CHAR_NIGHTSHADE?70:80;display.gold=g->selection==CHAR_NIGHTSHADE?99:95;
+ header(&display,g->endless?"ENDLESS / CHOOSE YOUR CHARACTER":"ASCENT / CHOOSE YOUR CHARACTER");
+ for(int i=0;i<2;i++){
+  int x=20+i*230,chosen=g->selection==i;gilded_panel(x,47,210,194,chosen);
+  r134_center(x+105,57,i?"NIGHTSHADE":"WARDEN",chosen?GOLD:WHITE,&r138_title10);
+  if(i)r134_blit(x+32,76,145,108,r150b_ninja[0],134,100,255);
+  else{int w=174,h=99;for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){uint16_t c=rift_hero[(yy*RIFT_HERO_H/h)*RIFT_HERO_W+xx*RIFT_HERO_W/w];if(c!=RIFT_TRANSPARENT_565)pix[(88+yy)*sw+x+18+xx]=r134_565(c);}}
+  r134_center(x+105,190,i?"70 HP   3 ENERGY":"80 HP   3 ENERGY",WHITE,&r134_f9b);
+  r134_center(x+105,204,i?"Shivs / Poison / Discard":"Strength / Block / Exhaust",MUTED,&r134_f9);
+  r134_center(x+105,217,i?"Draw 2 extra cards at combat start":"Heal 6 HP after each victory",GOLD,&r134_f8);
+  if(chosen)r134_blit(x+84,36,42,28,r138_choice,42,28,255);else dark_rect(x+7,73,196,164,90);
+ }
+ footer("LEFT/RIGHT CHOOSE   X BEGIN   O BACK");
+}
+static void ninja_choice_screen(const Game*g){
+ header(g,game_ninja_choice_title(g));char b[96];
+ if(g->ninja.choice_kind==1)snprintf(b,sizeof(b),"Choose %d more. Sly cards play for free when discarded.",g->ninja.choice_remaining);
+ else if(g->ninja.choice_kind==4)snprintf(b,sizeof(b),"Retain up to %d more cards. Circle finishes selection.",g->ninja.choice_remaining);
+ else snprintf(b,sizeof(b),g->ninja.choice_kind==2?"Give one Skill Sly for this turn.":"Receive 3 independent copies next turn.");
+ r134_center(240,47,b,GOLD,&r134_f9);
+ int first=g->selection/6*6;
+ for(int i=first;i<g->hand_count&&i<first+6;i++){int off=i-first,x=17+off%3*103,y=69+off/3*86,eligible=game_ninja_choice_eligible(g,i);card_render(x,y,97,80,g->hand[i],i==g->selection,eligible);if(!eligible)dark_rect(x+7,y+9,83,62,115);if(i==g->selection)r134_blit(x+31,y-7,34,22,r138_choice,42,28,255);}
+ if(g->hand_count){int raw=g->hand[g->selection];R135CardLayout l=r150_hand_preview_layout(raw);card_render(473-l.width,70,l.width,l.height,raw,1,1);}
+ footer(g->ninja.choice_kind==4?"D-PAD CHOOSE   X RETAIN   O FINISH":"D-PAD CHOOSE   X CONFIRM   SELECT SAVE & QUIT");
 }
 static void blessing_screen(const Game*g){
  char title[60];snprintf(title,sizeof(title),"ACT %d / CHOOSE YOUR BLESSING",g->act);header(g,title);
  for(int i=0;i<3;i++){int x=22+i*149,id=g->reward[i],chosen=i==g->selection;
-  gilded_panel(x,48,140,196,chosen);r134_blit(x+49,69,42,42,r134_utility_icons[1],40,40,255);
-  r134_wrap(x+13,119,114,2,13,relic_defs[id].name,GOLD,&r138_title9,0);
-  r134_wrap(x+13,154,114,7,11,relic_defs[id].desc,WHITE,&r134_f9,0);
+  gilded_panel(x,48,140,196,chosen);
+  if(id>=1000){int raw=id-1000;r134_card_art(x+19,72,102,55,raw);r134_wrap(x+13,135,114,2,13,cards[raw].name,GOLD,&r138_title9,0);r134_wrap(x+13,166,114,6,11,raw==N_SUPPRESS?"Transform Neutralize into Suppress, or gain it if you have no Neutralize.":"Add Wraith Form to your deck. Gain Intangible; lose Dexterity each turn.",WHITE,&r134_f9,0);}
+  else{r150b_relic_icon(x+49,69,42,id);r134_wrap(x+13,119,114,2,13,relic_defs[id].name,GOLD,&r138_title9,0);r134_wrap(x+13,154,114,7,11,relic_defs[id].desc,WHITE,&r134_f9,0);}
   if(chosen)r134_blit(x+49,39,42,28,r138_choice,42,28,255);else dark_rect(x+7,55,126,182,70);
  }
  footer("LEFT/RIGHT CHOOSE   X ACCEPT BLESSING");
@@ -1159,8 +1204,9 @@ static void help_screen(const Game*g){
 
  text(29,167,"Win fights, grow your deck, defeat 3 bosses.",GOLD,1);
  text(29,187,"Weak -25% dealt; Vulnerable +50% taken.",MUTED,1);
- text(29,215,"CROSS / CIRCLE   RETURN",GOLD,1);
- footer("RIFT ASCENT  /  ONE WARRIOR  /  THREE ACTS");
+ text(29,202,"Sly: active discards play the card free.",MUTED,1);
+ text(29,223,"CROSS / CIRCLE   RETURN",GOLD,1);
+ footer("RIFT ASCENT  /  TWO CHARACTERS  /  THREE ACTS");
 }
 static void end_screen(const Game*g){
  header(g,g->screen==VICTORY?"VICTORY / THE HOLLOW KING FALLS":"DEFEAT / THE DARKNESS CLAIMS YOU");
@@ -1247,7 +1293,7 @@ static void inspector(const Game*g){
       if(i==pick)r134_blit(31,y-5,200,28,r140_selection,208,28,255);
       r134_text(55,y+3,relic_defs[g->relics[i]].name,i==pick?WHITE:MUTED,&r134_f9);
     }
-    if(g->relic_count){int id=g->relics[pick];if(id>=40&&id<44)r134_blit(403,49,40,40,r150_relics[id-40],80,80,255);r134_wrap(251,95,186,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
+    if(g->relic_count){int id=g->relics[pick];r150b_relic_icon(403,49,40,id);r134_wrap(251,95,186,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
     else r134_text(41,99,"No relics",MUTED,&r134_f9);
  }
  footer((overlay_page==2||overlay_page==4)?"LEFT/RIGHT TABS  UP/DOWN SCROLL  START CLOSE":overlay_page==3?"LEFT/RIGHT TABS  UP/DOWN POTION  X USE   START CLOSE":
@@ -1306,6 +1352,8 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  ambient_particles(g);
  switch(g->screen){
  case TITLE:title_screen(g);break;
+ case CHARACTER_SELECT:character_screen(g);break;
+ case NINJA_CHOICE:ninja_choice_screen(g);break;
  case MAP:map_screen(g);break;
  case COMBAT:combat(g);break;
  case EVENT_RESULT:event_result_screen(g);break;

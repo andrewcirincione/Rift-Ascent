@@ -1,0 +1,10 @@
+context=0 max_height=157 width=126 card=Howl from Beyond upgraded=0 mod=Echo
+context=1 max_height=149 width=126 card=Ashen Strike upgraded=0 mod=None
+context=2 max_height=157 width=126 card=Howl from Beyond upgraded=0 mod=Echo
+context=3 max_height=162 width=126 card=Echoing Slash upgraded=0 mod=Echo
+context=4 max_height=162 width=126 card=Echoing Slash upgraded=0 mod=Echo
+context=5 max_height=162 width=126 card=Echoing Slash upgraded=0 mod=None
+context=6 max_height=162 width=126 card=Echoing Slash upgraded=0 mod=None
+context=7 max_height=162 width=126 card=Echoing Slash upgraded=0 mod=None
+AUDIT 12128 layouts: min=100, max_width=138, clipped=0, insufficient-energy badge/HUD collisions=0
+PASS all complete descriptions fit; 2800 rendered hand/animation frames preserve every HUD pixel, including the Energy warning

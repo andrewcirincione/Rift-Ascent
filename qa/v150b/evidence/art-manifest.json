@@ -1,0 +1,447 @@
+[
+  {
+    "card_id": 100,
+    "source": "qa/v150b/art/card_100.jpg",
+    "sha256": "0c854f5dd8d4ef7ee01c9cb4404031b52d0925d0149af40bf911bded7f516d19"
+  },
+  {
+    "card_id": 101,
+    "source": "qa/v150b/art/card_101.jpg",
+    "sha256": "7fa6c5b45f0097e297bb951e48e3577f1f2a769d5d0a6045797ba0c3fbd49e59"
+  },
+  {
+    "card_id": 102,
+    "source": "qa/v150b/art/card_102.jpg",
+    "sha256": "596e8fb4c5822b6b92a085b0189e4cbdfd8704da7c9f3f0e5a679aff849e1684"
+  },
+  {
+    "card_id": 103,
+    "source": "qa/v150b/art/card_103.jpg",
+    "sha256": "a37fdf59e93ee6041906e7779fa8130a25f18a4a9aba8ee73c5f37d4b905bc7c"
+  },
+  {
+    "card_id": 104,
+    "source": "qa/v150b/art/card_104.jpg",
+    "sha256": "67925ef701e9d49ebef7bd05e708a85039b6cda3fa4bd7ea8014498c374acd68"
+  },
+  {
+    "card_id": 105,
+    "source": "qa/v150b/art/card_105.jpg",
+    "sha256": "972ce0902a82bea5ad47eae6f5f97e5adf419f4b048546d7602d05ec0f0d821e"
+  },
+  {
+    "card_id": 106,
+    "source": "qa/v150b/art/card_106.jpg",
+    "sha256": "e5c841c63d5d8054bff557c8d656590873cf42f5e81df929cae016deb35afd25"
+  },
+  {
+    "card_id": 107,
+    "source": "qa/v150b/art/card_107.jpg",
+    "sha256": "e45631526a65cf6057bfdcb18dea2f3b8083ee4b228dc4d36ba2593f704b8bbc"
+  },
+  {
+    "card_id": 108,
+    "source": "qa/v150b/art/card_108.jpg",
+    "sha256": "20459712f8717f9d9304dcd204f1c6991dd2067679759b03a32a822812e7bf42"
+  },
+  {
+    "card_id": 109,
+    "source": "qa/v150b/art/card_109.jpg",
+    "sha256": "8cc59e54ef2968ca084afe08ac5523662f2f73a5a8501a9ff9108a058cc85ea5"
+  },
+  {
+    "card_id": 110,
+    "source": "qa/v150b/art/card_110.jpg",
+    "sha256": "037098b25b14c638fa29e6ad9eb8394115912616fc2151f0d2b8dd79b7c3af6c"
+  },
+  {
+    "card_id": 111,
+    "source": "qa/v150b/art/card_111.jpg",
+    "sha256": "58baf53daadb868aa6a8dd55a205c4c04ebcf3de067a23016e68e90bacf8bd00"
+  },
+  {
+    "card_id": 112,
+    "source": "qa/v150b/art/card_112.jpg",
+    "sha256": "5a79345941f1679a0f33705914bac3b5111e302e4e60712cbb69cc4719dd7f60"
+  },
+  {
+    "card_id": 113,
+    "source": "qa/v150b/art/card_113.jpg",
+    "sha256": "39e31dcf70b6e38678e7a8221b6a452a2033d4ad7f9120fec3791d628fd35dda"
+  },
+  {
+    "card_id": 114,
+    "source": "qa/v150b/art/card_114.jpg",
+    "sha256": "09e56e4794fe1147c29544a9185727ff2c86fc2389f27f59993109ac5d1f74d1"
+  },
+  {
+    "card_id": 115,
+    "source": "qa/v150b/art/card_115.jpg",
+    "sha256": "86855340c1e52b590fad7e18beb556ac4f8ecb89c6790045f5f1067584458ee4"
+  },
+  {
+    "card_id": 116,
+    "source": "qa/v150b/art/card_116.jpg",
+    "sha256": "0950718c7dc802ae65e832512ebadbcdeda2d64d940eae5901b1c028008fb917"
+  },
+  {
+    "card_id": 117,
+    "source": "qa/v150b/art/card_117.jpg",
+    "sha256": "aea05915582a9d06953d529892778a86d550a2ea8d0594a054712736cfda96f3"
+  },
+  {
+    "card_id": 118,
+    "source": "qa/v150b/art/card_118.jpg",
+    "sha256": "7bc7a2174b172af4764900c14b745dd33b502f147be0d4cd9701ce84b01c7c7a"
+  },
+  {
+    "card_id": 119,
+    "source": "qa/v150b/art/card_119.jpg",
+    "sha256": "c484d5e89bd1321d0d18a60f6908e7a82a61a19cc63a8366ccb9d944998f34dc"
+  },
+  {
+    "card_id": 120,
+    "source": "qa/v150b/art/card_120.jpg",
+    "sha256": "5f53b2b92cee23eabe0fd906a7747497f1e593d30326106be4d903e0846f6c03"
+  },
+  {
+    "card_id": 121,
+    "source": "qa/v150b/art/card_121.jpg",
+    "sha256": "c3f7bdcdc0b00dc5902d7f5f8b25a44924d4353f7368b937e685a0b8e06e5729"
+  },
+  {
+    "card_id": 122,
+    "source": "qa/v150b/art/card_122.jpg",
+    "sha256": "e1e5a5242ada150f3757154e88f094a22cd6d0595ca7d4f1da909a433ef91520"
+  },
+  {
+    "card_id": 123,
+    "source": "qa/v150b/art/card_123.jpg",
+    "sha256": "1acf310d7ae24b8bb69e6077f261f8fba5322e4fc30f6a4c1a2dfefb8a6dfea4"
+  },
+  {
+    "card_id": 124,
+    "source": "qa/v150b/art/card_124.jpg",
+    "sha256": "88c7dd0918aba7d9ebfd55825ac22dbb8c71febe2b7b5b383b65aff9cad1a107"
+  },
+  {
+    "card_id": 125,
+    "source": "qa/v150b/art/card_125.jpg",
+    "sha256": "7ca7db6604cb816793e92d7f28c8c046af4d1644b151a80c9eb77834b4bf4210"
+  },
+  {
+    "card_id": 126,
+    "source": "qa/v150b/art/card_126.jpg",
+    "sha256": "1621a69e0f1bfd62bb7f787fa0571f0cb278426380429900f88123ddc54ab39d"
+  },
+  {
+    "card_id": 127,
+    "source": "qa/v150b/art/card_127.jpg",
+    "sha256": "c51088bb191a925701252f370172f8a1594bd16bb844b428eb27bc2726701050"
+  },
+  {
+    "card_id": 128,
+    "source": "qa/v150b/art/card_128.jpg",
+    "sha256": "55eff03032c61140be57369b8d044724d57bfa3247a565d3c3f11e86b3e02a74"
+  },
+  {
+    "card_id": 129,
+    "source": "qa/v150b/art/card_129.jpg",
+    "sha256": "a236408b491dc911c9faf494f7575444166af81ad7bde0a33fecb791ca987984"
+  },
+  {
+    "card_id": 130,
+    "source": "qa/v150b/art/card_130.jpg",
+    "sha256": "edb967d77d987c95d74cc70d5d7f3198400616ba57e963fa3c30bc465bc55ca9"
+  },
+  {
+    "card_id": 131,
+    "source": "qa/v150b/art/card_131.jpg",
+    "sha256": "38188d4e9eaa4d1795586087010aea1cdadeb5e79b4f573d6040caf38c593ffd"
+  },
+  {
+    "card_id": 132,
+    "source": "qa/v150b/art/card_132.jpg",
+    "sha256": "d714ee393b5d4a452dead50a1c1d8250586e35f05bd7dfd3cedd9f0929343ef0"
+  },
+  {
+    "card_id": 133,
+    "source": "qa/v150b/art/card_133.jpg",
+    "sha256": "0891304cdccb11a692436751957a3089346255cd79fe4520439f6cd2fac8fa8d"
+  },
+  {
+    "card_id": 134,
+    "source": "qa/v150b/art/card_134.jpg",
+    "sha256": "adcc8b6bb5891ec4a0c1d6f6971de62e4ef4d584986061e2d584ea50b2eaede7"
+  },
+  {
+    "card_id": 135,
+    "source": "qa/v150b/art/card_135.jpg",
+    "sha256": "d237251bc8218073471f6efb50a3f13125eefe62da7ffd2cd4523b78efcbb1c0"
+  },
+  {
+    "card_id": 136,
+    "source": "qa/v150b/art/card_136.jpg",
+    "sha256": "78e1bf03d30f1debdad9362dfd18f608b53b36b19caec0697648bf53129df1ff"
+  },
+  {
+    "card_id": 137,
+    "source": "qa/v150b/art/card_137.jpg",
+    "sha256": "d883dc19cbfef939294b2bcc63560d490dad9c91e4232c46db1c72603d2b90b0"
+  },
+  {
+    "card_id": 138,
+    "source": "qa/v150b/art/card_138.jpg",
+    "sha256": "8288ffabc2b4364562f1654c712d195687582d6bb30cccdb3a85f9c51143ade5"
+  },
+  {
+    "card_id": 139,
+    "source": "qa/v150b/art/card_139.jpg",
+    "sha256": "e5c1ad64464319b6cec57d0ce5f86d4e3d2eb659f1ef9a69c22425f4e003c98b"
+  },
+  {
+    "card_id": 140,
+    "source": "qa/v150b/art/card_140.jpg",
+    "sha256": "24566dcd5fdb8cf4126129dfa036c943b51ed6d5ca1c37291eac06204c170fb7"
+  },
+  {
+    "card_id": 141,
+    "source": "qa/v150b/art/card_141.jpg",
+    "sha256": "cf4d1fabe2138976c28ea43deea71cc91bbe2c4fcc7d650562dfb51307250988"
+  },
+  {
+    "card_id": 142,
+    "source": "qa/v150b/art/card_142.jpg",
+    "sha256": "b48b17aa2efb6152fc0e831fb3da593ae0e6e118bbbe6986eaf1c0c474eac010"
+  },
+  {
+    "card_id": 143,
+    "source": "qa/v150b/art/card_143.jpg",
+    "sha256": "2a6760ffde69bf9f7818b6ef814f5a6af3f9a4018ea62424e50c63ed31070ec8"
+  },
+  {
+    "card_id": 144,
+    "source": "qa/v150b/art/card_144.jpg",
+    "sha256": "653002deb09b8e2ae02dc79a3fffd6a24181d63ee29b002500b07b37d6f12a33"
+  },
+  {
+    "card_id": 145,
+    "source": "qa/v150b/art/card_145.jpg",
+    "sha256": "27e0ed70fbae248db4c282fdad6b43fe980b6ba78a526fa466f08fdf16681cba"
+  },
+  {
+    "card_id": 146,
+    "source": "qa/v150b/art/card_146.jpg",
+    "sha256": "9cb46d448dacdbc0a83b904f235797292141007bed07922a606741e134eff560"
+  },
+  {
+    "card_id": 147,
+    "source": "qa/v150b/art/card_147.jpg",
+    "sha256": "dbec55b15a3a4d3197c8ba73e6a037d157182de914f5eae91a1d6537094da70a"
+  },
+  {
+    "card_id": 148,
+    "source": "qa/v150b/art/card_148.jpg",
+    "sha256": "2729898f757ad59fc237df28530d3cfc5c01e183eae173479a078f6b689fc2dd"
+  },
+  {
+    "card_id": 149,
+    "source": "qa/v150b/art/card_149.jpg",
+    "sha256": "4e2cee67f1916fa7e9640309236140f49254612761575a74f96d54361b3d4dd7"
+  },
+  {
+    "card_id": 150,
+    "source": "qa/v150b/art/card_150.jpg",
+    "sha256": "192b4cad2ab5fcadeea6954877c092c625fe42fe6b38191e0fef8888f5928afe"
+  },
+  {
+    "card_id": 151,
+    "source": "qa/v150b/art/card_151.jpg",
+    "sha256": "7cdffbb9c4298d97db7cc1751804a31abfb01a7f78af9f119be713a95ed4a0f6"
+  },
+  {
+    "card_id": 152,
+    "source": "qa/v150b/art/card_152.jpg",
+    "sha256": "ac57a5c10dfd5c2d87d73d98d9ab9267b046d99eb18b3238b5026426a7ecb522"
+  },
+  {
+    "card_id": 153,
+    "source": "qa/v150b/art/card_153.jpg",
+    "sha256": "2b1ff3050e130d389b942b2dca21eddb32d4b26024354bacf617f124bf350d0f"
+  },
+  {
+    "card_id": 154,
+    "source": "qa/v150b/art/card_154.jpg",
+    "sha256": "8ba1562e010b601ad4cb5165beb872d2fd1cac47769d342fb33a11176f89626a"
+  },
+  {
+    "card_id": 155,
+    "source": "qa/v150b/art/card_155.jpg",
+    "sha256": "d1399c8d8dbec3c7dcc8304faaf42df47e9a376729fbd6ad078f2960ce9b946f"
+  },
+  {
+    "card_id": 156,
+    "source": "qa/v150b/art/card_156.jpg",
+    "sha256": "80c8880b3f406ba4362bf9ee21260737f0fc97c9647584132a74e7b773445eaa"
+  },
+  {
+    "card_id": 157,
+    "source": "qa/v150b/art/card_157.jpg",
+    "sha256": "0c3cbce70313b119614de54385680c2c5e3f0e005642fe83e46ae8d6d96e10e0"
+  },
+  {
+    "card_id": 158,
+    "source": "qa/v150b/art/card_158.jpg",
+    "sha256": "cd3304df44545c97731aa75b379678b15f3888653730784ba6df337f81e48c60"
+  },
+  {
+    "card_id": 159,
+    "source": "qa/v150b/art/card_159.jpg",
+    "sha256": "61204ce517bfa1a44b5fc2f5b858f848d44fe5b33f5f92b8adf56f1982e7f89c"
+  },
+  {
+    "card_id": 160,
+    "source": "qa/v150b/art/card_160.jpg",
+    "sha256": "5a7125d2b247e83b021edd68bba155482bcd7c1d6fddc9c7466af83b14ef260c"
+  },
+  {
+    "card_id": 161,
+    "source": "qa/v150b/art/card_161.jpg",
+    "sha256": "722cb7a3a842a24c2b755d7105661c72715adf038ddb10647ab090f6ad9f133c"
+  },
+  {
+    "card_id": 162,
+    "source": "qa/v150b/art/card_162.jpg",
+    "sha256": "361d1b806aa48061b25f7cd98500aa5e6e03595d32fce9e98782f5712942a115"
+  },
+  {
+    "card_id": 163,
+    "source": "qa/v150b/art/card_163.jpg",
+    "sha256": "83b6e44570b0bc01482c1c56fb4315b7c3d1a2a92fa0fa6cc42aceae004bfb62"
+  },
+  {
+    "card_id": 164,
+    "source": "qa/v150b/art/card_164.jpg",
+    "sha256": "92772905b56959934a472cd664ed6d834bfcbbc1fc144e7c6ba9ddb0d8f074ec"
+  },
+  {
+    "card_id": 165,
+    "source": "qa/v150b/art/card_165.jpg",
+    "sha256": "e5a980c545beb8ce1a85939ab18000f5c791b13039a4895717dd780f738cf2ae"
+  },
+  {
+    "card_id": 166,
+    "source": "qa/v150b/art/card_166.jpg",
+    "sha256": "dc12e926a7578f72e50da20b22e1436bc422ec908b036185505b283806f738c9"
+  },
+  {
+    "card_id": 167,
+    "source": "qa/v150b/art/card_167.jpg",
+    "sha256": "6abbbe53944179ed219f7c93fd1cfdbf4fd62d7534a2d853ece683f9aa3708f0"
+  },
+  {
+    "card_id": 168,
+    "source": "qa/v150b/art/card_168.jpg",
+    "sha256": "9f55dcdabe57ba190ac910bbf0648b62eac82a8a8fa9215b17d31ef067e749cb"
+  },
+  {
+    "card_id": 169,
+    "source": "qa/v150b/art/card_169.jpg",
+    "sha256": "a6b2659a5ecfb526bfe0b3b23d2e4068bd2affaa5621ec2e7c5a5ec95e20dbb6"
+  },
+  {
+    "card_id": 170,
+    "source": "qa/v150b/art/card_170.jpg",
+    "sha256": "defbc8ac14eb0a5e6f2729e5b99a835a7dfb4d6349610827d2dcbb297bf317da"
+  },
+  {
+    "card_id": 171,
+    "source": "qa/v150b/art/card_171.jpg",
+    "sha256": "045884062c27592b037b4ff0ce753aaee52c3e06d46d01f2f1eaee0986fbaac9"
+  },
+  {
+    "card_id": 172,
+    "source": "qa/v150b/art/card_172.jpg",
+    "sha256": "634815048ecb98cb12fcf059e67aab37924c9e77fe4e547ba78eb32cedd4a311"
+  },
+  {
+    "card_id": 173,
+    "source": "qa/v150b/art/card_173.jpg",
+    "sha256": "45ccbd2c77be844d0e981f701ff23eb4fb41c8b402a92e21d7a79861948d25f0"
+  },
+  {
+    "card_id": 174,
+    "source": "qa/v150b/art/card_174.jpg",
+    "sha256": "55809b61b1b11c3fa1422159130bc15c049f8f9b7ddba16064a891488ed81b18"
+  },
+  {
+    "card_id": 175,
+    "source": "qa/v150b/art/card_175.jpg",
+    "sha256": "56d345742a6f9461b534c3770d2df6f3747a5b055cdc68bfbd488c7e9138560f"
+  },
+  {
+    "card_id": 176,
+    "source": "qa/v150b/art/card_176.jpg",
+    "sha256": "acfa8f0d97358e9b80007b7f8f3c49f50eef27e2e7d639b12991b20ab01ac61e"
+  },
+  {
+    "card_id": 177,
+    "source": "qa/v150b/art/card_177.jpg",
+    "sha256": "e982b9b3f886badc43abb3c96c812615edf8c54eec25cdb371a10e28223f982a"
+  },
+  {
+    "card_id": 178,
+    "source": "qa/v150b/art/card_178.jpg",
+    "sha256": "a99027f2fefeec4ea05c3af93a0e357aed1c57370b8807cfb74475e28c37f406"
+  },
+  {
+    "card_id": 179,
+    "source": "qa/v150b/art/card_179.jpg",
+    "sha256": "638bc75c0b1548d87124d08340f6e9bd3d033b05a9f5ff08324f81feac772e79"
+  },
+  {
+    "card_id": 180,
+    "source": "qa/v150b/art/card_180.jpg",
+    "sha256": "00ac05499b2ebe4882a9b7f74d1c5af6c0f43af0b078ba339d3ea94ebdde83ea"
+  },
+  {
+    "card_id": 181,
+    "source": "qa/v150b/art/card_181.jpg",
+    "sha256": "86a0a9d22b3130b4f621bc68653f080dd2e5fcef6c220240a2989ff94dd4dc32"
+  },
+  {
+    "card_id": 182,
+    "source": "qa/v150b/art/card_182.jpg",
+    "sha256": "0761396f43f1fd2225a3e820db779d29626d336b1da7a95c2ee427ef0f9a758c"
+  },
+  {
+    "card_id": 183,
+    "source": "qa/v150b/art/card_183.jpg",
+    "sha256": "37212c27f27ae0baf6cac69fd85e7ddce2e357aba451a685ecf8377c15f42865"
+  },
+  {
+    "card_id": 184,
+    "source": "qa/v150b/art/card_184.jpg",
+    "sha256": "10e0538d41a3dfbc4fe625748444a52be2bb0be51558f4deb00da68fd2ec0bff"
+  },
+  {
+    "card_id": 96,
+    "source": "qa/v150b/art/card_96.jpg",
+    "sha256": "0a05f91324388ed1e08c6458501ba86d8fe39491bcb8a405c5be2a647f8298e7"
+  },
+  {
+    "card_id": 97,
+    "source": "qa/v150b/art/card_97.jpg",
+    "sha256": "cbdc64db54b896b940511e42a2ec69c5099a116673a45e7860f447d12920eee7"
+  },
+  {
+    "card_id": 98,
+    "source": "qa/v150b/art/card_98.jpg",
+    "sha256": "5a463630b3f1de2f0f61c68d2b7cf7846e58b7679e0f7a5ddb95f06efff23198"
+  },
+  {
+    "card_id": 99,
+    "source": "qa/v150b/art/card_99.jpg",
+    "sha256": "5087cb74002e92ba01506442d5937073d929c364030935dc3e06a56fc99920d0"
+  }
+]

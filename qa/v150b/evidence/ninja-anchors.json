@@ -1,0 +1,482 @@
+[
+  {
+    "frame": 0,
+    "action": "idle",
+    "source_bounds": [
+      89,
+      45,
+      538,
+      600
+    ],
+    "source_anchor": [
+      390,
+      601
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      17,
+      14,
+      88,
+      100
+    ]
+  },
+  {
+    "frame": 1,
+    "action": "idle",
+    "source_bounds": [
+      702,
+      45,
+      1141,
+      601
+    ],
+    "source_anchor": [
+      1000,
+      601
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      17,
+      14,
+      87,
+      100
+    ]
+  },
+  {
+    "frame": 2,
+    "action": "idle",
+    "source_bounds": [
+      91,
+      662,
+      544,
+      1218
+    ],
+    "source_anchor": [
+      395,
+      1218
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      16,
+      14,
+      89,
+      100
+    ]
+  },
+  {
+    "frame": 3,
+    "action": "idle",
+    "source_bounds": [
+      698,
+      662,
+      1146,
+      1218
+    ],
+    "source_anchor": [
+      1003,
+      1218
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      16,
+      14,
+      88,
+      100
+    ]
+  },
+  {
+    "frame": 4,
+    "action": "attack",
+    "source_bounds": [
+      68,
+      196,
+      566,
+      617
+    ],
+    "source_anchor": [
+      385,
+      617
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      15,
+      35,
+      93,
+      100
+    ]
+  },
+  {
+    "frame": 5,
+    "action": "attack",
+    "source_bounds": [
+      671,
+      75,
+      1200,
+      618
+    ],
+    "source_anchor": [
+      1010,
+      618
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      11,
+      16,
+      95,
+      100
+    ]
+  },
+  {
+    "frame": 6,
+    "action": "attack",
+    "source_bounds": [
+      57,
+      719,
+      642,
+      1191
+    ],
+    "source_anchor": [
+      420,
+      1191
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      8,
+      27,
+      100,
+      100
+    ]
+  },
+  {
+    "frame": 7,
+    "action": "attack",
+    "source_bounds": [
+      722,
+      723,
+      1214,
+      1194
+    ],
+    "source_anchor": [
+      1030,
+      1194
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      16,
+      27,
+      94,
+      100
+    ]
+  },
+  {
+    "frame": 8,
+    "action": "block",
+    "source_bounds": [
+      73,
+      75,
+      631,
+      619
+    ],
+    "source_anchor": [
+      380,
+      619
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      16,
+      16,
+      104,
+      100
+    ]
+  },
+  {
+    "frame": 9,
+    "action": "block",
+    "source_bounds": [
+      668,
+      83,
+      1209,
+      619
+    ],
+    "source_anchor": [
+      1000,
+      619
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      12,
+      17,
+      97,
+      100
+    ]
+  },
+  {
+    "frame": 10,
+    "action": "block",
+    "source_bounds": [
+      58,
+      656,
+      648,
+      1193
+    ],
+    "source_anchor": [
+      370,
+      1193
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      15,
+      18,
+      108,
+      100
+    ]
+  },
+  {
+    "frame": 11,
+    "action": "block",
+    "source_bounds": [
+      679,
+      663,
+      1212,
+      1193
+    ],
+    "source_anchor": [
+      1000,
+      1193
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      14,
+      18,
+      98,
+      100
+    ]
+  },
+  {
+    "frame": 12,
+    "action": "power",
+    "source_bounds": [
+      73,
+      58,
+      551,
+      617
+    ],
+    "source_anchor": [
+      390,
+      617
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      14,
+      14,
+      90,
+      100
+    ]
+  },
+  {
+    "frame": 13,
+    "action": "power",
+    "source_bounds": [
+      673,
+      60,
+      1171,
+      617
+    ],
+    "source_anchor": [
+      1000,
+      617
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      13,
+      14,
+      91,
+      100
+    ]
+  },
+  {
+    "frame": 14,
+    "action": "power",
+    "source_bounds": [
+      78,
+      658,
+      581,
+      1216
+    ],
+    "source_anchor": [
+      390,
+      1217
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      15,
+      14,
+      95,
+      100
+    ]
+  },
+  {
+    "frame": 15,
+    "action": "power",
+    "source_bounds": [
+      677,
+      658,
+      1143,
+      1217
+    ],
+    "source_anchor": [
+      1000,
+      1217
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      13,
+      14,
+      88,
+      100
+    ]
+  },
+  {
+    "frame": 16,
+    "action": "death",
+    "source_bounds": [
+      74,
+      140,
+      569,
+      715
+    ],
+    "source_anchor": [
+      390,
+      715
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      15,
+      12,
+      93,
+      100
+    ]
+  },
+  {
+    "frame": 17,
+    "action": "death",
+    "source_bounds": [
+      653,
+      376,
+      1203,
+      759
+    ],
+    "source_anchor": [
+      1030,
+      759
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      5,
+      40,
+      92,
+      100
+    ]
+  },
+  {
+    "frame": 18,
+    "action": "death",
+    "source_bounds": [
+      29,
+      954,
+      629,
+      1155
+    ],
+    "source_anchor": [
+      400,
+      1155
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      6,
+      68,
+      101,
+      100
+    ]
+  },
+  {
+    "frame": 19,
+    "action": "death",
+    "source_bounds": [
+      650,
+      998,
+      1253,
+      1172
+    ],
+    "source_anchor": [
+      1010,
+      1172
+    ],
+    "runtime_anchor": [
+      64,
+      100
+    ],
+    "runtime_bounds": [
+      8,
+      72,
+      103,
+      100
+    ]
+  }
+]

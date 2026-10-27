@@ -1,0 +1,7 @@
+__pycache__/
+evidence/*.ppm
+evidence/*.s16le
+evidence/EBOOT.PBP
+evidence/ppsspp.log
+evidence/pulse.log
+evidence/xvfb.log

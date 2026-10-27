@@ -17,6 +17,7 @@ static void preview_once(const Game*g,int raw,int target,int choice,CardPreview*
  if(cost>copy.energy)copy.energy=cost;
  preview_trace=out;preview_depth=preview_phase=preview_nested=0;preview_choice=choice;
  game_play_card(&copy,index,target);
+ if(copy.screen==NINJA_CHOICE){for(int i=0;i<copy.ninja.task_count;i++)if(copy.ninja.tasks[i].kind==NT_PLAY&&copy.ninja.tasks[i].depth==2)out->uncertain=1;}
  preview_trace=0;preview_depth=preview_phase=preview_nested=0;preview_choice=-1;
 }
 void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
@@ -24,7 +25,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
  int id=CARD_ID(raw);
  if(!g||id>=CARD_COUNT||g->screen!=COMBAT)return;
  int choices=1;
- if(id==22){choices=0;for(int e=0;e<g->enemy_count;e++)if(g->enemies[e].hp>0)choices++;}
+ if(id==22||id==N_RICOCHET){choices=0;for(int e=0;e<g->enemy_count;e++)if(g->enemies[e].hp>0)choices++;}
  if(id==87){choices=0;int skipped=0;
   for(int i=0;i<g->hand_count;i++){
    if(!skipped&&g->hand[i]==raw){skipped=1;continue;}
@@ -33,7 +34,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
  }
  if(choices<1)choices=1;
  for(int c=0;c<choices;c++){
-  CardPreview p;preview_once(g,raw,target,(id==22||id==87)?c:-1,&p);
+  CardPreview p;preview_once(g,raw,target,(id==22||id==87||id==N_RICOCHET)?c:-1,&p);
   if(!c){*out=p;continue;}
   for(int e=0;e<2;e++)if(p.hits[e]){
    if(!out->hits[e]||p.low[e]<out->low[e])out->low[e]=p.low[e];
@@ -48,7 +49,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
   }
   out->uncertain|=p.uncertain;out->repeated=MAX(out->repeated,p.repeated);
  }
- out->random=(id==22||id==87)&&choices>1;
+ out->random=(id==22||id==87||id==N_RICOCHET)&&choices>1;
 }
 static void preview_range(char*out,int cap,int low,int high){
  if(low==high)snprintf(out,(size_t)cap,"%d",low);
@@ -64,6 +65,7 @@ static void preview_replace_number(char*out,int cap,const char*source,int ordina
  int n=MIN(start,cap-1);memcpy(out,source,(size_t)n);out[n]=0;
  snprintf(out+n,(size_t)(cap-n),"%s%s",value,source+end);
 }
+#include "ninja_preview.inc"
 void game_card_description_now(const Game*g,int raw,int target,char*out,int cap){
  if(!out||cap<=0)return;
  const char*base=card_description_base(raw);int id=CARD_ID(raw),up=CARD_UP(raw);
@@ -76,6 +78,7 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
   target=0;while(target+1<g->enemy_count&&g->enemies[target].hp<=0)target++;
  }
  CardPreview p;game_card_preview(g,raw,target,&p);
+ if(id>=NINJA_FIRST){ninja_description_now(g,raw,target,&p,out,cap);return;}
  char damage[32],block[32],temp[320];int low=0,high=0,seen=0;
  int all=id==3||id==10||id==14||id==19||id==22||id==36||id==37||id==70||p.repeated;
  for(int e=0;e<g->enemy_count;e++)if((all||e==target)&&p.hits[e]){
@@ -119,9 +122,10 @@ static int enemy_status_entries(const Game*g,int enemy,int wanted,char*out,int c
  const Enemy*e=&g->enemies[enemy];int n=0;
 #define FOE_STATUS(value,format) do{int v=(value);if(v){if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,format,v);n++;}}while(0)
  FOE_STATUS(e->strength,"Strength: %d");
- FOE_STATUS(e->weak,"Weak: %d turns (-25%% damage)");
+ if(relic(g,NR_KRANE)){FOE_STATUS(e->weak,"Weak: %d turns (-40%% damage)");}else{FOE_STATUS(e->weak,"Weak: %d turns (-25%% damage)");}
  FOE_STATUS(e->vulnerable,"Vulnerable: %d turns (+50%% taken)");
- FOE_STATUS(e->poison,"Poison: %d HP next turn");
+ FOE_STATUS(e->poison,"Poison: %d HP on next trigger");
+ FOE_STATUS(g->ninja.v[NS_STRANGLE0+enemy],"Strangle: lose %d HP per card this turn");
  FOE_STATUS(g->ic[IC_MANGLE0+enemy],"Mangle: restore %d STR next turn");
 #undef FOE_STATUS
  return n;

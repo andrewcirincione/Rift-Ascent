@@ -1,0 +1,20 @@
+SHOT boot
+SHOT character-selection
+SHOT new-run-map
+SHOT combat
+SHOT poison
+SHOT shivs
+SHOT sly-choice
+SHOT rewards
+SHOT reward-preview
+SHOT shop
+SHOT sly-resolved
+SHOT generated-shivs
+SHOT after-attack
+SHOT after-block
+SHOT after-power
+SHOT retain-choice
+SHOT player-status
+SHOT relic-inventory
+PASS final release EBOOT 1.5b: character selection, new run, combat, poison, Shivs, Sly controls, Retain, powers, Block, attacks, rewards, shop, status, inventory and pending-choice Save & Quit
+SHA256 0f1e27e1840c3d506a5bd3e40b2e8f37410eed3a0c1d354725b13f4d025485f2

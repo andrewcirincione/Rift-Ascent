@@ -25,7 +25,7 @@ int game_can_modify(int raw,int mod){
  case MOD_ECHO:return type==0&&card_cost_base(raw)>=0&&id!=25;
  case MOD_BOUND:return 1;
  case MOD_KEEN:return type==0;
- case MOD_WARD:switch(id){case 1:case 5:case 9:case 12:case 16:case 17:case 23:case 24:case 31:case 45:case 46:case 58:case 93:return 1;default:return 0;}
+ case MOD_WARD:if(id>=NINJA_FIRST)return ninja_cards[id-NINJA_FIRST].block>0||id==N_MIRAGE;switch(id){case 1:case 5:case 9:case 12:case 16:case 17:case 23:case 24:case 31:case 45:case 46:case 58:case 93:return 1;default:return 0;}
  case MOD_FLEETING:return type!=2&&card_cost_base(raw)>0&&id!=25;
  case MOD_KINDLED:return type!=2&&id!=17&&id!=18&&id!=23&&id!=25&&id!=43;
  default:return 0;

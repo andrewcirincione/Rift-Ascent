@@ -1,0 +1,18 @@
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 24926114
+elf_size: 20811380
+segments: 2
+static_memory: 21269816
+sha256: 0f1e27e1840c3d506a5bd3e40b2e8f37410eed3a0c1d354725b13f4d025485f2
+/workspace/scratch/9a81aefb5adc/rift-ascent/versions/1.5b/EBOOT.PBP
+  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
+  LoadExecForUser 0x40090000 NIDs 0x05572a5f
+  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324
+  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
+  LoadExecForUser 0x40090000 NIDs 0x4ac57943
+  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
+  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
+  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
+  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
+PASS: no kernel-only import libraries
+PASS exact tested EBOOT, source copies, five music streams and screenshot

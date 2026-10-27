@@ -1,0 +1,10 @@
+[
+  {
+    "key": "icons",
+    "prompt": "Use case: stylized-concept. One transparent game UI icon atlas for a dark medieval gothic ninja deckbuilder. EXACTLY four columns by four rows, sixteen individually isolated icons with generous transparent gutters, equal scale. Painterly crisp sculptural objects with silver highlights, charcoal surfaces, muted jade accents; readable silhouettes at 20 pixels, no abstract scribbles, no decorative lines. Row 1 left to right: a silver snake ring; a small serpent skull dripping green venom; a pair of antique mourning bells; a neat roll of dark linen bandages. Row 2: a black iron funnel with green liquid; a rolled black ninja scroll tied with silver cord; a folded black paper raven; a spiralling silver needle. Row 3: a silver dragon ring; a round thorny silver bramble; a pale hooded ghost; two crossed silver daggers. Row 4: a pair of overlapping steel shields; a shield bound in a chain; a dagger with a second ghostly copy beside it; an open gloved hand holding a luminous emerald spark. True transparent background. Only the objects, no labels, text, numbers, frames, grid, cast shadows, border or UI."
+  },
+  {
+    "key": "dagger-fx",
+    "prompt": "Use case: stylized-concept. One transparent 2D game attack-effect sprite sheet, exactly THREE columns and TWO rows, six consecutive frames of a single fast crossing double-dagger slash. Dark gothic ninja game effect: a curved crescent of bright silver blade glint with restrained pale jade edge light and a few small metal sparks, then a second crossing crescent, a tiny impact burst, then two dissipating glints. Real textured sweeping blade-light shapes, substantial tapered volume, painterly high contrast, no straight laser lines, no three-line scribble, no fire, no background. All six frames centered on the same impact point, equal scale, huge transparent gaps, no shapes crossing cells. No character, labels, text, borders or grid. Genuine transparent alpha."
+  }
+]

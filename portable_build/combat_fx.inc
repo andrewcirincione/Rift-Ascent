@@ -207,7 +207,15 @@ static void r137_scene(const Game*g){
    if(r137_events[i].absorbed>0&&t<12){pose=2;pose_frame=2;dy=3;}
   }
  }
- if(g->hp<=0&&r138_death_active){
+ if(g->character==CHAR_NIGHTSHADE){
+  int frame=0;
+  if(g->hp<=0&&r138_death_active)frame=16+CLAMP((age-r138_death_start)/12,0,3);
+  else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=4+(local<3?0:local<8?1:local<14?2:3);}
+  else if(pose==2)frame=9;
+  else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=12+(local<4?0:local<10?1:local<13?2:3);}
+  else frame=(animation_tick/32u)%4;
+  r138_hero_clip=1;r137_blit(54+dx,74,134,100,r150b_ninja[frame],134,100,255,0);r138_hero_clip=0;
+ }else if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
   r138_hero_clip=1;r137_blit(41,61,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;
  }else{
@@ -251,7 +259,7 @@ static void r137_scene(const Game*g){
   if(e->kind==GFX_ATTACK||e->kind==GFX_PROC){
    int t=r137_local_time(a,tier),size=54+tier*16,phase=MIN(5,t/3);
    if(t<18){
-    if(e->kind==GFX_ATTACK)r137_blit(cx-size/2,124-size/2,size,size,r134_attack_fx[phase],112,112,220,e->target<0);
+    if(e->kind==GFX_ATTACK)r137_blit(cx-size/2,124-size/2,size,size,(g->character==CHAR_NIGHTSHADE&&e->source<0?r150b_dagger_fx[phase]:r134_attack_fx[phase]),112,112,220,e->target<0);
     r137_blit(cx-size/2+4,124-size/2,size,size,r137_impact_frames[phase],96,96,(18-t)*255/18,e->target<0);
     if(e->absorbed>0)r137_blit(cx-27,98,54,62,r137_shield_frames[MIN(5,3+t/5)],96,96,(18-t)*235/18,0);
    }
@@ -270,7 +278,7 @@ static void r137_scene(const Game*g){
    r134_blit(cx-12,91-a/2,24,24,icon,22,22,(20-a)*12);
   }else if(e->kind==GFX_POWER&&a<16){
    int phase=a<4?1:a<12?3:5,size=65+(a<8?a:16-a);
-   r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
+   if(g->character!=CHAR_NIGHTSHADE)r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
   }else if(e->kind==GFX_SELF&&a<22){char number[24];snprintf(number,sizeof(number),"-%d",e->amount);r135_shadow_text(98,107-a/2,number,RED,&r134_f18b);}
  }
  /* Brief hold of the actual battlefield framebuffer at contact. HUD, hand,

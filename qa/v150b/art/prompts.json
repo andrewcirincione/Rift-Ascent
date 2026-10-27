@@ -1,0 +1,450 @@
+{
+  "sprite": "Use case: stylized-concept. Production asset: a single transparent 2D videogame animation sprite-sheet atlas, exactly FOUR columns and FIVE rows of equally sized cells, 20 complete separate full-body poses. Same original female gothic ninja in every cell: ash-grey hood, dark fitted layered leather armor, steel half-mask covering nose and mouth, silver forearm plates, two short hooked steel daggers, ragged charcoal cloak with restrained faded jade lining, boots. Haunted medieval cathedral atmosphere in the character design; no anime, no chibi, no modern military gear. Facing RIGHT in side three-quarter view, opponent is right. Painterly crisp high-contrast dark-fantasy game sprites, pale silver edge lighting to read against black. Row 1: four subtle breathing idle frames. Row 2: four attack frames, coiled anticipation, wide diagonal dagger slash, forward crossing slash, recovery; powerful deliberate cuts, weapons completely inside each cell. Row 3: four block/parry frames, blades crossed to stop a strike then return to guard, feet remain planted. Row 4: four power-casting frames raising one poison-tinged dagger, cloak moving, return to guard. Row 5: four death frames, stagger, one knee, falling, resting on ground. Within every cell same scale, consistent anatomy/equipment and foot baseline at 90% cell height; centered hips at 50% cell width in standing frames. Clear generous transparent gaps around every figure, no overlap between cells. Only character pixels; truly transparent background; no floor, cast shadows, smoke clouds, labels, grid lines, borders, writing, glyphs, logos, UI or cropped blades. 2048x2560 pixels if possible.",
+  "cards": [
+    {
+      "id": 96,
+      "key": "ABRASIVE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Abrasive. Scene: The ninja braces thorn-studded steel vambraces across her chest, ready to punish an incoming strike."
+    },
+    {
+      "id": 97,
+      "key": "ACCELERANT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Accelerant. Scene: A black glass vial spills emerald venom onto a burning censer, its toxic fire catching rapidly."
+    },
+    {
+      "id": 98,
+      "key": "ACCURACY",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Accuracy. Scene: Close view of a steady gloved hand aligning a razor-sharp throwing dagger with a distant carved gargoyle's eye."
+    },
+    {
+      "id": 99,
+      "key": "ACROBATICS",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Acrobatics. Scene: The ninja vaults sideways over a crumbling stone balustrade, daggers tucked tight, cloak flowing."
+    },
+    {
+      "id": 100,
+      "key": "ADRENALINE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Adrenaline. Scene: Close-up of a masked ninja's intense eyes and white-knuckled dagger grip amid a sudden burst of motion."
+    },
+    {
+      "id": 101,
+      "key": "AFTERIMAGE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Afterimage. Scene: The ninja darts through a moonlit corridor leaving two ghostlike translucent silhouettes in her wake."
+    },
+    {
+      "id": 102,
+      "key": "ANTICIPATE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Anticipate. Scene: The ninja watches an opponent's raised sword reflected in a dagger, poised to evade."
+    },
+    {
+      "id": 103,
+      "key": "ASSASSINATE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Assassinate. Scene: The ninja descends silently behind a hulking armored sentinel, dagger held for a precise strike, no gore."
+    },
+    {
+      "id": 104,
+      "key": "BACKFLIP",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Backflip. Scene: A graceful backwards somersault away from a heavy axe biting into stone."
+    },
+    {
+      "id": 105,
+      "key": "BACKSTAB",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Backstab. Scene: The ninja emerges from darkness at the back of a ruined knight, silver dagger catching candlelight."
+    },
+    {
+      "id": 106,
+      "key": "BLADE_DANCE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Blade Dance. Scene: Three silver throwing daggers fanned between gloved fingers, cloak and blade edges sweeping through a ritual dance."
+    },
+    {
+      "id": 107,
+      "key": "BLADE_OF_INK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Blade of Ink. Scene: Two black-ink-coated daggers above an open forbidden manuscript, liquid ink dripping from the steel."
+    },
+    {
+      "id": 108,
+      "key": "BLUR",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Blur. Scene: A masked figure races through cathedral shadows, the trailing cloak and background softened by speed."
+    },
+    {
+      "id": 109,
+      "key": "BOUNCING_FLASK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Bouncing Flask. Scene: A round emerald poison flask ricochets off an old stone arch, a second impact visible deeper in the crypt."
+    },
+    {
+      "id": 110,
+      "key": "BUBBLE_BUBBLE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Bubble Bubble. Scene: An occult cauldron of emerald venom boils into large translucent bubbles, a venom-stained blade beside it."
+    },
+    {
+      "id": 111,
+      "key": "BULLET_TIME",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Bullet Time. Scene: The ninja stands perfectly composed as crossbow bolts hang frozen all around her in a ruined chapel."
+    },
+    {
+      "id": 112,
+      "key": "BURST",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Burst. Scene: A pair of ghostly mirrored gloved hands perform the same dagger technique in rapid succession."
+    },
+    {
+      "id": 113,
+      "key": "CALCULATED_GAMBLE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Calculated Gamble. Scene: A ninja spreads bone gaming tiles and a dagger on a candlelit stone altar, studying a desperate choice."
+    },
+    {
+      "id": 114,
+      "key": "CLOAK_AND_DAGGER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Cloak and Dagger. Scene: A heavy tattered cloak turns aside an enemy blade while a concealed silver dagger emerges beneath it."
+    },
+    {
+      "id": 115,
+      "key": "CORROSIVE_WAVE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Corrosive Wave. Scene: A sweeping wave of glowing acidic venom eats into shields and cathedral flagstones."
+    },
+    {
+      "id": 116,
+      "key": "DAGGER_SPRAY",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Dagger Spray. Scene: Several real silver throwing daggers fly in a broad fan towards shadowy armored foes."
+    },
+    {
+      "id": 117,
+      "key": "DAGGER_THROW",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Dagger Throw. Scene: Side view of the ninja forcefully throwing a gleaming dagger across a dark nave."
+    },
+    {
+      "id": 118,
+      "key": "DASH",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Dash. Scene: The ninja drives forward in a low armored shoulder rush with crossed blades protecting her body."
+    },
+    {
+      "id": 119,
+      "key": "DEADLY_POISON",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Deadly Poison. Scene: A carefully tipped dark glass vial coats a curved blade with luminous green venom."
+    },
+    {
+      "id": 120,
+      "key": "DEFEND_SILENT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Defend. Scene: The ninja holds crossed hooked daggers in a firm close guard, watchful eyes above steel half-mask."
+    },
+    {
+      "id": 121,
+      "key": "DEFLECT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Deflect. Scene: One silver dagger precisely catches and redirects an incoming sword, a small bright metal spark."
+    },
+    {
+      "id": 122,
+      "key": "DODGE_AND_ROLL",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Dodge and Roll. Scene: The ninja rolls low beneath a swinging chain weapon across dusty chapel flagstones."
+    },
+    {
+      "id": 123,
+      "key": "ECHOING_SLASH",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Echoing Slash. Scene: One sweeping dagger strike passes through two spectral armored silhouettes and echoes down the nave."
+    },
+    {
+      "id": 124,
+      "key": "ENVENOM",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Envenom. Scene: Serpentine emerald poison winds around a pair of steel blades held over a venomous reliquary."
+    },
+    {
+      "id": 125,
+      "key": "ESCAPE_PLAN",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Escape Plan. Scene: A gloved hand opens a hidden passage behind a tomb relief as the ninja looks back at pursuing shadows."
+    },
+    {
+      "id": 126,
+      "key": "EXPERTISE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Expertise. Scene: A carefully arranged arsenal of knives, needles, poison vials and lockpicks on black velvet."
+    },
+    {
+      "id": 127,
+      "key": "EXPOSE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Expose. Scene: The ninja tears away an enemy's cracked shield, revealing a weak point in its ancient armor."
+    },
+    {
+      "id": 128,
+      "key": "FAN_OF_KNIVES",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Fan of Knives. Scene: A dramatic semicircle of real silver knives bursts outward around a hooded assassin."
+    },
+    {
+      "id": 129,
+      "key": "FINISHER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Finisher. Scene: The ninja delivers a decisive low sweeping double-dagger strike to a battered armored foe, no gore."
+    },
+    {
+      "id": 130,
+      "key": "FLANKING",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Flanking. Scene: Two hooded assassins approach a towering armored knight from opposite sides."
+    },
+    {
+      "id": 131,
+      "key": "FLECHETTES",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Flechettes. Scene: A gloved palm releases a cluster of small steel darts into the candlelit darkness."
+    },
+    {
+      "id": 132,
+      "key": "FLICK_FLACK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Flick-Flack. Scene: The ninja twists through a horizontal double-dagger cut between two enemies."
+    },
+    {
+      "id": 133,
+      "key": "FOOTWORK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Footwork. Scene: Close view of leather boots making a precise crossing step across wet gothic mosaic tiles."
+    },
+    {
+      "id": 134,
+      "key": "GRAND_FINALE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Grand Finale. Scene: Alone at the center of a ruined cathedral, the ninja unleashes a final radiant silver-blade flourish, empty weapon belt."
+    },
+    {
+      "id": 135,
+      "key": "HAND_TRICK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Hand Trick. Scene: A concealed dagger and a small poison vial exchange places between dexterous gloved hands."
+    },
+    {
+      "id": 136,
+      "key": "HAZE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Haze. Scene: A thick emerald poison haze rolls around the feet of dark armored enemies in a crypt."
+    },
+    {
+      "id": 137,
+      "key": "HIDDEN_DAGGERS",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Hidden Daggers. Scene: The ninja draws a pair of concealed silver blades from beneath a dark cloak."
+    },
+    {
+      "id": 138,
+      "key": "INFINITE_BLADES",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Infinite Blades. Scene: A floating wheel of gleaming daggers slowly reforms behind a hooded ninja in shadow."
+    },
+    {
+      "id": 139,
+      "key": "KNIFE_TRAP",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Knife Trap. Scene: A mechanical tomb trap releases a dense rack of hidden daggers toward a looming enemy."
+    },
+    {
+      "id": 140,
+      "key": "LEADING_STRIKE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Leading Strike. Scene: One testing dagger slash leads into two additional knives being drawn from the ninja's belt."
+    },
+    {
+      "id": 141,
+      "key": "LEG_SWEEP",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Leg Sweep. Scene: The ninja hooks an armored foe's ankle with a low sweeping kick while guarding with a dagger."
+    },
+    {
+      "id": 142,
+      "key": "MALAISE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Malaise. Scene: A sickly spectral serpent coils around an enemy's sword arm, making the weapon droop heavily."
+    },
+    {
+      "id": 143,
+      "key": "MASTER_PLANNER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Master Planner. Scene: A masked assassin studies a meticulously arranged tactical map, bone markers and knives beneath candlelight."
+    },
+    {
+      "id": 144,
+      "key": "MEMENTO_MORI",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Memento Mori. Scene: A silver dagger rests on a weathered human skull beside withered white flowers and burnt parchment."
+    },
+    {
+      "id": 145,
+      "key": "MIRAGE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Mirage. Scene: The ninja's shimmering double forms within poisonous green mist, deflecting an enemy blow."
+    },
+    {
+      "id": 146,
+      "key": "MURDER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Murder. Scene: A flock of black ravens erupts around a masked assassin raising one ominous silver dagger."
+    },
+    {
+      "id": 147,
+      "key": "NEUTRALIZE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Neutralize. Scene: A dagger pins an enemy's weapon strap against a stone pillar, disabling its strike."
+    },
+    {
+      "id": 148,
+      "key": "NIGHTMARE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Nightmare. Scene: Three ghostly versions of the same hooded ninja emerge from a dreamlike black doorway."
+    },
+    {
+      "id": 149,
+      "key": "NOXIOUS_FUMES",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Noxious Fumes. Scene: Poisonous emerald vapor rises from hanging black censers and gathers around ruined armored statues."
+    },
+    {
+      "id": 150,
+      "key": "OUTBREAK",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Outbreak. Scene: A cracked poison vessel spills a creeping virulent green infection across a crowded crypt floor."
+    },
+    {
+      "id": 151,
+      "key": "PHANTOM_BLADES",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Phantom Blades. Scene: Translucent silver daggers hover close to a hooded assassin's outstretched hands."
+    },
+    {
+      "id": 152,
+      "key": "PIERCING_WAIL",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Piercing Wail. Scene: A hooded spirit's open mask releases a pale spectral cry that makes armored foes recoil."
+    },
+    {
+      "id": 153,
+      "key": "PINPOINT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Pinpoint. Scene: Extreme close view of one dagger tip precisely aimed at a tiny opening in dark plate armor."
+    },
+    {
+      "id": 154,
+      "key": "POISONED_STAB",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Poisoned Stab. Scene: An emerald-coated dagger pierces an enemy's armor seam, venom gleaming, no blood."
+    },
+    {
+      "id": 155,
+      "key": "POUNCE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Pounce. Scene: A ninja leaps down from a gargoyle perch with both hooked daggers drawn."
+    },
+    {
+      "id": 156,
+      "key": "PRECISE_CUT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Precise Cut. Scene: A single immaculate silver blade slices a falling silk ribbon against dark stone."
+    },
+    {
+      "id": 157,
+      "key": "PREDATOR",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Predator. Scene: The ninja crouches high on a cathedral beam, watching an armored target far below."
+    },
+    {
+      "id": 158,
+      "key": "PREPARED",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Prepared. Scene: A ninja carefully tightens a leather bracer and checks her dagger belt before entering darkness."
+    },
+    {
+      "id": 159,
+      "key": "REFLEX",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Reflex. Scene: A gloved hand catches a flying dagger by the handle inches from a masked face."
+    },
+    {
+      "id": 160,
+      "key": "RICOCHET",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Ricochet. Scene: One bright steel dagger rebounds between iron pillars in a crypt, leaving small metallic sparks."
+    },
+    {
+      "id": 161,
+      "key": "SCARE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Scare. Scene: A looming hooded assassin suddenly appears behind a torch-lit stone arch, startling armored sentries."
+    },
+    {
+      "id": 162,
+      "key": "SERPENT_FORM",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Serpent Form. Scene: A spectral emerald serpent curls protectively around a masked ninja, its scales merging with her cloak."
+    },
+    {
+      "id": 163,
+      "key": "SHADOW_STEP",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Shadow Step. Scene: The ninja steps into one deep shadow and emerges from another behind a distant foe."
+    },
+    {
+      "id": 164,
+      "key": "SHADOWMELD",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Shadowmeld. Scene: The ninja dissolves into the broad black shadow of a gothic pillar as a sword passes harmlessly."
+    },
+    {
+      "id": 165,
+      "key": "SHIV",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Shiv. Scene: One simple needle-sharp steel shiv with a black leather grip rests on weathered dark stone."
+    },
+    {
+      "id": 166,
+      "key": "SKEWER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Skewer. Scene: A powerful lunging thrust drives a long narrow dagger toward a knight's center guard, no gore."
+    },
+    {
+      "id": 167,
+      "key": "SLICE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Slice. Scene: A close side view of a gleaming curved dagger cutting cleanly through hanging black fabric."
+    },
+    {
+      "id": 168,
+      "key": "SNAKEBITE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Snakebite. Scene: A dark serpent sinks luminous venomous fangs into an armored gauntlet."
+    },
+    {
+      "id": 169,
+      "key": "SNEAKY",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Sneaky. Scene: The ninja shelters in a deep alcove while a companion distracts a distant enemy."
+    },
+    {
+      "id": 170,
+      "key": "SPEEDSTER",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Speedster. Scene: A hooded ninja sprints over cathedral rooftops, cloak streaming, moonlit silver edges."
+    },
+    {
+      "id": 171,
+      "key": "STORM_OF_STEEL",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Storm of Steel. Scene: A vortex of real steel throwing daggers circles the ninja in a ruined chapel."
+    },
+    {
+      "id": 172,
+      "key": "STRANGLE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Strangle. Scene: A gloved hand pulls a fine silver garrote taut behind an armored undead silhouette, no gore."
+    },
+    {
+      "id": 173,
+      "key": "STRIKE_SILENT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Strike. Scene: The ninja performs a direct forward dagger slash, strong clear weapon silhouette."
+    },
+    {
+      "id": 174,
+      "key": "SUCKER_PUNCH",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Sucker Punch. Scene: The ninja lands a sudden armored fist strike while keeping a dagger concealed in her other hand."
+    },
+    {
+      "id": 175,
+      "key": "SUPPRESS",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Suppress. Scene: A ninja presses a dagger against an enemy's sword, forcing the weapon down."
+    },
+    {
+      "id": 176,
+      "key": "SURVIVOR",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Survivor. Scene: A battered but resolute ninja guards a narrow stone doorway, tattered cloak wrapped close."
+    },
+    {
+      "id": 177,
+      "key": "TACTICIAN",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Tactician. Scene: Gloved hands move a silver dagger and bone markers across a battlefield map."
+    },
+    {
+      "id": 178,
+      "key": "THE_HUNT",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: The Hunt. Scene: The ninja follows pale tracks through a graveyard toward an imposing shadow in the mist."
+    },
+    {
+      "id": 179,
+      "key": "TOOLS_OF_THE_TRADE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Tools of the Trade. Scene: A leather roll unfolds to reveal knives, fine wire, lockpicks, poison needles and a small flask."
+    },
+    {
+      "id": 180,
+      "key": "TRACKING",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Tracking. Scene: An assassin studies fresh scratches and a broken chain on moonlit crypt stone."
+    },
+    {
+      "id": 181,
+      "key": "UNTOUCHABLE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Untouchable. Scene: The poised ninja slips between two enemy blades with almost no movement."
+    },
+    {
+      "id": 182,
+      "key": "UP_MY_SLEEVE",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Up My Sleeve. Scene: Three tiny silver knives emerge from a concealed mechanism in a dark leather sleeve."
+    },
+    {
+      "id": 183,
+      "key": "WELL_LAID_PLANS",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Well-Laid Plans. Scene: A hidden cache of daggers and sealed instructions waits behind a carved tomb panel."
+    },
+    {
+      "id": 184,
+      "key": "WRAITH_FORM",
+      "prompt": "Original dark gothic fantasy oil-painted videogame card illustration for Rift Ascent. A female hooded ninja in charcoal layered leather, steel half-mask, silver bracers, torn cloak with faded jade lining and paired hooked daggers. Medieval ruined cathedral/ossuary world. Readable bold central silhouette, cold silver and desaturated emerald light, deep ink shadows, painterly material detail. No text, numbers, logos, borders, frame or UI. Landscape 3:2 composition; keep all important faces and objects in the central 70% width and upper 75% height, clear at a tiny 100x40 crop. Full-bleed scene art, opaque background. Depict a distinct meaningful scene for the card theme below; not abstract lines or geometric effects. Do not draw a playing card or collage.\nCard theme: Wraith Form. Scene: The ninja becomes a translucent pale wraith, cloak drifting through solid cathedral stone."
+    }
+  ]
+}
