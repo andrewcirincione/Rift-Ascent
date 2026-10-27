@@ -76,7 +76,7 @@ int game_event_choice_available(const Game*g,int option){
 }
 static int event_typed_card(Game*g,int type){
  int pool[128],weights[128],n=0,total=0;
- for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&cards[id].rarity==1&&cards[id].type==type){
+ for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==1&&cards[id].type==type){
   int owned=0;for(int j=0;j<g->deck_count;j++)owned|=CARD_ID(g->deck[j])==id;
   pool[n]=id;weights[n]=owned?1:3;total+=weights[n++];}
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weights[i])return pool[i];roll-=weights[i];}return type?5:11;

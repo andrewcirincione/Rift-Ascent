@@ -128,6 +128,14 @@ async def check(ws):
  await fixture('status',overlay=(2,0,0));await shot('player-status')
  await fixture('status',overlay=(2,5,0));await shot('active-powers')
  await fixture('status',overlay=(4,0,0));await shot('relic-inventory')
+ for name,ch in [('armory-warden',0),('armory-nightshade',1)]:
+  await fixture(name);await shot(name);before=await state();await button('cross');after=await state()
+  assert field(after,'screen')==14 and field(after,'deck_count')==field(before,'deck_count')+1
+  raw=field(after,'deck',field(after,'deck_count')-1);assert ((raw&255)>=96)==bool(ch)
+  await shot(name+'-received')
+ await fixture('warden-replacement');await button('cross');after=await state();assert field(after,'hand_count')==4
+ for i in range(4):assert (field(after,'hand',i)&255)<96
+ await shot('warden-replacement-resolved')
  await fixture('sly-choice');await button('select');assert field(await state(),'screen')==13
  await button('circle');assert field(await state(),'screen')==23
  await button('select')

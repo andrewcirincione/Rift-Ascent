@@ -1366,7 +1366,7 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
     for(int i=0;i<n&&g->hand_count<MAX_HAND;i++){
       for(int tries=0;tries<140;tries++){
        int id=rnd(g,CARD_COUNT);
-       if(game_card_is_playable(id)&&id!=CARD_GIANT_ROCK&&id!=63&&id!=85){
+       if(game_card_is_playable(id)&&ninja_owned_card(g,id)&&id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY){
         add_generated(g,id|(up?UPBIT:0));break;
        }
       }

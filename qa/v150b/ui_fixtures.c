@@ -14,5 +14,5 @@ int main(void){Game g;game_new(&g,15011);snap(&g,"title");game_action(&g,BTN_OK)
  arena(&g);g.ninja.v[NS_THORNS]=4;g.ninja.v[NS_INTANGIBLE]=2;g.ninja.v[NS_BLUR]=1;g.ninja.v[NS_BURST]=2;g.ninja.powers[N_ABRASIVE-NINJA_FIRST]=1;g.ninja.powers[N_AFTERIMAGE-NINJA_FIRST]=2;g.ninja.v[NS_AFTERIMAGE]=2;g.ninja.powers[N_ACCURACY-NINJA_FIRST]=1;g.ninja.v[NS_ACCURACY]=6;snap(&g,"status");
  FILE*f=fopen("qa/v150b/evidence/state-layout.json","w");fprintf(f,"{\"size\":%zu",sizeof(Game));
 #define OFF(x) fprintf(f,",\"" #x "\":%zu",offsetof(Game,x))
- OFF(screen);OFF(character);OFF(hand);OFF(hand_count);OFF(selection);OFF(target);OFF(energy);OFF(block);OFF(hp);OFF(turn);OFF(deck_count);OFF(relic_count);OFF(potion_count);OFF(discard_count);OFF(exhaust_count);OFF(ninja);OFF(enemies);
+ OFF(screen);OFF(character);OFF(hand);OFF(hand_count);OFF(selection);OFF(target);OFF(energy);OFF(block);OFF(hp);OFF(turn);OFF(deck_count);OFF(deck);OFF(relic_count);OFF(potion_count);OFF(discard_count);OFF(exhaust_count);OFF(ninja);OFF(enemies);
  fprintf(f,"}\n");fclose(f);puts("PASS native UI fixtures and save validation");return 0;}

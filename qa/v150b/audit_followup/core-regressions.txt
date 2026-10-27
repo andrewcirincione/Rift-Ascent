@@ -1,0 +1,6 @@
+PASS 174 base/upgraded solo card resolutions and core Sly/Shiv interactions
+PASS 15952 independent new-card damage / Block cases, including upgrades, Keen, Echo, Ward, Burst, Strength, Weak, Vulnerable and stacked Shadowmeld
+PASS Sly chains, forced-choice controls, pending save/resume, Retain, 128-Shiv replay, poison/Outbreak, Intangible, Shadow Step duration, Nightmare copies and all 18 enemy intents
+PASS 18,000 class-filtered reward draws; bosses are rare, ordinary fights exclude rare, Ancient, starter, token and multiplayer cards
+
+PASS v20 migration, 4 older real save fixtures, all legacy raw flags/modifications, current pending-Sly resume; Game=16324 bytes

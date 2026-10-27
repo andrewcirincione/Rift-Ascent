@@ -1,10 +1,10 @@
 PBP/ELF structural checks PASS (not a PSP runtime test)
-size: 24926242
-elf_size: 20811508
+size: 24926578
+elf_size: 20811844
 segments: 2
-static_memory: 21269944
-sha256: 4fb22e4c6b72561d8322fa9f5f8d6bc2c1e00238d264fed9494a5944d2d76fcf
-/workspace/scratch/9a81aefb5adc/rift-ascent/versions/1.5b/EBOOT.PBP
+static_memory: 21270264
+sha256: 819af839606a893bb00cb6848de43140f071d3292e556b8469fc9bef8dc32fe5
+/workspace/scratch/9a81aefb5adc/rift-ascent/versions/1.5b-r2/EBOOT.PBP
   ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
   LoadExecForUser 0x40090000 NIDs 0x05572a5f
   IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324

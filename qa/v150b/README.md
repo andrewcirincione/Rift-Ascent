@@ -37,3 +37,7 @@ Never pass `--partial` for a release. Missing original art is a fatal build erro
 - `qa_ppsspp.py`: exact packaged EBOOT, PPSSPP native 480×272 screenshots, physical controller commands, character selection, new runs, combat, rewards, shop, forced choices, Retain, status, save/quit/resume.
 
 Run sanitizers with `ASAN_OPTIONS=detect_leaks=0`; AddressSanitizer and UndefinedBehaviorSanitizer remain enabled. LeakSanitizer cannot run under this execution environment's process tracing.
+
+## Follow-up audit / v1.5b-r2
+
+See [the expanded functionality audit](audit_followup/README.md): 3,000 corrected-engine runs, shared-relic parity, all event options, shops, modified-card combinations and save/resume checks. Fixes character-pool leaks in Forgotten Armory and the Warden random-hand replacement.

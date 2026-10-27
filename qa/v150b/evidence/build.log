@@ -2,6 +2,49 @@ Generated runtime art; missing originals: []
 make: Entering directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_build'
 psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o psp_start.o psp_start.c
 psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o game.o game.c
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o sound.o sound.c
+psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/lib -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128  psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf
+psp-fixup-imports rift_ascent_crt_free.elf
+psp-strip rift_ascent_crt_free.elf -o rift_ascent_crt_free_strip.elf
+pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
+	ICON1.PMF NULL PIC1.PNG  \
+	SND0.AT3  rift_ascent_crt_free_strip.elf NULL
+[0]        324 bytes | PARAM.SFO
+[1]      16905 bytes | ICON0.PNG
+[2]     239616 bytes | ICON1.PMF
+[3]          0 bytes | NULL
+[4]      60202 bytes | PIC1.PNG
+[5]     198864 bytes | SND0.AT3
+[6]   20811844 bytes | rift_ascent_crt_free_strip.elf
+[7]          0 bytes | NULL
+rm -f rift_ascent_crt_free_strip.elf
+make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_build'
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [19382752]
+ART REUSE: ra_title_bg offset= 19382752 length= 261120
+MATCH rift_hero full-length candidates [19672032]
+ART REUSE: rift_hero offset= 19672032 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
+portable_build/EBOOT.PBP
+  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
+  LoadExecForUser 0x40090000 NIDs 0x05572a5f
+  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324
+  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
+  LoadExecForUser 0x40090000 NIDs 0x4ac57943
+  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
+  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
+  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
+  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
+PASS: no kernel-only import libraries
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 21559172
+elf_size: 20811844
+segments: 2
+static_memory: 21270264
+sha256: f693e3e2da44bfb04b408cbcbc44bc13156bc18252005f643a609b3c2434caf5
+PASS: 5 indexed tracks; 3 original tracks preserved; CRC verified
 game.c: In function 'check_win':
 game.c:629:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
   629 |  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
@@ -134,8 +177,6 @@ game.c: At top level:
 game.c:328:12: warning: 'card_reward' defined but not used [-Wunused-function]
   328 | static int card_reward(Game*g){return card_reward_except(g,-1,-1);}
       |            ^~~~~~~~~~~
-psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
-psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o sound.o sound.c
 render.c: In function 'sprite_scaled_facing':
 render.c:230:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
   230 |    if(u<0)u=0;if(u>=iw)u=iw-1;
@@ -201,48 +242,7 @@ In file included from render.c:7:
 rift120_cards.h:1118:24: warning: 'rift120_art' defined but not used [-Wunused-function]
  1118 | static const uint16_t *rift120_art(int id,int x,int y){int n=((x/9+y/13)%5+5)%5;return id==0?rift120_strikes[n]:id==1?rift120_defends[n]:rift120_cards[id];}
       |                        ^~~~~~~~~~~
-psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/lib -L/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128  psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf
-psp-fixup-imports rift_ascent_crt_free.elf
-psp-strip rift_ascent_crt_free.elf -o rift_ascent_crt_free_strip.elf
-pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
-	ICON1.PMF NULL PIC1.PNG  \
-	SND0.AT3  rift_ascent_crt_free_strip.elf NULL
-[0]        324 bytes | PARAM.SFO
-[1]      16905 bytes | ICON0.PNG
-[2]     239616 bytes | ICON1.PMF
-[3]          0 bytes | NULL
-[4]      60202 bytes | PIC1.PNG
-[5]     198864 bytes | SND0.AT3
-[6]   20811508 bytes | rift_ascent_crt_free_strip.elf
-[7]          0 bytes | NULL
-rm -f rift_ascent_crt_free_strip.elf
-make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_build'
 /workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:40: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
   for rr,gg,bb,aa in art.getdata():
 /workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:63: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
   for px in im.getdata():
-PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
-PASS: PBP splash/title/hero replaced entirely from approved v118 source art
-MATCH ra_title_bg full-length candidates [19382416]
-ART REUSE: ra_title_bg offset= 19382416 length= 261120
-MATCH rift_hero full-length candidates [19671696]
-ART REUSE: rift_hero offset= 19671696 length= 53340
-PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
-portable_build/EBOOT.PBP
-  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
-  LoadExecForUser 0x40090000 NIDs 0x05572a5f
-  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324
-  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
-  LoadExecForUser 0x40090000 NIDs 0x4ac57943
-  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
-  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
-  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
-  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
-PASS: no kernel-only import libraries
-PBP/ELF structural checks PASS (not a PSP runtime test)
-size: 21558836
-elf_size: 20811508
-segments: 2
-static_memory: 21269944
-sha256: f657993e94b542eedd49077df1470e2f971d56f5334b5e4e0260d85db34ad6b7
-PASS: 5 indexed tracks; 3 original tracks preserved; CRC verified

@@ -1,0 +1,7 @@
+PASS 20400 event choices, class pools, picker cancellation and commits
+PASS 1,000 shops: class-correct purchases, read-only browsing, full potion belts and map healing
+PASS 990 shared relic singles/pairs: equivalent Strike/Defend triggers, all six potions and turn transitions
+PASS 1,000 random-hand replacements stay in the Warden pool
+PASS 160000 mixed-deck actions across 2,000 encounters: 87 solo cards exercised, preview purity, modifications, choices and valid state
+PASS both characters: normal victory/menu/endless choices and 100-act progression each (controlled boss defeats)
+PASS all four Nightshade choices: shortcut guards, pause/return and exact save/resume

@@ -2,4 +2,4 @@ SHOT boot
 SHOT resumed-choice
 SHOT resumed-sly-resolved
 PASS final release EBOOT: pending Sly choice resumes and resolves once
-SHA256 4fb22e4c6b72561d8322fa9f5f8d6bc2c1e00238d264fed9494a5944d2d76fcf
+SHA256 819af839606a893bb00cb6848de43140f071d3292e556b8469fc9bef8dc32fe5
