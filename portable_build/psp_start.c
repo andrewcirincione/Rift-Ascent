@@ -45,6 +45,8 @@ static RiftProfile lifetime;
 static volatile int running=1;
 static volatile int music_battle=0;
 static volatile int music_paused=0;
+/* The audio thread reads track and mute state together, never a stale pair. */
+static volatile unsigned music_route=0;
 static Game before_input;
 static int inspect_open=0,inspect_tab=0,inspect_potion=0,inspect_scroll=0;
 static int enemy_turn_delay=0,action_cooldown=0;
@@ -178,7 +180,7 @@ static int sound_worker(SceSize arglen,void *argp) {
             channel=sceAudioChReserve(-1,512,PSP_AUDIO_FORMAT_STEREO);
             if(channel<0){sceKernelDelayThread(50000);continue;}
         }
-        int track=music_battle,paused=music_paused;
+        unsigned route=music_route;int track=route&255,paused=(route>>8)&1;
         if(soundtrack_active&&soundtrack_current!=track)
            soundtrack_select(track);
         /* No original synth music; accent=1 emits impact/SFX only. */
@@ -318,7 +320,7 @@ static int run_game(SceSize bytes,void *argp) {
     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
     boot_trace("game_new finished",game.screen);
     {Game saved;int loaded=game_load(&saved,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
-    game_set_resume_available(loaded&&saved.screen!=TITLE&&saved.screen!=VICTORY&&saved.screen!=DEFEAT&&saved.screen!=CHARACTER_SELECT);
+    game_set_resume_available(loaded&&saved.screen!=TITLE&&saved.screen!=VICTORY&&saved.screen!=DEFEAT&&saved.screen!=CHARACTER_SELECT&&saved.screen!=HELP&&saved.screen!=NEW_RUN_CONFIRM);
     game.selection=game_resume_available()?0:1;boot_trace("resume available",game_resume_available());}
     profile_init(&lifetime);
     boot_trace("profile load result",profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT"));
@@ -374,9 +376,11 @@ static int run_game(SceSize bytes,void *argp) {
         if(frame==14)key=BTN_OK;
         if(frame==19)key=BTN_OK;
 #endif
+        if(game_render_transition_busy(frame*4u))key=0;
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
         if(game.screen==PAUSE_MENU && key==BTN_OK) {
+            Game leaving=game;
             Game snapshot=game;
             snapshot.screen=game_pause_source();
             if(game_save(&snapshot,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT")){
@@ -385,6 +389,7 @@ static int run_game(SceSize bytes,void *argp) {
                 game_set_resume_available(1);game.selection=0;key=0;
                 inspect_open=0;pending_card_ticks=enemy_turn_delay=plating_delay=0;
                 game_render_reset_fx();
+                game_render_begin_transition(&leaving,frame*4u);
             }else {
                 boot_trace("save and quit FAILED",-1);
                 key=0;
@@ -392,7 +397,7 @@ static int run_game(SceSize bytes,void *argp) {
         }
         if(game.screen==TITLE&&game.selection==0&&key==BTN_OK){
             if(game_resume_available()){
-                Game saved;if(game_load(&saved,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT")&&saved.screen!=TITLE&&saved.screen!=DEFEAT&&saved.screen!=VICTORY){game=saved;game_render_reset_fx();inspect_open=0;}
+                Game saved;if(game_load(&saved,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT")&&saved.screen!=TITLE&&saved.screen!=DEFEAT&&saved.screen!=VICTORY&&saved.screen!=CHARACTER_SELECT&&saved.screen!=HELP&&saved.screen!=NEW_RUN_CONFIRM){Game leaving=game;game=saved;game_render_reset_fx();game_render_begin_transition(&leaving,frame*4u);inspect_open=0;}
                 else{game_set_resume_available(0);snprintf(game.message,sizeof(game.message),"Saved run could not be loaded.");}
             }
             key=0;
@@ -449,14 +454,14 @@ static int run_game(SceSize bytes,void *argp) {
             key=0;
         }
         /* Resume a saved mid-turn Plating phase without granting it twice. */
-        if(game.screen==COMBAT&&game.ic[38]&&!plating_delay&&!enemy_turn_delay)plating_delay=1;
-        if(game.screen==COMBAT&&plating_delay>0){
+        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&game.ic[38]&&!plating_delay&&!enemy_turn_delay)plating_delay=1;
+        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&plating_delay>0){
             plating_delay--;
             if(!plating_delay&&!game_render_fx_busy(frame*4u))enemy_turn_delay=6;
             else if(!plating_delay)plating_delay=1;
             key=0;
         }
-        if(game.screen==COMBAT&&enemy_turn_delay>0){
+        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&enemy_turn_delay>0){
             enemy_turn_delay--;
             if(enemy_turn_delay==0){
                step_action(BTN_BACK,frame*4u);
@@ -482,18 +487,19 @@ static int run_game(SceSize bytes,void *argp) {
         game_render_set_overlay(inspect_open,inspect_tab,inspect_potion);
         game_render_set_status_scroll(inspect_scroll);
         if(key && game.screen!=TITLE && game.screen!=HELP &&
-           game.screen!=COMBAT && game.screen!=DEFEAT && game.screen!=PAUSE_MENU && game.screen!=CHARACTER_SELECT)
+           game.screen!=COMBAT && game.screen!=DEFEAT && game.screen!=PAUSE_MENU && game.screen!=CHARACTER_SELECT && game.screen!=NEW_RUN_CONFIRM)
             game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
         if(game.screen!=last_screen || game.act!=last_act || game.floor!=last_floor) {
             if(game.screen==MAP || game.screen==VICTORY || game.screen==DEFEAT)
                 game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
             last_screen=game.screen;last_act=game.act;last_floor=game.floor;
         }
-        if(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count)))step_action(2048,frame*4u);
+        if(!game_render_transition_busy(frame*4u)&&(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count))))step_action(2048,frame*4u);
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
         game_render_frame(&game,next_frame,STRIDE,frame*4u);
         /* Keep its stream selected but paused after the killing contact. */
         if(!game_render_fx_busy(frame*4u))music_battle=game_music_track(&game);
+        music_route=(music_battle&255)|(music_paused?256u:0u);
         if(frame==1)boot_trace("frame 1 rendered",game.screen);
         if(frame==12) {
             boot_trace("audio thread start",1);

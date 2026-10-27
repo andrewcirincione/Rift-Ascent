@@ -1,0 +1,40 @@
+Rift Ascent 1.6.1 final validation
+SHA256 fc2b2736ef1461ee423c451db9916d5c8477c60472b9a8e6db9ee0009a8ef7f0
+EBOOT bytes: 32213494
+
+ui-tests.txt [report SHA256 4609d7ea61fba6621108406246d3052a8f9aabd505d5e2ba29f19c2631b94305]
+PASS 1.6.1 UI navigation, save warning, independent rewards, Stars trace, fade midpoint and victory audio timeline
+
+regent-tests.txt [report SHA256 28c02c87a3d418632df7d07ad0a132adb8e827b3a3b88b076c796e17aeb1ab57]
+PASS 2000 attack math cases; independent wiki damage/cost fixtures; pure previews
+PASS Star payments, X, Void Form stacks, free/manual/replay accounting, mixed-character triggers
+PASS single Blade, Forge persistence, Vigor, Conqueror, Seeking Edge, Parry and Sword Sage stacking
+PASS all mandatory/optional selections, pause/save/resume, shuffle ordering, mixed-card choices
+PASS delayed Block/Dexterity, full-hit Block, unpowered splash, creation capacity, exhaust/autoplay, persistent draw scaling and foreign Replay
+PASS Regent audit: 6764 assertions
+
+asset-tests.txt [report SHA256 9e8ce425e6a841f1ad76b9d04eafc7e837a1ac072229ccde2540942dba93c569]
+PASS 897 exact texture-byte comparisons plus cache hits, wraparound/eviction and 3 malformed-descriptor checks; 20881296 resource bytes, no palette/resolution/color changes
+
+resident-tests.txt [report SHA256 9e7b3cd19dd069d771faae47a99b939559fbf9acefde8e9b7885f43f217446f0]
+PASS 1768 native visual equivalence cases; asset errors=0
+
+streamed-tests.txt [report SHA256 9e7b3cd19dd069d771faae47a99b939559fbf9acefde8e9b7885f43f217446f0]
+PASS 1768 native visual equivalence cases; asset errors=0
+
+media-tests.txt [report SHA256 b7897914ba0d5f83c24fc144cb8128f6c268c3d1007a6dcc7e667f54c91a930e]
+PASS {'sha256': 'fc2b2736ef1461ee423c451db9916d5c8477c60472b9a8e6db9ee0009a8ef7f0', 'bytes': 32213494, 'icon1_bytes': 239616, 'snd0_bytes': 198864, 'pic1_unchanged': True, 'riftboss_snd0_unchanged': True, 'all_five_soundtrack_payloads_unchanged': True, 'music_crc': 1214111141}
+
+ppsspp-final-tests.txt [report SHA256 4ac1b34abf47c312a8c79b1d58bddbba1c6db02531020282a983b2f94c82e423]
+PASS exact 1.6.1 EBOOT: 6 potions, vertical Take/Leave controls, independent rewards, equal costs, anchored characters, save warning, Stars gain, pause/Resume/save
+
+animation-final-tests.txt [report SHA256 838f5639759815f172979fe746c9255203e736af94ad7698db12079b97a194b9]
+PASS exact EBOOT idle/action/Stars/finisher screenshots; battle music stays muted until spoils track
+
+cold-resume-tests.txt [report SHA256 17ab40539f48b87396e9c0a41bad107506adb0d5b3ce73004b50adc3af87a9f9]
+PASS cold Resume on complete 32 MiB PSP EBOOT
+
+Visual review: native 480x272 PPSSPP captures of all six potion descriptions and Take/Leave states, card costs, inventory/deck tabs, campfire, pause, overwrite warning, save/resume fades and all three character idle/action sequences. Labels and icons fit within their frames; button text is centered or aligned to shared columns.
+The final finisher timeline verifies music stays muted until the spoils track is selected.
+The physical-PSP-confirmed 1.6-r2 loader correction and 4 MiB artwork cache are retained; this patch was tested in PPSSPP 32 MiB PSP mode. Physical PSP testing of 1.6.1 remains pending.
+PASS final release EBOOT

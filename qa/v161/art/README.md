@@ -1,0 +1,11 @@
+# 1.6.1 generated character artwork
+
+Created with the built-in image-generation tool. Final originals are `vesper.png` and `warden-idle.png`; runtime frames are in `../assets` and packing/registration is in `../prepare_art.py`. Existing Proxy idle pixels from `qa/v160/assets` are translated to a stable lower-body anchor. No decorative line substitutes were added.
+
+## Vesper prompt
+
+Edit target: this exact 20-frame gothic rogue sprite sheet, 5 columns by 4 rows. Keep all twenty corresponding poses, silhouette scale, framing, daggers, crouched stance, weathered white hood and cloak, gritty painted dark fantasy style. Change her nearly-black suit to lighter weathered warm gray leather and muted antique gold armor accents on the chest, forearms, belt and knees, so her body is legible on a dark background. The suit is still gritty, never shiny clean fantasy armor. First row is a very restrained idle cycle: legs and feet and pelvis remain planted at exactly the same location within each cell, only breathing shoulders and cloak ripple subtly. Maintain character position in all other animation cells, no camera or size variation. Entire sheet on genuine transparent background, no floor shadow haze or background or text, no labels, no grid. Keep each character wholly inside its cell. This is final in-game artwork.
+
+## Warden prompt
+
+Reference: exact gothic knight game character. Generate a tightly registered 6-frame idle animation sprite sheet, 3 columns by 2 rows, on genuine transparent background. Same Warden: battered charcoal plate armor with antique gold edges, closed crown-like helmet, heavy long sword held diagonally DOWN to the right, dark red ragged cape flowing behind him to left. Face right in same three-quarter side view and keep same stance as reference, boots planted. Paint high-detail gritty dark fantasy sprites, crisp at PSP scale. Six frames differ only in gentle breathing and flowing cape fabric: cape slowly lifts, crests, settles and returns, torso moves at most a tiny amount. Body/feet/sword anchors exactly consistent in every cell; NO walking, no sway/translation, no camera/scale changes, no attack or raising sword. Each complete sword and cape inside its own cell with clear transparent gaps, no overlap, no shadows on background, no words/grid. For shipping game not a concept preview.

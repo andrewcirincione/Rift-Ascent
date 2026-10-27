@@ -1,0 +1,27 @@
+SHOT boot
+SHOT costs
+SHOT idle-0
+SHOT idle-1
+SHOT idle-2
+SHOT new-run-cancel
+SHOT new-run-replace
+SHOT belt-full
+SHOT potion-0-take
+SHOT potion-0-leave
+SHOT potion-1-take
+SHOT potion-1-leave
+SHOT potion-2-take
+SHOT potion-2-leave
+SHOT potion-3-take
+SHOT potion-3-leave
+SHOT potion-4-take
+SHOT potion-4-leave
+SHOT potion-5-take
+SHOT potion-5-leave
+SHOT stars-gained
+SHOT pause
+SHOT saved-title
+SHOT new-run-warning
+SHOT resumed
+PASS exact 1.6.1 EBOOT: 6 potions, vertical Take/Leave controls, independent rewards, equal costs, anchored characters, save warning, Stars gain, pause/Resume/save
+SHA256 dad61231ae27124d85948f9a587ec43e9b2783e96b2b23e1ff2bc55e37a604e3

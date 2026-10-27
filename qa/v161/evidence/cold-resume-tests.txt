@@ -1,0 +1,4 @@
+SHOT boot
+SHOT cold-resume
+PASS cold Resume on complete 32 MiB PSP EBOOT
+SHA256 fc2b2736ef1461ee423c451db9916d5c8477c60472b9a8e6db9ee0009a8ef7f0

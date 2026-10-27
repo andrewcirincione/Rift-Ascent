@@ -1,0 +1,1 @@
+PASS 897 exact texture-byte comparisons plus cache hits, wraparound/eviction and 3 malformed-descriptor checks; 20881296 resource bytes, no palette/resolution/color changes

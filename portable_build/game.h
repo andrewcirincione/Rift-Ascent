@@ -30,7 +30,7 @@ enum {IC_HOURGLASS=39,IC_BELL,IC_NEEDLE,IC_DUELIST,IC_PENDING_CARD=43,IC_COVENAN
 enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -307,7 +307,7 @@ int game_inventory_available(const Game*g);
 int game_inventory_action(Game*,int,int*,int*,int*,int*);
 void game_discard_potion(Game*g,int index);
 /* Transient presentation events. Never serialized or emitted by previews. */
-enum {GFX_ATTACK=1,GFX_BLOCK,GFX_POWER,GFX_PROC,GFX_SELF,GFX_STATUS};
+enum {GFX_ATTACK=1,GFX_BLOCK,GFX_POWER,GFX_PROC,GFX_SELF,GFX_STATUS,GFX_STARS};
 #define MAX_COMBAT_FX 64
 typedef struct {int kind,source,target,amount,absorbed,card;} GameCombatFx;
 void game_combat_fx_begin(void);
@@ -317,6 +317,8 @@ int game_impact_tier(int damage);
 void game_render_update_fx(unsigned tick);
 int game_render_fx_busy(unsigned tick);
 int game_render_music_paused(unsigned tick);
+void game_render_begin_transition(const Game *before,unsigned tick);
+int game_render_transition_busy(unsigned tick);
 
 
 uint32_t game_random(Game *g);

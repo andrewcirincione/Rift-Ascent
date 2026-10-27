@@ -6,7 +6,7 @@ CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 
 LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = RIFT ASCENT 1.6
+PSP_EBOOT_TITLE = RIFT ASCENT 1.6.1
 PSP_EBOOT_ICON = ICON0.PNG
 PSP_EBOOT_ICON1 = ICON1.PMF
 PSP_EBOOT_PIC1 = PIC1.PNG
@@ -21,3 +21,5 @@ sound.o psp_start.o: sound.h game.h
 game.o: regent_ids.h regent_cards.inc regent_upgrades.inc regent_meta.inc regent_engine.inc regent_effects.inc regent_preview.inc save_v22.inc
 render.o: rift160_art.h rift160_star_contrast.h regent_ids.h
 asset_stream.o render.o psp_start.o: asset_stream.h
+
+render.o: rift161_art.h

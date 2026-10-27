@@ -1611,7 +1611,7 @@ void game_choose_character(Game*g,int character){
 void game_update(Game*g){if(g->screen==COMBAT&&g->ninja.task_count)ninja_process(g);if(g->screen==COMBAT&&(g->regent.task_count||g->regent.shuffle_pending))regent_process(g);if(g->screen==ACT_INTRO&&++g->scroll>=120)offer_blessing(g);}
 int game_music_track(const Game*g){
  int screen=g->screen==PAUSE_MENU?game_pause_source():g->screen;
- if(screen==TITLE||screen==HELP||screen==CHARACTER_SELECT)return 0;
+ if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 0;
  if(screen==COMBAT||screen==CARD_CHOICE||screen==NINJA_CHOICE||screen==REGENT_CHOICE||(screen==DECK_VIEW&&g->prior_screen==COMBAT)){
   if(g->battle_type==NODE_ELITE)return 3;
   if(g->battle_type==NODE_BOSS)return 0;
@@ -1710,7 +1710,7 @@ void game_action(Game*g,int b){
  if(g->screen==COMBAT)g->ic[46]=0;
  if(b==BTN_PAUSE){
    if(g->screen==PAUSE_MENU){g->screen=paused_from_screen;return;}
-   if(g->screen!=TITLE&&g->screen!=VICTORY&&g->screen!=DEFEAT){
+   if(g->screen!=TITLE&&g->screen!=HELP&&g->screen!=NEW_RUN_CONFIRM&&g->screen!=CHARACTER_SELECT&&g->screen!=VICTORY&&g->screen!=DEFEAT){
      paused_from_screen=g->screen;g->screen=PAUSE_MENU;return;
    }
  }
@@ -1721,12 +1721,17 @@ void game_action(Game*g,int b){
   else if(b==BTN_DOWN)g->selection=(g->selection+1)%4;
   else if(b==BTN_OK){
    if(g->selection==0){if(!resume_available)msg(g,"No saved run.");}
-   else if(g->selection<3){g->endless=g->selection==2;g->screen=CHARACTER_SELECT;g->selection=g->character;}
+   else if(g->selection<3){g->endless=g->selection==2;g->screen=resume_available?NEW_RUN_CONFIRM:CHARACTER_SELECT;g->selection=resume_available?0:g->character;}
    else {g->screen=HELP;g->prior_screen=TITLE;}
   }else if(b==BTN_ALT){g->screen=HELP;g->prior_screen=TITLE;}break;
+ case NEW_RUN_CONFIRM:
+  if(b==BTN_UP||b==BTN_DOWN)g->selection=1-CLAMP(g->selection,0,1);
+  else if(b==BTN_BACK||(b==BTN_OK&&g->selection==0)){g->screen=TITLE;g->selection=g->endless?2:1;}
+  else if(b==BTN_OK){g->screen=CHARACTER_SELECT;g->selection=g->character;}
+  break;
  case CHARACTER_SELECT:
   if(b==BTN_LEFT||b==BTN_RIGHT||b==BTN_UP||b==BTN_DOWN)g->selection=(g->selection+((b==BTN_LEFT||b==BTN_UP)?2:1))%3;
-  else if(b==BTN_OK){game_choose_character(g,g->selection);begin_act(g);}
+  else if(b==BTN_OK){game_choose_character(g,g->selection);resume_available=0;begin_act(g);}
   else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?2:1;}break;
  case REGENT_CHOICE:{int n=game_regent_choice_count(g);
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
@@ -1799,10 +1804,10 @@ void game_action(Game*g,int b){
  case REWARD:
   if(b==BTN_ALT){g->shop_selection=g->selection;g->prior_screen=REWARD;g->screen=DECK_VIEW;g->deck_readonly=1;g->selection=g->scroll=0;}
   else if(b==BTN_POTION&&g->selection<3&&!g->v151.card_done){g->screen=REWARD_PREVIEW;}
-  else if(b==BTN_DOWN){if(g->selection<3)g->selection=3;else if(g->v151.potion_offer>=0)g->selection=4;}
-  else if(b==BTN_UP){if(g->selection>=4)g->selection=g->v151.card_done?4:3;else if(g->selection==3)g->selection=1;}
-  else if(b==BTN_LEFT){if(g->selection>=4)g->selection=4;else if(!g->v151.card_done)g->selection=MAX(0,g->selection-1);}
-  else if(b==BTN_RIGHT){if(g->selection>=4)g->selection=5;else if(!g->v151.card_done)g->selection=MIN(3,g->selection+1);}
+  else if(b==BTN_DOWN){if(g->selection<3)g->selection=3;else if(g->v151.potion_offer>=0)g->selection=g->selection>=4?5:4;}
+  else if(b==BTN_UP){if(g->selection==5)g->selection=4;else if(g->selection==4)g->selection=g->v151.card_done?4:3;else if(g->selection==3)g->selection=1;}
+  else if(b==BTN_LEFT){if(g->selection<4&&!g->v151.card_done)g->selection=MAX(0,g->selection-1);}
+  else if(b==BTN_RIGHT){if(g->selection<4&&!g->v151.card_done)g->selection=MIN(3,g->selection+1);}
   else if(b==BTN_OK){
     if(g->selection<4&&!g->v151.card_done){
       if(g->selection<3){if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Skip this card reward.");break;}add_card(g,g->reward[g->selection]);}
@@ -1970,7 +1975,7 @@ int game_validate(const Game*g){
  if(!g||g->character<0||g->character>2||g->ninja.task_count<0||g->ninja.task_count>NINJA_TASK_MAX||g->endless<0||g->endless>1||g->magic!=0x52494654u||g->version!=GAME_VERSION)return 0;
  if(g->act<1||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
- if(g->screen<TITLE||g->screen>REGENT_CHOICE||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
+ if(g->screen<TITLE||g->screen>NEW_RUN_CONFIRM||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
  if(g->hand_count<0||g->hand_count>MAX_HAND||g->draw_count<0||g->draw_count>MAX_PILE||g->discard_count<0||g->discard_count>MAX_PILE||g->exhaust_count<0||g->exhaust_count>MAX_PILE)return 0;
  if(g->enemy_count<0||g->enemy_count>MAX_ENEMIES||g->potion_count<0||g->potion_count>MAX_POTIONS)return 0;
  for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].art<0||g->enemies[i].art>=ENEMY_COUNT||g->enemies[i].maxhp<1||g->enemies[i].hp>g->enemies[i].maxhp||g->enemies[i].intent<0||g->enemies[i].intent>=INTENT_COUNT)return 0;

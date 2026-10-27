@@ -15,7 +15,7 @@ static int regent_cost_now(const Game*g,int raw){
  int n=game_card_cost(raw);if(CARD_ID(raw)==R_KINGLY_KICK)n=MAX(0,n-g->regent.instance_cost[CARD_INSTANCE(raw)]);return n;
 }
 int game_card_star_cost(const Game*g,int raw){int id=CARD_ID(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;if((raw&CARD_FREE)||(g&&RP(g,R_VOID_FORM)&&g->regent.void_used<2*RP(g,R_VOID_FORM)))return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];return CARD_UP(raw)?d->upstars:d->stars;}
-static void regent_gain_stars(Game*g,int n){if(n<=0)return;n=MIN(n,999-g->regent.stars);if(!n)return;g->regent.stars+=n;g->regent.stars_gained=MIN(1000000,g->regent.stars_gained+n);if(RP(g,R_BLACK_HOLE))ninja_all_proc(g,RP(g,R_BLACK_HOLE));}
+static void regent_gain_stars(Game*g,int n){if(n<=0)return;n=MIN(n,999-g->regent.stars);if(!n)return;g->regent.stars+=n;record_combat_fx(GFX_STARS,-1,-1,n,0);g->regent.stars_gained=MIN(1000000,g->regent.stars_gained+n);if(RP(g,R_BLACK_HOLE))ninja_all_proc(g,RP(g,R_BLACK_HOLE));}
 static void regent_created(Game*g){
  if(g->character!=CHAR_REGENT)return;g->regent.created=MIN(1000000,g->regent.created+1);
  g->strength=MIN(1000000,g->strength+RP(g,R_ARSENAL));if(RP(g,R_PILLAR_OF_CREATION))relic_block(g,RP(g,R_PILLAR_OF_CREATION));

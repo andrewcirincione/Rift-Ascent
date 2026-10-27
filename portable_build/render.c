@@ -21,6 +21,7 @@
 #include "rift151_art.h"
 #include "rift160_art.h"
 #include "rift160_star_contrast.h"
+#include "rift161_art.h"
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
@@ -88,6 +89,13 @@ static int old_hand[10],old_hand_count=0;
 static unsigned hand_exchange_tick=0;
 static int hand_exchange=0;
 static int fx_transition;
+static Game r161_transition_before;
+static unsigned r161_transition_tick;
+static int r161_transition_active,r161_transition_drawing;
+void game_render_begin_transition(const Game*before,unsigned tick){
+ r161_transition_before=*before;r161_transition_tick=tick;r161_transition_active=1;
+}
+int game_render_transition_busy(unsigned tick){return r161_transition_active&&tick-r161_transition_tick<48;}
 void game_render_set_overlay(int kind,int page,int potion){
  overlay_kind=kind;overlay_page=page;overlay_potion=potion;
 }
@@ -167,6 +175,9 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
                        before->enemies[i].hp>after->enemies[i].hp)
                    ?before->enemies[i].hp-after->enemies[i].hp:0;
  if(before->screen!=after->screen){fx_transition=1;fx_transition_tick=tick;}
+ if(before->screen==PAUSE_MENU&&after->screen!=PAUSE_MENU){
+  fx_transition=0;game_render_begin_transition(before,tick);
+ }
  if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT)){
     victory_scene=*after;
     fx_transition=0; /* The finishing clip has its own fade after contact. */
@@ -308,10 +319,9 @@ static void r135_shadow_text(int x,int y,const char*s,uint32_t color,const RiftF
  r134_text(x+1,y,s,RGB(0,0,0),f);r134_text(x,y+1,s,RGB(0,0,0),f);
  r134_text(x+1,y+1,s,RGB(0,0,0),f);r134_text(x,y,s,color,f);
 }
-static void r160_star_badge(int x,int y,int size,const char*value,const RiftFont*f,int glowing,int shortfall){
+static void r161_centered_text(int x,int y,int w,int h,const char*value,const RiftFont*f,uint32_t color){
  /* Keep the generated face dark, including at zero. Only the halo changes.
     Center visible glyph pixels instead of the font's asymmetric line box. */
- r134_blit(x,y,size,size,glowing?r160_star_lit:r160_star_empty,40,40,255);
  int left=999,right=0,top=f->h,bottom=0,advance=0;
  for(const char*p=value;*p;p++){
   unsigned ch=(unsigned char)*p;if(ch<32||ch>126)ch='?';
@@ -323,11 +333,18 @@ static void r160_star_badge(int x,int y,int size,const char*value,const RiftFont
   advance+=f->advance[ch-32];
  }
  if(left==999)return;
- int tx=x+(size-(right-left))/2-left,ty=y+(size-(bottom-top))/2-top+size/14;
+ int tx=x+(w-(right-left))/2-left,ty=y+(h-(bottom-top))/2-top;
  /* A complete one-pixel dark outline protects digits against the bronze
     bevel, artwork and glow; unavailable costs keep a bright peach fill. */
  for(int dy=-1;dy<=1;dy++)for(int dx=-1;dx<=1;dx++)if(dx||dy)r134_text(tx+dx,ty+dy,value,RGB(5,4,3),f);
- r134_text(tx,ty,value,shortfall?RGB(255,216,195):RGB(255,255,244),f);
+ r134_text(tx,ty,value,color,f);
+}
+static void r161_cost_number(int x,int y,int size,const char*value,const RiftFont*f,int shortfall){
+ r161_centered_text(x,y,size,size,value,f,shortfall?RGB(255,216,195):RGB(255,255,244));
+}
+static void r160_star_badge(int x,int y,int size,const char*value,const RiftFont*f,int glowing,int shortfall){
+ r134_blit(x,y,size,size,glowing?r160_star_lit:r160_star_empty,40,40,255);
+ r161_cost_number(x,y,size,value,f,shortfall);
 }
 static int r134_lines(const char*s,int width,const RiftFont*f,char rows[24][192]){
  int count=0;
@@ -407,9 +424,9 @@ static void fittext(int x,int y,const char*s,int n,uint32_t c){char b[128];snpri
 /* Identical symmetrical retro-Gothic furniture across title, shop, rest,
  * relic and combat menus. Ornament stays outside the text-safe center. */
 static void button(int x,int y,int w,int h,const char*label,int selected){
- sprite_scaled(x,y,w,h,rift133_button,RIFT133_BUTTON_W,RIFT133_BUTTON_H);
- if(!selected)dark_rect(x+2,y+2,w-4,h-4,58);
- center(x+w/2,y+(h-11)/2,label,selected?RGB(255,231,179):WHITE,1);
+ r134_blit(x,y,w,h,r138_button_on,176,32,selected?255:145);
+ const RiftFont*f=r134_width(label,&r138_title9)>w-28?&r138_title8:&r138_title9;
+ r161_centered_text(x+14,y+2,w-28,h-4,label,f,selected?RGB(255,234,184):WHITE);
 }
 
 
@@ -501,7 +518,7 @@ static const uint16_t *rift130_fight(const Game *g){
 static void background(const Game*g){
  const uint16_t *src=g->act==1?rift130_map1:
                       g->act==2?rift130_map2:rift130_map3;
- if(g->screen==TITLE)src=r138_menu;
+ if(g->screen==TITLE||g->screen==NEW_RUN_CONFIRM)src=r138_menu;
  else if(g->screen==HELP||g->screen==VICTORY||g->screen==DEFEAT)src=ra_title_bg;
  else if(g->screen==COMBAT)src=rift130_fight(g);
  else if(g->screen==REST||
@@ -693,13 +710,13 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  r134_wrap(x+title_inset,ty,title_inner,2,titlelead,title,selected?RGB(255,230,180):WHITE,titlefont,0);
  char cost[12];int energy=card_combat_context?game_card_cost_now(card_combat_context,raw):game_card_cost(raw);
  if(energy==-1)snprintf(cost,sizeof(cost),"X");else if(energy==-2)snprintf(cost,sizeof(cost),"-");else snprintf(cost,sizeof(cost),"%d",energy);
- int orb=small?12:18;r134_blit(x+inset,arty,orb,orb,!active&&card_combat_context?r140_energy_empty:r134_energy,46,46,255);
- r134_center(x+inset+orb/2,arty+(small?1:4),cost,!active&&card_combat_context?RGB(255,135,110):WHITE,&r134_f9b);
+ int orb=small?16:22;r134_blit(x+inset,arty,orb,orb,!active&&card_combat_context?r140_energy_empty:r134_energy,46,46,255);
+ r161_cost_number(x+inset,arty,orb,cost,&r134_f9b,!active&&card_combat_context);
  int star=game_card_star_cost(card_combat_context,raw);
  if(star!=0||game_card_star_cost(0,raw&~CARD_FREE)!=0){char sb[12];if(star==-1)snprintf(sb,sizeof(sb),"X");else snprintf(sb,sizeof(sb),"%d",star);int sx=x+inset+orb+3;
   int shortfall=card_combat_context&&star>card_combat_context->regent.stars;
   int glowing=!card_combat_context||(card_combat_context->regent.stars>0&&!shortfall);
-  r160_star_badge(sx,arty-(small?1:2),small?18:24,sb,&r134_f9b,glowing,shortfall);
+  r160_star_badge(sx,arty,orb,sb,&r134_f9b,glowing,shortfall);
  }
  if(id>=NINJA_FIRST&&(game_card_is_sly(card_combat_context,raw)||(raw&CARD_INKY))){
   const char*mark=(raw&CARD_INKY)?"INKY":"SLY";int mw=r134_width(mark,&r134_f8)+4,mx=x+w/2-mw/2,my=arty+arth-9;
@@ -940,21 +957,18 @@ static void reward_screen(const Game*g){
   if(chosen)r134_blit(x+46,26,34,23,r138_choice,42,28,255);
   if(g->v151.card_done)dark_rect(x+6,y+8,114,135,140);
  }
- if(!g->v151.card_done)button(190,190,100,20,"SKIP CARD",g->selection==3);
+ if(!g->v151.card_done)button(185,190,110,20,"SKIP CARD",g->selection==3);
  if(g->v151.potion_offer>=0){
   int id=g->v151.potion_offer;
 
-  r134_blit(62,220,25,25,r134_utility_icons[0],40,40,255);
-  r134_text(96,218,game_potion_name(id),GOLD,&r134_f9b);
-  r134_wrap(96,231,239,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
-  for(int i=0;i<2;i++){int y=213+i*22,selected=g->selection==4+i;
-   if(selected)r134_blit(346,y,92,20,r151_selection,420,60,255);
-   r134_center(392,y+6,i?"LEAVE":"TAKE",selected?WHITE:MUTED,&r134_f9b);
-  }
+  r134_blit(57,213,25,25,r134_utility_icons[0],40,40,255);
+  r134_text(91,207,game_potion_name(id),GOLD,&r134_f9b);
+  r134_wrap(91,220,235,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
+  for(int i=0;i<2;i++)button(338,195+i*23,98,23,i?"LEAVE":"TAKE",g->selection==4+i);
  }else if(g->ic[37]>0&&g->ic[37]<=6){
-  int id=g->ic[37]-1;r134_blit(62,220,25,25,r134_utility_icons[0],40,40,255);
-  r134_text(96,218,game_potion_name(id),GOLD,&r134_f9b);
-  r134_wrap(96,231,325,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
+  int id=g->ic[37]-1;r134_blit(57,213,25,25,r134_utility_icons[0],40,40,255);
+  r134_text(91,207,game_potion_name(id),GOLD,&r134_f9b);
+  r134_wrap(91,220,325,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
  }
  footer("D-PAD CHOOSE  X CONFIRM  TRI CARD  SQ DECK  START INVENTORY");
 }
@@ -980,8 +994,7 @@ static void rest_screen(const Game*g){
   r134_center(x+95,158,i?"TEMPER YOUR STEEL":"THE EMBERS REMAIN",GOLD,&r134_f9b);
   int chosen=g->selection==i;
   if(!chosen)dark_rect(x+6,53,178,187,125);
-  r134_blit(x+7,191,176,43,r140_selection,208,28,chosen?255:100);
-  r134_center(x+95,208,i?"UPGRADE A CARD":"HEAL 30% HP",chosen?WHITE:MUTED,&r134_f10);
+  button(x+7,197,176,32,i?"UPGRADE A CARD":"HEAL 30% HP",chosen);
   if(chosen)r134_blit(x+74,42,42,28,r138_choice,42,28,255);
  }
  footer("LEFT/RIGHT CHOOSE  X CONFIRM  SQ DECK  START INVENTORY");
@@ -1140,8 +1153,7 @@ static void character_screen(const Game*g){
  const char*build[]={"Strength / Block","Shivs / Poison","Stars / Forge"};const char*gift[]={"Heal 6 after victory","Draw 2 at combat start","Start combat: 3 Stars"};
  for(int i=0;i<3;i++){int x=12+i*156,chosen=g->selection==i;gilded_panel(x,47,144,194,chosen);
   r134_center(x+72,57,names[i],chosen?GOLD:WHITE,&r138_title10);
-  if(i)r160_sprite(x,78,144,96,i==1?&r160_nightshade[0]:&r160_regent[0],0);
-  else{int w=140,h=80;for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){uint16_t c=rift_hero[(yy*RIFT_HERO_H/h)*RIFT_HERO_W+xx*RIFT_HERO_W/w];if(c!=RIFT_TRANSPARENT_565)pix[(94+yy)*sw+x+2+xx]=r134_565(c);}}
+  r160_sprite(x,78,144,96,i==1?&r161_vesper[0]:i==2?&r161_proxy_idle[0]:&r161_warden[0],0);
   r134_center(x+72,188,hp[i],WHITE,&r134_f9b);r134_center(x+72,204,build[i],MUTED,&r134_f9);r134_center(x+72,220,gift[i],GOLD,&r134_f8);
   if(chosen)r134_blit(x+51,36,42,28,r138_choice,42,28,255);else dark_rect(x+7,74,130,164,65);
  }
@@ -1195,7 +1207,7 @@ static void battle_piles_screen(const Game*g){
    int n=i==0?g->draw_count:i==1?g->hand_count:
          i==2?g->discard_count:g->exhaust_count;
    snprintf(b,sizeof(b),"%s %d",names[i],n);
-   fittext(x+8,49,b,14,g->scroll==i?GOLD:WHITE);
+   r161_centered_text(x+14,45,81,19,b,&r138_title9,g->scroll==i?GOLD:WHITE);
  }
  int page=(g->selection/6)*6;
  for(int i=page;i<count&&i<page+6;i++){
@@ -1257,7 +1269,7 @@ static void title_screen(const Game*g){
  const char*buttons[]={"RESUME RUN","BEGIN ASCENT","ENDLESS MODE","HOW TO PLAY"};
  for(int i=0;i<4;i++){int y=128+i*28,selected=g->selection==i,enabled=i!=0||game_resume_available();
   r134_blit(279,y,176,27,r138_button_on,176,32,enabled?(selected?255:145):80);
-  r134_center(367,y+9,buttons[i],!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE,&r138_title9);
+  r161_centered_text(289,y+2,156,23,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
  if(profile_data&&profile_data->runs){
   char b[60];snprintf(b,sizeof(b),"RUNS %lu    WINS %lu",(unsigned long)profile_data->runs,(unsigned long)profile_data->wins);r134_center(367,244,b,GOLD,&r134_f8);
@@ -1287,8 +1299,7 @@ static void end_screen(const Game*g){
  snprintf(b,sizeof(b),"DECK: %d CARDS",g->deck_count);center(240,155,b,WHITE,1);
  if(g->screen==VICTORY){
   for(int i=0;i<2;i++){int x=32+i*220,chosen=g->selection==i;
-   r134_blit(x,196,196,38,r140_selection,208,28,chosen?255:100);
-   r134_center(x+98,210,i?"RETURN TO MENU":"CONTINUE ENDLESS",chosen?WHITE:MUTED,&r134_f9b);
+   button(x,196,196,38,i?"RETURN TO MENU":"CONTINUE ENDLESS",chosen);
    if(chosen)r134_blit(x+77,174,42,28,r138_choice,42,28,255);
   }
   footer("LEFT/RIGHT CHOOSE   X CONFIRM   O MENU");
@@ -1298,7 +1309,7 @@ static void inspector(const Game*g){
  if(!overlay_kind)return;
  dark_rect(0,29,W,226,214);
  gilded_panel(20,30,440,215,1);
- r134_center(240,35,"STATUS / INVENTORY",GOLD,&r134_f9b);
+ r134_center(240,41,"STATUS / INVENTORY",GOLD,&r134_f9b);
  const char *tabs[]={"CARD","ENEMIES","PLAYER","POTIONS","RELICS","DECK"};
  for(int i=0;i<6;i++){
     int px=28+i*72;
@@ -1397,8 +1408,18 @@ static void transition_overlay(void){
 }
 void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  animation_tick=tick;
+ if(r161_transition_active&&!r161_transition_drawing){
+  unsigned age=tick-r161_transition_tick;
+  if(age<48){
+   r161_transition_drawing=1;
+   game_render_frame(age<24?&r161_transition_before:g,pixels,stride,tick);
+   r161_transition_drawing=0;pix=pixels;sw=stride;
+   dark_rect(0,0,W,H,age<24?(int)(age*255/24):(int)((48-age)*255/24));return;
+  }
+  r161_transition_active=0;
+ }
  if((g->screen==REWARD||g->screen==RELIC_RESULT||g->screen==VICTORY||g->screen==DEFEAT)&&victory_replay&&tick>=victory_tick &&
-    game_render_fx_busy(tick)){
+    (r1311_finishing?r137_raw_age(tick)<r1311_finish_end():game_render_fx_busy(tick))){
    static Game shot;
    shot=victory_scene;
    shot.screen=COMBAT;
@@ -1410,7 +1431,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
      pix=pixels;sw=stride;
      r134_blit(126,88,228,70,r140_victory,324,100,255);
      int fade= (int)age-banner-R1311_VICTORY_HOLD;
-     if(fade>0)dark_rect(0,28,W,227,MIN(255,fade*255/R1311_VICTORY_FADE));
+     if(fade>0)dark_rect(0,0,W,H,MIN(255,fade*255/R1311_VICTORY_FADE));
     }
     return;
    }
@@ -1434,6 +1455,14 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  ambient_particles(g);
  switch(g->screen){
  case TITLE:title_screen(g);break;
+ case NEW_RUN_CONFIRM:{
+  Game title=*g;title.selection=g->endless?2:1;
+  title_screen(&title);dark_rect(0,0,W,H,205);gilded_panel(62,62,356,162,1);
+  r134_center(240,81,"REPLACE SAVED RUN?",GOLD,&r138_title10);
+  r134_center(240,105,"Starting a new run will erase your saved run.",WHITE,&r134_f9);
+  button(153,132,174,28,"KEEP SAVED RUN",g->selection==0);
+  button(153,169,174,28,"START NEW RUN",g->selection==1);
+  footer("UP/DOWN CHOOSE   X CONFIRM   O CANCEL");break;}
  case CHARACTER_SELECT:character_screen(g);break;
  case NINJA_CHOICE:ninja_choice_screen(g);break;
  case REGENT_CHOICE:regent_choice_screen(g);break;
@@ -1441,7 +1470,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case COMBAT:combat(g);break;
  case EVENT_RESULT:event_result_screen(g);break;
  case RELIC_RESULT:relic_result_screen(g);break;
- case REWARD:victory_replay=0;reward_screen(g);break;
+ case REWARD:reward_screen(g);break;
  case BLESSING:blessing_screen(g);break;
  case REWARD_PREVIEW:reward_preview_screen(g);break;
  case BOSS_REWARD:boss_reward_screen(g);break;
@@ -1461,13 +1490,19 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    dark_rect(0,24,W,231,209);
    gilded_panel(76,59,328,158,1);
    center(240,77,"GAME PAUSED",GOLD,2);
-   r134_blit(164,110,14,14,r135_cross,14,14,255);r134_text(186,113,"SAVE & QUIT",WHITE,&r134_f9b);
-   r134_blit(139,137,14,14,r135_circle,14,14,255);r134_text(161,140,"/",WHITE,&r134_f9b);r134_blit(173,137,40,14,r160_select,40,14,255);r134_text(226,140,"RESUME",WHITE,&r134_f9b);
+   r134_blit(144,111,14,14,r135_cross,14,14,255);r134_text(232,114,"SAVE & QUIT",WHITE,&r134_f9b);
+   r134_blit(144,143,14,14,r135_circle,14,14,255);r134_text(164,146,"/",WHITE,&r134_f9b);r134_blit(177,143,40,14,r160_select,40,14,255);r134_text(232,146,"RESUME",WHITE,&r134_f9b);
+   footer("X SAVE & QUIT   O / SELECT RESUME");
 
    break;
  }
  }
  transition_overlay();
+ if(victory_replay&&r1311_finishing&&g->screen!=COMBAT){
+  int reveal=r137_raw_age(tick)-r1311_finish_end();
+  if(reveal>=0&&reveal<12)dark_rect(0,0,W,H,(12-reveal)*255/12);
+  else if(reveal>=12)victory_replay=0;
+ }
  if(g->screen==COMBAT){
    if(r134_playing()){
     int age=(int)(tick-rift120_play_tick),t=CLAMP(age,0,18),ease=t*(36-t);
@@ -1498,4 +1533,4 @@ void game_render(const Game*g,uint32_t*pixels,int stride){
  game_render_frame(g,pixels,stride,0);
 }
 
-void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;}
+void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=r161_transition_active=r161_transition_drawing=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;}

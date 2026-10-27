@@ -30,11 +30,11 @@ static int r137_age(unsigned tick){
 }
 int game_render_music_paused(unsigned tick){
  int age=r137_raw_age(tick);
- return r1311_finishing&&age>=r1311_kill_at&&age<r1311_finish_end();
+ return r1311_finishing&&age>=r1311_kill_at&&age<r1311_finish_end()+12;
 }
 int game_render_fx_busy(unsigned tick){
  int a=r137_age(tick),end=r137_duration;
- if(r1311_finishing){a=r137_raw_age(tick);end=r1311_finish_end();return a<end?end-a:0;}
+ if(r1311_finishing){a=r137_raw_age(tick);end=r1311_finish_end()+12;return a<end?end-a:0;}
  if(r137_last_screen==REWARD||r137_last_screen==RELIC_RESULT||r137_last_screen==VICTORY||r137_last_screen==DEFEAT)end=(end>30?end:30)+10;
  return (r137_count||r138_death_active||r1311_finishing)&&a<end?end-a:0;
 }
@@ -70,7 +70,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
    seen|=mask;last_card=e->card;last_source=e->source;
   }else if(e->kind==GFX_POWER)beat=0;
   r137_at[i]=MIN(44,beat);
-  int end=r137_at[i]+(e->kind==GFX_POWER?16:e->kind==GFX_BLOCK?14:e->kind==GFX_STATUS?20:18+r137_hold(tier));
+  int end=r137_at[i]+(e->kind==GFX_STARS?36:e->kind==GFX_POWER?16:e->kind==GFX_BLOCK?14:e->kind==GFX_STATUS?20:18+r137_hold(tier));
   if(end>r137_duration)r137_duration=end;
   last_kind=e->kind;
  }
@@ -202,7 +202,7 @@ static void r137_scene(const Game*g){
  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
  int pre=(rift120_played_card>=0&&animation_tick>=rift120_play_tick)?(int)(animation_tick-rift120_play_tick):99;
  if(pa>=0){int a=r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)),tier=game_impact_tier(r137_events[pa].amount);
-  if(a<18){dx=0;lean=0;dy=0;pose=1;pose_frame=a<2?2:a<14?4:5;}
+  if(a<18){dx=0;lean=0;dy=0;pose=1;pose_frame=a<2?2:4;}
  }else if(pp>=0){int f=r140_power_pose(age-r137_at[pp]);if(f>=0){dy=0;pose=3;pose_frame=f;lean=0;}}
  else if(pb>=0){int a=age-r137_at[pb];if(a<12){pose=2;pose_frame=2;}}
  else if(pre<18&&r136_play_state_valid){int c=cards[CARD_ID(rift120_played_card)].type;
@@ -225,9 +225,9 @@ static void r137_scene(const Game*g){
   else if(pose==2)frame=11;
   else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<10?13:14;}
   else if(player_flash)frame=15;
-  else frame=(animation_tick/32u)%5;
+  else {static const int cycle[8]={0,1,2,3,4,3,2,1};frame=cycle[(animation_tick/48u)%8];}
   if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,0);
-  r160_sprite(48+dx,78,144,96,g->character==CHAR_NIGHTSHADE?&r160_nightshade[frame]:&r160_regent[frame],1);
+  r160_sprite(48+dx,78,144,96,g->character==CHAR_NIGHTSHADE?&r161_vesper[frame]:frame<5?&r161_proxy_idle[frame]:&r160_regent[frame],1);
   if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,1);
  }else if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
@@ -235,7 +235,7 @@ static void r137_scene(const Game*g){
  }else{
   r137_fire(g,118+dx,animation_tick/4,0);
   if(pose){r138_hero_clip=1;if(pose==1)r137_blit(51+dx,61+dy,163,113,r140_attack[pose_frame],208,144,255,0);else if(pose==3)r137_blit(r1311_power_x[pose_frame]+dx,r1311_power_y[pose_frame]+3,150,113,r137_hero_frames[12+pose_frame],192,144,255,0);else r137_blit(53+dx,61+dy,150,113,r137_hero_frames[(pose-1)*6+pose_frame],192,144,255,0);r138_hero_clip=0;}
-  else r137_actor(41+dx,90+dy,pw,ph,rift_hero,RIFT_HERO_W,RIFT_HERO_H,0,lean,255,player_flash);
+  else {static const int cycle[10]={0,1,2,3,4,5,4,3,2,1};r160_sprite(48+dx,78+dy,144,96,&r161_warden[cycle[(animation_tick/48u)%10]],1);}
   r137_fire(g,118+dx,animation_tick/4,1);
  }
  for(int e=0;e<g->enemy_count;e++){
@@ -265,7 +265,7 @@ static void r137_scene(const Game*g){
  int holding=-1,hold_tier=0;
  for(int i=0;i<r137_count;i++){
   const GameCombatFx*e=&r137_events[i];int a=age-r137_at[i],tier=game_impact_tier(e->amount);
-  if(a<0||a>=30)continue;
+  if(a<0||a>=(e->kind==GFX_STARS?36:30))continue;
   /* At most the newest effect of each kind on an actor is drawn. */
   int newer=0;for(int j=i+1;j<r137_count;j++)if(r137_events[j].target==e->target&&r137_events[j].kind==e->kind&&age>=r137_at[j]&&age-r137_at[j]<30)newer=1;
   if(newer)continue;
@@ -293,6 +293,15 @@ static void r137_scene(const Game*g){
   }else if(e->kind==GFX_POWER&&a<16){
    int phase=a<4?1:a<12?3:5,size=65+(a<8?a:16-a);
    if(g->character==CHAR_WARDEN)r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
+  }else if(e->kind==GFX_STARS&&a<36&&g->character==CHAR_REGENT){
+   /* A short gain burst uses the existing generated golden spark artwork. */
+   for(int j=0;j<10;j++){
+    unsigned seed=particle_hash(161u+j*7919u);
+    int side=(j&1)?1:-1,spread=8+a*(9+(seed>>12)%14)/36;
+    int px=118+side*spread,py=146-(int)(seed%36)-a/3;
+    int size=5+(int)((seed>>20)%4),alpha=(36-a)*255/36;
+    r137_blit(px-size/2,py-size/2,size,size,r160_spark,24,24,alpha,0);
+   }
   }else if(e->kind==GFX_SELF&&a<22){char number[24];snprintf(number,sizeof(number),"-%d",e->amount);r135_shadow_text(98,107-a/2,number,RED,&r134_f18b);}
  }
  /* Brief hold of the actual battlefield framebuffer at contact. HUD, hand,

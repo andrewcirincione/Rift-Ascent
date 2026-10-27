@@ -53,3 +53,11 @@ qa/v160/star_contrast/evidence/first-pass/
 qa/v160/memory_fix/assets.bin
 qa/v160/memory_fix/evidence/*.ppm
 qa/v160/memory_fix/evidence/*.s16le
+
+# Reproducible 1.6.1 intermediates; retain final screenshots and validation.
+qa/v161/assets.bin
+qa/v161/evidence/*.ppm
+qa/v161/evidence/*.s16le
+qa/v161/evidence/*xvfb.log
+qa/v161/evidence/*pulse.log
+qa/v161/evidence/first-pass/

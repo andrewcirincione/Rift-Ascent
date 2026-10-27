@@ -1,0 +1,509 @@
+[
+  {
+    "character": "vesper",
+    "frame": 0,
+    "source_boot": [
+      125.5,
+      247
+    ],
+    "scale": 0.275,
+    "offset": [
+      43,
+      34
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 1,
+    "source_boot": [
+      411.5,
+      248
+    ],
+    "scale": 0.275,
+    "offset": [
+      42,
+      32
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 2,
+    "source_boot": [
+      725.5,
+      248
+    ],
+    "scale": 0.275,
+    "offset": [
+      41,
+      33
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 3,
+    "source_boot": [
+      1040.0,
+      248
+    ],
+    "scale": 0.275,
+    "offset": [
+      40,
+      33
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 4,
+    "source_boot": [
+      1354.0,
+      248
+    ],
+    "scale": 0.275,
+    "offset": [
+      41,
+      33
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 5,
+    "source_boot": [
+      141.0,
+      507
+    ],
+    "scale": 0.275,
+    "offset": [
+      36,
+      29
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 6,
+    "source_boot": [
+      436.0,
+      509
+    ],
+    "scale": 0.275,
+    "offset": [
+      33,
+      31
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 7,
+    "source_boot": [
+      678.5,
+      510
+    ],
+    "scale": 0.275,
+    "offset": [
+      57,
+      31
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 8,
+    "source_boot": [
+      972.5,
+      510
+    ],
+    "scale": 0.275,
+    "offset": [
+      53,
+      40
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 9,
+    "source_boot": [
+      1301.5,
+      508
+    ],
+    "scale": 0.275,
+    "offset": [
+      56,
+      32
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 10,
+    "source_boot": [
+      70.5,
+      766
+    ],
+    "scale": 0.275,
+    "offset": [
+      55,
+      31
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 11,
+    "source_boot": [
+      373.0,
+      768
+    ],
+    "scale": 0.275,
+    "offset": [
+      53,
+      31
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 12,
+    "source_boot": [
+      730.5,
+      768
+    ],
+    "scale": 0.275,
+    "offset": [
+      39,
+      32
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 13,
+    "source_boot": [
+      1058.5,
+      768
+    ],
+    "scale": 0.275,
+    "offset": [
+      32,
+      26
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 14,
+    "source_boot": [
+      1377.0,
+      768
+    ],
+    "scale": 0.275,
+    "offset": [
+      36,
+      33
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 15,
+    "source_boot": [
+      138.5,
+      1000
+    ],
+    "scale": 0.275,
+    "offset": [
+      38,
+      32
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 16,
+    "source_boot": [
+      431.5,
+      997
+    ],
+    "scale": 0.275,
+    "offset": [
+      37,
+      46
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 17,
+    "source_boot": [
+      741.5,
+      999
+    ],
+    "scale": 0.275,
+    "offset": [
+      26,
+      54
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 18,
+    "source_boot": [
+      1056.5,
+      994
+    ],
+    "scale": 0.275,
+    "offset": [
+      30,
+      68
+    ]
+  },
+  {
+    "character": "vesper",
+    "frame": 19,
+    "source_boot": [
+      1362.5,
+      995
+    ],
+    "scale": 0.275,
+    "offset": [
+      32,
+      73
+    ]
+  },
+  {
+    "idle_frame": 1,
+    "registration": [
+      1,
+      1
+    ],
+    "roi": [
+      47,
+      70,
+      93,
+      93
+    ]
+  },
+  {
+    "idle_frame": 2,
+    "registration": [
+      0,
+      0
+    ],
+    "roi": [
+      47,
+      70,
+      93,
+      93
+    ]
+  },
+  {
+    "idle_frame": 3,
+    "registration": [
+      -2,
+      0
+    ],
+    "roi": [
+      47,
+      70,
+      93,
+      93
+    ]
+  },
+  {
+    "idle_frame": 4,
+    "registration": [
+      -2,
+      0
+    ],
+    "roi": [
+      47,
+      70,
+      93,
+      93
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 0,
+    "source_boot": [
+      286.5,
+      474
+    ],
+    "scale": 0.235,
+    "offset": [
+      6,
+      11
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 1,
+    "source_boot": [
+      790.5,
+      474
+    ],
+    "scale": 0.235,
+    "offset": [
+      4,
+      11
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 2,
+    "source_boot": [
+      1282.5,
+      474
+    ],
+    "scale": 0.235,
+    "offset": [
+      1,
+      11
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 3,
+    "source_boot": [
+      286.5,
+      955
+    ],
+    "scale": 0.235,
+    "offset": [
+      4,
+      11
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 4,
+    "source_boot": [
+      790.0,
+      955
+    ],
+    "scale": 0.235,
+    "offset": [
+      2,
+      11
+    ]
+  },
+  {
+    "character": "warden",
+    "frame": 5,
+    "source_boot": [
+      1282.5,
+      955
+    ],
+    "scale": 0.235,
+    "offset": [
+      2,
+      11
+    ]
+  },
+  {
+    "idle_frame": 1,
+    "registration": [
+      1,
+      0
+    ],
+    "roi": [
+      40,
+      70,
+      108,
+      93
+    ]
+  },
+  {
+    "idle_frame": 2,
+    "registration": [
+      4,
+      0
+    ],
+    "roi": [
+      40,
+      70,
+      108,
+      93
+    ]
+  },
+  {
+    "idle_frame": 3,
+    "registration": [
+      0,
+      0
+    ],
+    "roi": [
+      40,
+      70,
+      108,
+      93
+    ]
+  },
+  {
+    "idle_frame": 4,
+    "registration": [
+      1,
+      0
+    ],
+    "roi": [
+      40,
+      70,
+      108,
+      93
+    ]
+  },
+  {
+    "idle_frame": 5,
+    "registration": [
+      3,
+      0
+    ],
+    "roi": [
+      40,
+      70,
+      108,
+      93
+    ]
+  },
+  {
+    "idle_frame": 1,
+    "registration": [
+      -2,
+      0
+    ],
+    "roi": [
+      60,
+      70,
+      88,
+      93
+    ]
+  },
+  {
+    "idle_frame": 2,
+    "registration": [
+      -3,
+      0
+    ],
+    "roi": [
+      60,
+      70,
+      88,
+      93
+    ]
+  },
+  {
+    "idle_frame": 3,
+    "registration": [
+      -4,
+      0
+    ],
+    "roi": [
+      60,
+      70,
+      88,
+      93
+    ]
+  },
+  {
+    "idle_frame": 4,
+    "registration": [
+      -7,
+      0
+    ],
+    "roi": [
+      60,
+      70,
+      88,
+      93
+    ]
+  }
+]
