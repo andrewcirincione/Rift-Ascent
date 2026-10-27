@@ -593,7 +593,7 @@ static void r135_status_icons(const Game*g,int enemy,int x){
  if(enemy<0){values[7]=g->ninja.v[NS_THORNS];values[8]=g->ninja.v[NS_INTANGIBLE];values[9]=g->ninja.v[NS_SHADOW_NOW];values[10]=g->ninja.v[NS_SHADOWMELD];values[11]=g->ninja.v[NS_BLUR];values[12]=g->ninja.v[NS_BURST];values[13]=g->ninja.v[NS_POUNCE];values[14]=g->ninja.v[NS_CORROSIVE];}
  if(enemy>=0){values[11]=g->ninja.v[NS_STRANGLE0+enemy];icons[11]=r150b_icons[14];}
  int count=0;for(int i=0;i<15;i++)count+=values[i]!=0;if(!count)return;
- int columns=(count+5)/6,rows=(count+columns-1)/columns,size=columns>1?17:20,step=rows>4?18:23,slot=0;
+ int columns=(count+4)/5,rows=(count+columns-1)/columns,size=columns>1?17:20,step=rows>4?18:23,slot=0;
  for(int i=0;i<15;i++)if(values[i]){
   int xx=x+(slot/rows)*21,yy=80+(slot%rows)*step;char b[16];r134_blit(xx,yy,size,size,icons[i],i<7?22:80,i<7?22:80,255);
   snprintf(b,sizeof(b),"%d",values[i]);int tx=xx+20-r134_width(b,&r134_f9b);
@@ -1293,7 +1293,7 @@ static void inspector(const Game*g){
       if(i==pick)r134_blit(31,y-5,200,28,r140_selection,208,28,255);
       r134_text(55,y+3,relic_defs[g->relics[i]].name,i==pick?WHITE:MUTED,&r134_f9);
     }
-    if(g->relic_count){int id=g->relics[pick];r150b_relic_icon(403,49,40,id);r134_wrap(251,95,186,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
+    if(g->relic_count){int id=g->relics[pick];r150b_relic_icon(251,91,40,id);r134_wrap(301,95,136,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
     else r134_text(41,99,"No relics",MUTED,&r134_f9);
  }
  footer((overlay_page==2||overlay_page==4)?"LEFT/RIGHT TABS  UP/DOWN SCROLL  START CLOSE":overlay_page==3?"LEFT/RIGHT TABS  UP/DOWN POTION  X USE   START CLOSE":

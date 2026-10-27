@@ -1036,6 +1036,10 @@ void game_end_turn(Game*g){
   else if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=g->hand[i]&~(CARD_SLY_TURN|CARD_RETAIN_TURN);
  }
  g->hand_count=retained;
+ /* Hand Trick lasts for the whole turn, even after playing/reshuffling. */
+ for(int i=0;i<g->draw_count;i++)g->draw[i]&=~CARD_SLY_TURN;
+ for(int i=0;i<g->discard_count;i++)g->discard[i]&=~CARD_SLY_TURN;
+ for(int i=0;i<g->exhaust_count;i++)g->exhaust[i]&=~CARD_SLY_TURN;
  /* Block shields the incoming enemy turn, then expires before the next draw. */
  for(int k=0;k<g->enemy_count;k++){
   Enemy *e=&g->enemies[k];if(e->hp<=0)continue;

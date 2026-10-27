@@ -30,7 +30,7 @@ game.c:940:2: warning: this 'if' clause does not guard... [-Wmisleading-indentat
 game.c:940:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
   940 |  if(!out||cap<=0)return;out[0]=0;
       |                         ^~~
-In file included from game.c:1133:
+In file included from game.c:1137:
 ninja_engine.inc: In function 'ninja_process':
 ninja_engine.inc:213:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
   213 |  if(ninja_processing)return;ninja_processing=1;
@@ -53,33 +53,33 @@ ninja_engine.inc:309:150: note: ...this statement, but the latter is misleadingl
   309 |  for(int i=0;i<g->ninja.nightmare_count;i++)for(int j=0;j<g->ninja.nightmare_n[i];j++)add_generated(g,g->ninja.nightmare_raw[i]&~CARD_INSTANCE_MASK);g->ninja.nightmare_count=0;
       |                                                                                                                                                      ^
 game.c: In function 'resolve_card':
-game.c:1397:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
- 1397 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+game.c:1401:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1401 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
       |     ^~
-game.c:1397:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
- 1397 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+game.c:1401:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1401 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
       |                                                          ^~~~~
 game.c: In function 'game_play_card':
-game.c:1453:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
- 1453 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
+game.c:1457:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1457 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
       |  ^~
-game.c:1453:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
- 1453 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
+game.c:1457:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1457 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
       |                    ^~
 game.c: In function 'game_action':
-game.c:1642:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
- 1642 |   else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?1:0;}break;
+game.c:1646:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+ 1646 |   else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?1:0;}break;
       |   ^~~~
-game.c:1642:69: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
- 1642 |   else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?1:0;}break;
+game.c:1646:69: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+ 1646 |   else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?1:0;}break;
       |                                                                     ^~~~~
-game.c:1649:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
- 1649 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
+game.c:1653:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+ 1653 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
       |   ^~~~
-game.c:1649:43: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
- 1649 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
+game.c:1653:43: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+ 1653 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
       |                                           ^~~~~
-In file included from game.c:1922:
+In file included from game.c:1926:
 save_legacy.inc: In function 'load_legacy_run':
 save_legacy.inc:113:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
   113 |  for(int i=IC_HOURGLASS;i<=IC_COVENANT;i++)out->ic[i]=0;out->ic[47]=0;
@@ -88,27 +88,27 @@ save_legacy.inc:113:57: note: ...this statement, but the latter is misleadingly 
   113 |  for(int i=IC_HOURGLASS;i<=IC_COVENANT;i++)out->ic[i]=0;out->ic[47]=0;
       |                                                         ^~~
 game.c: In function 'status_entries':
-game.c:2090:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
- 2090 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+game.c:2094:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2094 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
       |   ^~
-game.c:2090:63: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
- 2090 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+game.c:2094:63: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2094 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
       |                                                               ^
-game.c:2092:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
- 2092 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+game.c:2096:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2096 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
       |    ^~
-game.c:2092:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
- 2092 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+game.c:2096:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2096 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
       |                                                      ^
 game.c: In function 'game_status_line':
-game.c:2101:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
- 2101 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+game.c:2105:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2105 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
       |  ^~
-game.c:2101:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
- 2101 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+game.c:2105:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2105 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
       |                         ^~~~~~~~~~~~~~
 In file included from card_preview.inc:68,
-                 from game.c:2104:
+                 from game.c:2108:
 ninja_preview.inc: In function 'ninja_replace_value':
 ninja_preview.inc:5:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
     5 |  if(*p<'0'||*p>'9')return;char*end=p;while(*end>='0'&&*end<='9')end++;
@@ -136,7 +136,6 @@ game.c:328:12: warning: 'card_reward' defined but not used [-Wunused-function]
       |            ^~~~~~~~~~~
 psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
 psp-gcc -I. -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/include -I/workspace/scratch/9a81aefb5adc/runtime/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o sound.o sound.c
-mksfoex -d MEMSIZE=0  'RIFT ASCENT 1.5b' PARAM.SFO
 render.c: In function 'sprite_scaled_facing':
 render.c:230:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
   230 |    if(u<0)u=0;if(u>=iw)u=iw-1;
@@ -214,7 +213,7 @@ pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
 [3]          0 bytes | NULL
 [4]      60202 bytes | PIC1.PNG
 [5]     198864 bytes | SND0.AT3
-[6]   20811380 bytes | rift_ascent_crt_free_strip.elf
+[6]   20811508 bytes | rift_ascent_crt_free_strip.elf
 [7]          0 bytes | NULL
 rm -f rift_ascent_crt_free_strip.elf
 make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_build'
@@ -224,10 +223,10 @@ make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/portable_bu
   for px in im.getdata():
 PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
 PASS: PBP splash/title/hero replaced entirely from approved v118 source art
-MATCH ra_title_bg full-length candidates [19382288]
-ART REUSE: ra_title_bg offset= 19382288 length= 261120
-MATCH rift_hero full-length candidates [19671568]
-ART REUSE: rift_hero offset= 19671568 length= 53340
+MATCH ra_title_bg full-length candidates [19382416]
+ART REUSE: ra_title_bg offset= 19382416 length= 261120
+MATCH rift_hero full-length candidates [19671696]
+ART REUSE: rift_hero offset= 19671696 length= 53340
 PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
 portable_build/EBOOT.PBP
   ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
@@ -241,9 +240,9 @@ portable_build/EBOOT.PBP
   sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
 PASS: no kernel-only import libraries
 PBP/ELF structural checks PASS (not a PSP runtime test)
-size: 21558708
-elf_size: 20811380
+size: 21558836
+elf_size: 20811508
 segments: 2
-static_memory: 21269816
-sha256: cc117d9f0525bcc26f7be66a4947647b6ec16b3ba2d50a2e821e723716935ba5
+static_memory: 21269944
+sha256: f657993e94b542eedd49077df1470e2f971d56f5334b5e4e0260d85db34ad6b7
 PASS: 5 indexed tracks; 3 original tracks preserved; CRC verified

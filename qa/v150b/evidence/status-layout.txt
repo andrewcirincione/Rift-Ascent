@@ -1,0 +1,16 @@
+count=1 columns=1 rows=1 bottom=100
+count=2 columns=1 rows=2 bottom=123
+count=3 columns=1 rows=3 bottom=146
+count=4 columns=1 rows=4 bottom=169
+count=5 columns=1 rows=5 bottom=172
+count=6 columns=2 rows=3 bottom=143
+count=7 columns=2 rows=4 bottom=166
+count=8 columns=2 rows=4 bottom=166
+count=9 columns=2 rows=5 bottom=169
+count=10 columns=2 rows=5 bottom=169
+count=11 columns=3 rows=4 bottom=166
+count=12 columns=3 rows=4 bottom=166
+count=13 columns=3 rows=5 bottom=169
+count=14 columns=3 rows=5 bottom=169
+count=15 columns=3 rows=5 bottom=169
+PASS all 1-15 status icon layouts stay above the hand

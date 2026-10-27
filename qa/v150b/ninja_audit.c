@@ -38,6 +38,7 @@ static void interaction_audit(void){Game g,h;
  g=fixture();play(&g,N_AFTERIMAGE);assert(g.block==0);play(&g,N_AFTERIMAGE);assert(g.block==1);play(&g,N_SLICE);assert(g.block==3);
  g=fixture();g.ninja.v[NS_POUNCE]=1;ninja_discard_effects(&g,N_HAZE,0);ninja_process(&g);assert(!g.ninja.v[NS_POUNCE]);
  g=fixture();g.ic[IC_UNRELENTING]=1;ninja_discard_effects(&g,N_FLICK_FLACK,0);ninja_process(&g);assert(!g.ic[IC_UNRELENTING]);
+ g=fixture();play(&g,N_DEFEND_SILENT|CARD_SLY_TURN);assert(g.discard[0]&CARD_SLY_TURN);g.draw[0]=g.discard[0];g.draw_count=1;g.discard_count=0;draw_card(&g);assert(game_card_is_sly(&g,g.hand[0]));game_end_turn(&g);for(int i=0;i<g.hand_count;i++)assert(!(g.hand[i]&CARD_SLY_TURN));for(int i=0;i<g.draw_count;i++)assert(!(g.draw[i]&CARD_SLY_TURN));for(int i=0;i<g.discard_count;i++)assert(!(g.discard[i]&CARD_SLY_TURN));
  g=fixture();g.ninja.v[NS_BURST]=1;play(&g,N_UP_MY_SLEEVE);assert(g.discard_count==1&&CARD_COUNTER(g.discard[0])==2&&g.hand_count==6);assert(game_card_cost_now(&g,g.discard[0])==0);
  g=fixture();g.ninja.v[NS_PLANNER]=1;play(&g,N_DEFEND_SILENT);assert(g.discard[0]&CARD_SLY);g.hand[g.hand_count++]=g.discard[0];g.discard_count=0;play(&g,N_SURVIVOR);game_action(&g,BTN_OK);assert(g.block==18&&g.discard_count==2);
  g=fixture();g.hand[g.hand_count++]=N_MALAISE|CARD_SLY;g.energy=4;play(&g,N_SURVIVOR);game_action(&g,BTN_OK);assert(g.energy==3&&g.enemies[0].strength==-3&&g.enemies[0].weak==3);

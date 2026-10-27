@@ -6,12 +6,12 @@ from PIL import Image
 import numpy as np
 smoke=os.environ.get("RIFT_FINAL_SMOKE")=="1"
 control_mode=os.environ.get('RIFT_CONTROL_AUDIT','')
-repo=Path(__file__).resolve().parents[2];base=repo.parent;rt=base/'runtime';ev=repo/'qa/v150b/evidence';cfg=rt/'qa150breleaseconfig';mem=cfg/'ppsspp';sys=mem/'PSP/SYSTEM';sys.mkdir(parents=True,exist_ok=True)
+repo=Path(__file__).resolve().parents[2];base=repo.parent;rt=base/'runtime';ev=repo/'qa/v150b/evidence';cfg=rt/'qa150bpublishconfig';mem=cfg/'ppsspp';sys=mem/'PSP/SYSTEM';sys.mkdir(parents=True,exist_ok=True)
 (sys/'controls.ini').write_text('[ControlMapping]\nScreenshot = 1-131\n')
 gamedir=mem/'PSP/GAME/RIFTASCENT';gamedir.mkdir(parents=True,exist_ok=True)
 if control_mode!='resume':(gamedir/'SAVE.DAT').unlink(missing_ok=True)
 shutil.copyfile(ev/'EBOOT.PBP',gamedir/'EBOOT.PBP')
-config=rt/'qa150brelease.ini';config.write_text('[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = 19426\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\nDumpAudio = True\n[Graphics]\nInternalResolution = 1\nVSyncInterval = False\n[Sound]\nEnable = True\n')
+config=rt/'qa150bpublish.ini';config.write_text('[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = 19426\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\nDumpAudio = True\n[Graphics]\nInternalResolution = 1\nVSyncInterval = False\n[Sound]\nEnable = True\n')
 modules=next((rt/'deps/usr/lib').glob('pulse-*/modules'))
 env=os.environ.copy();env.update(DISPLAY='127.0.0.1:426',LIBGL_ALWAYS_SOFTWARE='1',SDL_VIDEODRIVER='x11',XDG_CONFIG_HOME=str(cfg),PULSE_SERVER='tcp:127.0.0.1:4826',LD_LIBRARY_PATH=str(rt/'deps/usr/lib/x86_64-linux-gnu')+':'+str(rt/'deps/usr/lib/x86_64-linux-gnu/pulseaudio')+':'+str(modules))
 x=subprocess.Popen([str(rt/'deps/usr/bin/Xvfb'),':426','-screen','0','960x544x24','-ac','-nolisten','unix','-listen','tcp','-extension','MIT-SHM','-xkbdir',str(rt/'deps/usr/share/X11/xkb')],env=env,stdout=open(ev/'xvfb.log','w'),stderr=subprocess.STDOUT)

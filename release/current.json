@@ -2,7 +2,7 @@
   "version": "1.5b",
   "tag": "v1.5b",
   "eboot": "versions/1.5b/EBOOT.PBP",
-  "eboot_sha256": "0f1e27e1840c3d506a5bd3e40b2e8f37410eed3a0c1d354725b13f4d025485f2",
+  "eboot_sha256": "4fb22e4c6b72561d8322fa9f5f8d6bc2c1e00238d264fed9494a5944d2d76fcf",
   "notes": "versions/1.5b/PATCH_NOTES.md",
   "screenshot": "versions/1.5b/Combat.png",
   "canonical_source": "qa/v150b/source",

@@ -31,7 +31,7 @@ static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
 int game_card_is_retained(const Game*g,int raw){return CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
 static int ninja_owned_card(const Game*g,int id){return id<NINJA_FIRST?g->character==CHAR_WARDEN:g->character==CHAR_NIGHTSHADE;}
-static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_SLY_TURN|CARD_RETAIN_TURN);}
+static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_RETAIN_TURN);}
 static int ninja_base_damage(const Game*g,int raw,int in_hand){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;
  const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];int n=up?d->updamage:d->damage;
@@ -278,7 +278,7 @@ static void ninja_choose(Game*g,int index,int finish){
   int raw=g->hand[index];
   if(kind==NC_DISCARD){g->ninja.choice_raws[g->ninja.choice_count++]=raw;for(int i=index;i+1<g->hand_count;i++)g->hand[i]=g->hand[i+1];g->hand_count--;}
   else if(kind==NC_HAND_TRICK)g->hand[index]|=CARD_SLY_TURN;
-  else if(kind==NC_NIGHTMARE){int n=g->ninja.nightmare_count;if(n<MAX_HAND){g->ninja.nightmare_raw[n]=ninja_clean(raw)&~CARD_INSTANCE_MASK;g->ninja.nightmare_n[n]=3;g->ninja.nightmare_count++;}}
+  else if(kind==NC_NIGHTMARE){int n=g->ninja.nightmare_count;if(n<MAX_HAND){g->ninja.nightmare_raw[n]=ninja_clean(raw)&~(CARD_INSTANCE_MASK|CARD_SLY_TURN);g->ninja.nightmare_n[n]=3;g->ninja.nightmare_count++;}}
   else if(kind==NC_RETAIN)g->hand[index]|=CARD_RETAIN_TURN;
   g->ninja.choice_remaining--;
  }
