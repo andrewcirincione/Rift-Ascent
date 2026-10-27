@@ -1,0 +1,86 @@
+[
+  {
+    "frame": 0,
+    "tick": 1008,
+    "route": 2,
+    "age": 1008,
+    "finishing": 0
+  },
+  {
+    "frame": 1,
+    "tick": 1044,
+    "route": 2,
+    "age": 1044,
+    "finishing": 0
+  },
+  {
+    "frame": 2,
+    "tick": 1084,
+    "route": 2,
+    "age": 1084,
+    "finishing": 0
+  },
+  {
+    "frame": 3,
+    "tick": 1120,
+    "route": 2,
+    "age": 1120,
+    "finishing": 0
+  },
+  {
+    "frame": 4,
+    "tick": 1156,
+    "route": 2,
+    "age": 1156,
+    "finishing": 0
+  },
+  {
+    "frame": 5,
+    "tick": 1192,
+    "route": 2,
+    "age": 1192,
+    "finishing": 0
+  },
+  {
+    "frame": 6,
+    "tick": 1228,
+    "route": 2,
+    "age": 1228,
+    "finishing": 0
+  },
+  {
+    "frame": 7,
+    "tick": 1264,
+    "route": 2,
+    "age": 1264,
+    "finishing": 0
+  },
+  {
+    "frame": 8,
+    "tick": 1300,
+    "route": 2,
+    "age": 1300,
+    "finishing": 0
+  },
+  {
+    "frame": 9,
+    "tick": 1336,
+    "route": 2,
+    "age": 1336,
+    "finishing": 0
+  },
+  {
+    "frame": 10,
+    "tick": 1372,
+    "route": 2,
+    "age": 1372,
+    "finishing": 0
+  },
+  {
+    "frame": 11,
+    "tick": 1408,
+    "route": 2,
+    "age": 1408,
+    "finishing": 0
+  }
+]

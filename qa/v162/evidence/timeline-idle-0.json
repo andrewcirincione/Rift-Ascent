@@ -1,0 +1,86 @@
+[
+  {
+    "frame": 0,
+    "tick": 60,
+    "route": 2,
+    "age": 60,
+    "finishing": 0
+  },
+  {
+    "frame": 1,
+    "tick": 100,
+    "route": 2,
+    "age": 100,
+    "finishing": 0
+  },
+  {
+    "frame": 2,
+    "tick": 140,
+    "route": 2,
+    "age": 140,
+    "finishing": 0
+  },
+  {
+    "frame": 3,
+    "tick": 176,
+    "route": 2,
+    "age": 176,
+    "finishing": 0
+  },
+  {
+    "frame": 4,
+    "tick": 212,
+    "route": 2,
+    "age": 212,
+    "finishing": 0
+  },
+  {
+    "frame": 5,
+    "tick": 248,
+    "route": 2,
+    "age": 248,
+    "finishing": 0
+  },
+  {
+    "frame": 6,
+    "tick": 284,
+    "route": 2,
+    "age": 284,
+    "finishing": 0
+  },
+  {
+    "frame": 7,
+    "tick": 320,
+    "route": 2,
+    "age": 320,
+    "finishing": 0
+  },
+  {
+    "frame": 8,
+    "tick": 356,
+    "route": 2,
+    "age": 356,
+    "finishing": 0
+  },
+  {
+    "frame": 9,
+    "tick": 392,
+    "route": 2,
+    "age": 392,
+    "finishing": 0
+  },
+  {
+    "frame": 10,
+    "tick": 428,
+    "route": 2,
+    "age": 428,
+    "finishing": 0
+  },
+  {
+    "frame": 11,
+    "tick": 464,
+    "route": 2,
+    "age": 464,
+    "finishing": 0
+  }
+]

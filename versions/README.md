@@ -1,5 +1,6 @@
 # Released Rift Ascent binaries
 
+- [1.6.2](1.6.2/PATCH_NOTES.md): coherent act worlds, varied fight arenas, card/reward/inventory improvements, route variety and artwork recovery.
 - [1.6.1](1.6.1/PATCH_NOTES.md): anchored animation, consistent buttons, aligned costs and reward/pause/fade/audio fixes.
 - [1.6-r2](1.6-r2/PATCH_NOTES.md): hardware-confirmed startup memory correction and bronze Stars display.
 - [1.5-r2](1.5-r2/PATCH_NOTES.md): full dynamic card descriptions with bounded preview height and HUD clearance.

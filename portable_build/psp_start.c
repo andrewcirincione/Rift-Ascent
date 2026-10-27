@@ -244,6 +244,8 @@ static int button(unsigned int down) {
     if (down & PSP_CTRL_DOWN) return BTN_DOWN;
     if (down & PSP_CTRL_SELECT) return BTN_PAUSE;
     if (down & PSP_CTRL_START) return BTN_START;
+    if (down & PSP_CTRL_LTRIGGER) return BTN_TAB_LEFT;
+    if (down & PSP_CTRL_RTRIGGER) return BTN_TAB_RIGHT;
     return 0;
 }
 extern void game_render_set_status_scroll(int scroll);

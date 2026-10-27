@@ -10,7 +10,7 @@
 static volatile unsigned fx_serial=0;
 static volatile int fx_request=0;
 static volatile unsigned block_serial=0;
-static volatile unsigned impact_serial=0,power_serial=0,victory_serial=0;
+static volatile unsigned impact_serial=0,power_serial=0,victory_serial=0,stars_serial=0;
 static volatile int impact_requests[32];
 void rift_sound_impact(int damage,int blocked){
  int tier=damage>20?3:damage>10?2:damage>0?1:0;
@@ -18,7 +18,8 @@ void rift_sound_impact(int damage,int blocked){
  if(blocked)block_serial++;
 }
 void rift_sound_effect(int kind){
- if(kind<=0||kind>10)return;
+ if(kind<=0||kind>11)return;
+ if(kind==11){stars_serial++;return;}
  if(kind==10){victory_serial++;return;}
  if(kind==9){power_serial++;return;}
  if(kind==8){block_serial++;return;}
@@ -36,6 +37,7 @@ void rift_sound_reset(RiftSound *s){
  s->block_serial=block_serial;s->block_age=12000;s->block_phase=0;
  s->impact_seen=impact_serial;s->impact_voice=0;
  for(int i=0;i<4;i++){s->impact_age[i]=20000;s->impact_phase[i]=0;s->impact_tier[i]=0;s->impact_low[i]=0;}
+ s->stars_seen=stars_serial;s->stars_age=20000;for(int i=0;i<3;i++)s->stars_phase[i]=0;
  s->victory_seen=victory_serial;s->victory_age=40000;for(int i=0;i<3;i++)s->victory_phase[i]=0;
  s->power_seen=power_serial;s->power_age=20000;s->power_phase=0;
  for(unsigned i=0;i<4096;i++)s->ambience_delay[i]=0;
@@ -146,6 +148,15 @@ void rift_audio_generate(RiftSound *s,int16_t *out,int frames,int battle,int acc
     }
    }
    s->victory_age++;
+  }
+  if(s->stars_seen!=stars_serial){s->stars_seen=stars_serial;s->stars_age=0;for(int n=0;n<3;n++)s->stars_phase[n]=0;}
+  if(s->stars_age<15000u){
+   static const unsigned step[3]={101920152u,128377862u,152704670u};
+   for(int n=0;n<3;n++){int a=(int)s->stars_age-n*1323,duration=11025;
+    if(a>=0&&a<duration){int env=(duration-a)*4096/duration;env=env*env/4096;if(a<80)env=env*a/80;
+     int bell=triangle(s->stars_phase[n])/2+triangle(s->stars_phase[n]*3u)/6;
+     sfx+=(bell*env/4096)*3800/32768;s->stars_phase[n]+=step[n];}}
+   s->stars_age++;
   }
   out[i*2]=limit(sfx);
   out[i*2+1]=limit(sfx);

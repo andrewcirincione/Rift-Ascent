@@ -1,7 +1,7 @@
 #include "asset_stream.h"
 #include <stdint.h>
 #include <string.h>
-unsigned rift_asset_reads,rift_asset_errors;
+unsigned rift_asset_reads,rift_asset_errors,rift_asset_recoveries;
 #ifdef RIFT_STREAMED_ART
 #ifdef __PSP__
 #include <pspiofilemgr.h>
@@ -13,10 +13,10 @@ static void disk_close(void){if(asset_fd>=0)sceIoClose(asset_fd);asset_fd=-1;}
 #else
 #include <stdio.h>
 static FILE *asset_file;
-static const char*asset_path="qa/v161/evidence/EBOOT.PBP";
+static const char*asset_path="qa/v162/evidence/EBOOT.PBP";
 void rift_assets_set_file(const char*path){rift_assets_close();asset_path=path;}
 static int disk_open(void){asset_file=fopen(asset_path,"rb");return asset_file!=0;}
-static int disk_seek(int offset,int origin){if(fseek(asset_file,offset,origin))return -1;return (int)ftell(asset_file);}
+static int disk_seek(int offset,int origin){if(!asset_file||fseek(asset_file,offset,origin))return -1;return (int)ftell(asset_file);}
 static int disk_read(void*dst,unsigned size){return (int)fread(dst,1,size,asset_file);}
 static void disk_close(void){if(asset_file)fclose(asset_file);asset_file=0;}
 #endif
@@ -54,6 +54,9 @@ int rift_assets_open(void){
 fail: disk_close();bank_base=bank_size=0;rift_asset_errors++;return 0;
 }
 void rift_assets_close(void){disk_close();opened=0;cursor=0;memset(entries,0,sizeof(entries));memset(owners,0,sizeof(owners));}
+#ifdef RIFT_ASSET_TEST
+void rift_assets_test_break_io(void){disk_close();}
+#endif
 const void *rift_asset_resolve(const void*source,unsigned expected_bytes){
  const unsigned char*d=source;
  if(!source)return 0;
@@ -70,7 +73,16 @@ const void *rift_asset_resolve(const void*source,unsigned expected_bytes){
  unsigned slot=0;while(slot<CACHE_PAGES&&entries[slot].valid)slot++;
  if(slot==CACHE_PAGES){rift_asset_errors++;return 0;}
  unsigned char*dest=texture_cache+cursor*PAGE_BYTES;
- if(!read_at(bank_base+offset,dest,size)||checksum(dest,size)!=crc){rift_asset_errors++;return 0;}
+ if(!read_at(bank_base+offset,dest,size)||checksum(dest,size)!=crc){
+  /* Suspend/transient Memory Stick faults invalidate descriptors. Reopen once,
+     preserving good cache entries; failed partial data is never published. */
+  disk_close();opened=0;
+  if(!rift_assets_open()||offset>bank_size||size>bank_size-offset||
+     !read_at(bank_base+offset,dest,size)||checksum(dest,size)!=crc){
+   disk_close();opened=0;rift_asset_errors++;return 0;
+  }
+  rift_asset_recoveries++;
+ }
  entries[slot]=(CacheEntry){offset,size,cursor,pages,1};
  for(unsigned i=cursor;i<cursor+pages;i++)owners[i]=(unsigned char)(slot+1);
  cursor+=pages;rift_asset_reads++;return dest;
@@ -78,6 +90,9 @@ const void *rift_asset_resolve(const void*source,unsigned expected_bytes){
 #else
 int rift_assets_open(void){return 1;}
 void rift_assets_close(void){}
+#ifdef RIFT_ASSET_TEST
+void rift_assets_test_break_io(void){disk_close();}
+#endif
 const void *rift_asset_resolve(const void*source,unsigned expected_bytes){(void)expected_bytes;return source;}
 #ifndef __PSP__
 void rift_assets_set_file(const char*path){(void)path;}

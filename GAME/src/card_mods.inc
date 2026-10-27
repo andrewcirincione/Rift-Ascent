@@ -37,7 +37,7 @@ static void append_mod_rules(int raw,char*out,int cap,int live){
  if(live&&mod==MOD_ECHO)rules="Echo: +1 Energy cost.";
  if(live&&mod==MOD_KEEN)rules="Keen: +2 base/hit included.";
  if(live&&mod==MOD_WARD)rules="Ward: +4 base Block included.";
- int used=(int)strlen(out);if(used<cap)snprintf(out+used,(size_t)(cap-used)," %s",rules);
+ int used=(int)strlen(out);if(used<cap)snprintf(out+used,(size_t)(cap-used),"%s %s",used&&out[used-1]!='.'?".":"",rules);
 }
 const char *card_description(int raw){
  static char text[8][384];static unsigned slot;

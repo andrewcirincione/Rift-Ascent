@@ -1,0 +1,2 @@
+PASS stale artwork file handle automatically reopens; CRC verified, no errors
+PASS 1275 exact texture-byte comparisons plus cache hits, wraparound/eviction and 3 malformed-descriptor checks; 36085776 resource bytes, no palette/resolution/color changes

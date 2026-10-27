@@ -102,6 +102,7 @@ void game_render_update_fx(unsigned tick){
   /* Every recorded contact dispatches once, including a skipped visual frame. */
   if(e->kind==GFX_ATTACK||e->kind==GFX_PROC)rift_sound_impact(e->amount,e->absorbed>0);
   else if(e->kind==GFX_BLOCK)rift_sound_effect(8);
+  else if(e->kind==GFX_STARS)rift_sound_effect(11);
   else if(e->kind==GFX_POWER||e->kind==GFX_STATUS)rift_sound_effect(9);
   else if(e->kind==GFX_SELF)rift_sound_impact(MIN(10,e->amount),0);
  }
@@ -235,7 +236,7 @@ static void r137_scene(const Game*g){
  }else{
   r137_fire(g,118+dx,animation_tick/4,0);
   if(pose){r138_hero_clip=1;if(pose==1)r137_blit(51+dx,61+dy,163,113,r140_attack[pose_frame],208,144,255,0);else if(pose==3)r137_blit(r1311_power_x[pose_frame]+dx,r1311_power_y[pose_frame]+3,150,113,r137_hero_frames[12+pose_frame],192,144,255,0);else r137_blit(53+dx,61+dy,150,113,r137_hero_frames[(pose-1)*6+pose_frame],192,144,255,0);r138_hero_clip=0;}
-  else {static const int cycle[10]={0,1,2,3,4,5,4,3,2,1};r160_sprite(48+dx,78+dy,144,96,&r161_warden[cycle[(animation_tick/48u)%10]],1);}
+  else {static const int cycle[10]={0,1,2,3,4,5,4,3,2,1};r160_sprite(48+dx,78+dy,144,96,&r161_warden[cycle[(animation_tick/36u)%10]],1);}
   r137_fire(g,118+dx,animation_tick/4,1);
  }
  for(int e=0;e<g->enemy_count;e++){

@@ -6,7 +6,7 @@
 const void *rift_asset_resolve(const void *source,unsigned expected_bytes);
 int rift_assets_open(void);
 void rift_assets_close(void);
-extern unsigned rift_asset_reads,rift_asset_errors;
+extern unsigned rift_asset_reads,rift_asset_errors,rift_asset_recoveries;
 #ifndef __PSP__
 void rift_assets_set_file(const char *path);
 #endif

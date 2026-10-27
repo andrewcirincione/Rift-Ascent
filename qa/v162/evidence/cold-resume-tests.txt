@@ -1,0 +1,3 @@
+SHOT boot
+SHOT cold-resume
+PASS cold Resume on complete 32 MiB PSP EBOOT

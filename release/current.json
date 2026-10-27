@@ -1,11 +1,11 @@
 {
-  "version": "1.6.1",
-  "tag": "v1.6.1",
-  "eboot": "versions/1.6.1/EBOOT.PBP",
-  "eboot_sha256": "fc2b2736ef1461ee423c451db9916d5c8477c60472b9a8e6db9ee0009a8ef7f0",
-  "notes": "versions/1.6.1/PATCH_NOTES.md",
-  "screenshot": "versions/1.6.1/Combat.png",
-  "canonical_source": "qa/v161/source",
-  "validation": "qa/v161/evidence/final-tests.txt",
-  "resources_manifest": "qa/v161/assets.json"
+  "version": "1.6.2",
+  "tag": "v1.6.2",
+  "eboot": "versions/1.6.2/EBOOT.PBP",
+  "eboot_sha256": "c5ccbc7d6c0a0f6f9e85ba2d328ad273805e0f637a0bb2bed9ef0fb7a353b16a",
+  "notes": "versions/1.6.2/PATCH_NOTES.md",
+  "screenshot": "versions/1.6.2/Combat.png",
+  "canonical_source": "qa/v162/source",
+  "validation": "qa/v162/evidence/final-tests.txt",
+  "resources_manifest": "qa/v162/assets.json"
 }

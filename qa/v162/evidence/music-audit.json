@@ -1,0 +1,35 @@
+{
+  "tracks": [
+    {
+      "name": "Checkers",
+      "samples": 2249100,
+      "seconds": 204.0,
+      "sha256": "996e0abe811fb2ef65751a5ab22fbf09e4f11b9c7bb2a7607fd1871746269bff"
+    },
+    {
+      "name": "RiftMenu",
+      "samples": 756000,
+      "seconds": 68.57142857142857,
+      "sha256": "5b20852fc86409e2ce881435c6e3d24f70e7e2500b462e9f54cf35b59d4d7ef8"
+    },
+    {
+      "name": "RiftFight",
+      "samples": 1209600,
+      "seconds": 109.71428571428571,
+      "sha256": "e5330bde9c9a384d1151921f1ef444cb809436e274c14cd8c8b7c08ec125f4d4"
+    },
+    {
+      "name": "RiftFight2",
+      "samples": 1360800,
+      "seconds": 123.42857142857143,
+      "sha256": "6a155fe5507e379f147110728499aed10e4cb19f279dd57aa40c2793f07516e1"
+    },
+    {
+      "name": "RiftFight3",
+      "samples": 1159200,
+      "seconds": 105.14285714285714,
+      "sha256": "94532f97984a83c1e0bc67154ee7705155a4c2a8eded45a902ef7b7b84e70b19"
+    }
+  ],
+  "eboot_sha256": "c5ccbc7d6c0a0f6f9e85ba2d328ad273805e0f637a0bb2bed9ef0fb7a353b16a"
+}

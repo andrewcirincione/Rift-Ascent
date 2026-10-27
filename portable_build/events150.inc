@@ -81,6 +81,16 @@ static int event_typed_card(Game*g,int type){
   pool[n]=id;weights[n]=owned?1:3;total+=weights[n++];}
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weights[i])return pool[i];roll-=weights[i];}return type?5:11;
 }
+int game_next_event(Game*g){
+ unsigned full=(1u<<EVENT_COUNT)-1u,seen=(unsigned)g->v151.relic[R162_EVENT_SEEN]&full;
+ int last=g->v151.relic[R162_EVENT_LAST]-1,pool[EVENT_COUNT],n=0;
+ if(seen==full)seen=0;
+ for(int id=0;id<EVENT_COUNT;id++)if(!(seen&(1u<<id))&&!(last>=12&&last<=14&&id>=12&&id<=14))pool[n++]=id;
+ /* If the only unseen rooms are modifications, interpose one non-modification
+    room without discarding the bag. The remaining rooms are still owed. */
+ if(!n)for(int id=0;id<EVENT_COUNT;id++)if((id<12||id>14)&&id!=last)pool[n++]=id;
+ int id=pool[rnd(g,n)];g->v151.relic[R162_EVENT_SEEN]=(int)(seen|(1u<<id));g->v151.relic[R162_EVENT_LAST]=id+1;return id;
+}
 void game_begin_event(Game*g,int id){
  g->screen=EVENT;g->effect_turn=CLAMP(id,0,EVENT_COUNT-1);g->selection=0;
  g->scroll=MIN(20,MIN(g->gold/2,g->maxhp-g->hp));g->next_screen=0;g->reward[0]=g->reward[1]=g->reward[2]=-1;msg(g,"");

@@ -386,13 +386,19 @@ static int random_relic_except(Game*g,int excluded){
 }
 static int random_relic(Game*g){return random_relic_except(g,-1);}
 static void offer_blessing(Game*g){
- if(g->character==CHAR_REGENT&&g->act>1){g->reward[0]=1000+R_METEOR_SHOWER;g->reward[1]=1000+R_THE_SEALED_THRONE;g->reward[2]=37;g->screen=BLESSING;g->selection=g->scroll=0;msg(g,"Choose an ancient gift.");return;}
- if(g->character==CHAR_NIGHTSHADE&&g->act>1){g->reward[0]=1000+N_SUPPRESS;g->reward[1]=1000+N_WRAITH_FORM;g->reward[2]=relic(g,NR_DRAKE)?37:NR_DRAKE;g->screen=BLESSING;g->selection=g->scroll=0;msg(g,"Choose an ancient gift.");return;}
- int pool[12],n=0;for(int id=28;id<37;id++)if(id!=30&&!relic(g,id))pool[n++]=id;
- if(n<3)for(int id=37;id<40;id++)pool[n++]=id;
- for(int i=0;i<3;i++){int pick=rnd(g,n);g->reward[i]=pool[pick];pool[pick]=pool[--n];}
- g->screen=BLESSING;g->selection=g->scroll=0;
- msg(g,"Choose one blessing for your ascent.");
+ /* One dependable act boon, one general relic, one build-focused relic.
+    Each slot has a broad unowned pool; repeated stat gifts are the fallback. */
+ int pools[3][64],counts[3]={0};
+ for(int id=28;id<40;id++)if(id!=30&&(id>=37||!relic(g,id)))pools[0][counts[0]++]=id;
+ for(int id=1;id<28;id++)if(id!=11&&id!=25&&!relic(g,id))pools[1][counts[1]++]=id;
+ for(int id=40;id<63;id++)if(id!=44&&(id<45||id>52||g->character==CHAR_NIGHTSHADE)&&
+     (id!=52||g->act>1)&&!relic(g,id))pools[2][counts[2]++]=id;
+ for(int i=0;i<3;i++)g->reward[i]=counts[i]?pools[i][rnd(g,counts[i])]:37+i;
+ if(g->act>1&&rnd(g,4)==0){
+  if(g->character==CHAR_REGENT)g->reward[2]=1000+(rnd(g,2)?R_METEOR_SHOWER:R_THE_SEALED_THRONE);
+  else if(g->character==CHAR_NIGHTSHADE)g->reward[2]=1000+(rnd(g,2)?N_SUPPRESS:N_WRAITH_FORM);
+ }
+ g->screen=BLESSING;g->selection=g->scroll=0;msg(g,"Choose one blessing for your ascent.");
 }
 static void begin_act(Game*g){g->screen=ACT_INTRO;g->scroll=0;g->selection=0;}
 int game_moon_heal_now(const Game*g){return CLAMP(g->scroll,0,MIN(20,MIN(g->gold/2,g->maxhp-g->hp)));}
@@ -489,6 +495,22 @@ static void map_generate(Game*g){
   }
  }
  map_distinguish_forks(g);
+ /* Guaranteed rests by floor 6 and floor 12, then before the boss. No route
+    can stack the old random rest rolls or go an entire act without recovery. */
+ for(int r=0;r<MAP_ROWS;r++)for(int c=0;c<3;c++)if(g->map[r][c]==NODE_REST)g->map[r][c]=NODE_EVENT;
+ int early=4+(seed&1u),middle=10+((seed>>1)&1u);
+ for(int c=0;c<3;c++){g->map[early][c]=NODE_REST;g->map[middle][c]=NODE_REST;g->map[17][c]=NODE_REST;}
+ /* An optional fourth camp is a visible recovery-versus-event choice. */
+ if(seed&4u){int lane=(int)((seed>>3)%3u);g->map[14][lane]=NODE_REST;}
+ /* A guaranteed camp may occupy a fork's original distinguishing room.
+    Preserve a real choice on the following floor before the merge. */
+ for(int r=0;r<MAP_ROWS-2;r++)for(int c=0;c<3;c++){
+  unsigned edges=route_layer(g,r,c);if(!(route_layer(g,r,-1)&(1u<<c))||!(edges&(edges-1)))continue;
+  int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
+  if(g->map[r+1][a]==g->map[r+1][b]&&g->map[r+2][a]==g->map[r+2][b]&&r+2!=early&&r+2!=middle&&r+2!=17){
+   g->map[r+2][a]=NODE_FIGHT;g->map[r+2][b]=NODE_ELITE;
+  }
+ }
 }
 static void shuffle(Game*g,int *p,int count){for(int i=count-1;i>0;i--){int j=rnd(g,i+1),temp=p[i];p[i]=p[j];p[j]=temp;}}
 static int has_strike_tag(const char *name);
@@ -888,7 +910,7 @@ void game_start_battle(Game*g,int mode){
  }
  memset(g->ic,0,sizeof(g->ic));
  memset(&g->ninja,0,sizeof(g->ninja));memset(&g->regent,0,sizeof(g->regent));
- {int ledger=g->v151.relic[7];memset(&g->v151,0,sizeof(g->v151));g->v151.relic[7]=ledger;g->v151.potion_offer=-1;}
+ {int ledger=g->v151.relic[7],seen=g->v151.relic[R162_EVENT_SEEN],last=g->v151.relic[R162_EVENT_LAST];memset(&g->v151,0,sizeof(g->v151));g->v151.relic[7]=ledger;g->v151.relic[R162_EVENT_SEEN]=seen;g->v151.relic[R162_EVENT_LAST]=last;g->v151.potion_offer=-1;}
  g->reward_potion=0;g->shop_relic=0;g->shop_cards[0]=g->shop_cards[1]=g->shop_cards[2]=0;g->turn=0;g->turn_played=0;g->heal_after_battle=0;g->used_potion=0;g->selection=0;g->target=0;g->strength=g->permanent_strength+(relic(g,28)?1:0);g->low_hp_triggered=0;g->dexterity=relic(g,35)?1:0;
  if(relic(g,61))for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])>=50&&CARD_ID(g->deck[i])<=53)g->strength++;
  g->weak=g->vulnerable=g->poison=g->block=0;
@@ -1565,7 +1587,7 @@ static void encounter(Game*g,int node){
  g->selection=0;
  switch(node){
  case NODE_FIGHT:case NODE_ELITE:case NODE_BOSS:game_start_battle(g,node);break;
- case NODE_EVENT:game_begin_event(g,rnd(g,EVENT_COUNT));break;
+ case NODE_EVENT:game_begin_event(g,game_next_event(g));break;
  case NODE_SHOP:g->screen=SHOP;for(int i=0;i<3;i++)g->shop_cards[i]=card_reward_except(g,i>0?g->shop_cards[0]:-1,i>1?g->shop_cards[1]:-1);g->shop_relic=random_relic(g);break;
  case NODE_REST:g->screen=REST;break;
  case NODE_TREASURE:{
@@ -1684,6 +1706,7 @@ void game_use_potion(Game*g,int index){
  }
  if(combat)check_win(g);
 }
+static int grid_down(int selected,int count);
 #include "inventory151.inc"
 static int resume_available;
 void game_set_resume_available(int available){resume_available=!!available;}
@@ -1802,24 +1825,27 @@ void game_action(Game*g,int b){
   }
   break;
  case REWARD:
-  if(b==BTN_ALT){g->shop_selection=g->selection;g->prior_screen=REWARD;g->screen=DECK_VIEW;g->deck_readonly=1;g->selection=g->scroll=0;}
-  else if(b==BTN_POTION&&g->selection<3&&!g->v151.card_done){g->screen=REWARD_PREVIEW;}
-  else if(b==BTN_DOWN){if(g->selection<3)g->selection=3;else if(g->v151.potion_offer>=0)g->selection=g->selection>=4?5:4;}
-  else if(b==BTN_UP){if(g->selection==5)g->selection=4;else if(g->selection==4)g->selection=g->v151.card_done?4:3;else if(g->selection==3)g->selection=1;}
-  else if(b==BTN_LEFT){if(g->selection<4&&!g->v151.card_done)g->selection=MAX(0,g->selection-1);}
-  else if(b==BTN_RIGHT){if(g->selection<4&&!g->v151.card_done)g->selection=MIN(3,g->selection+1);}
-  else if(b==BTN_OK){
-    if(g->selection<4&&!g->v151.card_done){
-      if(g->selection<3){if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Skip this card reward.");break;}add_card(g,g->reward[g->selection]);}
-      else r151_skip_reward(g);
-      g->v151.card_done=1;
-    }else if(g->selection>=4&&g->v151.potion_offer>=0){
-      if(g->selection==4){if(g->potion_count>=MAX_POTIONS){msg(g,"Belt full. Discard a potion in inventory.");break;}g->potions[g->potion_count++]=g->v151.potion_offer;g->ic[37]=g->v151.potion_offer+1;}
-      g->v151.potion_offer=-1;
+  if(g->selection==3)g->selection=5;
+  if(b==BTN_DOWN){if(g->selection<3)g->selection=g->v151.potion_offer>=0?4:5;else g->selection=5;}
+  else if(b==BTN_UP){if(g->selection==5&&g->v151.potion_offer>=0)g->selection=4;else if(g->selection>=4&&!g->v151.card_done)g->selection=1;}
+  else if(b==BTN_LEFT&&g->selection<3&&!g->v151.card_done)g->selection=MAX(0,g->selection-1);
+  else if(b==BTN_RIGHT&&g->selection<3&&!g->v151.card_done)g->selection=MIN(2,g->selection+1);
+  else if(b==BTN_OK||b==BTN_BACK){
+    if(b==BTN_BACK)g->selection=5;
+    if(g->selection<3&&!g->v151.card_done){
+      if(g->deck_count>=MAX_DECK){msg(g,"Deck full. You can leave this card reward.");break;}
+      add_card(g,g->reward[g->selection]);g->v151.card_done=1;
+      if(g->ninja.v[NS_BONUS_REWARDS]>0){g->ninja.v[NS_BONUS_REWARDS]--;fill_rewards(g);g->v151.card_done=0;g->selection=0;msg(g,"The Hunt: choose an extra card reward.");break;}
+      g->selection=g->v151.potion_offer>=0?4:5;break;
     }
-    if(!g->v151.card_done){g->selection=0;break;}
-    if(g->v151.potion_offer>=0){g->selection=4;break;}
-    if(g->ninja.v[NS_BONUS_REWARDS]>0){g->ninja.v[NS_BONUS_REWARDS]--;fill_rewards(g);g->v151.card_done=0;g->selection=0;msg(g,"The Hunt: choose an extra card reward.");break;}
+    if(g->selection==4&&g->v151.potion_offer>=0){
+      if(g->potion_count>=MAX_POTIONS){msg(g,"Belt full. Discard a potion in inventory.");break;}
+      g->potions[g->potion_count++]=g->v151.potion_offer;g->ic[37]=g->v151.potion_offer+1;g->v151.potion_offer=-1;g->selection=g->v151.card_done?5:1;break;
+    }
+    if(g->selection!=5)break;
+    if(!g->v151.card_done)r151_skip_reward(g);
+    /* Leaving forfeits all remaining card picks and the unclaimed potion. */
+    g->v151.card_done=1;g->v151.potion_offer=-1;g->ninja.v[NS_BONUS_REWARDS]=0;
     if(g->win_screen){
       int final=g->win_screen==2;g->win_screen=0;
       if(final){g->screen=VICTORY;msg(g,"THE SPIRE HAS FALLEN");}
@@ -2014,7 +2040,7 @@ int game_validate(const Game*g){
  if(g->screen==REWARD&&(g->selection<0||g->selection>5))return 0;
  if(g->screen==BOSS_REWARD&&(g->selection<0||g->selection>3))return 0;
  if((g->screen==BLESSING||g->screen==REWARD_PREVIEW)&&(g->selection<0||g->selection>2))return 0;
- if(g->screen==BLESSING)for(int i=0;i<3;i++)if(!((g->reward[i]>=28&&g->reward[i]<40)||(g->character==CHAR_REGENT&&(g->reward[i]==1000+R_METEOR_SHOWER||g->reward[i]==1000+R_THE_SEALED_THRONE))||(g->character==CHAR_NIGHTSHADE&&(g->reward[i]==NR_DRAKE||g->reward[i]==1000+N_SUPPRESS||g->reward[i]==1000+N_WRAITH_FORM))))return 0;
+ if(g->screen==BLESSING)for(int i=0;i<3;i++)if(!((g->reward[i]>=1&&g->reward[i]<63&&g->reward[i]!=44&&(g->reward[i]<45||g->reward[i]>52||g->character==CHAR_NIGHTSHADE))||(g->character==CHAR_REGENT&&(g->reward[i]==1000+R_METEOR_SHOWER||g->reward[i]==1000+R_THE_SEALED_THRONE))||(g->character==CHAR_NIGHTSHADE&&(g->reward[i]==NR_DRAKE||g->reward[i]==1000+N_SUPPRESS||g->reward[i]==1000+N_WRAITH_FORM))))return 0;
  if(g->screen==REWARD_PREVIEW)for(int i=0;i<3;i++)if(!solo_reward_eligible(CARD_ID(g->reward[i])))return 0;
  if(g->screen==RELIC_RESULT&&(g->selection<0||g->selection>1||g->reward[0]<-1||g->reward[0]>=RELIC_COUNT))return 0;
  if(g->screen==REST&&(g->selection<0||g->selection>1))return 0;
