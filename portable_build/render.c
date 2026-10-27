@@ -1,4 +1,5 @@
 #include "game.h"
+#include "asset_stream.h"
 #include "font_smooth.h"
 #include "artwork.h"
 #include "motion_art.h"
@@ -19,6 +20,7 @@
 #include "rift150b_art.h"
 #include "rift151_art.h"
 #include "rift160_art.h"
+#include "rift160_star_contrast.h"
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
@@ -191,6 +193,7 @@ static void border(int x,int y,int w,int h,uint32_t c);
    dependencies. Nearest-neighbor scaling is crisp on the PSP's 480x272 LCD. */
 static void art_blit(int dx,int dy,int dw,int dh,const uint16_t *data,int iw,int ih){
  if(dw<=0||dh<=0)return;
+ data=rift_asset_resolve(data,(unsigned)iw*ih*2);if(!data)return;
  int x0=dx<0?0:dx,y0=dy<0?0:dy,x1=dx+dw>W?W:dx+dw,y1=dy+dh>H?H:dy+dh;
  for(int y=y0;y<y1;y++){
   const uint16_t *src=data+(size_t)(dh==ih?(y-dy):((y-dy)*ih/dh))*iw;
@@ -208,6 +211,7 @@ static void art_blit(int dx,int dy,int dw,int dh,const uint16_t *data,int iw,int
 /* Scale 104x110 RGB565 creature frames with keyed transparency. */
 static void sprite_scaled(int dx,int dy,int dw,int dh,const uint16_t *src,int iw,int ih){
  if(dw<1||dh<1)return;
+ src=rift_asset_resolve(src,(unsigned)iw*ih*2);if(!src)return;
  int x0=dx<0?0:dx,y0=dy<0?0:dy,x1=dx+dw>W?W:dx+dw,y1=dy+dh>H?H:dy+dh;
  for(int y=y0;y<y1;y++){
   const uint16_t *line=src+(size_t)((y-dy)*ih/dh)*iw;
@@ -223,6 +227,7 @@ static void sprite_scaled_facing(int dx,int dy,int dw,int dh,
     const uint16_t *src,int iw,int ih,int flip){
  if(!flip){sprite_scaled(dx,dy,dw,dh,src,iw,ih);return;}
  if(dw<1||dh<1)return;
+ src=rift_asset_resolve(src,(unsigned)iw*ih*2);if(!src)return;
  int x0=dx<0?0:dx,y0=dy<0?0:dy,x1=dx+dw>W?W:dx+dw,y1=dy+dh>H?H:dy+dh;
  for(int y=y0;y<y1;y++){
   const uint16_t *line=src+(size_t)((y-dy)*ih/dh)*iw;
@@ -258,6 +263,7 @@ static uint32_t r134_mix(uint32_t bg,uint32_t fg,int a){
 }
 static void r134_blit(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int opacity){
  if(w<=0||h<=0)return;
+ src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
   const uint32_t*row=src+(yy*ih/h)*iw;
@@ -270,6 +276,7 @@ static void r134_blit(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,i
 }
 static void r134_panel(int x,int y,int w,int h,int selected){
  /* Nine-slice sculpted art: corner shapes never stretch into content. */
+ const uint32_t*panel=rift_asset_resolve(r134_menu_panel,480u*240*4);if(!panel)return;
  int side=MIN(22,MIN(w/3,h/3));
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
@@ -278,7 +285,7 @@ static void r134_panel(int x,int y,int w,int h,int selected){
   for(int xx=0;xx<w;xx++){
    int dx=x+xx;if((unsigned)dx>=W)continue;
    int sx=xx<side?xx*30/side:xx>=w-side?480-(w-xx)*30/side:30+(xx-side)*420/(w-2*side);
-   uint32_t c=r134_menu_panel[sy*480+CLAMP(sx,0,479)];
+   uint32_t c=panel[sy*480+CLAMP(sx,0,479)];
    if(!selected)c=r134_mix(c,RGB(8,12,18),27);
    pix[dy*sw+dx]=c|0xff000000u;
   }
@@ -300,6 +307,27 @@ static void r134_center(int x,int y,const char*s,uint32_t ink,const RiftFont*f){
 static void r135_shadow_text(int x,int y,const char*s,uint32_t color,const RiftFont*f){
  r134_text(x+1,y,s,RGB(0,0,0),f);r134_text(x,y+1,s,RGB(0,0,0),f);
  r134_text(x+1,y+1,s,RGB(0,0,0),f);r134_text(x,y,s,color,f);
+}
+static void r160_star_badge(int x,int y,int size,const char*value,const RiftFont*f,int glowing,int shortfall){
+ /* Keep the generated face dark, including at zero. Only the halo changes.
+    Center visible glyph pixels instead of the font's asymmetric line box. */
+ r134_blit(x,y,size,size,glowing?r160_star_lit:r160_star_empty,40,40,255);
+ int left=999,right=0,top=f->h,bottom=0,advance=0;
+ for(const char*p=value;*p;p++){
+  unsigned ch=(unsigned char)*p;if(ch<32||ch>126)ch='?';
+  const uint8_t*a=f->alpha+(ch-32)*f->w*f->h;
+  for(int yy=0;yy<f->h;yy++)for(int xx=0;xx<f->w;xx++)if(a[yy*f->w+xx]>32){
+   if(advance+xx<left)left=advance+xx;if(advance+xx+1>right)right=advance+xx+1;
+   if(yy<top)top=yy;if(yy+1>bottom)bottom=yy+1;
+  }
+  advance+=f->advance[ch-32];
+ }
+ if(left==999)return;
+ int tx=x+(size-(right-left))/2-left,ty=y+(size-(bottom-top))/2-top+size/14;
+ /* A complete one-pixel dark outline protects digits against the bronze
+    bevel, artwork and glow; unavailable costs keep a bright peach fill. */
+ for(int dy=-1;dy<=1;dy++)for(int dx=-1;dx<=1;dx++)if(dx||dy)r134_text(tx+dx,ty+dy,value,RGB(5,4,3),f);
+ r134_text(tx,ty,value,shortfall?RGB(255,216,195):RGB(255,255,244),f);
 }
 static int r134_lines(const char*s,int width,const RiftFont*f,char rows[24][192]){
  int count=0;
@@ -332,23 +360,25 @@ static void r134_card_art(int x,int y,int w,int h,int id){
  }
  if(id>=NINJA_FIRST&&id<NINJA_LAST){
   int iw=180,ih=120,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/5;
-  const uint16_t*src=r150b_cards[id-NINJA_FIRST];
+  const uint16_t*src=rift_asset_resolve(r150b_cards[id-NINJA_FIRST],(unsigned)iw*ih*2);if(!src)return;
   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(src[(top+yy*crop/h)*iw+xx*iw/w]);}return;
  }
 
  if(id>=92&&id<96){
   int iw=240,ih=160,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/6;
+  const uint32_t*src=rift_asset_resolve(r150_cards[id-92],(unsigned)iw*ih*4);if(!src)return;
   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){
    int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;
-   pix[dy*sw+dx]=r150_cards[id-92][(top+yy*crop/h)*iw+xx*iw/w]|0xff000000u;
+   pix[dy*sw+dx]=src[(top+yy*crop/h)*iw+xx*iw/w]|0xff000000u;
   }return;
  }
  /* Setup Strike has its own high-resolution illustration. */
  if(id==80){
   const int iw=240,ih=135;int crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/5;
+  const uint32_t*src=rift_asset_resolve(r1310_setup,(unsigned)iw*ih*4);if(!src)return;
   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){
    int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;
-   int sx=xx*iw/w,sy=top+yy*crop/h;pix[dy*sw+dx]=r1310_setup[sy*iw+sx]|0xff000000u;
+   int sx=xx*iw/w,sy=top+yy*crop/h;pix[dy*sw+dx]=src[sy*iw+sx]|0xff000000u;
   }return;
  }
  /* Bilinear reconstruction and an upper crop that preserves faces; never paint over the frame. */
@@ -621,7 +651,7 @@ static void r134_card_frame(int x,int y,int w,int h,int type){
  /* Preserve the generated sculpture but reserve a rectangular text interior.
     Nine-slicing keeps the corner ornaments proportional on hand thumbnails. */
  int small=w<105&&h<105;int side=w<100?7:12,top=small?11:20,base=small?9:16;
- const uint32_t*src=r134_card_frames[type];
+ const uint32_t*src=rift_asset_resolve(r134_card_frames[type],126u*166*4);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
   int sy=yy<top?yy*43/top:yy>=h-base?134+(yy-h+base)*32/base:43+(yy-top)*91/(h-top-base);
@@ -666,8 +696,10 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  int orb=small?12:18;r134_blit(x+inset,arty,orb,orb,!active&&card_combat_context?r140_energy_empty:r134_energy,46,46,255);
  r134_center(x+inset+orb/2,arty+(small?1:4),cost,!active&&card_combat_context?RGB(255,135,110):WHITE,&r134_f9b);
  int star=game_card_star_cost(card_combat_context,raw);
- if(star!=0||game_card_star_cost(0,raw&~CARD_FREE)!=0){char sb[12];if(star==-1)snprintf(sb,sizeof(sb),"X");else snprintf(sb,sizeof(sb),"%d",star);int sx=x+inset+orb+2;
-  r134_blit(sx,arty,orb,orb,r160_star,40,40,255);r135_shadow_text(sx+(orb-r134_width(sb,&r134_f9b))/2,arty+(small?1:4),sb,card_combat_context&&star>card_combat_context->regent.stars?RGB(255,145,105):RGB(255,241,172),&r134_f9b);
+ if(star!=0||game_card_star_cost(0,raw&~CARD_FREE)!=0){char sb[12];if(star==-1)snprintf(sb,sizeof(sb),"X");else snprintf(sb,sizeof(sb),"%d",star);int sx=x+inset+orb+3;
+  int shortfall=card_combat_context&&star>card_combat_context->regent.stars;
+  int glowing=!card_combat_context||(card_combat_context->regent.stars>0&&!shortfall);
+  r160_star_badge(sx,arty-(small?1:2),small?18:24,sb,&r134_f9b,glowing,shortfall);
  }
  if(id>=NINJA_FIRST&&(game_card_is_sly(card_combat_context,raw)||(raw&CARD_INKY))){
   const char*mark=(raw&CARD_INKY)?"INKY":"SLY";int mw=r134_width(mark,&r134_f8)+4,mx=x+w/2-mw/2,my=arty+arth-9;
@@ -791,7 +823,8 @@ static void combat(const Game*g){
  r134_blit(0,174,480,98,r134_hand_hud,480,98,255);
  char b[16];
  if(g->character==CHAR_REGENT){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
-  r134_blit(9,219,36,36,r160_star,40,40,g->regent.stars?255:135);snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;r135_shadow_text(27-r134_width(b,f)/2,231,b,RGB(255,246,190),f);
+  snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;
+  r160_star_badge(7,217,40,b,f,g->regent.stars>0,0);
  }else{r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);}
  int start=rift133_hand_start(g),playing=r134_playing();
  for(int i=start;i<g->hand_count&&i<start+5;i++){

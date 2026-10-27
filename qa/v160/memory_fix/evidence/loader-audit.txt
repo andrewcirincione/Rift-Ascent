@@ -1,0 +1,27 @@
+{
+  "original": {
+    "path": "../runtime/baseline-160.PBP",
+    "module_locator": 142622720,
+    "cfw_eof_fallback": true,
+    "data_psp_bytes": 23553748,
+    "resident_span": 24083504,
+    "modeled_allocation": 26921216,
+    "allocation_end": 169543936,
+    "available_partition_end": 167772160,
+    "within_32mb_user_partition": false,
+    "conservative_peak": 47637252
+  },
+  "corrected": {
+    "path": "qa/v160/star_contrast/evidence/EBOOT.PBP",
+    "module_locator": 238624,
+    "cfw_eof_fallback": false,
+    "data_psp_bytes": 7051784,
+    "resident_span": 11778304,
+    "modeled_allocation": 11778304,
+    "allocation_end": 154401024,
+    "available_partition_end": 167772160,
+    "within_32mb_user_partition": true,
+    "conservative_peak": 18830088
+  }
+}
+PASS original allocation regression reproduced by loader model; corrected metadata and memory budgets pass (physical PSP confirmation pending)

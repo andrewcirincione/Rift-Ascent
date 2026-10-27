@@ -110,6 +110,7 @@ void game_render_update_fx(unsigned tick){
 static int r138_hero_clip;
 static void r137_blit(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int opacity,int flip){
  if(w<=0||h<=0||opacity<=0)return;
+ src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if(dy<(r138_hero_clip?54:R137_FX_Y)||dy>=174)continue;
   for(int xx=0;xx<w;xx++){
@@ -143,6 +144,7 @@ static void r137_actor(int x,int y,int w,int h,const uint16_t*src,int iw,int ih,
  if(w<1||h<1)return;
  int left=0,top=0,cw=iw,ch=ih;
  for(int i=0;i<36;i++)if(src==rift_enemy_sprites[i]){left=r1311_enemy_bounds[i][0];top=r1311_enemy_bounds[i][1];cw=r1311_enemy_bounds[i][2];ch=r1311_enemy_bounds[i][3];break;}
+ src=rift_asset_resolve(src,(unsigned)iw*ih*2);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if(dy<R137_FX_Y||dy>=174)continue;
   int shift=lean*(h-yy)/h;
@@ -159,6 +161,7 @@ static void r137_actor(int x,int y,int w,int h,const uint16_t*src,int iw,int ih,
 }
 static void r150_enemy_actor(int x,int y,int w,int h,int art,int lean,int opacity,int flash){
  int iw=r150_enemy_size[art-36][0],ih=r150_enemy_size[art-36][1];const uint32_t*src=r150_enemies[art-36];
+ src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if(dy<R137_FX_Y||dy>=174)continue;
   int shift=lean*(h-yy)/h;

@@ -1,10 +1,11 @@
 {
   "version": "1.6",
-  "tag": "v1.6",
-  "eboot": "versions/1.6/EBOOT.PBP",
-  "eboot_sha256": "27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad",
-  "notes": "versions/1.6/PATCH_NOTES.md",
-  "screenshot": "versions/1.6/Combat.png",
+  "tag": "v1.6-r2",
+  "eboot": "versions/1.6-r2/EBOOT.PBP",
+  "eboot_sha256": "2081e1958406a56394c947d91e03c7c9134894ef74bac1e6cf7076e27b3106f4",
+  "notes": "versions/1.6-r2/PATCH_NOTES.md",
+  "screenshot": "versions/1.6-r2/Combat.png",
   "canonical_source": "qa/v160/source",
-  "validation": "qa/v160/evidence/ppsspp-controls.txt"
+  "validation": "qa/v160/star_contrast/evidence/final-tests.txt",
+  "resources_manifest": "qa/v160/memory_fix/assets.json"
 }

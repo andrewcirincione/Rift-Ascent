@@ -1,0 +1,6 @@
+SHOT boot
+SHOT attack-0
+SHOT block-0
+SHOT power-0
+PASS final release EBOOT: Warden attack, Block and power through streamed animation resources, no resource failures
+SHA256 2081e1958406a56394c947d91e03c7c9134894ef74bac1e6cf7076e27b3106f4

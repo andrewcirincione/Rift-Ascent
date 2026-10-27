@@ -1,0 +1,4 @@
+SHOT boot
+SHOT cold-resume
+PASS final release EBOOT: fresh 32 MB PSP-mode launch, cold Resume, Stars and streamed artwork
+SHA256 2081e1958406a56394c947d91e03c7c9134894ef74bac1e6cf7076e27b3106f4

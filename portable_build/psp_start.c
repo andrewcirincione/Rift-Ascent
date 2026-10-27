@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "game.h"
 #include "sound.h"
+#include "asset_stream.h"
 void game_render_set_overlay(int kind,int tab,int potion);
 void game_render_set_enemy_windup(int ticks);
 void game_render_feedback(const Game *before,const Game *after,int key,unsigned tick);
@@ -290,6 +291,9 @@ static void step_action(int key,unsigned tick) {
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
     boot_trace("worker entered",1);
+    int assets_ready=rift_assets_open();
+    boot_trace("streamed artwork bank",assets_ready);
+    if(!assets_ready){boot_trace("FATAL artwork bank",-8);sceKernelExitGame();return -8;}
     void *vram=sceGeEdramGetAddr();
     boot_trace("EDRAM base", (int)(uintptr_t)vram);
     if(!vram) {boot_trace("FATAL EDRAM", -1);sceKernelExitGame();return -1;}

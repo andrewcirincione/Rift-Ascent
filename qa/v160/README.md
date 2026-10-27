@@ -2,6 +2,8 @@
 
 Canonical source: `qa/v160/source`. Public character names are **Proxy** and **Vesper**; stable internal enum names and old card IDs remain unchanged to migrate prior saves.
 
+**Current revision: 1.6-r2.** The reported physical-PSP 800200D9 startup failure is addressed through corrected ELF metadata and streamed artwork with a bounded cache. See `memory_fix/README.md` for the diagnosis, conservative memory budgets and validation limits, and `star_contrast` for the new bronze Stars artwork. Current EBOOT: `versions/1.6-r2/EBOOT.PBP`.
+
 ## Content
 
 Proxy implements the Regent catalog from the STS2 wiki's v0.107.1 data snapshot: **96 entries** (85 reward cards, four basics, two Ancient cards, four summoned tokens and Debris). The 85 include Constellation, Largesse, Plot, Tutor and Hammer Time with explicitly labeled solo adaptations, since Rift Ascent has no multiplayer. They are obtainable at their normal rarity. Ancient gifts offer Meteor Shower or The Sealed Throne at later act starts. The complete **53-card solo Colorless pool** supports card-generation effects. Potions, shared relics, encounters and turn timing use Rift Ascent's existing systems.
@@ -28,7 +30,7 @@ Forty newly generated character frames, 149 new card illustrations and four UI i
 Use a PSP SDK in `PSPDEV` and Python with Pillow, numpy and scipy. From the repository root:
 
 ```sh
-bash qa/v160/build_release.sh versions/1.5.1/EBOOT.PBP qa/v160/evidence/EBOOT.PBP
+bash qa/v160/build_release.sh versions/1.6/EBOOT.PBP qa/v160/star_contrast/evidence/EBOOT.PBP
 ```
 
 `build_source.py` mirrors canonical source into `GAME/src` and `portable_build`. `prepare_art.py` reproduces the indexed asset header. The other one-time implementation scripts document development; do not rerun them on the completed source. `run_native.py` runs regression checks; the other C harnesses use the current source. PPSSPP scripts require the runtime layout described in their imports and the fixtures emitted by `ui_fixtures.c`.

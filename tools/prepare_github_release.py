@@ -36,6 +36,17 @@ def main():
         assert offset == cursor and samples > 11025
         cursor += (samples+1)//2
     assert cursor == size
+    if meta.get('resources_manifest'):
+        manifest = json.loads(repo_file(meta['resources_manifest']).read_text())
+        bank_end = len(data) - 56 - size
+        assert data[bank_end-16:bank_end-8] == b'RIFTART1', 'Missing streamed artwork'
+        bank_size, bank_crc = struct.unpack_from('<II', data, bank_end-8)
+        bank = data[bank_end-16-bank_size:bank_end-16]
+        assert bank_size == manifest['bytes'] and zlib.crc32(bank) == bank_crc
+        assert hashlib.sha256(bank).hexdigest() == manifest['sha256']
+        for asset in manifest['assets']:
+            pixels = bank[asset['offset']:asset['offset']+asset['bytes']]
+            assert len(pixels) == asset['bytes'] and hashlib.sha256(pixels).hexdigest() == asset['sha256'], asset['name']
     evidence = repo_file(meta['validation']).read_text()
     assert meta['eboot_sha256'] in evidence and 'PASS final release EBOOT' in evidence
     for source in (ROOT/meta['canonical_source']).iterdir():

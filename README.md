@@ -2,7 +2,7 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.6**. Releases include the complete EBOOT with its intended
+Current version: **1.6, revision 2**. This revision addresses the reported PSP startup allocation failure and improves Stars readability. Releases include the complete EBOOT with its intended
 soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
 
 Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
@@ -11,12 +11,12 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` an
 
 ## Source and validation
 
-- [Current patch notes](versions/1.6/PATCH_NOTES.md)
+- [Current patch notes](versions/1.6-r2/PATCH_NOTES.md)
 - [Build instructions and validation details](qa/v160/README.md)
 - Canonical source: `qa/v160/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.6/EBOOT.PBP` (release tag `v1.6`)
+- Exact tested binary: `versions/1.6-r2/EBOOT.PBP` (release tag `v1.6-r2`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
-  Physical PSP playback was not independently tested for this build.
+  Revision 2 was tested in 32 MiB PSP mode. Physical PSP confirmation remains pending.
 
 ## Publishing
 

@@ -46,3 +46,10 @@ qa/v160/evidence/*xvfb.log
 qa/v160/evidence/*pulse.log
 
 qa/v160/evidence/first-pass/
+qa/v160/star_contrast/evidence/*.ppm
+qa/v160/star_contrast/evidence/*pulse.log
+qa/v160/star_contrast/evidence/*xvfb.log
+qa/v160/star_contrast/evidence/first-pass/
+qa/v160/memory_fix/assets.bin
+qa/v160/memory_fix/evidence/*.ppm
+qa/v160/memory_fix/evidence/*.s16le

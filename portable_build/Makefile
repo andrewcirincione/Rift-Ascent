@@ -1,8 +1,8 @@
 TARGET = rift_ascent_crt_free
-OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o
+OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o
 PSP_FW_VERSION = 660
 PSP_LARGE_MEMORY = 0
-CFLAGS = -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
+CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
 LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
@@ -19,4 +19,5 @@ game.o: inventory151.inc relics151.inc ninja_engine.inc card_preview.inc card_mo
 sound.o psp_start.o: sound.h game.h
 
 game.o: regent_ids.h regent_cards.inc regent_upgrades.inc regent_meta.inc regent_engine.inc regent_effects.inc regent_preview.inc save_v22.inc
-render.o: rift160_art.h regent_ids.h
+render.o: rift160_art.h rift160_star_contrast.h regent_ids.h
+asset_stream.o render.o psp_start.o: asset_stream.h

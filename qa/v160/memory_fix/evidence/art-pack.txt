@@ -1,0 +1,7 @@
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [5621664]
+ART REUSE: ra_title_bg offset= 5621664 length= 261120
+MATCH rift_hero full-length candidates [5910944]
+ART REUSE: rift_hero offset= 5910944 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets

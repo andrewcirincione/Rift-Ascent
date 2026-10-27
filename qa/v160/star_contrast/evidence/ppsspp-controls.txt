@@ -1,0 +1,19 @@
+SHOT boot
+SHOT stars-0
+SHOT stars-1
+SHOT stars-3
+SHOT stars-15
+SHOT stars-99
+SHOT stars-100
+SHOT stars-999
+SHOT cost-x
+SHOT cost-free
+SHOT modified
+SHOT upgrade
+SHOT character-0
+SHOT character-1
+SHOT spent-to-zero
+SHOT regained-glow
+SHOT resumed
+PASS final release EBOOT: bronze HUD/card badges; counts 0/1/3/15/99/100/999; X/free/modified/upgrade; Warden/Vesper; insufficient Stars reject; last Stars spent and regained; save/resume
+SHA256 2081e1958406a56394c947d91e03c7c9134894ef74bac1e6cf7076e27b3106f4

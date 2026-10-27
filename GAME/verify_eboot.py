@@ -53,12 +53,17 @@ def check(path):
     require(phoff + phentsize * phnum <= len(exe), 'ELF program headers truncated')
     segments = 0
     static_bytes = 0
+    low_address = 0xffffffff
+    high_address = 0
     entry = u32(exe, 24)
     entry_is_mapped_executable = False
+    first_load_physical = None
     for i in range(phnum):
         off = phoff + phentsize * i
-        kind, seg_off, vaddr, _, fsize, msize, flags, align = struct.unpack_from('<8I', exe, off)
+        kind, seg_off, vaddr, physical, fsize, msize, flags, align = struct.unpack_from('<8I', exe, off)
         if kind == 1:
+            if first_load_physical is None:
+                first_load_physical = physical
             segments += 1
             require(seg_off + fsize <= len(exe) and msize >= fsize, 'Bad load segment')
             require(align == 0 or (align & (align - 1)) == 0, 'Invalid PT_LOAD alignment')
@@ -66,11 +71,29 @@ def check(path):
             if (flags & 1) and vaddr <= entry < vaddr + msize:
                 entry_is_mapped_executable = True
             static_bytes += msize
+            low_address = min(low_address, vaddr)
+            high_address = max(high_address, vaddr + msize)
     require(segments > 0, 'No loadable ELF segments')
     require(entry_is_mapped_executable, 'Entry point is not inside an executable PT_LOAD segment')
-    require(static_bytes < 24 * 1024 * 1024, 'Excessive PSP static memory')
+    shoff = u32(exe, 32)
+    shentsize, shnum, shstr = struct.unpack_from('<HHH', exe, 46)
+    require(shentsize == 40 and shstr < shnum and shoff + shnum * shentsize <= len(exe), 'Invalid section table')
+    sections = [struct.unpack_from('<10I', exe, shoff + i * shentsize) for i in range(shnum)]
+    strings = sections[shstr]
+    names = exe[strings[4]:strings[4] + strings[5]]
+    module = next((s for s in sections if names[s[0]:].split(b'\0', 1)[0] == b'.rodata.sceModuleInfo'), None)
+    require(module is not None and module[5] == 52, 'Missing PSP module info')
+    require(first_load_physical == module[4], 'PSP first PT_LOAD must locate module info by ELF file offset; avoids CFW whole-file allocation')
+    span = high_address - low_address
+    require(0x08800000 <= low_address < high_address <= 0x0a000000, 'Load segments exceed the 32 MB PSP user partition')
+    # 1.6 originally passed a 24 MiB SUM check with almost no loader/thread
+    # headroom. Audit address SPAN too and keep a conservative startup budget.
+    require(span <= 14 * 1024 * 1024, 'PSP resident span exceeds the 14 MiB hardware headroom budget')
+    require(span + len(exe) <= 20 * 1024 * 1024, 'PSP executable plus resident span exceeds the 20 MiB startup budget')
     return {'size': len(data), 'elf_size': len(exe), 'segments': segments,
-            'static_memory': static_bytes, 'sha256': hashlib.sha256(data).hexdigest()}
+            'static_memory': static_bytes, 'resident_span': span,
+            'conservative_startup_bytes': span + len(exe),
+            'sha256': hashlib.sha256(data).hexdigest()}
 
 
 def main(argv):
