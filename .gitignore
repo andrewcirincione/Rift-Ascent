@@ -10,3 +10,9 @@ dist/
 game.map
 SAVE.DAT
 PROFILE.DAT
+
+# Reproducible 1.4.0 QA intermediates (retain final PNGs and logs).
+portable_build/PARAM.SFO
+qa/v140/evidence/*.ppm
+qa/v140/evidence/*.dat
+qa/v140/evidence/*.s16le

@@ -1,0 +1,17 @@
+encoded 6.01s @ 300k -> 230554 bytes ES
+muxed /workspace/scratch/9a81aefb5adc/rift-ascent/portable_build/ICON1.PMF: 180 AUs, 4 chunks, 234.0 KB
+--- verify /workspace/scratch/9a81aefb5adc/rift-ascent/portable_build/ICON1.PMF ---
+== ICON1.PMF  (239616 bytes / 234.0 KB) ==
+PSMF0014 streamSize=0x3a000 firstTS=90000 lastTS=630540 (6.01s) streams=1
+stream entry: e0002050000000000000000009050000  (P-STD 2050, 144x80)
+packs=116 PES={'BF': 4, 'E0': 116, 'BE': 4}
+AUs=180 (IDR=4) ES=229833 bytes, AU size min/max=342/10272
+lastTS grid check: header=630540 expected=630540 OK
+SPS: profile=77 level=21 ref=1 size=(144, 80) full_range=1 fps=29.970 HRD=600000/600000 bits
+PPS: cabac=1
+BF index packets: 4 chunks, sizes OK (cover 180/180 AUs)
+PTS stamps=12 maxGap=0.567s (must be <0.7s)
+size budget: 234.0 KB OK
+demux round-trip: 180 AUs, byte-identical to input: True
+ffmpeg decode: 180 frames (expect 180) OK
+{'frames': 180, 'duration': 6.006, 'size': 239616, 'luma_range': [34.028587962962966, 34.96921296296296], 'max_frame_difference': 0.5654513888888889, 'wallpaper_unchanged': True}

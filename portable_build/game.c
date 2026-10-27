@@ -22,6 +22,7 @@ static void preview_hit(int enemy,int amount){
 
 /* Presentation observes resolution; it never changes combat or consumes RNG. */
 static GameCombatFx combat_fx[MAX_COMBAT_FX];
+static int r140_attack_context,r140_rust_targets;
 static int combat_fx_count,combat_fx_recording,combat_fx_source=-1,combat_fx_card=-1;
 void game_combat_fx_begin(void){combat_fx_count=0;combat_fx_recording=1;combat_fx_source=combat_fx_card=-1;}
 void game_combat_fx_end(void){combat_fx_recording=0;}
@@ -40,29 +41,29 @@ const CardDef cards[]={
  {"Bash","Deal 8 damage. Apply 2 Vulnerable.",2,0,0},            //2
  {"Stomp","12 damage to all enemies. Cost -1 per Attack played this turn.",3,1,0},          //3
  {"Battle Trance","Draw 3 cards. Cannot draw more this turn.",0,1,1},                    //4
- {"Shrug It Off","Gain 8 Block. Draw 1 card.",1,1,1},                  //5
- {"Bloodletting","Lose 3 HP. Gain 2 Energy.",0,1,1},     //6
+ {"Shrug It Off","Gain 8 Block. Draw 1 card.",1,0,1},                  //5
+ {"Bloodletting","Lose 3 HP. Gain 2 Energy.",0,0,1},     //6
  {"Bludgeon","Deal 32 damage.",3,1,0},               //7
- {"Inflame","Gain 2 Strength.",1,2,2},                //8
+ {"Inflame","Gain 2 Strength.",1,1,2},                //8
  {"Impervious","Gain 30 Block. Exhaust.",2,2,1},                    //9
- {"Whirlwind","Deal 5 damage to all enemies X times.",-1,2,0},         //10
- {"Pommel Strike","Deal 9 damage. Draw 1 card.",1,1,0},                   //11
- {"Iron Wave","Gain 5 Block. Deal 5 damage.",1,1,0},          //12
- {"Ashen Strike","Deal 6 +3 per Exhausted card.",1,1,0},                    //13
+ {"Whirlwind","Deal 5 damage to all enemies X times.",-1,1,0},         //10
+ {"Pommel Strike","Deal 9 damage. Draw 1 card.",1,0,0},                   //11
+ {"Iron Wave","Gain 5 Block. Deal 5 damage.",1,0,0},          //12
+ {"Ashen Strike","Deal 6 damage, plus 3 base damage for each card in your Exhaust pile.",1,1,0},                    //13
  {"Breakthrough","Lose 1 HP. Deal 9 damage to all enemies.",1,0,0},         //14
  {"Cinder","Deal 18 damage. Exhaust a RANDOM card in hand.",2,0,0},        //15
  {"Evil Eye","Gain 8 Block. If you exhausted a card this turn, gain 8 more Block.",1,1,1},      //16
- {"True Grit","Gain 7 Block. Exhaust RANDOM card.",1,1,1},          //17
+ {"True Grit","Gain 7 Block. Exhaust RANDOM card.",1,0,1},          //17
  {"Brand","Lose 1 HP. Exhaust 1 card. Gain 1 Strength.",0,2,1},//18
- {"Thunderclap","Hit all enemies for 4. Apply 1 Vulnerable.",1,1,0},//19
+ {"Thunderclap","Hit all enemies for 4. Apply 1 Vulnerable.",1,0,0},//19
  {"Feel No Pain","Gain 3 Block whenever a card is Exhausted.",1,1,2},              //20
- {"Body Slam","Deal damage equal to your Block.",1,2,0},  //21
+ {"Body Slam","Deal damage equal to your Block.",1,0,0},  //21
  {"Sword Boomerang","3 damage to a random enemy 3 times.",1,0,0},           //22
- {"Armaments","Gain 5 Block. Upgrade 1 card in hand.",1,1,1},      //23
+ {"Armaments","Gain 5 Block. Upgrade 1 card in hand.",1,0,1},      //23
  {"Flame Barrier","Gain 12 Block. Reflect 4 per enemy hit this turn.",2,1,1},       //24
  {"Headbutt","Deal 9 damage. Choose a discarded card and put it on top of your draw pile.",1,0,0},             //25
  {"Pillage","Deal 6 damage. Draw cards until you draw a card that is not an Attack.",1,1,0},               //26
- {"Twin Strike","Deal 5 damage twice.",1,1,0},                //27
+ {"Twin Strike","Deal 5 damage twice.",1,0,0},                //27
  {"Inferno","Each turn: lose 1 HP. HP lost on your turn: deal 6 damage to all enemies.",1,1,2},         //28
  {"Hemokinesis","Lose 2 HP. Deal 15 damage.",1,1,0},              //29
  {"Tremble","Apply 3 Vulnerable. Exhaust.",1,0,1},           //30
@@ -70,18 +71,18 @@ const CardDef cards[]={
  {"Dismantle","Deal 8 damage. Twice if enemy is Vulnerable.",1,1,0},     //32
  {"Rage","Each Attack this turn grants 3 Block.",0,1,1},        //33
  {"Dominate","Apply 1 Vulnerable. Gain 1 Strength per Vulnerable. Exhaust.",1,1,1},//34
- {"Bully","Deal 4, +2 per Vulnerable on target.",0,1,0},  //35
+ {"Bully","Deal 4 damage, plus 2 base damage for each turn of Vulnerable on the target.",0,1,0},  //35
  {"Conflagration","Deal 2 damage to ALL enemies 4 times.",1,2,0},     //36
  {"Pact's End","If at least 3 cards are exhausted, deal 18 damage to all enemies.",0,2,0},       //37
  {"Offering","Lose 6 HP. Gain 2 Energy. Draw 3 cards. Exhaust.",0,2,1},               //38
- {"Uppercut","Deal 13 damage. Apply Weak and Vulnerable.",2,2,0},           //39
- {"Molten Fist","Deal 10 damage. Double foe Vulnerable. Exhaust.",1,1,0},             //40
+ {"Uppercut","Deal 13 damage. Apply Weak and Vulnerable.",2,1,0},           //39
+ {"Molten Fist","Deal 10 damage. Double foe Vulnerable. Exhaust.",1,0,0},             //40
  {"Rupture","Whenever you lose HP on your turn, gain 1 Strength.",1,1,2},                 //41
  {"Fiend Fire","Exhaust hand. Deal 7 per exhausted card.",2,2,0},               //42
- {"Burning Pact","Exhaust 1 card. Draw 2 cards.",1,2,1},             //43
+ {"Burning Pact","Exhaust 1 card. Draw 2 cards.",1,1,1},             //43
  {"Anger","Deal 6 damage. Add a copy to discard.",0,0,0},           //44
  {"Second Wind","Exhaust all non-Attacks. +5 Block each.",1,1,1},        //45
- {"Blood Wall","Lose 2 HP. Gain 16 Block.",2,2,1},         //46
+ {"Blood Wall","Lose 2 HP. Gain 16 Block.",2,0,1},         //46
  {"Feed","Deal 10 damage. On kill, gain 3 max HP.",1,2,0},       //47
  {"Demon Form","At turn start: +3 Strength.",3,2,2},       //48
  {"Perfected Strike","Deal 6, +2 per Strike you own.",2,0,0},   //49
@@ -133,12 +134,12 @@ static const char *upgrade_descriptions[92]={
  "Deal 9 damage","Gain 8 block","Deal 11 damage. Apply 3 Vulnerable.","15 damage to all enemies. Cost -1 per Attack played.",
  "Draw 4 cards. Cannot draw more this turn.","Gain 11 Block. Draw 1","Lose 3 HP. Gain 3 Energy.","Deal 38 damage",
  "Gain 3 Strength","Gain 36 Block. Exhaust.","Deal 8 damage to all enemies X times.","Deal 10 damage. Draw 2 cards.",
- "Gain 8 Block. Deal 8 damage.","Deal 6 +4 per Exhausted card.","Lose 1 HP. Deal 13 damage to all enemies.","Deal 24 damage. Exhaust a random hand card.",
+ "Gain 8 Block. Deal 8 damage.","Deal 6 damage, plus 4 base damage for each card in your Exhaust pile.","Lose 1 HP. Deal 13 damage to all enemies.","Deal 24 damage. Exhaust a random hand card.",
  "Gain 11 Block. If you exhausted a card this turn, gain 11 more Block.","Gain 9 Block. Choose one card to Exhaust.","Lose 1 HP. Gain 2 Strength. Exhaust 1 card.","Hit all for 7. Apply 2 Vulnerable.",
  "Gain 4 Block per card Exhausted.","Deal damage equal to your Block. Cost 0.","3 damage to a random enemy 4 times.","Gain 5 Block. Upgrade ALL cards in hand.",
  "Gain 16 Block. Reflect 6 per enemy hit this turn.","Deal 12 damage. Choose a discarded card and put it on top of your draw pile.","Deal 9 damage. Draw cards until you draw a card that is not an Attack.","Deal 8 twice",
  "Each turn: lose 1 HP. HP lost on your turn: deal 9 damage to all enemies.","Lose 2 HP. Deal 20 damage.","Apply 4 Vulnerable. Exhaust.","Gain 10 Block. Apply 2 Vulnerable.",
- "Deal 10 damage. Twice if target Vulnerable.","Each Attack this turn grants 5 Block.","Apply 2 Vulnerable. Gain 1 Strength per Vulnerable. Exhaust.","Deal 4, +3 per Vulnerable on target.",
+ "Deal 10 damage. Twice if target Vulnerable.","Each Attack this turn grants 5 Block.","Apply 2 Vulnerable. Gain 1 Strength per Vulnerable. Exhaust.","Deal 4 damage, plus 3 base damage for each turn of Vulnerable on the target.",
  "Deal 2 damage to ALL enemies 5 times.","If at least 3 cards are exhausted, deal 24 damage to all enemies.","Lose 6 HP. Gain 2 Energy. Draw 4 cards. Exhaust.","Deal 16 damage. Apply 2 Weak and 2 Vulnerable.",
  "Deal 14 damage. Double foe Vulnerable. Exhaust.","When you lose HP on your turn, gain 2 Strength.","Exhaust hand. Deal 10 per card.","Exhaust 1 card. Draw 3 cards.",
  "Deal 9 damage. Add a copy to discard.","Exhaust all non-Attacks. +7 Block each.","Lose 2 HP. Gain 22 Block.","Deal 12 damage. Fatal: gain 4 max HP.",
@@ -217,11 +218,11 @@ const RelicDef relic_defs[]={
  {"Burning Thorn","At turn start, if at half HP or less, gain 3 Strength. Once per combat."},
  {"Fortress Pin","Each card effect that grants Block grants 2 extra Block."},
  {"Gold Tooth","After each won combat, gain 20 extra Gold."},
- {"Violet Orb","Potions become: Healing 23 HP; Strength +3; Guard 25 Block; Fire 25 base damage; Energy +3; Insight draws 4."},
+ {"Violet Orb","Improves every potion you use: +5 healing, +5 Block or +5 base Fire damage; +1 Strength, +1 Energy or +1 card drawn."},
  {"Sage's Ink","Draw 1 extra card at the start of every turn."},
  {"Broken Clock","At combat start, apply 2 Vulnerable to all enemies."},
  {"Iron Seed","At the start of turns 3, 6, 9 and so on, heal 4 HP."},
- {"Wildflower","Whenever you use a potion, gain 12 Block."},
+ {"Wildflower","During combat, using a potion grants 12 Block."},
  {"Worn Chain","Every 3 Skill cards played in one turn, gain 1 Dexterity for this combat."},
  {"Last Ember","Once per act, lethal damage instead restores you to 25% of maximum HP."},
  {"Bloodstone","Every 3 Attack cards played in one turn, heal 3 HP."},
@@ -230,7 +231,7 @@ const RelicDef relic_defs[]={
  {"Scavenger","Whenever you skip a combat card reward, heal 6 HP."},
  {"Vow of Steel","Start every combat with 1 additional Strength."},
  {"Sanctuary","Start every combat with 10 additional Block."},
- {"Seer's Oath","Draw 2 additional cards on the first turn of every combat."},
+ {"Old Compass","Draw 2 extra cards on the first turn of each combat."} /* legacy Seer's Oath ID; never offered */,
  {"Vital Offering","On pickup, gain 12 maximum HP and heal to full."},
  {"Pilgrim's Purse","On pickup, gain 100 Gold."},
  {"Ember Pact","Gain 1 additional Energy on the first turn of every combat."},
@@ -265,15 +266,24 @@ int game_card_is_upgradeable(int raw){
 }
 static int solo_reward_eligible(int id){
  return id>=3&&id<CARD_COUNT&&game_card_is_playable(id)&&
-   id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=56&&id!=59;
+   id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&cards[id].rarity<=2;
 }
 static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
- int pool[92],n=0;
- for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1)pool[n++]=id;
- return n?pool[rnd(g,n)]:5;
+ int pool[92],weight[92],n=0,total=0;
+ for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1){
+  int owned=0;for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==id){owned=1;break;}
+  /* Upgraded copies count as owned. Duplicates remain possible, at one third
+     the per-card weight of an unseen card in the same rarity tier. */
+  pool[n]=id;weight[n]=owned?1:3;total+=weight[n++];
+ }
+ if(!n)return 5;
+ int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weight[i])return pool[i];roll-=weight[i];}
+ return pool[n-1];
 }
-/* Events and shops have their own pool; combat rarity is explicit below. */
-static int card_reward(Game*g){int roll=rnd(g,100);return reward_of_rarity(g,roll<9?2:roll<46?1:0,-1,-1);}
+/* Events and shops keep their rarity rates; novelty affects only selection
+   within the rolled rarity, never the rarity itself. */
+static int card_reward_except(Game*g,int a,int b){int roll=rnd(g,100);return reward_of_rarity(g,roll<9?2:roll<46?1:0,a,b);}
+static int card_reward(Game*g){return card_reward_except(g,-1,-1);}
 static void fill_rewards(Game*g){
  for(int i=0;i<3;i++){
   int roll=rnd(g,100),rare=g->battle_type==NODE_BOSS?2:g->battle_type==NODE_ELITE?(roll<10?2:roll<50?1:0):(roll<37?1:0);
@@ -282,10 +292,10 @@ static void fill_rewards(Game*g){
   g->reward[i]=c|(upgraded?UPBIT:0);
  }
 }
-static void add_relic(Game*g,int id){if(id>=37){if(id==37)g->permanent_strength+=2;else if(id==38){g->maxhp+=10;g->hp=g->maxhp;}else if(id==39)g->gold+=150;return;}if(g->relic_count>=MAX_RELICS||relic(g,id))return;g->relics[g->relic_count++]=id;if(id==4){g->maxhp+=14;g->hp+=14;}if(id==31){g->maxhp+=12;g->hp=g->maxhp;}if(id==32)g->gold+=100;if(id==11){g->max_energy++;g->maxhp=MAX(1,g->maxhp-12);g->hp=MIN(g->hp,g->maxhp);}if(id==25)g->max_energy++;}
+static void add_relic(Game*g,int id){if(id==30)id=7;if(id>=37){if(id==37)g->permanent_strength+=2;else if(id==38){g->maxhp+=10;g->hp=g->maxhp;}else if(id==39)g->gold+=150;return;}if(g->relic_count>=MAX_RELICS||relic(g,id))return;g->relics[g->relic_count++]=id;if(id==4){g->maxhp+=14;g->hp+=14;}if(id==31){g->maxhp+=12;g->hp=g->maxhp;}if(id==32)g->gold+=100;if(id==11){g->max_energy++;g->maxhp=MAX(1,g->maxhp-12);g->hp=MIN(g->hp,g->maxhp);}if(id==25)g->max_energy++;}
 static int random_relic(Game*g){int id;for(int i=0;i<100;i++){id=1+rnd(g,27);if(!relic(g,id))return id;}return -1;}
 static void offer_blessing(Game*g){
- int pool[12],n=0;for(int id=28;id<37;id++)if(!relic(g,id))pool[n++]=id;
+ int pool[12],n=0;for(int id=28;id<37;id++)if(id!=30&&!relic(g,id))pool[n++]=id;
  if(n<3)for(int id=37;id<40;id++)pool[n++]=id;
  for(int i=0;i<3;i++){int pick=rnd(g,n);g->reward[i]=pool[pick];pool[pick]=pool[--n];}
  g->screen=BLESSING;g->selection=g->scroll=0;
@@ -343,6 +353,28 @@ static void map_select_reachable(Game*g) {
  for(int i=0;i<MAP_LANES;i++)
   if(game_route_available(g,i)){g->selection=i;return;}
 }
+/* Keep the planar topology, but make each fork a real room/reward choice.
+   A fork's two child lanes differ within two floors, before any merge. */
+static void map_distinguish_forks(Game*g){
+ uint32_t seed=route_hash(g->seed^(uint32_t)g->act*9973u);
+ int first=(int)(seed&1u)*2;g->map[1][first]=NODE_EVENT;g->map[1][2-first]=NODE_FIGHT;
+ for(int r=0;r<MAP_ROWS-1;r++){
+  unsigned live=route_layer(g,r,-1);
+  for(int lane=0;lane<3;lane++)if(live&(1u<<lane)){
+   unsigned edges=route_layer(g,r,lane);if((edges&(edges-1))==0)continue;
+   int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
+   uint32_t h=route_hash(seed+(unsigned)r*7117u);
+   if(h&1u){int temp=a;a=b;b=temp;}
+   int choice=r+1;if(choice==2||choice==7)choice++;
+   if(choice==3){
+    g->map[3][a]=NODE_SHOP;g->map[3][b]=(h&2u)?NODE_REST:NODE_EVENT;
+    /* Each lane still has exactly one shop, on floor 4 or floor 10. */
+    g->map[9][a]=(h&4u)?NODE_REST:NODE_EVENT;g->map[9][b]=NODE_SHOP;
+   }else if(choice==11){g->map[choice][a]=NODE_REST;g->map[choice][b]=NODE_EVENT;}
+   else {g->map[choice][a]=NODE_ELITE;g->map[choice][b]=NODE_FIGHT;}
+  }
+ }
+}
 static void map_generate(Game*g){
  uint32_t seed=route_hash(g->seed^(uint32_t)g->act*9973u);
  for(int r=0;r<MAP_ROWS;r++){
@@ -361,6 +393,7 @@ static void map_generate(Game*g){
    g->map[r][c]=n;
   }
  }
+ map_distinguish_forks(g);
 }
 static void shuffle(Game*g,int *p,int count){for(int i=count-1;i>0;i--){int j=rnd(g,i+1),temp=p[i];p[i]=p[j];p[j]=temp;}}
 static int has_strike_tag(const char *name);
@@ -458,8 +491,8 @@ static int attack_amount(const Game*g,int idx,int amt){
   amt=amt*3/2;
   if(g->ic[IC_CRUELTY])amt=amt*(100+g->ic[IC_CRUELTY])/100;
  }
- if(relic(g,3)&&g->ic[IC_ATTACKS_THIS_TURN]==0)amt+=5;
- if(relic(g,26)&&g->hp*2<=g->maxhp)amt+=3;
+ if(r140_attack_context&&relic(g,3)&&g->ic[IC_ATTACKS_THIS_TURN]==0)amt+=5;
+ if(r140_attack_context&&relic(g,26)&&g->hp*2<=g->maxhp)amt+=3;
  return amt;
 }
 static void damage_enemy(Game*g,int idx,int amt,int ignore_block){
@@ -470,7 +503,7 @@ static void damage_enemy(Game*g,int idx,int amt,int ignore_block){
  record_combat_fx(GFX_ATTACK,-1,idx,amt,ignore_block?0:MIN(e->block,amt));
  if(!ignore_block){int b=MIN(e->block,amt);e->block-=b;amt-=b;}
  e->hp-=amt;
- if(relic(g,9)&&g->ic[IC_ATTACKS_THIS_TURN]==0)e->weak=MAX(e->weak,2);
+ if(r140_attack_context&&relic(g,9)&&g->ic[IC_ATTACKS_THIS_TURN]==0&&!(r140_rust_targets&(1<<idx))){e->weak=MIN(99,e->weak+2);r140_rust_targets|=1<<idx;}
 
 }
 static void deal(Game*g,int idx,int n){damage_enemy(g,idx,n,0);}
@@ -635,6 +668,10 @@ static const char *potion_details[6]={
 };
 const char *game_potion_name(int id){return id>=0&&id<6?potion_titles[id]:"None";}
 const char *game_potion_description(int id){return id>=0&&id<6?potion_details[id]:"Empty slot";}
+const char *game_potion_description_now(const Game*g,int id){
+ static const char*enhanced[]={"Heal 23 HP (Violet Orb).","Gain 3 Strength this combat (Violet Orb).","Gain 25 Block (Violet Orb).","Deal 25 base damage to all enemies (Violet Orb).","Gain 3 Energy immediately (Violet Orb).","Draw 4 cards (Violet Orb)."};
+ return g&&relic(g,17)&&id>=0&&id<6?enhanced[id]:game_potion_description(id);
+}
 static int strike_count(const Game*g);
 static int card_base_damage(const Game *g,int raw,int target) {
  int id=CARD_ID(raw),up=CARD_UP(raw),base=0;
@@ -748,7 +785,7 @@ void game_start_turn(Game*g){
  if(relic(g,20)&&g->turn%3==0)heal(g,4);if(relic(g,34)&&g->turn%3==0)g->strength++;
  g->turn_played=0;g->reward_potion=0;g->shop_relic=0;g->shop_cards[1]=0;
  if(relic(g,14)&&!g->low_hp_triggered&&g->hp*2<=g->maxhp){g->strength+=3;g->low_hp_triggered=1;}
- int n=5+(relic(g,18)?1:0)+(g->turn==1?2*(relic(g,7)+relic(g,30)):0)-(relic(g,25)?1:0);
+ int n=5+(relic(g,18)?1:0)+(g->turn==1?2*relic(g,7):0)-(relic(g,25)?1:0);
  for(int i=0;i<n;i++)draw_card(g);
  if(g->ic[IC_AGGRESSION]>0){
   for(int j=0;j<g->ic[IC_AGGRESSION];j++){
@@ -1002,7 +1039,9 @@ void game_play_card(Game*g,int index,int enemy){
  int x_value=game_card_cost(raw)==-1?g->energy:0;
  if(id==10&&(raw&CARD_EPHEMERAL)&&repeated_x>=0)x_value=repeated_x;
  if(cost==-1)cost=g->energy;
- if(g->energy<cost)return;
+ if(g->energy<cost){snprintf(g->message,sizeof(g->message),"Need %d more Energy.",cost-g->energy);return;}
+ int saved_attack=r140_attack_context,saved_rust=r140_rust_targets;
+ r140_attack_context=cards[id].type==0;r140_rust_targets=0;
  int saved_fx_card=combat_fx_card;
  if(!preview_trace)combat_fx_card=raw;
  int saved_phase=preview_phase;
@@ -1271,6 +1310,7 @@ void game_play_card(Game*g,int index,int enemy){
      g->enemies[g->target].hp<=0)select_live_enemy(g,1);
   check_win(g);
  }
+ r140_attack_context=saved_attack;r140_rust_targets=saved_rust;
  if(!preview_trace)combat_fx_card=saved_fx_card;
  if(preview_trace){preview_depth--;preview_phase=saved_phase;}
 }
@@ -1310,7 +1350,7 @@ static void encounter(Game*g,int node){
  switch(node){
  case NODE_FIGHT:case NODE_ELITE:case NODE_BOSS:game_start_battle(g,node);break;
  case NODE_EVENT:g->screen=EVENT;g->effect_turn=rnd(g,12);g->scroll=MIN(20,MIN(g->gold/2,g->maxhp-g->hp));msg(g,"A strange encounter. Choose your fate.");break;
- case NODE_SHOP:g->screen=SHOP;for(int i=0;i<3;i++)g->shop_cards[i]=card_reward(g);g->shop_relic=random_relic(g);break;
+ case NODE_SHOP:g->screen=SHOP;for(int i=0;i<3;i++)g->shop_cards[i]=card_reward_except(g,i>0?g->shop_cards[0]:-1,i>1?g->shop_cards[1]:-1);g->shop_relic=random_relic(g);break;
  case NODE_REST:g->screen=REST;break;
  case NODE_TREASURE:{
    int r=random_relic(g);
@@ -1362,7 +1402,7 @@ static void shop_buy(Game*g,int choice){
  else if(choice==5){if(g->gold>=50&&g->potion_count<MAX_POTIONS){
    g->gold-=50;int potion=rnd(g,6);g->potions[g->potion_count++]=potion;
    snprintf(g->message,sizeof(g->message),"Potion gained: %s",game_potion_name(potion));
- }else msg(g,"No funds or potion slots.");}
+ }else msg(g,g->potion_count==MAX_POTIONS?"Belt full. No gold spent.":"Not enough gold.");}
  else if(choice==6){enter_map(g);}
 
 }
@@ -1447,9 +1487,14 @@ static void rest_pick(Game*g,int option){
  }
 }
 void game_use_potion(Game*g,int index){
- if(g->screen!=COMBAT||g->potion_count<=0)return;
+ int combat=g->screen==COMBAT;
+ int outside=g->screen==MAP||g->screen==SHOP||
+   (g->screen==POTION_VIEW&&(g->prior_screen==MAP||g->prior_screen==SHOP));
+ if((!combat&&!outside)||g->potion_count<=0)return;
  if(index<0||index>=g->potion_count)return;
  int id=g->potions[index];int bonus=relic(g,17)?5:0;
+ if(!combat&&id!=0){msg(g,"Use this potion during combat.");return;}
+ if(!combat&&g->hp==g->maxhp){msg(g,"Already at full health. Potion kept.");return;}
  int old_hp=g->hp,old_strength=g->strength,old_block=g->block,old_energy=g->energy,old_hand=g->hand_count;
  for(int i=index;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];
  g->potion_count--;
@@ -1459,7 +1504,7 @@ void game_use_potion(Game*g,int index){
  if(id==3)all_damage(g,20+bonus);
  if(id==4)g->energy+=2+(bonus>0);
  if(id==5){for(int i=0;i<3+(bonus>0);i++)draw_card(g);}
- if(relic(g,21)){g->block+=12;record_combat_fx(GFX_BLOCK,-1,-1,12,0);}
+ if(combat&&relic(g,21)){g->block+=12;record_combat_fx(GFX_BLOCK,-1,-1,12,0);}
  switch(id){
  case 0:snprintf(g->message,sizeof(g->message),"Healing potion: +%d HP",g->hp-old_hp);break;
  case 1:snprintf(g->message,sizeof(g->message),"Strength +%d (now %d)",g->strength-old_strength,g->strength);break;
@@ -1468,7 +1513,7 @@ void game_use_potion(Game*g,int index){
  case 4:snprintf(g->message,sizeof(g->message),"Energy potion: +%d Energy",g->energy-old_energy);break;
  case 5:snprintf(g->message,sizeof(g->message),"Insight potion: drew %d",MAX(0,g->hand_count-old_hand));break;
  }
- check_win(g);
+ if(combat)check_win(g);
 }
 static int paused_from_screen=MAP;
 int game_pause_source(void){return paused_from_screen;}
@@ -1482,6 +1527,11 @@ static void select_live_enemy(Game*g,int direction){
     g->target=(g->target+direction+g->enemy_count)%g->enemy_count;
     if(g->enemies[g->target].hp>0)return;
  }
+}
+/* Preserve the column where possible; a short final row clamps to its last card.
+   Down on the last row stays put instead of moving sideways. */
+static int grid_down(int selected,int count){
+ return (selected/3+1)*3<count?MIN(selected+3,count-1):selected;
 }
 void game_action(Game*g,int b){
  if(g->screen==COMBAT)g->ic[46]=0;
@@ -1529,11 +1579,12 @@ void game_action(Game*g,int b){
   else if(b==BTN_OK){if(g->floor==MAP_ROWS){game_start_battle(g,NODE_BOSS);}else game_choose_node(g,g->selection);}
   else if(b==BTN_ALT){g->prior_screen=MAP;g->screen=DECK_VIEW;g->selection=0;g->scroll=0;}
   else if(b==BTN_START){g->screen=RELIC_VIEW;g->prior_screen=MAP;g->selection=0;}
+  else if(b==BTN_POTION){g->shop_selection=g->selection;g->prior_screen=MAP;g->screen=POTION_VIEW;g->selection=0;msg(g,"");}
   break;
  case CARD_CHOICE:{
   int choices=g->next_screen==25?g->discard_count:g->hand_count;
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
-  else if(b==BTN_DOWN&&g->selection+3<choices)g->selection+=3;
+  else if(b==BTN_DOWN)g->selection=grid_down(g->selection,choices);
   else if(b==BTN_LEFT&&g->selection%3>0)g->selection--;
   else if(b==BTN_RIGHT&&g->selection%3<2&&g->selection+1<choices)g->selection++;
   else if(b==BTN_OK)settle_card_choice(g,g->selection);
@@ -1576,7 +1627,7 @@ void game_action(Game*g,int b){
  case SHOP:
   if(b==BTN_ALT){g->shop_selection=g->selection;g->deck_readonly=1;
     g->prior_screen=SHOP;g->screen=DECK_VIEW;g->selection=0;g->scroll=0;}
-  else if(b==BTN_POTION||b==BTN_START){g->shop_selection=g->selection;g->screen=POTION_VIEW;g->selection=0;}
+  else if(b==BTN_POTION||b==BTN_START){g->shop_selection=g->selection;g->prior_screen=SHOP;g->screen=POTION_VIEW;g->selection=0;msg(g,"");}
   else if(b==BTN_UP)g->selection=MAX(0,g->selection-1);
   else if(b==BTN_DOWN)g->selection=MIN(6,g->selection+1);
   else if(b==BTN_OK)shop_buy(g,g->selection);
@@ -1600,12 +1651,12 @@ void game_action(Game*g,int b){
          g->scroll==1?g->hand_count:
          g->scroll==2?g->discard_count:g->exhaust_count;
       if(b==BTN_UP&&g->selection>=3)g->selection-=3;
-      if(b==BTN_DOWN&&g->selection+3<count)g->selection+=3;
+      if(b==BTN_DOWN)g->selection=grid_down(g->selection,count);
     }
     break;
   }
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
-  else if(b==BTN_DOWN&&g->selection+3<g->deck_count)g->selection+=3;
+  else if(b==BTN_DOWN)g->selection=grid_down(g->selection,g->deck_count);
   else if(b==BTN_LEFT&&g->selection%3>0)g->selection--;
   else if(b==BTN_RIGHT&&g->selection%3<2&&g->selection+1<g->deck_count)
     g->selection++;
@@ -1668,9 +1719,10 @@ void game_action(Game*g,int b){
   else if(b==BTN_BACK||b==BTN_POTION||b==BTN_OK)g->screen=REWARD;
   break;
  case POTION_VIEW:
-  if(b==BTN_UP)g->selection=MAX(0,g->selection-1);
-  else if(b==BTN_DOWN)g->selection=MIN(MAX(0,g->potion_count-1),g->selection+1);
-  else if(b==BTN_BACK||b==BTN_POTION||b==BTN_START){g->screen=SHOP;g->selection=g->shop_selection;}
+  if(b==BTN_UP){g->selection=MAX(0,g->selection-1);msg(g,"");}
+  else if(b==BTN_DOWN){g->selection=MIN(MAX(0,g->potion_count-1),g->selection+1);msg(g,"");}
+  else if(b==BTN_OK){game_use_potion(g,g->selection);g->selection=MIN(g->selection,MAX(0,g->potion_count-1));}
+  else if(b==BTN_BACK||b==BTN_POTION||b==BTN_START){g->screen=g->prior_screen==MAP?MAP:SHOP;g->selection=g->shop_selection;msg(g,"");}
   break;
  case PAUSE_MENU:
    if(b==BTN_BACK)g->screen=paused_from_screen;
@@ -1683,8 +1735,16 @@ void game_action(Game*g,int b){
   else if(b==BTN_DOWN)g->selection=MIN(MAX(0,g->relic_count-1),g->selection+1);
   else if(b==BTN_BACK||b==BTN_OK)enter_map(g);
   break;
- case VICTORY:case DEFEAT:
-  if(b==BTN_OK){uint32_t seed=game_random(g);game_new(g,seed);}
+ case VICTORY:
+  if(b==BTN_LEFT||b==BTN_RIGHT||b==BTN_UP||b==BTN_DOWN)g->selection=1-CLAMP(g->selection,0,1);
+  else if(b==BTN_BACK||(b==BTN_OK&&g->selection==1)){uint32_t seed=game_random(g);game_new(g,seed);}
+  else if(b==BTN_OK){
+   g->endless=1;g->hp=g->maxhp;g->act++;g->floor=0;g->lane=1;g->win_screen=0;g->relic_pending=0;
+   map_generate(g);begin_act(g);
+  }
+  break;
+ case DEFEAT:
+  if(b==BTN_OK||b==BTN_BACK){uint32_t seed=game_random(g);game_new(g,seed);}
   break;
  }
 }
@@ -1771,7 +1831,30 @@ int game_load(Game*g,const char*path){
    if(temp.screen==MAP)map_select_reachable(&temp);
   }
  }else return 0;
- if(!game_validate(&temp))return 0;*g=temp;return 1;
+ if(temp.screen==POTION_VIEW&&temp.prior_screen!=MAP)temp.prior_screen=SHOP;
+ if(!game_validate(&temp))return 0;
+ /* Retire the duplicate blessing without renumbering any saved relic IDs. */
+ int count=0,compass=0;
+ for(int i=0;i<temp.relic_count;i++){
+  int id=temp.relics[i]==30?7:temp.relics[i];
+  if(id==7&&compass)continue;
+  if(id==7)compass=1;
+  temp.relics[count++]=id;
+ }
+ temp.relic_count=count;
+ /* A saved, unclaimed Seer's Oath becomes a repeatable Strength blessing;
+    it remains a legal blessing slot even when Compass is already owned. */
+ if(temp.screen==BLESSING)for(int i=0;i<3;i++)if(temp.reward[i]==30){
+  int replacement=37;
+  for(;replacement<40;replacement++){int used=0;for(int j=0;j<3;j++)used|=temp.reward[j]==replacement;if(!used)break;}
+  temp.reward[i]=replacement<40?replacement:37;
+ }
+ if(temp.battle_type==NODE_BOSS&&temp.win_screen&&
+    (temp.screen==REWARD||temp.screen==REWARD_PREVIEW||(temp.screen==DECK_VIEW&&temp.prior_screen==REWARD))){
+  int invalid=0;for(int i=0;i<3;i++)invalid|=cards[CARD_ID(temp.reward[i])].rarity!=2;
+  if(invalid)fill_rewards(&temp);
+ }
+ *g=temp;return 1;
 }
 
 /* Persistent, versioned lifetime profile. One result per unique run seed. */
@@ -1784,7 +1867,7 @@ static int profile_valid(const RiftProfile*p){
 }
 int profile_record(RiftProfile*p,const Game*g){
  if(!profile_valid(p)||!g||(g->screen!=VICTORY&&g->screen!=DEFEAT))return 0;
- if(p->runs&&p->last_seed==g->seed&&p->last_result==(uint32_t)g->screen)return 0;
+ if(p->runs&&p->last_seed==g->seed)return 0;
  p->runs++;
  if(g->screen==VICTORY)p->wins++;else p->losses++;
  unsigned distance=g->screen==VICTORY?3u*(MAP_ROWS+1):(unsigned)MIN(4294967295ULL,(unsigned long long)(g->act-1)*(MAP_ROWS+1)+g->floor);

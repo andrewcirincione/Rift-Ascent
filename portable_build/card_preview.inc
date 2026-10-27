@@ -86,9 +86,9 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
  if(cards[id].type==0){
   switch(id){
    case 12:snprintf(out,(size_t)cap,"Gain %s Block. Deal %s damage.",block,damage);break;
-   case 13:snprintf(out,(size_t)cap,"Deal %s damage (includes %d exhausted cards).",damage,g->exhaust_count);break;
+   case 13:snprintf(out,(size_t)cap,"Deal %s damage after modifiers. Base: 6 + %d per card in your Exhaust pile (%d now).",damage,3+up,g->exhaust_count);break;
    case 21:snprintf(out,(size_t)cap,"Deal %s damage, based on your Block.",damage);break;
-   case 35:snprintf(out,(size_t)cap,"Deal %s damage (includes target Vulnerable).",damage);break;
+   case 35:snprintf(out,(size_t)cap,"Deal %s damage after modifiers. Base: 4 + %d per turn of Vulnerable on the target (%d now).",damage,2+up,g->enemies[target].vulnerable);break;
    case 42:{int count=MAX(0,g->hand_count-1);snprintf(out,(size_t)cap,"Exhaust hand. Deal %s damage %d times. Exhaust.",damage,count);break;}
    case 49:snprintf(out,(size_t)cap,"Deal %s damage (includes %d owned Strikes).",damage,strike_count(g));break;
    case 79:snprintf(out,(size_t)cap,"Deal %s damage. Rampage gains %d base damage this combat.",damage,5+4*up);break;

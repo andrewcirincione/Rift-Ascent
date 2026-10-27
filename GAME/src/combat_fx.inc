@@ -6,7 +6,7 @@ static GameCombatFx r137_events[R137_MAX_EVENTS];
 static int r137_at[R137_MAX_EVENTS],r137_count,r137_duration,r137_audio_done[R137_MAX_EVENTS];
 static unsigned r137_start;
 static int r137_player_action;
-static int r137_last_screen,r1311_finishing,r1311_kill_at;
+static int r137_last_screen,r1311_finishing,r1311_kill_at,r140_chime_done;
 #define R1311_SLOW_WINDOW 28
 #define R1311_SLOW_FACTOR 4
 #define R1311_VICTORY_HOLD 48
@@ -45,7 +45,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
  r1311_finishing=after->screen==VICTORY||after->screen==REWARD||after->screen==RELIC_RESULT;
  r138_death_active=after->screen==DEFEAT;r138_death_start=0;
  r137_before=*before;r137_count=MIN(n,R137_MAX_EVENTS);r137_start=tick;r137_duration=0;r137_held_valid=0;r137_held_event=-1;
- r137_player_action=0;
+ r137_player_action=0;r140_chime_done=0;
  if(action==BTN_OK&&before->selection>=0&&before->selection<before->hand_count){
   int raw=before->hand[before->selection];r137_player_action=cards[CARD_ID(raw)].type==0?1:cards[CARD_ID(raw)].type==2?3:0;
  }
@@ -70,7 +70,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
    seen|=mask;last_card=e->card;last_source=e->source;
   }else if(e->kind==GFX_POWER)beat=0;
   r137_at[i]=MIN(44,beat);
-  int end=r137_at[i]+(e->kind==GFX_POWER?30:e->kind==GFX_BLOCK?14:e->kind==GFX_STATUS?20:18+r137_hold(tier));
+  int end=r137_at[i]+(e->kind==GFX_POWER?16:e->kind==GFX_BLOCK?14:e->kind==GFX_STATUS?20:18+r137_hold(tier));
   if(end>r137_duration)r137_duration=end;
   last_kind=e->kind;
  }
@@ -94,6 +94,9 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
 }
 void game_render_update_fx(unsigned tick){
  int age=r137_age(tick);
+ if(r1311_finishing&&!r140_chime_done&&r137_raw_age(tick)>=r1311_banner_at()){
+  r140_chime_done=1;rift_sound_effect(10);
+ }
  for(int i=0;i<r137_count;i++)if(!r137_audio_done[i]&&age>=r137_at[i]){
   const GameCombatFx*e=&r137_events[i];r137_audio_done[i]=1;
   /* Every recorded contact dispatches once, including a skipped visual frame. */
@@ -167,17 +170,20 @@ static int r137_latest(int actor,int kind,int age){
 /* Foot anchors measured on opaque boot pixels, excluding cape and sword. */
 static const int r1311_power_x[6]={50,51,54,54,63,63};
 static const int r1311_power_y[6]={60,60,61,61,63,63};
+/* Three readable casting poses, then immediately return to the idle stance. */
+static int r140_power_pose(int age){return age<0||age>=16?-1:age<4?1:age<12?3:5;}
+static int r140_idle_breath(int art,unsigned tick){return (wave(tick/4u+(unsigned)art*17u,48+art%5*4,4)+5)/4;}
 static void r137_scene(const Game*g){
  int age=r137_age(animation_tick),pa=r137_latest(-1,GFX_ATTACK,age),pb=r137_latest(-1,GFX_BLOCK,age),pp=r137_latest(-1,GFX_POWER,age);
  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
  int pre=(rift120_played_card>=0&&animation_tick>=rift120_play_tick)?(int)(animation_tick-rift120_play_tick):99;
  if(pa>=0){int a=r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)),tier=game_impact_tier(r137_events[pa].amount);
   if(a<18){dx=0;lean=0;dy=0;pose=1;pose_frame=a<3?2:a<8?3:a<14?4:5;}
- }else if(pp>=0){int a=age-r137_at[pp];dy=0;pose=3;pose_frame=MIN(5,a/5);lean=0;}
+ }else if(pp>=0){int f=r140_power_pose(age-r137_at[pp]);if(f>=0){dy=0;pose=3;pose_frame=f;lean=0;}}
  else if(pb>=0){int a=age-r137_at[pb];if(a<12){pose=2;pose_frame=2;}}
  else if(pre<18&&r136_play_state_valid){int c=cards[CARD_ID(rift120_played_card)].type;
   int a=pre<9?pre:17-pre;dx=0;dy=0;lean=0;
-  pose=r137_prepose;pose_frame=pose==2?2:pre<10?0:1;
+  pose=r137_prepose;pose_frame=pose==2?2:pose==3?1:pre<10?0:1;
  }
  /* Plating has a visible guard hold before the separately resolved enemy turn. */
  if(g->ic[38]&&g->ic[IC_PLATING]>0&&g->block>0&&pa<0&&pp<0){pose=2;pose_frame=2;}
@@ -190,11 +196,11 @@ static void r137_scene(const Game*g){
  }
  if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
-  r138_hero_clip=1;r137_blit(41,58,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;
+  r138_hero_clip=1;r137_blit(41,61,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;
  }else{
   r137_fire(g,118+dx,animation_tick/4,0);
-  if(pose){r138_hero_clip=1;if(pose==1)r137_blit(51+dx,58+dy,163,113,r139_attack[pose_frame],208,144,255,0);else if(pose==3)r137_blit(r1311_power_x[pose_frame]+dx,r1311_power_y[pose_frame],150,113,r137_hero_frames[12+pose_frame],192,144,255,0);else r137_blit(53+dx,58+dy,150,113,r137_hero_frames[(pose-1)*6+pose_frame],192,144,255,0);r138_hero_clip=0;}
-  else r137_actor(41+dx,87+dy+wave(animation_tick/4,110,1),pw,ph,rift_hero,RIFT_HERO_W,RIFT_HERO_H,0,lean,255,player_flash);
+  if(pose){r138_hero_clip=1;if(pose==1)r137_blit(51+dx,61+dy,163,113,r140_attack[pose_frame],208,144,255,0);else if(pose==3)r137_blit(r1311_power_x[pose_frame]+dx,r1311_power_y[pose_frame]+3,150,113,r137_hero_frames[12+pose_frame],192,144,255,0);else r137_blit(53+dx,61+dy,150,113,r137_hero_frames[(pose-1)*6+pose_frame],192,144,255,0);r138_hero_clip=0;}
+  else r137_actor(41+dx,90+dy,pw,ph,rift_hero,RIFT_HERO_W,RIFT_HERO_H,0,lean,255,player_flash);
   r137_fire(g,118+dx,animation_tick/4,1);
  }
  for(int e=0;e<g->enemy_count;e++){
@@ -206,11 +212,14 @@ static void r137_scene(const Game*g){
   if(w>maxw){h=h*maxw/w;w=maxw;}
   int ex=r134_enemy_x(g,e),y=174-h,tilt=0,flash=0,opacity=255;
   int atk=r137_latest(e,GFX_ATTACK,age),guard=r137_latest(e,GFX_BLOCK,age);
+  if(atk<0&&guard<0&&hit<0&&!enemy_windup){
+   int breath=r140_idle_breath(art,animation_tick);h-=breath;y+=breath;
+  }
   if(enemy_windup>0&&game_enemy_intent_hits(g,e)>0){int t=23-enemy_windup;ex+=t/4;y+=t/7;h-=t/7;tilt=3;}
   if(atk>=0){int tier=game_impact_tier(r137_events[atk].amount),t=r137_local_time(age-r137_at[atk],tier);if(t<18){ex-=(20+4*tier)*(18-t)/18;tilt=-(9+tier)*(18-t)/18;w+=6;y+=2;h-=2;}}
   if(guard>=0&&age-r137_at[guard]<18){y+=4;h-=4;w+=4;tilt=3;}
   if(hit>=0){int a=age-r137_at[hit],tier=game_impact_tier(r137_events[hit].amount),t=r137_local_time(a,tier);if(t<18){ex+=(3+tier*3)*(18-t)/18;tilt=5+tier;flash=t<2?90+tier*20:0;}if(foe->hp<=0){opacity=CLAMP(255-a*11,0,255);y+=a/2;}}
-  int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==35);
+  int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==35||art==28);
   if(art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
   if(art==9)r137_blit(ex-w/2,y,w,h,r1310_hound,144,96,opacity,0);
   else r137_actor(ex-w/2,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,opacity,flash);
@@ -245,9 +254,9 @@ static void r137_scene(const Game*g){
    int size=60+a; r137_blit(cx-size/2,119-size/2,size,size,r139_status,88,88,(20-a)*12,0);
    const uint32_t*icon=(e->amount&1)?r135_vulnerable:(e->amount&2)?r135_weak:(e->amount&4)?r135_poison:r135_strength;
    r134_blit(cx-12,91-a/2,24,24,icon,22,22,(20-a)*12);
-  }else if(e->kind==GFX_POWER&&a<30){
-   int phase=MIN(5,a/5),size=65+(a<15?a:30-a);
-   r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>23?(30-a)*255/7:240,0);
+  }else if(e->kind==GFX_POWER&&a<16){
+   int phase=a<4?1:a<12?3:5,size=65+(a<8?a:16-a);
+   r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
   }else if(e->kind==GFX_SELF&&a<22){char number[24];snprintf(number,sizeof(number),"-%d",e->amount);r135_shadow_text(98,107-a/2,number,RED,&r134_f18b);}
  }
  /* Brief hold of the actual battlefield framebuffer at contact. HUD, hand,

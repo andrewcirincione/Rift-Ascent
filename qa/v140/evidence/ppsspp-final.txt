@@ -1,0 +1,51 @@
+SHOT title
+SHOT combat
+SHOT bully-preview
+SHOT ashen-preview
+SHOT no-energy
+SHOT low-energy
+SHOT boss-rewards
+SHOT map-chest
+SHOT map-routes-1-0
+SHOT map-routes-1-6
+SHOT map-routes-2-12
+SHOT endless-choice
+SHOT camp-controller
+SHOT inventory-potions
+SHOT inventory-relics
+SHOT inventory-potions-selected
+SHOT inventory-relics-selected
+SHOT upgrade-short-row-selected
+SHOT remove-short-row-selected
+SHOT discard-short-row-selected
+PASS real D-pad Down reaches short final row in upgrade/removal/discard; correct Bully upgraded
+SHOT shop-purchase-1
+SHOT shop-purchase-2
+SHOT shop-purchase-3
+SHOT shop-belt-full-notice
+SHOT shop-full-belt
+PASS 3 real shop purchases: prior slots retained, three-slot capacity, full-belt refusal without charge, belt browse/return
+SHOT map-potion-belt
+SHOT map-potion-used
+SHOT map-after-healing
+PASS map Triangle potion belt, +23 HP with Violet Orb, consumption of only Healing, other potions retained, return to map
+SHOT continued-endless
+PASS compiled normal-victory choices: Continue Endless at Act IV with belongings, or Return to Menu
+SHOT no-energy-denied
+PASS compiled no-energy feedback and rejection without spending or discarding
+SHOT sword-windup
+SHOT sword-impact
+SHOT sword-follow-through
+PASS new heavy sword sprites in actual attack; duration remains 24 ticks
+SHOT idle-28-a
+SHOT idle-28-b
+SHOT idle-28-b
+PASS natural idle motion 28 changed sprite-region pixels 1868 ticks 1220 1280
+SHOT power-cast
+PASS compiled Power duration: 16 ticks / four rendered frames
+SHOT victory
+SHOT victory-rewards
+PASS final contact music pause; generated Victory art; exactly one chime; prompt rewards
+PASS non-silent compiled PSP audio
+PASS final release EBOOT 1.4.0: PPSSPP screenshots, controller navigation, power timing, enemy idles, Victory/chime/audio and reward transition
+SHA256 b9f80837cf47d09e0c6a7cef02c67d2d1e13c08a90ba8ee68987280a29ac7043

@@ -6,13 +6,14 @@ CFLAGS = -DRIFT_BOOT_TRACE -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-
 LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = RIFT ASCENT 1.3.11
+PSP_EBOOT_TITLE = RIFT ASCENT 1.4.0
 PSP_EBOOT_ICON = ICON0.PNG
+PSP_EBOOT_ICON1 = ICON1.PMF
 PSP_EBOOT_PIC1 = PIC1.PNG
 PSP_EBOOT_SND0 = SND0.AT3
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build.mak
 
-render.o: rift1311_art.h combat_fx.inc rift1310_art.h rift139_art.h rift138_art.h rift137_art.h game.h sound.h
+render.o: rift140_art.h rift1311_art.h combat_fx.inc rift1310_art.h rift139_art.h rift138_art.h rift137_art.h game.h sound.h
 game.o: card_preview.inc game.h
 sound.o psp_start.o: sound.h game.h

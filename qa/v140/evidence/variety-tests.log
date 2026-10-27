@@ -1,0 +1,13 @@
+PASS rarity 0 ownership mode 0: unseen 1.000, expected 1.000; every eligible card remains possible
+PASS rarity 0 ownership mode 1: unseen 0.751, expected 0.750; every eligible card remains possible
+PASS rarity 0 ownership mode 2: unseen 0.746, expected 0.750; every eligible card remains possible
+PASS rarity 0 ownership mode 3: unseen 0.000, expected 0.000; every eligible card remains possible
+PASS rarity 1 ownership mode 0: unseen 1.000, expected 1.000; every eligible card remains possible
+PASS rarity 1 ownership mode 1: unseen 0.741, expected 0.739; every eligible card remains possible
+PASS rarity 1 ownership mode 2: unseen 0.738, expected 0.739; every eligible card remains possible
+PASS rarity 1 ownership mode 3: unseen 0.000, expected 0.000; every eligible card remains possible
+PASS rarity 2 ownership mode 0: unseen 1.000, expected 1.000; every eligible card remains possible
+PASS rarity 2 ownership mode 1: unseen 0.734, expected 0.735; every eligible card remains possible
+PASS rarity 2 ownership mode 2: unseen 0.734, expected 0.735; every eligible card remains possible
+PASS rarity 2 ownership mode 3: unseen 0.000, expected 0.000; every eligible card remains possible
+PASS 720000 weighted selections and 60000 distinct shop offers; 3:1 unseen/owned card weights, base/upgraded equivalence, all-owned fallback, deterministic save and unchanged 54/37/9 shop rarity rates (32458/22082/5460)

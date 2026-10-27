@@ -1,0 +1,134 @@
+[
+  {
+    "frame": 0,
+    "source_anchor": [
+      296,
+      511
+    ],
+    "sprite_bounds": [
+      53,
+      139,
+      478,
+      512
+    ],
+    "canvas_offset": [
+      16,
+      34
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  },
+  {
+    "frame": 1,
+    "source_anchor": [
+      816,
+      511
+    ],
+    "sprite_bounds": [
+      565,
+      40,
+      977,
+      512
+    ],
+    "canvas_offset": [
+      13,
+      5
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  },
+  {
+    "frame": 2,
+    "source_anchor": [
+      1276,
+      511
+    ],
+    "sprite_bounds": [
+      1061,
+      198,
+      1517,
+      512
+    ],
+    "canvas_offset": [
+      24,
+      51
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  },
+  {
+    "frame": 3,
+    "source_anchor": [
+      245,
+      956
+    ],
+    "sprite_bounds": [
+      26,
+      609,
+      595,
+      956
+    ],
+    "canvas_offset": [
+      22,
+      41
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  },
+  {
+    "frame": 4,
+    "source_anchor": [
+      801,
+      956
+    ],
+    "sprite_bounds": [
+      565,
+      652,
+      1096,
+      957
+    ],
+    "canvas_offset": [
+      18,
+      54
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  },
+  {
+    "frame": 5,
+    "source_anchor": [
+      1330,
+      956
+    ],
+    "sprite_bounds": [
+      1093,
+      567,
+      1500,
+      958
+    ],
+    "canvas_offset": [
+      17,
+      29
+    ],
+    "canvas_anchor": [
+      86,
+      142
+    ],
+    "scale": 0.29
+  }
+]

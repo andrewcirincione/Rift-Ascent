@@ -254,7 +254,7 @@ static void step_action(int key,unsigned tick) {
            game.selection>=0 && game.selection<game.hand_count) {
             int raw=game.hand[game.selection];
             int type=cards[CARD_ID(raw)].type;
-            if(game_card_is_playable(raw) && 
+            if(game_card_is_playable(raw) &&
                 (game_card_cost_now(&game,raw)<=game.energy ||
                   game_card_cost_now(&game,raw)==-1)) fx=(type==0?1:type==2?5:0);
         } else if(key==BTN_POTION)fx=3;
@@ -278,9 +278,10 @@ static void step_action(int key,unsigned tick) {
     if(sound)rift_sound_effect(sound);
     if(before_input.screen!=game.screen ||
        before_input.hp!=game.hp||before_input.block!=game.block||
-       before_input.hand_count!=game.hand_count||fx || events ||
+       before_input.hand_count!=game.hand_count||before_input.potion_count!=game.potion_count||fx || events ||
        (oldscreen==COMBAT&&key==BTN_OK&&before_input.turn_played!=game.turn_played)||
-       (key==BTN_BACK&&before_input.screen==COMBAT))
+       (key==BTN_BACK&&before_input.screen==COMBAT)||
+       (key==BTN_OK&&before_input.screen==SHOP))
         game_render_feedback(&before_input,&game,key,tick);
 }
 static int run_game(SceSize bytes,void *argp) {

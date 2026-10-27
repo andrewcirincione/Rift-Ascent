@@ -14,6 +14,7 @@ typedef struct {
  unsigned impact_age[4],impact_phase[4];
  int impact_tier[4],impact_low[4];
  unsigned power_seen,power_age,power_phase;
+ unsigned victory_seen,victory_age,victory_phase[3];
  int16_t ambience_delay[4096];
 } RiftSound;
 void rift_audio_generate(RiftSound *s,int16_t *out,int frames,int battle,int accent);

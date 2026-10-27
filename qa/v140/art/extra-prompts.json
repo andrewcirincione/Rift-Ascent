@@ -1,0 +1,19 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "asset": "energy",
+      "prompt": "Use case: stylized-concept. Create a new depleted-energy game UI orb matching the attached small blue energy jewel in design language, but clearly empty of magic. Single circular polished smoky-grey stone in a restrained weathered dark silver gothic bezel. The center is dark slate grey, with faint cold silver reflection, not blue and not glowing. Sculpted chunky silhouette must read at 18 pixels; no fine decorative line additions. Leave the center empty for a runtime cost numeral. Entire circular icon fully in frame with transparent margins. Painted dark gothic videogame inventory asset, no text, no numbers, no surrounding scene, genuine transparent alpha.",
+      "reference": [
+        "qa/v134/assets/energy.png"
+      ]
+    },
+    {
+      "asset": "attack",
+      "prompt": "Use case: stylized-concept. Production game sprite sheet: six NEW sequential frames of the SAME dark gothic armored warrior from the reference, wielding the same huge heavy two-handed sword, facing RIGHT. Blackened steel full plate armor and closed helmet with warm bronze edges, torn deep crimson cape. Six equal cells in a precisely aligned 3-column by 2-row grid, left-to-right then next row. Full body and entire sword visible in EACH cell with generous transparent margins, no clipped blade. The actual combat attack must look like he is SWINGING a very heavy greatsword using hips, shoulders, bent knees and both hands, NEVER a short forward baseball bunt or static jab. Frame 1: grounded preparation with sword carried diagonally back, feet planted. Frame 2: huge coiled wind-up, blade above and behind his left shoulder, torso rotated away from enemy. Frame 3: decisive diagonal downswing with blade passing across body in a broad arc, hips unwind. Frame 4: full extended cutting swing to the right, arms extended downward-right and whole torso turning through contact. Frame 5: deep low follow-through, blade fully across the front and low right, cape follows. Frame 6: recover from follow-through toward ready stance. Maintain identical armor, proportions, body scale, planted foot center and floor baseline in all six cells. Only upper body rotates; no jumping, no translating across cells. Dynamic but anatomically coherent two-handed grip. No duplicated swords, no magic effects, no drawn motion lines, no extra particles, no shadows on background, no text or borders. Isolated hand-painted detailed sprites on genuinely transparent background. Wide sheet around 3:2 aspect ratio, each cell roughly square; whole figure occupies center 80 percent of cell, stance feet near 90 percent height.",
+      "reference": [
+        "qa/v139/assets/attack_0.png"
+      ]
+    }
+  ]
+}

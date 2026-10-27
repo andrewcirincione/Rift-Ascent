@@ -10,7 +10,7 @@
 static volatile unsigned fx_serial=0;
 static volatile int fx_request=0;
 static volatile unsigned block_serial=0;
-static volatile unsigned impact_serial=0,power_serial=0;
+static volatile unsigned impact_serial=0,power_serial=0,victory_serial=0;
 static volatile int impact_requests[32];
 void rift_sound_impact(int damage,int blocked){
  int tier=damage>20?3:damage>10?2:damage>0?1:0;
@@ -18,7 +18,8 @@ void rift_sound_impact(int damage,int blocked){
  if(blocked)block_serial++;
 }
 void rift_sound_effect(int kind){
- if(kind<=0||kind>9)return;
+ if(kind<=0||kind>10)return;
+ if(kind==10){victory_serial++;return;}
  if(kind==9){power_serial++;return;}
  if(kind==8){block_serial++;return;}
  fx_request=kind;fx_serial++;
@@ -35,6 +36,7 @@ void rift_sound_reset(RiftSound *s){
  s->block_serial=block_serial;s->block_age=12000;s->block_phase=0;
  s->impact_seen=impact_serial;s->impact_voice=0;
  for(int i=0;i<4;i++){s->impact_age[i]=20000;s->impact_phase[i]=0;s->impact_tier[i]=0;s->impact_low[i]=0;}
+ s->victory_seen=victory_serial;s->victory_age=40000;for(int i=0;i<3;i++)s->victory_phase[i]=0;
  s->power_seen=power_serial;s->power_age=20000;s->power_phase=0;
  for(unsigned i=0;i<4096;i++)s->ambience_delay[i]=0;
 }
@@ -130,6 +132,20 @@ void rift_audio_generate(RiftSound *s,int16_t *out,int frames,int battle,int acc
    int a=(int)s->power_age,env=a<1800?a*3000/1800:(16000-a)*3000/14200;
    int tone=triangle(s->power_phase)+triangle(s->power_phase*2u)/2;
    sfx+=tone*env/49152;s->power_phase+=29000000u+(unsigned)a*900u;s->power_age++;
+  }
+  /* Short three-note bell flourish, separate from attacks and cursor SFX. */
+  if(s->victory_seen!=victory_serial){s->victory_seen=victory_serial;s->victory_age=0;for(int n=0;n<3;n++)s->victory_phase[n]=0;}
+  if(s->victory_age<28665u){
+   static const unsigned step[3]={50960076u,64188931u,76352335u};
+   for(int n=0;n<3;n++){
+    int a=(int)s->victory_age-n*3528,duration=21609;
+    if(a>=0&&a<duration){
+     int env=(duration-a)*4096/duration;if(a<160)env=env*a/160;
+     int bell=triangle(s->victory_phase[n])/2+triangle(s->victory_phase[n]*2u)/4+triangle(s->victory_phase[n]*3u)/8;
+     sfx+=(bell*env/4096)*4000/32768;s->victory_phase[n]+=step[n];
+    }
+   }
+   s->victory_age++;
   }
   out[i*2]=limit(sfx);
   out[i*2+1]=limit(sfx);

@@ -1,0 +1,74 @@
+SHOT title
+SHOT combat
+SHOT hand-middle
+SHOT hand-left
+SHOT camp-rest
+SHOT camp-upgrade
+SHOT potions
+SHOT relic-orb
+SHOT potion-reward-0
+SHOT potion-reward-5
+SHOT shop-orb
+SHOT map-chest
+SHOT boss-rewards
+SHOT endless-choice
+SHOT menu-choice
+SHOT card-top-48
+SHOT card-top-84
+SHOT bully-preview
+SHOT camp-controller
+SHOT inventory-potions
+SHOT inventory-relics
+SHOT inventory-potions-selected
+SHOT inventory-relics-selected
+SHOT upgrade-short-row-selected
+SHOT remove-short-row-selected
+SHOT discard-short-row-selected
+PASS real D-pad Down reaches short final row in upgrade/removal/discard; correct Bully upgraded
+SHOT shop-purchase-1
+SHOT shop-purchase-2
+SHOT shop-purchase-3
+SHOT shop-belt-full-notice
+SHOT shop-full-belt
+PASS 12 real shop purchases: prior slots retained, three-slot capacity, full-belt refusal without charge, belt browse/return
+SHOT map-potion-belt
+SHOT map-potion-used
+SHOT map-after-healing
+PASS map Triangle potion belt, +23 HP with Violet Orb, consumption of only Healing, other potions retained, return to map
+SHOT continued-endless
+PASS compiled normal-victory choices: Continue Endless at Act IV with belongings, or Return to Menu
+SHOT idle-00-a
+SHOT idle-00-b
+PASS natural idle motion 0 changed sprite-region pixels 1682 ticks 1984 2012
+SHOT idle-05-a
+SHOT idle-05-b
+PASS natural idle motion 5 changed sprite-region pixels 1958 ticks 2048 2072
+SHOT idle-09-a
+SHOT idle-09-b
+SHOT idle-09-b
+PASS natural idle motion 9 changed sprite-region pixels 2722 ticks 2108 2164
+SHOT idle-16-a
+SHOT idle-16-b
+PASS natural idle motion 16 changed sprite-region pixels 1655 ticks 2200 2228
+SHOT idle-19-a
+SHOT idle-19-b
+SHOT idle-19-b
+SHOT idle-19-b
+PASS natural idle motion 19 changed sprite-region pixels 1908 ticks 2264 2348
+SHOT idle-28-a
+SHOT idle-28-b
+SHOT idle-28-b
+SHOT idle-28-b
+SHOT idle-28-b
+PASS natural idle motion 28 changed sprite-region pixels 1868 ticks 2380 2484
+SHOT idle-35-a
+SHOT idle-35-b
+PASS natural idle motion 35 changed sprite-region pixels 1654 ticks 2516 2544
+SHOT power-cast
+PASS compiled Power duration: 16 ticks / four rendered frames
+SHOT victory
+SHOT victory-rewards
+PASS final contact music pause; generated Victory art; exactly one chime; prompt rewards
+PASS non-silent compiled PSP audio
+PASS final release EBOOT 1.4.0: PPSSPP screenshots, controller navigation, power timing, enemy idles, Victory/chime/audio and reward transition
+SHA256 cd1746e05ef8e8012e67c654418759d53f7fc6e48c9f41a0e6e7ee5ac817f3b6

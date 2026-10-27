@@ -115,6 +115,7 @@ const char *game_intent_description(int intent);
 const char *game_intent_title(int intent);
 const char *game_potion_name(int id);
 const char *game_potion_description(int id);
+const char *game_potion_description_now(const Game *g,int id);
 int game_effective_damage(const Game *g,int raw,int target);
 /* Current per-hit damage is before enemy Block. Previewing never advances RNG
    or changes the live run. Ranges represent unresolved random outcomes. */

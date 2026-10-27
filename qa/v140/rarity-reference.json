@@ -1,0 +1,511 @@
+{
+  "reference": "https://sts.wiki/cards",
+  "reference_version": "v0.107.1",
+  "checked": "2026-10-26",
+  "cards": [
+    {
+      "id": 3,
+      "name": "Stomp",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/stomp"
+    },
+    {
+      "id": 4,
+      "name": "Battle Trance",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/battle-trance"
+    },
+    {
+      "id": 5,
+      "name": "Shrug It Off",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/shrug-it-off"
+    },
+    {
+      "id": 6,
+      "name": "Bloodletting",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/bloodletting"
+    },
+    {
+      "id": 7,
+      "name": "Bludgeon",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/bludgeon"
+    },
+    {
+      "id": 8,
+      "name": "Inflame",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/inflame"
+    },
+    {
+      "id": 9,
+      "name": "Impervious",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/impervious"
+    },
+    {
+      "id": 10,
+      "name": "Whirlwind",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/whirlwind"
+    },
+    {
+      "id": 11,
+      "name": "Pommel Strike",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/pommel-strike"
+    },
+    {
+      "id": 12,
+      "name": "Iron Wave",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/iron-wave"
+    },
+    {
+      "id": 13,
+      "name": "Ashen Strike",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/ashen-strike"
+    },
+    {
+      "id": 14,
+      "name": "Breakthrough",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/breakthrough"
+    },
+    {
+      "id": 15,
+      "name": "Cinder",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/cinder"
+    },
+    {
+      "id": 16,
+      "name": "Evil Eye",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/evil-eye"
+    },
+    {
+      "id": 17,
+      "name": "True Grit",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/true-grit"
+    },
+    {
+      "id": 18,
+      "name": "Brand",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/brand"
+    },
+    {
+      "id": 19,
+      "name": "Thunderclap",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/thunderclap"
+    },
+    {
+      "id": 20,
+      "name": "Feel No Pain",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/feel-no-pain"
+    },
+    {
+      "id": 21,
+      "name": "Body Slam",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/body-slam"
+    },
+    {
+      "id": 22,
+      "name": "Sword Boomerang",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/sword-boomerang"
+    },
+    {
+      "id": 23,
+      "name": "Armaments",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/armaments"
+    },
+    {
+      "id": 24,
+      "name": "Flame Barrier",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/flame-barrier"
+    },
+    {
+      "id": 25,
+      "name": "Headbutt",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/headbutt"
+    },
+    {
+      "id": 26,
+      "name": "Pillage",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/pillage"
+    },
+    {
+      "id": 27,
+      "name": "Twin Strike",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/twin-strike"
+    },
+    {
+      "id": 28,
+      "name": "Inferno",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/inferno"
+    },
+    {
+      "id": 29,
+      "name": "Hemokinesis",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/hemokinesis"
+    },
+    {
+      "id": 30,
+      "name": "Tremble",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/tremble"
+    },
+    {
+      "id": 31,
+      "name": "Taunt",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/taunt"
+    },
+    {
+      "id": 32,
+      "name": "Dismantle",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/dismantle"
+    },
+    {
+      "id": 33,
+      "name": "Rage",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/rage"
+    },
+    {
+      "id": 34,
+      "name": "Dominate",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/dominate"
+    },
+    {
+      "id": 35,
+      "name": "Bully",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/bully"
+    },
+    {
+      "id": 36,
+      "name": "Conflagration",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/conflagration"
+    },
+    {
+      "id": 37,
+      "name": "Pact's End",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/pacts-end"
+    },
+    {
+      "id": 38,
+      "name": "Offering",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/offering"
+    },
+    {
+      "id": 39,
+      "name": "Uppercut",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/uppercut"
+    },
+    {
+      "id": 40,
+      "name": "Molten Fist",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/molten-fist"
+    },
+    {
+      "id": 41,
+      "name": "Rupture",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/rupture"
+    },
+    {
+      "id": 42,
+      "name": "Fiend Fire",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/fiend-fire"
+    },
+    {
+      "id": 43,
+      "name": "Burning Pact",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/burning-pact"
+    },
+    {
+      "id": 44,
+      "name": "Anger",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/anger"
+    },
+    {
+      "id": 45,
+      "name": "Second Wind",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/second-wind"
+    },
+    {
+      "id": 46,
+      "name": "Blood Wall",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/blood-wall"
+    },
+    {
+      "id": 47,
+      "name": "Feed",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/feed"
+    },
+    {
+      "id": 48,
+      "name": "Demon Form",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/demon-form"
+    },
+    {
+      "id": 49,
+      "name": "Perfected Strike",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/perfected-strike"
+    },
+    {
+      "id": 54,
+      "name": "Aggression",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/aggression"
+    },
+    {
+      "id": 55,
+      "name": "Barricade",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/barricade"
+    },
+    {
+      "id": 56,
+      "name": "Break",
+      "rarity": 3,
+      "source": "https://sts.wiki/cards/break"
+    },
+    {
+      "id": 57,
+      "name": "Cascade",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/cascade"
+    },
+    {
+      "id": 58,
+      "name": "Colossus",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/colossus"
+    },
+    {
+      "id": 59,
+      "name": "Corruption",
+      "rarity": 3,
+      "source": "https://sts.wiki/cards/corruption"
+    },
+    {
+      "id": 60,
+      "name": "Crimson Mantle",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/crimson-mantle"
+    },
+    {
+      "id": 61,
+      "name": "Cruelty",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/cruelty"
+    },
+    {
+      "id": 62,
+      "name": "Dark Embrace",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/dark-embrace"
+    },
+    {
+      "id": 63,
+      "name": "Demonic Shield",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/demonic-shield"
+    },
+    {
+      "id": 64,
+      "name": "Drum of Battle",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/drum-of-battle"
+    },
+    {
+      "id": 65,
+      "name": "Expect a Fight",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/expect-a-fight"
+    },
+    {
+      "id": 66,
+      "name": "Fight Me!",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/fight-me"
+    },
+    {
+      "id": 67,
+      "name": "Forgotten Ritual",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/forgotten-ritual"
+    },
+    {
+      "id": 68,
+      "name": "Havoc",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/havoc"
+    },
+    {
+      "id": 69,
+      "name": "Hellraiser",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/hellraiser"
+    },
+    {
+      "id": 70,
+      "name": "Howl from Beyond",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/howl-from-beyond"
+    },
+    {
+      "id": 71,
+      "name": "Infernal Blade",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/infernal-blade"
+    },
+    {
+      "id": 72,
+      "name": "Juggernaut",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/juggernaut"
+    },
+    {
+      "id": 73,
+      "name": "Juggling",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/juggling"
+    },
+    {
+      "id": 74,
+      "name": "Mangle",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/mangle"
+    },
+    {
+      "id": 75,
+      "name": "Not Yet",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/not-yet"
+    },
+    {
+      "id": 76,
+      "name": "One-Two Punch",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/one-two-punch"
+    },
+    {
+      "id": 77,
+      "name": "Primal Force",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/primal-force"
+    },
+    {
+      "id": 78,
+      "name": "Pyre",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/pyre"
+    },
+    {
+      "id": 79,
+      "name": "Rampage",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/rampage"
+    },
+    {
+      "id": 80,
+      "name": "Setup Strike",
+      "rarity": 0,
+      "source": "https://sts.wiki/cards/setup-strike"
+    },
+    {
+      "id": 81,
+      "name": "Spite",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/spite"
+    },
+    {
+      "id": 82,
+      "name": "Stampede",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/stampede"
+    },
+    {
+      "id": 83,
+      "name": "Stoke",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/stoke"
+    },
+    {
+      "id": 84,
+      "name": "Stone Armor",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/stone-armor"
+    },
+    {
+      "id": 85,
+      "name": "Tank",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/tank"
+    },
+    {
+      "id": 86,
+      "name": "Tear Asunder",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/tear-asunder"
+    },
+    {
+      "id": 87,
+      "name": "Thrash",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/thrash"
+    },
+    {
+      "id": 88,
+      "name": "Unmovable",
+      "rarity": 2,
+      "source": "https://sts.wiki/cards/unmovable"
+    },
+    {
+      "id": 89,
+      "name": "Unrelenting",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/unrelenting"
+    },
+    {
+      "id": 90,
+      "name": "Vicious",
+      "rarity": 1,
+      "source": "https://sts.wiki/cards/vicious"
+    }
+  ]
+}
