@@ -1,0 +1,16 @@
+SHOT height-boot
+SHOT height-short
+SHOT height-long-1
+SHOT height-long-2
+SHOT height-long-3
+SHOT height-long-4
+SHOT height-long-5
+SHOT height-long-6
+SHOT height-long-7
+SHOT height-wide
+SHOT height-combat
+SHOT height-navigated-short
+SHOT height-navigated-long
+SHOT height-after-play
+PASS final release EBOOT 1.5-r2: short/long/modded/extreme/insufficient-Energy previews, dynamic navigation and real card play; native PPSSPP screenshots
+SHA256 372b8e165f0f9a1e44b54afd0053577b789b922d9aae2c21d4ca446dcc41c9f3

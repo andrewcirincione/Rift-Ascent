@@ -11,10 +11,10 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` an
 
 ## Source and validation
 
-- [Current patch notes](versions/1.5/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v150/README.md)
-- Canonical source: `qa/v150/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.5/EBOOT.PBP`
+- [Current patch notes](versions/1.5-r2/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v150r2/README.md)
+- Canonical source: `qa/v150r2/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.5-r2/EBOOT.PBP` (release tag `v1.5-r2`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
   Physical PSP playback was not independently tested for this build.
 

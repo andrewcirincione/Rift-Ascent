@@ -1,10 +1,10 @@
 {
   "version": "1.5",
-  "tag": "v1.5",
-  "eboot": "versions/1.5/EBOOT.PBP",
-  "eboot_sha256": "d23c8e08b5368eba4ece0036ca0ad4883b2fb3b84fdda305977566d745dedbff",
-  "notes": "versions/1.5/PATCH_NOTES.md",
-  "screenshot": "versions/1.5/Combat.png",
-  "canonical_source": "qa/v150/source",
-  "validation": "qa/v150/evidence/ppsspp-final.txt"
+  "tag": "v1.5-r2",
+  "eboot": "versions/1.5-r2/EBOOT.PBP",
+  "eboot_sha256": "372b8e165f0f9a1e44b54afd0053577b789b922d9aae2c21d4ca446dcc41c9f3",
+  "notes": "versions/1.5-r2/PATCH_NOTES.md",
+  "screenshot": "versions/1.5-r2/Combat.png",
+  "canonical_source": "qa/v150r2/source",
+  "validation": "qa/v150r2/evidence/ppsspp-final.txt"
 }

@@ -548,16 +548,31 @@ static const char*r136_rules(int raw){
  game_card_description_now(g,raw,g->target,values[slot],sizeof(values[slot]));
  return values[slot];
 }
-typedef struct {int title_rows,art_y,art_h,body_y,leading,rows,height;const RiftFont*font;} R135CardLayout;
+typedef struct {int title_rows,art_y,art_h,body_y,leading,rows,height,width;const RiftFont*font;} R135CardLayout;
 static R135CardLayout r135_card_layout(int raw,int w){
- R135CardLayout l;char title[64],lines[24][192];int id=CARD_ID(raw),inner=w-34;
+ R135CardLayout l;char title[64],lines[24][192];int id=CARD_ID(raw),inner=w-34;l.width=w;
  snprintf(title,sizeof(title),"%s%s",cards[id].name,CARD_UP(raw)?"+":"");
  l.title_rows=r134_lines(title,inner,&r138_title9,lines);
  l.art_y=20+MIN(l.title_rows,2)*11+2;l.art_h=29;l.body_y=l.art_y+l.art_h+3;
  l.font=&r134_f9;l.leading=11;l.rows=r134_lines(rift131_clean_rules(r136_rules(raw)),inner,l.font,lines);
  l.height=l.body_y+l.rows*l.leading+18;
  if(l.height>158){l.font=&r134_f8;l.leading=9;l.rows=r134_lines(rift131_clean_rules(r136_rules(raw)),inner,l.font,lines);l.height=l.body_y+l.rows*l.leading+18;}
+ /* Reserve the top HUD plus the optional 16px Energy warning. Only the
+    longest descriptions need a slightly shallower illustration; the 24px
+    modification seal still fits entirely inside it. Never crop rules text. */
+ if(l.height>162){
+  int trim=MIN(l.height-162,l.art_h-24);
+  l.art_h-=trim;l.body_y-=trim;l.height-=trim;
+ }
  if(l.height<100)l.height=100;
+ return l;
+}
+static R135CardLayout r150_hand_preview_layout(int raw){
+ R135CardLayout l=r135_card_layout(raw,126);
+ /* Very large live numbers can add a line even at the compact font size.
+    Give those rare previews a little more width instead of hiding a rule or
+    growing into the health/intent HUD. Ordinary cards retain their width. */
+ for(int w=128;l.height>162&&w<=160;w+=2)l=r135_card_layout(raw,w);
  return l;
 }
 static int r135_status_values(const Game*g,int enemy,int values[7]){
@@ -749,8 +764,9 @@ static void combat(const Game*g){
  }
  if(!playing&&g->selection>=start&&g->selection<g->hand_count&&g->selection<start+5){
   int cost=game_card_cost_now(g,g->hand[g->selection]);
-  int preview_h=r135_card_layout(g->hand[g->selection],126).height;
-  card_render(CLAMP(56+(g->selection-start)*71-28,35,289),254-preview_h,126,preview_h,g->hand[g->selection],1,cost!=-2&&(cost==-1||cost<=g->energy));
+  R135CardLayout preview=r150_hand_preview_layout(g->hand[g->selection]);
+  int preview_x=CLAMP(56+(g->selection-start)*71-(preview.width-70)/2,35,415-preview.width);
+  card_render(preview_x,254-preview.height,preview.width,preview.height,g->hand[g->selection],1,cost!=-2&&(cost==-1||cost<=g->energy));
  }
  if(hand_exchange&&animation_tick>=hand_exchange_tick){unsigned a=animation_tick-hand_exchange_tick;if(a<15)for(int i=0;i<old_hand_count&&i<5;i++)card_render(56+i*71,174+(int)a*7,70,84,old_hand[i],0,1);}
  if(start>0){
@@ -1330,10 +1346,11 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
      if(r136_play_state_valid&&rift120_played_card>=0&&CARD_ID(shown)==CARD_ID(rift120_played_card)){
       shown=rift120_played_card;card_combat_context=&r136_play_state;
      }else card_combat_context=g;
-     int target_h=r135_card_layout(shown,126).height,target_y=(272-target_h)/2;
-     int x=rift133_play_x+(177-rift133_play_x)*ease/324;
-     int y=174+(target_y-174)*ease/324,w=70+56*ease/324,h=84+(target_h-84)*ease/324;
-     static uint32_t backdrop[126*220];
+     R135CardLayout preview=r150_hand_preview_layout(shown);
+     int target_h=preview.height,target_y=CLAMP((272-target_h)/2,76,136),target_x=(480-preview.width)/2;
+     int x=rift133_play_x+(target_x-rift133_play_x)*ease/324;
+     int y=174+(target_y-174)*ease/324,w=70+(preview.width-70)*ease/324,h=84+(target_h-84)*ease/324;
+     static uint32_t backdrop[160*220];
      int opacity=age<18?255:age<26?(26-age)*96/8:0;
      if(opacity<255)for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++)backdrop[yy*w+xx]=pix[(y+yy)*sw+x+xx];
      card_render(x,y,w,h,shown,1,1);card_combat_context=0;

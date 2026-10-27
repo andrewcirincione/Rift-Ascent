@@ -24,3 +24,10 @@ qa/v150/evidence/*.s16le
 qa/v150/evidence/pulse.log
 qa/v150/evidence/xvfb.log
 qa/v150/evidence/review*.png
+
+# Reproducible preview-height QA intermediates.
+qa/v150r2/evidence/*.ppm
+qa/v150r2/evidence/*.dat
+qa/v150r2/evidence/*.s16le
+qa/v150r2/evidence/pulse.log
+qa/v150r2/evidence/xvfb.log
