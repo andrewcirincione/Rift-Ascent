@@ -1,0 +1,3 @@
+PASS 115914 complete paths across 8000 act maps: 3-4 camps, first by floor 6, maximum 6 intervening rooms
+PASS 3000 event bags: all 17 events, no consecutive modification rooms; first modification room 548/3000
+PASS 58 distinct act-start relics, 27000 validated selections; independent rewards, full belt, grid controls and save round-trip

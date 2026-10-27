@@ -160,8 +160,7 @@ static void r137_actor(int x,int y,int w,int h,const uint16_t*src,int iw,int ih,
   }
  }
 }
-static void r150_enemy_actor(int x,int y,int w,int h,int art,int lean,int opacity,int flash){
- int iw=r150_enemy_size[art-36][0],ih=r150_enemy_size[art-36][1];const uint32_t*src=r150_enemies[art-36];
+static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int lean,int opacity,int flash){
  src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if(dy<R137_FX_Y||dy>=174)continue;
@@ -174,6 +173,8 @@ static void r150_enemy_actor(int x,int y,int w,int h,int art,int lean,int opacit
   }
  }
 }
+static int r170_boss_index(int art){return art==15?0:art==24?1:art==8?2:-1;}
+static void r150_enemy_actor(int x,int y,int w,int h,int art,int lean,int opacity,int flash){r170_rgba_actor(x,y,w,h,r150_enemies[art-36],r150_enemy_size[art-36][0],r150_enemy_size[art-36][1],lean,opacity,flash);}
 static int r137_local_time(int age,int tier){int hold=r137_hold(tier);return age<hold?0:age-hold;}
 static int r137_latest(int actor,int kind,int age){
  int chosen=-1;
@@ -243,8 +244,8 @@ static void r137_scene(const Game*g){
   const Enemy*foe=&g->enemies[e];int hit=-1;
   for(int i=0;i<r137_count;i++)if(r137_events[i].target==e&&(r137_events[i].kind==GFX_ATTACK||r137_events[i].kind==GFX_PROC)&&age>=r137_at[i]&&age-r137_at[i]<28)hit=i;
   if(foe->hp<=0&&hit<0)continue;
-  int art=foe->art,maxw=g->enemy_count==1?144:112,h=foe->art>=42?98:92;
-  int w=art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];
+  int art=foe->art,boss=r170_boss_index(foe->art),maxw=g->enemy_count==1?144:112,h=boss>=0||foe->art>=42?98:92;
+  int w=boss>=0?r170_boss_size[boss][0]*h/r170_boss_size[boss][1]:art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];
   if(w>maxw){h=h*maxw/w;w=maxw;}
   int ex=r134_enemy_x(g,e),y=174-h,tilt=0,flash=0,opacity=255;
   int atk=r137_latest(e,GFX_ATTACK,age),guard=r137_latest(e,GFX_BLOCK,age);
@@ -256,8 +257,9 @@ static void r137_scene(const Game*g){
   if(guard>=0&&age-r137_at[guard]<18){y+=4;h-=4;w+=4;tilt=3;}
   if(hit>=0){int a=age-r137_at[hit],tier=game_impact_tier(r137_events[hit].amount),t=r137_local_time(a,tier);if(t<18){ex+=(3+tier*3)*(18-t)/18;tilt=5+tier;flash=t<2?90+tier*20:0;}if(foe->hp<=0){opacity=CLAMP(255-a*11,0,255);y+=a/2;}}
   int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==35||art==28);
-  if(art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
-  if(art>=36)r150_enemy_actor(ex-w/2,y,w,h,art,tilt,opacity,flash);
+  if(boss<0&&art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
+  if(boss>=0)r170_rgba_actor(ex-w/2,y,w,h,r170_boss_sprites[boss],r170_boss_size[boss][0],r170_boss_size[boss][1],tilt,opacity,flash);
+  else if(art>=36)r150_enemy_actor(ex-w/2,y,w,h,art,tilt,opacity,flash);
   else if(art==9)r137_blit(ex-w/2,y,w,h,r1310_hound,144,96,opacity,0);
   else r137_actor(ex-w/2,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,opacity,flash);
   int living=0;for(int k=0;k<g->enemy_count;k++)living+=g->enemies[k].hp>0;

@@ -70,3 +70,11 @@ qa/v162/evidence/*xvfb.log
 qa/v162/evidence/*pulse.log
 qa/v162/evidence/first-pass/
 qa/v162/art/first-pass/
+
+# Reproducible 1.7 intermediates; retain dialogue, generated art and evidence.
+qa/v170/assets.bin
+qa/v170/evidence/*.ppm
+qa/v170/evidence/*.s16le
+qa/v170/evidence/*xvfb.log
+qa/v170/evidence/*pulse.log
+qa/v170/evidence/first-pass/

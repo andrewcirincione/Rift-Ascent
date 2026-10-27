@@ -282,6 +282,7 @@ static void step_action(int key,unsigned tick) {
     if((key==BTN_UP||key==BTN_DOWN||key==BTN_LEFT||key==BTN_RIGHT)&&before_input.screen==game.screen&&moved)sound=6;
     else if(key==BTN_OK&&before_input.screen!=COMBAT)sound=7;
     else if(before_input.screen!=game.screen&&oldscreen!=COMBAT)sound=5;
+    if((game_story_kind(&before_input)||game_story_kind(&game))&&key!=BTN_OK)sound=0;
     else if(fx==3&&!events)sound=3;
     if(sound)rift_sound_effect(sound);
     if(before_input.screen!=game.screen ||
@@ -378,7 +379,7 @@ static int run_game(SceSize bytes,void *argp) {
         if(frame==14)key=BTN_OK;
         if(frame==19)key=BTN_OK;
 #endif
-        if(game_render_transition_busy(frame*4u))key=0;
+        key=game_render_story_input(&game,key,frame*4u);
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
         if(game.screen==PAUSE_MENU && key==BTN_OK) {
@@ -500,7 +501,11 @@ static int run_game(SceSize bytes,void *argp) {
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
         game_render_frame(&game,next_frame,STRIDE,frame*4u);
         /* Keep its stream selected but paused after the killing contact. */
-        if(!game_render_fx_busy(frame*4u))music_battle=game_music_track(&game);
+        const Game*audio_scene=game_render_audio_state(&game,frame*4u);
+        int story_audio=game_story_kind(audio_scene);
+        rift_sound_scene_mode(story_audio);
+        if(!game_render_fx_busy(frame*4u))music_battle=game_music_track(audio_scene);
+        music_paused=story_audio==1||game_render_music_paused(frame*4u);
         music_route=(music_battle&255)|(music_paused?256u:0u);
         if(frame==1)boot_trace("frame 1 rendered",game.screen);
         if(frame==12) {

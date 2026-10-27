@@ -7,17 +7,21 @@
 #include "sound.h"
 #include <stdint.h>
 
-static volatile unsigned fx_serial=0;
+static volatile unsigned fx_serial=0,scene_serial=0;
+static volatile int scene_mode=0;
+void rift_sound_scene_mode(int mode){if(scene_mode!=mode){scene_mode=mode;scene_serial++;}}
 static volatile int fx_request=0;
 static volatile unsigned block_serial=0;
 static volatile unsigned impact_serial=0,power_serial=0,victory_serial=0,stars_serial=0;
 static volatile int impact_requests[32];
 void rift_sound_impact(int damage,int blocked){
+ if(scene_mode)return;
  int tier=damage>20?3:damage>10?2:damage>0?1:0;
  if(tier){impact_requests[impact_serial&31u]=tier;impact_serial++;}
  if(blocked)block_serial++;
 }
 void rift_sound_effect(int kind){
+ if(scene_mode&&kind!=7)return;
  if(kind<=0||kind>11)return;
  if(kind==11){stars_serial++;return;}
  if(kind==10){victory_serial++;return;}
@@ -27,6 +31,7 @@ void rift_sound_effect(int kind){
 }
 void rift_sound_reset(RiftSound *s){
  if(!s)return;
+ s->scene_seen=scene_serial;
  s->pos=s->lead=s->bass=0;
  s->noise=0xCA49FE12u;
  s->last_step=0;
@@ -48,6 +53,7 @@ static int pulse(uint32_t phase,int duty){return (int)((phase>>8)&255)<duty?1:-1
 void rift_audio_generate(RiftSound *s,int16_t *out,int frames,int battle,int accent){
  (void)battle;(void)accent;
  if(!s||!out||frames<=0)return;
+ if(s->scene_seen!=scene_serial)rift_sound_reset(s);
  for(int i=0;i<frames;i++){
   if(s->observed_serial!=fx_serial){
    s->observed_serial=fx_serial;

@@ -1,0 +1,2 @@
+PASS missing artwork cannot ghost prior framebuffer; stride padding untouched; full original scene recovers without game reload
+PASS dedicated Star glimmer: nonzero stereo, peak 4207, bounded 0.34-second tail; cursor sound does not cancel it

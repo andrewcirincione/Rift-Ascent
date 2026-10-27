@@ -1,4 +1,5 @@
 #include "game.h"
+#include "story170_data.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -1586,7 +1587,8 @@ const char *node_name(int type){static const char*names[]={"BATTLE","ELITE","MYS
 static void encounter(Game*g,int node){
  g->selection=0;
  switch(node){
- case NODE_FIGHT:case NODE_ELITE:case NODE_BOSS:game_start_battle(g,node);break;
+ case NODE_FIGHT:case NODE_ELITE:game_start_battle(g,node);break;
+ case NODE_BOSS:game_story_start(g,1);break;
  case NODE_EVENT:game_begin_event(g,game_next_event(g));break;
  case NODE_SHOP:g->screen=SHOP;for(int i=0;i<3;i++)g->shop_cards[i]=card_reward_except(g,i>0?g->shop_cards[0]:-1,i>1?g->shop_cards[1]:-1);g->shop_relic=random_relic(g);break;
  case NODE_REST:g->screen=REST;break;
@@ -1630,9 +1632,28 @@ void game_choose_character(Game*g,int character){
  else{add_card(g,2);add_relic(g,0);g->potion_count=2;g->potions[0]=0;g->potions[1]=1;}
  msg(g,character==CHAR_NIGHTSHADE?"Vesper enters the ruined tower.":"A lone Warden climbs the ruined tower.");
 }
+int game_story_kind(const Game*g){
+ int screen=g->screen==PAUSE_MENU?game_pause_source():g->screen;
+ return screen==STORY_ACT?1:screen==STORY_BOSS?2:0;
+}
+static uint32_t story_hash(uint32_t x){x^=x>>16;x*=0x7feb352du;x^=x>>15;x*=0x846ca68bu;return x^(x>>16);}
+void game_story_start(Game*g,int boss){
+ if(boss&&g->act>3){game_start_battle(g,NODE_BOSS);return;}
+ g->screen=boss?STORY_BOSS:STORY_ACT;g->selection=0;
+ g->scroll=(int)(story_hash(g->seed^((uint32_t)g->character+1u)*0x9e3779b9u^((uint32_t)g->act)*0x85ebca6bu^(boss?0x170b055u:0x170ac7u))%(boss?5u:10u));
+}
+const char*game_story_text(const Game*g){
+ int c=CLAMP(g->character,0,2),a=CLAMP(g->act-1,0,3);
+ return game_story_kind(g)==2?r170_boss[c][MIN(a,2)][CLAMP(g->scroll,0,4)][CLAMP(g->selection,0,2)]:r170_entry[c][a][CLAMP(g->scroll,0,9)];
+}
+const char*game_story_speaker(const Game*g){
+ static const char*names[]={"WARDEN","VESPER","PROXY"};
+ return game_story_kind(g)==2&&g->selection==1?game_enemy_name(enemy_boss[CLAMP(g->act-1,0,2)]):names[CLAMP(g->character,0,2)];
+}
 void game_update(Game*g){if(g->screen==COMBAT&&g->ninja.task_count)ninja_process(g);if(g->screen==COMBAT&&(g->regent.task_count||g->regent.shuffle_pending))regent_process(g);if(g->screen==ACT_INTRO&&++g->scroll>=120)offer_blessing(g);}
 int game_music_track(const Game*g){
  int screen=g->screen==PAUSE_MENU?game_pause_source():g->screen;
+ if(screen==STORY_BOSS)return 0;
  if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 0;
  if(screen==COMBAT||screen==CARD_CHOICE||screen==NINJA_CHOICE||screen==REGENT_CHOICE||(screen==DECK_VIEW&&g->prior_screen==COMBAT)){
   if(g->battle_type==NODE_ELITE)return 3;
@@ -1739,23 +1760,26 @@ void game_action(Game*g,int b){
  }
  int n;
  switch(g->screen){
+ case STORY_ACT:if(b==BTN_OK)enter_map(g);break;
+ case STORY_BOSS:if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);break;
+ case ACT_INTRO:if(b==BTN_OK)offer_blessing(g);break;
  case TITLE:
-  if(b==BTN_UP)g->selection=(g->selection+3)%4;
-  else if(b==BTN_DOWN)g->selection=(g->selection+1)%4;
+  if(b==BTN_UP)g->selection=(CLAMP(g->selection,0,2)+2)%3;
+  else if(b==BTN_DOWN)g->selection=(CLAMP(g->selection,0,2)+1)%3;
   else if(b==BTN_OK){
    if(g->selection==0){if(!resume_available)msg(g,"No saved run.");}
-   else if(g->selection<3){g->endless=g->selection==2;g->screen=resume_available?NEW_RUN_CONFIRM:CHARACTER_SELECT;g->selection=resume_available?0:g->character;}
+   else if(g->selection==1){g->endless=0;g->screen=resume_available?NEW_RUN_CONFIRM:CHARACTER_SELECT;g->selection=resume_available?0:g->character;}
    else {g->screen=HELP;g->prior_screen=TITLE;}
   }else if(b==BTN_ALT){g->screen=HELP;g->prior_screen=TITLE;}break;
  case NEW_RUN_CONFIRM:
   if(b==BTN_UP||b==BTN_DOWN)g->selection=1-CLAMP(g->selection,0,1);
-  else if(b==BTN_BACK||(b==BTN_OK&&g->selection==0)){g->screen=TITLE;g->selection=g->endless?2:1;}
+  else if(b==BTN_BACK||(b==BTN_OK&&g->selection==0)){g->screen=TITLE;g->selection=1;}
   else if(b==BTN_OK){g->screen=CHARACTER_SELECT;g->selection=g->character;}
   break;
  case CHARACTER_SELECT:
   if(b==BTN_LEFT||b==BTN_RIGHT||b==BTN_UP||b==BTN_DOWN)g->selection=(g->selection+((b==BTN_LEFT||b==BTN_UP)?2:1))%3;
   else if(b==BTN_OK){game_choose_character(g,g->selection);resume_available=0;begin_act(g);}
-  else if(b==BTN_BACK){g->screen=TITLE;g->selection=g->endless?2:1;}break;
+  else if(b==BTN_BACK){g->screen=TITLE;g->selection=1;}break;
  case REGENT_CHOICE:{int n=game_regent_choice_count(g);
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
   else if(b==BTN_DOWN)g->selection=grid_down(g->selection,n);
@@ -1796,7 +1820,7 @@ void game_action(Game*g,int b){
     ; /* Future rooms are inspectable without a notification. */
   else if(b==BTN_LEFT){for(int k=g->selection-1;k>=0;k--)if(game_route_available(g,k)){g->selection=k;break;}}
   else if(b==BTN_RIGHT){for(int k=g->selection+1;k<MAP_LANES;k++)if(game_route_available(g,k)){g->selection=k;break;}}
-  else if(b==BTN_OK){if(g->floor==MAP_ROWS){game_start_battle(g,NODE_BOSS);}else game_choose_node(g,g->selection);}
+  else if(b==BTN_OK){if(g->floor==MAP_ROWS){game_story_start(g,1);}else game_choose_node(g,g->selection);}
   else if(b==BTN_ALT){g->prior_screen=MAP;g->screen=DECK_VIEW;g->selection=0;g->scroll=0;}
   else if(b==BTN_START){g->screen=RELIC_VIEW;g->prior_screen=MAP;g->selection=0;}
   else if(b==BTN_POTION){g->shop_selection=g->selection;g->prior_screen=MAP;g->screen=POTION_VIEW;g->selection=0;msg(g,"");}
@@ -1954,7 +1978,7 @@ void game_action(Game*g,int b){
  case BLESSING:
   if(b==BTN_LEFT)g->selection=MAX(0,g->selection-1);
   else if(b==BTN_RIGHT)g->selection=MIN(2,g->selection+1);
-  else if(b==BTN_OK){int gift=g->reward[g->selection];if(gift>=1000){int card=gift-1000,replaced=0;if(card==R_METEOR_SHOWER)for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==R_FALLING_STAR){g->deck[i]=(g->deck[i]&~511)|R_METEOR_SHOWER;replaced=1;break;}if(card==N_SUPPRESS)for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==N_NEUTRALIZE){g->deck[i]=(g->deck[i]&~511)|N_SUPPRESS;replaced=1;break;}if(!replaced){if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Choose another blessing.");break;}add_card(g,card);}}else add_relic(g,gift);enter_map(g);}
+  else if(b==BTN_OK){int gift=g->reward[g->selection];if(gift>=1000){int card=gift-1000,replaced=0;if(card==R_METEOR_SHOWER)for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==R_FALLING_STAR){g->deck[i]=(g->deck[i]&~511)|R_METEOR_SHOWER;replaced=1;break;}if(card==N_SUPPRESS)for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==N_NEUTRALIZE){g->deck[i]=(g->deck[i]&~511)|N_SUPPRESS;replaced=1;break;}if(!replaced){if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Choose another blessing.");break;}add_card(g,card);}}else add_relic(g,gift);game_story_start(g,0);}
   break;
  case REWARD_PREVIEW:
   if(b==BTN_LEFT)g->selection=(g->selection+2)%3;
@@ -2001,7 +2025,9 @@ int game_validate(const Game*g){
  if(!g||g->character<0||g->character>2||g->ninja.task_count<0||g->ninja.task_count>NINJA_TASK_MAX||g->endless<0||g->endless>1||g->magic!=0x52494654u||g->version!=GAME_VERSION)return 0;
  if(g->act<1||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
- if(g->screen<TITLE||g->screen>NEW_RUN_CONFIRM||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
+ if(g->screen<TITLE||g->screen>STORY_BOSS||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
+ if(g->screen==STORY_ACT&&(g->selection!=0||g->scroll<0||g->scroll>9))return 0;
+ if(g->screen==STORY_BOSS&&(g->act>3||g->selection<0||g->selection>2||g->scroll<0||g->scroll>4))return 0;
  if(g->hand_count<0||g->hand_count>MAX_HAND||g->draw_count<0||g->draw_count>MAX_PILE||g->discard_count<0||g->discard_count>MAX_PILE||g->exhaust_count<0||g->exhaust_count>MAX_PILE)return 0;
  if(g->enemy_count<0||g->enemy_count>MAX_ENEMIES||g->potion_count<0||g->potion_count>MAX_POTIONS)return 0;
  for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].art<0||g->enemies[i].art>=ENEMY_COUNT||g->enemies[i].maxhp<1||g->enemies[i].hp>g->enemies[i].maxhp||g->enemies[i].intent<0||g->enemies[i].intent>=INTENT_COUNT)return 0;

@@ -23,6 +23,7 @@
 #include "rift160_star_contrast.h"
 #include "rift161_art.h"
 #include "rift162_art.h"
+#include "rift170_art.h"
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
@@ -93,10 +94,25 @@ static int fx_transition;
 static Game r161_transition_before;
 static unsigned r161_transition_tick;
 static int r161_transition_active,r161_transition_drawing;
+static unsigned r161_transition_length=48;
+static int r170_story_queue;
 void game_render_begin_transition(const Game*before,unsigned tick){
- r161_transition_before=*before;r161_transition_tick=tick;r161_transition_active=1;
+ r161_transition_before=*before;r161_transition_tick=tick;r161_transition_active=1;r161_transition_length=48;
 }
-int game_render_transition_busy(unsigned tick){return r161_transition_active&&tick-r161_transition_tick<48;}
+int game_render_transition_busy(unsigned tick){return r161_transition_active&&tick-r161_transition_tick<r161_transition_length;}
+const Game*game_render_audio_state(const Game*g,unsigned tick){
+ return game_render_transition_busy(tick)&&tick-r161_transition_tick<r161_transition_length/2?&r161_transition_before:g;
+}
+int game_render_story_input(const Game*g,int key,unsigned tick){
+ int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS;
+ if(game_render_transition_busy(tick)){
+  if(scene&&key==BTN_OK&&r170_story_queue<3)r170_story_queue++;
+  return 0;
+ }
+ if(!scene){r170_story_queue=0;return key;}
+ if(r170_story_queue){if(key==BTN_OK&&r170_story_queue<3)r170_story_queue++;r170_story_queue--;return BTN_OK;}
+ return key;
+}
 void game_render_set_overlay(int kind,int page,int potion){
  overlay_kind=kind;overlay_page=page;overlay_potion=potion;
 }
@@ -178,6 +194,9 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  if(before->screen!=after->screen){fx_transition=1;fx_transition_tick=tick;}
  if(before->screen==PAUSE_MENU&&after->screen!=PAUSE_MENU){
   fx_transition=0;game_render_begin_transition(before,tick);
+ }
+ if(before->screen!=after->screen&&(before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS)){
+  fx_transition=0;game_render_begin_transition(before,tick);r161_transition_length=32;
  }
  if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT)){
     victory_scene=*after;
@@ -1253,14 +1272,14 @@ static void deck_screen(const Game*g){
 }
 static void title_screen(const Game*g){
  r134_blit(269,37,197,91,r134_logo,222,102,255);
- const char*buttons[]={"RESUME RUN","BEGIN ASCENT","ENDLESS MODE","HOW TO PLAY"};
- for(int i=0;i<4;i++){int y=128+i*28,selected=g->selection==i,enabled=i!=0||game_resume_available();
+ const char*buttons[]={"RESUME RUN","BEGIN ASCENT","HOW TO PLAY"};
+ for(int i=0;i<3;i++){int y=136+i*34,selected=CLAMP(g->selection,0,2)==i,enabled=i!=0||game_resume_available();
   r134_blit(279,y,176,27,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,23,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
  if(profile_data&&profile_data->runs){
   char b[60];snprintf(b,sizeof(b),"RUNS %lu    WINS %lu",(unsigned long)profile_data->runs,(unsigned long)profile_data->wins);r134_center(367,244,b,GOLD,&r134_f8);
- }else r134_center(367,244,g->selection==2?"UNLIMITED ACTS / RISING DIFFICULTY":g->selection==0&&!game_resume_available()?"NO SAVED RUN":"THREE WARRIORS / THREE ACTS",GOLD,&r134_f8);
+ }else r134_center(367,244,g->selection==0&&!game_resume_available()?"NO SAVED RUN":"THREE WARRIORS / THREE ACTS",GOLD,&r134_f8);
  footer("UP/DOWN SELECT     X CONFIRM");
 }
 
@@ -1396,11 +1415,12 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  animation_tick=tick;pix=pixels;sw=stride;rect(0,0,W,H,RGB(9,10,14));
  if(r161_transition_active&&!r161_transition_drawing){
   unsigned age=tick-r161_transition_tick;
-  if(age<48){
+  if(age<r161_transition_length){
+   unsigned half=r161_transition_length/2;
    r161_transition_drawing=1;
-   game_render_frame(age<24?&r161_transition_before:g,pixels,stride,tick);
+   game_render_frame(age<half?&r161_transition_before:g,pixels,stride,tick);
    r161_transition_drawing=0;pix=pixels;sw=stride;
-   dark_rect(0,0,W,H,age<24?(int)(age*255/24):(int)((48-age)*255/24));return;
+   dark_rect(0,0,W,H,age<half?(int)(age*255/half):(int)((r161_transition_length-age)*255/half));return;
   }
   r161_transition_active=0;
  }
@@ -1428,6 +1448,17 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    return;
  }
  pix=pixels;sw=stride;
+ if(g->screen==STORY_ACT||g->screen==STORY_BOSS){
+  rect(0,0,W,H,RGB(0,0,0));
+  int a=CLAMP(g->act-1,0,3),c=CLAMP(g->character,0,2);
+  const uint16_t*image=g->screen==STORY_BOSS?r170_boss_images[c][MIN(a,2)]:r170_entry_images[c][a];
+  art_blit(72,38,336,126,image,336,126);
+  r134_text(72,175,game_story_speaker(g),GOLD,&r138_title10);
+  r134_wrap(72,194,336,4,12,game_story_text(g),WHITE,&r134_f9,0);
+  r134_blit(343,247,14,14,r135_cross,14,14,255);
+  r134_text(364,250,"CONTINUE",MUTED,&r134_f8);
+  return;
+ }
  if(g->screen==ACT_INTRO){
   rect(0,0,W,H,RGB(0,0,0));
   int t=g->scroll,alpha=t<10?0:t<40?(t-10)*255/30:t<85?255:t<115?(115-t)*255/30:0;
@@ -1443,7 +1474,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  switch(g->screen){
  case TITLE:title_screen(g);break;
  case NEW_RUN_CONFIRM:{
-  Game title=*g;title.selection=g->endless?2:1;
+  Game title=*g;title.selection=1;
   title_screen(&title);dark_rect(0,0,W,H,205);gilded_panel(62,62,356,162,1);
   r134_center(240,81,"REPLACE SAVED RUN?",GOLD,&r138_title10);
   r134_center(240,105,"Starting a new run will erase your saved run.",WHITE,&r134_f9);
@@ -1522,4 +1553,4 @@ void game_render(const Game*g,uint32_t*pixels,int stride){
  game_render_frame(g,pixels,stride,0);
 }
 
-void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=r161_transition_active=r161_transition_drawing=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;}
+void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=r161_transition_active=r161_transition_drawing=r170_story_queue=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;}

@@ -31,7 +31,7 @@ enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -262,6 +262,12 @@ int game_moon_heal_now(const Game *g);
 void game_action(Game *g,int button);
 int game_pause_source(void);
 void game_update(Game *g);
+void game_story_start(Game*g,int boss);
+int game_story_kind(const Game*g);
+const char*game_story_text(const Game*g);
+const char*game_story_speaker(const Game*g);
+const Game*game_render_audio_state(const Game*g,unsigned tick);
+int game_render_story_input(const Game*g,int key,unsigned tick);
 void game_render(const Game *g,uint32_t *pixels,int stride);
 void game_render_reset_fx(void);
 void game_render_frame(const Game *g,uint32_t *pixels,int stride,unsigned tick);

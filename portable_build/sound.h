@@ -7,7 +7,7 @@
 typedef struct {
  uint32_t pos,lead,bass,noise;
  uint32_t pad_phase1,pad_phase2,sfx_phase;
- unsigned delay_pos,observed_serial;
+ unsigned delay_pos,observed_serial,scene_seen;
  int last_step,fx_kind,fx_age;
  unsigned block_serial,block_age,block_phase;
  unsigned impact_seen,impact_voice;
@@ -23,4 +23,5 @@ void rift_sound_effect(int kind);
 void rift_sound_impact(int damage,int blocked);
 int rift_sound_music_gain(const RiftSound *s);
 void rift_sound_reset(RiftSound *s);
+void rift_sound_scene_mode(int mode);
 #endif

@@ -1,0 +1,22 @@
+SHOT boot
+SHOT entry-in-fade-0
+SHOT entry-in-fade-1
+SHOT entry-in-fade-2
+SHOT entry-in-fade-3
+SHOT entry-map-fade-0
+SHOT entry-map-fade-1
+SHOT entry-map-fade-2
+SHOT entry-map-fade-3
+SHOT boss-in-fade-0
+SHOT boss-in-fade-1
+SHOT boss-in-fade-2
+SHOT boss-in-fade-3
+SHOT boss-fight-fade-0
+SHOT boss-fight-fade-1
+SHOT boss-fight-fade-2
+SHOT boss-fight-fade-3
+SHOT rapid-x-map-safe
+SHOT saved-title-three-options
+SHOT resumed-boss
+PASS exact 1.7 EBOOT: fades, held/rapid X, shortcuts and save/resume
+SHA256 6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3

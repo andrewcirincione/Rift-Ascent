@@ -1,0 +1,2 @@
+PASS 255 dialogue pages fit; 120 entry variants, 45 exchanges, all boss identities, X/shortcut/save controls, 12000 seeded choices and Endless bypass
+PASS black-midpoint fades, audio-state handoffs, bounded queued X, three-option title, Endless save compatibility and scene SFX isolation

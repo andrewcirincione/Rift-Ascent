@@ -1,0 +1,57 @@
+Rift Ascent 1.7 final validation
+SHA256 6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3
+EBOOT bytes: 49223778
+
+story-tests.txt [report SHA256 99b6c94f18d654a2989b951204cdc2deeadce17eb5fc407d3404f9fcb267b152]
+PASS 255 dialogue pages fit; 120 entry variants, 45 exchanges, all boss identities, X/shortcut/save controls, 12000 seeded choices and Endless bypass
+PASS black-midpoint fades, audio-state handoffs, bounded queued X, three-option title, Endless save compatibility and scene SFX isolation
+
+logic-tests.txt [report SHA256 bb0b6611458143516c6841afda558aca2e53bfabe5e934707cd59be8927c3833]
+PASS 115914 complete paths across 8000 act maps: 3-4 camps, first by floor 6, maximum 6 intervening rooms
+PASS 3000 event bags: all 17 events, no consecutive modification rooms; first modification room 548/3000
+PASS 58 distinct act-start relics, 27000 validated selections; independent rewards, full belt, grid controls and save round-trip
+
+regent-tests.txt [report SHA256 28c02c87a3d418632df7d07ad0a132adb8e827b3a3b88b076c796e17aeb1ab57]
+PASS 2000 attack math cases; independent wiki damage/cost fixtures; pure previews
+PASS Star payments, X, Void Form stacks, free/manual/replay accounting, mixed-character triggers
+PASS single Blade, Forge persistence, Vigor, Conqueror, Seeking Edge, Parry and Sword Sage stacking
+PASS all mandatory/optional selections, pause/save/resume, shuffle ordering, mixed-card choices
+PASS delayed Block/Dexterity, full-hit Block, unpowered splash, creation capacity, exhaust/autoplay, persistent draw scaling and foreign Replay
+PASS Regent audit: 6764 assertions
+
+asset-tests.txt [report SHA256 8fa258818ce01d8eb01a051ac649e0edd78e3debd4c6233b0e6bc9657e5fb4bc]
+PASS stale artwork file handle automatically reopens; CRC verified, no errors
+PASS 1347 exact texture-byte comparisons plus cache hits, wraparound/eviction and 3 malformed-descriptor checks; 38308416 resource bytes, no palette/resolution/color changes
+
+recovery-audio-tests.txt [report SHA256 6bded9f4882271dc1dc4155507ee9668df8facdfd2d7d09772217b107d20e2ab]
+PASS missing artwork cannot ghost prior framebuffer; stride padding untouched; full original scene recovers without game reload
+PASS dedicated Star glimmer: nonzero stereo, peak 4207, bounded 0.34-second tail; cursor sound does not cancel it
+
+resident-tests.txt [report SHA256 1144c17a17464ec2d20f3edcf37aa3e5fd87a1964be13f79fe50be105387f20a]
+PASS 2287 native visual equivalence cases; asset errors=0
+
+streamed-tests.txt [report SHA256 1144c17a17464ec2d20f3edcf37aa3e5fd87a1964be13f79fe50be105387f20a]
+PASS 2287 native visual equivalence cases; asset errors=0
+
+media-tests.txt [report SHA256 ea5207ed8466f6af18f2ec90bc3d8233b5b5b2b841ea4c5c379314af2b63c169]
+PASS {'sha256': '6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3', 'bytes': 49223778, 'icon1_bytes': 239616, 'snd0_bytes': 198864, 'pic1_unchanged': True, 'riftboss_snd0_unchanged': True, 'all_five_soundtrack_payloads_unchanged': True, 'music_crc': 1214111141}
+
+scene-tests.txt [report SHA256 8191f097c4c7cf74ade7ef22e86fc3d318af31f05fea2e98223850216a717bc3]
+PASS exact 1.7 EBOOT: 12 entry illustrations, all 9 three-beat boss scenes and matching fights, entry silence, uninterrupted RiftBoss
+SHA256 6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3
+
+control-tests.txt [report SHA256 d081547b4c4230945c6b86457029ed7ca63e1cacd1a5fd7eef89206724f3ba09]
+PASS exact 1.7 EBOOT: fades, held/rapid X, shortcuts and save/resume
+SHA256 6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3
+
+finisher-tests.txt [report SHA256 b9a56addc4241998337b12471b958c54a0a6fc4f4d4c2bf1a6f18a962987dd09]
+PASS exact EBOOT idle/action/Stars/finisher screenshots; battle music stays muted until spoils track
+SHA256 6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3
+
+cold-resume-tests.txt [report SHA256 f1aa9f5a387989a721a1a3483116c2fe678ee029bae8e3b19348b210bbb79574]
+PASS cold Resume into saved boss dialogue, RiftBoss selected
+
+Visual review: native 480x272 PPSSPP captures of all twelve character/act entry illustrations, nine three-beat boss exchanges, the matching combat models, the three-option title, save/resume and scene boundary fades. All 255 pages fit the actual font/width without clipping.
+Frame breakpoints capture actual old-scene dimming, full black midpoint and new-scene brightening. Held X does not skip an exchange; three buffered edges cannot select a map room. Entry music is silent, boss music starts with its scene and its decoder continues into combat.
+The fixed 4 MiB artwork cache, 32 MiB PSP target and hardware-confirmed 1.6-r2 loader correction are retained. Physical PSP confirmation of this patch remains pending.
+PASS final release EBOOT
