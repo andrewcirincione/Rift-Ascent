@@ -14,15 +14,15 @@
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 22
+#define GAME_VERSION 23
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
 #define CARD_GIANT_ROCK 91
-#define CARD_FREE 0x200
-#define CARD_FORCE_EXHAUST 0x400
-#define CARD_EPHEMERAL 0x800
-#define CARD_MOD_SHIFT 12
+#define CARD_FREE 0x400
+#define CARD_FORCE_EXHAUST 0x800
+#define CARD_EPHEMERAL 0x1000
+#define CARD_MOD_SHIFT 13
 #define CARD_MOD_MASK (7 << CARD_MOD_SHIFT)
 #define CARD_MOD(raw) (((raw) >> CARD_MOD_SHIFT) & 7)
 enum {MOD_NONE,MOD_ECHO,MOD_BOUND,MOD_KEEN,MOD_WARD,MOD_FLEETING,MOD_KINDLED,MOD_COUNT};
@@ -30,7 +30,7 @@ enum {IC_HOURGLASS=39,IC_BELL,IC_NEEDLE,IC_DUELIST,IC_PENDING_CARD=43,IC_COVENAN
 enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -43,26 +43,26 @@ enum {
  IC_ATTACKS_THIS_TURN,IC_OWN_TURN,IC_GUARD,IC_CASCADE_QUEUE
 };
 enum {BTN_UP=1,BTN_DOWN=2,BTN_LEFT=4,BTN_RIGHT=8,BTN_OK=16,BTN_BACK=32,BTN_ALT=64,BTN_POTION=128,BTN_START=256,BTN_PAUSE=512};
-#define UPBIT 0x100
-#define CARD_ID(x) ((x)&0xff)
+#define UPBIT 0x200
+#define CARD_ID(x) ((x)&0x1ff)
 #define CARD_UP(x) (((x)&UPBIT)!=0)
 
 
-#define CARD_SLY (1<<15)
-#define CARD_SLY_TURN (1<<16)
-#define CARD_INKY (1<<17)
-#define CARD_RETAIN_TURN (1<<18)
-#define CARD_COUNTER_SHIFT 19
+#define CARD_SLY (1<<16)
+#define CARD_SLY_TURN (1<<17)
+#define CARD_INKY (1<<18)
+#define CARD_RETAIN_TURN (1<<19)
+#define CARD_COUNTER_SHIFT 20
 #define CARD_COUNTER_MASK (3<<CARD_COUNTER_SHIFT)
 #define CARD_COUNTER(raw) (((raw)>>CARD_COUNTER_SHIFT)&3)
-#define CARD_INSTANCE_SHIFT 21
-#define CARD_INSTANCE_MASK (1023<<CARD_INSTANCE_SHIFT)
-#define CARD_INSTANCE(raw) (((raw)>>CARD_INSTANCE_SHIFT)&1023)
+#define CARD_INSTANCE_SHIFT 22
+#define CARD_INSTANCE_MASK (511<<CARD_INSTANCE_SHIFT)
+#define CARD_INSTANCE(raw) (((raw)>>CARD_INSTANCE_SHIFT)&511)
 #define CARD_RAW_MASK 0x7fffffff
 #define NINJA_FIRST 96
 #define NINJA_COUNT 89
 #define NINJA_LAST (NINJA_FIRST+NINJA_COUNT)
-enum {CHAR_WARDEN,CHAR_NIGHTSHADE};
+enum {CHAR_WARDEN,CHAR_NIGHTSHADE,CHAR_REGENT};
 enum {NR_SNAKE=44,NR_SKULL,NR_TINGSHA,NR_BANDAGES,NR_FUNNEL,NR_SCROLL,NR_KRANE,NR_DART,NR_DRAKE};
 enum {NS_ACCURACY,NS_AFTERIMAGE,NS_THORNS,NS_ACCELERANT,NS_ENVENOM,NS_FAN,NS_PHANTOM,NS_BLADES,NS_FUMES,NS_OUTBREAK,NS_OUTBREAK_COUNT,NS_PLANNER,NS_SERPENT,NS_SPEEDSTER,NS_TOOLS,NS_PLANS,NS_TRACKING,NS_WRAITH,NS_INTANGIBLE,NS_TEMP_DEX,NS_BLUR,NS_NEXT_BLOCK,NS_NEXT_DRAW,NS_SHADOW_NEXT,NS_SHADOW_NOW,NS_SHADOWMELD,NS_BURST,NS_POUNCE,NS_CORROSIVE,NS_DRAWS_COMBAT,NS_DISCARDS_TURN,NS_SKILLS_TURN,NS_SHIVS_TURN,NS_STRANGLE0,NS_STRANGLE1,NS_BONUS_REWARDS,NS_SNEAKY,NS_RETAIN_READY,NS_OPENING_DRAW,NS_LAST_DRAW,NS_RESOLVING,NS_COUNT};
 #define NINJA_TASK_MAX 512
@@ -165,6 +165,27 @@ enum {
  N_WRAITH_FORM=184
 };
 
+
+#include "regent_ids.h"
+#define REGENT_TASK_MAX 128
+#define REGENT_INSTANCE_MAX 512
+typedef struct {int kind,raw,target,n,aux,depth;} RegentTask;
+typedef struct {
+ int stars,forge,blade_created,created,stars_gained,skills,plays_combat;
+ int shuffle_pending,shuffle_draws;
+ int powers[EXTRA_LAST-REGENT_FIRST],played[EXTRA_LAST-REGENT_FIRST];
+ int hit_count[MAX_ENEMIES],conqueror[MAX_ENEMIES];
+ int vigor,attack_vigor,monologue,next_energy,next_stars,next_draw,next_block,next_seek;
+ int retain_all,orbit_spent,draws,nostalgia_used,void_used,panic,reflect,gambit;
+ int instance_damage[REGENT_INSTANCE_MAX],instance_cost[REGENT_INSTANCE_MAX],instance_replay[REGENT_INSTANCE_MAX];
+ int return_cards[MAX_PILE],return_count;
+ int bomb_ticks[16],bomb_damage[16];
+ int choice_kind,choice_remaining,choice_raw,choice_target,choice_aux,choice_depth;
+ int options[MAX_PILE],option_count;
+ int task_count,resolving;RegentTask tasks[REGENT_TASK_MAX];
+ int automation_phase[10],panache_phase[5];
+} RegentState;
+
 typedef struct {char name[24];int hp,maxhp,block,strength,weak,vulnerable,poison;int intent,intent_value,phase;int art;} Enemy;
 typedef struct {
  uint32_t magic,version,seed,rng;
@@ -185,6 +206,7 @@ typedef struct {
  int character;NinjaState ninja;
  /* Appended to preserve the complete v21 prefix for migration. */
  struct {int potion_offer,card_done;int relic[16];} v151;
+ RegentState regent;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -219,6 +241,13 @@ void game_begin_event(Game *g,int id);
 int game_card_is_playable(int raw);
 int game_card_is_upgradeable(int raw);
 int game_card_cost(int raw);
+int game_card_star_cost(const Game*g,int raw);
+int game_regent_choice_count(const Game*g);
+int game_regent_choice_raw(const Game*g,int index);
+int game_regent_choice_eligible(const Game*g,int index);
+const char *game_regent_choice_title(const Game*g);
+void game_set_resume_available(int available);
+int game_resume_available(void);
 int game_card_cost_now(const Game *g,int raw);
 void game_new(Game *g,uint32_t seed);
 void game_choose_character(Game *g,int character);
@@ -232,6 +261,7 @@ void game_action(Game *g,int button);
 int game_pause_source(void);
 void game_update(Game *g);
 void game_render(const Game *g,uint32_t *pixels,int stride);
+void game_render_reset_fx(void);
 void game_render_frame(const Game *g,uint32_t *pixels,int stride,unsigned tick);
 /* Cosmetic battle effects: attack=1, defend=2, potion=3, hit=4. */
 void game_effect_start(int kind,unsigned tick);

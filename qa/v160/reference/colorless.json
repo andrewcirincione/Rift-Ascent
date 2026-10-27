@@ -1,0 +1,2945 @@
+{
+  "meta": {
+    "version": "v0.107.1",
+    "date": "2026-06-18T15:43:56-07:00",
+    "commit": "59260271",
+    "built": "2026-09-24"
+  },
+  "cards": [
+    {
+      "id": "Alchemize",
+      "key": "ALCHEMIZE",
+      "slug": "alchemize",
+      "title": "Alchemize",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Procure a random potion.\nExhaust.",
+          "html": "Procure a random potion.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Procure a random potion.\nExhaust.",
+          "html": "Procure a random potion.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": "COLORLESS4_EPOCH",
+      "starter": false,
+      "sourceNotes": "Excluded from random card generation in combat (CanBeGeneratedInCombat = false).",
+      "hidden": false,
+      "i18n": {
+        "deu": "Alchemisieren",
+        "fra": "Alchimie",
+        "ita": "Alchimia",
+        "spa": "Alquimia",
+        "esp": "Alquimia",
+        "ptb": "Alquimizar",
+        "pol": "Alchemizacja",
+        "rus": "\u0410\u043b\u0445\u0438\u043c\u0438\u044f",
+        "tur": "Simya",
+        "jpn": "\u932c\u91d1\u8853",
+        "kor": "\uc5f0\uae08",
+        "zhs": "\u70bc\u5236\u836f\u6c34",
+        "tha": "\u0e1b\u0e23\u0e38\u0e07\u0e22\u0e32"
+      }
+    },
+    {
+      "id": "Anointed",
+      "key": "ANOINTED",
+      "slug": "anointed",
+      "title": "Anointed",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust",
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Put every Rare card from your Draw Pile into your Hand.\nExhaust.",
+          "html": "Put every <span class=\"kw\">Rare</span> card from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Retain.\nPut every Rare card from your Draw Pile into your Hand.\nExhaust.",
+          "html": "<span class=\"up\"><span class=\"kw\">Retain</span>.</span><br>Put every <span class=\"kw\">Rare</span> card from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "gains Retain",
+      "unlock": "COLORLESS5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Gekr\u00f6nt",
+        "fra": "Sacrement",
+        "ita": "Consacrazione",
+        "spa": "Unci\u00f3n",
+        "esp": "Unci\u00f3n",
+        "ptb": "Consagra\u00e7\u00e3o",
+        "pol": "Koronacja",
+        "rus": "\u0418\u0437\u0431\u0440\u0430\u043d\u0438\u0435",
+        "tur": "Kutsanm\u0131\u015f",
+        "jpn": "\u8056\u306a\u308b\u9078\u5225",
+        "kor": "\uc784\uba85",
+        "zhs": "\u5929\u9009",
+        "tha": "\u0e1e\u0e34\u0e18\u0e35\u0e40\u0e08\u0e34\u0e21"
+      }
+    },
+    {
+      "id": "Automation",
+      "key": "AUTOMATION",
+      "slug": "automation",
+      "title": "Automation",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Every 10 cards you draw, gain 1 Energy.",
+          "html": "Every 10 cards you draw, gain <span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Every 10 cards you draw, gain 1 Energy.",
+          "html": "Every 10 cards you draw, gain <span class=\"energy\" data-n=\"1\"></span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": "COLORLESS1_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Automatisierung",
+        "fra": "Automatisation",
+        "ita": "Automazione",
+        "spa": "Automatizaci\u00f3n",
+        "esp": "Automatizaci\u00f3n",
+        "ptb": "Automa\u00e7\u00e3o",
+        "pol": "Automatyzacja",
+        "rus": "\u0410\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u044f",
+        "tur": "Otomasyon",
+        "jpn": "\u30aa\u30fc\u30c8\u30e1\u30fc\u30b7\u30e7\u30f3",
+        "kor": "\uc790\ub3d9\ud654",
+        "zhs": "\u81ea\u52a8\u5316",
+        "tha": "\u0e01\u0e25\u0e44\u0e01\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34"
+      }
+    },
+    {
+      "id": "BeatDown",
+      "key": "BEAT_DOWN",
+      "slug": "beat-down",
+      "title": "Beat Down",
+      "pool": "colorless",
+      "character": null,
+      "cost": 3,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "RandomEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Play 3 random Attacks from your Discard Pile.",
+          "html": "Play <span class=\"num\">3</span> random Attacks from your <span class=\"kw\">Discard Pile</span>."
+        },
+        "up": {
+          "plain": "Play 4 random Attacks from your Discard Pile.",
+          "html": "Play <span class=\"up\"><span class=\"num\">4</span></span> random Attacks from your <span class=\"kw\">Discard Pile</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 cards",
+      "unlock": "COLORLESS3_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Niedermachen",
+        "fra": "Passage \u00e0 tabac",
+        "ita": "Pestaggio",
+        "spa": "Apaleamiento",
+        "esp": "Paliza",
+        "ptb": "Surra",
+        "pol": "Skopanie",
+        "rus": "\u0418\u0437\u0431\u0438\u0435\u043d\u0438\u0435",
+        "tur": "Ezip Ge\u00e7",
+        "jpn": "\u30d3\u30fc\u30c8\u30c0\u30a6\u30f3",
+        "kor": "\ub450\ub4e4\uaca8 \ud328\uae30",
+        "zhs": "\u72e0\u63cd",
+        "tha": "\u0e23\u0e38\u0e21\u0e01\u0e23\u0e30\u0e17\u0e37\u0e1a"
+      }
+    },
+    {
+      "id": "Bolas",
+      "key": "BOLAS",
+      "slug": "bolas",
+      "title": "Bolas",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 3,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 3 damage.\nAt the start of your next turn, return this to your Hand.",
+          "html": "Deal <span class=\"num\">3</span> damage.<br>At the start of your next turn, return this to your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 4 damage.\nAt the start of your next turn, return this to your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">4</span></span> damage.<br>At the start of your next turn, return this to your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Bolas",
+        "fra": "Bolas",
+        "ita": "Bola",
+        "spa": "Bolazo",
+        "esp": "Boleadoras",
+        "ptb": "Boleadeira",
+        "pol": "Bola",
+        "rus": "\u0411\u043e\u043b\u0430\u0441",
+        "tur": "Bola",
+        "jpn": "\u30dc\u30fc\u30e9",
+        "kor": "\uc0ac\ub0e5\ub3cc",
+        "zhs": "\u6d41\u661f\u9524",
+        "tha": "\u0e42\u0e1a\u0e25\u0e32"
+      }
+    },
+    {
+      "id": "Calamity",
+      "key": "CALAMITY",
+      "slug": "calamity",
+      "title": "Calamity",
+      "pool": "colorless",
+      "character": null,
+      "cost": 3,
+      "upCost": 2,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Whenever you play an Attack, add a random Attack into your Hand.",
+          "html": "Whenever you play an Attack, add a random Attack into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Whenever you play an Attack, add a random Attack into your Hand.",
+          "html": "Whenever you play an Attack, add a random Attack into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "cost 3 \u2192 2",
+      "unlock": "COLORLESS5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Unheil",
+        "fra": "Calamit\u00e9",
+        "ita": "Calamit\u00e0",
+        "spa": "Calamidad",
+        "esp": "Calamidad",
+        "ptb": "Calamidade",
+        "pol": "Kl\u0119ska",
+        "rus": "\u0421\u043c\u0435\u0440\u0447",
+        "tur": "Felaket",
+        "jpn": "\u30ab\u30e9\u30df\u30c6\u30a3",
+        "kor": "\uc7ac\uc559",
+        "zhs": "\u52ab\u96be"
+      }
+    },
+    {
+      "id": "Catastrophe",
+      "key": "CATASTROPHE",
+      "slug": "catastrophe",
+      "title": "Catastrophe",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Play 2 random cards from your Draw Pile.",
+          "html": "Play <span class=\"num\">2</span> random cards from your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Play 3 random cards from your Draw Pile.",
+          "html": "Play <span class=\"up\"><span class=\"num\">3</span></span> random cards from your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 cards",
+      "unlock": "COLORLESS1_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Katastrophe",
+        "fra": "Catastrophe",
+        "ita": "Catastrofe",
+        "spa": "Cat\u00e1strofe",
+        "esp": "Cat\u00e1strofe",
+        "ptb": "Cat\u00e1strofe",
+        "pol": "Katastrofa",
+        "rus": "\u041a\u0430\u0442\u0430\u0441\u0442\u0440\u043e\u0444\u0430",
+        "tur": "Facia",
+        "jpn": "\u5929\u5909\u5730\u7570",
+        "kor": "\uc7ac\ub09c",
+        "zhs": "\u6a2a\u7978"
+      }
+    },
+    {
+      "id": "DarkShackles",
+      "key": "DARK_SHACKLES",
+      "slug": "dark-shackles",
+      "title": "Dark Shackles",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "StrengthLoss": {
+          "base": 9,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 15
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Enemy loses 9 Strength this turn.\nExhaust.",
+          "html": "Enemy loses <span class=\"num\">9</span> <span class=\"kw\">Strength</span> this turn.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Enemy loses 15 Strength this turn.\nExhaust.",
+          "html": "Enemy loses <span class=\"up\"><span class=\"num\">15</span></span> <span class=\"kw\">Strength</span> this turn.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "Enemy loses 9 \u2192 15 Strength this turn",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Dunkle Fesseln",
+        "fra": "Entraves des t\u00e9n\u00e8bres",
+        "ita": "Catene Oscure",
+        "spa": "Grilletes oscuros",
+        "esp": "Grilletes oscuros",
+        "ptb": "Grilh\u00f5es Sombrios",
+        "pol": "Mroczne okowy",
+        "rus": "\u041e\u043a\u043e\u0432\u044b \u0442\u044c\u043c\u044b",
+        "tur": "Kara Zincir",
+        "jpn": "\u95c7\u306e\u8db3\u67b7",
+        "kor": "\uc5b4\ub460\uc758 \uc871\uc1c4",
+        "zhs": "\u9ed1\u6697\u9563\u94d0",
+        "tha": "\u0e1e\u0e31\u0e19\u0e18\u0e19\u0e32\u0e01\u0e32\u0e23\u0e17\u0e21\u0e34\u0e2c"
+      }
+    },
+    {
+      "id": "Discovery",
+      "key": "DISCOVERY",
+      "slug": "discovery",
+      "title": "Discovery",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Choose 1 of 3 random cards to add into your Hand. It's free to play this turn.\nExhaust.",
+          "html": "Choose 1 of 3 random cards to add into your <span class=\"kw\">Hand</span>. It's free to play this turn.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Choose 1 of 3 random cards to add into your Hand. It's free to play this turn.",
+          "html": "Choose 1 of 3 random cards to add into your <span class=\"kw\">Hand</span>. It's free to play this turn."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Entdeckung",
+        "fra": "D\u00e9couverte",
+        "ita": "Scoperta",
+        "spa": "Descubrimiento",
+        "esp": "Descubrimiento",
+        "ptb": "Descoberta",
+        "pol": "Odkrycie",
+        "rus": "\u041d\u0430\u0445\u043e\u0434\u043a\u0430",
+        "tur": "Ke\u015fif",
+        "jpn": "\u767a\u898b",
+        "kor": "\ubc1c\uacac",
+        "zhs": "\u53d1\u73b0",
+        "tha": "\u0e01\u0e32\u0e23\u0e04\u0e49\u0e19\u0e1e\u0e1a"
+      }
+    },
+    {
+      "id": "DramaticEntrance",
+      "key": "DRAMATIC_ENTRANCE",
+      "slug": "dramatic-entrance",
+      "title": "Dramatic Entrance",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AllEnemies",
+      "keywords": [
+        "Exhaust",
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 11,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 15
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Innate.\nDeal 11 damage to ALL enemies.\nExhaust.",
+          "html": "<span class=\"kw\">Innate</span>.<br>Deal <span class=\"num\">11</span> damage to ALL enemies.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Innate.\nDeal 15 damage to ALL enemies.\nExhaust.",
+          "html": "<span class=\"kw\">Innate</span>.<br>Deal <span class=\"up\"><span class=\"num\">15</span></span> damage to ALL enemies.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "11 \u2192 15 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Dramatischer Auftritt",
+        "fra": "Entr\u00e9e fracassante",
+        "ita": "Entrata a Effetto",
+        "spa": "Entrada dram\u00e1tica",
+        "esp": "Entrada dram\u00e1tica",
+        "ptb": "Entrada Dram\u00e1tica",
+        "pol": "Wej\u015bcie smoka",
+        "rus": "\u0414\u0440\u0430\u043c\u0430\u0442\u0438\u0447\u043d\u044b\u0439 \u0434\u0435\u0431\u044e\u0442",
+        "tur": "Etkileyici Giri\u015f",
+        "jpn": "\u5287\u7684\u306a\u5165\u5834",
+        "kor": "\uadf9\uc801\uc778 \uc785\uc7a5",
+        "zhs": "\u95ea\u4eae\u767b\u573a",
+        "tha": "\u0e40\u0e1b\u0e34\u0e14\u0e15\u0e31\u0e27\u0e2d\u0e25\u0e31\u0e07\u0e01\u0e32\u0e23"
+      }
+    },
+    {
+      "id": "Entropy",
+      "key": "ENTROPY",
+      "slug": "entropy",
+      "title": "Entropy",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, Transform 1 card in your Hand.",
+          "html": "At the start of your turn, <span class=\"kw\">Transform</span> <span class=\"num\">1</span> card in your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Innate.\nAt the start of your turn, Transform 1 card in your Hand.",
+          "html": "<span class=\"up\"><span class=\"kw\">Innate</span>.</span><br>At the start of your turn, <span class=\"kw\">Transform</span> <span class=\"num\">1</span> card in your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "gains Innate",
+      "unlock": "COLORLESS1_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Entropie",
+        "fra": "Entropie",
+        "ita": "Entropia",
+        "spa": "Entrop\u00eda",
+        "esp": "Entrop\u00eda",
+        "ptb": "Entropia",
+        "pol": "Entropia",
+        "rus": "\u042d\u043d\u0442\u0440\u043e\u043f\u0438\u044f",
+        "tur": "Entropi",
+        "jpn": "\u30a8\u30f3\u30c8\u30ed\u30d4\u30fc",
+        "kor": "\uc5d4\ud2b8\ub85c\ud53c",
+        "zhs": "\u71b5"
+      }
+    },
+    {
+      "id": "Equilibrium",
+      "key": "EQUILIBRIUM",
+      "slug": "equilibrium",
+      "title": "Equilibrium",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 13,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 16
+        },
+        "Equilibrium": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 13 Block.\nRetain your Hand this turn.",
+          "html": "Gain <span class=\"num\">13</span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        },
+        "up": {
+          "plain": "Gain 16 Block.\nRetain your Hand this turn.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">16</span></span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        }
+      },
+      "upgradeSummary": "13 \u2192 16 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ausgewogenheit",
+        "fra": "\u00c9quilibre",
+        "ita": "Equilibrio",
+        "spa": "Equilibrio",
+        "esp": "Equilibrio",
+        "ptb": "Equil\u00edbrio",
+        "pol": "R\u00f3wnowaga",
+        "rus": "\u042d\u043a\u0432\u0438\u043b\u0438\u0431\u0440\u0438\u0443\u043c",
+        "tur": "Denge",
+        "jpn": "\u5747\u8861",
+        "kor": "\ud3c9\ud615",
+        "zhs": "\u5747\u8861",
+        "tha": "\u0e14\u0e38\u0e25\u0e22\u0e20\u0e32\u0e1e"
+      }
+    },
+    {
+      "id": "EternalArmor",
+      "key": "ETERNAL_ARMOR",
+      "slug": "eternal-armor",
+      "title": "Eternal Armor",
+      "pool": "colorless",
+      "character": null,
+      "cost": 3,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "PlatingPower": {
+          "base": 9,
+          "kind": "PowerVar<PlatingPower>",
+          "prop": null,
+          "up": 12
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 9 Plating.",
+          "html": "Gain <span class=\"num\">9</span> <span class=\"kw\">Plating</span>."
+        },
+        "up": {
+          "plain": "Gain 12 Plating.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">12</span></span> <span class=\"kw\">Plating</span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 12 Plating",
+      "unlock": "COLORLESS2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ewige R\u00fcstung",
+        "fra": "Armure \u00e9ternelle",
+        "ita": "Armatura Eterna",
+        "spa": "Armadura eterna",
+        "esp": "Armadura eterna",
+        "ptb": "Armadura Eterna",
+        "pol": "Wieczne opancerzenie",
+        "rus": "\u041d\u0435\u0440\u0443\u0448\u0438\u043c\u044b\u0435 \u043b\u0430\u0442\u044b",
+        "tur": "Ebedi Z\u0131rh",
+        "jpn": "\u4e0d\u6ec5\u306e\u93a7",
+        "kor": "\uc601\uc6d0\uc758 \uac11\uc637",
+        "zhs": "\u6c38\u6052\u94e0\u7532"
+      }
+    },
+    {
+      "id": "Fasten",
+      "key": "FASTEN",
+      "slug": "fasten",
+      "title": "Fasten",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "ExtraBlock": {
+          "base": 4,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 6
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain an additional 4 Block from Defend cards.",
+          "html": "Gain an additional <span class=\"num\">4</span> <span class=\"kw\">Block</span> from Defend cards."
+        },
+        "up": {
+          "plain": "Gain an additional 6 Block from Defend cards.",
+          "html": "Gain an additional <span class=\"up\"><span class=\"num\">6</span></span> <span class=\"kw\">Block</span> from Defend cards."
+        }
+      },
+      "upgradeSummary": "4 \u2192 6 additional Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Befestigen",
+        "fra": "Bien attach\u00e9",
+        "ita": "Fissaggio",
+        "spa": "Atadura",
+        "esp": "Ajustar",
+        "ptb": "Fixar",
+        "pol": "Zabezpieczenie",
+        "rus": "\u041f\u0440\u0435\u0434\u043e\u0441\u0442\u043e\u0440\u043e\u0436\u043d\u043e\u0441\u0442\u044c",
+        "tur": "Ba\u011fla",
+        "jpn": "\u7de0\u3081\u76f4\u3057",
+        "kor": "\uace0\uc815\uc2dc\ud0a4\uae30",
+        "zhs": "\u52d2\u7d27",
+        "tha": "\u0e23\u0e31\u0e14\u0e43\u0e2b\u0e49\u0e41\u0e19\u0e48\u0e19"
+      }
+    },
+    {
+      "id": "Finesse",
+      "key": "FINESSE",
+      "slug": "finesse",
+      "title": "Finesse",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 4,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 7
+        },
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 4 Block.\nDraw 1 card.",
+          "html": "Gain <span class=\"num\">4</span> <span class=\"kw\">Block</span>.<br>Draw 1 card."
+        },
+        "up": {
+          "plain": "Gain 7 Block.\nDraw 1 card.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">7</span></span> <span class=\"kw\">Block</span>.<br>Draw 1 card."
+        }
+      },
+      "upgradeSummary": "4 \u2192 7 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ass im \u00c4rmel",
+        "fra": "Finesse",
+        "ita": "Finezza",
+        "spa": "Sutileza",
+        "esp": "Sutileza",
+        "ptb": "Sutileza",
+        "pol": "Finezja",
+        "rus": "\u0418\u0437\u044f\u0449\u043d\u043e\u0441\u0442\u044c",
+        "tur": "Maharet",
+        "jpn": "\u6280\u5de7",
+        "kor": "\ub2a5\uc219",
+        "zhs": "\u5999\u8ba1",
+        "tha": "\u0e25\u0e39\u0e01\u0e40\u0e25\u0e48\u0e19"
+      }
+    },
+    {
+      "id": "Fisticuffs",
+      "key": "FISTICUFFS",
+      "slug": "fisticuffs",
+      "title": "Fisticuffs",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 7,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 9
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 7 damage.\nGain Block equal to damage dealt.",
+          "html": "Deal <span class=\"num\">7</span> damage.<br>Gain <span class=\"kw\">Block</span> equal to damage dealt."
+        },
+        "up": {
+          "plain": "Deal 9 damage.\nGain Block equal to damage dealt.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">9</span></span> damage.<br>Gain <span class=\"kw\">Block</span> equal to damage dealt."
+        }
+      },
+      "upgradeSummary": "7 \u2192 9 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Faustkampf",
+        "fra": "Bagarre",
+        "ita": "Scazzottata",
+        "spa": "A pu\u00f1etazos",
+        "esp": "A pu\u00f1o limpio",
+        "ptb": "Pancadaria",
+        "pol": "R\u0119koczyn",
+        "rus": "\u041f\u043e\u0442\u0430\u0441\u043e\u0432\u043a\u0430",
+        "tur": "Yumrukla\u015fma",
+        "jpn": "\u62f3\u95d8",
+        "kor": "\uc8fc\uba39\ub2e4\uc9d0",
+        "zhs": "\u62f3\u6597"
+      }
+    },
+    {
+      "id": "FlashOfSteel",
+      "key": "FLASH_OF_STEEL",
+      "slug": "flash-of-steel",
+      "title": "Flash of Steel",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 5,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 8
+        },
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 5 damage.\nDraw 1 card.",
+          "html": "Deal <span class=\"num\">5</span> damage.<br>Draw 1 card."
+        },
+        "up": {
+          "plain": "Deal 8 damage.\nDraw 1 card.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">8</span></span> damage.<br>Draw 1 card."
+        }
+      },
+      "upgradeSummary": "5 \u2192 8 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Stahlblitz",
+        "fra": "\u00c9clair d'acier",
+        "ita": "Lampo d'Acciaio",
+        "spa": "Destello de acero",
+        "esp": "Destello f\u00e9rreo",
+        "ptb": "Lampejo de A\u00e7o",
+        "pol": "B\u0142ysk stali",
+        "rus": "\u041e\u0442\u0431\u043b\u0435\u0441\u043a \u0441\u0442\u0430\u043b\u0438",
+        "tur": "\u00c7elik Par\u0131lt\u0131s\u0131",
+        "jpn": "\u4e00\u9583",
+        "kor": "\uac15\ucca0\uc758 \uc12c\uad11",
+        "zhs": "\u4eae\u5251",
+        "tha": "\u0e40\u0e2b\u0e25\u0e47\u0e01\u0e01\u0e25\u0e49\u0e32\u0e1e\u0e23\u0e34\u0e1a\u0e15\u0e32"
+      }
+    },
+    {
+      "id": "GoldAxe",
+      "key": "GOLD_AXE",
+      "slug": "gold-axe",
+      "title": "Gold Axe",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "CalculationBase": {
+          "base": 0,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "ExtraDamage": {
+          "base": 1,
+          "kind": "ExtraDamageVar",
+          "prop": null
+        },
+        "CalculatedDamage": {
+          "base": 0,
+          "kind": "CalculatedDamageVar",
+          "prop": "Move"
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal damage equal to the number of cards played this combat.",
+          "html": "Deal damage equal to the number of cards played this combat."
+        },
+        "up": {
+          "plain": "Retain.\nDeal damage equal to the number of cards played this combat.",
+          "html": "<span class=\"up\"><span class=\"kw\">Retain</span>.</span><br>Deal damage equal to the number of cards played this combat."
+        }
+      },
+      "upgradeSummary": "gains Retain",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Goldaxt",
+        "fra": "Hache dor\u00e9e",
+        "ita": "Ascia d'Oro",
+        "spa": "Hacha dorada",
+        "esp": "Hacha de oro",
+        "ptb": "Machado de Ouro",
+        "pol": "Z\u0142oty top\u00f3r",
+        "rus": "\u0417\u043e\u043b\u043e\u0442\u043e\u0439 \u0442\u043e\u043f\u043e\u0440",
+        "tur": "Alt\u0131n Balta",
+        "jpn": "\u91d1\u306e\u65a7",
+        "kor": "\ud669\uae08 \ub3c4\ub07c",
+        "zhs": "\u91d1\u65a7"
+      }
+    },
+    {
+      "id": "HandOfGreed",
+      "key": "HAND_OF_GREED",
+      "slug": "hand-of-greed",
+      "title": "Hand of Greed",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 20,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 25
+        },
+        "Gold": {
+          "base": 20,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 25
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 20 damage.\nIf Fatal, gain 20 Gold.",
+          "html": "Deal <span class=\"num\">20</span> damage.<br>If <span class=\"kw\">Fatal</span>, gain <span class=\"num\">20</span> <span class=\"kw\">Gold</span>."
+        },
+        "up": {
+          "plain": "Deal 25 damage.\nIf Fatal, gain 25 Gold.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">25</span></span> damage.<br>If <span class=\"kw\">Fatal</span>, gain <span class=\"up\"><span class=\"num\">25</span></span> <span class=\"kw\">Gold</span>."
+        }
+      },
+      "upgradeSummary": "20 \u2192 25 damage, 20 \u2192 25 gold",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Excluded from random card generation in combat (CanBeGeneratedInCombat = false).",
+      "hidden": false,
+      "i18n": {
+        "deu": "Arm der Gier",
+        "fra": "Main de la cupidit\u00e9",
+        "ita": "Mano della Cupidigia",
+        "spa": "Mano avariciosa",
+        "esp": "Mano de la avaricia",
+        "ptb": "M\u00e3o da Avareza",
+        "pol": "\u0141apczywo\u015b\u0107",
+        "rus": "\u0410\u043b\u0447\u0443\u0449\u0430\u044f \u0434\u043b\u0430\u043d\u044c",
+        "tur": "A\u00e7g\u00f6zl\u00fcl\u00fc\u011f\u00fcn Eli",
+        "jpn": "\u5f37\u6b32\u306e\u624b",
+        "kor": "\ud0d0\uc695\uc758 \uc190",
+        "zhs": "\u8d2a\u5a6a\u4e4b\u624b",
+        "tha": "\u0e21\u0e37\u0e2d\u0e41\u0e2b\u0e48\u0e07\u0e04\u0e27\u0e32\u0e21\u0e42\u0e25\u0e20"
+      }
+    },
+    {
+      "id": "HiddenGem",
+      "key": "HIDDEN_GEM",
+      "slug": "hidden-gem",
+      "title": "Hidden Gem",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Replay": {
+          "base": 2,
+          "kind": "IntVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "A random card without Replay in your Draw Pile gains Replay 2.",
+          "html": "A random card without <span class=\"kw\">Replay</span> in your <span class=\"kw\">Draw Pile</span> gains <span class=\"kw\">Replay</span> <span class=\"num\">2</span>."
+        },
+        "up": {
+          "plain": "A random card without Replay in your Draw Pile gains Replay 3.",
+          "html": "A random card without <span class=\"kw\">Replay</span> in your <span class=\"kw\">Draw Pile</span> gains <span class=\"kw\">Replay</span> <span class=\"up\"><span class=\"num\">3</span></span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 Replay",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Excluded from random card generation in combat (CanBeGeneratedInCombat = false).",
+      "hidden": false,
+      "i18n": {
+        "deu": "Verstecktes Juwel",
+        "fra": "Joyau cach\u00e9",
+        "ita": "Gemma Celata",
+        "spa": "Gema oculta",
+        "esp": "Gema oculta",
+        "ptb": "Gema Oculta",
+        "pol": "Ukryty skarb",
+        "rus": "\u0421\u043a\u0440\u044b\u0442\u0430\u044f \u0436\u0435\u043c\u0447\u0443\u0436\u0438\u043d\u0430",
+        "tur": "Sakl\u0131 Cevher",
+        "jpn": "\u96a0\u3055\u308c\u305f\u5b9d\u77f3",
+        "kor": "\uc228\uaca8\uc9c4 \ubcf4\uc11d",
+        "zhs": "\u672a\u6398\u5b9d\u77f3"
+      }
+    },
+    {
+      "id": "Impatience",
+      "key": "IMPATIENCE",
+      "slug": "impatience",
+      "title": "Impatience",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "If you have no Attacks in your Hand, draw 2 cards.",
+          "html": "If you have no Attacks in your <span class=\"kw\">Hand</span>, draw <span class=\"num\">2</span> cards."
+        },
+        "up": {
+          "plain": "If you have no Attacks in your Hand, draw 3 cards.",
+          "html": "If you have no Attacks in your <span class=\"kw\">Hand</span>, draw <span class=\"up\"><span class=\"num\">3</span></span> cards."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ungeduld",
+        "fra": "Impatience",
+        "ita": "Impazienza",
+        "spa": "Impaciencia",
+        "esp": "Impaciencia",
+        "ptb": "Impaci\u00eancia",
+        "pol": "Niecierpliwo\u015b\u0107",
+        "rus": "\u041d\u0435\u0443\u0434\u0435\u0440\u0436\u0438\u043c\u043e\u0441\u0442\u044c",
+        "tur": "Sab\u0131rs\u0131zl\u0131k",
+        "jpn": "\u7126\u71e5",
+        "kor": "\uc131\uae09\ud568",
+        "zhs": "\u6025\u8e81",
+        "tha": "\u0e04\u0e27\u0e32\u0e21\u0e43\u0e08\u0e23\u0e49\u0e2d\u0e19"
+      }
+    },
+    {
+      "id": "JackOfAllTrades",
+      "key": "JACK_OF_ALL_TRADES",
+      "slug": "jack-of-all-trades",
+      "title": "Jack of All Trades",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Add 1 random Colorless card into your Hand.\nExhaust.",
+          "html": "Add <span class=\"num\">1</span> random Colorless card into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Add 2 random Colorless cards into your Hand.\nExhaust.",
+          "html": "Add <span class=\"up\"><span class=\"num\">2</span></span> random Colorless cards into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Allesk\u00f6nner",
+        "fra": "Polyvalence",
+        "ita": "Jack Tuttofare",
+        "spa": "Navaja multiusos",
+        "esp": "Aprendiz de todo",
+        "ptb": "Versatilidade",
+        "pol": "Z\u0142ota r\u0105czka",
+        "rus": "\u041c\u0430\u0441\u0442\u0435\u0440 \u043d\u0430 \u0432\u0441\u0435 \u0440\u0443\u043a\u0438",
+        "tur": "Her \u0130\u015fin Ustas\u0131",
+        "jpn": "\u4f55\u3067\u3082\u5c4b",
+        "kor": "\ud314\ubc29\ubbf8\uc778",
+        "zhs": "\u82b1\u6837\u767e\u51fa",
+        "tha": "\u0e23\u0e39\u0e49\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1b\u0e47\u0e14"
+      }
+    },
+    {
+      "id": "Jackpot",
+      "key": "JACKPOT",
+      "slug": "jackpot",
+      "title": "Jackpot",
+      "pool": "colorless",
+      "character": null,
+      "cost": 3,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 25,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 30
+        },
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 25 damage.\nAdd 3 random 0 Energy cards into your Hand.",
+          "html": "Deal <span class=\"num\">25</span> damage.<br>Add <span class=\"num\">3</span> random 0<span class=\"energy\" data-n=\"1\"></span> cards into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 30 damage.\nAdd 3 random Upgraded 0 Energy cards into your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">30</span></span> damage.<br>Add <span class=\"num\">3</span> random<span class=\"up\"> <span class=\"kw\">Upgraded</span></span> 0<span class=\"energy\" data-n=\"1\"></span> cards into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "25 \u2192 30 damage, adds \u201cUpgraded\u201d",
+      "unlock": "COLORLESS2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Hauptgewinn",
+        "fra": "Jackpot",
+        "ita": "Jackpot",
+        "spa": "Premio gordo",
+        "esp": "Premio mayor",
+        "ptb": "Sorte Grande",
+        "pol": "Loteria",
+        "rus": "\u0414\u0436\u0435\u043a\u043f\u043e\u0442",
+        "tur": "B\u00fcy\u00fck \u0130kramiye",
+        "jpn": "\u30b8\u30e3\u30c3\u30af\u30dd\u30c3\u30c8",
+        "kor": "\uc7ad\ud31f",
+        "zhs": "\u5927\u5956",
+        "tha": "\u0e41\u0e08\u0e47\u0e01\u0e1e\u0e2d\u0e15"
+      }
+    },
+    {
+      "id": "MasterOfStrategy",
+      "key": "MASTER_OF_STRATEGY",
+      "slug": "master-of-strategy",
+      "title": "Master of Strategy",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 3 cards.\nExhaust.",
+          "html": "Draw <span class=\"num\">3</span> cards.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Draw 4 cards.\nExhaust.",
+          "html": "Draw <span class=\"up\"><span class=\"num\">4</span></span> cards.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Meisterstratege",
+        "fra": "Ma\u00eetre strat\u00e8ge",
+        "ita": "Maestro di Strategia",
+        "spa": "Maestro de la estrategia",
+        "esp": "Gran estratega",
+        "ptb": "Mestre Estrategista",
+        "pol": "Mistrz strategii",
+        "rus": "\u0412\u0435\u0440\u0445\u043e\u0432\u043d\u044b\u0439 \u0441\u0442\u0440\u0430\u0442\u0435\u0433",
+        "tur": "Strateji Ustas\u0131",
+        "jpn": "\u6226\u7565\u5bb6",
+        "kor": "\uc804\ub7b5\uc758 \ucc9c\uc7ac",
+        "zhs": "\u6218\u7565\u5927\u5e08",
+        "tha": "\u0e08\u0e2d\u0e21\u0e01\u0e25\u0e22\u0e38\u0e17\u0e18\u0e4c"
+      }
+    },
+    {
+      "id": "Mayhem",
+      "key": "MAYHEM",
+      "slug": "mayhem",
+      "title": "Mayhem",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, play the top card of your Draw Pile.",
+          "html": "At the start of your turn, play the top card of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, play the top card of your Draw Pile.",
+          "html": "At the start of your turn, play the top card of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Wilder Kampf",
+        "fra": "Grabuge",
+        "ita": "Tumulto",
+        "spa": "La ruleta del caos",
+        "esp": "Azar",
+        "ptb": "Roda da Fortuna",
+        "pol": "Rozwa\u0142ka",
+        "rus": "\u0411\u0435\u0441\u043f\u0440\u0435\u0434\u0435\u043b",
+        "tur": "Karga\u015fa",
+        "jpn": "\u9a12\u4e71",
+        "kor": "\ub300\ud63c\ub780",
+        "zhs": "\u4e71\u6218",
+        "tha": "\u0e04\u0e27\u0e32\u0e21\u0e42\u0e01\u0e25\u0e32\u0e2b\u0e25"
+      }
+    },
+    {
+      "id": "MindBlast",
+      "key": "MIND_BLAST",
+      "slug": "mind-blast",
+      "title": "Mind Blast",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "CalculationBase": {
+          "base": 0,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "ExtraDamage": {
+          "base": 1,
+          "kind": "ExtraDamageVar",
+          "prop": null
+        },
+        "CalculatedDamage": {
+          "base": 0,
+          "kind": "CalculatedDamageVar",
+          "prop": "Move"
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Innate.\nDeal damage equal to the number of cards in your Draw Pile.",
+          "html": "<span class=\"kw\">Innate</span>.<br>Deal damage equal to the number of cards in your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Innate.\nDeal damage equal to the number of cards in your Draw Pile.",
+          "html": "<span class=\"kw\">Innate</span>.<br>Deal damage equal to the number of cards in your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Gedankenstrahl",
+        "fra": "D\u00e9flagration mentale",
+        "ita": "Scoppio Mentale",
+        "spa": "Explosi\u00f3n mental",
+        "esp": "Rayo mental",
+        "ptb": "Disparo Mental",
+        "pol": "Wybuch m\u00f3zgu",
+        "rus": "\u041c\u0435\u043d\u0442\u0430\u043b\u044c\u043d\u044b\u0439 \u0432\u0437\u0440\u044b\u0432",
+        "tur": "Zihin Patlamas\u0131",
+        "jpn": "\u30de\u30a4\u30f3\u30c9\u30d6\u30e9\u30b9\u30c8",
+        "kor": "\uc815\uc2e0 \uacf5\uaca9",
+        "zhs": "\u5fc3\u7075\u9707\u6151",
+        "tha": "\u0e08\u0e34\u0e15\u0e2a\u0e31\u0e07\u0e2b\u0e32\u0e23"
+      }
+    },
+    {
+      "id": "Nostalgia",
+      "key": "NOSTALGIA",
+      "slug": "nostalgia",
+      "title": "Nostalgia",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "The first Attack or Skill you play each turn is placed on top of your Draw Pile.",
+          "html": "The first Attack or Skill you play each turn is placed on top of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "The first Attack or Skill you play each turn is placed on top of your Draw Pile.",
+          "html": "The first Attack or Skill you play each turn is placed on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": "COLORLESS4_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Nostalgie",
+        "fra": "Nostalgie",
+        "ita": "Nostalgia",
+        "spa": "Nostalgia",
+        "esp": "A\u00f1orar",
+        "ptb": "Nostalgia",
+        "pol": "Nostalgia",
+        "rus": "\u041d\u043e\u0441\u0442\u0430\u043b\u044c\u0433\u0438\u044f",
+        "tur": "Nostalji",
+        "jpn": "\u90f7\u6101",
+        "kor": "\ud5a5\uc218",
+        "zhs": "\u6000\u65e7"
+      }
+    },
+    {
+      "id": "Omnislice",
+      "key": "OMNISLICE",
+      "slug": "omnislice",
+      "title": "Omnislice",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 8,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage.\nDamage ALL other enemies equal to the damage dealt.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Damage ALL other enemies equal to the damage dealt."
+        },
+        "up": {
+          "plain": "Deal 11 damage.\nDamage ALL other enemies equal to the damage dealt.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">11</span></span> damage.<br>Damage ALL other enemies equal to the damage dealt."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Omnischnitt",
+        "fra": "Omnilame",
+        "ita": "Squarci Multipli",
+        "spa": "Omnicorte",
+        "esp": "Omnicorte",
+        "ptb": "Omnicorte",
+        "pol": "Wszechci\u0119cie",
+        "rus": "\u0412\u0441\u0435\u043f\u0440\u043e\u043d\u0437\u0430\u044e\u0449\u0438\u0439 \u0432\u044b\u043f\u0430\u0434",
+        "tur": "Mutlak Kesi\u015f",
+        "jpn": "\u56db\u65b9\u65ac\u308a",
+        "kor": "\ub9cc\ubb3c \uc808\ub2e8",
+        "zhs": "\u4e07\u5411\u65a9"
+      }
+    },
+    {
+      "id": "Panache",
+      "key": "PANACHE",
+      "slug": "panache",
+      "title": "Panache",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "PanacheDamage": {
+          "base": 10,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 14
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Every time you play 5 cards in a single turn, deal 10 damage to ALL enemies.",
+          "html": "Every time you play 5 cards in a single turn, deal <span class=\"num\">10</span> damage to ALL enemies."
+        },
+        "up": {
+          "plain": "Every time you play 5 cards in a single turn, deal 14 damage to ALL enemies.",
+          "html": "Every time you play 5 cards in a single turn, deal <span class=\"up\"><span class=\"num\">14</span></span> damage to ALL enemies."
+        }
+      },
+      "upgradeSummary": "10 \u2192 14 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ausstrahlung",
+        "fra": "Panache",
+        "ita": "Portamento",
+        "spa": "Estilo",
+        "esp": "Garbo",
+        "ptb": "Garbo",
+        "pol": "Rozmach",
+        "rus": "\u0418\u0441\u043a\u0440\u043e\u043c\u0435\u0442\u043d\u043e\u0441\u0442\u044c",
+        "tur": "G\u00f6steri\u015f",
+        "jpn": "\u5a01\u98a8\u5802\u3005",
+        "kor": "\uc704\ud48d\ub2f9\ub2f9",
+        "zhs": "\u795e\u6c14\u5236\u80dc",
+        "tha": "\u0e27\u0e32\u0e07\u0e17\u0e48\u0e32\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e17\u0e48"
+      }
+    },
+    {
+      "id": "PanicButton",
+      "key": "PANIC_BUTTON",
+      "slug": "panic-button",
+      "title": "Panic Button",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 30,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 40
+        },
+        "Turns": {
+          "base": 2,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 30 Block.\nYou cannot gain Block from cards for 2 turns.\nExhaust.",
+          "html": "Gain <span class=\"num\">30</span> <span class=\"kw\">Block</span>.<br>You cannot gain <span class=\"kw\">Block</span> from cards for <span class=\"num\">2</span> turns.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Gain 40 Block.\nYou cannot gain Block from cards for 2 turns.\nExhaust.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">40</span></span> <span class=\"kw\">Block</span>.<br>You cannot gain <span class=\"kw\">Block</span> from cards for <span class=\"num\">2</span> turns.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "30 \u2192 40 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Panikknopf",
+        "fra": "Bouton de secours",
+        "ita": "Pulsante Antipanico",
+        "spa": "Bot\u00f3n del p\u00e1nico",
+        "esp": "Bot\u00f3n de p\u00e1nico",
+        "ptb": "Bot\u00e3o de P\u00e2nico",
+        "pol": "Panika",
+        "rus": "\u041a\u0440\u0430\u0441\u043d\u0430\u044f \u043a\u043d\u043e\u043f\u043a\u0430",
+        "tur": "Panik Butonu",
+        "jpn": "\u975e\u5e38\u30dc\u30bf\u30f3",
+        "kor": "\ube44\uc0c1 \ub2e8\ucd94",
+        "zhs": "\u5e94\u6025\u6309\u94ae",
+        "tha": "\u0e1b\u0e38\u0e48\u0e21\u0e09\u0e38\u0e01\u0e40\u0e09\u0e34\u0e19"
+      }
+    },
+    {
+      "id": "PrepTime",
+      "key": "PREP_TIME",
+      "slug": "prep-time",
+      "title": "Prep Time",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "PrepTimePower": {
+          "base": 4,
+          "kind": "PowerVar<PrepTimePower>",
+          "prop": null,
+          "up": 6
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, gain 4 Vigor.",
+          "html": "At the start of your turn, gain <span class=\"num\">4</span> <span class=\"kw\">Vigor</span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, gain 6 Vigor.",
+          "html": "At the start of your turn, gain <span class=\"up\"><span class=\"num\">6</span></span> <span class=\"kw\">Vigor</span>."
+        }
+      },
+      "upgradeSummary": "4 \u2192 6 Vigor",
+      "unlock": "COLORLESS2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Vorbereitungszeit",
+        "fra": "\u00c9chauffement",
+        "ita": "Tempo di Preparazione",
+        "spa": "Preparativos",
+        "esp": "Hora de prepararse",
+        "ptb": "Preparativos",
+        "pol": "Naostrzenie",
+        "rus": "\u041f\u043e\u0434\u0433\u043e\u0442\u043e\u0432\u043a\u0430",
+        "tur": "Haz\u0131rl\u0131k Vakti",
+        "jpn": "\u30a6\u30a9\u30fc\u30e0\u30a2\u30c3\u30d7",
+        "kor": "\uc900\ube44 \uc2dc\uac04",
+        "zhs": "\u51c6\u5907\u65f6\u95f4",
+        "tha": "\u0e0a\u0e48\u0e27\u0e07\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e01\u0e32\u0e23"
+      }
+    },
+    {
+      "id": "Production",
+      "key": "PRODUCTION",
+      "slug": "production",
+      "title": "Production",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Energy": {
+          "base": 2,
+          "kind": "EnergyVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 2 Energy.\nExhaust.",
+          "html": "Gain <span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Gain 3 Energy.\nExhaust.",
+          "html": "Gain <span class=\"up\"><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span></span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 energy",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Produktion",
+        "fra": "Production",
+        "ita": "Produzione",
+        "spa": "Producci\u00f3n",
+        "esp": "Producci\u00f3n",
+        "ptb": "Produ\u00e7\u00e3o",
+        "pol": "Produkcja",
+        "rus": "\u041f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u043e",
+        "tur": "\u00dcretim",
+        "jpn": "\u751f\u7523",
+        "kor": "\uc0dd\uc0b0",
+        "zhs": "\u751f\u4ea7\u5236\u9020"
+      }
+    },
+    {
+      "id": "Prolong",
+      "key": "PROLONG",
+      "slug": "prolong",
+      "title": "Prolong",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Next turn, gain Block equal to your current Block.\nExhaust.",
+          "html": "Next turn, gain <span class=\"kw\">Block</span> equal to your current <span class=\"kw\">Block</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Next turn, gain Block equal to your current Block.",
+          "html": "Next turn, gain <span class=\"kw\">Block</span> equal to your current <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Zeit schinden",
+        "fra": "Prolongations",
+        "ita": "Prolungamento",
+        "spa": "Prolongar",
+        "esp": "Prolongar",
+        "ptb": "Prolongar",
+        "pol": "Przed\u0142u\u017canie",
+        "rus": "\u041f\u0440\u043e\u0434\u043e\u043b\u0436\u0435\u043d\u0438\u0435",
+        "tur": "Uzat",
+        "jpn": "\u5ef6\u9577",
+        "kor": "\uc5f0\uc7a5",
+        "zhs": "\u5ef6\u4f38"
+      }
+    },
+    {
+      "id": "Prowess",
+      "key": "PROWESS",
+      "slug": "prowess",
+      "title": "Prowess",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "StrengthPower": {
+          "base": 1,
+          "kind": "PowerVar<StrengthPower>",
+          "prop": null,
+          "up": 2
+        },
+        "DexterityPower": {
+          "base": 1,
+          "kind": "PowerVar<DexterityPower>",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 1 Strength.\nGain 1 Dexterity.",
+          "html": "Gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span>.<br>Gain <span class=\"num\">1</span> <span class=\"kw\">Dexterity</span>."
+        },
+        "up": {
+          "plain": "Gain 2 Strength.\nGain 2 Dexterity.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">2</span></span> <span class=\"kw\">Strength</span>.<br>Gain <span class=\"up\"><span class=\"num\">2</span></span> <span class=\"kw\">Dexterity</span>."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 Strength, 1 \u2192 2 Dexterity",
+      "unlock": "COLORLESS3_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "K\u00f6nnen",
+        "fra": "Prouesse",
+        "ita": "Prodezza",
+        "spa": "Soltura",
+        "esp": "Proeza",
+        "ptb": "Proeza",
+        "pol": "Sprawno\u015b\u0107",
+        "rus": "\u0423\u0434\u0430\u043b\u044c",
+        "tur": "H\u00fcner",
+        "jpn": "\u6b66\u52c7",
+        "kor": "\uae30\ub7c9",
+        "zhs": "\u975e\u51e1\u6280\u827a"
+      }
+    },
+    {
+      "id": "Purity",
+      "key": "PURITY",
+      "slug": "purity",
+      "title": "Purity",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Retain",
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 5
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Retain.\nExhaust up to 3 cards in your Hand.\nExhaust.",
+          "html": "<span class=\"kw\">Retain</span>.<br>Exhaust up to <span class=\"num\">3</span> cards in your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Retain.\nExhaust up to 5 cards in your Hand.\nExhaust.",
+          "html": "<span class=\"kw\">Retain</span>.<br>Exhaust up to <span class=\"up\"><span class=\"num\">5</span></span> cards in your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 5 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Reinheit",
+        "fra": "\u00c9puration",
+        "ita": "Purezza",
+        "spa": "Pureza",
+        "esp": "Pureza",
+        "ptb": "Pureza",
+        "pol": "Czysto\u015b\u0107",
+        "rus": "\u041d\u0435\u043f\u043e\u0440\u043e\u0447\u043d\u043e\u0441\u0442\u044c",
+        "tur": "Safl\u0131k",
+        "jpn": "\u7953\u3044\u6e05\u3081",
+        "kor": "\uc21c\uc218",
+        "zhs": "\u51c0\u5316",
+        "tha": "\u0e04\u0e27\u0e32\u0e21\u0e1a\u0e23\u0e34\u0e2a\u0e38\u0e17\u0e18\u0e34\u0e4c"
+      }
+    },
+    {
+      "id": "Rend",
+      "key": "REND",
+      "slug": "rend",
+      "title": "Rend",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "CalculationBase": {
+          "base": 15,
+          "kind": "CalculationBaseVar",
+          "prop": null,
+          "up": 18
+        },
+        "ExtraDamage": {
+          "base": 5,
+          "kind": "ExtraDamageVar",
+          "prop": null,
+          "up": 8
+        },
+        "CalculatedDamage": {
+          "base": 15,
+          "kind": "CalculatedDamageVar",
+          "prop": "Move",
+          "up": 18
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 15 damage.\nDeals 5 additional damage for each unique debuff on the enemy.",
+          "html": "Deal <span class=\"num\">15</span> damage.<br>Deals <span class=\"num\">5</span> additional damage for each unique debuff on the enemy."
+        },
+        "up": {
+          "plain": "Deal 18 damage.\nDeals 8 additional damage for each unique debuff on the enemy.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">18</span></span> damage.<br>Deals <span class=\"up\"><span class=\"num\">8</span></span> additional damage for each unique debuff on the enemy."
+        }
+      },
+      "upgradeSummary": "15 \u2192 18 damage, 5 \u2192 8 extra damage",
+      "unlock": "COLORLESS3_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Zerrei\u00dfen",
+        "fra": "Pourfendre",
+        "ita": "Lacerazione",
+        "spa": "Hacer a\u00f1icos",
+        "esp": "Desgarrar",
+        "ptb": "Rasgar",
+        "pol": "Rozdarcie",
+        "rus": "\u0420\u0430\u0441\u043a\u043e\u043b",
+        "tur": "Yar",
+        "jpn": "\u88c2\u50b7",
+        "kor": "\uc950\uc5b4\ub72f\uae30",
+        "zhs": "\u6495\u788e"
+      }
+    },
+    {
+      "id": "Restlessness",
+      "key": "RESTLESSNESS",
+      "slug": "restlessness",
+      "title": "Restlessness",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        },
+        "Energy": {
+          "base": 2,
+          "kind": "EnergyVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Retain.\nIf your Hand is empty, draw 2 cards and gain 2 Energy.",
+          "html": "<span class=\"kw\">Retain</span>.<br>If your <span class=\"kw\">Hand</span> is empty, draw <span class=\"num\">2</span> cards and gain <span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Retain.\nIf your Hand is empty, draw 3 cards and gain 3 Energy.",
+          "html": "<span class=\"kw\">Retain</span>.<br>If your <span class=\"kw\">Hand</span> is empty, draw <span class=\"up\"><span class=\"num\">3</span></span> cards and gain <span class=\"up\"><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span></span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 cards, 2 \u2192 3 energy",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Unruhe",
+        "fra": "Sans repos",
+        "ita": "Irrequietezza",
+        "spa": "Inquietud",
+        "esp": "Desasosiego",
+        "ptb": "Inquieta\u00e7\u00e3o",
+        "pol": "Zniecierpliwienie",
+        "rus": "\u041d\u0435\u0443\u0433\u043e\u043c\u043e\u043d\u043d\u043e\u0441\u0442\u044c",
+        "tur": "Yerinde Duramama",
+        "jpn": "\u82db\u7acb\u3061",
+        "kor": "\ucd08\uc870\ud568",
+        "zhs": "\u5fc3\u795e\u4e0d\u5b81"
+      }
+    },
+    {
+      "id": "RollingBoulder",
+      "key": "ROLLING_BOULDER",
+      "slug": "rolling-boulder",
+      "title": "Rolling Boulder",
+      "pool": "colorless",
+      "character": null,
+      "cost": 3,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "RollingBoulderPower": {
+          "base": 5,
+          "kind": "PowerVar<RollingBoulderPower>",
+          "prop": null,
+          "up": 10
+        },
+        "IncrementAmount": {
+          "base": 5,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, deal 5 damage to ALL enemies and increase this damage by 5.",
+          "html": "At the start of your turn, deal <span class=\"num\">5</span> damage to ALL enemies and increase this damage by <span class=\"num\">5</span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, deal 10 damage to ALL enemies and increase this damage by 5.",
+          "html": "At the start of your turn, deal <span class=\"up\"><span class=\"num\">10</span></span> damage to ALL enemies and increase this damage by <span class=\"num\">5</span>."
+        }
+      },
+      "upgradeSummary": "5 \u2192 10 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Rollender Fels",
+        "fra": "Pierre qui roule",
+        "ita": "Masso Rotolante",
+        "spa": "Canto rodado",
+        "esp": "Piedra rodante",
+        "ptb": "Rocha Rolante",
+        "pol": "Kulop\u0142ot",
+        "rus": "\u041a\u0430\u043c\u0435\u043d\u043d\u0430\u044f \u043b\u0430\u0432\u0438\u043d\u0430",
+        "tur": "Yuvarlanan Kaya",
+        "jpn": "\u5927\u5ca9\u8ee2\u304c\u3057",
+        "kor": "\uad74\ub7ec\uac00\ub294 \ubc14\uc704",
+        "zhs": "\u6eda\u77f3"
+      }
+    },
+    {
+      "id": "Salvo",
+      "key": "SALVO",
+      "slug": "salvo",
+      "title": "Salvo",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 12,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 16
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 12 damage.\nRetain your Hand this turn.",
+          "html": "Deal <span class=\"num\">12</span> damage.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        },
+        "up": {
+          "plain": "Deal 16 damage.\nRetain your Hand this turn.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">16</span></span> damage.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        }
+      },
+      "upgradeSummary": "12 \u2192 16 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Salve",
+        "fra": "Salve",
+        "ita": "Salva",
+        "spa": "Salva",
+        "esp": "Ca\u00f1onazo",
+        "ptb": "Saraivada",
+        "pol": "Salwa",
+        "rus": "\u0417\u0430\u043b\u043f",
+        "tur": "Yayl\u0131m Ate\u015fi",
+        "jpn": "\u4e00\u6589\u5c04\u6483",
+        "kor": "\uc9d1\uc911 \ud3ec\ud654",
+        "zhs": "\u7bad\u96e8"
+      }
+    },
+    {
+      "id": "Scrawl",
+      "key": "SCRAWL",
+      "slug": "scrawl",
+      "title": "Scrawl",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust",
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Draw cards until your Hand is full.\nExhaust.",
+          "html": "Draw cards until your <span class=\"kw\">Hand</span> is full.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Retain.\nDraw cards until your Hand is full.\nExhaust.",
+          "html": "<span class=\"up\"><span class=\"kw\">Retain</span>.</span><br>Draw cards until your <span class=\"kw\">Hand</span> is full.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "gains Retain",
+      "unlock": "COLORLESS4_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Gesudel",
+        "fra": "Griffonage",
+        "ita": "Ghirigoro",
+        "spa": "Garabatear",
+        "esp": "Garabatos",
+        "ptb": "Rabiscar",
+        "pol": "Bazgro\u0142y",
+        "rus": "\u041f\u0438\u0441\u0430\u043d\u0438\u043d\u0430",
+        "tur": "Karalama",
+        "jpn": "\u8d70\u308a\u66f8\u304d",
+        "kor": "\ud718\uac08\uae40",
+        "zhs": "\u6f66\u8349\u6025\u5c31",
+        "tha": "\u0e40\u0e23\u0e48\u0e07\u0e08\u0e32\u0e23\u0e36\u0e01"
+      }
+    },
+    {
+      "id": "SecretTechnique",
+      "key": "SECRET_TECHNIQUE",
+      "slug": "secret-technique",
+      "title": "Secret Technique",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Put a Skill from your Draw Pile into your Hand.\nExhaust.",
+          "html": "Put a Skill from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Put a Skill from your Draw Pile into your Hand.",
+          "html": "Put a Skill from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Geheime Technik",
+        "fra": "Technique secr\u00e8te",
+        "ita": "Tecnica Segreta",
+        "spa": "T\u00e9cnica secreta",
+        "esp": "T\u00e9cnica secreta",
+        "ptb": "Habilidade Secreta",
+        "pol": "Tajna technika",
+        "rus": "\u0422\u0430\u0439\u043d\u0430\u044f \u0442\u0435\u0445\u043d\u0438\u043a\u0430",
+        "tur": "Gizli Teknik",
+        "jpn": "\u30b7\u30fc\u30af\u30ec\u30c3\u30c8\u30c6\u30af\u30cb\u30c3\u30af",
+        "kor": "\ube44\ubc00 \uae30\uc220",
+        "zhs": "\u79d8\u5bc6\u6280\u6cd5",
+        "tha": "\u0e01\u0e23\u0e30\u0e1a\u0e27\u0e19\u0e17\u0e48\u0e32\u0e25\u0e31\u0e1a"
+      }
+    },
+    {
+      "id": "SecretWeapon",
+      "key": "SECRET_WEAPON",
+      "slug": "secret-weapon",
+      "title": "Secret Weapon",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Put an Attack from your Draw Pile into your Hand.\nExhaust.",
+          "html": "Put an Attack from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Put an Attack from your Draw Pile into your Hand.",
+          "html": "Put an Attack from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Geheimwaffe",
+        "fra": "Arme secr\u00e8te",
+        "ita": "Arma Segreta",
+        "spa": "Arma secreta",
+        "esp": "Arma secreta",
+        "ptb": "Arma Secreta",
+        "pol": "Tajna bro\u0144",
+        "rus": "\u0422\u0430\u0439\u043d\u043e\u0435 \u043e\u0440\u0443\u0436\u0438\u0435",
+        "tur": "Gizli Silah",
+        "jpn": "\u30b7\u30fc\u30af\u30ec\u30c3\u30c8\u30a6\u30a7\u30dd\u30f3",
+        "kor": "\ube44\ubc00 \ubcd1\uae30",
+        "zhs": "\u79d8\u5bc6\u6b66\u5668",
+        "tha": "\u0e2d\u0e32\u0e27\u0e38\u0e18\u0e25\u0e31\u0e1a"
+      }
+    },
+    {
+      "id": "SeekerStrike",
+      "key": "SEEKER_STRIKE",
+      "slug": "seeker-strike",
+      "title": "Seeker Strike",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [
+        "Strike"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 9,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 12
+        },
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 9 damage.\nChoose 1 of 3 cards in your Draw Pile to add into your Hand.",
+          "html": "Deal <span class=\"num\">9</span> damage.<br>Choose 1 of <span class=\"num\">3</span> cards in your <span class=\"kw\">Draw Pile</span> to add into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 12 damage.\nChoose 1 of 3 cards in your Draw Pile to add into your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">12</span></span> damage.<br>Choose 1 of <span class=\"num\">3</span> cards in your <span class=\"kw\">Draw Pile</span> to add into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 12 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Sucher-Schlag",
+        "fra": "Frappe chercheuse",
+        "ita": "Colpo Inseguitore",
+        "spa": "Golpe buscador",
+        "esp": "Golpe rastreador",
+        "ptb": "Golpe Rastreador",
+        "pol": "Uderzenie naprowadzaj\u0105ce",
+        "rus": "\u0423\u0434\u0430\u0440 \u0438\u0441\u043a\u0430\u0442\u0435\u043b\u044f",
+        "tur": "G\u00fcd\u00fcml\u00fc Sald\u0131r\u0131",
+        "jpn": "\u30b7\u30fc\u30ab\u30fc\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\ud0d0\uc0c9 \ud0c0\uaca9",
+        "zhs": "\u63a2\u5bfb\u6253\u51fb"
+      }
+    },
+    {
+      "id": "Shockwave",
+      "key": "SHOCKWAVE",
+      "slug": "shockwave",
+      "title": "Shockwave",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AllEnemies",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Power": {
+          "base": 3,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 5
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Apply 3 Weak and Vulnerable to ALL enemies.\nExhaust.",
+          "html": "Apply <span class=\"num\">3</span> <span class=\"kw\">Weak</span> and <span class=\"kw\">Vulnerable</span> to ALL enemies.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Apply 5 Weak and Vulnerable to ALL enemies.\nExhaust.",
+          "html": "Apply <span class=\"up\"><span class=\"num\">5</span></span> <span class=\"kw\">Weak</span> and <span class=\"kw\">Vulnerable</span> to ALL enemies.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 5 Weak and Vulnerable",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schockwelle",
+        "fra": "Onde de choc",
+        "ita": "Onda d'Urto",
+        "spa": "Onda de choque",
+        "esp": "Onda de choque",
+        "ptb": "Onda de Choque",
+        "pol": "Fala uderzeniowa",
+        "rus": "\u0421\u0438\u043b\u043e\u0432\u0430\u044f \u0432\u043e\u043b\u043d\u0430",
+        "tur": "\u015eok Dalgas\u0131",
+        "jpn": "\u885d\u6483\u6ce2",
+        "kor": "\ucda9\uaca9\ud30c",
+        "zhs": "\u9707\u8361\u6ce2",
+        "tha": "\u0e04\u0e25\u0e37\u0e48\u0e19\u0e01\u0e23\u0e30\u0e41\u0e17\u0e01"
+      }
+    },
+    {
+      "id": "Splash",
+      "key": "SPLASH",
+      "slug": "splash",
+      "title": "Splash",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Choose 1 of 3 random Attacks from another character to add into your Hand. It's free to play this turn.",
+          "html": "Choose 1 of 3 random Attacks from another character to add into your <span class=\"kw\">Hand</span>. It's free to play this turn."
+        },
+        "up": {
+          "plain": "Choose 1 of 3 random Upgraded Attacks from another character to add into your Hand. It's free to play this turn.",
+          "html": "Choose 1 of 3 random<span class=\"up\"> <span class=\"kw\">Upgraded</span></span> Attacks from another character to add into your <span class=\"kw\">Hand</span>. It's free to play this turn."
+        }
+      },
+      "upgradeSummary": "adds \u201cUpgraded\u201d",
+      "unlock": "COLORLESS5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Spritzer",
+        "fra": "Clapotis",
+        "ita": "Schizzo",
+        "spa": "Salpicadura",
+        "esp": "Chapoteo",
+        "ptb": "Respingo",
+        "pol": "Plusk",
+        "rus": "\u041a\u0430\u043f\u043b\u044f \u0432 \u043c\u043e\u0440\u0435",
+        "tur": "Su S\u0131\u00e7ramas\u0131",
+        "jpn": "\u30b9\u30d7\u30e9\u30c3\u30b7\u30e5",
+        "kor": "\ucc29\uc218",
+        "zhs": "\u98de\u6e85"
+      }
+    },
+    {
+      "id": "Stratagem",
+      "key": "STRATAGEM",
+      "slug": "stratagem",
+      "title": "Stratagem",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Whenever you shuffle your Draw Pile, choose a card from it to put into your Hand.",
+          "html": "Whenever you shuffle your <span class=\"kw\">Draw Pile</span>, choose a card from it to put into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Whenever you shuffle your Draw Pile, choose a card from it to put into your Hand.",
+          "html": "Whenever you shuffle your <span class=\"kw\">Draw Pile</span>, choose a card from it to put into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Strategema",
+        "fra": "Stratag\u00e8me",
+        "ita": "Stratagemma",
+        "spa": "Estratagema",
+        "esp": "Estratagema",
+        "ptb": "Estratagema",
+        "pol": "Podst\u0119p",
+        "rus": "\u0421\u0442\u0440\u0430\u0442\u0430\u0433\u0435\u043c\u0430",
+        "tur": "Hile",
+        "jpn": "\u8a08\u7565",
+        "kor": "\ucc45\ub7b5",
+        "zhs": "\u8ba1\u7b56"
+      }
+    },
+    {
+      "id": "TheBomb",
+      "key": "THE_BOMB",
+      "slug": "the-bomb",
+      "title": "The Bomb",
+      "pool": "colorless",
+      "character": null,
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Turns": {
+          "base": 3,
+          "kind": "DynamicVar",
+          "prop": null
+        },
+        "BombDamage": {
+          "base": 40,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 50
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the end of 3 turns, deal 40 damage to ALL enemies.",
+          "html": "At the end of <span class=\"num\">3</span> turns, deal <span class=\"num\">40</span> damage to ALL enemies."
+        },
+        "up": {
+          "plain": "At the end of 3 turns, deal 50 damage to ALL enemies.",
+          "html": "At the end of <span class=\"num\">3</span> turns, deal <span class=\"up\"><span class=\"num\">50</span></span> damage to ALL enemies."
+        }
+      },
+      "upgradeSummary": "40 \u2192 50 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Die Bombe",
+        "fra": "La bombe",
+        "ita": "La Bomba",
+        "spa": "La bomba",
+        "esp": "La bomba",
+        "ptb": "A Bomba",
+        "pol": "Bomba",
+        "rus": "\u0411\u043e\u043c\u0431\u0430",
+        "tur": "Bomba",
+        "jpn": "\u7206\u5f3e",
+        "kor": "\ud3ed\ud0c4",
+        "zhs": "\u70b8\u5f39",
+        "tha": "\u0e23\u0e30\u0e40\u0e1a\u0e34\u0e14"
+      }
+    },
+    {
+      "id": "TheGambit",
+      "key": "THE_GAMBIT",
+      "slug": "the-gambit",
+      "title": "The Gambit",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 50,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 75
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 50 Block.\nIf you take unblocked attack damage this combat, die.",
+          "html": "Gain <span class=\"num\">50</span> <span class=\"kw\">Block</span>.<br>If you take unblocked attack damage this combat, die."
+        },
+        "up": {
+          "plain": "Gain 75 Block.\nIf you take unblocked attack damage this combat, die.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">75</span></span> <span class=\"kw\">Block</span>.<br>If you take unblocked attack damage this combat, die."
+        }
+      },
+      "upgradeSummary": "50 \u2192 75 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Das Gambit",
+        "fra": "La grande man\u0153uvre",
+        "ita": "Azzardo",
+        "spa": "Jugada arriesgada",
+        "esp": "Gambito",
+        "ptb": "Jogada Arriscada",
+        "pol": "Wszystko na jedn\u0105 kart\u0119",
+        "rus": "\u0418\u0433\u0440\u0430 \u0441\u0442\u043e\u0438\u0442 \u0441\u0432\u0435\u0447",
+        "tur": "Riskli Hamle",
+        "jpn": "\u80cc\u6c34\u306e\u9663",
+        "kor": "\ud3ec\uc11d",
+        "zhs": "\u5b64\u6ce8\u4e00\u63b7",
+        "tha": "\u0e40\u0e14\u0e34\u0e21\u0e1e\u0e31\u0e19\u0e0a\u0e30\u0e15\u0e32"
+      }
+    },
+    {
+      "id": "ThinkingAhead",
+      "key": "THINKING_AHEAD",
+      "slug": "thinking-ahead",
+      "title": "Thinking Ahead",
+      "pool": "colorless",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 2 cards.\nPut 1 card from your Hand on top of your Draw Pile.\nExhaust.",
+          "html": "Draw <span class=\"num\">2</span> cards.<br>Put 1 card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Draw 2 cards.\nPut 1 card from your Hand on top of your Draw Pile.",
+          "html": "Draw <span class=\"num\">2</span> cards.<br>Put 1 card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Vorausdenken",
+        "fra": "Coup d'avance",
+        "ita": "Lungimiranza",
+        "spa": "Un paso por delante",
+        "esp": "Dos pasos adelante",
+        "ptb": "Pensar Adiante",
+        "pol": "My\u015blenie naprz\u00f3d",
+        "rus": "\u041d\u0430 \u0448\u0430\u0433 \u0432\u043f\u0435\u0440\u0435\u0434\u0438",
+        "tur": "\u0130leri G\u00f6r\u00fc\u015f",
+        "jpn": "\u4e88\u6e2c",
+        "kor": "\ubbf8\ub798 \uc608\uc9c0",
+        "zhs": "\u6df1\u8c0b\u8fdc\u8651",
+        "tha": "\u0e04\u0e34\u0e14\u0e25\u0e48\u0e27\u0e07\u0e2b\u0e19\u0e49\u0e32"
+      }
+    },
+    {
+      "id": "ThrummingHatchet",
+      "key": "THRUMMING_HATCHET",
+      "slug": "thrumming-hatchet",
+      "title": "Thrumming Hatchet",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 11,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 14
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 11 damage.\nAt the start of your next turn, return this to your Hand.",
+          "html": "Deal <span class=\"num\">11</span> damage.<br>At the start of your next turn, return this to your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 14 damage.\nAt the start of your next turn, return this to your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">14</span></span> damage.<br>At the start of your next turn, return this to your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "11 \u2192 14 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Surrende Axt",
+        "fra": "Hache sifflante",
+        "ita": "Accetta Rimbombante",
+        "spa": "Lanzamiento de destral",
+        "esp": "Hacha vibrante",
+        "ptb": "Machadinha Vibrante",
+        "pol": "Grzmi\u0105cy top\u00f3r",
+        "rus": "\u0412\u043e\u0437\u0432\u0440\u0430\u0442\u043d\u044b\u0439 \u0442\u043e\u043f\u043e\u0440\u0438\u043a",
+        "tur": "U\u011fuldayan Balta",
+        "jpn": "\u5171\u9cf4\u306e\u624b\u65a7",
+        "kor": "\uace0\ub3d9\uce58\ub294 \ub3c4\ub07c",
+        "zhs": "\u65e0\u4f11\u624b\u65a7"
+      }
+    },
+    {
+      "id": "UltimateDefend",
+      "key": "ULTIMATE_DEFEND",
+      "slug": "ultimate-defend",
+      "title": "Ultimate Defend",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [
+        "Defend"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 11,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 15
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 11 Block.",
+          "html": "Gain <span class=\"num\">11</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Gain 15 Block.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">15</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "11 \u2192 15 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ultimatives Verteidigen",
+        "fra": "D\u00e9fense ultime",
+        "ita": "Difesa Strenua",
+        "spa": "Defender definitivo",
+        "esp": "Defensa definitiva",
+        "ptb": "Defesa Suprema",
+        "pol": "Ultra Obrona",
+        "rus": "\u041f\u0440\u0435\u0432\u043e\u0441\u0445\u043e\u0434\u043d\u0430\u044f \u043e\u0431\u043e\u0440\u043e\u043d\u0430",
+        "tur": "Nihai Savunma",
+        "jpn": "\u7a76\u6975\u306e\u9632\u5fa1",
+        "kor": "\uad81\uadf9\uc758 \uc218\ube44",
+        "zhs": "\u7a76\u6781\u9632\u5fa1"
+      }
+    },
+    {
+      "id": "UltimateStrike",
+      "key": "ULTIMATE_STRIKE",
+      "slug": "ultimate-strike",
+      "title": "Ultimate Strike",
+      "pool": "colorless",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [
+        "Strike"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 14,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 20
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 14 damage.",
+          "html": "Deal <span class=\"num\">14</span> damage."
+        },
+        "up": {
+          "plain": "Deal 20 damage.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">20</span></span> damage."
+        }
+      },
+      "upgradeSummary": "14 \u2192 20 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ultimativer Schlag",
+        "fra": "Frappe ultime",
+        "ita": "Colpo Definitivo",
+        "spa": "Golpe definitivo",
+        "esp": "Golpe definitivo",
+        "ptb": "Golpe Supremo",
+        "pol": "Ultra Uderzenie",
+        "rus": "\u041f\u0440\u0435\u0432\u043e\u0441\u0445\u043e\u0434\u043d\u044b\u0439 \u0443\u0434\u0430\u0440",
+        "tur": "Nihai Sald\u0131r\u0131",
+        "jpn": "\u7a76\u6975\u306e\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\uad81\uadf9\uc758 \ud0c0\uaca9",
+        "zhs": "\u7a76\u6781\u6253\u51fb"
+      }
+    },
+    {
+      "id": "Volley",
+      "key": "VOLLEY",
+      "slug": "volley",
+      "title": "Volley",
+      "pool": "colorless",
+      "character": null,
+      "cost": "X",
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "RandomEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 10,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 14
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 10 damage to a random enemy X times.",
+          "html": "Deal <span class=\"num\">10</span> damage to a random enemy X times."
+        },
+        "up": {
+          "plain": "Deal 14 damage to a random enemy X times.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">14</span></span> damage to a random enemy X times."
+        }
+      },
+      "upgradeSummary": "10 \u2192 14 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Kugelhagel",
+        "fra": "Artillerie",
+        "ita": "Raffica",
+        "spa": "Aluvi\u00f3n",
+        "esp": "R\u00e1faga",
+        "ptb": "Enxurrada",
+        "pol": "Wolej",
+        "rus": "\u041e\u0433\u043e\u043d\u044c \u043d\u0430 \u043f\u043e\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+        "tur": "Seri At\u0131\u015f",
+        "jpn": "\u9023\u5c04",
+        "kor": "\ub09c\uc0ac",
+        "zhs": "\u8fde\u5c04"
+      }
+    }
+  ]
+}

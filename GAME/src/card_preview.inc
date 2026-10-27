@@ -15,6 +15,7 @@ static void preview_once(const Game*g,int raw,int target,int choice,CardPreview*
  /* Insufficient Energy should not hide damage / Block modifiers. X retains
     the actual available Energy; it is never replaced by an invented value. */
  if(cost>copy.energy)copy.energy=cost;
+ int stars=game_card_star_cost(&copy,raw);if(stars>copy.regent.stars)copy.regent.stars=stars;
  preview_trace=out;preview_depth=preview_phase=preview_nested=0;preview_choice=choice;
  game_play_card(&copy,index,target);
  if(copy.screen==NINJA_CHOICE){for(int i=0;i<copy.ninja.task_count;i++)if(copy.ninja.tasks[i].kind==NT_PLAY&&copy.ninja.tasks[i].depth==2)out->uncertain=1;}
@@ -25,7 +26,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
  int id=CARD_ID(raw);
  if(!g||id>=CARD_COUNT||g->screen!=COMBAT)return;
  int choices=1;
- if(id==22||id==N_RICOCHET){choices=0;for(int e=0;e<g->enemy_count;e++)if(g->enemies[e].hp>0)choices++;}
+ if(id==22||id==N_RICOCHET||id==R_STARDUST||id==C_VOLLEY){choices=0;for(int e=0;e<g->enemy_count;e++)if(g->enemies[e].hp>0)choices++;}
  if(id==87){choices=0;int skipped=0;
   for(int i=0;i<g->hand_count;i++){
    if(!skipped&&g->hand[i]==raw){skipped=1;continue;}
@@ -34,7 +35,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
  }
  if(choices<1)choices=1;
  for(int c=0;c<choices;c++){
-  CardPreview p;preview_once(g,raw,target,(id==22||id==87||id==N_RICOCHET)?c:-1,&p);
+  CardPreview p;preview_once(g,raw,target,(id==22||id==87||id==N_RICOCHET||id==R_STARDUST||id==C_VOLLEY)?c:-1,&p);
   if(!c){*out=p;continue;}
   for(int e=0;e<2;e++)if(p.hits[e]){
    if(!out->hits[e]||p.low[e]<out->low[e])out->low[e]=p.low[e];
@@ -49,7 +50,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
   }
   out->uncertain|=p.uncertain;out->repeated=MAX(out->repeated,p.repeated);
  }
- out->random=(id==22||id==87||id==N_RICOCHET)&&choices>1;
+ out->random=(id==22||id==87||id==N_RICOCHET||id==R_STARDUST||id==C_VOLLEY)&&choices>1;
 }
 static void preview_range(char*out,int cap,int low,int high){
  if(low==high)snprintf(out,(size_t)cap,"%d",low);
@@ -66,6 +67,7 @@ static void preview_replace_number(char*out,int cap,const char*source,int ordina
  snprintf(out+n,(size_t)(cap-n),"%s%s",value,source+end);
 }
 #include "ninja_preview.inc"
+#include "regent_preview.inc"
 void game_card_description_now(const Game*g,int raw,int target,char*out,int cap){
  if(!out||cap<=0)return;
  const char*base=card_description_base(raw);int id=CARD_ID(raw),up=CARD_UP(raw);
@@ -78,7 +80,8 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
   target=0;while(target+1<g->enemy_count&&g->enemies[target].hp<=0)target++;
  }
  CardPreview p;game_card_preview(g,raw,target,&p);
- if(id>=NINJA_FIRST){ninja_description_now(g,raw,target,&p,out,cap);return;}
+ if(id>=REGENT_FIRST){regent_description_now(g,raw,target,&p,out,cap);return;}
+ if(id>=NINJA_FIRST&&id<NINJA_LAST){ninja_description_now(g,raw,target,&p,out,cap);return;}
  char damage[32],block[32],temp[320];int low=0,high=0,seen=0;
  int all=id==3||id==10||id==14||id==19||id==22||id==36||id==37||id==70||p.repeated;
  for(int e=0;e<g->enemy_count;e++)if((all||e==target)&&p.hits[e]){

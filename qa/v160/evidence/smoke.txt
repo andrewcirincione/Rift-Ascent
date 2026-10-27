@@ -1,0 +1,299 @@
+CARD 185 Alignment up0
+CARD 185 Alignment up1
+CARD 186 Arsenal up0
+CARD 186 Arsenal up1
+CARD 187 Astral Pulse up0
+CARD 187 Astral Pulse up1
+CARD 188 Beat into Shape up0
+CARD 188 Beat into Shape up1
+CARD 189 BEGONE! up0
+CARD 189 BEGONE! up1
+CARD 190 Big Bang up0
+CARD 190 Big Bang up1
+CARD 191 Black Hole up0
+CARD 191 Black Hole up1
+CARD 192 Bombardment up0
+CARD 192 Bombardment up1
+CARD 193 Bulwark up0
+CARD 193 Bulwark up1
+CARD 194 Bundle of Joy up0
+CARD 194 Bundle of Joy up1
+CARD 195 Celestial Might up0
+CARD 195 Celestial Might up1
+CARD 196 CHARGE!! up0
+CARD 196 CHARGE!! up1
+CARD 197 Child of the Stars up0
+CARD 197 Child of the Stars up1
+CARD 198 Cloak of Stars up0
+CARD 198 Cloak of Stars up1
+CARD 199 Collision Course up0
+CARD 199 Collision Course up1
+CARD 200 Comet up0
+CARD 200 Comet up1
+CARD 201 Conqueror up0
+CARD 201 Conqueror up1
+CARD 202 Constellation up0
+CARD 202 Constellation up1
+CARD 203 Convergence up0
+CARD 203 Convergence up1
+CARD 204 Cosmic Indifference up0
+CARD 204 Cosmic Indifference up1
+CARD 205 Crash Landing up0
+CARD 205 Crash Landing up1
+CARD 206 Crescent Spear up0
+CARD 206 Crescent Spear up1
+CARD 207 Crush Under up0
+CARD 207 Crush Under up1
+CARD 208 Debris up0
+CARD 208 Debris up1
+CARD 209 Decisions, Decisions up0
+CARD 209 Decisions, Decisions up1
+CARD 210 Defend up0
+CARD 210 Defend up1
+CARD 211 Devastate up0
+CARD 211 Devastate up1
+CARD 212 Dying Star up0
+CARD 212 Dying Star up1
+CARD 213 Falling Star up0
+CARD 213 Falling Star up1
+CARD 214 Foregone Conclusion up0
+CARD 214 Foregone Conclusion up1
+CARD 215 Furnace up0
+CARD 215 Furnace up1
+CARD 216 Gamma Blast up0
+CARD 216 Gamma Blast up1
+CARD 217 Gather Light up0
+CARD 217 Gather Light up1
+CARD 218 Genesis up0
+CARD 218 Genesis up1
+CARD 219 Glimmer up0
+CARD 219 Glimmer up1
+CARD 220 Glitterstream up0
+CARD 220 Glitterstream up1
+CARD 221 Glow up0
+CARD 221 Glow up1
+CARD 222 GUARDS!!! up0
+CARD 222 GUARDS!!! up1
+CARD 223 Guiding Star up0
+CARD 223 Guiding Star up1
+CARD 224 Hammer Time up0
+CARD 224 Hammer Time up1
+CARD 225 Heavenly Drill up0
+CARD 225 Heavenly Drill up1
+CARD 226 Hegemony up0
+CARD 226 Hegemony up1
+CARD 227 Heirloom Hammer up0
+CARD 227 Heirloom Hammer up1
+CARD 228 Hidden Cache up0
+CARD 228 Hidden Cache up1
+CARD 229 I Am Invincible up0
+CARD 229 I Am Invincible up1
+CARD 230 Kingly Kick up0
+CARD 230 Kingly Kick up1
+CARD 231 Kingly Punch up0
+CARD 231 Kingly Punch up1
+CARD 232 Knockout Blow up0
+CARD 232 Knockout Blow up1
+CARD 233 Know Thy Place up0
+CARD 233 Know Thy Place up1
+CARD 234 Largesse up0
+CARD 234 Largesse up1
+CARD 235 Lunar Blast up0
+CARD 235 Lunar Blast up1
+CARD 236 Make It So up0
+CARD 236 Make It So up1
+CARD 237 Manifest Authority up0
+CARD 237 Manifest Authority up1
+CARD 238 Meteor Shower up0
+CARD 238 Meteor Shower up1
+CARD 239 Minion Dive Bomb up0
+CARD 239 Minion Dive Bomb up1
+CARD 240 Minion Sacrifice up0
+CARD 240 Minion Sacrifice up1
+CARD 241 Minion Strike up0
+CARD 241 Minion Strike up1
+CARD 242 Monarch's Gaze up0
+CARD 242 Monarch's Gaze up1
+CARD 243 Monologue up0
+CARD 243 Monologue up1
+CARD 244 Neutron Aegis up0
+CARD 244 Neutron Aegis up1
+CARD 245 Orbit up0
+CARD 245 Orbit up1
+CARD 246 Pale Blue Dot up0
+CARD 246 Pale Blue Dot up1
+CARD 247 Parry up0
+CARD 247 Parry up1
+CARD 248 Particle Wall up0
+CARD 248 Particle Wall up1
+CARD 249 Patter up0
+CARD 249 Patter up1
+CARD 250 Photon Cut up0
+CARD 250 Photon Cut up1
+CARD 251 Pillar of Creation up0
+CARD 251 Pillar of Creation up1
+CARD 252 Plot up0
+CARD 252 Plot up1
+CARD 253 Prophesize up0
+CARD 253 Prophesize up1
+CARD 254 Quasar up0
+CARD 254 Quasar up1
+CARD 255 Radiate up0
+CARD 255 Radiate up1
+CARD 256 Refine Blade up0
+CARD 256 Refine Blade up1
+CARD 257 Reflect up0
+CARD 257 Reflect up1
+CARD 258 Resonance up0
+CARD 258 Resonance up1
+CARD 259 Royal Gamble up0
+CARD 259 Royal Gamble up1
+CARD 260 Royalties up0
+CARD 260 Royalties up1
+CARD 261 Seeking Edge up0
+CARD 261 Seeking Edge up1
+CARD 262 Seven Stars up0
+CARD 262 Seven Stars up1
+CARD 263 Shining Strike up0
+CARD 263 Shining Strike up1
+CARD 264 Solar Strike up0
+CARD 264 Solar Strike up1
+CARD 265 Sovereign Blade up0
+CARD 265 Sovereign Blade up1
+CARD 266 Spectrum Shift up0
+CARD 266 Spectrum Shift up1
+CARD 267 Spoils of Battle up0
+CARD 267 Spoils of Battle up1
+CARD 268 Stardust up0
+CARD 268 Stardust up1
+CARD 269 Strike up0
+CARD 269 Strike up1
+CARD 270 Summon Forth up0
+CARD 270 Summon Forth up1
+CARD 271 Supermassive up0
+CARD 271 Supermassive up1
+CARD 272 Sword Sage up0
+CARD 272 Sword Sage up1
+CARD 273 Terraforming up0
+CARD 273 Terraforming up1
+CARD 274 The Sealed Throne up0
+CARD 274 The Sealed Throne up1
+CARD 275 The Smith up0
+CARD 275 The Smith up1
+CARD 276 Tutor up0
+CARD 276 Tutor up1
+CARD 277 Tyranny up0
+CARD 277 Tyranny up1
+CARD 278 Venerate up0
+CARD 278 Venerate up1
+CARD 279 Void Form up0
+CARD 279 Void Form up1
+CARD 280 Wrought in War up0
+CARD 280 Wrought in War up1
+CARD 281 Alchemize up0
+CARD 281 Alchemize up1
+CARD 282 Anointed up0
+CARD 282 Anointed up1
+CARD 283 Automation up0
+CARD 283 Automation up1
+CARD 284 Beat Down up0
+CARD 284 Beat Down up1
+CARD 285 Bolas up0
+CARD 285 Bolas up1
+CARD 286 Calamity up0
+CARD 286 Calamity up1
+CARD 287 Catastrophe up0
+CARD 287 Catastrophe up1
+CARD 288 Dark Shackles up0
+CARD 288 Dark Shackles up1
+CARD 289 Discovery up0
+CARD 289 Discovery up1
+CARD 290 Dramatic Entrance up0
+CARD 290 Dramatic Entrance up1
+CARD 291 Entropy up0
+CARD 291 Entropy up1
+CARD 292 Equilibrium up0
+CARD 292 Equilibrium up1
+CARD 293 Eternal Armor up0
+CARD 293 Eternal Armor up1
+CARD 294 Fasten up0
+CARD 294 Fasten up1
+CARD 295 Finesse up0
+CARD 295 Finesse up1
+CARD 296 Fisticuffs up0
+CARD 296 Fisticuffs up1
+CARD 297 Flash of Steel up0
+CARD 297 Flash of Steel up1
+CARD 298 Gold Axe up0
+CARD 298 Gold Axe up1
+CARD 299 Hand of Greed up0
+CARD 299 Hand of Greed up1
+CARD 300 Hidden Gem up0
+CARD 300 Hidden Gem up1
+CARD 301 Impatience up0
+CARD 301 Impatience up1
+CARD 302 Jack of All Trades up0
+CARD 302 Jack of All Trades up1
+CARD 303 Jackpot up0
+CARD 303 Jackpot up1
+CARD 304 Master of Strategy up0
+CARD 304 Master of Strategy up1
+CARD 305 Mayhem up0
+CARD 305 Mayhem up1
+CARD 306 Mind Blast up0
+CARD 306 Mind Blast up1
+CARD 307 Nostalgia up0
+CARD 307 Nostalgia up1
+CARD 308 Omnislice up0
+CARD 308 Omnislice up1
+CARD 309 Panache up0
+CARD 309 Panache up1
+CARD 310 Panic Button up0
+CARD 310 Panic Button up1
+CARD 311 Prep Time up0
+CARD 311 Prep Time up1
+CARD 312 Production up0
+CARD 312 Production up1
+CARD 313 Prolong up0
+CARD 313 Prolong up1
+CARD 314 Prowess up0
+CARD 314 Prowess up1
+CARD 315 Purity up0
+CARD 315 Purity up1
+CARD 316 Rend up0
+CARD 316 Rend up1
+CARD 317 Restlessness up0
+CARD 317 Restlessness up1
+CARD 318 Rolling Boulder up0
+CARD 318 Rolling Boulder up1
+CARD 319 Salvo up0
+CARD 319 Salvo up1
+CARD 320 Scrawl up0
+CARD 320 Scrawl up1
+CARD 321 Secret Technique up0
+CARD 321 Secret Technique up1
+CARD 322 Secret Weapon up0
+CARD 322 Secret Weapon up1
+CARD 323 Seeker Strike up0
+CARD 323 Seeker Strike up1
+CARD 324 Shockwave up0
+CARD 324 Shockwave up1
+CARD 325 Splash up0
+CARD 325 Splash up1
+CARD 326 Stratagem up0
+CARD 326 Stratagem up1
+CARD 327 The Bomb up0
+CARD 327 The Bomb up1
+CARD 328 The Gambit up0
+CARD 328 The Gambit up1
+CARD 329 Thinking Ahead up0
+CARD 329 Thinking Ahead up1
+CARD 330 Thrumming Hatchet up0
+CARD 330 Thrumming Hatchet up1
+CARD 331 Ultimate Defend up0
+CARD 331 Ultimate Defend up1
+CARD 332 Ultimate Strike up0
+CARD 332 Ultimate Strike up1
+CARD 333 Volley up0
+CARD 333 Volley up1
+PASS 298 Regent and Colorless base/upgraded resolutions with three subsequent turns

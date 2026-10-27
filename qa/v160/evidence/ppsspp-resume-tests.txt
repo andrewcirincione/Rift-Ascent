@@ -1,0 +1,4 @@
+SHOT boot
+SHOT cold-resume
+SHOT status
+PASS cold boot Resume loads the saved combat

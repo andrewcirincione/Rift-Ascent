@@ -18,6 +18,7 @@
 #include "rift150_art.h"
 #include "rift150b_art.h"
 #include "rift151_art.h"
+#include "rift160_art.h"
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
@@ -320,7 +321,15 @@ static int r134_wrap(int x,int y,int width,int maxrows,int leading,const char*s,
  return n;
 }
 static uint32_t r134_565(uint16_t c){unsigned r=c>>11,g=(c>>5)&63,b=c&31;return RGB((r<<3)|(r>>2),(g<<2)|(g>>4),(b<<3)|(b>>2));}
+static void r160_sprite(int x,int y,int w,int h,const Rift160Sprite*src,int combat){
+ for(int yy=0;yy<h;yy++){int dy=y+yy;if(dy<(combat?54:0)||dy>=(combat?174:H))continue;
+  for(int xx=0;xx<w;xx++){int dx=x+xx;if((unsigned)dx>=W)continue;uint32_t c=src->palette[src->pixels[(yy*96/h)*144+xx*144/w]];int a=c>>24;if(a)pix[dy*sw+dx]=r134_mix(pix[dy*sw+dx],c,a);}}
+}
 static void r134_card_art(int x,int y,int w,int h,int id){
+ if(id>=REGENT_FIRST&&id<EXTRA_LAST){
+  int iw=160,ih=112,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/6;const uint8_t*src=r160_cards[id-REGENT_FIRST];const uint16_t*pal=r160_card_palettes[id-REGENT_FIRST];
+  for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(pal[src[(top+yy*crop/h)*iw+xx*iw/w]]);}return;
+ }
  if(id>=NINJA_FIRST&&id<NINJA_LAST){
   int iw=180,ih=120,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/5;
   const uint16_t*src=r150b_cards[id-NINJA_FIRST];
@@ -499,30 +508,30 @@ static void header(const Game*g,const char*caption){
  snprintf(b,sizeof(b),"%d GOLD",g->gold);r134_text(237,3,b,GOLD,&r134_f9);
  snprintf(b,sizeof(b),"ACT %d   FLOOR %02d",g->act,g->floor+1);r134_text(353,3,b,WHITE,&r134_f9);
  dark_rect(0,17,480,13,180);r134_text(12,19,caption,MUTED,&r134_f9);
- if(g->screen==HELP||g->screen==DECK_VIEW||g->screen==CARD_CHOICE||g->screen==NINJA_CHOICE||g->screen==RELIC_VIEW||g->screen==POTION_VIEW||g->screen==REWARD||g->screen==EVENT_RESULT||g->screen==EVENT_CARD||g->screen==VICTORY||g->screen==DEFEAT)gilded_panel(10,39,460,213,1);
+ if(g->screen==HELP||g->screen==DECK_VIEW||g->screen==CARD_CHOICE||g->screen==NINJA_CHOICE||g->screen==REGENT_CHOICE||g->screen==RELIC_VIEW||g->screen==POTION_VIEW||g->screen==REWARD||g->screen==EVENT_RESULT||g->screen==EVENT_CARD||g->screen==VICTORY||g->screen==DEFEAT)gilded_panel(10,39,460,213,1);
 }
 
 
 static int r135_button_token(const char*p,int*length){
- static const char*names[]={"SQUARE","CIRCLE","START","SQ","X","O","TRIANGLE","TRI"};
- static const int ids[]={2,1,3,2,0,1,4,4};
- for(int i=0;i<8;i++){int n=(int)strlen(names[i]);if((int)strlen(p)>=n&&!memcmp(p,names[i],(size_t)n)&&(!p[n]||p[n]==' '||p[n]=='/')){*length=n;return ids[i];}}
+ static const char*names[]={"SQUARE","CIRCLE","START","SQ","X","O","TRIANGLE","TRI","SELECT"};
+ static const int ids[]={2,1,3,2,0,1,4,4,5};
+ for(int i=0;i<9;i++){int n=(int)strlen(names[i]);if((int)strlen(p)>=n&&!memcmp(p,names[i],(size_t)n)&&(!p[n]||p[n]==' '||p[n]=='/')){*length=n;return ids[i];}}
  *length=1;return -1;
 }
 static void footer(const char*help){
  r134_blit(0,258,480,14,r134_footer,480,14,255);
- const uint32_t*icons[]={r135_cross,r135_circle,r135_square,r135_start,r1311_triangle};
+ const uint32_t*icons[]={r135_cross,r135_circle,r135_square,r135_start,r1311_triangle,r160_select};
  const RiftFont*f=&r134_f9;int width=0;
  for(int pass=0;pass<2;pass++){
   width=0;
   for(const char*p=help;*p;){int n=1,id=-1;if(p==help||p[-1]==' '||p[-1]=='/')id=r135_button_token(p,&n);
-   if(id>=0)width+=(id==3?22:14)+3;else {unsigned c=(unsigned char)*p;width+=f->advance[(c>=32&&c<=126?c:'?')-32];}p+=n;
+   if(id>=0)width+=(id==5?40:id==3?22:14)+3;else {unsigned c=(unsigned char)*p;width+=f->advance[(c>=32&&c<=126?c:'?')-32];}p+=n;
   }
   if(width<=462)break;f=&r134_f8;
  }
  int x=(480-width)/2;if(x<5)x=5;
  for(const char*p=help;*p;){int n=1,id=-1;if(p==help||p[-1]==' '||p[-1]=='/')id=r135_button_token(p,&n);
-  if(id>=0){int w=id==3?22:14;r134_blit(x,258,w,14,icons[id],w,14,255);x+=w+3;}
+  if(id>=0){int w=id==5?40:id==3?22:14;r134_blit(x,258,w,14,icons[id],w,14,255);x+=w+3;}
   else{char ch[2]={*p,0};r134_text(x,261,ch,WHITE,f);x+=r134_width(ch,f);}p+=n;
  }
 }
@@ -602,7 +611,8 @@ static void r135_status_icons(const Game*g,int enemy,int x){
  }
 }
 static void r150b_relic_icon(int x,int y,int size,int id){
- if(id>=53&&id<63)r134_blit(x,y,size,size,r151_relics[id-53],80,80,255);
+ if(id==63)r134_blit(x,y,size,size,r160_crown,80,80,255);
+ else if(id>=53&&id<63)r134_blit(x,y,size,size,r151_relics[id-53],80,80,255);
  else if(id>=NR_SNAKE&&id<=NR_DRAKE)r134_blit(x,y,size,size,r150b_icons[id-NR_SNAKE],80,80,255);
  else if(id>=40&&id<44)r134_blit(x,y,size,size,r150_relics[id-40],80,80,255);
  else r134_blit(x,y,size,size,r134_utility_icons[1],40,40,255);
@@ -655,6 +665,10 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  if(energy==-1)snprintf(cost,sizeof(cost),"X");else if(energy==-2)snprintf(cost,sizeof(cost),"-");else snprintf(cost,sizeof(cost),"%d",energy);
  int orb=small?12:18;r134_blit(x+inset,arty,orb,orb,!active&&card_combat_context?r140_energy_empty:r134_energy,46,46,255);
  r134_center(x+inset+orb/2,arty+(small?1:4),cost,!active&&card_combat_context?RGB(255,135,110):WHITE,&r134_f9b);
+ int star=game_card_star_cost(card_combat_context,raw);
+ if(star!=0||game_card_star_cost(0,raw&~CARD_FREE)!=0){char sb[12];if(star==-1)snprintf(sb,sizeof(sb),"X");else snprintf(sb,sizeof(sb),"%d",star);int sx=x+inset+orb+2;
+  r134_blit(sx,arty,orb,orb,r160_star,40,40,255);r135_shadow_text(sx+(orb-r134_width(sb,&r134_f9b))/2,arty+(small?1:4),sb,card_combat_context&&star>card_combat_context->regent.stars?RGB(255,145,105):RGB(255,241,172),&r134_f9b);
+ }
  if(id>=NINJA_FIRST&&(game_card_is_sly(card_combat_context,raw)||(raw&CARD_INKY))){
   const char*mark=(raw&CARD_INKY)?"INKY":"SLY";int mw=r134_width(mark,&r134_f8)+4,mx=x+w/2-mw/2,my=arty+arth-9;
   dark_rect(mx,my,mw,9,220);r134_center(x+w/2,my,mark,RGB(171,225,189),&r134_f8);
@@ -668,8 +682,8 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  char check[24][192];int rows=(bottom-by)/lead;
  if(!small&&r134_lines(rules,inner,body,check)>rows){body=&r134_f8;lead=9;rows=(bottom-by)/lead;}
  if(rows>0)r134_wrap(x+inset,by,inner,rows,lead,rules,WHITE,body,small);
- if(selected&&!active&&card_combat_context&&!small&&energy>card_combat_context->energy){
-  char missing[40];snprintf(missing,sizeof(missing),"NEED %d MORE ENERGY",energy-card_combat_context->energy);
+ if(selected&&!active&&card_combat_context&&!small&&(energy>card_combat_context->energy||star>card_combat_context->regent.stars)){
+  char missing[40];if(energy>card_combat_context->energy)snprintf(missing,sizeof(missing),"NEED %d MORE ENERGY",energy-card_combat_context->energy);else snprintf(missing,sizeof(missing),"NEED %d MORE STARS",star-card_combat_context->regent.stars);
   r134_blit(x,y-16,w,17,r140_selection,208,28,255);
   r134_center(x+w/2,y-12,missing,RGB(255,160,130),&r134_f8);
  }
@@ -775,19 +789,21 @@ static void combat(const Game*g){
  }
  /* Opaque native-resolution surface covers every pixel below the battlefield. */
  r134_blit(0,174,480,98,r134_hand_hud,480,98,255);
- r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);
- char b[16];snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);
+ char b[16];
+ if(g->character==CHAR_REGENT){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
+  r134_blit(9,219,36,36,r160_star,40,40,g->regent.stars?255:135);snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;r135_shadow_text(27-r134_width(b,f)/2,231,b,RGB(255,246,190),f);
+ }else{r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);}
  int start=rift133_hand_start(g),playing=r134_playing();
  for(int i=start;i<g->hand_count&&i<start+5;i++){
   int selected=i==g->selection,cy=174,cost=game_card_cost_now(g,g->hand[i]);
   if(hand_exchange&&animation_tick>=hand_exchange_tick){unsigned a=animation_tick-hand_exchange_tick;if(a<10)cy=280;else if(a<23)cy+=(23-(int)a)*6;else hand_exchange=0;}
-  if((!selected||playing)&&!(playing&&selected&&animation_tick-rift120_play_tick<18))card_render(56+(i-start)*71,cy,70,84,g->hand[i],0,cost!=-2&&(cost==-1||cost<=g->energy));
+  if((!selected||playing)&&!(playing&&selected&&animation_tick-rift120_play_tick<18))card_render(56+(i-start)*71,cy,70,84,g->hand[i],0,cost!=-2&&(cost==-1||cost<=g->energy)&&game_card_star_cost(g,g->hand[i])<=g->regent.stars);
  }
  if(!playing&&g->selection>=start&&g->selection<g->hand_count&&g->selection<start+5){
   int cost=game_card_cost_now(g,g->hand[g->selection]);
   R135CardLayout preview=r150_hand_preview_layout(g->hand[g->selection]);
   int preview_x=CLAMP(56+(g->selection-start)*71-(preview.width-70)/2,35,415-preview.width);
-  card_render(preview_x,254-preview.height,preview.width,preview.height,g->hand[g->selection],1,cost!=-2&&(cost==-1||cost<=g->energy));
+  card_render(preview_x,254-preview.height,preview.width,preview.height,g->hand[g->selection],1,cost!=-2&&(cost==-1||cost<=g->energy)&&game_card_star_cost(g,g->hand[g->selection])<=g->regent.stars);
  }
  if(hand_exchange&&animation_tick>=hand_exchange_tick){unsigned a=animation_tick-hand_exchange_tick;if(a<15)for(int i=0;i<old_hand_count&&i<5;i++)card_render(56+i*71,174+(int)a*7,70,84,old_hand[i],0,1);}
  if(start>0){
@@ -802,7 +818,8 @@ static void combat(const Game*g){
   int width=r134_width(r1310_potion_notice,&r134_f9)+14;dark_rect(25,65,width,15,225);r135_shadow_text(32,68,r1310_potion_notice,WHITE,&r134_f9);
  }
  int need_energy=g->selection<g->hand_count&&game_card_cost_now(g,g->hand[g->selection])>g->energy;
- card_combat_context=0;footer(need_energy?"NOT ENOUGH ENERGY   O END   SQ DECK   START STATUS / INVENTORY":"X PLAY   O END   SQ DECK   START STATUS / INVENTORY");
+ int need_stars=g->selection<g->hand_count&&game_card_star_cost(g,g->hand[g->selection])>g->regent.stars;
+ card_combat_context=0;footer(need_stars?"NOT ENOUGH STARS   O END   SQ DECK   START STATUS / INVENTORY":need_energy?"NOT ENOUGH ENERGY   O END   SQ DECK   START STATUS / INVENTORY":"X PLAY   O END   SQ DECK   START STATUS / INVENTORY");
 }
 
 static uint32_t node_color(int n){switch(n){case NODE_FIGHT:return RED;case NODE_ELITE:return PURPLE;case NODE_EVENT:return BLUE;case NODE_REST:return GREEN;case NODE_SHOP:return GOLD;case NODE_TREASURE:return RGB(209,160,72);default:return WHITE;}}
@@ -1084,19 +1101,25 @@ static void relic_screen(const Game*g){
  footer("UP/DOWN BROWSE   X/CIRCLE RETURN");
 }
 static void character_screen(const Game*g){
- Game display=*g;display.hp=display.maxhp=g->selection==CHAR_NIGHTSHADE?70:80;display.gold=g->selection==CHAR_NIGHTSHADE?99:95;
+ Game display=*g;display.hp=display.maxhp=g->selection==1?70:g->selection==2?75:80;display.gold=g->selection?99:95;
  header(&display,g->endless?"ENDLESS / CHOOSE YOUR CHARACTER":"ASCENT / CHOOSE YOUR CHARACTER");
- for(int i=0;i<2;i++){
-  int x=20+i*230,chosen=g->selection==i;gilded_panel(x,47,210,194,chosen);
-  r134_center(x+105,57,i?"NIGHTSHADE":"WARDEN",chosen?GOLD:WHITE,&r138_title10);
-  if(i)r134_blit(x+32,76,145,108,r151_ninja[0],150,100,255);
-  else{int w=174,h=99;for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){uint16_t c=rift_hero[(yy*RIFT_HERO_H/h)*RIFT_HERO_W+xx*RIFT_HERO_W/w];if(c!=RIFT_TRANSPARENT_565)pix[(88+yy)*sw+x+18+xx]=r134_565(c);}}
-  r134_center(x+105,190,i?"70 HP   3 ENERGY":"80 HP   3 ENERGY",WHITE,&r134_f9b);
-  r134_center(x+105,204,i?"Shivs / Poison / Discard":"Strength / Block / Exhaust",MUTED,&r134_f9);
-  r134_center(x+105,217,i?"Draw 2 extra cards at combat start":"Heal 6 HP after each victory",GOLD,&r134_f8);
-  if(chosen)r134_blit(x+84,36,42,28,r138_choice,42,28,255);else dark_rect(x+7,73,196,164,90);
+ const char*names[]={"WARDEN","VESPER","PROXY"};const char*hp[]={"80 HP / 3 ENERGY","70 HP / 3 ENERGY","75 HP / 3 ENERGY"};
+ const char*build[]={"Strength / Block","Shivs / Poison","Stars / Forge"};const char*gift[]={"Heal 6 after victory","Draw 2 at combat start","Start combat: 3 Stars"};
+ for(int i=0;i<3;i++){int x=12+i*156,chosen=g->selection==i;gilded_panel(x,47,144,194,chosen);
+  r134_center(x+72,57,names[i],chosen?GOLD:WHITE,&r138_title10);
+  if(i)r160_sprite(x,78,144,96,i==1?&r160_nightshade[0]:&r160_regent[0],0);
+  else{int w=140,h=80;for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){uint16_t c=rift_hero[(yy*RIFT_HERO_H/h)*RIFT_HERO_W+xx*RIFT_HERO_W/w];if(c!=RIFT_TRANSPARENT_565)pix[(94+yy)*sw+x+2+xx]=r134_565(c);}}
+  r134_center(x+72,188,hp[i],WHITE,&r134_f9b);r134_center(x+72,204,build[i],MUTED,&r134_f9);r134_center(x+72,220,gift[i],GOLD,&r134_f8);
+  if(chosen)r134_blit(x+51,36,42,28,r138_choice,42,28,255);else dark_rect(x+7,74,130,164,65);
  }
  footer("LEFT/RIGHT CHOOSE   X BEGIN   O BACK");
+}
+static void regent_choice_screen(const Game*g){
+ header(g,game_regent_choice_title(g));int count=game_regent_choice_count(g),first=g->selection/6*6;
+ char b[80];snprintf(b,sizeof(b),"%d more to choose",g->regent.choice_remaining);r134_center(240,48,b,GOLD,&r134_f9);
+ for(int i=first;i<count&&i<first+6;i++){int n=i-first,x=17+n%3*103,y=69+n/3*86,eligible=game_regent_choice_eligible(g,i);card_render(x,y,97,80,game_regent_choice_raw(g,i),i==g->selection,eligible);if(!eligible)dark_rect(x+7,y+9,83,62,115);if(i==g->selection)r134_blit(x+31,y-7,34,22,r138_choice,42,28,255);}
+ if(count){int raw=game_regent_choice_raw(g,g->selection);R135CardLayout l=r150_hand_preview_layout(raw);card_render(473-l.width,70,l.width,l.height,raw,1,1);}
+ footer("D-PAD CHOOSE   X CONFIRM   O FINISH   SELECT PAUSE");
 }
 static void ninja_choice_screen(const Game*g){
  header(g,game_ninja_choice_title(g));char b[96];
@@ -1198,14 +1221,14 @@ static void deck_screen(const Game*g){
 }
 static void title_screen(const Game*g){
  r134_blit(269,37,197,91,r134_logo,222,102,255);
- for(int i=0;i<3;i++){
-  int y=132+i*35,selected=g->selection==i;
-  r134_blit(279,y,176,32,r138_button_on,176,32,selected?255:145);
-  r134_center(367,y+12,i==2?"HOW TO PLAY":i==1?"ENDLESS MODE":"BEGIN ASCENT",selected?RGB(255,234,184):WHITE,&r138_title9);
+ const char*buttons[]={"RESUME RUN","BEGIN ASCENT","ENDLESS MODE","HOW TO PLAY"};
+ for(int i=0;i<4;i++){int y=128+i*28,selected=g->selection==i,enabled=i!=0||game_resume_available();
+  r134_blit(279,y,176,27,r138_button_on,176,32,enabled?(selected?255:145):80);
+  r134_center(367,y+9,buttons[i],!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE,&r138_title9);
  }
  if(profile_data&&profile_data->runs){
   char b[60];snprintf(b,sizeof(b),"RUNS %lu    WINS %lu",(unsigned long)profile_data->runs,(unsigned long)profile_data->wins);r134_center(367,244,b,GOLD,&r134_f8);
- }else r134_center(367,244,g->selection==1?"UNLIMITED ACTS / RISING DIFFICULTY":"ONE WARRIOR / THREE ACTS",GOLD,&r134_f8);
+ }else r134_center(367,244,g->selection==2?"UNLIMITED ACTS / RISING DIFFICULTY":g->selection==0&&!game_resume_available()?"NO SAVED RUN":"THREE WARRIORS / THREE ACTS",GOLD,&r134_f8);
  footer("UP/DOWN SELECT     X CONFIRM");
 }
 
@@ -1221,7 +1244,7 @@ static void help_screen(const Game*g){
  text(29,187,"Weak -25% dealt; Vulnerable +50% taken.",MUTED,1);
  text(29,202,"Sly: active discards play the card free.",MUTED,1);
  text(29,223,"CROSS / CIRCLE   RETURN",GOLD,1);
- footer("RIFT ASCENT  /  TWO CHARACTERS  /  THREE ACTS");
+ footer("RIFT ASCENT  /  THREE CHARACTERS  /  THREE ACTS");
 }
 static void end_screen(const Game*g){
  header(g,g->screen==VICTORY?"VICTORY / THE HOLLOW KING FALLS":"DEFEAT / THE DARKNESS CLAIMS YOU");
@@ -1380,6 +1403,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case TITLE:title_screen(g);break;
  case CHARACTER_SELECT:character_screen(g);break;
  case NINJA_CHOICE:ninja_choice_screen(g);break;
+ case REGENT_CHOICE:regent_choice_screen(g);break;
  case MAP:map_screen(g);break;
  case COMBAT:combat(g);break;
  case EVENT_RESULT:event_result_screen(g);break;
@@ -1404,9 +1428,9 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    dark_rect(0,24,W,231,209);
    gilded_panel(76,59,328,158,1);
    center(240,77,"GAME PAUSED",GOLD,2);
-   center(240,112,"X SAVE & QUIT",WHITE,1);
-   center(240,137,"CIRCLE / SELECT RESUME",WHITE,1);
-   center(240,173,"PROGRESS SAVED TO MEMORY STICK",MUTED,1);
+   r134_blit(164,110,14,14,r135_cross,14,14,255);r134_text(186,113,"SAVE & QUIT",WHITE,&r134_f9b);
+   r134_blit(139,137,14,14,r135_circle,14,14,255);r134_text(161,140,"/",WHITE,&r134_f9b);r134_blit(173,137,40,14,r160_select,40,14,255);r134_text(226,140,"RESUME",WHITE,&r134_f9b);
+
    break;
  }
  }
@@ -1440,3 +1464,5 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
 void game_render(const Game*g,uint32_t*pixels,int stride){
  game_render_frame(g,pixels,stride,0);
 }
+
+void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;}

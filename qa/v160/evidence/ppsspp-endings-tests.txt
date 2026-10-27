@@ -1,0 +1,106 @@
+SHOT animation-finisher-2-00
+TICK finisher-2 0 60
+SHOT animation-finisher-2-01
+TICK finisher-2 1 64
+SHOT animation-finisher-2-02
+TICK finisher-2 2 68
+SHOT animation-finisher-2-03
+TICK finisher-2 3 76
+SHOT animation-finisher-2-04
+TICK finisher-2 4 84
+SHOT animation-finisher-2-05
+TICK finisher-2 5 92
+SHOT animation-finisher-2-06
+TICK finisher-2 6 100
+SHOT animation-finisher-2-07
+TICK finisher-2 7 104
+SHOT animation-finisher-2-08
+TICK finisher-2 8 108
+SHOT animation-finisher-2-09
+TICK finisher-2 9 116
+SHOT animation-finisher-2-10
+TICK finisher-2 10 120
+SHOT animation-finisher-2-11
+TICK finisher-2 11 128
+SHOT animation-finisher-2-12
+TICK finisher-2 12 136
+SHOT animation-finisher-2-13
+TICK finisher-2 13 144
+SHOT animation-finisher-2-14
+TICK finisher-2 14 152
+SHOT animation-finisher-2-15
+TICK finisher-2 15 160
+SHOT animation-finisher-2-16
+TICK finisher-2 16 164
+SHOT animation-finisher-2-17
+TICK finisher-2 17 172
+SHOT animation-finisher-2-18
+TICK finisher-2 18 176
+SHOT animation-finisher-2-19
+TICK finisher-2 19 184
+SHOT animation-finisher-2-20
+TICK finisher-2 20 188
+SHOT animation-finisher-2-21
+TICK finisher-2 21 196
+SHOT animation-finisher-2-22
+TICK finisher-2 22 204
+SHOT animation-finisher-2-23
+TICK finisher-2 23 208
+SHOT animation-finisher-2-24
+TICK finisher-2 24 212
+SHOT animation-finisher-2-25
+TICK finisher-2 25 220
+SHOT animation-finisher-2-26
+TICK finisher-2 26 228
+SHOT animation-finisher-2-27
+TICK finisher-2 27 232
+SHOT animation-finisher-2-28
+TICK finisher-2 28 236
+SHOT animation-finisher-2-29
+TICK finisher-2 29 240
+SHOT animation-finisher-2-30
+TICK finisher-2 30 244
+SHOT animation-finisher-2-31
+TICK finisher-2 31 248
+SHOT animation-death-2-00
+TICK death-2 0 288
+SHOT animation-death-2-01
+TICK death-2 1 296
+SHOT animation-death-2-02
+TICK death-2 2 304
+SHOT animation-death-2-03
+TICK death-2 3 312
+SHOT animation-death-2-04
+TICK death-2 4 316
+SHOT animation-death-2-05
+TICK death-2 5 324
+SHOT animation-death-2-06
+TICK death-2 6 332
+SHOT animation-death-2-07
+TICK death-2 7 340
+SHOT animation-death-2-08
+TICK death-2 8 348
+SHOT animation-death-2-09
+TICK death-2 9 356
+SHOT animation-death-2-10
+TICK death-2 10 364
+SHOT animation-death-2-11
+TICK death-2 11 372
+SHOT animation-death-2-12
+TICK death-2 12 380
+SHOT animation-death-2-13
+TICK death-2 13 384
+SHOT animation-death-2-14
+TICK death-2 14 388
+SHOT animation-death-2-15
+TICK death-2 15 392
+SHOT animation-death-2-16
+TICK death-2 16 400
+SHOT animation-death-2-17
+TICK death-2 17 404
+SHOT animation-death-2-18
+TICK death-2 18 408
+SHOT animation-death-2-19
+TICK death-2 19 416
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad

@@ -1,0 +1,82 @@
+SHOT animation-attack-1-00
+TICK attack-1 0 80
+SHOT animation-attack-1-01
+TICK attack-1 1 84
+SHOT animation-attack-1-02
+TICK attack-1 2 92
+SHOT animation-attack-1-03
+TICK attack-1 3 100
+SHOT animation-attack-1-04
+TICK attack-1 4 108
+SHOT animation-attack-1-05
+TICK attack-1 5 116
+SHOT animation-attack-1-06
+TICK attack-1 6 124
+SHOT animation-attack-1-07
+TICK attack-1 7 132
+SHOT animation-attack-1-08
+TICK attack-1 8 140
+SHOT animation-attack-1-09
+TICK attack-1 9 148
+SHOT animation-attack-1-10
+TICK attack-1 10 156
+SHOT animation-attack-1-11
+TICK attack-1 11 164
+SHOT animation-attack-1-12
+TICK attack-1 12 172
+SHOT animation-attack-1-13
+TICK attack-1 13 180
+SHOT animation-attack-1-14
+TICK attack-1 14 188
+SHOT animation-attack-1-15
+TICK attack-1 15 196
+SHOT animation-attack-1-16
+TICK attack-1 16 204
+SHOT animation-attack-1-17
+TICK attack-1 17 212
+SHOT animation-attack-1-18
+TICK attack-1 18 220
+SHOT animation-attack-1-19
+TICK attack-1 19 228
+SHOT animation-attack-2-00
+TICK attack-2 0 268
+SHOT animation-attack-2-01
+TICK attack-2 1 272
+SHOT animation-attack-2-02
+TICK attack-2 2 276
+SHOT animation-attack-2-03
+TICK attack-2 3 280
+SHOT animation-attack-2-04
+TICK attack-2 4 284
+SHOT animation-attack-2-05
+TICK attack-2 5 288
+SHOT animation-attack-2-06
+TICK attack-2 6 296
+SHOT animation-attack-2-07
+TICK attack-2 7 300
+SHOT animation-attack-2-08
+TICK attack-2 8 308
+SHOT animation-attack-2-09
+TICK attack-2 9 312
+SHOT animation-attack-2-10
+TICK attack-2 10 316
+SHOT animation-attack-2-11
+TICK attack-2 11 320
+SHOT animation-attack-2-12
+TICK attack-2 12 328
+SHOT animation-attack-2-13
+TICK attack-2 13 336
+SHOT animation-attack-2-14
+TICK attack-2 14 344
+SHOT animation-attack-2-15
+TICK attack-2 15 352
+SHOT animation-attack-2-16
+TICK attack-2 16 360
+SHOT animation-attack-2-17
+TICK attack-2 17 368
+SHOT animation-attack-2-18
+TICK attack-2 18 372
+SHOT animation-attack-2-19
+TICK attack-2 19 380
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad

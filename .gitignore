@@ -38,3 +38,11 @@ qa/v151/evidence/*.s16le
 qa/v151/evidence/*xvfb.log
 qa/v151/evidence/*pulse.log
 qa/v151/evidence/first-pass/
+
+# Reproducible 1.6 intermediates; retain screenshots, fixtures and reports.
+qa/v160/evidence/*.ppm
+qa/v160/evidence/*.s16le
+qa/v160/evidence/*xvfb.log
+qa/v160/evidence/*pulse.log
+
+qa/v160/evidence/first-pass/

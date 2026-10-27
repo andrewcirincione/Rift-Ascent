@@ -1,0 +1,6 @@
+PASS 2000 attack math cases; independent wiki damage/cost fixtures; pure previews
+PASS Star payments, X, Void Form stacks, free/manual/replay accounting, mixed-character triggers
+PASS single Blade, Forge persistence, Vigor, Conqueror, Seeking Edge, Parry and Sword Sage stacking
+PASS all mandatory/optional selections, pause/save/resume, shuffle ordering, mixed-card choices
+PASS delayed Block/Dexterity, full-hit Block, unpowered splash, creation capacity, exhaust/autoplay, persistent draw scaling and foreign Replay
+PASS Regent audit: 6764 assertions

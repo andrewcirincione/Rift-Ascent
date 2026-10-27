@@ -1,0 +1,95 @@
+Alignment [Uncommon Skill, 0E/3S; up None/None] Gain 2 Energy. || Gain 3 Energy. None
+Arsenal [Rare Power, 1E/NoneS; up None/None] Whenever you create a card, gain 1 Strength. || Innate. Whenever you create a card, gain 1 Strength. None
+AstralPulse [Common Attack, 0E/3S; up None/None] Deal 6 damage to ALL enemies twice. || Deal 8 damage to ALL enemies twice. None
+BeatIntoShape [Rare Attack, 1E/NoneS; up None/None] Deal 5 damage. Forge 5. Forges an additional 5 for every other time you've hit the enemy this turn. || Deal 7 damage. Forge 7. Forges an additional 7 for every other time you've hit the enemy this turn. None
+Begone [Common Skill, 1E/NoneS; up None/None] Choose a card in your Hand to Transform into Minion Strike. || Choose a card in your Hand to Transform into Minion Strike+. None
+BigBang [Rare Skill, 0E/NoneS; up None/None] Draw 1 card. Gain 1 Energy. Gain 1 Star. Forge 5. Exhaust. || Innate. Draw 1 card. Gain 1 Energy. Gain 1 Star. Forge 5. Exhaust. None
+BlackHole [Uncommon Power, 1E/NoneS; up None/None] Whenever you spend or gain Star, deal 3 damage to ALL enemies. || Whenever you spend or gain Star, deal 4 damage to ALL enemies. None
+Bombardment [Rare Attack, 3E/NoneS; up None/None] Deal 18 damage. At the start of your turn, if this is in your Exhaust Pile, play it. Exhaust. || Deal 24 damage. At the start of your turn, if this is in your Exhaust Pile, play it. Exhaust. None
+Bulwark [Uncommon Skill, 2E/NoneS; up None/None] Gain 12 Block. Forge 10. || Gain 15 Block. Forge 13. None
+BundleOfJoy [Rare Skill, 1E/NoneS; up None/None] Add 3 random Colorless cards into your Hand. Exhaust. || Add 4 random Colorless cards into your Hand. Exhaust. None
+CelestialMight [Common Attack, 2E/NoneS; up None/None] Deal 6 damage 3 times. || Deal 6 damage 4 times. None
+Charge [Uncommon Skill, 1E/NoneS; up None/None] Choose 2 cards in your Draw Pile to Transform into Minion Dive Bombs. || Choose 2 cards in your Draw Pile to Transform into Minion Dive Bombs+. None
+ChildOfTheStars [Uncommon Power, 1E/NoneS; up None/None] Whenever you spend Star, gain 2 Block for each Star spent. || Whenever you spend Star, gain 3 Block for each Star spent. None
+CloakOfStars [Common Skill, 0E/1S; up None/None] Gain 7 Block. || Gain 10 Block. None
+CollisionCourse [Common Attack, 0E/NoneS; up None/None] Deal 11 damage. Add a Debris into your Hand. || Deal 15 damage. Add a Debris into your Hand. None
+Comet [Rare Attack, 0E/5S; up None/None] Deal 33 damage. Apply 3 Weak. Apply 3 Vulnerable. || Deal 44 damage. Apply 3 Weak. Apply 3 Vulnerable. None
+Conqueror [Uncommon Skill, 1E/NoneS; up None/None] Forge 3. Sovereign Blade deals double damage to the enemy this turn. || Forge 5. Sovereign Blade deals double damage to the enemy this turn. None
+Constellation [Uncommon Skill, 0E/2S; up None/None] Another player draws 1 card, gains 1 Energy, and gains 9 Block. || Another player draws 1 card, gains 1 Energy, and gains 12 Block. Only appears in multiplayer runs.
+Convergence [Uncommon Skill, 1E/NoneS; up None/None] Next turn, gain 1 Energy and 1 Star. Retain your Hand this turn. || Next turn, gain 1 Energy and 2 Stars. Retain your Hand this turn. None
+CosmicIndifference [Common Skill, 1E/NoneS; up None/None] Gain 6 Block. Put a card from your Discard Pile on top of your Draw Pile. || Gain 9 Block. Put a card from your Discard Pile on top of your Draw Pile. None
+CrashLanding [Rare Attack, 1E/NoneS; up None/None] Deal 21 damage to ALL enemies. Fill your Hand with Debris. || Deal 26 damage to ALL enemies. Fill your Hand with Debris. None
+CrescentSpear [Common Attack, 1E/1S; up None/None] Deal 8 damage. Deals 2 additional damage for ALL your cards that have a Star cost. || Deal 8 damage. Deals 3 additional damage for ALL your cards that have a Star cost. None
+CrushUnder [Common Attack, 1E/NoneS; up None/None] Deal 7 damage to ALL enemies. All enemies lose 1 Strength this turn. || Deal 8 damage to ALL enemies. All enemies lose 2 Strength this turn. None
+Debris [Status Status, 1E/NoneS; up None/None] Exhaust. || Exhaust. None
+DecisionsDecisions [Rare Skill, 0E/6S; up None/None] Draw 3 cards. Choose a Skill in your Hand and play it 3 times. Exhaust. || Draw 5 cards. Choose a Skill in your Hand and play it 3 times. Exhaust. None
+DefendRegent [Basic Skill, 1E/NoneS; up None/None] Gain 5 Block. || Gain 8 Block. None
+Devastate [Uncommon Attack, 1E/4S; up None/None] Deal 30 damage. || Deal 40 damage. None
+DyingStar [Rare Attack, 1E/3S; up None/None] Ethereal. Deal 9 damage to ALL enemies. ALL enemies lose 9 Strength this turn. || Ethereal. Deal 11 damage to ALL enemies. ALL enemies lose 11 Strength this turn. None
+FallingStar [Basic Attack, 0E/2S; up None/None] Deal 8 damage. Apply 1 Weak. Apply 1 Vulnerable. || Deal 12 damage. Apply 1 Weak. Apply 1 Vulnerable. None
+ForegoneConclusion [Rare Skill, 1E/NoneS; up None/None] Next turn, put 2 cards from your Draw Pile into your Hand. || Next turn, put 3 cards from your Draw Pile into your Hand. None
+Furnace [Uncommon Power, 1E/NoneS; up None/None] At the start of your turn, Forge 5. || At the start of your turn, Forge 7. None
+GammaBlast [Uncommon Attack, 0E/3S; up None/None] Deal 13 damage. Apply 2 Weak. Apply 2 Vulnerable. || Deal 18 damage. Apply 2 Weak. Apply 2 Vulnerable. None
+GatherLight [Common Skill, 1E/NoneS; up None/None] Gain 8 Block. Gain 1 Star. || Gain 11 Block. Gain 1 Star. None
+Genesis [Rare Power, 2E/NoneS; up None/None] At the start of your turn, gain 2 Stars. || At the start of your turn, gain 3 Stars. None
+Glimmer [Uncommon Skill, 1E/NoneS; up None/None] Draw 3 cards. Put 1 card from your Hand on top of your Draw Pile. || Draw 4 cards. Put 1 card from your Hand on top of your Draw Pile. None
+Glitterstream [Common Skill, 2E/NoneS; up None/None] Gain 11 Block. Next turn, gain 5 Block. || Gain 13 Block. Next turn, gain 7 Block. None
+Glow [Common Skill, 1E/NoneS; up None/None] Gain 1 Star. Draw 1 card. Next turn, draw 1 card. || Gain 2 Stars. Draw 1 card. Next turn, draw 1 card. None
+Guards [Rare Skill, 2E/NoneS; up None/None] Transform any number of cards in your Hand into Minion Sacrifice. Exhaust. || Transform any number of cards in your Hand into Minion Sacrifice+. Exhaust. None
+GuidingStar [Common Attack, 1E/2S; up None/None] Deal 12 damage. Draw 2 cards. || Deal 13 damage. Draw 3 cards. None
+HammerTime [Rare Power, 2E/NoneS; up 1/None] Whenever you Forge, all allies Forge as well. || Whenever you Forge, all allies Forge as well. Only appears in multiplayer runs.
+HeavenlyDrill [Rare Attack, XE/NoneS; up None/None] Deal 8 damage X times. Double X if it's 4 or more. || Deal 10 damage X times. Double X if it's 4 or more. None
+Hegemony [Uncommon Attack, 2E/NoneS; up None/None] Deal 15 damage. Next turn, gain 2 Energy. || Deal 18 damage. Next turn, gain 3 Energy. None
+HeirloomHammer [Rare Attack, 2E/NoneS; up None/None] Deal 20 damage. Choose a Colorless card in your Hand. Add a copy of that card into your Hand. || Deal 25 damage. Choose a Colorless card in your Hand. Add a copy of that card into your Hand. None
+HiddenCache [Common Skill, 1E/NoneS; up None/None] Gain 1 Star. Next turn, gain 3 Stars. || Gain 1 Star. Next turn, gain 4 Stars. None
+IAmInvincible [Rare Skill, 1E/NoneS; up None/None] Gain 10 Block. At the end of your turn, if this is on top of your Draw Pile, play it. || Gain 13 Block. At the end of your turn, if this is on top of your Draw Pile, play it. None
+KinglyKick [Uncommon Attack, 4E/NoneS; up None/None] Deal 27 damage. Whenever you draw this card, reduce its cost by 1. || Deal 35 damage. Whenever you draw this card, reduce its cost by 1. None
+KinglyPunch [Uncommon Attack, 1E/NoneS; up None/None] Deal 8 damage. Whenever you draw this card, increase its damage by 4 this combat. || Deal 10 damage. Whenever you draw this card, increase its damage by 6 this combat. None
+KnockoutBlow [Uncommon Attack, 3E/NoneS; up None/None] Deal 30 damage. If this kills an enemy, gain 5 Stars. || Deal 38 damage. If this kills an enemy, gain 5 Stars. None
+KnowThyPlace [Common Skill, 0E/NoneS; up None/None] Apply 1 Weak. Apply 1 Vulnerable. Exhaust. || Apply 1 Weak. Apply 1 Vulnerable. None
+Largesse [Uncommon Skill, 0E/NoneS; up None/None] Another player adds 1 random Colorless card to their Hand. || Another player adds 1 random Upgraded Colorless card to their Hand. Only appears in multiplayer runs.
+LunarBlast [Uncommon Attack, 0E/NoneS; up None/None] Deal 4 damage for each Skill already played this turn. || Deal 5 damage for each Skill already played this turn. None
+MakeItSo [Rare Attack, 0E/NoneS; up None/None] Deal 6 damage. Every 3 Skills you play in a turn, put this into your Hand. || Deal 9 damage. Every 3 Skills you play in a turn, put this into your Hand. None
+ManifestAuthority [Uncommon Skill, 1E/NoneS; up None/None] Gain 7 Block. Add 1 random Colorless card into your Hand. || Gain 8 Block. Add 1 random Upgraded Colorless card into your Hand. None
+MeteorShower [Ancient Attack, 0E/2S; up None/None] Deal 14 damage to ALL enemies. Apply 2 Weak and Vulnerable to ALL enemies. || Deal 21 damage to ALL enemies. Apply 2 Weak and Vulnerable to ALL enemies. None
+MinionSacrifice [Token Skill, 0E/NoneS; up None/None] Gain 8 Block. Exhaust. || Gain 11 Block. Exhaust. None
+MinionStrike [Token Attack, 0E/NoneS; up None/None] Deal 6 damage. Draw 1 card. Exhaust. || Deal 9 damage. Draw 1 card. Exhaust. None
+MonarchsGaze [Rare Power, 2E/NoneS; up 1/None] Whenever you attack an enemy, it loses 1 Strength this turn. || Whenever you attack an enemy, it loses 1 Strength this turn. None
+Monologue [Uncommon Skill, 0E/NoneS; up None/None] Whenever you play a card this turn, gain 1 Strength this turn. || Retain. Whenever you play a card this turn, gain 1 Strength this turn. None
+NeutronAegis [Rare Power, 1E/5S; up None/None] Gain 8 Plating. || Gain 11 Plating. None
+Orbit [Uncommon Power, 2E/NoneS; up 1/None] Every 4 Energy you spend, gain 1 Energy. || Every 4 Energy you spend, gain 1 Energy. None
+PaleBlueDot [Uncommon Power, 1E/NoneS; up None/None] If you play 5 or more cards in a turn, draw 1 card at the start of your next turn. || If you play 5 or more cards in a turn, draw 2 cards at the start of your next turn. None
+Parry [Uncommon Power, 1E/NoneS; up None/None] Sovereign Blade now gains 10 Block. || Sovereign Blade now gains 14 Block. None
+ParticleWall [Uncommon Skill, 0E/2S; up None/None] Gain 9 Block. Return this card to your Hand. || Gain 12 Block. Return this card to your Hand. None
+Patter [Common Skill, 1E/NoneS; up None/None] Gain 8 Block. Gain 2 Vigor. || Gain 10 Block. Gain 3 Vigor. None
+PhotonCut [Common Attack, 1E/NoneS; up None/None] Deal 10 damage. Draw 1 card. Put 1 card from your Hand on top of your Draw Pile. || Deal 13 damage. Draw 2 cards. Put 1 card from your Hand on top of your Draw Pile. None
+PillarOfCreation [Uncommon Power, 1E/NoneS; up None/None] Whenever you create a card, gain 3 Block. || Whenever you create a card, gain 4 Block. None
+Plot [Uncommon Skill, 1E/NoneS; up None/None] Next turn, ALL players draw 2 cards. || Next turn, ALL players draw 3 cards. Only appears in multiplayer runs.
+Prophesize [Uncommon Skill, 2E/NoneS; up None/None] Draw 6 cards. || Draw 9 cards. None
+Quasar [Uncommon Skill, 0E/2S; up None/None] Choose 1 of 3 random Colorless cards to add into your Hand. || Choose 1 of 3 random Upgraded Colorless cards to add into your Hand. None
+Radiate [Uncommon Attack, 0E/NoneS; up None/None] Deal 3 damage to ALL enemies for each 1 Star gained this turn. || Deal 4 damage to ALL enemies for each 1 Star gained this turn. None
+RefineBlade [Common Skill, 1E/NoneS; up None/None] Forge 9. Next turn, gain 1 Energy. || Forge 13. Next turn, gain 1 Energy. None
+Reflect [Uncommon Skill, 1E/3S; up None/None] Gain 15 Block. Blocked attack damage is reflected to your attacker this turn. || Gain 20 Block. Blocked attack damage is reflected to your attacker this turn. None
+Resonance [Uncommon Skill, 1E/3S; up None/None] Gain 1 Strength. ALL enemies lose 1 Strength. || Gain 2 Strength. ALL enemies lose 1 Strength. None
+RoyalGamble [Uncommon Skill, 0E/5S; up None/None] Gain 9 Stars. Exhaust. || Retain. Gain 9 Stars. Exhaust. None
+Royalties [Rare Power, 1E/NoneS; up None/None] At the end of combat, gain 30 Gold. || At the end of combat, gain 40 Gold. Excluded from random card generation in combat (CanBeGeneratedInCombat = false).
+SeekingEdge [Rare Power, 1E/NoneS; up None/None] Forge 7. Sovereign Blade now deals damage to ALL enemies. || Forge 11. Sovereign Blade now deals damage to ALL enemies. None
+SevenStars [Rare Attack, 2E/7S; up 1/None] Deal 7 damage to ALL enemies 7 times. || Deal 7 damage to ALL enemies 7 times. None
+ShiningStrike [Uncommon Attack, 1E/NoneS; up None/None] Deal 8 damage. Gain 2 Stars. Put this card on top of your Draw Pile. || Deal 11 damage. Gain 2 Stars. Put this card on top of your Draw Pile. None
+SolarStrike [Common Attack, 1E/NoneS; up None/None] Deal 9 damage. Gain 1 Star. || Deal 10 damage. Gain 2 Stars. None
+SovereignBlade [Token Attack, 2E/NoneS; up 1/None] Retain. Deal 10 damage. || Retain. Deal 10 damage. Targets ALL enemies instead of AnyEnemy while you have Seeking Edge.
+SpectrumShift [Uncommon Power, 2E/NoneS; up 1/None] At the start of your turn, add 1 random Colorless card into your Hand. || At the start of your turn, add 1 random Colorless card into your Hand. None
+SpoilsOfBattle [Common Skill, 1E/NoneS; up None/None] Forge 5. Draw 2 cards. || Forge 8. Draw 2 cards. None
+Stardust [Uncommon Attack, 0E/XS; up None/None] Deal 5 damage to a random enemy X times. || Deal 7 damage to a random enemy X times. None
+StrikeRegent [Basic Attack, 1E/NoneS; up None/None] Deal 6 damage. || Deal 9 damage. None
+SummonForth [Uncommon Skill, 1E/NoneS; up None/None] Put Sovereign Blade into your Hand from anywhere. Forge 8. || Put Sovereign Blade into your Hand from anywhere. Forge 11. None
+Supermassive [Uncommon Attack, 1E/NoneS; up None/None] Deal 5 damage. Deals 3 additional damage for each card you created this combat. || Deal 5 damage. Deals 4 additional damage for each card you created this combat. None
+SwordSage [Rare Power, 2E/NoneS; up 1/None] Sovereign Blade gains Replay 1. || Sovereign Blade gains Replay 1. None
+Terraforming [Uncommon Skill, 1E/NoneS; up None/None] Gain 6 Vigor. || Gain 8 Vigor. None
+TheSealedThrone [Ancient Power, 1E/3S; up 0/None] Whenever you play a card, gain Star. || Whenever you play a card, gain Star. None
+TheSmith [Rare Skill, 1E/4S; up None/None] Forge 30. || Forge 40. None
+Tutor [Rare Skill, 1E/NoneS; up 0/None] Another player chooses a card in their Draw Pile to add into their Hand. || Another player chooses a card in their Draw Pile to add into their Hand. Only appears in multiplayer runs.
+Tyranny [Rare Power, 1E/NoneS; up None/None] At the start of your turn, draw 1 card and Exhaust 1 card from your Hand. || Innate. At the start of your turn, draw 1 card and Exhaust 1 card from your Hand. None
+Venerate [Basic Skill, 1E/NoneS; up None/None] Gain 2 Stars. || Gain 3 Stars. None
+VoidForm [Rare Power, 3E/NoneS; up None/None] Ethereal. End your turn. The first 2 cards you play each turn are free to play. || End your turn. The first 2 cards you play each turn are free to play. None
+WroughtInWar [Common Attack, 1E/NoneS; up None/None] Deal 7 damage. Forge 7. || Deal 9 damage. Forge 9. None

@@ -1,0 +1,398 @@
+PASS final release EBOOT: complete soundtrack build; controller, Stars, upgrade, pause, save/title/resume, pending choice and all eight animation scenarios.
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+ppsspp-tests.txt
+SHOT boot
+SHOT resume-disabled
+SHOT character-selection
+SHOT regent-blessing
+SHOT new-run-map
+SHOT combat
+SHOT no-stars
+SHOT blade-preview
+SHOT stars-15
+SHOT stars-3
+SHOT nightshade
+SHOT warden
+SHOT upgrade-cost
+SHOT upgrade-mod
+SHOT shop
+SHOT status
+SHOT pause
+SHOT saved-title
+SHOT resumed-combat
+SHOT mandatory-choice
+SHOT choice-completed
+PASS final release EBOOT: all three characters; Stars rejection/payment; upgrade costs; pause icons; save/quit/title/resume; mandatory choice shortcuts and mid-choice save/resume
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+
+ppsspp-attack-tests.txt
+SHOT animation-attack-1-00
+TICK attack-1 0 80
+SHOT animation-attack-1-01
+TICK attack-1 1 84
+SHOT animation-attack-1-02
+TICK attack-1 2 92
+SHOT animation-attack-1-03
+TICK attack-1 3 100
+SHOT animation-attack-1-04
+TICK attack-1 4 108
+SHOT animation-attack-1-05
+TICK attack-1 5 116
+SHOT animation-attack-1-06
+TICK attack-1 6 124
+SHOT animation-attack-1-07
+TICK attack-1 7 132
+SHOT animation-attack-1-08
+TICK attack-1 8 140
+SHOT animation-attack-1-09
+TICK attack-1 9 148
+SHOT animation-attack-1-10
+TICK attack-1 10 156
+SHOT animation-attack-1-11
+TICK attack-1 11 164
+SHOT animation-attack-1-12
+TICK attack-1 12 172
+SHOT animation-attack-1-13
+TICK attack-1 13 180
+SHOT animation-attack-1-14
+TICK attack-1 14 188
+SHOT animation-attack-1-15
+TICK attack-1 15 196
+SHOT animation-attack-1-16
+TICK attack-1 16 204
+SHOT animation-attack-1-17
+TICK attack-1 17 212
+SHOT animation-attack-1-18
+TICK attack-1 18 220
+SHOT animation-attack-1-19
+TICK attack-1 19 228
+SHOT animation-attack-2-00
+TICK attack-2 0 268
+SHOT animation-attack-2-01
+TICK attack-2 1 272
+SHOT animation-attack-2-02
+TICK attack-2 2 276
+SHOT animation-attack-2-03
+TICK attack-2 3 280
+SHOT animation-attack-2-04
+TICK attack-2 4 284
+SHOT animation-attack-2-05
+TICK attack-2 5 288
+SHOT animation-attack-2-06
+TICK attack-2 6 296
+SHOT animation-attack-2-07
+TICK attack-2 7 300
+SHOT animation-attack-2-08
+TICK attack-2 8 308
+SHOT animation-attack-2-09
+TICK attack-2 9 312
+SHOT animation-attack-2-10
+TICK attack-2 10 316
+SHOT animation-attack-2-11
+TICK attack-2 11 320
+SHOT animation-attack-2-12
+TICK attack-2 12 328
+SHOT animation-attack-2-13
+TICK attack-2 13 336
+SHOT animation-attack-2-14
+TICK attack-2 14 344
+SHOT animation-attack-2-15
+TICK attack-2 15 352
+SHOT animation-attack-2-16
+TICK attack-2 16 360
+SHOT animation-attack-2-17
+TICK attack-2 17 368
+SHOT animation-attack-2-18
+TICK attack-2 18 372
+SHOT animation-attack-2-19
+TICK attack-2 19 380
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+
+ppsspp-block-tests.txt
+SHOT animation-block-1-00
+TICK block-1 0 48
+SHOT animation-block-1-01
+TICK block-1 1 56
+SHOT animation-block-1-02
+TICK block-1 2 64
+SHOT animation-block-1-03
+TICK block-1 3 72
+SHOT animation-block-1-04
+TICK block-1 4 80
+SHOT animation-block-1-05
+TICK block-1 5 88
+SHOT animation-block-1-06
+TICK block-1 6 96
+SHOT animation-block-1-07
+TICK block-1 7 104
+SHOT animation-block-1-08
+TICK block-1 8 112
+SHOT animation-block-1-09
+TICK block-1 9 120
+SHOT animation-block-1-10
+TICK block-1 10 128
+SHOT animation-block-1-11
+TICK block-1 11 136
+SHOT animation-block-1-12
+TICK block-1 12 144
+SHOT animation-block-1-13
+TICK block-1 13 152
+SHOT animation-block-1-14
+TICK block-1 14 160
+SHOT animation-block-1-15
+TICK block-1 15 168
+SHOT animation-block-1-16
+TICK block-1 16 176
+SHOT animation-block-1-17
+TICK block-1 17 184
+SHOT animation-block-1-18
+TICK block-1 18 192
+SHOT animation-block-1-19
+TICK block-1 19 200
+SHOT animation-block-2-00
+TICK block-2 0 236
+SHOT animation-block-2-01
+TICK block-2 1 240
+SHOT animation-block-2-02
+TICK block-2 2 248
+SHOT animation-block-2-03
+TICK block-2 3 256
+SHOT animation-block-2-04
+TICK block-2 4 260
+SHOT animation-block-2-05
+TICK block-2 5 268
+SHOT animation-block-2-06
+TICK block-2 6 272
+SHOT animation-block-2-07
+TICK block-2 7 280
+SHOT animation-block-2-08
+TICK block-2 8 288
+SHOT animation-block-2-09
+TICK block-2 9 292
+SHOT animation-block-2-10
+TICK block-2 10 296
+SHOT animation-block-2-11
+TICK block-2 11 300
+SHOT animation-block-2-12
+TICK block-2 12 308
+SHOT animation-block-2-13
+TICK block-2 13 312
+SHOT animation-block-2-14
+TICK block-2 14 320
+SHOT animation-block-2-15
+TICK block-2 15 324
+SHOT animation-block-2-16
+TICK block-2 16 328
+SHOT animation-block-2-17
+TICK block-2 17 332
+SHOT animation-block-2-18
+TICK block-2 18 336
+SHOT animation-block-2-19
+TICK block-2 19 340
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+
+ppsspp-power-tests.txt
+SHOT animation-power-1-00
+TICK power-1 0 60
+SHOT animation-power-1-01
+TICK power-1 1 64
+SHOT animation-power-1-02
+TICK power-1 2 72
+SHOT animation-power-1-03
+TICK power-1 3 80
+SHOT animation-power-1-04
+TICK power-1 4 84
+SHOT animation-power-1-05
+TICK power-1 5 88
+SHOT animation-power-1-06
+TICK power-1 6 96
+SHOT animation-power-1-07
+TICK power-1 7 104
+SHOT animation-power-1-08
+TICK power-1 8 112
+SHOT animation-power-1-09
+TICK power-1 9 120
+SHOT animation-power-1-10
+TICK power-1 10 128
+SHOT animation-power-1-11
+TICK power-1 11 136
+SHOT animation-power-1-12
+TICK power-1 12 144
+SHOT animation-power-1-13
+TICK power-1 13 152
+SHOT animation-power-1-14
+TICK power-1 14 160
+SHOT animation-power-1-15
+TICK power-1 15 168
+SHOT animation-power-1-16
+TICK power-1 16 176
+SHOT animation-power-1-17
+TICK power-1 17 184
+SHOT animation-power-1-18
+TICK power-1 18 192
+SHOT animation-power-1-19
+TICK power-1 19 200
+SHOT animation-power-2-00
+TICK power-2 0 236
+SHOT animation-power-2-01
+TICK power-2 1 240
+SHOT animation-power-2-02
+TICK power-2 2 244
+SHOT animation-power-2-03
+TICK power-2 3 248
+SHOT animation-power-2-04
+TICK power-2 4 256
+SHOT animation-power-2-05
+TICK power-2 5 260
+SHOT animation-power-2-06
+TICK power-2 6 264
+SHOT animation-power-2-07
+TICK power-2 7 272
+SHOT animation-power-2-08
+TICK power-2 8 280
+SHOT animation-power-2-09
+TICK power-2 9 288
+SHOT animation-power-2-10
+TICK power-2 10 296
+SHOT animation-power-2-11
+TICK power-2 11 304
+SHOT animation-power-2-12
+TICK power-2 12 312
+SHOT animation-power-2-13
+TICK power-2 13 320
+SHOT animation-power-2-14
+TICK power-2 14 328
+SHOT animation-power-2-15
+TICK power-2 15 332
+SHOT animation-power-2-16
+TICK power-2 16 340
+SHOT animation-power-2-17
+TICK power-2 17 348
+SHOT animation-power-2-18
+TICK power-2 18 356
+SHOT animation-power-2-19
+TICK power-2 19 364
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+
+ppsspp-endings-tests.txt
+SHOT animation-finisher-2-00
+TICK finisher-2 0 60
+SHOT animation-finisher-2-01
+TICK finisher-2 1 64
+SHOT animation-finisher-2-02
+TICK finisher-2 2 68
+SHOT animation-finisher-2-03
+TICK finisher-2 3 76
+SHOT animation-finisher-2-04
+TICK finisher-2 4 84
+SHOT animation-finisher-2-05
+TICK finisher-2 5 92
+SHOT animation-finisher-2-06
+TICK finisher-2 6 100
+SHOT animation-finisher-2-07
+TICK finisher-2 7 104
+SHOT animation-finisher-2-08
+TICK finisher-2 8 108
+SHOT animation-finisher-2-09
+TICK finisher-2 9 116
+SHOT animation-finisher-2-10
+TICK finisher-2 10 120
+SHOT animation-finisher-2-11
+TICK finisher-2 11 128
+SHOT animation-finisher-2-12
+TICK finisher-2 12 136
+SHOT animation-finisher-2-13
+TICK finisher-2 13 144
+SHOT animation-finisher-2-14
+TICK finisher-2 14 152
+SHOT animation-finisher-2-15
+TICK finisher-2 15 160
+SHOT animation-finisher-2-16
+TICK finisher-2 16 164
+SHOT animation-finisher-2-17
+TICK finisher-2 17 172
+SHOT animation-finisher-2-18
+TICK finisher-2 18 176
+SHOT animation-finisher-2-19
+TICK finisher-2 19 184
+SHOT animation-finisher-2-20
+TICK finisher-2 20 188
+SHOT animation-finisher-2-21
+TICK finisher-2 21 196
+SHOT animation-finisher-2-22
+TICK finisher-2 22 204
+SHOT animation-finisher-2-23
+TICK finisher-2 23 208
+SHOT animation-finisher-2-24
+TICK finisher-2 24 212
+SHOT animation-finisher-2-25
+TICK finisher-2 25 220
+SHOT animation-finisher-2-26
+TICK finisher-2 26 228
+SHOT animation-finisher-2-27
+TICK finisher-2 27 232
+SHOT animation-finisher-2-28
+TICK finisher-2 28 236
+SHOT animation-finisher-2-29
+TICK finisher-2 29 240
+SHOT animation-finisher-2-30
+TICK finisher-2 30 244
+SHOT animation-finisher-2-31
+TICK finisher-2 31 248
+SHOT animation-death-2-00
+TICK death-2 0 288
+SHOT animation-death-2-01
+TICK death-2 1 296
+SHOT animation-death-2-02
+TICK death-2 2 304
+SHOT animation-death-2-03
+TICK death-2 3 312
+SHOT animation-death-2-04
+TICK death-2 4 316
+SHOT animation-death-2-05
+TICK death-2 5 324
+SHOT animation-death-2-06
+TICK death-2 6 332
+SHOT animation-death-2-07
+TICK death-2 7 340
+SHOT animation-death-2-08
+TICK death-2 8 348
+SHOT animation-death-2-09
+TICK death-2 9 356
+SHOT animation-death-2-10
+TICK death-2 10 364
+SHOT animation-death-2-11
+TICK death-2 11 372
+SHOT animation-death-2-12
+TICK death-2 12 380
+SHOT animation-death-2-13
+TICK death-2 13 384
+SHOT animation-death-2-14
+TICK death-2 14 388
+SHOT animation-death-2-15
+TICK death-2 15 392
+SHOT animation-death-2-16
+TICK death-2 16 400
+SHOT animation-death-2-17
+TICK death-2 17 404
+SHOT animation-death-2-18
+TICK death-2 18 408
+SHOT animation-death-2-19
+TICK death-2 19 416
+PASS final release EBOOT: Vesper/Proxy actual-input attack, block, power, killing blow and death animation screenshots
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
+
+
+ppsspp-resume-tests.txt
+SHOT boot
+SHOT cold-resume
+SHOT status
+PASS cold boot Resume loads the saved combat

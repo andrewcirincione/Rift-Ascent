@@ -1,0 +1,1 @@
+PASS 2736 upgrade/inventory layouts: max heights 149/149; complete descriptions stay above the footer

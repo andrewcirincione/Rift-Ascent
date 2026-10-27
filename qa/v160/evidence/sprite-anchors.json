@@ -1,0 +1,602 @@
+[
+  {
+    "character": "nightshade",
+    "frame": 0,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      34,
+      34,
+      106,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 1,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      27,
+      32,
+      100,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 2,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      29,
+      33,
+      106,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 3,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      28,
+      33,
+      106,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 4,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      31,
+      33,
+      108,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 5,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      30,
+      28,
+      109,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 6,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      25,
+      31,
+      126,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 7,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      31,
+      32,
+      108,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 8,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      23,
+      41,
+      115,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 9,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      32,
+      33,
+      109,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 10,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      31,
+      31,
+      96,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 11,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      26,
+      31,
+      101,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 12,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      28,
+      33,
+      104,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 13,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      23,
+      24,
+      115,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 14,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      31,
+      32,
+      111,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 15,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      32,
+      32,
+      106,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 16,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      28,
+      46,
+      98,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 17,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      19,
+      55,
+      107,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 18,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      24,
+      67,
+      112,
+      96
+    ]
+  },
+  {
+    "character": "nightshade",
+    "frame": 19,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.275,
+    "bounds": [
+      26,
+      71,
+      110,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 0,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      27,
+      15,
+      91,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 1,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      33,
+      14,
+      94,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 2,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      24,
+      15,
+      92,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 3,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      33,
+      15,
+      95,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 4,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      37,
+      14,
+      97,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 5,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      27,
+      13,
+      109,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 6,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      30,
+      16,
+      106,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 7,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      15,
+      30,
+      134,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 8,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      31,
+      33,
+      144,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 9,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      38,
+      15,
+      102,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 10,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      29,
+      17,
+      110,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 11,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      24,
+      23,
+      111,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 12,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      25,
+      19,
+      97,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 13,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      9,
+      12,
+      122,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 14,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      24,
+      20,
+      107,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 15,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      29,
+      26,
+      120,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 16,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      22,
+      34,
+      92,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 17,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      18,
+      24,
+      122,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 18,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      18,
+      22,
+      122,
+      96
+    ]
+  },
+  {
+    "character": "regent",
+    "frame": 19,
+    "anchor": [
+      70,
+      96
+    ],
+    "scale": 0.32,
+    "bounds": [
+      18,
+      23,
+      120,
+      96
+    ]
+  }
+]

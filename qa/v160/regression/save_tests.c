@@ -1,0 +1,10 @@
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include "../source/game.c"
+static void old_file(const LegacyGame20*g,const char*path){FILE*f=fopen(path,"wb");assert(f);uint32_t h=hash_bytes((const unsigned char*)g,sizeof(*g));fwrite(&h,4,1,f);fwrite(g,sizeof(*g),1,f);fclose(f);}
+int main(void){Game g,b;assert(game_load(&g,"qa/v150r2/evidence/state-height-combat.dat"));assert(g.version==23&&g.character==CHAR_WARDEN);assert(game_save(&g,"qa/v160/evidence/migrated20.dat"));assert(game_load(&b,"qa/v160/evidence/migrated20.dat"));assert(!memcmp(&g,&b,sizeof(g)));int count=0;const char*files[]={"qa/v133/fixtures/save-v16-combat.dat","qa/v133/fixtures/save-v17-combat.dat","qa/v140/evidence/state-release-combat.dat","qa/v1311/evidence/state-release-combat.dat","qa/v1310/evidence/state-release-combat.dat"};for(unsigned i=0;i<sizeof(files)/sizeof(*files);i++){FILE*f=fopen(files[i],"rb");if(!f)continue;fclose(f);assert(game_load(&g,files[i]));assert(g.version==23&&g.character==0&&game_validate(&g));count++;}
+ // Exercise all encoded flags/modifications across each context that stores a card.
+ LegacyGame20 old;FILE*f=fopen("qa/v150r2/evidence/state-height-combat.dat","rb");assert(f);uint32_t h;assert(fread(&h,4,1,f)==1&&fread(&old,sizeof(old),1,f)==1);fclose(f);for(int mod=0;mod<7;mod++){if(mod==4)continue;int raw=0|128|(mod<<11)|256;old.deck[0]=raw;old.hand[0]=raw;old.draw[0]=raw;old.draw_count=1;old.discard[0]=raw;old.discard_count=1;old.exhaust[0]=raw;old.exhaust_count=1;old.screen=COMBAT;old_file(&old,"qa/v160/evidence/migrate-raw20.dat");assert(game_load(&g,"qa/v160/evidence/migrate-raw20.dat"));assert(CARD_UP(g.deck[0])&&CARD_MOD(g.deck[0])==mod&&(g.deck[0]&CARD_FREE));assert(g.deck[0]==g.hand[0]&&g.deck[0]==g.draw[0]&&g.deck[0]==g.discard[0]&&g.deck[0]==g.exhaust[0]);}
+ assert(game_load(&g,"qa/v151/evidence/pending-sly.dat"));assert(g.screen==NINJA_CHOICE);while(g.screen==NINJA_CHOICE)game_action(&g,BTN_OK);assert(g.screen==COMBAT);
+ printf("PASS v20 migration, %d older real save fixtures, all legacy raw flags/modifications, current pending-Sly resume; Game=%zu bytes\n",count,sizeof(Game));return 0;}

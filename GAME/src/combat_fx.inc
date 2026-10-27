@@ -38,7 +38,7 @@ int game_render_fx_busy(unsigned tick){
  if(r137_last_screen==REWARD||r137_last_screen==RELIC_RESULT||r137_last_screen==VICTORY||r137_last_screen==DEFEAT)end=(end>30?end:30)+10;
  return (r137_count||r138_death_active||r1311_finishing)&&a<end?end-a:0;
 }
-static int r137_all(int raw){int c=CARD_ID(raw);return c==3||c==10||c==14||c==19||c==36||c==37||c==70;}
+static int r137_all(int raw){int c=CARD_ID(raw);return c==3||c==10||c==14||c==19||c==36||c==37||c==70||c==R_ASTRAL_PULSE||c==R_CRASH_LANDING||c==R_CRUSH_UNDER||c==R_DYING_STAR||c==R_METEOR_SHOWER||c==R_RADIATE||c==R_SEVEN_STARS||c==C_DRAMATIC_ENTRANCE;}
 static void r137_feedback(const Game*before,const Game*after,int action,unsigned tick){
  int n=0;const GameCombatFx*events=game_combat_fx_events(&n);
  if(before->screen!=COMBAT){r1311_finishing=0;r137_count=0;r137_held_valid=0;r138_death_active=0;return;}
@@ -186,6 +186,14 @@ static const int r1311_power_y[6]={60,60,61,61,63,63};
 /* Three readable casting poses, then immediately return to the idle stance. */
 static int r140_power_pose(int age){return age<0||age>=16?-1:age<4?1:age<12?3:5;}
 static int r140_idle_breath(int art,unsigned tick){return (wave(tick/4u+(unsigned)art*17u,48+art%5*4,4)+5)/4;}
+static int r160_star_count(int stars){return CLAMP(stars,0,15)*2;}
+static void r160_particles(const Game*g,unsigned tick,int front){
+ if(g->hp<=0)return;int level=CLAMP(g->regent.stars,0,15),count=r160_star_count(level);
+ for(int i=0;i<count;i++){if((i%3==0)!=front)continue;unsigned seed=particle_hash(160u+i*8191u);int life=24+seed%24,age=(tick+(seed>>8))%life;
+  int x=80+(seed>>13)%78+wave(tick+i*5,32,4),y=169-age*(50+level)/life,size=3+(seed>>20)%3+level/8,opacity=(life-age)*230/life;
+  if(age<4)opacity=opacity*age/4;r137_blit(x,y,size,size,r160_spark,24,24,opacity,0);
+ }
+}
 static void r137_scene(const Game*g){
  int age=r137_age(animation_tick),pa=r137_latest(-1,GFX_ATTACK,age),pb=r137_latest(-1,GFX_BLOCK,age),pp=r137_latest(-1,GFX_POWER,age);
  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
@@ -207,14 +215,17 @@ static void r137_scene(const Game*g){
    if(r137_events[i].absorbed>0&&t<12){pose=2;pose_frame=2;dy=3;}
   }
  }
- if(g->character==CHAR_NIGHTSHADE){
+ if(g->character==CHAR_NIGHTSHADE||g->character==CHAR_REGENT){
   int frame=0;
   if(g->hp<=0&&r138_death_active)frame=16+CLAMP((age-r138_death_start)/12,0,3);
-  else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=pa<0?4:local<5?5:local<12?6:0;}
-  else if(pose==2)frame=9;
-  else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<4?12:local<12?13:0;}
-  else frame=(animation_tick/32u)%4;
-  r138_hero_clip=1;r137_blit(40+dx,74,150,100,r151_ninja[frame],150,100,255,0);r138_hero_clip=0;
+  else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=pa<0?5:local<3?6:local<13?7:9;}
+  else if(pose==2)frame=11;
+  else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<10?13:14;}
+  else if(player_flash)frame=15;
+  else frame=(animation_tick/32u)%5;
+  if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,0);
+  r160_sprite(48+dx,78,144,96,g->character==CHAR_NIGHTSHADE?&r160_nightshade[frame]:&r160_regent[frame],1);
+  if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,1);
  }else if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
   r138_hero_clip=1;r137_blit(41,61,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;
@@ -278,7 +289,7 @@ static void r137_scene(const Game*g){
    r134_blit(cx-12,91-a/2,24,24,icon,22,22,(20-a)*12);
   }else if(e->kind==GFX_POWER&&a<16){
    int phase=a<4?1:a<12?3:5,size=65+(a<8?a:16-a);
-   if(g->character!=CHAR_NIGHTSHADE)r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
+   if(g->character==CHAR_WARDEN)r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
   }else if(e->kind==GFX_SELF&&a<22){char number[24];snprintf(number,sizeof(number),"-%d",e->amount);r135_shadow_text(98,107-a/2,number,RED,&r134_f18b);}
  }
  /* Brief hold of the actual battlefield framebuffer at contact. HUD, hand,

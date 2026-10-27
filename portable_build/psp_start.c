@@ -12,6 +12,7 @@
 #include <pspctrl.h>
 #include <psptypes.h>
 #include <stdint.h>
+#include <stdio.h>
 #include "game.h"
 #include "sound.h"
 void game_render_set_overlay(int kind,int tab,int potion);
@@ -256,14 +257,16 @@ static void step_action(int key,unsigned tick) {
             int type=cards[CARD_ID(raw)].type;
             if(game_card_is_playable(raw) &&
                 (game_card_cost_now(&game,raw)<=game.energy ||
-                  game_card_cost_now(&game,raw)==-1)) fx=(type==0?1:type==2?5:0);
+                  game_card_cost_now(&game,raw)==-1)&&game_card_star_cost(&game,raw)<=game.regent.stars) fx=(type==0?1:type==2?5:0);
         } else if(key==BTN_POTION)fx=3;
     }
     game_combat_fx_begin();
-    if(key==1024)game_prepare_end_turn(&game);
+    if(key==2048)game_update(&game);
+    else if(key==1024)game_prepare_end_turn(&game);
     else game_action(&game,key);
     game_combat_fx_end();
     if(game.screen==VICTORY || game.screen==DEFEAT) {
+        game_set_resume_available(0);
         if(game.screen!=oldscreen && profile_record(&lifetime,&game))
             profile_save(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
     }
@@ -310,7 +313,9 @@ static int run_game(SceSize bytes,void *argp) {
     boot_trace("game_new entering",1);
     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
     boot_trace("game_new finished",game.screen);
-    boot_trace("save load result",game_load(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT"));
+    {Game saved;int loaded=game_load(&saved,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
+    game_set_resume_available(loaded&&saved.screen!=TITLE&&saved.screen!=VICTORY&&saved.screen!=DEFEAT&&saved.screen!=CHARACTER_SELECT);
+    game.selection=game_resume_available()?0:1;boot_trace("resume available",game_resume_available());}
     profile_init(&lifetime);
     boot_trace("profile load result",profile_load(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT"));
     game_render_set_profile(&lifetime);
@@ -372,12 +377,21 @@ static int run_game(SceSize bytes,void *argp) {
             snapshot.screen=game_pause_source();
             if(game_save(&snapshot,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT")){
                 boot_trace("save and quit result",1);
-                sceKernelExitGame();
-                return 0;
+                game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
+                game_set_resume_available(1);game.selection=0;key=0;
+                inspect_open=0;pending_card_ticks=enemy_turn_delay=plating_delay=0;
+                game_render_reset_fx();
             }else {
                 boot_trace("save and quit FAILED",-1);
                 key=0;
             }
+        }
+        if(game.screen==TITLE&&game.selection==0&&key==BTN_OK){
+            if(game_resume_available()){
+                Game saved;if(game_load(&saved,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT")&&saved.screen!=TITLE&&saved.screen!=DEFEAT&&saved.screen!=VICTORY){game=saved;game_render_reset_fx();inspect_open=0;}
+                else{game_set_resume_available(0);snprintf(game.message,sizeof(game.message),"Saved run could not be loaded.");}
+            }
+            key=0;
         }
         music_paused=game_render_music_paused(frame*4u);
         game_render_update_fx(frame*4u);
@@ -406,7 +420,7 @@ static int run_game(SceSize bytes,void *argp) {
            game.selection>=0 && game.selection<game.hand_count){
             int raw=game.hand[game.selection];
             int cost=game_card_cost_now(&game,raw);
-            if(game_card_is_playable(raw)&&(cost==-1||cost<=game.energy)){
+            if(game_card_is_playable(raw)&&(cost==-1||cost<=game.energy)&&game_card_star_cost(&game,raw)<=game.regent.stars){
                 game_render_preplay(&game,frame*4u);
                 pending_card_ticks=5;
                 key=0;
@@ -464,14 +478,14 @@ static int run_game(SceSize bytes,void *argp) {
         game_render_set_overlay(inspect_open,inspect_tab,inspect_potion);
         game_render_set_status_scroll(inspect_scroll);
         if(key && game.screen!=TITLE && game.screen!=HELP &&
-           game.screen!=COMBAT && game.screen!=DEFEAT)
+           game.screen!=COMBAT && game.screen!=DEFEAT && game.screen!=PAUSE_MENU && game.screen!=CHARACTER_SELECT)
             game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
         if(game.screen!=last_screen || game.act!=last_act || game.floor!=last_floor) {
             if(game.screen==MAP || game.screen==VICTORY || game.screen==DEFEAT)
                 game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
             last_screen=game.screen;last_act=game.act;last_floor=game.floor;
         }
-        game_update(&game);
+        if(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count)))step_action(2048,frame*4u);
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
         game_render_frame(&game,next_frame,STRIDE,frame*4u);
         /* Keep its stream selected but paused after the killing contact. */
@@ -520,7 +534,7 @@ int _start(SceSize args,void *argp) {
     boot_trace_reset();
     boot_trace("PSP module start",1);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
-                                  128*1024,PSP_THREAD_ATTR_USER,0);
+                                  192*1024,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);
     if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
     else boot_trace("FATAL could not create thread",th);

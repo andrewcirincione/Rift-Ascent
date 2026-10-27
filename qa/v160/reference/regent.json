@@ -1,0 +1,5525 @@
+{
+  "meta": {
+    "version": "v0.107.1",
+    "date": "2026-06-18T15:43:56-07:00",
+    "commit": "59260271",
+    "built": "2026-09-24"
+  },
+  "cards": [
+    {
+      "id": "Alignment",
+      "key": "ALIGNMENT",
+      "slug": "alignment",
+      "title": "Alignment",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 3,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Energy": {
+          "base": 2,
+          "kind": "EnergyVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 2 Energy.",
+          "html": "Gain <span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Gain 3 Energy.",
+          "html": "Gain <span class=\"up\"><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span></span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 energy",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Anordnung",
+        "fra": "Alignement",
+        "ita": "Allineamento",
+        "spa": "Alineamiento",
+        "esp": "Alineaci\u00f3n",
+        "ptb": "Alinhamento",
+        "pol": "Koniunkcja",
+        "rus": "\u041f\u0430\u0440\u0430\u0434 \u043f\u043b\u0430\u043d\u0435\u0442",
+        "tur": "Hizalanma",
+        "jpn": "\u661f\u306e\u5de1\u308a",
+        "kor": "\uc815\ub82c",
+        "zhs": "\u661f\u4f4d\u5e8f\u5217",
+        "tha": "\u0e08\u0e31\u0e14\u0e40\u0e23\u0e35\u0e22\u0e07\u0e15\u0e33\u0e41\u0e2b\u0e19\u0e48\u0e07"
+      }
+    },
+    {
+      "id": "Arsenal",
+      "key": "ARSENAL",
+      "slug": "arsenal",
+      "title": "Arsenal",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "ArsenalPower": {
+          "base": 1,
+          "kind": "PowerVar<ArsenalPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you create a card, gain 1 Strength.",
+          "html": "Whenever you create a card, gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span>."
+        },
+        "up": {
+          "plain": "Innate.\nWhenever you create a card, gain 1 Strength.",
+          "html": "<span class=\"up\"><span class=\"kw\">Innate</span>.</span><br>Whenever you create a card, gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span>."
+        }
+      },
+      "upgradeSummary": "gains Innate",
+      "unlock": "REGENT5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Arsenal",
+        "fra": "Arsenal",
+        "ita": "Arsenale",
+        "spa": "Arsenal",
+        "esp": "Arsenal",
+        "ptb": "Arsenal",
+        "pol": "Arsena\u0142",
+        "rus": "\u0410\u0440\u0441\u0435\u043d\u0430\u043b",
+        "tur": "Cephanelik",
+        "jpn": "\u6b66\u5668\u5eab",
+        "kor": "\ubb34\uae30\uace0",
+        "zhs": "\u6b66\u5668\u5e93",
+        "tha": "\u0e04\u0e25\u0e31\u0e07\u0e2a\u0e23\u0e23\u0e1e\u0e32\u0e27\u0e38\u0e18"
+      }
+    },
+    {
+      "id": "AstralPulse",
+      "key": "ASTRAL_PULSE",
+      "slug": "astral-pulse",
+      "title": "Astral Pulse",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 3,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 6,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 8
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 6 damage to ALL enemies twice.",
+          "html": "Deal <span class=\"num\">6</span> damage to ALL enemies twice."
+        },
+        "up": {
+          "plain": "Deal 8 damage to ALL enemies twice.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">8</span></span> damage to ALL enemies twice."
+        }
+      },
+      "upgradeSummary": "6 \u2192 8 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Astralpuls",
+        "fra": "Pulsation astrale",
+        "ita": "Impulso Astrale",
+        "spa": "Pulso astral",
+        "esp": "Pulso astral",
+        "ptb": "Pulso Astral",
+        "pol": "Puls astralny",
+        "rus": "\u0410\u0441\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0432\u0441\u043f\u043b\u0435\u0441\u043a",
+        "tur": "Astral Dalga",
+        "jpn": "\u661f\u970a\u306e\u6ce2\u52d5",
+        "kor": "\ubcc4\uc758 \ud30c\ub3d9",
+        "zhs": "\u661f\u754c\u8109\u51b2",
+        "tha": "\u0e04\u0e25\u0e37\u0e48\u0e19\u0e14\u0e27\u0e07\u0e14\u0e32\u0e27"
+      }
+    },
+    {
+      "id": "BeatIntoShape",
+      "key": "BEAT_INTO_SHAPE",
+      "slug": "beat-into-shape",
+      "title": "Beat into Shape",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 5,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 7
+        },
+        "CalculationBase": {
+          "base": 5,
+          "kind": "CalculationBaseVar",
+          "prop": null,
+          "up": 7
+        },
+        "CalculationExtra": {
+          "base": 5,
+          "kind": "CalculationExtraVar",
+          "prop": null,
+          "up": 7
+        },
+        "CalculatedForge": {
+          "base": 5,
+          "kind": "CalculatedVar",
+          "prop": null,
+          "up": 7
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 5 damage.\nForge 5.\nForges an additional 5 for every other time you've hit the enemy this turn.",
+          "html": "Deal <span class=\"num\">5</span> damage.<br><span class=\"kw\">Forge</span> <span class=\"num\">5</span>.<br><span class=\"kw\">Forges</span> an additional <span class=\"num\">5</span> for every other time you've hit the enemy this turn."
+        },
+        "up": {
+          "plain": "Deal 7 damage.\nForge 7.\nForges an additional 7 for every other time you've hit the enemy this turn.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">7</span></span> damage.<br><span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">7</span></span>.<br><span class=\"kw\">Forges</span> an additional <span class=\"up\"><span class=\"num\">7</span></span> for every other time you've hit the enemy this turn."
+        }
+      },
+      "upgradeSummary": "5 \u2192 7 damage, 5 \u2192 7 Forge, 5 \u2192 7 extra Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "In Form hauen",
+        "fra": "Ch\u00e2timent",
+        "ita": "Plasmazione",
+        "spa": "Moldear",
+        "esp": "Forja con esfuerzo",
+        "ptb": "Moldar",
+        "pol": "Ukszta\u0142towanie",
+        "rus": "\u041c\u043e\u043b\u043e\u0442 \u0438 \u043d\u0430\u043a\u043e\u0432\u0430\u043b\u044c\u043d\u044f",
+        "tur": "\u015eekle Sok",
+        "jpn": "\u53e9\u304d\u76f4\u3057\u3066\u3084\u308b",
+        "kor": "\uc7ac\uc131\ud615",
+        "zhs": "\u953b\u6253\u6210\u578b",
+        "tha": "\u0e15\u0e35\u0e02\u0e36\u0e49\u0e19\u0e23\u0e39\u0e1b"
+      }
+    },
+    {
+      "id": "Begone",
+      "key": "BEGONE",
+      "slug": "begone",
+      "title": "BEGONE!",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Choose a card in your Hand to Transform into Minion Strike.",
+          "html": "Choose a card in your <span class=\"kw\">Hand</span> to <span class=\"kw\">Transform</span> into <span class=\"kw\">Minion Strike</span>."
+        },
+        "up": {
+          "plain": "Choose a card in your Hand to Transform into Minion Strike+.",
+          "html": "Choose a card in your <span class=\"kw\">Hand</span> to <span class=\"kw\">Transform</span> into <span class=\"kw\"><span class=\"up\">Minion Strike+</span></span>."
+        }
+      },
+      "upgradeSummary": "\u201cMinion Strike\u201d \u2192 \u201cMinion Strike+\u201d",
+      "unlock": "REGENT5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "HINFORT!",
+        "fra": "HORS DE MA VUE\u202f!",
+        "ita": "SPARISCI!",
+        "spa": "\u00a1LARGO DE AQU\u00cd!",
+        "esp": "\u00a1VETE!",
+        "ptb": "RETIRE-SE!",
+        "pol": "PRECZ!",
+        "rus": "\u041f\u0420\u041e\u0427\u042c!",
+        "tur": "DEFOL!",
+        "jpn": "\u5931\u305b\u3088\uff01",
+        "kor": "\ubb3c\ub800\uac70\ub77c!",
+        "zhs": "\u4e0b\u53bb\uff01",
+        "tha": "\u0e2b\u0e32\u0e22\u0e44\u0e1b\u0e0b\u0e30!"
+      }
+    },
+    {
+      "id": "BigBang",
+      "key": "BIG_BANG",
+      "slug": "big-bang",
+      "title": "Big Bang",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust",
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        },
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        },
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null
+        },
+        "Forge": {
+          "base": 5,
+          "kind": "ForgeVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 1 card.\nGain 1 Energy.\nGain 1 Star.\nForge 5.\nExhaust.",
+          "html": "Draw <span class=\"num\">1</span> card.<br>Gain <span class=\"energy\" data-n=\"1\"></span>.<br>Gain <span class=\"star\"></span>.<br><span class=\"kw\">Forge</span> <span class=\"num\">5</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Innate.\nDraw 1 card.\nGain 1 Energy.\nGain 1 Star.\nForge 5.\nExhaust.",
+          "html": "<span class=\"up\"><span class=\"kw\">Innate</span>.</span><br>Draw <span class=\"num\">1</span> card.<br>Gain <span class=\"energy\" data-n=\"1\"></span>.<br>Gain <span class=\"star\"></span>.<br><span class=\"kw\">Forge</span> <span class=\"num\">5</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "gains Innate",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Urknall",
+        "fra": "Big Bang",
+        "ita": "Big Bang",
+        "spa": "Gran Explosi\u00f3n",
+        "esp": "Big Bang",
+        "ptb": "Big Bang",
+        "pol": "Wielki Wybuch",
+        "rus": "\u0411\u043e\u043b\u044c\u0448\u043e\u0439 \u0432\u0437\u0440\u044b\u0432",
+        "tur": "B\u00fcy\u00fck Patlama",
+        "jpn": "\u30d3\u30c3\u30b0\u30d0\u30f3",
+        "kor": "\ube45\ubc45",
+        "zhs": "\u5927\u7206\u70b8",
+        "tha": "\u0e1a\u0e34\u0e4a\u0e01\u0e41\u0e1a\u0e07"
+      }
+    },
+    {
+      "id": "BlackHole",
+      "key": "BLACK_HOLE",
+      "slug": "black-hole",
+      "title": "Black Hole",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "BlackHolePower": {
+          "base": 3,
+          "kind": "PowerVar<BlackHolePower>",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you spend or gain Star, deal 3 damage to ALL enemies.",
+          "html": "Whenever you spend or gain <span class=\"star\"></span>, deal <span class=\"num\">3</span> damage to ALL enemies."
+        },
+        "up": {
+          "plain": "Whenever you spend or gain Star, deal 4 damage to ALL enemies.",
+          "html": "Whenever you spend or gain <span class=\"star\"></span>, deal <span class=\"up\"><span class=\"num\">4</span></span> damage to ALL enemies."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schwarzes Loch",
+        "fra": "Trou noir",
+        "ita": "Buco Nero",
+        "spa": "Agujero negro",
+        "esp": "Agujero negro",
+        "ptb": "Buraco Negro",
+        "pol": "Czarna dziura",
+        "rus": "\u0427\u0435\u0440\u043d\u0430\u044f \u0434\u044b\u0440\u0430",
+        "tur": "Kara Delik",
+        "jpn": "\u30d6\u30e9\u30c3\u30af\u30db\u30fc\u30eb",
+        "kor": "\ube14\ub799\ud640",
+        "zhs": "\u9ed1\u6d1e",
+        "tha": "\u0e2b\u0e25\u0e38\u0e21\u0e14\u0e33"
+      }
+    },
+    {
+      "id": "Bombardment",
+      "key": "BOMBARDMENT",
+      "slug": "bombardment",
+      "title": "Bombardment",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 3,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 18,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 24
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 18 damage.\nAt the start of your turn, if this is in your Exhaust Pile, play it.\nExhaust.",
+          "html": "Deal <span class=\"num\">18</span> damage.<br>At the start of your turn, if this is in your <span class=\"kw\">Exhaust Pile</span>, play it.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Deal 24 damage.\nAt the start of your turn, if this is in your Exhaust Pile, play it.\nExhaust.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">24</span></span> damage.<br>At the start of your turn, if this is in your <span class=\"kw\">Exhaust Pile</span>, play it.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "18 \u2192 24 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Bombardierung",
+        "fra": "Bombardement",
+        "ita": "Bombardamento",
+        "spa": "Bombardeo",
+        "esp": "Asedio",
+        "ptb": "Bombardeio",
+        "pol": "Bombardowanie",
+        "rus": "\u0411\u043e\u043c\u0431\u0430\u0440\u0434\u0438\u0440\u043e\u0432\u043a\u0430",
+        "tur": "Bombard\u0131man",
+        "jpn": "\u7206\u6483",
+        "kor": "\ud3ec\uaca9",
+        "zhs": "\u8f70\u51fb",
+        "tha": "\u0e23\u0e30\u0e40\u0e1a\u0e34\u0e14\u0e17\u0e33\u0e25\u0e32\u0e22\u0e25\u0e49\u0e32\u0e07"
+      }
+    },
+    {
+      "id": "Bulwark",
+      "key": "BULWARK",
+      "slug": "bulwark",
+      "title": "Bulwark",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 12,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 15
+        },
+        "Forge": {
+          "base": 10,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 13
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 12 Block.\nForge 10.",
+          "html": "Gain <span class=\"num\">12</span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Forge</span> <span class=\"num\">10</span>."
+        },
+        "up": {
+          "plain": "Gain 15 Block.\nForge 13.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">15</span></span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">13</span></span>."
+        }
+      },
+      "upgradeSummary": "12 \u2192 15 Block, 10 \u2192 13 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Bollwerk",
+        "fra": "Rempart",
+        "ita": "Bastione",
+        "spa": "\u00c9gida",
+        "esp": "Basti\u00f3n",
+        "ptb": "Baluarte",
+        "pol": "Bastion",
+        "rus": "\u0411\u0430\u0441\u0442\u0438\u043e\u043d",
+        "tur": "Siper",
+        "jpn": "\u57ce\u58c1",
+        "kor": "\ubcf4\ub8e8",
+        "zhs": "\u94f8\u5899"
+      }
+    },
+    {
+      "id": "BundleOfJoy",
+      "key": "BUNDLE_OF_JOY",
+      "slug": "bundle-of-joy",
+      "title": "Bundle of Joy",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Add 3 random Colorless cards into your Hand.\nExhaust.",
+          "html": "Add <span class=\"num\">3</span> random Colorless cards into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Add 4 random Colorless cards into your Hand.\nExhaust.",
+          "html": "Add <span class=\"up\"><span class=\"num\">4</span></span> random Colorless cards into your <span class=\"kw\">Hand</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Paket der Freude",
+        "fra": "Cadeau joyeux",
+        "ita": "Cucciolo Stellare",
+        "spa": "Peque\u00f1ajo c\u00f3smico",
+        "esp": "Reto\u00f1o de luz",
+        "ptb": "Pequeno Milagre",
+        "pol": "Pociecha",
+        "rus": "\u041b\u044e\u0431\u0438\u043c\u0435\u0446",
+        "tur": "Ne\u015fe Kayna\u011f\u0131",
+        "jpn": "\u601d\u3044\u304c\u3051\u306c\u8d08\u308a\u7269",
+        "kor": "\uae30\uc068\uc758 \uc120\ubb3c",
+        "zhs": "\u65b0\u751f\u4e4b\u559c"
+      }
+    },
+    {
+      "id": "CelestialMight",
+      "key": "CELESTIAL_MIGHT",
+      "slug": "celestial-might",
+      "title": "Celestial Might",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 6,
+          "kind": "DamageVar",
+          "prop": "Move"
+        },
+        "Repeat": {
+          "base": 3,
+          "kind": "RepeatVar",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 6 damage 3 times.",
+          "html": "Deal <span class=\"num\">6</span> damage <span class=\"num\">3</span> times."
+        },
+        "up": {
+          "plain": "Deal 6 damage 4 times.",
+          "html": "Deal <span class=\"num\">6</span> damage <span class=\"up\"><span class=\"num\">4</span></span> times."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 times",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Himmlische Macht",
+        "fra": "Puissance c\u00e9leste",
+        "ita": "Forza Celestiale",
+        "spa": "Potestad celestial",
+        "esp": "Fuerza celestial",
+        "ptb": "Grandeza Celestial",
+        "pol": "Niebia\u0144ska pot\u0119ga",
+        "rus": "\u041d\u0435\u0431\u0435\u0441\u043d\u044b\u0439 \u0433\u043d\u0435\u0432",
+        "tur": "Kutsal Kudret",
+        "jpn": "\u5929\u306e\u529b",
+        "kor": "\ucc9c\uc0c1\uc758 \uad8c\ub2a5",
+        "zhs": "\u5929\u7a79\u4e4b\u529b"
+      }
+    },
+    {
+      "id": "Charge",
+      "key": "CHARGE",
+      "slug": "charge",
+      "title": "CHARGE!!",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Choose 2 cards in your Draw Pile to Transform into\nMinion Dive Bombs.",
+          "html": "Choose <span class=\"num\">2</span> cards in your <span class=\"kw\">Draw Pile</span> to <span class=\"kw\">Transform</span> into<br><span class=\"kw\">Minion Dive Bombs</span>."
+        },
+        "up": {
+          "plain": "Choose 2 cards in your Draw Pile to Transform into\nMinion Dive Bombs+.",
+          "html": "Choose <span class=\"num\">2</span> cards in your <span class=\"kw\">Draw Pile</span> to <span class=\"kw\">Transform</span> into<br><span class=\"kw\"><span class=\"up\">Minion Dive Bombs+</span></span>."
+        }
+      },
+      "upgradeSummary": "\u201cMinion Dive Bombs\u201d \u2192 \u201cMinion Dive Bombs+\u201d",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "ATTACKE!!",
+        "fra": "CHARGEZ\u202f!!",
+        "ita": "ALLA CARICA!",
+        "spa": "\u00a1A LA CARGA!",
+        "esp": "\u00a1\u00a1AVANCEN!!",
+        "ptb": "AVANTE!!",
+        "pol": "SZAR\u017bA!!",
+        "rus": "\u0412 \u0410\u0422\u0410\u041a\u0423!!",
+        "tur": "\u0130LER\u0130!!",
+        "jpn": "\u7a81\u6483\u305b\u3088\uff01",
+        "kor": "\ub3cc\uaca9!!",
+        "zhs": "\u51b2\u950b\uff01\uff01",
+        "tha": "\u0e25\u0e38\u0e22!!"
+      }
+    },
+    {
+      "id": "ChildOfTheStars",
+      "key": "CHILD_OF_THE_STARS",
+      "slug": "child-of-the-stars",
+      "title": "Child of the Stars",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "BlockForStars": {
+          "base": 2,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you spend Star, gain 2 Block for each Star spent.",
+          "html": "Whenever you spend <span class=\"star\"></span>, gain <span class=\"num\">2</span> <span class=\"kw\">Block</span> for each <span class=\"star\"></span> spent."
+        },
+        "up": {
+          "plain": "Whenever you spend Star, gain 3 Block for each Star spent.",
+          "html": "Whenever you spend <span class=\"star\"></span>, gain <span class=\"up\"><span class=\"num\">3</span></span> <span class=\"kw\">Block</span> for each <span class=\"star\"></span> spent."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Sternenkind",
+        "fra": "Enfant des \u00e9toiles",
+        "ita": "Figlio delle Stelle",
+        "spa": "V\u00e1stago de las estrellas",
+        "esp": "V\u00e1stago estelar",
+        "ptb": "Filho das Estrelas",
+        "pol": "Potomek gwiazd",
+        "rus": "\u0414\u0438\u0442\u044f \u0437\u0432\u0435\u0437\u0434",
+        "tur": "Y\u0131ld\u0131zlar\u0131n Evlad\u0131",
+        "jpn": "\u661f\u306e\u5b50",
+        "kor": "\ubcc4\uc758 \uc544\uc774",
+        "zhs": "\u7fa4\u661f\u4e4b\u5b50"
+      }
+    },
+    {
+      "id": "CloakOfStars",
+      "key": "CLOAK_OF_STARS",
+      "slug": "cloak-of-stars",
+      "title": "Cloak of Stars",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 1,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 7,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 10
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 7 Block.",
+          "html": "Gain <span class=\"num\">7</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Gain 10 Block.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">10</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "7 \u2192 10 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Sternenmantel",
+        "fra": "Manteau d'\u00e9toiles",
+        "ita": "Mantello Stellare",
+        "spa": "Capa estelar",
+        "esp": "Manto de estrellas",
+        "ptb": "Manto Estelar",
+        "pol": "Gwiezdny p\u0142aszcz",
+        "rus": "\u0417\u0432\u0435\u0437\u0434\u043d\u044b\u0439 \u043f\u043b\u0430\u0449",
+        "tur": "Y\u0131ld\u0131zlar\u0131n Pelerini",
+        "jpn": "\u661f\u306e\u5916\u5957",
+        "kor": "\ubcc4\uc758 \ub9dd\ud1a0",
+        "zhs": "\u7fa4\u661f\u6597\u7bf7"
+      }
+    },
+    {
+      "id": "CollisionCourse",
+      "key": "COLLISION_COURSE",
+      "slug": "collision-course",
+      "title": "Collision Course",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 11,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 15
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 11 damage.\nAdd a Debris into your Hand.",
+          "html": "Deal <span class=\"num\">11</span> damage.<br>Add a <span class=\"kw\">Debris</span> into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 15 damage.\nAdd a Debris into your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">15</span></span> damage.<br>Add a <span class=\"kw\">Debris</span> into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "11 \u2192 15 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Kollisionskurs",
+        "fra": "Trajectoire de collision",
+        "ita": "Rotta di Collisione",
+        "spa": "Trayectoria de colisi\u00f3n",
+        "esp": "Curso de colisi\u00f3n",
+        "ptb": "Rota de Colis\u00e3o",
+        "pol": "Kurs kolizyjny",
+        "rus": "\u0421\u0442\u043e\u043b\u043a\u043d\u043e\u0432\u0435\u043d\u0438\u0435",
+        "tur": "\u00c7arp\u0131\u015fma Rotas\u0131",
+        "jpn": "\u885d\u7a81\u8ecc\u9053",
+        "kor": "\ubd88\uac00\ud53c\ud55c \ucda9\ub3cc",
+        "zhs": "\u78b0\u649e\u8f68\u8ff9"
+      }
+    },
+    {
+      "id": "Comet",
+      "key": "COMET",
+      "slug": "comet",
+      "title": "Comet",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 5,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 33,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 44
+        },
+        "VulnerablePower": {
+          "base": 3,
+          "kind": "PowerVar<VulnerablePower>",
+          "prop": null
+        },
+        "WeakPower": {
+          "base": 3,
+          "kind": "PowerVar<WeakPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 33 damage.\nApply 3 Weak.\nApply 3 Vulnerable.",
+          "html": "Deal <span class=\"num\">33</span> damage.<br>Apply <span class=\"num\">3</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">3</span> <span class=\"kw\">Vulnerable</span>."
+        },
+        "up": {
+          "plain": "Deal 44 damage.\nApply 3 Weak.\nApply 3 Vulnerable.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">44</span></span> damage.<br>Apply <span class=\"num\">3</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">3</span> <span class=\"kw\">Vulnerable</span>."
+        }
+      },
+      "upgradeSummary": "33 \u2192 44 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Komet",
+        "fra": "Com\u00e8te",
+        "ita": "Cometa",
+        "spa": "Cometa",
+        "esp": "Cometa",
+        "ptb": "Cometa",
+        "pol": "Kometa",
+        "rus": "\u041a\u043e\u043c\u0435\u0442\u0430",
+        "tur": "Kuyruklu Y\u0131ld\u0131z",
+        "jpn": "\u5f57\u661f",
+        "kor": "\ud61c\uc131",
+        "zhs": "\u5f57\u661f"
+      }
+    },
+    {
+      "id": "Conqueror",
+      "key": "CONQUEROR",
+      "slug": "conqueror",
+      "title": "Conqueror",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 3,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 5
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Forge 3.\nSovereign Blade deals double damage to the enemy this turn.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"num\">3</span>.<br><span class=\"kw\">Sovereign Blade</span> deals double damage to the enemy this turn."
+        },
+        "up": {
+          "plain": "Forge 5.\nSovereign Blade deals double damage to the enemy this turn.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">5</span></span>.<br><span class=\"kw\">Sovereign Blade</span> deals double damage to the enemy this turn."
+        }
+      },
+      "upgradeSummary": "3 \u2192 5 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Eroberer",
+        "fra": "Conqu\u00e9rant",
+        "ita": "Conquistatore",
+        "spa": "Conquistador",
+        "esp": "Conquistador",
+        "ptb": "Conquistador",
+        "pol": "Zdobywca",
+        "rus": "\u0417\u0430\u0432\u043e\u0435\u0432\u0430\u0442\u0435\u043b\u044c",
+        "tur": "Fatih",
+        "jpn": "\u5f81\u670d\u8005",
+        "kor": "\uc815\ubcf5\uc790",
+        "zhs": "\u5f81\u670d\u8005"
+      }
+    },
+    {
+      "id": "Constellation",
+      "key": "CONSTELLATION",
+      "slug": "constellation",
+      "title": "Constellation",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 2,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AnyAlly",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        },
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        },
+        "Block": {
+          "base": 9,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 12
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Another player draws 1 card, gains 1 Energy, and gains 9 Block.",
+          "html": "Another player draws <span class=\"num\">1</span> card, gains <span class=\"energy\" data-n=\"1\"></span>, and gains <span class=\"num\">9</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Another player draws 1 card, gains 1 Energy, and gains 12 Block.",
+          "html": "Another player draws <span class=\"num\">1</span> card, gains <span class=\"energy\" data-n=\"1\"></span>, and gains <span class=\"up\"><span class=\"num\">12</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 12 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Only appears in multiplayer runs.",
+      "hidden": false,
+      "playtest": 1,
+      "playtestSince": "2026-07-02",
+      "i18n": {
+        "deu": "Konstellation",
+        "fra": "Constellation",
+        "ita": "Costellazione",
+        "spa": "Constelaci\u00f3n",
+        "esp": "Constelaci\u00f3n",
+        "ptb": "Constela\u00e7\u00e3o",
+        "pol": "Konstelacja",
+        "rus": "\u0421\u043e\u0437\u0432\u0435\u0437\u0434\u0438\u0435",
+        "tur": "Y\u0131ld\u0131z K\u00fcmesi",
+        "jpn": "\u661f\u5ea7",
+        "kor": "\ubcc4\uc790\ub9ac",
+        "zhs": "\u7fa4\u661f\u835f\u8403",
+        "tha": "\u0e01\u0e25\u0e38\u0e48\u0e21\u0e14\u0e32\u0e27"
+      }
+    },
+    {
+      "id": "Convergence",
+      "key": "CONVERGENCE",
+      "slug": "convergence",
+      "title": "Convergence",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        },
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Next turn,\ngain 1 Energy and 1 Star.\nRetain your Hand this turn.",
+          "html": "Next turn,<br>gain <span class=\"energy\" data-n=\"1\"></span> and <span class=\"star\"></span>.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        },
+        "up": {
+          "plain": "Next turn,\ngain 1 Energy and 2 Stars.\nRetain your Hand this turn.",
+          "html": "Next turn,<br>gain <span class=\"energy\" data-n=\"1\"></span> and <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span></span>.<br><span class=\"kw\">Retain</span> your <span class=\"kw\">Hand</span> this turn."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 stars",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Konvergenz",
+        "fra": "Convergence",
+        "ita": "Convergenza",
+        "spa": "Convergencia",
+        "esp": "Convergencia",
+        "ptb": "Converg\u00eancia",
+        "pol": "Konwergencja",
+        "rus": "\u0415\u0434\u0438\u043d\u0435\u043d\u0438\u0435",
+        "tur": "Kesi\u015fim",
+        "jpn": "\u96c6\u7d04",
+        "kor": "\uc218\ub834",
+        "zhs": "\u6c47\u6d41"
+      }
+    },
+    {
+      "id": "CosmicIndifference",
+      "key": "COSMIC_INDIFFERENCE",
+      "slug": "cosmic-indifference",
+      "title": "Cosmic Indifference",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 6,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 9
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 6 Block.\nPut a card from your Discard Pile on top of your Draw Pile.",
+          "html": "Gain <span class=\"num\">6</span> <span class=\"kw\">Block</span>.<br>Put a card from your <span class=\"kw\">Discard Pile</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Gain 9 Block.\nPut a card from your Discard Pile on top of your Draw Pile.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">9</span></span> <span class=\"kw\">Block</span>.<br>Put a card from your <span class=\"kw\">Discard Pile</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "6 \u2192 9 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Kosmische Gelassenheit",
+        "fra": "Indiff\u00e9rence cosmique",
+        "ita": "Indifferenza Cosmica",
+        "spa": "Indiferencia c\u00f3smica",
+        "esp": "Indiferencia c\u00f3smica",
+        "ptb": "Indiferen\u00e7a C\u00f3smica",
+        "pol": "Oboj\u0119tno\u015b\u0107 kosmosu",
+        "rus": "\u0425\u043e\u043b\u043e\u0434\u043d\u044b\u0439 \u043a\u043e\u0441\u043c\u043e\u0441",
+        "tur": "Kozmik Kay\u0131ts\u0131zl\u0131k",
+        "jpn": "\u5b87\u5b99\u7684\u7121\u95a2\u5fc3",
+        "kor": "\uc6b0\uc8fc\uc801 \ubb34\uad00\uc2ec",
+        "zhs": "\u5b87\u5b99\u51b7\u6f20"
+      }
+    },
+    {
+      "id": "CrashLanding",
+      "key": "CRASH_LANDING",
+      "slug": "crash-landing",
+      "title": "Crash Landing",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 21,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 26
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 21 damage to ALL enemies.\nFill your Hand with Debris.",
+          "html": "Deal <span class=\"num\">21</span> damage to ALL enemies.<br>Fill your <span class=\"kw\">Hand</span> with <span class=\"kw\">Debris</span>."
+        },
+        "up": {
+          "plain": "Deal 26 damage to ALL enemies.\nFill your Hand with Debris.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">26</span></span> damage to ALL enemies.<br>Fill your <span class=\"kw\">Hand</span> with <span class=\"kw\">Debris</span>."
+        }
+      },
+      "upgradeSummary": "21 \u2192 26 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Bruchlandung",
+        "fra": "Atterrissage forc\u00e9",
+        "ita": "Atterraggio Fortuito",
+        "spa": "Aterrizaje forzoso",
+        "esp": "Aterrizaje forzoso",
+        "ptb": "Pouso For\u00e7ado",
+        "pol": "Twarde l\u0105dowanie",
+        "rus": "\u0416\u0435\u0441\u0442\u043a\u0430\u044f \u043f\u043e\u0441\u0430\u0434\u043a\u0430",
+        "tur": "Sert \u0130ni\u015f",
+        "jpn": "\u4e0d\u6642\u7740",
+        "kor": "\ubd88\uc2dc\ucc29",
+        "zhs": "\u8feb\u964d"
+      }
+    },
+    {
+      "id": "CrescentSpear",
+      "key": "CRESCENT_SPEAR",
+      "slug": "crescent-spear",
+      "title": "Crescent Spear",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 1,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "CalculationBase": {
+          "base": 8,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "ExtraDamage": {
+          "base": 2,
+          "kind": "ExtraDamageVar",
+          "prop": null,
+          "up": 3
+        },
+        "CalculatedDamage": {
+          "base": 8,
+          "kind": "CalculatedDamageVar",
+          "prop": "Move"
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage.\nDeals 2 additional damage for ALL your cards that have a Star cost.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Deals <span class=\"num\">2</span> additional damage for ALL your cards that have a <span class=\"star\"></span> cost."
+        },
+        "up": {
+          "plain": "Deal 8 damage.\nDeals 3 additional damage for ALL your cards that have a Star cost.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Deals <span class=\"up\"><span class=\"num\">3</span></span> additional damage for ALL your cards that have a <span class=\"star\"></span> cost."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 extra damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Mondsichelspeer",
+        "fra": "Croissant de lance",
+        "ita": "Lancia Lunare",
+        "spa": "Lanza lunar",
+        "esp": "Lanza medialuna",
+        "ptb": "Lan\u00e7a Crescente",
+        "pol": "W\u0142\u00f3cznia p\u00f3\u0142ksi\u0119\u017cyca",
+        "rus": "\u041b\u0443\u043d\u043d\u043e\u0435 \u043a\u043e\u043f\u044c\u0435",
+        "tur": "Hilal M\u0131zrak",
+        "jpn": "\u4e09\u65e5\u6708\u306e\u69cd",
+        "kor": "\ucd08\uc2b9\ub2ec \ucc3d",
+        "zhs": "\u65b0\u6708\u957f\u77db",
+        "tha": "\u0e2b\u0e2d\u0e01\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e40\u0e2a\u0e35\u0e49\u0e22\u0e27"
+      }
+    },
+    {
+      "id": "CrushUnder",
+      "key": "CRUSH_UNDER",
+      "slug": "crush-under",
+      "title": "Crush Under",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 7,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 8
+        },
+        "StrengthLoss": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 7 damage to ALL enemies. All enemies lose 1 Strength this turn.",
+          "html": "Deal <span class=\"num\">7</span> damage to ALL enemies. All enemies lose <span class=\"num\">1</span> <span class=\"kw\">Strength</span> this turn."
+        },
+        "up": {
+          "plain": "Deal 8 damage to ALL enemies. All enemies lose 2 Strength this turn.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">8</span></span> damage to ALL enemies. All enemies lose <span class=\"up\"><span class=\"num\">2</span></span> <span class=\"kw\">Strength</span> this turn."
+        }
+      },
+      "upgradeSummary": "7 \u2192 8 damage, All enemies lose 1 \u2192 2 Strength this turn",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Zerquetschen",
+        "fra": "Broyer",
+        "ita": "Schiacciatutto",
+        "spa": "Aplastar",
+        "esp": "Despachurrar",
+        "ptb": "Subjugar",
+        "pol": "Zgniecenie",
+        "rus": "\u041d\u0430\u0434\u043c\u0435\u043d\u043d\u043e\u0441\u0442\u044c",
+        "tur": "Ez",
+        "jpn": "\u91cd\u5727",
+        "kor": "\uc9c0\uba74 \ud30c\uc1c4",
+        "zhs": "\u4e0b\u7838"
+      }
+    },
+    {
+      "id": "Debris",
+      "key": "DEBRIS",
+      "slug": "debris",
+      "title": "Debris",
+      "pool": "status",
+      "character": null,
+      "cost": 1,
+      "starCost": null,
+      "type": "Status",
+      "rarity": "Status",
+      "target": "None",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 0,
+      "vars": {},
+      "desc": {
+        "tpl": "",
+        "base": {
+          "plain": "Exhaust.",
+          "html": "<span class=\"kw\">Exhaust</span>."
+        },
+        "up": null
+      },
+      "upgradeSummary": null,
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schutt",
+        "fra": "D\u00e9bris",
+        "ita": "Rottami",
+        "spa": "Escombros",
+        "esp": "Escombros",
+        "ptb": "Escombros",
+        "pol": "Gruz",
+        "rus": "\u041e\u0431\u043b\u043e\u043c\u043e\u043a",
+        "tur": "Moloz",
+        "jpn": "\u30c7\u30d6\u30ea",
+        "kor": "\uc794\ud574",
+        "zhs": "\u788e\u5c51",
+        "tha": "\u0e40\u0e28\u0e29\u0e0b\u0e32\u0e01"
+      }
+    },
+    {
+      "id": "DecisionsDecisions",
+      "key": "DECISIONS_DECISIONS",
+      "slug": "decisions-decisions",
+      "title": "Decisions, Decisions",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 6,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 5
+        },
+        "Repeat": {
+          "base": 3,
+          "kind": "RepeatVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 3 cards.\nChoose a Skill in your Hand and play it 3 times.\nExhaust.",
+          "html": "Draw <span class=\"num\">3</span> cards.<br>Choose a Skill in your <span class=\"kw\">Hand</span> and play it <span class=\"num\">3</span> times.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Draw 5 cards.\nChoose a Skill in your Hand and play it 3 times.\nExhaust.",
+          "html": "Draw <span class=\"up\"><span class=\"num\">5</span></span> cards.<br>Choose a Skill in your <span class=\"kw\">Hand</span> and play it <span class=\"num\">3</span> times.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 5 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Qual der Wahl",
+        "fra": "Grandes d\u00e9cisions",
+        "ita": "Decisioni Infinite",
+        "spa": "Dif\u00edcil elecci\u00f3n",
+        "esp": "Decisiones, decisiones",
+        "ptb": "Decis\u00f5es, Decis\u00f5es",
+        "pol": "Decyzje, decyzje",
+        "rus": "\u0421\u043b\u043e\u0436\u043d\u044b\u0439 \u0432\u044b\u0431\u043e\u0440",
+        "tur": "Ne Se\u00e7sem?",
+        "jpn": "\u60a9\u307e\u3057\u3044\u9078\u629e",
+        "kor": "\uc5b4\ub824\uc6b4 \uacb0\uc815",
+        "zhs": "\u6289\u62e9\uff0c\u6289\u62e9",
+        "tha": "\u0e04\u0e34\u0e14\u0e41\u0e25\u0e49\u0e27\u0e04\u0e34\u0e14\u0e2d\u0e35\u0e01"
+      }
+    },
+    {
+      "id": "DefendRegent",
+      "key": "DEFEND_REGENT",
+      "slug": "defend-regent",
+      "title": "Defend",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Basic",
+      "target": "Self",
+      "keywords": [],
+      "tags": [
+        "Defend"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 5,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 8
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 5 Block.",
+          "html": "Gain <span class=\"num\">5</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Gain 8 Block.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">8</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "5 \u2192 8 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": true,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Verteidigen",
+        "fra": "D\u00e9fense",
+        "ita": "Difendi",
+        "spa": "Defender",
+        "esp": "Defensa",
+        "ptb": "Defesa",
+        "pol": "Obrona",
+        "rus": "\u041e\u0431\u043e\u0440\u043e\u043d\u0430",
+        "tur": "Savunma",
+        "jpn": "\u9632\u5fa1",
+        "kor": "\uc218\ube44",
+        "zhs": "\u9632\u5fa1",
+        "tha": "\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19"
+      }
+    },
+    {
+      "id": "Devastate",
+      "key": "DEVASTATE",
+      "slug": "devastate",
+      "title": "Devastate",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 4,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 30,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 40
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 30 damage.",
+          "html": "Deal <span class=\"num\">30</span> damage."
+        },
+        "up": {
+          "plain": "Deal 40 damage.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">40</span></span> damage."
+        }
+      },
+      "upgradeSummary": "30 \u2192 40 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Vernichten",
+        "fra": "D\u00e9vastation",
+        "ita": "Devastazione",
+        "spa": "Devastar",
+        "esp": "Devastar",
+        "ptb": "Devastar",
+        "pol": "Dewastacja",
+        "rus": "\u041f\u0443\u0441\u0442\u043e\u0435 \u043c\u0435\u0441\u0442\u043e",
+        "tur": "Peri\u015fan Et",
+        "jpn": "\u6483\u6ec5",
+        "kor": "\ucd08\ud1a0\ud654",
+        "zhs": "\u846c\u9001"
+      }
+    },
+    {
+      "id": "DyingStar",
+      "key": "DYING_STAR",
+      "slug": "dying-star",
+      "title": "Dying Star",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 3,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AllEnemies",
+      "keywords": [
+        "Ethereal"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 9,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 11
+        },
+        "StrengthLoss": {
+          "base": 9,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Ethereal.\nDeal 9 damage to ALL enemies. ALL enemies lose 9 Strength this turn.",
+          "html": "<span class=\"kw\">Ethereal</span>.<br>Deal <span class=\"num\">9</span> damage to ALL enemies. ALL enemies lose <span class=\"num\">9</span> <span class=\"kw\">Strength</span> this turn."
+        },
+        "up": {
+          "plain": "Ethereal.\nDeal 11 damage to ALL enemies. ALL enemies lose 11 Strength this turn.",
+          "html": "<span class=\"kw\">Ethereal</span>.<br>Deal <span class=\"up\"><span class=\"num\">11</span></span> damage to ALL enemies. ALL enemies lose <span class=\"up\"><span class=\"num\">11</span></span> <span class=\"kw\">Strength</span> this turn."
+        }
+      },
+      "upgradeSummary": "9 \u2192 11 damage, ALL enemies lose 9 \u2192 11 Strength this turn",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Sterbender Stern",
+        "fra": "\u00c9toile mourante",
+        "ita": "Stella Morente",
+        "spa": "Supernova",
+        "esp": "Estrella moribunda",
+        "ptb": "Estrela em Colapso",
+        "pol": "Umieraj\u0105ca gwiazda",
+        "rus": "\u0423\u043c\u0438\u0440\u0430\u044e\u0449\u0430\u044f \u0437\u0432\u0435\u0437\u0434\u0430",
+        "tur": "\u00d6len Y\u0131ld\u0131z",
+        "jpn": "\u661f\u306e\u7d42\u308f\u308a",
+        "kor": "\uc8fd\uc5b4\uac00\ub294 \ubcc4",
+        "zhs": "\u661f\u706d"
+      }
+    },
+    {
+      "id": "FallingStar",
+      "key": "FALLING_STAR",
+      "slug": "falling-star",
+      "title": "Falling Star",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 2,
+      "type": "Attack",
+      "rarity": "Basic",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 8,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 12
+        },
+        "VulnerablePower": {
+          "base": 1,
+          "kind": "PowerVar<VulnerablePower>",
+          "prop": null
+        },
+        "WeakPower": {
+          "base": 1,
+          "kind": "PowerVar<WeakPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage.\nApply 1 Weak.\nApply 1 Vulnerable.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Vulnerable</span>."
+        },
+        "up": {
+          "plain": "Deal 12 damage.\nApply 1 Weak.\nApply 1 Vulnerable.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">12</span></span> damage.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Vulnerable</span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 12 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": true,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Fallender Stern",
+        "fra": "Chute d'\u00e9toile",
+        "ita": "Stella Cadente",
+        "spa": "Estrella fugaz",
+        "esp": "Estrella fugaz",
+        "ptb": "Estrela Cadente",
+        "pol": "Spadaj\u0105ca gwiazda",
+        "rus": "\u041f\u0430\u0434\u0430\u044e\u0449\u0430\u044f \u0437\u0432\u0435\u0437\u0434\u0430",
+        "tur": "Kayan Y\u0131ld\u0131z",
+        "jpn": "\u843d\u661f",
+        "kor": "\ubcc4\ub625\ubcc4",
+        "zhs": "\u9668\u661f"
+      }
+    },
+    {
+      "id": "ForegoneConclusion",
+      "key": "FOREGONE_CONCLUSION",
+      "slug": "foregone-conclusion",
+      "title": "Foregone Conclusion",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Next turn, put 2 cards from your Draw Pile into your Hand.",
+          "html": "Next turn, put <span class=\"num\">2</span> cards from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Next turn, put 3 cards from your Draw Pile into your Hand.",
+          "html": "Next turn, put <span class=\"up\"><span class=\"num\">3</span></span> cards from your <span class=\"kw\">Draw Pile</span> into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ausgemachte Sache",
+        "fra": "Couru d'avance",
+        "ita": "Conclusione Scontata",
+        "spa": "Conclusi\u00f3n inevitable",
+        "esp": "Resultado previsible",
+        "ptb": "Conclus\u00e3o Inevit\u00e1vel",
+        "pol": "Przes\u0105dzony rezultat",
+        "rus": "\u041f\u0440\u0435\u0434\u0440\u0435\u0448\u0435\u043d\u043d\u044b\u0439 \u0438\u0441\u0445\u043e\u0434",
+        "tur": "Ka\u00e7\u0131n\u0131lmaz Sonu\u00e7",
+        "jpn": "\u78ba\u5b9a\u4e8b\u9805",
+        "kor": "\ud544\uc5f0\uc801\uc778 \uacb0\uacfc",
+        "zhs": "\u65e2\u5b9a\u4e8b\u9879"
+      }
+    },
+    {
+      "id": "Furnace",
+      "key": "FURNACE",
+      "slug": "furnace",
+      "title": "Furnace",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 5,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 7
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, Forge 5.",
+          "html": "At the start of your turn, <span class=\"kw\">Forge</span> <span class=\"num\">5</span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, Forge 7.",
+          "html": "At the start of your turn, <span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">7</span></span>."
+        }
+      },
+      "upgradeSummary": "5 \u2192 7 Forge",
+      "unlock": "REGENT2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schmelzofen",
+        "fra": "Fournaise",
+        "ita": "Fornace",
+        "spa": "Fragua",
+        "esp": "Fragua",
+        "ptb": "Fornalha",
+        "pol": "Ku\u017ania",
+        "rus": "\u041f\u0435\u0447\u044c",
+        "tur": "Demirci Oca\u011f\u0131",
+        "jpn": "\u6eb6\u9271\u7089",
+        "kor": "\uc6a9\uad11\ub85c",
+        "zhs": "\u7194\u7089",
+        "tha": "\u0e40\u0e15\u0e32\u0e40\u0e1c\u0e32"
+      }
+    },
+    {
+      "id": "GammaBlast",
+      "key": "GAMMA_BLAST",
+      "slug": "gamma-blast",
+      "title": "Gamma Blast",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 3,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 13,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 18
+        },
+        "VulnerablePower": {
+          "base": 2,
+          "kind": "PowerVar<VulnerablePower>",
+          "prop": null
+        },
+        "WeakPower": {
+          "base": 2,
+          "kind": "PowerVar<WeakPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 13 damage.\nApply 2 Weak.\nApply 2 Vulnerable.",
+          "html": "Deal <span class=\"num\">13</span> damage.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Vulnerable</span>."
+        },
+        "up": {
+          "plain": "Deal 18 damage.\nApply 2 Weak.\nApply 2 Vulnerable.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">18</span></span> damage.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Vulnerable</span>."
+        }
+      },
+      "upgradeSummary": "13 \u2192 18 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Gamma-Strahl",
+        "fra": "D\u00e9flagration gamma",
+        "ita": "Esplosione Gamma",
+        "spa": "Explosi\u00f3n gamma",
+        "esp": "Rayos gamma",
+        "ptb": "Disparo Gama",
+        "pol": "Wybuch gamma",
+        "rus": "\u0413\u0430\u043c\u043c\u0430-\u0438\u0437\u043b\u0443\u0447\u0435\u043d\u0438\u0435",
+        "tur": "Gama Patlamas\u0131",
+        "jpn": "\u30ac\u30f3\u30de\u30d6\u30e9\u30b9\u30c8",
+        "kor": "\uac10\ub9c8 \uc138\ub840",
+        "zhs": "\u4f3d\u9a6c\u7206\u7834"
+      }
+    },
+    {
+      "id": "GatherLight",
+      "key": "GATHER_LIGHT",
+      "slug": "gather-light",
+      "title": "Gather Light",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 8,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 11
+        },
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 8 Block.\nGain 1 Star.",
+          "html": "Gain <span class=\"num\">8</span> <span class=\"kw\">Block</span>.<br>Gain <span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Gain 11 Block.\nGain 1 Star.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">11</span></span> <span class=\"kw\">Block</span>.<br>Gain <span class=\"star\"></span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Licht einfangen",
+        "fra": "Lumi\u00e8re rassembl\u00e9e",
+        "ita": "Raccolta Luminosa",
+        "spa": "Acopio de luz",
+        "esp": "Recogeluz",
+        "ptb": "Acumular Luz",
+        "pol": "Gromadzenie \u015bwiat\u0142a",
+        "rus": "\u041a\u043e\u043d\u0446\u0435\u043d\u0442\u0440\u0430\u0446\u0438\u044f \u0441\u0432\u0435\u0442\u0430",
+        "tur": "I\u015f\u0131k Topla",
+        "jpn": "\u5149\u306e\u96c6\u7d04",
+        "kor": "\ube5b \uac70\ub450\uae30",
+        "zhs": "\u6536\u96c6\u5149\u8f89"
+      }
+    },
+    {
+      "id": "Genesis",
+      "key": "GENESIS",
+      "slug": "genesis",
+      "title": "Genesis",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "StarsPerTurn": {
+          "base": 2,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, gain 2 Stars.",
+          "html": "At the start of your turn, gain <span class=\"star\"></span><span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, gain 3 Stars.",
+          "html": "At the start of your turn, gain <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span></span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 stars",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Genese",
+        "fra": "Gen\u00e8se",
+        "ita": "Genesi",
+        "spa": "G\u00e9nesis",
+        "esp": "Primigenia",
+        "ptb": "G\u00eanesis",
+        "pol": "Pocz\u0105tek",
+        "rus": "\u0411\u044b\u0442\u0438\u0435",
+        "tur": "Yarat\u0131l\u0131\u015f",
+        "jpn": "\u30b8\u30a7\u30cd\u30b7\u30b9",
+        "kor": "\ucc3d\uc138",
+        "zhs": "\u521b\u4e16\u7eaa"
+      }
+    },
+    {
+      "id": "Glimmer",
+      "key": "GLIMMER",
+      "slug": "glimmer",
+      "title": "Glimmer",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 4
+        },
+        "PutBack": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 3 cards.\nPut 1 card from your Hand on top of your Draw Pile.",
+          "html": "Draw <span class=\"num\">3</span> cards.<br>Put <span class=\"num\">1</span> card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Draw 4 cards.\nPut 1 card from your Hand on top of your Draw Pile.",
+          "html": "Draw <span class=\"up\"><span class=\"num\">4</span></span> cards.<br>Put <span class=\"num\">1</span> card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Glimmern",
+        "fra": "Lueur",
+        "ita": "Baluginio",
+        "spa": "Destello",
+        "esp": "Destello",
+        "ptb": "Cintilar",
+        "pol": "Promyk",
+        "rus": "\u0411\u043b\u0438\u043a",
+        "tur": "Par\u0131lt\u0131",
+        "jpn": "\u5fae\u5149",
+        "kor": "\ud76c\ubbf8\ud55c \ube5b",
+        "zhs": "\u5fae\u5149"
+      }
+    },
+    {
+      "id": "Glitterstream",
+      "key": "GLITTERSTREAM",
+      "slug": "glitterstream",
+      "title": "Glitterstream",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 11,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 13
+        },
+        "BlockNextTurn": {
+          "base": 5,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 7
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 11 Block.\nNext turn, gain 5 Block.",
+          "html": "Gain <span class=\"num\">11</span> <span class=\"kw\">Block</span>.<br>Next turn, gain <span class=\"num\">5</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Gain 13 Block.\nNext turn, gain 7 Block.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">13</span></span> <span class=\"kw\">Block</span>.<br>Next turn, gain <span class=\"up\"><span class=\"num\">7</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "11 \u2192 13 Block, gain 5 \u2192 7 Block next turn",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Glitzerstrom",
+        "fra": "Courant paillet\u00e9",
+        "ita": "Flusso Luminoso",
+        "spa": "Onda reluciente",
+        "esp": "Arroyo brillante",
+        "ptb": "Fluxo Reluzente",
+        "pol": "B\u0142yszcz\u0105cy strumie\u0144",
+        "rus": "\u0411\u043b\u0435\u0441\u0442\u044f\u0449\u0438\u0439 \u0448\u043b\u0435\u0439\u0444",
+        "tur": "Par\u0131lt\u0131 Ak\u0131\u015f\u0131",
+        "jpn": "\u714c\u3081\u304f\u6fc0\u6d41",
+        "kor": "\ube5b\uc758 \ud750\ub984",
+        "zhs": "\u6d41\u5149\u6ea2\u5f69"
+      }
+    },
+    {
+      "id": "Glow",
+      "key": "GLOW",
+      "slug": "glow",
+      "title": "Glow",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null,
+          "up": 2
+        },
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 1 Star.\nDraw 1 card.\nNext turn, draw 1 card.",
+          "html": "Gain <span class=\"star\"></span>.<br>Draw <span class=\"num\">1</span> card.<br>Next turn, draw <span class=\"num\">1</span> card."
+        },
+        "up": {
+          "plain": "Gain 2 Stars.\nDraw 1 card.\nNext turn, draw 1 card.",
+          "html": "Gain <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span></span>.<br>Draw <span class=\"num\">1</span> card.<br>Next turn, draw <span class=\"num\">1</span> card."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 stars",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Leuchten",
+        "fra": "Luminosit\u00e9",
+        "ita": "Scintillio",
+        "spa": "Brillo",
+        "esp": "Brillo",
+        "ptb": "Brilho",
+        "pol": "Blask",
+        "rus": "\u0421\u0438\u044f\u043d\u0438\u0435",
+        "tur": "Parla",
+        "jpn": "\u8f1d\u304d",
+        "kor": "\uad11\ucc44",
+        "zhs": "\u8f89\u5149"
+      }
+    },
+    {
+      "id": "Guards",
+      "key": "GUARDS",
+      "slug": "guards",
+      "title": "GUARDS!!!",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Transform any number of cards in your Hand into Minion Sacrifice.\nExhaust.",
+          "html": "<span class=\"kw\">Transform</span> any number of cards in your <span class=\"kw\">Hand</span> into <span class=\"kw\">Minion Sacrifice</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Transform any number of cards in your Hand into Minion Sacrifice+.\nExhaust.",
+          "html": "<span class=\"kw\">Transform</span> any number of cards in your <span class=\"kw\">Hand</span> into <span class=\"kw\"><span class=\"up\">Minion Sacrifice+</span></span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "\u201cMinion Sacrifice\u201d \u2192 \u201cMinion Sacrifice+\u201d",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "WACHEN!!!",
+        "fra": "GARDES\u202f!!!",
+        "ita": "GUARDIE!!!",
+        "spa": "\u00a1\u00a1GUARDIAS!!",
+        "esp": "\u00a1\u00a1\u00a1GUARDIAS!!!",
+        "ptb": "GUARDAS!!!",
+        "pol": "STRA\u017b!!!",
+        "rus": "\u0421\u0422\u0420\u0410\u0416\u0410!!!",
+        "tur": "MUHAFIZLAR!!!",
+        "jpn": "\u76fe\u3068\u306a\u308c\uff01\uff01",
+        "kor": "\ub9c9\uc544\ub77c!!!",
+        "zhs": "\u62a4\u9a7e\uff01\uff01\uff01"
+      }
+    },
+    {
+      "id": "GuidingStar",
+      "key": "GUIDING_STAR",
+      "slug": "guiding-star",
+      "title": "Guiding Star",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 2,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 12,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 13
+        },
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 12 damage.\nDraw 2 cards.",
+          "html": "Deal <span class=\"num\">12</span> damage.<br>Draw <span class=\"num\">2</span> cards."
+        },
+        "up": {
+          "plain": "Deal 13 damage.\nDraw 3 cards.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">13</span></span> damage.<br>Draw <span class=\"up\"><span class=\"num\">3</span></span> cards."
+        }
+      },
+      "upgradeSummary": "12 \u2192 13 damage, 2 \u2192 3 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Leitstern",
+        "fra": "\u00c9toile directrice",
+        "ita": "Stella Guida",
+        "spa": "Estrella gu\u00eda",
+        "esp": "Estrella gu\u00eda",
+        "ptb": "Estrela Guia",
+        "pol": "Gwiazda przewodnia",
+        "rus": "\u041f\u0443\u0442\u0435\u0432\u043e\u0434\u043d\u0430\u044f \u0437\u0432\u0435\u0437\u0434\u0430",
+        "tur": "Yol G\u00f6steren Y\u0131ld\u0131z",
+        "jpn": "\u5c0e\u304d\u306e\u661f",
+        "kor": "\uae38\uc7a1\uc774\ubcc4",
+        "zhs": "\u5f15\u5bfc\u4e4b\u661f"
+      }
+    },
+    {
+      "id": "HammerTime",
+      "key": "HAMMER_TIME",
+      "slug": "hammer-time",
+      "title": "Hammer Time",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Whenever you Forge, all allies Forge as well.",
+          "html": "Whenever you <span class=\"kw\">Forge</span>, all allies <span class=\"kw\">Forge</span> as well."
+        },
+        "up": {
+          "plain": "Whenever you Forge, all allies Forge as well.",
+          "html": "Whenever you <span class=\"kw\">Forge</span>, all allies <span class=\"kw\">Forge</span> as well."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Only appears in multiplayer runs.",
+      "hidden": false,
+      "i18n": {
+        "deu": "Hammertime",
+        "fra": "L'heure du marteau",
+        "ita": "Diamoci Sotto!",
+        "spa": "A martillazos",
+        "esp": "A trabajar",
+        "ptb": "M\u00e3os \u00e0 Obra",
+        "pol": "Wsp\u00f3lne kucie",
+        "rus": "\u041a\u0443\u0437\u043d\u0438\u0446\u0430",
+        "tur": "\u00c7eki\u00e7 Vakti",
+        "jpn": "\u30cf\u30f3\u30de\u30fc\u30bf\u30a4\u30e0",
+        "kor": "\ub9dd\uce58\uc9c8 \uc2dc\uac04",
+        "zhs": "\u9524\u5b50\u65f6\u95f4"
+      }
+    },
+    {
+      "id": "HeavenlyDrill",
+      "key": "HEAVENLY_DRILL",
+      "slug": "heavenly-drill",
+      "title": "Heavenly Drill",
+      "pool": "regent",
+      "character": "regent",
+      "cost": "X",
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 8,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 10
+        },
+        "Energy": {
+          "base": 4,
+          "kind": "EnergyVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage X times.\nDouble X if it's 4 or more.",
+          "html": "Deal <span class=\"num\">8</span> damage X times.<br>Double X if it's <span class=\"num\">4</span> or more."
+        },
+        "up": {
+          "plain": "Deal 10 damage X times.\nDouble X if it's 4 or more.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">10</span></span> damage X times.<br>Double X if it's <span class=\"num\">4</span> or more."
+        }
+      },
+      "upgradeSummary": "8 \u2192 10 damage",
+      "unlock": "REGENT7_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Himmlischer Bohrer",
+        "fra": "Foreuse c\u00e9leste",
+        "ita": "Trivella Celestiale",
+        "spa": "Perforaci\u00f3n celestial",
+        "esp": "Taladro celestial",
+        "ptb": "Perfura\u00e7\u00e3o Celestial",
+        "pol": "Gwiazda \u015amierci",
+        "rus": "\u0410\u043d\u0433\u0435\u043b\u044c\u0441\u043a\u0438\u0439 \u0431\u0443\u0440",
+        "tur": "\u0130lahi Matkap",
+        "jpn": "\u30d8\u30f4\u30f3\u30ea\u30fc\u30c9\u30ea\u30eb",
+        "kor": "\ucc9c\uc6d0\ub3cc\ud30c",
+        "zhs": "\u5929\u9645\u94bb\u5934"
+      }
+    },
+    {
+      "id": "Hegemony",
+      "key": "HEGEMONY",
+      "slug": "hegemony",
+      "title": "Hegemony",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 15,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 18
+        },
+        "Energy": {
+          "base": 2,
+          "kind": "EnergyVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 15 damage.\nNext turn, gain 2 Energy.",
+          "html": "Deal <span class=\"num\">15</span> damage.<br>Next turn, gain <span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Deal 18 damage.\nNext turn, gain 3 Energy.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">18</span></span> damage.<br>Next turn, gain <span class=\"up\"><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span><span class=\"energy\" data-n=\"1\"></span></span>."
+        }
+      },
+      "upgradeSummary": "15 \u2192 18 damage, 2 \u2192 3 energy",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Vorherrschaft",
+        "fra": "H\u00e9g\u00e9monie",
+        "ita": "Egemonia",
+        "spa": "Hegemon\u00eda",
+        "esp": "Hegemon\u00eda",
+        "ptb": "Hegemonia",
+        "pol": "Hegemonia",
+        "rus": "\u0413\u0435\u0433\u0435\u043c\u043e\u043d\u0438\u044f",
+        "tur": "Hakimiyet",
+        "jpn": "\u8987\u6a29",
+        "kor": "\ud328\uad8c",
+        "zhs": "\u9738\u6743"
+      }
+    },
+    {
+      "id": "HeirloomHammer",
+      "key": "HEIRLOOM_HAMMER",
+      "slug": "heirloom-hammer",
+      "title": "Heirloom Hammer",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 20,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 25
+        },
+        "Repeat": {
+          "base": 1,
+          "kind": "RepeatVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 20 damage.\nChoose a Colorless card in your Hand. Add a copy of that card into your Hand.",
+          "html": "Deal <span class=\"num\">20</span> damage.<br>Choose a Colorless card in your <span class=\"kw\">Hand</span>. Add a copy of that card into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 25 damage.\nChoose a Colorless card in your Hand. Add a copy of that card into your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">25</span></span> damage.<br>Choose a Colorless card in your <span class=\"kw\">Hand</span>. Add a copy of that card into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "20 \u2192 25 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Geerbter Hammer",
+        "fra": "Marteau d'h\u00e9ritage",
+        "ita": "Martello di Famiglia",
+        "spa": "Martillo del legado",
+        "esp": "Martillo reliquia",
+        "ptb": "Martelo Herdado",
+        "pol": "Dziedziczony m\u0142ot",
+        "rus": "\u0424\u0430\u043c\u0438\u043b\u044c\u043d\u044b\u0439 \u043c\u043e\u043b\u043e\u0442",
+        "tur": "Yadig\u00e2r \u00c7eki\u00e7",
+        "jpn": "\u5bb6\u5b9d\u306e\u30cf\u30f3\u30de\u30fc",
+        "kor": "\uc120\uc870\uc758 \ub9dd\uce58",
+        "zhs": "\u4f20\u627f\u4e4b\u9524"
+      }
+    },
+    {
+      "id": "HiddenCache",
+      "key": "HIDDEN_CACHE",
+      "slug": "hidden-cache",
+      "title": "Hidden Cache",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null
+        },
+        "StarNextTurnPower": {
+          "base": 3,
+          "kind": "PowerVar<StarNextTurnPower>",
+          "prop": null,
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 1 Star.\nNext turn, gain 3 Stars.",
+          "html": "Gain <span class=\"star\"></span>.<br>Next turn, gain <span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Gain 1 Star.\nNext turn, gain 4 Stars.",
+          "html": "Gain <span class=\"star\"></span>.<br>Next turn, gain <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span></span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 Star Next Turn",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Versteckter Schatz",
+        "fra": "Cache secr\u00e8te",
+        "ita": "Tesoro Segreto",
+        "spa": "Tesoro oculto",
+        "esp": "Alijo secreto",
+        "ptb": "Tesouro Oculto",
+        "pol": "Tajny sk\u0142ad",
+        "rus": "\u0422\u0430\u0439\u043d\u0438\u043a",
+        "tur": "Gizli Sand\u0131k",
+        "jpn": "\u96a0\u3057\u8ca1\u7523",
+        "kor": "\ube44\ubc00 \uc0c1\uc790",
+        "zhs": "\u9690\u79d8\u85cf\u54c1"
+      }
+    },
+    {
+      "id": "IAmInvincible",
+      "key": "I_AM_INVINCIBLE",
+      "slug": "i-am-invincible",
+      "title": "I Am Invincible",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 10,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 13
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 10 Block.\nAt the end of your turn, if this is on top of your Draw Pile, play it.",
+          "html": "Gain <span class=\"num\">10</span> <span class=\"kw\">Block</span>.<br>At the end of your turn, if this is on top of your <span class=\"kw\">Draw Pile</span>, play it."
+        },
+        "up": {
+          "plain": "Gain 13 Block.\nAt the end of your turn, if this is on top of your Draw Pile, play it.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">13</span></span> <span class=\"kw\">Block</span>.<br>At the end of your turn, if this is on top of your <span class=\"kw\">Draw Pile</span>, play it."
+        }
+      },
+      "upgradeSummary": "10 \u2192 13 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Ich bin unbesiegbar",
+        "fra": "Je suis invincible",
+        "ita": "Sono Invincibile!",
+        "spa": "\u00a1Soy invencible!",
+        "esp": "Soy invencible",
+        "ptb": "Sou Invenc\u00edvel",
+        "pol": "Jestem niezwyci\u0119\u017cony",
+        "rus": "\u041d\u0435\u0443\u044f\u0437\u0432\u0438\u043c\u043e\u0441\u0442\u044c",
+        "tur": "Ben Dokunulmaz\u0131m",
+        "jpn": "\u6211\u306b\u6b7b\u89d2\u306a\u3057",
+        "kor": "\ub098\ub294 \ubb34\uc801\uc774\ub2e4",
+        "zhs": "\u6240\u5411\u65e0\u654c"
+      }
+    },
+    {
+      "id": "KinglyKick",
+      "key": "KINGLY_KICK",
+      "slug": "kingly-kick",
+      "title": "Kingly Kick",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 4,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 27,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 35
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 27 damage.\nWhenever you draw this card, reduce its cost by 1.",
+          "html": "Deal <span class=\"num\">27</span> damage.<br>Whenever you draw this card, reduce its cost by 1."
+        },
+        "up": {
+          "plain": "Deal 35 damage.\nWhenever you draw this card, reduce its cost by 1.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">35</span></span> damage.<br>Whenever you draw this card, reduce its cost by 1."
+        }
+      },
+      "upgradeSummary": "27 \u2192 35 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "K\u00f6niglicher Tritt",
+        "fra": "Coup de pied royal",
+        "ita": "Calcio Regale",
+        "spa": "Patada din\u00e1stica",
+        "esp": "Patada del monarca",
+        "ptb": "Chute R\u00e9gio",
+        "pol": "Kr\u00f3lewski kopniak",
+        "rus": "\u041a\u043e\u0440\u043e\u043b\u0435\u0432\u0441\u043a\u0438\u0439 \u043f\u0438\u043d\u043e\u043a",
+        "tur": "Krallara Lay\u0131k Tekme",
+        "jpn": "\u738b\u69d8\u30ad\u30c3\u30af",
+        "kor": "\uc655\uc758 \ubc1c\ucc28\uae30",
+        "zhs": "\u738b\u8005\u4e4b\u8e22",
+        "tha": "\u0e17\u0e23\u0e07\u0e1e\u0e23\u0e30\u0e40\u0e15\u0e30"
+      }
+    },
+    {
+      "id": "KinglyPunch",
+      "key": "KINGLY_PUNCH",
+      "slug": "kingly-punch",
+      "title": "Kingly Punch",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 8,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 10
+        },
+        "Increase": {
+          "base": 4,
+          "kind": "DynamicVar",
+          "prop": null,
+          "up": 6
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage.\nWhenever you draw this card, increase its damage by 4 this combat.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Whenever you draw this card, increase its damage by <span class=\"num\">4</span> this combat."
+        },
+        "up": {
+          "plain": "Deal 10 damage.\nWhenever you draw this card, increase its damage by 6 this combat.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">10</span></span> damage.<br>Whenever you draw this card, increase its damage by <span class=\"up\"><span class=\"num\">6</span></span> this combat."
+        }
+      },
+      "upgradeSummary": "8 \u2192 10 damage, increase its damage by 4 \u2192 6 this combat",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "K\u00f6niglicher Hieb",
+        "fra": "Coup de poing royal",
+        "ita": "Pugno Regale",
+        "spa": "Pu\u00f1etazo din\u00e1stico",
+        "esp": "Pu\u00f1etazo del monarca",
+        "ptb": "Soco R\u00e9gio",
+        "pol": "Kr\u00f3lewski sierpowy",
+        "rus": "\u041a\u043e\u0440\u043e\u043b\u0435\u0432\u0441\u043a\u0430\u044f \u043f\u043e\u0449\u0435\u0447\u0438\u043d\u0430",
+        "tur": "Krallara Lay\u0131k Yumruk",
+        "jpn": "\u738b\u69d8\u30d1\u30f3\u30c1",
+        "kor": "\uc655\uc758 \uc8fc\uba39",
+        "zhs": "\u738b\u8005\u4e4b\u62f3",
+        "tha": "\u0e17\u0e23\u0e07\u0e1e\u0e23\u0e30\u0e15\u0e48\u0e2d\u0e22"
+      }
+    },
+    {
+      "id": "KnockoutBlow",
+      "key": "KNOCKOUT_BLOW",
+      "slug": "knockout-blow",
+      "title": "Knockout Blow",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 3,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 30,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 38
+        },
+        "Stars": {
+          "base": 5,
+          "kind": "StarsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 30 damage.\nIf this kills an enemy, gain 5 Stars.",
+          "html": "Deal <span class=\"num\">30</span> damage.<br>If this kills an enemy, gain <span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Deal 38 damage.\nIf this kills an enemy, gain 5 Stars.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">38</span></span> damage.<br>If this kills an enemy, gain <span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span>."
+        }
+      },
+      "upgradeSummary": "30 \u2192 38 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "KO-Treffer",
+        "fra": "Hors d'\u00e9tat",
+        "ita": "Pugno Cosmico",
+        "spa": "Noqueo gal\u00e1ctico",
+        "esp": "Noqu\u00e9alos",
+        "ptb": "Nocaute",
+        "pol": "Gwiezdny nokaut",
+        "rus": "\u041d\u043e\u043a\u0430\u0443\u0442",
+        "tur": "Bitirici Hamle",
+        "jpn": "\u30ce\u30c3\u30af\u30a2\u30a6\u30c8",
+        "kor": "\ud544\uc0ac\uc758 \uc77c\uaca9",
+        "zhs": "\u51b3\u80dc\u4e00\u51fb"
+      }
+    },
+    {
+      "id": "KnowThyPlace",
+      "key": "KNOW_THY_PLACE",
+      "slug": "know-thy-place",
+      "title": "Know Thy Place",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "WeakPower": {
+          "base": 1,
+          "kind": "PowerVar<WeakPower>",
+          "prop": null
+        },
+        "VulnerablePower": {
+          "base": 1,
+          "kind": "PowerVar<VulnerablePower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Apply 1 Weak.\nApply 1 Vulnerable.\nExhaust.",
+          "html": "Apply <span class=\"num\">1</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Vulnerable</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Apply 1 Weak.\nApply 1 Vulnerable.",
+          "html": "Apply <span class=\"num\">1</span> <span class=\"kw\">Weak</span>.<br>Apply <span class=\"num\">1</span> <span class=\"kw\">Vulnerable</span>."
+        }
+      },
+      "upgradeSummary": "loses Exhaust",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Kenne deinen Platz",
+        "fra": "Hi\u00e9rarchie",
+        "ita": "Ricorda Chi Comanda",
+        "spa": "Recuerda qui\u00e9n manda",
+        "esp": "Conoce vuestro lugar",
+        "ptb": "Saiba o Seu Lugar",
+        "pol": "Zamilcz \u0142otrze",
+        "rus": "\u0417\u043d\u0430\u0439 \u0441\u0432\u043e\u0435 \u043c\u0435\u0441\u0442\u043e",
+        "tur": "Yerini Bil",
+        "jpn": "\u8eab\u306e\u7a0b\u3092\u77e5\u308c",
+        "kor": "\ub124 \uc8fc\uc81c\ub97c \uc54c\ub77c",
+        "zhs": "\u4f55\u4eba\u50ed\u8d8a"
+      }
+    },
+    {
+      "id": "Largesse",
+      "key": "LARGESSE",
+      "slug": "largesse",
+      "title": "Largesse",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AnyAlly",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Another player adds 1 random Colorless card to their Hand.",
+          "html": "Another player adds 1 random Colorless card to their <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Another player adds 1 random Upgraded Colorless card to their Hand.",
+          "html": "Another player adds 1 random<span class=\"up\"> <span class=\"kw\">Upgraded</span></span> Colorless card to their <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "adds \u201cUpgraded\u201d",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Only appears in multiplayer runs.",
+      "hidden": false,
+      "i18n": {
+        "deu": "Gro\u00dftum",
+        "fra": "Largesse",
+        "ita": "Generosit\u00e0",
+        "spa": "Generosidad",
+        "esp": "Magnanimidad",
+        "ptb": "Generosidade",
+        "pol": "Hojny dar",
+        "rus": "\u0412\u0435\u043b\u0438\u043a\u043e\u0434\u0443\u0448\u0438\u0435",
+        "tur": "G\u00f6nl\u00fc Bol",
+        "jpn": "\u5bdb\u5927\u306a\u308b\u65bd\u3057",
+        "kor": "\ud558\uc0ac",
+        "zhs": "\u6177\u6168\u6350\u52a9"
+      }
+    },
+    {
+      "id": "LunarBlast",
+      "key": "LUNAR_BLAST",
+      "slug": "lunar-blast",
+      "title": "Lunar Blast",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 4,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 5
+        },
+        "CalculationBase": {
+          "base": 0,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "CalculationExtra": {
+          "base": 1,
+          "kind": "CalculationExtraVar",
+          "prop": null
+        },
+        "CalculatedHits": {
+          "base": 0,
+          "kind": "CalculatedVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 4 damage for each Skill already played this turn.",
+          "html": "Deal <span class=\"num\">4</span> damage for each Skill already played this turn."
+        },
+        "up": {
+          "plain": "Deal 5 damage for each Skill already played this turn.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">5</span></span> damage for each Skill already played this turn."
+        }
+      },
+      "upgradeSummary": "4 \u2192 5 damage",
+      "unlock": "REGENT7_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Mondschuss",
+        "fra": "D\u00e9flagration lunaire",
+        "ita": "Esplosione Lunare",
+        "spa": "Rayo lunar",
+        "esp": "Explosi\u00f3n lunar",
+        "ptb": "Disparo Lunar",
+        "pol": "Promienie ksi\u0119\u017cyca",
+        "rus": "\u041b\u0443\u043d\u043d\u0430\u044f \u0432\u0441\u043f\u044b\u0448\u043a\u0430",
+        "tur": "Ay Patlamas\u0131",
+        "jpn": "\u6708\u5149\u6ce2",
+        "kor": "\ub2ec\uc758 \uc138\ub840",
+        "zhs": "\u6708\u9762\u5c04\u51fb"
+      }
+    },
+    {
+      "id": "MakeItSo",
+      "key": "MAKE_IT_SO",
+      "slug": "make-it-so",
+      "title": "Make It So",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 6,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 9
+        },
+        "Cards": {
+          "base": 3,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 6 damage.\nEvery 3 Skills you play in a turn, put this into your Hand.",
+          "html": "Deal <span class=\"num\">6</span> damage.<br>Every <span class=\"num\">3</span> Skills you play in a turn, put this into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Deal 9 damage.\nEvery 3 Skills you play in a turn, put this into your Hand.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">9</span></span> damage.<br>Every <span class=\"num\">3</span> Skills you play in a turn, put this into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "6 \u2192 9 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Mach es so",
+        "fra": "Ainsi soit-il",
+        "ita": "Cos\u00ec Sia",
+        "spa": "Que as\u00ed sea",
+        "esp": "Que as\u00ed sea",
+        "ptb": "Que Assim Seja",
+        "pol": "Rozkaz Kapitana",
+        "rus": "\u0414\u0430 \u0431\u0443\u0434\u0435\u0442 \u0442\u0430\u043a",
+        "tur": "\u00d6yle Olsun",
+        "jpn": "\u5b9f\u884c\u305b\u3088",
+        "kor": "\uadf8\ub807\uac8c \ud558\ub77c",
+        "zhs": "\u5982\u6b64\u751a\u597d"
+      }
+    },
+    {
+      "id": "ManifestAuthority",
+      "key": "MANIFEST_AUTHORITY",
+      "slug": "manifest-authority",
+      "title": "Manifest Authority",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 7,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 8
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 7 Block.\nAdd 1 random Colorless card into your Hand.",
+          "html": "Gain <span class=\"num\">7</span> <span class=\"kw\">Block</span>.<br>Add 1 random Colorless card into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Gain 8 Block.\nAdd 1 random Upgraded Colorless card into your Hand.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">8</span></span> <span class=\"kw\">Block</span>.<br>Add 1 random<span class=\"up\"> <span class=\"kw\">Upgraded</span></span> Colorless card into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "7 \u2192 8 Block, adds \u201cUpgraded\u201d",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Autorit\u00e4t zeigen",
+        "fra": "Autorit\u00e9 manifeste",
+        "ita": "Autorit\u00e0 Indiscussa",
+        "spa": "Autoridad disuasoria",
+        "esp": "Manifestar autoridad",
+        "ptb": "Manifestar Autoridade",
+        "pol": "Majestat w\u0142adzy",
+        "rus": "\u0411\u0440\u0430\u0437\u0434\u044b \u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u044f",
+        "tur": "Otorite Sa\u011fla",
+        "jpn": "\u6a29\u5a01\u306e\u4f53\u73fe",
+        "kor": "\uad8c\uc704 \ud589\uc0ac",
+        "zhs": "\u541b\u6743\u81ea\u6388"
+      }
+    },
+    {
+      "id": "MeteorShower",
+      "key": "METEOR_SHOWER",
+      "slug": "meteor-shower",
+      "title": "Meteor Shower",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 2,
+      "type": "Attack",
+      "rarity": "Ancient",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 14,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 21
+        },
+        "VulnerablePower": {
+          "base": 2,
+          "kind": "PowerVar<VulnerablePower>",
+          "prop": null
+        },
+        "WeakPower": {
+          "base": 2,
+          "kind": "PowerVar<WeakPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 14 damage to ALL enemies.\nApply 2 Weak and Vulnerable to ALL enemies.",
+          "html": "Deal <span class=\"num\">14</span> damage to ALL enemies.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Weak</span> and <span class=\"kw\">Vulnerable</span> to ALL enemies."
+        },
+        "up": {
+          "plain": "Deal 21 damage to ALL enemies.\nApply 2 Weak and Vulnerable to ALL enemies.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">21</span></span> damage to ALL enemies.<br>Apply <span class=\"num\">2</span> <span class=\"kw\">Weak</span> and <span class=\"kw\">Vulnerable</span> to ALL enemies."
+        }
+      },
+      "upgradeSummary": "14 \u2192 21 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Meteorschauer",
+        "fra": "Pluie de m\u00e9t\u00e9ores",
+        "ita": "Pioggia di Meteore",
+        "spa": "Lluvia de meteoritos",
+        "esp": "Lluvia mete\u00f3rica",
+        "ptb": "Chuva de Meteoros",
+        "pol": "Deszcz meteoryt\u00f3w",
+        "rus": "\u041c\u0435\u0442\u0435\u043e\u0440\u0438\u0442\u043d\u044b\u0439 \u0434\u043e\u0436\u0434\u044c",
+        "tur": "Meteor Ya\u011fmuru",
+        "jpn": "\u6d41\u661f\u7fa4",
+        "kor": "\uc720\uc131\uc6b0",
+        "zhs": "\u6d41\u661f\u96e8",
+        "tha": "\u0e1d\u0e19\u0e14\u0e32\u0e27\u0e15\u0e01"
+      }
+    },
+    {
+      "id": "MinionDiveBomb",
+      "key": "MINION_DIVE_BOMB",
+      "slug": "minion-dive-bomb",
+      "title": "Minion Dive Bomb",
+      "pool": "token",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Token",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [
+        "Minion"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 13,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 16
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 13 damage.\nExhaust.",
+          "html": "Deal <span class=\"num\">13</span> damage.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Deal 16 damage.\nExhaust.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">16</span></span> damage.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "13 \u2192 16 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Diener-Sturzflug",
+        "fra": "Sbire en piqu\u00e9",
+        "ita": "Attacco Bomba del Seguace",
+        "spa": "Bombardeo de esbirro",
+        "esp": "Bomba de esbirros",
+        "ptb": "Bombardeio de Lacaio",
+        "pol": "Szar\u017ca s\u0142u\u017cby",
+        "rus": "\u0421\u043b\u0443\u0433\u0430-\u0431\u043e\u043c\u0431\u043e\u0447\u043a\u0430",
+        "tur": "U\u015fak Dal\u0131\u015f\u0131",
+        "jpn": "\u30df\u30cb\u30aa\u30f3\u306e\u7279\u653b",
+        "kor": "\ud558\uc218\uc778 \ud22c\ud558",
+        "zhs": "\u4ec6\u4ece\u4fef\u51b2",
+        "tha": "\u0e2d\u0e38\u0e01\u0e01\u0e32\u0e1a\u0e32\u0e15\u0e25\u0e39\u0e01\u0e19\u0e49\u0e2d\u0e07"
+      }
+    },
+    {
+      "id": "MinionSacrifice",
+      "key": "MINION_SACRIFICE",
+      "slug": "minion-sacrifice",
+      "title": "Minion Sacrifice",
+      "pool": "token",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Token",
+      "target": "Self",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [
+        "Minion"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 8,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 8 Block.\nExhaust.",
+          "html": "Gain <span class=\"num\">8</span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Gain 11 Block.\nExhaust.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">11</span></span> <span class=\"kw\">Block</span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Diener-Opfer",
+        "fra": "Sbire sacrificiel",
+        "ita": "Sacrificio del Seguace",
+        "spa": "Sacrificio de esbirro",
+        "esp": "Sacrificio de esbirros",
+        "ptb": "Sacrif\u00edcio de Lacaio",
+        "pol": "Po\u015bwi\u0119cenie s\u0142u\u017cby",
+        "rus": "\u0421\u043b\u0443\u0433\u0430-\u0437\u0430\u0449\u0438\u0442\u043d\u0438\u043a",
+        "tur": "U\u015fak Fedakarl\u0131\u011f\u0131",
+        "jpn": "\u30df\u30cb\u30aa\u30f3\u306e\u76fe",
+        "kor": "\ud558\uc218\uc778 \ud76c\uc0dd",
+        "zhs": "\u4ec6\u4ece\u6350\u8eaf",
+        "tha": "\u0e25\u0e39\u0e01\u0e19\u0e49\u0e2d\u0e07\u0e2a\u0e25\u0e30\u0e0a\u0e35\u0e1e"
+      }
+    },
+    {
+      "id": "MinionStrike",
+      "key": "MINION_STRIKE",
+      "slug": "minion-strike",
+      "title": "Minion Strike",
+      "pool": "token",
+      "character": null,
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Token",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Exhaust"
+      ],
+      "tags": [
+        "Strike",
+        "Minion"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 6,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 9
+        },
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 6 damage.\nDraw 1 card.\nExhaust.",
+          "html": "Deal <span class=\"num\">6</span> damage.<br>Draw <span class=\"num\">1</span> card.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Deal 9 damage.\nDraw 1 card.\nExhaust.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">9</span></span> damage.<br>Draw <span class=\"num\">1</span> card.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "6 \u2192 9 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Diener-Schlag",
+        "fra": "Frappe de sbire",
+        "ita": "Colpo del Seguace",
+        "spa": "Golpe de esbirro",
+        "esp": "Golpe de esbirro",
+        "ptb": "Golpe de Lacaio",
+        "pol": "Uderzenie s\u0142u\u017cby",
+        "rus": "\u0423\u0434\u0430\u0440 \u0441\u043b\u0443\u0433\u0438",
+        "tur": "U\u015fak Sald\u0131r\u0131s\u0131",
+        "jpn": "\u30df\u30cb\u30aa\u30f3\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\ud558\uc218\uc778 \ud0c0\uaca9",
+        "zhs": "\u4ec6\u4ece\u6253\u51fb",
+        "tha": "\u0e25\u0e39\u0e01\u0e19\u0e49\u0e2d\u0e07\u0e08\u0e39\u0e48\u0e42\u0e08\u0e21"
+      }
+    },
+    {
+      "id": "MonarchsGaze",
+      "key": "MONARCHS_GAZE",
+      "slug": "monarchs-gaze",
+      "title": "Monarch's Gaze",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "StrengthLoss": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you attack an enemy, it loses 1 Strength this turn.",
+          "html": "Whenever you attack an enemy, it loses <span class=\"num\">1</span> <span class=\"kw\">Strength</span> this turn."
+        },
+        "up": {
+          "plain": "Whenever you attack an enemy, it loses 1 Strength this turn.",
+          "html": "Whenever you attack an enemy, it loses <span class=\"num\">1</span> <span class=\"kw\">Strength</span> this turn."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Blick des Monarchen",
+        "fra": "Regard monarchique",
+        "ita": "Sguardo del Monarca",
+        "spa": "Mirada del monarca",
+        "esp": "Mirada de monarca",
+        "ptb": "Olhar do Monarca",
+        "pol": "Kr\u00f3lewski gniew",
+        "rus": "\u041a\u043e\u0440\u043e\u043b\u0435\u0432\u0441\u043a\u0438\u0439 \u043d\u0440\u0430\u0432",
+        "tur": "H\u00fck\u00fcmdar\u0131n Bak\u0131\u015f\u0131",
+        "jpn": "\u541b\u4e3b\u306e\u7768\u307f",
+        "kor": "\uad70\uc8fc\uc758 \uc2dc\uc120",
+        "zhs": "\u738b\u4e4b\u51dd\u89c6"
+      }
+    },
+    {
+      "id": "Monologue",
+      "key": "MONOLOGUE",
+      "slug": "monologue",
+      "title": "Monologue",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Power": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you play a card this turn, gain 1 Strength this turn.",
+          "html": "Whenever you play a card this turn, gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span> this turn."
+        },
+        "up": {
+          "plain": "Retain.\nWhenever you play a card this turn, gain 1 Strength this turn.",
+          "html": "<span class=\"up\"><span class=\"kw\">Retain</span>.</span><br>Whenever you play a card this turn, gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span> this turn."
+        }
+      },
+      "upgradeSummary": "gains Retain",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Monolog",
+        "fra": "Monologue",
+        "ita": "Monologo",
+        "spa": "Soliloquio",
+        "esp": "Mon\u00f3logo",
+        "ptb": "Mon\u00f3logo",
+        "pol": "Monolog",
+        "rus": "\u041c\u043e\u043d\u043e\u043b\u043e\u0433",
+        "tur": "Monolog",
+        "jpn": "\u30e2\u30ce\u30ed\u30fc\u30b0",
+        "kor": "\ub3c5\ubc31",
+        "zhs": "\u72ec\u767d"
+      }
+    },
+    {
+      "id": "NeutronAegis",
+      "key": "NEUTRON_AEGIS",
+      "slug": "neutron-aegis",
+      "title": "Neutron Aegis",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 5,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "PlatingPower": {
+          "base": 8,
+          "kind": "PowerVar<PlatingPower>",
+          "prop": null,
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 8 Plating.",
+          "html": "Gain <span class=\"num\">8</span> <span class=\"kw\">Plating</span>."
+        },
+        "up": {
+          "plain": "Gain 11 Plating.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">11</span></span> <span class=\"kw\">Plating</span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 Plating",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Neutronenschirm",
+        "fra": "\u00c9gide \u00e0 neutrons",
+        "ita": "Egida di Neutroni",
+        "spa": "Neutrones orbitales",
+        "esp": "\u00c9gida de neutrones",
+        "ptb": "\u00c9gide de N\u00eautrons",
+        "pol": "Egida neutronowa",
+        "rus": "\u041d\u0435\u0439\u0442\u0440\u043e\u043d\u043d\u044b\u0439 \u043a\u0443\u043f\u043e\u043b",
+        "tur": "N\u00f6tron Kalkan\u0131",
+        "jpn": "\u30cb\u30e5\u30fc\u30c8\u30ed\u30f3\u30fb\u30a4\u30fc\u30b8\u30b9",
+        "kor": "\uc911\uc131\uc790 \ubc29\ud328",
+        "zhs": "\u4e2d\u5b50\u62a4\u76fe"
+      }
+    },
+    {
+      "id": "Orbit",
+      "key": "ORBIT",
+      "slug": "orbit",
+      "title": "Orbit",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Every 4 Energy you spend,\ngain 1 Energy.",
+          "html": "Every 4<span class=\"energy\" data-n=\"1\"></span> you spend,<br>gain <span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Every 4 Energy you spend,\ngain 1 Energy.",
+          "html": "Every 4<span class=\"energy\" data-n=\"1\"></span> you spend,<br>gain <span class=\"energy\" data-n=\"1\"></span>."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Orbit",
+        "fra": "Orbite",
+        "ita": "Orbita",
+        "spa": "\u00d3rbita",
+        "esp": "\u00d3rbita",
+        "ptb": "\u00d3rbita",
+        "pol": "Orbita",
+        "rus": "\u041e\u0440\u0431\u0438\u0442\u0430",
+        "tur": "Y\u00f6r\u00fcnge",
+        "jpn": "\u30aa\u30fc\u30d3\u30c3\u30c8",
+        "kor": "\uada4\ub3c4",
+        "zhs": "\u73af\u7ed5\u8f68\u9053"
+      }
+    },
+    {
+      "id": "PaleBlueDot",
+      "key": "PALE_BLUE_DOT",
+      "slug": "pale-blue-dot",
+      "title": "Pale Blue Dot",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 2
+        },
+        "CardPlay": {
+          "base": 5,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "If you play 5 or more cards in a turn, draw 1 card at the start of your next turn.",
+          "html": "If you play <span class=\"num\">5</span> or more cards in a turn, draw <span class=\"num\">1</span> card at the start of your next turn."
+        },
+        "up": {
+          "plain": "If you play 5 or more cards in a turn, draw 2 cards at the start of your next turn.",
+          "html": "If you play <span class=\"num\">5</span> or more cards in a turn, draw <span class=\"up\"><span class=\"num\">2</span></span> cards at the start of your next turn."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Blassblauer Punkt",
+        "fra": "Point bleu p\u00e2le",
+        "ita": "Pallido Punto Azzurro",
+        "spa": "Un punto azul p\u00e1lido",
+        "esp": "Punto azul p\u00e1lido",
+        "ptb": "P\u00e1lido Ponto Azul",
+        "pol": "Blady, b\u0142\u0119kitny punkcik",
+        "rus": "\u0417\u0435\u043c\u043b\u044f \u0432 \u0438\u043b\u043b\u044e\u043c\u0438\u043d\u0430\u0442\u043e\u0440\u0435",
+        "tur": "Soluk Mavi Nokta",
+        "jpn": "\u30da\u30a4\u30eb\u30fb\u30d6\u30eb\u30fc\u30fb\u30c9\u30c3\u30c8",
+        "kor": "\ucc3d\ubc31\ud55c \ud478\ub978 \uc810",
+        "zhs": "\u6697\u6de1\u84dd\u70b9",
+        "tha": "\u0e08\u0e38\u0e14\u0e2a\u0e35\u0e19\u0e49\u0e33\u0e40\u0e07\u0e34\u0e19\u0e0b\u0e35\u0e14"
+      }
+    },
+    {
+      "id": "Parry",
+      "key": "PARRY",
+      "slug": "parry",
+      "title": "Parry",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "ParryPower": {
+          "base": 10,
+          "kind": "PowerVar<ParryPower>",
+          "prop": null,
+          "up": 14
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Sovereign Blade now gains 10 Block.",
+          "html": "<span class=\"kw\">Sovereign Blade</span> now gains <span class=\"num\">10</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Sovereign Blade now gains 14 Block.",
+          "html": "<span class=\"kw\">Sovereign Blade</span> now gains <span class=\"up\"><span class=\"num\">14</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "10 \u2192 14 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Parieren",
+        "fra": "Parade",
+        "ita": "Controparata",
+        "spa": "Parada",
+        "esp": "Desv\u00edo",
+        "ptb": "Aparar",
+        "pol": "Riposta",
+        "rus": "\u041f\u0430\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
+        "tur": "Savu\u015ftur",
+        "jpn": "\u30d1\u30ea\u30a3",
+        "kor": "\uccd0\ub0b4\uae30",
+        "zhs": "\u62db\u67b6",
+        "tha": "\u0e1b\u0e31\u0e14\u0e1b\u0e49\u0e2d\u0e07"
+      }
+    },
+    {
+      "id": "ParticleWall",
+      "key": "PARTICLE_WALL",
+      "slug": "particle-wall",
+      "title": "Particle Wall",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 2,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 9,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 12
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 9 Block.\nReturn this card to your Hand.",
+          "html": "Gain <span class=\"num\">9</span> <span class=\"kw\">Block</span>.<br>Return this card to your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Gain 12 Block.\nReturn this card to your Hand.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">12</span></span> <span class=\"kw\">Block</span>.<br>Return this card to your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 12 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Teilchenwand",
+        "fra": "Mur de particules",
+        "ita": "Muro di Particelle",
+        "spa": "Muro de part\u00edculas",
+        "esp": "Muro de part\u00edculas",
+        "ptb": "Muro de Part\u00edculas",
+        "pol": "\u015aciana cz\u0105steczkowa",
+        "rus": "\u0421\u0438\u043b\u043e\u0432\u043e\u0435 \u043f\u043e\u043b\u0435",
+        "tur": "Par\u00e7ac\u0131k Duvar\u0131",
+        "jpn": "\u7c92\u5b50\u969c\u58c1",
+        "kor": "\uc785\uc790 \ubcbd",
+        "zhs": "\u7c92\u5b50\u5899"
+      }
+    },
+    {
+      "id": "Patter",
+      "key": "PATTER",
+      "slug": "patter",
+      "title": "Patter",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 8,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 10
+        },
+        "VigorPower": {
+          "base": 2,
+          "kind": "PowerVar<VigorPower>",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 8 Block.\nGain 2 Vigor.",
+          "html": "Gain <span class=\"num\">8</span> <span class=\"kw\">Block</span>.<br>Gain <span class=\"num\">2</span> <span class=\"kw\">Vigor</span>."
+        },
+        "up": {
+          "plain": "Gain 10 Block.\nGain 3 Vigor.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">10</span></span> <span class=\"kw\">Block</span>.<br>Gain <span class=\"up\"><span class=\"num\">3</span></span> <span class=\"kw\">Vigor</span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 10 Block, 2 \u2192 3 Vigor",
+      "unlock": "REGENT7_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Prasseln lassen",
+        "fra": "Petits pas",
+        "ita": "Barriera Stellare",
+        "spa": "Barrera de estrellas",
+        "esp": "Repiqueteo",
+        "ptb": "Ru\u00eddo Distrator",
+        "pol": "Stukot meteoryt\u00f3w",
+        "rus": "\u041f\u0435\u0440\u0435\u0441\u0442\u0443\u043a",
+        "tur": "Tak\u0131my\u0131ld\u0131z",
+        "jpn": "\u5c0f\u76fe\u306e\u5c55\u958b",
+        "kor": "\ubcc4\ubb34\ub9ac",
+        "zhs": "\u661f\u661f\u70b9\u70b9"
+      }
+    },
+    {
+      "id": "PhotonCut",
+      "key": "PHOTON_CUT",
+      "slug": "photon-cut",
+      "title": "Photon Cut",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 10,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 13
+        },
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 2
+        },
+        "PutBack": {
+          "base": 1,
+          "kind": "DynamicVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 10 damage.\nDraw 1 card.\nPut 1 card from your Hand on top of your Draw Pile.",
+          "html": "Deal <span class=\"num\">10</span> damage.<br>Draw <span class=\"num\">1</span> card.<br>Put 1 card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Deal 13 damage.\nDraw 2 cards.\nPut 1 card from your Hand on top of your Draw Pile.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">13</span></span> damage.<br>Draw <span class=\"up\"><span class=\"num\">2</span></span> cards.<br>Put 1 card from your <span class=\"kw\">Hand</span> on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "10 \u2192 13 damage, 1 \u2192 2 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Photonenschnitt",
+        "fra": "Entaille photonique",
+        "ita": "Squarcio Fotonico",
+        "spa": "Sable de fotones",
+        "esp": "Corte fot\u00f3nico",
+        "ptb": "Corte de F\u00f3tons",
+        "pol": "Fotonowe przeci\u0119cie",
+        "rus": "\u041a\u0432\u0430\u043d\u0442\u043e\u0432\u044b\u0439 \u043f\u043e\u0440\u0435\u0437",
+        "tur": "Foton Kesi\u015fi",
+        "jpn": "\u30d5\u30a9\u30c8\u30f3\u30ab\u30c3\u30c8",
+        "kor": "\uad11\uc790 \ubca0\uae30",
+        "zhs": "\u5149\u5b50\u5207\u5272"
+      }
+    },
+    {
+      "id": "PillarOfCreation",
+      "key": "PILLAR_OF_CREATION",
+      "slug": "pillar-of-creation",
+      "title": "Pillar of Creation",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 3,
+          "kind": "BlockVar",
+          "prop": "Unpowered",
+          "up": 4
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Whenever you create a card, gain 3 Block.",
+          "html": "Whenever you create a card, gain <span class=\"num\">3</span> <span class=\"kw\">Block</span>."
+        },
+        "up": {
+          "plain": "Whenever you create a card, gain 4 Block.",
+          "html": "Whenever you create a card, gain <span class=\"up\"><span class=\"num\">4</span></span> <span class=\"kw\">Block</span>."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "S\u00e4ule der Sch\u00f6pfung",
+        "fra": "Pilier de la cr\u00e9ation",
+        "ita": "Pilastro della Creazione",
+        "spa": "Pilar de la Creaci\u00f3n",
+        "esp": "Pilar de la creaci\u00f3n",
+        "ptb": "Pilar da Cria\u00e7\u00e3o",
+        "pol": "Filar Wszech\u015bwiata",
+        "rus": "\u041e\u0441\u043d\u043e\u0432\u0430 \u043c\u0438\u0440\u043e\u0437\u0434\u0430\u043d\u0438\u044f",
+        "tur": "Yarat\u0131l\u0131\u015f\u0131n Temeli",
+        "jpn": "\u5275\u9020\u306e\u67f1",
+        "kor": "\ucc3d\uc870\uc758 \uae30\ub465",
+        "zhs": "\u521b\u4e16\u4e4b\u67f1",
+        "tha": "\u0e40\u0e2a\u0e32\u0e41\u0e2b\u0e48\u0e07\u0e01\u0e32\u0e23\u0e01\u0e48\u0e2d\u0e01\u0e33\u0e40\u0e19\u0e34\u0e14"
+      }
+    },
+    {
+      "id": "Plot",
+      "key": "PLOT",
+      "slug": "plot",
+      "title": "Plot",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AllAllies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Next turn, ALL players draw 2 cards.",
+          "html": "Next turn, ALL players draw <span class=\"num\">2</span> cards."
+        },
+        "up": {
+          "plain": "Next turn, ALL players draw 3 cards.",
+          "html": "Next turn, ALL players draw <span class=\"up\"><span class=\"num\">3</span></span> cards."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Only appears in multiplayer runs.",
+      "hidden": false,
+      "playtest": 1,
+      "playtestSince": "2026-07-02",
+      "i18n": {
+        "deu": "Komplott",
+        "fra": "Esquisse",
+        "ita": "Complotto",
+        "spa": "Complot",
+        "esp": "Plan",
+        "ptb": "Tramar",
+        "pol": "Rozkmina",
+        "rus": "\u0425\u0438\u0442\u0440\u044b\u0439 \u043f\u043b\u0430\u043d",
+        "tur": "Plan Yap",
+        "jpn": "\u7b56\u8b00",
+        "kor": "\uad6c\uc0c1",
+        "zhs": "\u7b79\u5212"
+      }
+    },
+    {
+      "id": "Prophesize",
+      "key": "PROPHESIZE",
+      "slug": "prophesize",
+      "title": "Prophesize",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 6,
+          "kind": "CardsVar",
+          "prop": null,
+          "up": 9
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Draw 6 cards.",
+          "html": "Draw <span class=\"num\">6</span> cards."
+        },
+        "up": {
+          "plain": "Draw 9 cards.",
+          "html": "Draw <span class=\"up\"><span class=\"num\">9</span></span> cards."
+        }
+      },
+      "upgradeSummary": "6 \u2192 9 cards",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Prophezeien",
+        "fra": "Proph\u00e9tie",
+        "ita": "Profezia",
+        "spa": "Profetizar",
+        "esp": "Profetizaci\u00f3n",
+        "ptb": "Profetizar",
+        "pol": "Wr\u00f3\u017cenie",
+        "rus": "\u041f\u0440\u043e\u0440\u043e\u0447\u0435\u0441\u0442\u0432\u043e",
+        "tur": "Kehanette Bulun",
+        "jpn": "\u4e88\u8a00",
+        "kor": "\uc608\uc5b8",
+        "zhs": "\u9884\u8a00"
+      }
+    },
+    {
+      "id": "Quasar",
+      "key": "QUASAR",
+      "slug": "quasar",
+      "title": "Quasar",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 2,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Choose 1 of 3 random Colorless cards to add into your Hand.",
+          "html": "Choose 1 of 3 random Colorless cards to add into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Choose 1 of 3 random Upgraded Colorless cards to add into your Hand.",
+          "html": "Choose 1 of 3 random<span class=\"up\"> <span class=\"kw\">Upgraded</span></span> Colorless cards to add into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "adds \u201cUpgraded\u201d",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Quasar",
+        "fra": "Quasar",
+        "ita": "Quasar",
+        "spa": "Cu\u00e1sar",
+        "esp": "Cu\u00e1sar",
+        "ptb": "Quasar",
+        "pol": "Kwazar",
+        "rus": "\u041a\u0432\u0430\u0437\u0430\u0440",
+        "tur": "Kuasar",
+        "jpn": "\u30af\u30a8\u30fc\u30b5\u30fc",
+        "kor": "\uc900\ud56d\uc131",
+        "zhs": "\u7c7b\u661f\u4f53"
+      }
+    },
+    {
+      "id": "Radiate",
+      "key": "RADIATE",
+      "slug": "radiate",
+      "title": "Radiate",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 3,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 4
+        },
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null
+        },
+        "CalculationBase": {
+          "base": 0,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "CalculationExtra": {
+          "base": 1,
+          "kind": "CalculationExtraVar",
+          "prop": null
+        },
+        "CalculatedHits": {
+          "base": 0,
+          "kind": "CalculatedVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 3 damage to ALL enemies for each 1 Star gained this turn.",
+          "html": "Deal <span class=\"num\">3</span> damage to ALL enemies for each <span class=\"star\"></span> gained this turn."
+        },
+        "up": {
+          "plain": "Deal 4 damage to ALL enemies for each 1 Star gained this turn.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">4</span></span> damage to ALL enemies for each <span class=\"star\"></span> gained this turn."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Strahlen",
+        "fra": "Rayonnement",
+        "ita": "Irradiazione",
+        "spa": "Irradiar",
+        "esp": "Irradiar",
+        "ptb": "Irradiar",
+        "pol": "Promieniowanie",
+        "rus": "\u041b\u0443\u0447\u0435\u0437\u0430\u0440\u043d\u043e\u0441\u0442\u044c",
+        "tur": "I\u015f\u0131k Sa\u00e7",
+        "jpn": "\u8f1d\u304d\u306e\u5954\u6d41",
+        "kor": "\ubc29\ucd9c",
+        "zhs": "\u8f90\u5c04"
+      }
+    },
+    {
+      "id": "RefineBlade",
+      "key": "REFINE_BLADE",
+      "slug": "refine-blade",
+      "title": "Refine Blade",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 9,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 13
+        },
+        "Energy": {
+          "base": 1,
+          "kind": "EnergyVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Forge 9.\nNext turn, gain 1 Energy.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"num\">9</span>.<br>Next turn, gain <span class=\"energy\" data-n=\"1\"></span>."
+        },
+        "up": {
+          "plain": "Forge 13.\nNext turn, gain 1 Energy.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">13</span></span>.<br>Next turn, gain <span class=\"energy\" data-n=\"1\"></span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 13 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Klinge ausbessern",
+        "fra": "Lame lustr\u00e9e",
+        "ita": "Affilatura Cosmica",
+        "spa": "Templado i\u00f3nico",
+        "esp": "Espada refinada",
+        "ptb": "Refinar L\u00e2mina",
+        "pol": "Doskonalenie ostrza",
+        "rus": "\u041e\u0442\u0442\u043e\u0447\u0435\u043d\u043d\u044b\u0439 \u043a\u043b\u0438\u043d\u043e\u043a",
+        "tur": "K\u0131l\u0131c\u0131n\u0131 Bile",
+        "jpn": "\u5263\u306e\u7814\u78e8",
+        "kor": "\uac80\ub0a0 \uac1c\uc120",
+        "zhs": "\u6dec\u70bc\u5200\u5203",
+        "tha": "\u0e02\u0e31\u0e14\u0e40\u0e01\u0e25\u0e32\u0e1e\u0e23\u0e30\u0e41\u0e2a\u0e07"
+      }
+    },
+    {
+      "id": "Reflect",
+      "key": "REFLECT",
+      "slug": "reflect",
+      "title": "Reflect",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 3,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Block": {
+          "base": 15,
+          "kind": "BlockVar",
+          "prop": "Move",
+          "up": 20
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 15 Block.\nBlocked attack damage is reflected to your attacker this turn.",
+          "html": "Gain <span class=\"num\">15</span> <span class=\"kw\">Block</span>.<br>Blocked attack damage is reflected to your attacker this turn."
+        },
+        "up": {
+          "plain": "Gain 20 Block.\nBlocked attack damage is reflected to your attacker this turn.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">20</span></span> <span class=\"kw\">Block</span>.<br>Blocked attack damage is reflected to your attacker this turn."
+        }
+      },
+      "upgradeSummary": "15 \u2192 20 Block",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Reflektieren",
+        "fra": "Reflet miroir",
+        "ita": "Riflesso",
+        "spa": "Reflejo",
+        "esp": "Reflejo",
+        "ptb": "Refletir",
+        "pol": "Zwierciad\u0142o",
+        "rus": "\u041e\u0442\u0440\u0430\u0436\u0435\u043d\u0438\u0435",
+        "tur": "Yans\u0131t",
+        "jpn": "\u53cd\u5c04",
+        "kor": "\ubc18\uc0ac",
+        "zhs": "\u5012\u6620"
+      }
+    },
+    {
+      "id": "Resonance",
+      "key": "RESONANCE",
+      "slug": "resonance",
+      "title": "Resonance",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 3,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "StrengthPower": {
+          "base": 1,
+          "kind": "PowerVar<StrengthPower>",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 1 Strength. ALL enemies lose 1 Strength.",
+          "html": "Gain <span class=\"num\">1</span> <span class=\"kw\">Strength</span>. ALL enemies lose 1 <span class=\"kw\">Strength</span>."
+        },
+        "up": {
+          "plain": "Gain 2 Strength. ALL enemies lose 1 Strength.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">2</span></span> <span class=\"kw\">Strength</span>. ALL enemies lose 1 <span class=\"kw\">Strength</span>."
+        }
+      },
+      "upgradeSummary": "1 \u2192 2 Strength",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Resonanz",
+        "fra": "R\u00e9sonance",
+        "ita": "Risonanza",
+        "spa": "Resonancia",
+        "esp": "Resonancia",
+        "ptb": "Resson\u00e2ncia",
+        "pol": "Rezonans",
+        "rus": "\u0420\u0435\u0437\u043e\u043d\u0430\u043d\u0441",
+        "tur": "Yank\u0131lanma",
+        "jpn": "\u5171\u9cf4",
+        "kor": "\uacf5\uc9c4",
+        "zhs": "\u5171\u9e23",
+        "tha": "\u0e2a\u0e31\u0e48\u0e19\u0e1e\u0e49\u0e2d\u0e07"
+      }
+    },
+    {
+      "id": "RoyalGamble",
+      "key": "ROYAL_GAMBLE",
+      "slug": "royal-gamble",
+      "title": "Royal Gamble",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": 5,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [
+        "Exhaust",
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Stars": {
+          "base": 9,
+          "kind": "StarsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 9 Stars.\nExhaust.",
+          "html": "Gain <span class=\"num\">9</span> <span class=\"star\"></span>.<br><span class=\"kw\">Exhaust</span>."
+        },
+        "up": {
+          "plain": "Retain.\nGain 9 Stars.\nExhaust.",
+          "html": "<span class=\"up\"><span class=\"kw\">Retain</span>.</span><br>Gain <span class=\"num\">9</span> <span class=\"star\"></span>.<br><span class=\"kw\">Exhaust</span>."
+        }
+      },
+      "upgradeSummary": "gains Retain",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Royales Risiko",
+        "fra": "Pari royal",
+        "ita": "Scommessa Regale",
+        "spa": "Apuesta real",
+        "esp": "Apuesta real",
+        "ptb": "Aposta Real",
+        "pol": "Kr\u00f3lewskie ryzyko",
+        "rus": "\u041a\u043e\u0440\u043e\u043b\u0435\u0432\u0441\u043a\u0430\u044f \u043a\u0430\u0437\u043d\u0430",
+        "tur": "Krallara Lay\u0131k Kumar",
+        "jpn": "\u30ed\u30a4\u30e4\u30eb\u30ae\u30e3\u30f3\u30d6\u30eb",
+        "kor": "\uc131\ub300\ud55c \ub3c4\ubc15",
+        "zhs": "\u80dc\u5238\u5728\u738b"
+      }
+    },
+    {
+      "id": "Royalties",
+      "key": "ROYALTIES",
+      "slug": "royalties",
+      "title": "Royalties",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Gold": {
+          "base": 30,
+          "kind": "GoldVar",
+          "prop": null,
+          "up": 40
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the end of combat, gain 30 Gold.",
+          "html": "At the end of combat, gain <span class=\"num\">30</span> <span class=\"kw\">Gold</span>."
+        },
+        "up": {
+          "plain": "At the end of combat, gain 40 Gold.",
+          "html": "At the end of combat, gain <span class=\"up\"><span class=\"num\">40</span></span> <span class=\"kw\">Gold</span>."
+        }
+      },
+      "upgradeSummary": "30 \u2192 40 gold",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Excluded from random card generation in combat (CanBeGeneratedInCombat = false).",
+      "hidden": false,
+      "i18n": {
+        "deu": "Steuern",
+        "fra": "Royalties",
+        "ita": "Imposte",
+        "spa": "Diezmo",
+        "esp": "Regal\u00edas",
+        "ptb": "Impostos",
+        "pol": "Danina",
+        "rus": "\u0414\u0430\u043d\u044c",
+        "tur": "Kraliyet Harac\u0131",
+        "jpn": "\u30ed\u30a4\u30e4\u30ea\u30c6\u30a3",
+        "kor": "\ub85c\uc5f4\ud2f0",
+        "zhs": "\u738b\u56fd\u8d44\u4ea7",
+        "tha": "\u0e04\u0e48\u0e32\u0e20\u0e32\u0e04\u0e2b\u0e25\u0e27\u0e07"
+      }
+    },
+    {
+      "id": "SeekingEdge",
+      "key": "SEEKING_EDGE",
+      "slug": "seeking-edge",
+      "title": "Seeking Edge",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 7,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Forge 7.\nSovereign Blade now deals damage to ALL enemies.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"num\">7</span>.<br><span class=\"kw\">Sovereign Blade</span> now deals damage to ALL enemies."
+        },
+        "up": {
+          "plain": "Forge 11.\nSovereign Blade now deals damage to ALL enemies.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">11</span></span>.<br><span class=\"kw\">Sovereign Blade</span> now deals damage to ALL enemies."
+        }
+      },
+      "upgradeSummary": "7 \u2192 11 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schneid zeigen",
+        "fra": "Lame chercheuse",
+        "ita": "Spada Inseguitrice",
+        "spa": "Filo rastreador",
+        "esp": "Filo buscador",
+        "ptb": "L\u00e2mina Perseguidora",
+        "pol": "Przewaga niebios",
+        "rus": "\u0416\u0430\u0436\u0434\u0443\u0449\u0438\u0439 \u043a\u043b\u0438\u043d\u043e\u043a",
+        "tur": "\u0130z Bulan K\u0131l\u0131\u00e7",
+        "jpn": "\u8ffd\u5c3e\u306e\u5203",
+        "kor": "\ub0a0 \uc138\uc6b0\uae30",
+        "zhs": "\u8ffd\u8e2a\u4e4b\u5203"
+      }
+    },
+    {
+      "id": "SevenStars",
+      "key": "SEVEN_STARS",
+      "slug": "seven-stars",
+      "title": "Seven Stars",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": 7,
+      "type": "Attack",
+      "rarity": "Rare",
+      "target": "AllEnemies",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 7,
+          "kind": "DamageVar",
+          "prop": "Move"
+        },
+        "Repeat": {
+          "base": 7,
+          "kind": "RepeatVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 7 damage to ALL enemies 7 times.",
+          "html": "Deal <span class=\"num\">7</span> damage to ALL enemies <span class=\"num\">7</span> times."
+        },
+        "up": {
+          "plain": "Deal 7 damage to ALL enemies 7 times.",
+          "html": "Deal <span class=\"num\">7</span> damage to ALL enemies <span class=\"num\">7</span> times."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Siebengestirn",
+        "fra": "Pl\u00e9iades",
+        "ita": "Sette Stelle",
+        "spa": "Siete estrellas",
+        "esp": "Siete estrellas",
+        "ptb": "Sete Estrelas",
+        "pol": "Siedem gwiazd",
+        "rus": "\u0421\u0435\u043c\u044c \u0437\u0432\u0435\u0437\u0434",
+        "tur": "Yedi Y\u0131ld\u0131z",
+        "jpn": "\u30bb\u30d6\u30f3\u30b9\u30bf\u30fc\u30ba",
+        "kor": "\uc77c\uacf1 \uac1c\uc758 \ubcc4",
+        "zhs": "\u4e03\u661f"
+      }
+    },
+    {
+      "id": "ShiningStrike",
+      "key": "SHINING_STRIKE",
+      "slug": "shining-strike",
+      "title": "Shining Strike",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [
+        "Strike"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 8,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 11
+        },
+        "Stars": {
+          "base": 2,
+          "kind": "StarsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 8 damage.\nGain 2 Stars.\nPut this card on top of your Draw Pile.",
+          "html": "Deal <span class=\"num\">8</span> damage.<br>Gain <span class=\"star\"></span><span class=\"star\"></span>.<br>Put this card on top of your <span class=\"kw\">Draw Pile</span>."
+        },
+        "up": {
+          "plain": "Deal 11 damage.\nGain 2 Stars.\nPut this card on top of your Draw Pile.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">11</span></span> damage.<br>Gain <span class=\"star\"></span><span class=\"star\"></span>.<br>Put this card on top of your <span class=\"kw\">Draw Pile</span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Strahlender Schlag",
+        "fra": "Frappe rayonnante",
+        "ita": "Colpo Scintillante",
+        "spa": "Golpe centelleante",
+        "esp": "Golpe refulgente",
+        "ptb": "Golpe Cintilante",
+        "pol": "Gwiezdne uderzenie",
+        "rus": "\u0421\u0438\u044f\u044e\u0449\u0438\u0439 \u0443\u0434\u0430\u0440",
+        "tur": "Parlayan Sald\u0131r\u0131",
+        "jpn": "\u30b7\u30e3\u30a4\u30cb\u30f3\u30b0\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\ube5b\ub098\ub294 \ud0c0\uaca9",
+        "zhs": "\u660e\u8000\u6253\u51fb",
+        "tha": "\u0e08\u0e39\u0e48\u0e42\u0e08\u0e21\u0e42\u0e0a\u0e15\u0e34\u0e0a\u0e48\u0e27\u0e07"
+      }
+    },
+    {
+      "id": "SolarStrike",
+      "key": "SOLAR_STRIKE",
+      "slug": "solar-strike",
+      "title": "Solar Strike",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [
+        "Strike"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 9,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 10
+        },
+        "Stars": {
+          "base": 1,
+          "kind": "StarsVar",
+          "prop": null,
+          "up": 2
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 9 damage.\nGain 1 Star.",
+          "html": "Deal <span class=\"num\">9</span> damage.<br>Gain <span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Deal 10 damage.\nGain 2 Stars.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">10</span></span> damage.<br>Gain <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span></span>."
+        }
+      },
+      "upgradeSummary": "9 \u2192 10 damage, 1 \u2192 2 stars",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Solarschlag",
+        "fra": "Frappe solaire",
+        "ita": "Colpo Solare",
+        "spa": "Golpe solar",
+        "esp": "Golpe solar",
+        "ptb": "Golpe Solar",
+        "pol": "Solarne uderzenie",
+        "rus": "\u0421\u043e\u043b\u043d\u0435\u0447\u043d\u044b\u0439 \u0443\u0434\u0430\u0440",
+        "tur": "G\u00fcne\u015f Sald\u0131r\u0131s\u0131",
+        "jpn": "\u30bd\u30fc\u30e9\u30fc\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\ud0dc\uc591\uc758 \ud0c0\uaca9",
+        "zhs": "\u592a\u9633\u6253\u51fb",
+        "tha": "\u0e2a\u0e38\u0e23\u0e34\u0e22\u0e30\u0e08\u0e39\u0e48\u0e42\u0e08\u0e21"
+      }
+    },
+    {
+      "id": "SovereignBlade",
+      "key": "SOVEREIGN_BLADE",
+      "slug": "sovereign-blade",
+      "title": "Sovereign Blade",
+      "pool": "token",
+      "character": null,
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Token",
+      "target": "AnyEnemy",
+      "keywords": [
+        "Retain"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 10,
+          "kind": "DamageVar",
+          "prop": "Move"
+        },
+        "CalculationBase": {
+          "base": 0,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "CalculationExtra": {
+          "base": 1,
+          "kind": "CalculationExtraVar",
+          "prop": null
+        },
+        "CalculatedBlock": {
+          "base": 0,
+          "kind": "CalculatedBlockVar",
+          "prop": "Move"
+        },
+        "Repeat": {
+          "base": 1,
+          "kind": "RepeatVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Retain.\nDeal 10 damage.",
+          "html": "<span class=\"kw\">Retain</span>.<br>Deal <span class=\"num\">10</span> damage."
+        },
+        "up": {
+          "plain": "Retain.\nDeal 10 damage.",
+          "html": "<span class=\"kw\">Retain</span>.<br>Deal <span class=\"num\">10</span> damage."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Targets ALL enemies instead of AnyEnemy while you have Seeking Edge.",
+      "hidden": false,
+      "i18n": {
+        "deu": "Hoheitsklinge",
+        "fra": "Lame souveraine",
+        "ita": "Spada Sovrana",
+        "spa": "Espada del soberano",
+        "esp": "Espada del soberano",
+        "ptb": "Espada Soberana",
+        "pol": "Niebia\u0144skie Ostrze",
+        "rus": "\u041a\u043b\u0438\u043d\u043e\u043a \u043c\u043e\u043d\u0430\u0440\u0445\u0430",
+        "tur": "Egemen K\u0131l\u0131c\u0131",
+        "jpn": "\u30bd\u30f4\u30ea\u30f3\u30fb\u30d6\u30ec\u30fc\u30c9",
+        "kor": "\uad70\uc8fc\uc758 \uce7c\ub0a0",
+        "zhs": "\u541b\u738b\u4e4b\u5251",
+        "tha": "\u0e1e\u0e23\u0e30\u0e41\u0e2a\u0e07\u0e2d\u0e32\u0e0d\u0e32\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c"
+      }
+    },
+    {
+      "id": "SpectrumShift",
+      "key": "SPECTRUM_SHIFT",
+      "slug": "spectrum-shift",
+      "title": "Spectrum Shift",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Cards": {
+          "base": 1,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, add 1 random Colorless card into your Hand.",
+          "html": "At the start of your turn, add <span class=\"num\">1</span> random Colorless card into your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "At the start of your turn, add 1 random Colorless card into your Hand.",
+          "html": "At the start of your turn, add <span class=\"num\">1</span> random Colorless card into your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Spektralverschiebung",
+        "fra": "Spectre visible",
+        "ita": "Scala Cromatica",
+        "spa": "Cambio de espectro",
+        "esp": "Escala crom\u00e1tica",
+        "ptb": "Desvio de Espectro",
+        "pol": "Przesuni\u0119cie spektrum",
+        "rus": "\u0421\u043f\u0435\u043a\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 \u0441\u0434\u0432\u0438\u0433",
+        "tur": "Spektrum Kaymas\u0131",
+        "jpn": "\u30b9\u30da\u30af\u30c8\u30e9\u30e0\u30b7\u30d5\u30c8",
+        "kor": "\uc2a4\ud399\ud2b8\ub7fc \uc774\ub3d9",
+        "zhs": "\u5149\u8c31\u504f\u79fb",
+        "tha": "\u0e40\u0e25\u0e37\u0e48\u0e2d\u0e19\u0e2a\u0e40\u0e1b\u0e01\u0e15\u0e23\u0e31\u0e21"
+      }
+    },
+    {
+      "id": "SpoilsOfBattle",
+      "key": "SPOILS_OF_BATTLE",
+      "slug": "spoils-of-battle",
+      "title": "Spoils of Battle",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Common",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 5,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 8
+        },
+        "Cards": {
+          "base": 2,
+          "kind": "CardsVar",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Forge 5.\nDraw 2 cards.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"num\">5</span>.<br>Draw <span class=\"num\">2</span> cards."
+        },
+        "up": {
+          "plain": "Forge 8.\nDraw 2 cards.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">8</span></span>.<br>Draw <span class=\"num\">2</span> cards."
+        }
+      },
+      "upgradeSummary": "5 \u2192 8 Forge",
+      "unlock": "REGENT2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Kampfesbeute",
+        "fra": "Butin de guerre",
+        "ita": "Bottino di Battaglia",
+        "spa": "Bot\u00edn de guerra",
+        "esp": "Bot\u00edn de batalla",
+        "ptb": "Esp\u00f3lios de Guerra",
+        "pol": "\u0141upy bitewne",
+        "rus": "\u0422\u0440\u043e\u0444\u0435\u0438 \u0432\u043e\u0439\u043d\u044b",
+        "tur": "Sava\u015f Ganimetleri",
+        "jpn": "\u6226\u5229\u54c1",
+        "kor": "\uc804\ud22c\uc758 \uc131\uacfc",
+        "zhs": "\u6218\u5229\u54c1"
+      }
+    },
+    {
+      "id": "Stardust",
+      "key": "STARDUST",
+      "slug": "stardust",
+      "title": "Stardust",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 0,
+      "starCost": "X",
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "RandomEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 5,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 7
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 5 damage to a random enemy X times.",
+          "html": "Deal <span class=\"num\">5</span> damage to a random enemy X times."
+        },
+        "up": {
+          "plain": "Deal 7 damage to a random enemy X times.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">7</span></span> damage to a random enemy X times."
+        }
+      },
+      "upgradeSummary": "5 \u2192 7 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Sternenstaub",
+        "fra": "Poussi\u00e8re d'\u00e9toiles",
+        "ita": "Polvere Stellare",
+        "spa": "Polvo de estrellas",
+        "esp": "Polvo estelar",
+        "ptb": "Poeira Estelar",
+        "pol": "Gwiezdny py\u0142",
+        "rus": "\u0417\u0432\u0435\u0437\u0434\u043d\u0430\u044f \u043f\u044b\u043b\u044c",
+        "tur": "Y\u0131ld\u0131z Tozu",
+        "jpn": "\u661f\u5c51",
+        "kor": "\uc6b0\uc8fc \uba3c\uc9c0",
+        "zhs": "\u661f\u5c18"
+      }
+    },
+    {
+      "id": "StrikeRegent",
+      "key": "STRIKE_REGENT",
+      "slug": "strike-regent",
+      "title": "Strike",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Basic",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [
+        "Strike"
+      ],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 6,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 9
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 6 damage.",
+          "html": "Deal <span class=\"num\">6</span> damage."
+        },
+        "up": {
+          "plain": "Deal 9 damage.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">9</span></span> damage."
+        }
+      },
+      "upgradeSummary": "6 \u2192 9 damage",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": true,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schlag",
+        "fra": "Frappe",
+        "ita": "Colpo",
+        "spa": "Golpe",
+        "esp": "Golpe",
+        "ptb": "Golpe",
+        "pol": "Uderzenie",
+        "rus": "\u0423\u0434\u0430\u0440",
+        "tur": "Sald\u0131r\u0131",
+        "jpn": "\u30b9\u30c8\u30e9\u30a4\u30af",
+        "kor": "\ud0c0\uaca9",
+        "zhs": "\u6253\u51fb",
+        "tha": "\u0e08\u0e39\u0e48\u0e42\u0e08\u0e21"
+      }
+    },
+    {
+      "id": "SummonForth",
+      "key": "SUMMON_FORTH",
+      "slug": "summon-forth",
+      "title": "Summon Forth",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 8,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 11
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Put Sovereign Blade into your Hand from anywhere.\nForge 8.",
+          "html": "Put <span class=\"kw\">Sovereign Blade</span> into your <span class=\"kw\">Hand</span> from anywhere.<br><span class=\"kw\">Forge</span> <span class=\"num\">8</span>."
+        },
+        "up": {
+          "plain": "Put Sovereign Blade into your Hand from anywhere.\nForge 11.",
+          "html": "Put <span class=\"kw\">Sovereign Blade</span> into your <span class=\"kw\">Hand</span> from anywhere.<br><span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">11</span></span>."
+        }
+      },
+      "upgradeSummary": "8 \u2192 11 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Herbeirufen",
+        "fra": "L'union fait la forge",
+        "ita": "Convocazione Regale",
+        "spa": "Marcha de la Espada",
+        "esp": "Convocaci\u00f3n real",
+        "ptb": "Convocar \u00e0 Frente",
+        "pol": "Wezwanie s\u0142u\u017cby",
+        "rus": "\u041f\u043e \u043c\u043e\u0435\u043c\u0443 \u0432\u0435\u043b\u0435\u043d\u0438\u044e",
+        "tur": "Getirin!",
+        "jpn": "\u9855\u73fe",
+        "kor": "\ub300\ub839\ud558\ub77c",
+        "zhs": "\u5f81\u53ec\u4e0a\u524d"
+      }
+    },
+    {
+      "id": "Supermassive",
+      "key": "SUPERMASSIVE",
+      "slug": "supermassive",
+      "title": "Supermassive",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Uncommon",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "CalculationBase": {
+          "base": 5,
+          "kind": "CalculationBaseVar",
+          "prop": null
+        },
+        "ExtraDamage": {
+          "base": 3,
+          "kind": "ExtraDamageVar",
+          "prop": null,
+          "up": 4
+        },
+        "CalculatedDamage": {
+          "base": 5,
+          "kind": "CalculatedDamageVar",
+          "prop": "Move"
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 5 damage.\nDeals 3 additional damage for each card you created this combat.",
+          "html": "Deal <span class=\"num\">5</span> damage.<br>Deals <span class=\"num\">3</span> additional damage for each card you created this combat."
+        },
+        "up": {
+          "plain": "Deal 5 damage.\nDeals 4 additional damage for each card you created this combat.",
+          "html": "Deal <span class=\"num\">5</span> damage.<br>Deals <span class=\"up\"><span class=\"num\">4</span></span> additional damage for each card you created this combat."
+        }
+      },
+      "upgradeSummary": "3 \u2192 4 extra damage",
+      "unlock": "REGENT5_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Supermassiv",
+        "fra": "Supermassif",
+        "ita": "Supermassivo",
+        "spa": "Supermasivo",
+        "esp": "Superagujero negro",
+        "ptb": "Supermassivo",
+        "pol": "J\u0105dro ciemno\u015bci",
+        "rus": "\u0421\u0432\u0435\u0440\u0445\u043c\u0430\u0441\u0441\u0438\u0432\u043d\u043e\u0441\u0442\u044c",
+        "tur": "S\u00fcper K\u00fctle",
+        "jpn": "\u8d85\u5927\u8cea\u91cf",
+        "kor": "\ucd08\uc9c8\ub7c9",
+        "zhs": "\u8d85\u8d28\u91cf\u4f53"
+      }
+    },
+    {
+      "id": "SwordSage",
+      "key": "SWORD_SAGE",
+      "slug": "sword-sage",
+      "title": "Sword Sage",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 2,
+      "upCost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "SwordSagePower": {
+          "base": 1,
+          "kind": "PowerVar<SwordSagePower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Sovereign Blade gains Replay 1.",
+          "html": "<span class=\"kw\">Sovereign Blade</span> gains <span class=\"kw\">Replay</span> <span class=\"num\">1</span>."
+        },
+        "up": {
+          "plain": "Sovereign Blade gains Replay 1.",
+          "html": "<span class=\"kw\">Sovereign Blade</span> gains <span class=\"kw\">Replay</span> <span class=\"num\">1</span>."
+        }
+      },
+      "upgradeSummary": "cost 2 \u2192 1",
+      "unlock": "REGENT2_EPOCH",
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Schwertmeister",
+        "fra": "Sage \u00e0 l'\u00e9p\u00e9e",
+        "ita": "Maestro Spadaccino",
+        "spa": "Maestro espadach\u00edn",
+        "esp": "Espadach\u00edn sabio",
+        "ptb": "Mestre Espadachim",
+        "pol": "Mistrz miecza",
+        "rus": "\u041c\u0430\u0441\u0442\u0435\u0440 \u043c\u0435\u0447\u0430",
+        "tur": "K\u0131l\u0131\u00e7 \u00dcstad\u0131",
+        "jpn": "\u5263\u8056",
+        "kor": "\uac80\uc131",
+        "zhs": "\u5251\u5723"
+      }
+    },
+    {
+      "id": "Terraforming",
+      "key": "TERRAFORMING",
+      "slug": "terraforming",
+      "title": "Terraforming",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Uncommon",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "VigorPower": {
+          "base": 6,
+          "kind": "PowerVar<VigorPower>",
+          "prop": null,
+          "up": 8
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 6 Vigor.",
+          "html": "Gain <span class=\"num\">6</span> <span class=\"kw\">Vigor</span>."
+        },
+        "up": {
+          "plain": "Gain 8 Vigor.",
+          "html": "Gain <span class=\"up\"><span class=\"num\">8</span></span> <span class=\"kw\">Vigor</span>."
+        }
+      },
+      "upgradeSummary": "6 \u2192 8 Vigor",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Terraforming",
+        "fra": "Terraformation",
+        "ita": "Terraformazione",
+        "spa": "Terraformaci\u00f3n",
+        "esp": "Terraformaci\u00f3n",
+        "ptb": "Terraforma\u00e7\u00e3o",
+        "pol": "Formowanie planety",
+        "rus": "\u0422\u0435\u0440\u0440\u0430\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435",
+        "tur": "D\u00fcnyala\u015ft\u0131rma",
+        "jpn": "\u30c6\u30e9\u30d5\u30a9\u30fc\u30df\u30f3\u30b0",
+        "kor": "\ud14c\ub77c\ud3ec\ubc0d",
+        "zhs": "\u5730\u5f62\u6539\u9020"
+      }
+    },
+    {
+      "id": "TheSealedThrone",
+      "key": "THE_SEALED_THRONE",
+      "slug": "the-sealed-throne",
+      "title": "The Sealed Throne",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "upCost": 0,
+      "starCost": 3,
+      "type": "Power",
+      "rarity": "Ancient",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Whenever you play a card, gain Star.",
+          "html": "Whenever you play a card, gain <span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Whenever you play a card, gain Star.",
+          "html": "Whenever you play a card, gain <span class=\"star\"></span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Der versiegelte Thron",
+        "fra": "Le tr\u00f4ne scell\u00e9",
+        "ita": "Trono Sigillato",
+        "spa": "El Trono Sellado",
+        "esp": "Trono sellado",
+        "ptb": "O Trono Selado",
+        "pol": "Gwiezdny Tron",
+        "rus": "\u0417\u0430\u043f\u0435\u0447\u0430\u0442\u0430\u043d\u043d\u044b\u0439 \u0442\u0440\u043e\u043d",
+        "tur": "M\u00fch\u00fcrl\u00fc Taht",
+        "jpn": "\u5c01\u5370\u3055\u308c\u3057\u7389\u5ea7",
+        "kor": "\ubd09\uc778\ub41c \uc655\uc88c",
+        "zhs": "\u5c01\u5370\u738b\u5ea7"
+      }
+    },
+    {
+      "id": "TheSmith",
+      "key": "THE_SMITH",
+      "slug": "the-smith",
+      "title": "The Smith",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": 4,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Forge": {
+          "base": 30,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 40
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Forge 30.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"num\">30</span>."
+        },
+        "up": {
+          "plain": "Forge 40.",
+          "html": "<span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">40</span></span>."
+        }
+      },
+      "upgradeSummary": "30 \u2192 40 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Der Schmied",
+        "fra": "Le forgeron",
+        "ita": "Il Fabbro",
+        "spa": "El herrero",
+        "esp": "El herrero",
+        "ptb": "O Ferreiro",
+        "pol": "Kowal",
+        "rus": "\u041a\u0443\u0437\u043d\u0435\u0446",
+        "tur": "Demirci",
+        "jpn": "\u935b\u51b6\u5e2b",
+        "kor": "\uc704\ub300\ud55c \uc7ac\ub828",
+        "zhs": "\u94f8\u5251\u8005"
+      }
+    },
+    {
+      "id": "Tutor",
+      "key": "TUTOR",
+      "slug": "tutor",
+      "title": "Tutor",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "upCost": 0,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Rare",
+      "target": "AnyAlly",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "Another player chooses a card in their Draw Pile to add into their Hand.",
+          "html": "Another player chooses a card in their <span class=\"kw\">Draw Pile</span> to add into their <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Another player chooses a card in their Draw Pile to add into their Hand.",
+          "html": "Another player chooses a card in their <span class=\"kw\">Draw Pile</span> to add into their <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "cost 1 \u2192 0",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": "Only appears in multiplayer runs.",
+      "hidden": false,
+      "playtest": 1,
+      "i18n": {
+        "deu": "Tutor",
+        "fra": "Le\u00e7on",
+        "ita": "Tutor",
+        "spa": "Tutor",
+        "esp": "Tutor",
+        "ptb": "Tutor",
+        "pol": "Guwerner",
+        "rus": "\u0423\u0447\u0435\u043d\u0438\u0435",
+        "tur": "\u00d6\u011fretmen",
+        "jpn": "\u6559\u793a",
+        "kor": "\uac00\ub974\uce68",
+        "zhs": "\u6307\u5bfc",
+        "tha": "\u0e1e\u0e35\u0e48\u0e40\u0e25\u0e35\u0e49\u0e22\u0e07"
+      }
+    },
+    {
+      "id": "Tyranny",
+      "key": "TYRANNY",
+      "slug": "tyranny",
+      "title": "Tyranny",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Innate"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {},
+      "desc": {
+        "base": {
+          "plain": "At the start of your turn, draw 1 card and Exhaust 1 card from your Hand.",
+          "html": "At the start of your turn, draw 1 card and <span class=\"kw\">Exhaust</span> 1 card from your <span class=\"kw\">Hand</span>."
+        },
+        "up": {
+          "plain": "Innate.\nAt the start of your turn, draw 1 card and Exhaust 1 card from your Hand.",
+          "html": "<span class=\"up\"><span class=\"kw\">Innate</span>.</span><br>At the start of your turn, draw 1 card and <span class=\"kw\">Exhaust</span> 1 card from your <span class=\"kw\">Hand</span>."
+        }
+      },
+      "upgradeSummary": "gains Innate",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Tyrannei",
+        "fra": "Tyran",
+        "ita": "Tirannia",
+        "spa": "Tiran\u00eda",
+        "esp": "Tiran\u00eda",
+        "ptb": "Tirania",
+        "pol": "Tyrania",
+        "rus": "\u0422\u0438\u0440\u0430\u043d\u0438\u044f",
+        "tur": "Zul\u00fcm",
+        "jpn": "\u5c02\u5236",
+        "kor": "\ub3c5\uc7ac",
+        "zhs": "\u66b4\u653f"
+      }
+    },
+    {
+      "id": "Venerate",
+      "key": "VENERATE",
+      "slug": "venerate",
+      "title": "Venerate",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Skill",
+      "rarity": "Basic",
+      "target": "Self",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Stars": {
+          "base": 2,
+          "kind": "StarsVar",
+          "prop": null,
+          "up": 3
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Gain 2 Stars.",
+          "html": "Gain <span class=\"star\"></span><span class=\"star\"></span>."
+        },
+        "up": {
+          "plain": "Gain 3 Stars.",
+          "html": "Gain <span class=\"up\"><span class=\"star\"></span><span class=\"star\"></span><span class=\"star\"></span></span>."
+        }
+      },
+      "upgradeSummary": "2 \u2192 3 stars",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": true,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Staunen",
+        "fra": "V\u00e9n\u00e9ration",
+        "ita": "Venerazione",
+        "spa": "Devoci\u00f3n",
+        "esp": "Veneraci\u00f3n",
+        "ptb": "Venerar",
+        "pol": "Ho\u0142d",
+        "rus": "\u041f\u0440\u0435\u043a\u043b\u043e\u043d\u0435\u043d\u0438\u0435",
+        "tur": "H\u00fcrmet Et",
+        "jpn": "\u754f\u656c",
+        "kor": "\ucd94\uc559",
+        "zhs": "\u5d07\u62dc"
+      }
+    },
+    {
+      "id": "VoidForm",
+      "key": "VOID_FORM",
+      "slug": "void-form",
+      "title": "Void Form",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 3,
+      "starCost": null,
+      "type": "Power",
+      "rarity": "Rare",
+      "target": "Self",
+      "keywords": [
+        "Ethereal"
+      ],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "VoidFormPower": {
+          "base": 2,
+          "kind": "PowerVar<VoidFormPower>",
+          "prop": null
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Ethereal.\nEnd your turn.\nThe first 2 cards you play each turn are free to play.",
+          "html": "<span class=\"kw\">Ethereal</span>.<br>End your turn.<br>The first <span class=\"num\">2</span> cards you play each turn are free to play."
+        },
+        "up": {
+          "plain": "End your turn.\nThe first 2 cards you play each turn are free to play.",
+          "html": "End your turn.<br>The first <span class=\"num\">2</span> cards you play each turn are free to play."
+        }
+      },
+      "upgradeSummary": "loses Ethereal",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Leerenform",
+        "fra": "Forme du n\u00e9ant",
+        "ita": "Forma del Vuoto",
+        "spa": "Forma del Vac\u00edo",
+        "esp": "Forma vac\u00eda",
+        "ptb": "Forma do Vazio",
+        "pol": "Pustka",
+        "rus": "\u041e\u0431\u043b\u0438\u043a \u0431\u0435\u0437\u0434\u043d\u044b",
+        "tur": "Bo\u015fluk Formu",
+        "jpn": "\u865a\u7121\u5316",
+        "kor": "\uacf5\ud5c8\uc758 \ud615\uc0c1",
+        "zhs": "\u865a\u7a7a\u5f62\u6001",
+        "tha": "\u0e23\u0e48\u0e32\u0e07\u0e2a\u0e38\u0e0d\u0e0d\u0e15\u0e32"
+      }
+    },
+    {
+      "id": "WroughtInWar",
+      "key": "WROUGHT_IN_WAR",
+      "slug": "wrought-in-war",
+      "title": "Wrought in War",
+      "pool": "regent",
+      "character": "regent",
+      "cost": 1,
+      "starCost": null,
+      "type": "Attack",
+      "rarity": "Common",
+      "target": "AnyEnemy",
+      "keywords": [],
+      "tags": [],
+      "maxUpgradeLevel": 1,
+      "vars": {
+        "Damage": {
+          "base": 7,
+          "kind": "DamageVar",
+          "prop": "Move",
+          "up": 9
+        },
+        "Forge": {
+          "base": 7,
+          "kind": "ForgeVar",
+          "prop": null,
+          "up": 9
+        }
+      },
+      "desc": {
+        "base": {
+          "plain": "Deal 7 damage.\nForge 7.",
+          "html": "Deal <span class=\"num\">7</span> damage.<br><span class=\"kw\">Forge</span> <span class=\"num\">7</span>."
+        },
+        "up": {
+          "plain": "Deal 9 damage.\nForge 9.",
+          "html": "Deal <span class=\"up\"><span class=\"num\">9</span></span> damage.<br><span class=\"kw\">Forge</span> <span class=\"up\"><span class=\"num\">9</span></span>."
+        }
+      },
+      "upgradeSummary": "7 \u2192 9 damage, 7 \u2192 9 Forge",
+      "unlock": null,
+      "unlockTitle": null,
+      "starter": false,
+      "sourceNotes": null,
+      "hidden": false,
+      "i18n": {
+        "deu": "Im Kampf gefertigt",
+        "fra": "Forg\u00e9 par la guerre",
+        "ita": "Forgiatura Bellica",
+        "spa": "Forjado por la guerra",
+        "esp": "Forja b\u00e9lica",
+        "ptb": "Forjado na Guerra",
+        "pol": "Or\u0119\u017c wojenny",
+        "rus": "\u0411\u043e\u0435\u0432\u0430\u044f \u0437\u0430\u043a\u0430\u043b\u043a\u0430",
+        "tur": "Sava\u015fta \u015eekillendirilmi\u015f",
+        "jpn": "\u5203\u306e\u6226\u932c",
+        "kor": "\uc804\uc7a5\uc758 \uc0dd\uc874\uc790",
+        "zhs": "\u6218\u706b\u94f8\u5c31"
+      }
+    }
+  ]
+}

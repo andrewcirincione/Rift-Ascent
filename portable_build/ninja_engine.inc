@@ -19,8 +19,8 @@ static int ninja_instance_used(const Game*g,int serial){
  return 0;
 }
 static int ninja_stamp(Game*g,int raw){
- if(CARD_ID(raw)<NINJA_FIRST||CARD_INSTANCE(raw))return raw;
- for(int i=0;i<1023;i++){int serial=g->ninja.next_instance%1023+1;g->ninja.next_instance=serial;if(!ninja_instance_used(g,serial))return raw|(serial<<CARD_INSTANCE_SHIFT);}return raw;
+ if(CARD_ID(raw)<NINJA_FIRST||CARD_ID(raw)>=NINJA_LAST||CARD_INSTANCE(raw))return raw;
+ for(int i=0;i<511;i++){int serial=g->ninja.next_instance%511+1;g->ninja.next_instance=serial;if(!ninja_instance_used(g,serial))return raw|(serial<<CARD_INSTANCE_SHIFT);}return raw;
 }
 static void ninja_reduce_instance(Game*g,int raw){
  int serial=CARD_INSTANCE(raw);if(!serial)return;
@@ -29,8 +29,8 @@ static void ninja_reduce_instance(Game*g,int raw){
 }
 static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
-int game_card_is_retained(const Game*g,int raw){return CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
-static int ninja_owned_card(const Game*g,int id){return id<NINJA_FIRST?g->character==CHAR_WARDEN:g->character==CHAR_NIGHTSHADE;}
+int game_card_is_retained(const Game*g,int raw){return (regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
+static int ninja_owned_card(const Game*g,int id){return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?g->character==CHAR_NIGHTSHADE:id<REGENT_LAST?g->character==CHAR_REGENT:0;}
 static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_RETAIN_TURN);}
 static int ninja_base_damage(const Game*g,int raw,int in_hand){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;
@@ -203,7 +203,7 @@ static void ninja_finish(Game*g,NinjaTask t){
  if(type==1){g->ninja.v[NS_SKILLS_TURN]++;if(++g->ic[36]%3==0&&relic(g,22))g->dexterity++;}
  if(id==N_SHIV){g->ninja.v[NS_SHIVS_TURN]++;if(relic(g,NR_DART)){g->dexterity++;g->ninja.v[NS_TEMP_DEX]++;}}
  if(relic(g,43)&&(type==0||type==1)){g->ic[IC_DUELIST]|=type==0?1:2;if(g->ic[IC_DUELIST]==3){g->ic[IC_DUELIST]|=4;gain_energy(g,1);}}
- r151_played(g,type);
+ r151_played(g,type);regent_foreign_finish(g,raw);
  /* Only powers that existed before this card fire for this play. */
  int after=t.n,serpent=t.aux;
  if(after)relic_block(g,after);
@@ -229,10 +229,11 @@ static void ninja_process(Game*g){
    if(t.target<0||t.target>=g->enemy_count||g->enemies[t.target].hp<=0)t.target=random_living_foe(g);
    if(cards[id].type==1)g->ninja.v[NS_POUNCE]=0;
    if(cards[id].type==0)g->ic[IC_UNRELENTING]=0;
-   r140_rust_targets=0;
+   r140_rust_targets=0;regent_foreign_begin(g,t.raw);
    int repeat=0;
    if(!(t.raw&CARD_EPHEMERAL)){
-    if(cards[id].type==0){repeat=CARD_MOD(t.raw)==MOD_ECHO;if(g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}}
+    if(g->character==CHAR_REGENT)repeat+=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
+    if(cards[id].type==0){repeat+=CARD_MOD(t.raw)==MOD_ECHO;if(g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}}
     if(cards[id].type==1&&g->ninja.v[NS_BURST]>0){repeat++;g->ninja.v[NS_BURST]--;}
    }
    if(preview_trace&&t.depth==2)preview_trace->repeated++;

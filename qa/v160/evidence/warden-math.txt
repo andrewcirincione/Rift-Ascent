@@ -1,0 +1,1 @@
+PASS: 41000 arithmetic/resolution/RNG cases; all 184 card variants; all played Powers; enemy statuses; save ABI; modifier order, caps, death, random ranges, repeated hits and self-damage

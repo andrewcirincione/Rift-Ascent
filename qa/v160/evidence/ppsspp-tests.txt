@@ -1,0 +1,23 @@
+SHOT boot
+SHOT resume-disabled
+SHOT character-selection
+SHOT regent-blessing
+SHOT new-run-map
+SHOT combat
+SHOT no-stars
+SHOT blade-preview
+SHOT stars-15
+SHOT stars-3
+SHOT nightshade
+SHOT warden
+SHOT upgrade-cost
+SHOT upgrade-mod
+SHOT shop
+SHOT status
+SHOT pause
+SHOT saved-title
+SHOT resumed-combat
+SHOT mandatory-choice
+SHOT choice-completed
+PASS final release EBOOT: all three characters; Stars rejection/payment; upgrade costs; pause icons; save/quit/title/resume; mandatory choice shortcuts and mid-choice save/resume
+SHA256 27630c28365e314861b1f0762821b3f2bc357e6248e01a8d9a1fb780affb02ad
