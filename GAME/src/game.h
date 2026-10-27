@@ -8,12 +8,13 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 36
+#define ENEMY_COUNT 44
+#define INTENT_COUNT 18
 #define MAX_RELICS 40
 #define MAX_POTIONS 3
-#define MAP_ROWS 14
+#define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 19
+#define GAME_VERSION 20
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -21,8 +22,15 @@
 #define CARD_FREE 0x100
 #define CARD_FORCE_EXHAUST 0x200
 #define CARD_EPHEMERAL 0x400
+#define CARD_MOD_SHIFT 11
+#define CARD_MOD_MASK (7 << CARD_MOD_SHIFT)
+#define CARD_MOD(raw) (((raw) >> CARD_MOD_SHIFT) & 7)
+enum {MOD_NONE,MOD_ECHO,MOD_BOUND,MOD_KEEN,MOD_WARD,MOD_FLEETING,MOD_KINDLED,MOD_COUNT};
+enum {IC_HOURGLASS=39,IC_BELL,IC_NEEDLE,IC_DUELIST,IC_PENDING_CARD=43,IC_COVENANT=44};
+enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
+#define EVENT_COUNT 17
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -78,6 +86,15 @@ extern const int RELIC_COUNT;
 const char *node_name(int type);
 const char *game_enemy_name(int id);
 const char *card_description(int raw);
+const char *game_mod_name(int mod);
+const char *game_mod_description(int mod);
+int game_can_modify(int raw,int mod);
+const char *game_event_title(int id);
+const char *game_event_lore(int id);
+void game_event_option(const Game *g,int option,char *title,int title_cap,char *detail,int detail_cap);
+int game_event_choice_available(const Game *g,int option);
+int game_event_card_eligible(const Game *g,int raw);
+void game_begin_event(Game *g,int id);
 int game_card_is_playable(int raw);
 int game_card_is_upgradeable(int raw);
 int game_card_cost(int raw);

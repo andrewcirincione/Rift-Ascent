@@ -16,3 +16,11 @@ portable_build/PARAM.SFO
 qa/v140/evidence/*.ppm
 qa/v140/evidence/*.dat
 qa/v140/evidence/*.s16le
+
+# Reproducible 1.5 QA intermediates; final PNGs and validation logs are retained.
+qa/v150/evidence/*.ppm
+qa/v150/evidence/*.dat
+qa/v150/evidence/*.s16le
+qa/v150/evidence/pulse.log
+qa/v150/evidence/xvfb.log
+qa/v150/evidence/review*.png

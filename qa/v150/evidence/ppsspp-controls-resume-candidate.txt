@@ -1,0 +1,20 @@
+SHOT controls-resumed
+Traceback (most recent call last):
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 245, in <module>
+    asyncio.run(run())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 242, in run
+    async with ws:await check(ws)
+                  ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 115, in check
+    await hold_cross();after=await state();assert field(after,'screen')==14 and field(after,'hp')==field(before,'hp')-8 and field(after,'gold')==field(before,'gold')
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

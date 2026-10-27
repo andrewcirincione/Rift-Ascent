@@ -1,0 +1,30 @@
+SHOT controls-boot
+SHOT mod-audit-1
+SHOT mod-audit-2
+SHOT mod-audit-3
+SHOT mod-audit-4
+SHOT mod-audit-5
+SHOT mod-audit-6
+SHOT controls-held-confirm
+PASS PSP controls: all six seal/description screenshots; Keen and Fleeting actual effects; Square/Triangle/Start cannot bypass event or picker; held Cross commits once to the chosen card
+SHOT controls-pause-save
+Traceback (most recent call last):
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 240, in <module>
+    try:ws=await websockets.connect('ws://127.0.0.1:19421/debugger',subprotocols=['debugger.ppsspp.org'],proxy=None,max_size=10000000)
+  ^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 237, in run
+    for _ in range(120):
+                   ^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v150/qa_ppsspp.py", line 151, in check
+    # sceKernelExitGame returns PPSSPP to its menu; the desktop emulator
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Save & Quit did not exit

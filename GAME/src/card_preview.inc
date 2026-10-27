@@ -46,7 +46,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
    out->block_high=MAX(out->block_high,p.block_high);
    out->block_count=MAX(out->block_count,p.block_count);
   }
-  out->uncertain|=p.uncertain;out->repeated|=p.repeated;
+  out->uncertain|=p.uncertain;out->repeated=MAX(out->repeated,p.repeated);
  }
  out->random=(id==22||id==87)&&choices>1;
 }
@@ -66,11 +66,12 @@ static void preview_replace_number(char*out,int cap,const char*source,int ordina
 }
 void game_card_description_now(const Game*g,int raw,int target,char*out,int cap){
  if(!out||cap<=0)return;
- const char*base=card_description(raw);int id=CARD_ID(raw),up=CARD_UP(raw);
- snprintf(out,(size_t)cap,"%s",base);
+ const char*base=card_description_base(raw);int id=CARD_ID(raw),up=CARD_UP(raw);
+ snprintf(out,(size_t)cap,"%s",card_description(raw));
  if(!g||g->screen!=COMBAT||id>=CARD_COUNT)return;
  int in_hand=0;for(int i=0;i<g->hand_count;i++)if(g->hand[i]==raw)in_hand=1;
  if(!in_hand)return;
+ snprintf(out,(size_t)cap,"%s",base);
  if(target<0||target>=g->enemy_count||g->enemies[target].hp<=0){
   target=0;while(target+1<g->enemy_count&&g->enemies[target].hp<=0)target++;
  }
@@ -85,6 +86,7 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
  if(p.uncertain){snprintf(damage,sizeof(damage),"variable");snprintf(block,sizeof(block),"variable");}
  if(cards[id].type==0){
   switch(id){
+   case 92:snprintf(out,(size_t)cap,"Remove %d enemy Block. Deal %s damage.",6+3*up,damage);break;
    case 12:snprintf(out,(size_t)cap,"Gain %s Block. Deal %s damage.",block,damage);break;
    case 13:snprintf(out,(size_t)cap,"Deal %s damage after modifiers. Base: 6 + %d per card in your Exhaust pile (%d now).",damage,3+up,g->exhaust_count);break;
    case 21:snprintf(out,(size_t)cap,"Deal %s damage, based on your Block.",damage);break;
@@ -98,9 +100,10 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
    default:preview_replace_number(out,cap,base,(id==14||id==29||id==37)?1:0,damage);break;
   }
   if(id==10){snprintf(temp,sizeof(temp),"Deal %s damage to all enemies %d times (X).",damage,g->energy);snprintf(out,(size_t)cap,"%s",temp);}
-  if(p.repeated){int n=(int)strlen(out);snprintf(out+n,(size_t)(cap-n),p.repeat_hits?" Plays twice.":" Replay: 0 hits.");}
+  if(p.repeated){int n=(int)strlen(out);snprintf(out+n,(size_t)(cap-n),p.repeated==1?" Plays twice.":" Plays %d times.",1+p.repeated);}
  }else if(p.block_count){
-  if(id==16){char second[20];snprintf(second,sizeof(second),"%d",p.block_count>1?p.block_second:MAX(0,8+3*up+g->dexterity+(relic(g,15)?2:0)));
+  if(id==93){snprintf(out,(size_t)cap,"Gain %s Block. Includes +4 if any enemy intends to attack.",block);}
+  else if(id==16){char second[20];snprintf(second,sizeof(second),"%d",p.block_count>1?p.block_second:MAX(0,8+3*up+g->dexterity+(relic(g,15)?2:0)+(CARD_MOD(raw)==MOD_WARD?4:0)));
    snprintf(out,(size_t)cap,"Gain %d Block. If a card exhausted this turn, gain %s more Block.",p.block_first,second);
   }else if(id==45)snprintf(out,(size_t)cap,"Exhaust all non-Attacks. Gain %s Block each (%d now).",block,p.block_total);
   else preview_replace_number(out,cap,base,id==46?1:0,block);
@@ -109,6 +112,7 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
   snprintf(out,(size_t)cap,"Each Attack this turn grants %d Block.%s",n,
    g->ic[IC_UNMOVABLE]&&!g->ic[IC_UNMOVABLE_USED]?" Unmovable can double it.":"");
  }
+ append_mod_rules(raw,out,cap,1);
 }
 static int enemy_status_entries(const Game*g,int enemy,int wanted,char*out,int cap){
  if(!g||enemy<0||enemy>=g->enemy_count)return 0;

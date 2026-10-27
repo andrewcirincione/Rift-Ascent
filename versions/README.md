@@ -1,5 +1,7 @@
 # Released Rift Ascent binaries
 
+- [1.5](1.5/PATCH_NOTES.md): card modifications, new relics/events/enemies/cards, 19-floor acts and gentler damage scaling.
+- [1.4.0](1.4.0/PATCH_NOTES.md): combat presentation, map and build-variety improvements.
 - [1.3.11](1.3.11/PATCH_NOTES.md): complete tested EBOOT, all five tracks and corrected RiftBoss home-screen audio.
 
 Each release directory contains the exact tested EBOOT, checksum, screenshot and patch notes. Permanent downloads are published under [GitHub Releases](https://github.com/andrewcirincione/Rift-Ascent/releases).

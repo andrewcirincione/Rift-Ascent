@@ -18,7 +18,7 @@ def main():
     args = parser.parse_args()
     meta = json.loads((ROOT/'release/current.json').read_text())
     version, tag = meta['version'], meta['tag']
-    assert re.fullmatch(r'\d+\.\d+\.\d+', version)
+    assert re.fullmatch(r'\d+\.\d+(?:\.\d+)?', version)
     assert re.fullmatch('v'+re.escape(version)+r'(?:-r[2-9][0-9]*)?', tag)
     pbp = repo_file(meta['eboot']); data = pbp.read_bytes()
     assert sha(pbp) == meta['eboot_sha256']

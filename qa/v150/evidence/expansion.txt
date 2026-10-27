@@ -1,0 +1,2 @@
+PASS 576 exact new-intent damage/block/status cases; four new base/upgraded cards, Covenant modifiers/cap/once-only end step, all eight new species spawn naturally
+PASS four legacy map/combat/ending/picker migrations into 19-floor acts and save roundtrip

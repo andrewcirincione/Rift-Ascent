@@ -1,0 +1,1 @@
+PASS 40000 maps, 160000 forks: every fork has different room types within two floors before merging; 56528 previously identical two-floor branch segments eliminated; distinct starts, one shop per lane, final rest, stable save/load

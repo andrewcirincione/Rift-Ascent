@@ -1,0 +1,6 @@
+PASS 7116 modified base/upgraded card previews vs actual damage, RNG immutability, cost and pile bounds
+PASS 300 independent Keen/Weak/Vulnerable and Ward/Dexterity/Fortress arithmetic cases
+PASS Echo + One-Two Punch, exhaust/Anger conservation, full hands, Fleeting/Corruption, Kindled, Retain/save, modified Headbutt
+PASS autoplay preserves the upgrade and modification in its displayed card and physical discard
+PASS 40 relic inventory, every new/old pair, Hourglass cap/reset, Bell + Feel No Pain, Needle once/own-turn, Duelist both orders/cap
+PASS 1.4.0 save migration, expanded 3260-byte ABI

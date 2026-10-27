@@ -1,0 +1,1 @@
+PASS all 630 distinct relic pairs in both acquisition orders: first/third turn, damage, draw, Energy, Block, Strength/Dexterity, third-card counters, all six potions, victory and skip rewards; all 36 relics together; Rust multi-hit/AoE; 1000 blessing offers; legacy Compass migrations

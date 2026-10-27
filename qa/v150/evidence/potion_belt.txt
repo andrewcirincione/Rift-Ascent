@@ -1,0 +1,1 @@
+PASS 6000 shop purchases, all six potion types (1076/922/935/1036/987/1044); no overwritten slots, 20000 full-belt denials without charge; 6000 consume/refill cases; map/shop healing, Orb, full-health retention, save and exact return path

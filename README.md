@@ -2,19 +2,19 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.4.0**. Releases include the complete EBOOT with its intended
+Current version: **1.5**. Releases include the complete EBOOT with its intended
 soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
 
 Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
 it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` and
-`PROFILE.DAT`. Version 1.4.0 retains v19 saves, migrates older saves, and consolidates the duplicate Compass relic.
+`PROFILE.DAT`. Version 1.5 migrates older runs to 19-floor acts while preserving cards, items and active combats.
 
 ## Source and validation
 
-- [Current patch notes](versions/1.4.0/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v140/README.md)
-- Canonical source: `qa/v140/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.4.0/EBOOT.PBP`
+- [Current patch notes](versions/1.5/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v150/README.md)
+- Canonical source: `qa/v150/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.5/EBOOT.PBP`
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
   Physical PSP playback was not independently tested for this build.
 

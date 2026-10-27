@@ -1,0 +1,1 @@
+PASS 73728 physical button combinations using the release decoder; 6000 menu/shortcut sequences; 9380 save/resume boundaries; one modification and one charge at most; no free changes, potion loss or wrong-card mutation

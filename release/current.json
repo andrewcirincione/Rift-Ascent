@@ -1,10 +1,10 @@
 {
-  "version": "1.4.0",
-  "tag": "v1.4.0",
-  "eboot": "versions/1.4.0/EBOOT.PBP",
-  "eboot_sha256": "b9f80837cf47d09e0c6a7cef02c67d2d1e13c08a90ba8ee68987280a29ac7043",
-  "notes": "versions/1.4.0/PATCH_NOTES.md",
-  "screenshot": "versions/1.4.0/Combat.png",
-  "canonical_source": "qa/v140/source",
-  "validation": "qa/v140/evidence/ppsspp-final.txt"
+  "version": "1.5",
+  "tag": "v1.5",
+  "eboot": "versions/1.5/EBOOT.PBP",
+  "eboot_sha256": "d23c8e08b5368eba4ece0036ca0ad4883b2fb3b84fdda305977566d745dedbff",
+  "notes": "versions/1.5/PATCH_NOTES.md",
+  "screenshot": "versions/1.5/Combat.png",
+  "canonical_source": "qa/v150/source",
+  "validation": "qa/v150/evidence/ppsspp-final.txt"
 }

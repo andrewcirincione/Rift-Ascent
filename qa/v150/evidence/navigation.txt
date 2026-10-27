@@ -1,0 +1,1 @@
+PASS 66103 grid positions: short final rows from all columns, page boundaries, one/two/full final rows, no sideways bottom-row jump; upgrade, removal, browse, combat piles, exhaust, discarded-card and event modification choice; correct card confirmed

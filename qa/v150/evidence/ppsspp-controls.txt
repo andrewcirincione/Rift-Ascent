@@ -1,0 +1,8 @@
+SHOT controls-boot
+SHOT controls-pause-save
+PASS PSP controls: real pause-menu Save & Quit wrote the unpaid modification picker correctly
+SHA256 d23c8e08b5368eba4ece0036ca0ad4883b2fb3b84fdda305977566d745dedbff
+SHOT controls-resumed
+SHOT controls-save-committed
+PASS PSP controls: real Save & Quit/relaunch preserves unpaid picker and final-row selection; ineligible Bash is refused without charge; selected Defend receives Ward with one HP charge; map deck shortcut is read-only
+SHA256 d23c8e08b5368eba4ece0036ca0ad4883b2fb3b84fdda305977566d745dedbff

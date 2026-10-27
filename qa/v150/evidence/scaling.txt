@@ -1,0 +1,10 @@
+PASS 1672000 enemy/act/floor/group scaling cases: HP grows faster, damage grows slower, neither decreases across acts; Act I baseline preserved
+Act | Ash Crawler HP / attack | Furnace Maw HP / attack
+1 | 34 / 8 | 181 / 14
+2 | 42 / 9 | 222 / 17
+3 | 59 / 11 | 306 / 21
+4 | 74 / 13 | 380 / 24
+5 | 89 / 15 | 454 / 28
+6 | 104 / 17 | 528 / 31
+7 | 119 / 19 | 601 / 35
+8 | 134 / 21 | 675 / 39
