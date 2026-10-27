@@ -1,0 +1,20 @@
+SHOT boot
+SHOT character-selection
+SHOT new-run-map
+SHOT combat
+SHOT upgrade-cost
+SHOT upgrade-mod
+SHOT upgrade-zero
+SHOT mystery
+SHOT reward-potion
+SHOT full-belt
+SHOT inventory-potions
+SHOT potion-taken-card-pending
+SHOT reward-preview
+SHOT card-skipped-potion-pending
+SHOT shop-relics
+SHOT campfire-deck
+SHOT combat-after-discard
+SHOT new-relic-inventory
+PASS final release EBOOT: input navigation, independent rewards, full-belt discard/take, all menu overlays, cost-changing upgrade, forced-choice safety
+SHA256 164f2ef589c5fe794d5923111cf6728f9b6dc71eee03854c907a67f623025c25

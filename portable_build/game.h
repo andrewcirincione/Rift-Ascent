@@ -14,7 +14,7 @@
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 21
+#define GAME_VERSION 22
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -183,6 +183,8 @@ typedef struct {
  int relic_pending,relic_resume,deck_readonly,shop_selection;
  int endless,combat_music;
  int character;NinjaState ninja;
+ /* Appended to preserve the complete v21 prefix for migration. */
+ struct {int potion_offer,card_done;int relic[16];} v151;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -270,7 +272,10 @@ void game_card_preview(const Game *g,int raw,int target,CardPreview *out);
 void game_card_description_now(const Game *g,int raw,int target,char *out,int cap);
 int game_enemy_status_count(const Game *g,int enemy);
 void game_enemy_status_line(const Game *g,int enemy,int index,char *out,int cap);
-void game_use_potion(Game *g,int index);
+void game_use_potion(Game*g,int index);
+int game_inventory_available(const Game*g);
+int game_inventory_action(Game*,int,int*,int*,int*,int*);
+void game_discard_potion(Game*g,int index);
 /* Transient presentation events. Never serialized or emitted by previews. */
 enum {GFX_ATTACK=1,GFX_BLOCK,GFX_POWER,GFX_PROC,GFX_SELF,GFX_STATUS};
 #define MAX_COMBAT_FX 64

@@ -191,7 +191,7 @@ static void r137_scene(const Game*g){
  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
  int pre=(rift120_played_card>=0&&animation_tick>=rift120_play_tick)?(int)(animation_tick-rift120_play_tick):99;
  if(pa>=0){int a=r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)),tier=game_impact_tier(r137_events[pa].amount);
-  if(a<18){dx=0;lean=0;dy=0;pose=1;pose_frame=a<3?2:a<8?3:a<14?4:5;}
+  if(a<18){dx=0;lean=0;dy=0;pose=1;pose_frame=a<2?2:a<14?4:5;}
  }else if(pp>=0){int f=r140_power_pose(age-r137_at[pp]);if(f>=0){dy=0;pose=3;pose_frame=f;lean=0;}}
  else if(pb>=0){int a=age-r137_at[pb];if(a<12){pose=2;pose_frame=2;}}
  else if(pre<18&&r136_play_state_valid){int c=cards[CARD_ID(rift120_played_card)].type;
@@ -210,11 +210,11 @@ static void r137_scene(const Game*g){
  if(g->character==CHAR_NIGHTSHADE){
   int frame=0;
   if(g->hp<=0&&r138_death_active)frame=16+CLAMP((age-r138_death_start)/12,0,3);
-  else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=4+(local<3?0:local<8?1:local<14?2:3);}
+  else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=pa<0?4:local<5?5:local<12?6:0;}
   else if(pose==2)frame=9;
-  else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=12+(local<4?0:local<10?1:local<13?2:3);}
+  else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<4?12:local<12?13:0;}
   else frame=(animation_tick/32u)%4;
-  r138_hero_clip=1;r137_blit(54+dx,74,134,100,r150b_ninja[frame],134,100,255,0);r138_hero_clip=0;
+  r138_hero_clip=1;r137_blit(40+dx,74,150,100,r151_ninja[frame],150,100,255,0);r138_hero_clip=0;
  }else if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
   r138_hero_clip=1;r137_blit(41,61,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;

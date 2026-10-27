@@ -1,0 +1,55 @@
+{
+  "runs": 3000,
+  "actions": 2372229,
+  "checkpoints": 82907,
+  "groups": [
+    {
+      "file": "runs-0-0.txt",
+      "runs": 500,
+      "policy": 0,
+      "wins": 155,
+      "actions": 424120,
+      "checkpoints": 9981
+    },
+    {
+      "file": "runs-0-1.txt",
+      "runs": 500,
+      "policy": 1,
+      "wins": 208,
+      "actions": 448096,
+      "checkpoints": 10963
+    },
+    {
+      "file": "runs-0-2.txt",
+      "runs": 500,
+      "policy": 2,
+      "wins": 213,
+      "actions": 423938,
+      "checkpoints": 10541
+    },
+    {
+      "file": "runs-1-0.txt",
+      "runs": 500,
+      "policy": 0,
+      "wins": 37,
+      "actions": 347501,
+      "checkpoints": 16219
+    },
+    {
+      "file": "runs-1-1.txt",
+      "runs": 500,
+      "policy": 1,
+      "wins": 53,
+      "actions": 375460,
+      "checkpoints": 18490
+    },
+    {
+      "file": "runs-1-2.txt",
+      "runs": 500,
+      "policy": 2,
+      "wins": 58,
+      "actions": 353114,
+      "checkpoints": 16713
+    }
+  ]
+}

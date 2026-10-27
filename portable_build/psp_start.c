@@ -384,49 +384,19 @@ static int run_game(SceSize bytes,void *argp) {
         /* Finish the short action clip before accepting another combat action.
            The OS, audio worker and controller polling continue during hitstop. */
         if((game_render_fx_busy(frame*4u)||plating_delay)&&key!=BTN_PAUSE)key=0;
-        /* START opens a readable battle glossary; Triangle opens potions.
-           Inputs are consumed while the inspector is open. */
-        if(game.screen!=COMBAT && inspect_open)inspect_open=0;
-        if(game.screen==COMBAT && key==BTN_START) {
-           inspect_open=!inspect_open;
-           if(inspect_open){inspect_tab=2;inspect_scroll=0;}
-           rift_sound_effect(2);key=0;
-        }else if(game.screen==COMBAT && !inspect_open && key==BTN_POTION) {
-           inspect_open=1;inspect_tab=3;
-           inspect_potion=game.potion_count>0?game.potion_count-1:0;
-           key=0;
-        }else if(inspect_open && game.screen==COMBAT) {
-           if(key==BTN_LEFT||key==BTN_RIGHT||key==BTN_UP||key==BTN_DOWN)
-              rift_sound_effect(6);
-           if(key==BTN_BACK){inspect_open=0;key=0;}
-           else if(key==BTN_LEFT){inspect_tab=(inspect_tab+4)%5;inspect_scroll=0;key=0;}
-           else if(key==BTN_RIGHT){inspect_tab=(inspect_tab+1)%5;inspect_scroll=0;key=0;}
-           else if(key==BTN_UP){
-             if((inspect_tab==2||inspect_tab==4)&&inspect_scroll>0)inspect_scroll--;
-             else if(inspect_tab==3 && inspect_potion>0)inspect_potion--;
-             else if(inspect_tab==1 && game.enemy_count>0)
-               game.target=(game.target+game.enemy_count-1)%game.enemy_count;
-             key=0;
-           }else if(key==BTN_DOWN){
-             if(inspect_tab==2&&inspect_scroll+7<game_status_count(&game))inspect_scroll++;
-             else if(inspect_tab==4&&inspect_scroll+1<game.relic_count)inspect_scroll++;
-             else if(inspect_tab==3&&inspect_potion+1<game.potion_count)inspect_potion++;
-             else if(inspect_tab==1 && game.enemy_count>0)
-               game.target=(game.target+1)%game.enemy_count;
-             key=0;
-           }else if(key==BTN_OK){
-             if(inspect_tab==3 && game.potion_count>0){
-                before_input=game;
-                game_combat_fx_begin();
-                game_use_potion(&game,inspect_potion);
-                game_combat_fx_end();
-                game_render_feedback(&before_input,&game,BTN_POTION,frame*4u);
-                game_effect_start(3,frame*4u);rift_sound_effect(3);
-                if(inspect_potion>=game.potion_count)inspect_potion=game.potion_count-1;
-                inspect_open=0; /* Show the applied status and explicit potion result. */
-             }
-             key=0;
-           }else key=0;
+        /* Shared overlay controller is exercised by native control audits. */
+        if(key || inspect_open){
+           int using_potion=inspect_open&&inspect_tab==3&&key==BTN_OK;
+           if(using_potion){before_input=game;game_combat_fx_begin();}
+           int handled=game_inventory_action(&game,key,&inspect_open,&inspect_tab,&inspect_scroll,&inspect_potion);
+           if(using_potion)game_combat_fx_end();
+           if(handled==2){game_render_feedback(&before_input,&game,BTN_POTION,frame*4u);game_effect_start(3,frame*4u);rift_sound_effect(3);}
+           else if(handled&&key)rift_sound_effect(6);
+           if(handled>=2&&game.screen!=COMBAT){
+              if((game.screen==VICTORY||game.screen==DEFEAT)&&game.screen!=before_input.screen&&profile_record(&lifetime,&game))profile_save(&lifetime,"ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT");
+              game_save(&game,"ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT");
+           }
+           if(handled)key=0;
         }
         /* Pre-resolution card presentation: game state is deliberately
            untouched for six rendered frames, then the action resolves.

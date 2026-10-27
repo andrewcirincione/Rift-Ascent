@@ -1,0 +1,381 @@
+Native PPSSPP screenshots: 28 frames each for Nightshade attack, Warden attack, block, power and death; 58 frames for killing blow through victory and rewards. Captures advance by rendered game frames.
+SHOT animation-attack-09
+TICK attack 9 108
+SHOT animation-attack-10
+TICK attack 10 112
+SHOT animation-attack-11
+TICK attack 11 116
+SHOT animation-attack-12
+TICK attack 12 120
+SHOT animation-attack-13
+TICK attack 13 128
+SHOT animation-attack-14
+TICK attack 14 136
+SHOT animation-attack-15
+TICK attack 15 144
+SHOT animation-attack-16
+TICK attack 16 152
+SHOT animation-attack-17
+TICK attack 17 160
+SHOT animation-attack-18
+TICK attack 18 168
+SHOT animation-attack-19
+TICK attack 19 176
+SHOT animation-attack-20
+TICK attack 20 184
+SHOT animation-attack-21
+TICK attack 21 192
+SHOT animation-attack-22
+TICK attack 22 196
+SHOT animation-attack-23
+TICK attack 23 204
+SHOT animation-attack-24
+TICK attack 24 212
+SHOT animation-attack-25
+TICK attack 25 220
+SHOT animation-attack-26
+TICK attack 26 228
+SHOT animation-attack-27
+TICK attack 27 236
+SHOT animation-warden-attack-00
+TICK warden-attack 0 264
+SHOT animation-warden-attack-01
+TICK warden-attack 1 268
+SHOT animation-warden-attack-02
+TICK warden-attack 2 272
+SHOT animation-warden-attack-03
+TICK warden-attack 3 276
+SHOT animation-warden-attack-04
+TICK warden-attack 4 280
+SHOT animation-warden-attack-05
+TICK warden-attack 5 284
+SHOT animation-warden-attack-06
+TICK warden-attack 6 288
+SHOT animation-warden-attack-07
+TICK warden-attack 7 292
+SHOT animation-warden-attack-08
+TICK warden-attack 8 296
+SHOT animation-warden-attack-09
+TICK warden-attack 9 300
+SHOT animation-warden-attack-10
+TICK warden-attack 10 304
+SHOT animation-warden-attack-11
+TICK warden-attack 11 308
+SHOT animation-warden-attack-12
+TICK warden-attack 12 312
+SHOT animation-warden-attack-13
+TICK warden-attack 13 320
+SHOT animation-warden-attack-14
+TICK warden-attack 14 328
+SHOT animation-warden-attack-15
+TICK warden-attack 15 336
+SHOT animation-warden-attack-16
+TICK warden-attack 16 344
+SHOT animation-warden-attack-17
+TICK warden-attack 17 352
+SHOT animation-warden-attack-18
+TICK warden-attack 18 360
+SHOT animation-warden-attack-19
+TICK warden-attack 19 368
+SHOT animation-warden-attack-20
+TICK warden-attack 20 376
+SHOT animation-warden-attack-21
+TICK warden-attack 21 384
+SHOT animation-warden-attack-22
+TICK warden-attack 22 392
+SHOT animation-warden-attack-23
+TICK warden-attack 23 400
+SHOT animation-warden-attack-24
+TICK warden-attack 24 408
+SHOT animation-warden-attack-25
+TICK warden-attack 25 416
+SHOT animation-warden-attack-26
+TICK warden-attack 26 420
+SHOT animation-warden-attack-27
+TICK warden-attack 27 428
+SHOT animation-block-00
+TICK block 0 456
+SHOT animation-block-01
+TICK block 1 460
+SHOT animation-block-02
+TICK block 2 464
+SHOT animation-block-03
+TICK block 3 468
+SHOT animation-block-04
+TICK block 4 472
+SHOT animation-block-05
+TICK block 5 476
+SHOT animation-block-06
+TICK block 6 480
+SHOT animation-block-07
+TICK block 7 484
+SHOT animation-block-08
+TICK block 8 488
+SHOT animation-block-09
+TICK block 9 492
+SHOT animation-block-10
+TICK block 10 496
+SHOT animation-block-11
+TICK block 11 500
+SHOT animation-block-12
+TICK block 12 504
+SHOT animation-block-13
+TICK block 13 512
+SHOT animation-block-14
+TICK block 14 520
+SHOT animation-block-15
+TICK block 15 528
+SHOT animation-block-16
+TICK block 16 536
+SHOT animation-block-17
+TICK block 17 544
+SHOT animation-block-18
+TICK block 18 552
+SHOT animation-block-19
+TICK block 19 556
+SHOT animation-block-20
+TICK block 20 564
+SHOT animation-block-21
+TICK block 21 572
+SHOT animation-block-22
+TICK block 22 580
+SHOT animation-block-23
+TICK block 23 588
+SHOT animation-block-24
+TICK block 24 592
+SHOT animation-block-25
+TICK block 25 600
+SHOT animation-block-26
+TICK block 26 608
+SHOT animation-block-27
+TICK block 27 616
+SHOT animation-power-00
+TICK power 0 644
+SHOT animation-power-01
+TICK power 1 648
+SHOT animation-power-02
+TICK power 2 652
+SHOT animation-power-03
+TICK power 3 656
+SHOT animation-power-04
+TICK power 4 660
+SHOT animation-power-05
+TICK power 5 664
+SHOT animation-power-06
+TICK power 6 668
+SHOT animation-power-07
+TICK power 7 672
+SHOT animation-power-08
+TICK power 8 676
+SHOT animation-power-09
+TICK power 9 680
+SHOT animation-power-10
+TICK power 10 684
+SHOT animation-power-11
+TICK power 11 688
+SHOT animation-power-12
+TICK power 12 692
+SHOT animation-power-13
+TICK power 13 700
+SHOT animation-power-14
+TICK power 14 704
+SHOT animation-power-15
+TICK power 15 712
+SHOT animation-power-16
+TICK power 16 716
+SHOT animation-power-17
+TICK power 17 724
+SHOT animation-power-18
+TICK power 18 732
+SHOT animation-power-19
+TICK power 19 740
+SHOT animation-power-20
+TICK power 20 744
+SHOT animation-power-21
+TICK power 21 752
+SHOT animation-power-22
+TICK power 22 760
+SHOT animation-power-23
+TICK power 23 768
+SHOT animation-power-24
+TICK power 24 776
+SHOT animation-power-25
+TICK power 25 784
+SHOT animation-power-26
+TICK power 26 792
+SHOT animation-power-27
+TICK power 27 796
+SHOT animation-finisher-00
+TICK finisher 0 824
+SHOT animation-finisher-01
+TICK finisher 1 828
+SHOT animation-finisher-02
+TICK finisher 2 832
+SHOT animation-finisher-03
+TICK finisher 3 836
+SHOT animation-finisher-04
+TICK finisher 4 840
+SHOT animation-finisher-05
+TICK finisher 5 844
+SHOT animation-finisher-06
+TICK finisher 6 848
+SHOT animation-finisher-07
+TICK finisher 7 852
+SHOT animation-finisher-08
+TICK finisher 8 856
+SHOT animation-finisher-09
+TICK finisher 9 860
+SHOT animation-finisher-10
+TICK finisher 10 864
+SHOT animation-finisher-11
+TICK finisher 11 868
+SHOT animation-finisher-12
+TICK finisher 12 872
+SHOT animation-finisher-13
+TICK finisher 13 880
+SHOT animation-finisher-14
+TICK finisher 14 888
+SHOT animation-finisher-15
+TICK finisher 15 896
+SHOT animation-finisher-16
+TICK finisher 16 904
+SHOT animation-finisher-17
+TICK finisher 17 912
+SHOT animation-finisher-18
+TICK finisher 18 920
+SHOT animation-finisher-19
+TICK finisher 19 928
+SHOT animation-finisher-20
+TICK finisher 20 936
+SHOT animation-finisher-21
+TICK finisher 21 948
+SHOT animation-finisher-22
+TICK finisher 22 956
+SHOT animation-finisher-23
+TICK finisher 23 964
+SHOT animation-finisher-24
+TICK finisher 24 972
+SHOT animation-finisher-25
+TICK finisher 25 980
+SHOT animation-finisher-26
+TICK finisher 26 984
+SHOT animation-finisher-27
+TICK finisher 27 992
+SHOT animation-finisher-28
+TICK finisher 28 996
+SHOT animation-finisher-29
+TICK finisher 29 1004
+SHOT animation-finisher-30
+TICK finisher 30 1012
+SHOT animation-finisher-31
+TICK finisher 31 1020
+SHOT animation-finisher-32
+TICK finisher 32 1028
+SHOT animation-finisher-33
+TICK finisher 33 1036
+SHOT animation-finisher-34
+TICK finisher 34 1044
+SHOT animation-finisher-35
+TICK finisher 35 1052
+SHOT animation-finisher-36
+TICK finisher 36 1056
+SHOT animation-finisher-37
+TICK finisher 37 1064
+SHOT animation-finisher-38
+TICK finisher 38 1072
+SHOT animation-finisher-39
+TICK finisher 39 1076
+SHOT animation-finisher-40
+TICK finisher 40 1084
+SHOT animation-finisher-41
+TICK finisher 41 1092
+SHOT animation-finisher-42
+TICK finisher 42 1096
+SHOT animation-finisher-43
+TICK finisher 43 1104
+SHOT animation-finisher-44
+TICK finisher 44 1112
+SHOT animation-finisher-45
+TICK finisher 45 1120
+SHOT animation-finisher-46
+TICK finisher 46 1124
+SHOT animation-finisher-47
+TICK finisher 47 1132
+SHOT animation-finisher-48
+TICK finisher 48 1140
+SHOT animation-finisher-49
+TICK finisher 49 1148
+SHOT animation-finisher-50
+TICK finisher 50 1156
+SHOT animation-finisher-51
+TICK finisher 51 1164
+SHOT animation-finisher-52
+TICK finisher 52 1172
+SHOT animation-finisher-53
+TICK finisher 53 1176
+SHOT animation-finisher-54
+TICK finisher 54 1184
+SHOT animation-finisher-55
+TICK finisher 55 1192
+SHOT animation-finisher-56
+TICK finisher 56 1200
+SHOT animation-finisher-57
+TICK finisher 57 1208
+SHOT animation-death-00
+TICK death 0 1236
+SHOT animation-death-01
+TICK death 1 1240
+SHOT animation-death-02
+TICK death 2 1244
+SHOT animation-death-03
+TICK death 3 1248
+SHOT animation-death-04
+TICK death 4 1252
+SHOT animation-death-05
+TICK death 5 1256
+SHOT animation-death-06
+TICK death 6 1260
+SHOT animation-death-07
+TICK death 7 1264
+SHOT animation-death-08
+TICK death 8 1268
+SHOT animation-death-09
+TICK death 9 1272
+SHOT animation-death-10
+TICK death 10 1276
+SHOT animation-death-11
+TICK death 11 1280
+SHOT animation-death-12
+TICK death 12 1284
+SHOT animation-death-13
+TICK death 13 1292
+SHOT animation-death-14
+TICK death 14 1296
+SHOT animation-death-15
+TICK death 15 1304
+SHOT animation-death-16
+TICK death 16 1312
+SHOT animation-death-17
+TICK death 17 1320
+SHOT animation-death-18
+TICK death 18 1328
+SHOT animation-death-19
+TICK death 19 1336
+SHOT animation-death-20
+TICK death 20 1344
+SHOT animation-death-21
+TICK death 21 1348
+SHOT animation-death-22
+TICK death 22 1356
+SHOT animation-death-23
+TICK death 23 1364
+SHOT animation-death-24
+TICK death 24 1372
+SHOT animation-death-25
+TICK death 25 1380
+SHOT animation-death-26
+TICK death 26 1388
+SHOT animation-death-27
+TICK death 27 1396
+PASS final release EBOOT: actual-input Nightshade/Warden attack, block, power, killing blow and death screenshots through complete rendered timelines
+SHA256 164f2ef589c5fe794d5923111cf6728f9b6dc71eee03854c907a67f623025c25

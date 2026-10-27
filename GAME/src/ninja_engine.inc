@@ -97,6 +97,7 @@ static void ninja_open_choice(Game*g,int kind,int count,int source,int target,in
 }
 static void ninja_effect(Game*g,NinjaTask t){
  int raw=t.raw,id=CARD_ID(raw),up=CARD_UP(raw),e=t.target,x=t.n,depth=t.depth;
+ int r151_before[6];r151_status_snapshot(g,r151_before);
  int dmg=ninja_base_damage(g,raw,0),block=ninja_block_base(g,raw);
  if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)e=random_living_foe(g);
 #define NP(counter,amount) ninja_power(g,raw,counter,amount)
@@ -181,6 +182,7 @@ static void ninja_effect(Game*g,NinjaTask t){
  case N_WELL_LAID_PLANS:NP(NS_PLANS,1+up);break;
  case N_WRAITH_FORM:NP(NS_WRAITH,1);g->ninja.v[NS_INTANGIBLE]+=2+up;break;
  }
+ r151_after_effect(g,r151_before);
 #undef NP
 #undef ND
 #undef DISC
@@ -201,6 +203,7 @@ static void ninja_finish(Game*g,NinjaTask t){
  if(type==1){g->ninja.v[NS_SKILLS_TURN]++;if(++g->ic[36]%3==0&&relic(g,22))g->dexterity++;}
  if(id==N_SHIV){g->ninja.v[NS_SHIVS_TURN]++;if(relic(g,NR_DART)){g->dexterity++;g->ninja.v[NS_TEMP_DEX]++;}}
  if(relic(g,43)&&(type==0||type==1)){g->ic[IC_DUELIST]|=type==0?1:2;if(g->ic[IC_DUELIST]==3){g->ic[IC_DUELIST]|=4;gain_energy(g,1);}}
+ r151_played(g,type);
  /* Only powers that existed before this card fire for this play. */
  int after=t.n,serpent=t.aux;
  if(after)relic_block(g,after);

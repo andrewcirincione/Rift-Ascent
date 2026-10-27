@@ -1,0 +1,362 @@
+[
+  {
+    "action": "idle",
+    "frame": 0,
+    "source_anchor": [
+      449,
+      511
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      1,
+      10,
+      128,
+      100
+    ]
+  },
+  {
+    "action": "idle",
+    "frame": 1,
+    "source_anchor": [
+      1174,
+      511
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      6,
+      10,
+      128,
+      100
+    ]
+  },
+  {
+    "action": "idle",
+    "frame": 2,
+    "source_anchor": [
+      449,
+      1055
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      1,
+      10,
+      128,
+      100
+    ]
+  },
+  {
+    "action": "idle",
+    "frame": 3,
+    "source_anchor": [
+      1174,
+      1055
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      3,
+      9,
+      128,
+      100
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 4,
+    "source_anchor": [
+      425,
+      548
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      6,
+      8,
+      131,
+      100
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 5,
+    "source_anchor": [
+      1110,
+      548
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      10,
+      19,
+      142,
+      100
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 6,
+    "source_anchor": [
+      425,
+      1046
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      6,
+      21,
+      118,
+      100
+    ]
+  },
+  {
+    "action": "attack",
+    "frame": 7,
+    "source_anchor": [
+      1163,
+      1046
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      12,
+      15,
+      130,
+      100
+    ]
+  },
+  {
+    "action": "block",
+    "frame": 8,
+    "source_anchor": [
+      449,
+      523
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      1,
+      7,
+      136,
+      100
+    ]
+  },
+  {
+    "action": "block",
+    "frame": 9,
+    "source_anchor": [
+      1174,
+      523
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      7,
+      10,
+      127,
+      100
+    ]
+  },
+  {
+    "action": "block",
+    "frame": 10,
+    "source_anchor": [
+      449,
+      1060
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      2,
+      15,
+      119,
+      100
+    ]
+  },
+  {
+    "action": "block",
+    "frame": 11,
+    "source_anchor": [
+      1174,
+      1060
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      0,
+      8,
+      130,
+      100
+    ]
+  },
+  {
+    "action": "power",
+    "frame": 12,
+    "source_anchor": [
+      449,
+      523
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      1,
+      7,
+      132,
+      100
+    ]
+  },
+  {
+    "action": "power",
+    "frame": 13,
+    "source_anchor": [
+      1080,
+      529
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      15,
+      4,
+      146,
+      100
+    ]
+  },
+  {
+    "action": "power",
+    "frame": 14,
+    "source_anchor": [
+      449,
+      1066
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      0,
+      8,
+      127,
+      100
+    ]
+  },
+  {
+    "action": "power",
+    "frame": 15,
+    "source_anchor": [
+      1174,
+      1066
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      0,
+      10,
+      128,
+      100
+    ]
+  },
+  {
+    "action": "death",
+    "frame": 16,
+    "source_anchor": [
+      449,
+      548
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      3,
+      20,
+      121,
+      100
+    ]
+  },
+  {
+    "action": "death",
+    "frame": 17,
+    "source_anchor": [
+      1140,
+      548
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      2,
+      36,
+      133,
+      100
+    ]
+  },
+  {
+    "action": "death",
+    "frame": 18,
+    "source_anchor": [
+      449,
+      1003
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      0,
+      42,
+      133,
+      100
+    ]
+  },
+  {
+    "action": "death",
+    "frame": 19,
+    "source_anchor": [
+      1140,
+      1003
+    ],
+    "runtime_anchor": [
+      80,
+      100
+    ],
+    "bounds": [
+      7,
+      55,
+      135,
+      100
+    ]
+  }
+]
