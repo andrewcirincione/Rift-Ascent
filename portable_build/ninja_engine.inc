@@ -30,7 +30,7 @@ static void ninja_reduce_instance(Game*g,int raw){
 static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
 int game_card_is_retained(const Game*g,int raw){return (regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
-static int ninja_owned_card(const Game*g,int id){return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?g->character==CHAR_NIGHTSHADE:id<REGENT_LAST?g->character==CHAR_REGENT:0;}
+static int ninja_owned_card(const Game*g,int id){if(a18_is_card(id))return a18_card_available(g,id);return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?g->character==CHAR_NIGHTSHADE:id<REGENT_LAST?g->character==CHAR_REGENT:0;}
 static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_RETAIN_TURN);}
 static int ninja_base_damage(const Game*g,int raw,int in_hand){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;
@@ -222,6 +222,7 @@ static void ninja_process(Game*g){
   if(preview_trace){preview_phase=t.depth>0&&t.depth<=2;preview_depth=t.depth;}
   switch(t.kind){
   case NT_PLAY:{
+   if(a18_is_card(t.raw)){resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
    if(!ninja_has_living(g)||!ninja_can_play(g,t.raw)){
     if(!(t.raw&CARD_EPHEMERAL)&&g->discard_count<MAX_PILE)g->discard[g->discard_count++]=ninja_clean(t.raw);
     break;

@@ -9,7 +9,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define BOOT_LOG_PATH "ms0:/RIFT_BOOT.LOG"
+#include "launch_path.h"
+#define BOOT_LOG_PATH rift_launch_boot_log()
 void boot_trace_reset(void) {
 #ifdef RIFT_BOOT_TRACE
     SceUID f=sceIoOpen(BOOT_LOG_PATH, PSP_O_WRONLY|PSP_O_CREAT|PSP_O_TRUNC, 0777);
@@ -29,5 +30,17 @@ void boot_trace(const char *stage,int result) {
     sceIoClose(f);
 #else
     (void)stage;(void)result;
+#endif
+}
+
+void boot_trace_text(const char *stage,const char *value) {
+#ifdef RIFT_BOOT_TRACE
+    if(!stage||!value)return;
+    char buf[384];int n=snprintf(buf,sizeof(buf),"%s: %s\n",stage,value);
+    if(n<=0)return;if(n>=(int)sizeof(buf))n=(int)sizeof(buf)-1;
+    SceUID f=sceIoOpen(BOOT_LOG_PATH,PSP_O_WRONLY|PSP_O_CREAT|PSP_O_APPEND,0777);
+    if(f<0)return;sceIoWrite(f,buf,(SceSize)n);sceIoClose(f);
+#else
+    (void)stage;(void)value;
 #endif
 }

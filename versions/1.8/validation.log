@@ -1,0 +1,32 @@
+1.8 validation evidence
+PASS all 60 cards: 536 base/upgrade/mod cases, preview purity, character hooks
+PASS 20 new potion effects, amplification, noncombat eligibility
+PASS multi-enemy fights per 1000: 383/452/536; no heavy openers or clone pairs
+PASS 900 character progression sequences: distinct-rarity unlocks, tenth-win eligibility, retired Act IV counters, true endings, replay protection
+PASS four independent dual-generation saves, shared profile, replay safety, overwrite cancellation and corruption recovery
+ALL 1.8 PRERELEASE NATIVE TESTS PASSED
+
+PASS debug OFF by default; disabled shortcuts no-op; enabled L kills both enemies through rewards; R advances without awarding clears; Options toggles.
+PASS independent options persistence and corrupt-settings safe-OFF; run/profile layout unchanged.
+PASS Moon Spring free flat 20 HP, health cap, D-pad selection, transactional reflection copy with upgrade/mod preserved.
+PASS 10,000 Act 4/12 encounters draw all 30 NORMAL species; no elites, bosses or duplicate pairs.
+ALL 1.8 FEEDBACK TESTS PASSED
+
+PASS 16 rendered review screens, 128 proportional HP checks, 120 custom-card layouts; zero streamed asset errors.
+
+PASS review saves seeded; release executable untouched
+PASS screen title id 0
+PASS screen options-off id 10
+PASS screen options-on id 10
+PASS screen save-slots id 29
+PASS screen combat-maxhp-facing id 2
+PASS screen pause-no-cross id 13
+PASS screen debug-kill-reward id 15
+PASS screen debug-next-act id 20
+PASS screen moon-heal id 6
+PASS screen moon-reflection id 6
+PASS screen act4-random id 2
+PASS screen character-records id 22
+PASS final release EBOOT f6b48ee66fb5661efa7fdf8bf26509b4ecbcac68560447ef222a8bb725235204
+
+PASS final release EBOOT f6b48ee66fb5661efa7fdf8bf26509b4ecbcac68560447ef222a8bb725235204

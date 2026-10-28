@@ -1,13 +1,16 @@
 /* New relic effects are orthogonal to card resolver and character identity. */
 static void r151_self_loss(Game*g){
+ a18_self_loss(g);
  if(g->screen!=COMBAT||g->hp<=0||!g->ic[IC_OWN_TURN]||!relic(g,53)||g->v151.relic[0])return;
  g->v151.relic[0]=1;gain_energy(g,1);relic_block(g,4);
 }
 static void r151_exhaust(Game*g){
+ a18_exhaust_hook(g);
  if((g->screen!=COMBAT&&g->screen!=CARD_CHOICE)||!relic(g,56)||g->v151.relic[3]>=3)return;
  if(++g->v151.relic[3]==3){if(g->screen==CARD_CHOICE)g->v151.relic[11]=1;else{gain_energy(g,1);draw_card(g);draw_card(g);}}
 }
 static void r151_played(Game*g,int type){
+ a18_play_hook(g,type);
  if(g->screen==CARD_CHOICE){g->v151.relic[10]=type+1;return;}
  if(g->screen!=COMBAT)return;
  if(type==2)g->v151.relic[4]=MIN(3,g->v151.relic[4]+1);

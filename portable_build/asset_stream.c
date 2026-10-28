@@ -5,8 +5,10 @@ unsigned rift_asset_reads,rift_asset_errors,rift_asset_recoveries;
 #ifdef RIFT_STREAMED_ART
 #ifdef __PSP__
 #include <pspiofilemgr.h>
+#include "launch_path.h"
+#include "boot_trace.h"
 static int asset_fd=-1;
-static int disk_open(void){asset_fd=sceIoOpen("ms0:/PSP/GAME/RIFTASCENT/EBOOT.PBP",PSP_O_RDONLY,0);return asset_fd>=0;}
+static int disk_open(void){asset_fd=rift_launch_open_package();return asset_fd>=0;}
 static int disk_seek(int offset,int origin){return sceIoLseek32(asset_fd,offset,origin);}
 static int disk_read(void*dst,unsigned size){return sceIoRead(asset_fd,dst,size);}
 static void disk_close(void){if(asset_fd>=0)sceIoClose(asset_fd);asset_fd=-1;}
@@ -51,7 +53,11 @@ int rift_assets_open(void){
  if(!read_at(bank_end-16,bank,16)||memcmp(bank,"RIFTART1",8))goto fail;
  bank_size=rd32(bank+8);if(!bank_size||bank_size>bank_end-16)goto fail;
  bank_base=bank_end-16-bank_size;opened=1;return 1;
-fail: disk_close();bank_base=bank_size=0;rift_asset_errors++;return 0;
+fail:
+#ifdef __PSP__
+ boot_trace("art bank open failure",rift_launch_last_io_error());
+#endif
+ disk_close();bank_base=bank_size=0;rift_asset_errors++;return 0;
 }
 void rift_assets_close(void){disk_close();opened=0;cursor=0;memset(entries,0,sizeof(entries));memset(owners,0,sizeof(owners));}
 #ifdef RIFT_ASSET_TEST

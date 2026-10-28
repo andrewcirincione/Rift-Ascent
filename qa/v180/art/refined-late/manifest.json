@@ -1,0 +1,26 @@
+[
+  {
+    "id": 18,
+    "prompt": "3D game character asset, full body of one sinister hooded swamp sorcerer in worn moss green robes, wooden staff and green lantern, looking left, boots visible, isolated on pure black background, realistic Dark Souls character render, centered with empty margins",
+    "seed": 731462,
+    "model": "stabilityai/sd-turbo",
+    "steps": 2,
+    "sha256": "a86e85d60ee51db30cee37f511b3fd50a40f5fe82122cd8f83bf882caf06a758"
+  },
+  {
+    "id": 21,
+    "prompt": "3D game character asset, full body of one gaunt martial monk in scorched ochre cloth and hand wrappings, ash gray skin, unarmed fighting stance facing left, entire figure and bare feet visible, isolated on pure black background, realistic Dark Souls character render, centered with empty margins",
+    "seed": 731675,
+    "model": "stabilityai/sd-turbo",
+    "steps": 2,
+    "sha256": "c50302ef7b6b1797ebaa7d1ab23170b557c1a2b3ffc944cfafdb582bd028045f"
+  },
+  {
+    "id": 31,
+    "prompt": "3D game character asset, full body of one black obsidian armored medieval knight with violet eyes and torn indigo cape, jagged greatsword, looking left, boots visible, pure black background, realistic Dark Souls character render, centered with empty margins",
+    "seed": 732385,
+    "model": "stabilityai/sd-turbo",
+    "steps": 2,
+    "sha256": "682bf516c8f3312331069dc6f5b7591f50cf58669a4a249b7d4b275837be9460"
+  }
+]
