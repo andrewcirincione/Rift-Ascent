@@ -9,7 +9,7 @@ permissions:
   actions: read
 concurrency:
   group: verify-stable-180
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-24.04
@@ -22,6 +22,19 @@ jobs:
         with:
           ref: release-1.8-final
           fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            qa/v180
+            prerelease/1.8/source
+            prerelease/1.8/tests
+            prerelease/1.8/bootfix
+            prerelease/1.8/release
+            release
+            versions/1.8
+            GAME
+            portable_build
+            tools
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -97,7 +110,7 @@ jobs:
           rm -f "$R/tests/review_fixtures"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -f "$R/source" "$R/tests" "$R/art" "$R/evidence" "$R/release" "$R/assets.json" "$R/import_enemies.py" "$R/package.py" "$R/"recovery.*.b64 GAME/src portable_build versions/1.8 release/current.json
+          git add --sparse -f "$R/source" "$R/tests" "$R/art" "$R/evidence" "$R/release" "$R/assets.json" "$R/import_enemies.py" "$R/package.py" "$R/"recovery.*.b64 GAME/src portable_build versions/1.8 release/current.json
           git diff --cached --name-only > "$RUNNER_TEMP/changed"
           python - "$RUNNER_TEMP/changed" <<'PY'
           import sys
