@@ -1,0 +1,6 @@
+PASS all 60 cards: 536 base/upgrade/mod cases, preview purity, character hooks
+PASS 20 new potion effects, amplification, noncombat eligibility
+PASS multi-enemy fights per 1000: 383/452/536; no heavy openers or clone pairs
+PASS 900 character progression sequences: distinct-rarity unlocks, tenth-win eligibility, retired Act IV counters, true endings, replay protection
+PASS four independent dual-generation saves, shared profile, replay safety, overwrite cancellation and corruption recovery
+ALL 1.8 PRERELEASE NATIVE TESTS PASSED

@@ -136,6 +136,7 @@ const CardDef cards[]={
  {"Black Covenant","At turn end, deal 4 damage to all enemies per unspent Energy (up to 2). Ignores damage modifiers.",1,2,2}, // 95
 #include "ninja_cards.inc"
 #include "regent_cards.inc"
+#include "a18_cards.inc"
 };
 const int CARD_COUNT=(int)(sizeof(cards)/sizeof(cards[0]));
 static const char *upgrade_descriptions[]={
@@ -197,12 +198,14 @@ static const char *upgrade_descriptions[]={
 "At turn end, deal 6 damage to all enemies per unspent Energy (up to 2). Ignores damage modifiers.",
 #include "ninja_upgrades.inc"
 #include "regent_upgrades.inc"
+#include "a18_upgrades.inc"
 };
 #include "ninja_meta.inc"
 #include "regent_meta.inc"
 static int card_cost_base(int raw){
  int id=CARD_ID(raw);
  if(id<0||id>=CARD_COUNT)return -2;
+ if(id>=A18_CARD_FIRST)return cards[id].cost;
  if(id>=REGENT_FIRST)return CARD_UP(raw)?regent_cards[id-REGENT_FIRST].upcost:cards[id].cost;
  if(id>=NINJA_FIRST&&id<NINJA_LAST)return CARD_UP(raw)?ninja_cards[id-NINJA_FIRST].upcost:cards[id].cost;
  if(id==21&&CARD_UP(raw))return 0;
@@ -238,6 +241,19 @@ static void regent_play(Game*g,int index,int target);
 static int regent_cost_now(const Game*g,int raw);
 static void regent_gain_stars(Game*g,int n);
 static int regent_processing;
+
+static void a18_turn_start(Game*g);
+static void a18_self_loss(Game*g);
+static void a18_exhaust_hook(Game*g);
+static void a18_play_hook(Game*g,int type);
+static void a18_finish_act3(Game*g);
+static void a18_finish_true(Game*g);
+static void a18_record_boss(Game*g);
+static int a18_action(Game*g,int b);
+static const char*a18_potion_names[20];
+static const char*a18_potion_details[20];
+static void a18_use_potion(Game*g,int index);
+
 static void regent_foreign_begin(Game*g,int raw);
 static void regent_foreign_finish(Game*g,int raw);
 
@@ -327,6 +343,7 @@ const RelicDef relic_defs[]={
  {"Thornbound Seal","Start combat with 1 extra Strength per curse or status card in your deck."},
  {"Prism Bone","Play an Attack, Skill and Power in one combat: gain 2 Energy and draw 2. Once per combat."},
  {"Divine Right","At the start of each combat, gain 3 Stars. Stars remain between turns."},
+#include "a18_relics.inc"
 
 };
 const int RELIC_COUNT=(int)(sizeof(relic_defs)/sizeof(relic_defs[0]));
@@ -353,7 +370,7 @@ int game_card_is_upgradeable(int raw){
 }
 static int solo_reward_eligible(int id){
  return id>=3&&id<CARD_COUNT&&game_card_is_playable(id)&&
-   id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].rarity<=2;
+   id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&(cards[id].rarity<=2||a18_is_card(id));
 }
 static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
  int pool[512],weight[512],n=0,total=0;
@@ -363,17 +380,18 @@ static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
      the per-card weight of an unseen card in the same rarity tier. */
   pool[n]=id;weight[n]=owned?1:3;total+=weight[n++];
  }
- if(!n)return g->character==CHAR_NIGHTSHADE?N_BACKFLIP:5;
+ if(!n&&rarity==3)return reward_of_rarity(g,2,excluded0,excluded1);
+ if(!n)return g->character==CHAR_NIGHTSHADE?N_BACKFLIP:g->character==CHAR_REGENT?R_FALLING_STAR:5;
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weight[i])return pool[i];roll-=weight[i];}
  return pool[n-1];
 }
 /* Events and shops keep their rarity rates; novelty affects only selection
    within the rolled rarity, never the rarity itself. */
-static int card_reward_except(Game*g,int a,int b){int roll=rnd(g,100);return reward_of_rarity(g,roll<9?2:roll<46?1:0,a,b);}
+static int card_reward_except(Game*g,int a,int b){int roll=rnd(g,100);return reward_of_rarity(g,roll<2?3:roll<11?2:roll<48?1:0,a,b);}
 static int card_reward(Game*g){return card_reward_except(g,-1,-1);}
 static void fill_rewards(Game*g){
  for(int i=0;i<3;i++){
-  int roll=rnd(g,100),rare=g->battle_type==NODE_BOSS?2:g->battle_type==NODE_ELITE?(roll<10?2:roll<50?1:0):(roll<37?1:0);
+  int roll=rnd(g,100),rare=g->battle_type==NODE_BOSS?(roll<10?3:2):g->battle_type==NODE_ELITE?(roll<4?3:roll<16?2:roll<55?1:0):(roll<2?3:roll<39?1:0);
   int c=reward_of_rarity(g,rare,i>0?CARD_ID(g->reward[0]):-1,i>1?CARD_ID(g->reward[1]):-1);
   int upgraded=relic(g,13)||(rare!=2&&rnd(g,100)<MIN(4,g->act-1)*25);
   g->reward[i]=c|(upgraded?UPBIT:0);
@@ -381,8 +399,8 @@ static void fill_rewards(Game*g){
 }
 static void add_relic(Game*g,int id){if(id==NR_DRAKE){for(int i=0;i<g->relic_count;i++)if(g->relics[i]==NR_SNAKE){g->relics[i]=NR_DRAKE;return;}}if(id==30)id=7;if(id>=37&&id<=39){if(id==37)g->permanent_strength+=2;else if(id==38){g->maxhp+=10;g->hp=g->maxhp;}else if(id==39)g->gold+=150;return;}if(g->relic_count>=MAX_RELICS||relic(g,id))return;g->relics[g->relic_count++]=id;if(id==4){g->maxhp+=14;g->hp+=14;}if(id==31){g->maxhp+=12;g->hp=g->maxhp;}if(id==32)g->gold+=100;if(id==11){g->max_energy++;g->maxhp=MAX(1,g->maxhp-12);g->hp=MIN(g->hp,g->maxhp);}if(id==25)g->max_energy++;}
 static int random_relic_except(Game*g,int excluded){
- int pool[64],n=0;
- for(int id=1;id<RELIC_COUNT;id++)if((id<=27||(id>=40&&id<44)||(id>=53&&id<63)||(g->character==CHAR_NIGHTSHADE&&id>=45&&id<=51))&&id!=excluded&&!relic(g,id))pool[n++]=id;
+ int pool[128],n=0;
+ for(int id=1;id<RELIC_COUNT;id++)if((id<=27||(id>=40&&id<44)||(id>=53&&id<63)||(g->character==CHAR_NIGHTSHADE&&id>=45&&id<=51)||(id>=64&&a18_relic_available(g,id)))&&id!=excluded&&!relic(g,id))pool[n++]=id;
  return n?pool[rnd(g,n)]:-1;
 }
 static int random_relic(Game*g){return random_relic_except(g,-1);}
@@ -402,7 +420,7 @@ static void offer_blessing(Game*g){
  g->screen=BLESSING;g->selection=g->scroll=0;msg(g,"Choose one blessing for your ascent.");
 }
 static void begin_act(Game*g){g->screen=ACT_INTRO;g->scroll=0;g->selection=0;}
-int game_moon_heal_now(const Game*g){return CLAMP(g->scroll,0,MIN(20,MIN(g->gold/2,g->maxhp-g->hp)));}
+int game_moon_heal_now(const Game*g){return MIN(20,MAX(0,g->maxhp-g->hp));}
 /* Deterministic branching edges: no save struct layout changes. Edges are
    seeded by the run and act, so maps persist correctly across reloads. */
 static uint32_t route_hash(uint32_t z){z^=z>>16;z*=0x7feb352du;z^=z>>15;z*=0x846ca68bu;return z^(z>>16);}
@@ -698,11 +716,12 @@ static void check_win(Game*g){
  g->ic[37]=0;g->v151.card_done=0;g->v151.potion_offer=-1;
  if(relic(g,57))heal(g,2*MIN(3,g->v151.relic[4]));
  g->gold+=g->regent.powers[R_ROYALTIES-REGENT_FIRST];g->kill_count+=g->enemy_count;
- if(g->battle_type==NODE_BOSS&&g->act>=3&&!g->endless){
-  g->screen=VICTORY;g->win_screen=0;g->relic_pending=0;g->selection=0;
-  msg(g,"THE SPIRE HAS FALLEN");return;
+ if(g->battle_type==NODE_BOSS){
+  a18_record_boss(g);
+  if(g->act==3){a18_finish_act3(g);return;}
+  if(g->act==4&&g->a18.secret_route){a18_finish_true(g);return;}
  }
- if(rnd(g,100)<22)g->v151.potion_offer=rnd(g,6);
+ if(rnd(g,100)<22)g->v151.potion_offer=a18_random_potion(g);
  g->gold+=g->reward_gold+(relic(g,16)?20:0);
  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
  if(g->battle_type==NODE_ELITE&&relic(g,12))g->permanent_strength++;
@@ -724,7 +743,7 @@ static void check_win(Game*g){
    g->relic_resume=REWARD;g->screen=RELIC_RESULT;g->selection=0;
    msg(g,"Elite defeated.");
   }else msg(g,"Elite defeated. No relics remain.");
- }else msg(g,"Victory! Choose one reward.");
+ }else msg(g,"Choose one reward.");
 }
 /* Thirty-six deterministic, species-specific enemy profiles, balanced by act. */
 typedef struct {const char *name;short hp,attack,tier; unsigned char moves[4];} EnemyDef;
@@ -773,6 +792,9 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Tomb Cantor",94,16,0,{17,0,6,14}},
  {"Oathless Lancer",90,12,1,{14,15,1,16}},
  {"Cathedral Horror",148,17,1,{17,15,16,4}},
+ {"THE IRON JAILER",340,25,2,{13,10,4,16}},
+ {"THE SILENT WITNESS",305,23,2,{11,16,6,10}},
+ {"THE FIRST SOVEREIGN",330,24,2,{4,10,13,16}},
 };
 /* Normal / elite / boss pools are separate so bosses never show up as ordinary foes. */
 static const unsigned char enemy_normal[3][10]={{0,1,2,3,9,10,11,12,36,37},{4,5,16,17,18,19,20,21,38,39},{25,26,27,28,29,30,31,32,40,41}};
@@ -785,6 +807,9 @@ static void enemy_intent(Game*g,Enemy *e){
  int slot=(int)(turn%4u);
  if(e->phase&&d->tier==2)slot=(slot+1)%4;
  e->intent=d->moves[slot];
+ /* Heavy and repeated attacks are telegraphed only after an opening round. */
+ if(g->turn==0&&(e->intent==7||e->intent==10||e->intent==16))e->intent=1;
+ if(g->turn==1&&(d->moves[0]==7||d->moves[0]==10||d->moves[0]==16))e->intent=d->moves[0];
  long long percent=g->act==1?82:g->act==2?99:124LL+24LL*(g->act-3);
  if(g->act==1&&g->battle_type==NODE_FIGHT)percent+=8;
  e->intent_value=(int)CLAMP((d->attack*percent+50)/100+g->floor/7+(e->phase?2:0),1,100000000);
@@ -826,9 +851,10 @@ static const char *potion_details[6]={
  "Gain 2 Energy immediately.",
  "Draw 3 cards from your draw/discard pile."
 };
-const char *game_potion_name(int id){return id>=0&&id<6?potion_titles[id]:"None";}
-const char *game_potion_description(int id){return id>=0&&id<6?potion_details[id]:"Empty slot";}
+const char *game_potion_name(int id){return id>=6&&id<26?a18_potion_names[id-6]:id>=0&&id<6?potion_titles[id]:"None";}
+const char *game_potion_description(int id){return id>=6&&id<26?a18_potion_details[id-6]:id>=0&&id<6?potion_details[id]:"Empty slot";}
 const char *game_potion_description_now(const Game*g,int id){
+ if(id>=6&&id<26)return a18_potion_details[id-6];
  static const char*enhanced[]={"Heal 23 HP (Violet Orb).","Gain 3 Strength this combat (Violet Orb).","Gain 25 Block (Violet Orb).","Deal 25 base damage to all enemies (Violet Orb).","Gain 3 Energy immediately (Violet Orb).","Draw 4 cards (Violet Orb)."};
  return g&&relic(g,17)&&id>=0&&id<6?enhanced[id]:game_potion_description(id);
 }
@@ -892,21 +918,32 @@ static void init_enemy(Game*g,Enemy*e,int id){
  enemy_intent(g,e);
 }
 const char *game_enemy_name(int id){return id>=0&&id<ENEMY_COUNT?enemy_defs[id].name:"Unknown";}
+static int r180_normal_enemy(Game*g,int excluded){
+ int pool[30],n=0;
+ int first=g->act>=4?0:CLAMP(g->act-1,0,2),last=g->act>=4?2:first;
+ for(int act=first;act<=last;act++)for(int k=0;k<10;k++){
+  int id=enemy_normal[act][k];if(id!=excluded)pool[n++]=id;
+ }
+ return pool[rnd(g,n)];
+}
 void game_start_battle(Game*g,int mode){
- g->screen=COMBAT;g->battle_type=mode;
+ g->screen=COMBAT;g->battle_type=mode;g->turn=0;
+ memset(g->a18.powers,0,sizeof(g->a18.powers));memset(g->a18.values,0,sizeof(g->a18.values));
+ g->a18.turn_flags=g->a18.next_energy=g->a18.next_draw=0;
  /* Music selection uses a separate seed hash, preserving gameplay RNG. */
  g->combat_music=(route_hash(g->seed^(unsigned)g->act*17041u^(unsigned)g->floor*6781u)&1u)?2:4;
  uint32_t encounter=route_hash(g->seed^(uint32_t)g->act*7919u);
- int chance=g->act==1?25:g->act==2?40:50;
+ int chance=mode==NODE_ELITE?(g->act==1?20:30):(g->act==1?38:g->act==2?46:54);
  int candidate=(int)(route_hash(encounter+g->floor*101u)%100u)<chance;
- int previous=g->floor>0&&(int)(route_hash(encounter+(g->floor-1)*101u)%100u)<chance;
- g->enemy_count=mode==NODE_FIGHT&&!(g->act==1&&g->floor<3)&&candidate&&!previous?2:1;
+ g->enemy_count=mode!=NODE_BOSS&&!(g->act==1&&g->floor<=1)&&candidate?2:1;
  for(int i=0;i<g->enemy_count;i++){
-  int id=mode==NODE_BOSS?enemy_boss[MIN(2,g->act-1)]:
+  int id=mode==NODE_BOSS?(g->act==4&&g->a18.secret_route?44+g->character:enemy_boss[MIN(2,g->act-1)]):
     mode==NODE_ELITE?enemy_elite[MIN(2,g->act-1)][rnd(g,4)]:
-    enemy_normal[MIN(2,g->act-1)][rnd(g,10)];
-  if(i>0 && id==g->enemies[0].art)
-     id=enemy_normal[MIN(2,g->act-1)][(i+g->floor+g->act%10)%10];
+    r180_normal_enemy(g,i?g->enemies[0].art:-1);
+  if(i>0&&id==g->enemies[0].art){
+   int count=mode==NODE_ELITE?4:10;
+   for(int k=0;k<count;k++){int candidate=mode==NODE_ELITE?enemy_elite[MIN(2,g->act-1)][k]:enemy_normal[MIN(2,g->act-1)][k];if(candidate!=id){id=candidate;break;}}
+  }
   init_enemy(g,&g->enemies[i],id);
  }
  memset(g->ic,0,sizeof(g->ic));
@@ -923,7 +960,7 @@ void game_start_battle(Game*g,int mode){
 static void check_win(Game*g);
 void game_start_turn(Game*g){
  if(g->screen!=COMBAT)return;
- g->turn++;g->v151.relic[0]=g->v151.relic[5]=0;
+ g->turn++;g->a18.turn_flags=0;g->v151.relic[0]=g->v151.relic[5]=0;
  ninja_start_turn_before(g);regent_before_turn(g);
  g->ic[IC_OWN_TURN]=1;
  g->ic[IC_HPLOSS_TURN]=0;
@@ -981,7 +1018,7 @@ void game_start_turn(Game*g){
   }
  }
  g->selection=0;
- ninja_start_turn_after(g);regent_start_turn(g);
+ ninja_start_turn_after(g);regent_start_turn(g);a18_turn_start(g);if(g->screen==COMBAT)check_win(g);
 }
 static int enemy_raw_damage(const Enemy *e){
  int v=e->intent_value;
@@ -1217,6 +1254,7 @@ int game_card_cost_now(const Game*g,int raw){
  if(g&&g->character==CHAR_REGENT&&g->regent.powers[R_VOID_FORM-REGENT_FIRST]&&g->regent.void_used<2*g->regent.powers[R_VOID_FORM-REGENT_FIRST])return 0;
  if(g&&id<CARD_COUNT&&g->ic[IC_CORRUPTION]&&cards[id].type==1)return 0;
  if(g&&id<CARD_COUNT&&cards[id].type==0&&g->ic[IC_UNRELENTING])return 0;
+ if(g&&a18_is_card(id)&&cards[id].type==1&&g->ninja.v[NS_POUNCE])return 0;
  if(g&&id>=REGENT_FIRST)return regent_cost_now(g,raw);
  if(g&&id>=NINJA_FIRST&&id<NINJA_LAST){if(cards[id].type==1&&g->ninja.v[NS_POUNCE])return 0;if(id==N_PINPOINT)return MAX(0,game_card_cost(raw)-g->ninja.v[NS_SKILLS_TURN]);if(id==N_UP_MY_SLEEVE)return MAX(0,game_card_cost(raw)-CARD_COUNTER(raw));}
  if(CARD_ID(raw)==3&&g){int cost=game_card_cost(raw)-g->shop_relic;return cost>0?cost:0;}
@@ -1225,6 +1263,7 @@ int game_card_cost_now(const Game*g,int raw){
 #include "ninja_engine.inc"
 #include "relics151.inc"
 #include "regent_engine.inc"
+#include "a18_hooks.inc"
 static void autoplay_card(Game*g,int raw,int force_exhaust){
  if(g->screen!=COMBAT||g->hand_count>=MAX_HAND||g->ic[IC_CHAIN_DEPTH]>=20)return;
  int foe=random_living_foe(g);
@@ -1265,6 +1304,16 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
   if(preview_depth>1&&!preview_phase)preview_nested=1;
   if(preview_phase&&preview_depth==2)preview_trace->repeated++;
  }
+ int a18_custom=a18_is_card(id),a18_after=0,a18_serpent=0;
+ if(a18_custom){
+  a18_after=g->ninja.v[NS_AFTERIMAGE];a18_serpent=g->ninja.v[NS_SERPENT];
+  if(cards[id].type==1&&g->ninja.v[NS_PLANNER])raw|=CARD_SLY;
+  if(cards[id].type==1)g->ninja.v[NS_POUNCE]=0;
+  if(index>=0&&g->character==CHAR_REGENT){
+   raw=regent_stamp(g,raw);
+   if(!g->ic[IC_CHAIN_DEPTH]&&!regent_processing&&!ninja_processing)g->regent.void_used++;
+  }
+ }
  int original_raw=raw;regent_foreign_begin(g,raw);
  int repeat_this_attack=(!(raw&CARD_EPHEMERAL)&&CARD_MOD(raw)==MOD_ECHO)?1:0;
  if(g->character==CHAR_REGENT&&!(raw&CARD_EPHEMERAL))repeat_this_attack+=g->regent.instance_replay[CARD_INSTANCE(raw)];
@@ -1275,14 +1324,20 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
    repeat_this_attack++;
   }
  }
+ if(a18_custom&&cards[id].type==1&&!(raw&CARD_EPHEMERAL)&&g->ninja.v[NS_BURST]>0){repeat_this_attack++;g->ninja.v[NS_BURST]--;}
  if(enemy<0||enemy>=g->enemy_count||g->enemies[enemy].hp<=0){enemy=0;while(enemy<g->enemy_count-1&&g->enemies[enemy].hp<=0)enemy++;}
  g->energy-=cost;
+ if(a18_custom&&g->character==CHAR_REGENT&&cost>0&&g->regent.powers[R_ORBIT-REGENT_FIRST]){
+  g->regent.orbit_spent+=cost;
+  while(g->regent.orbit_spent>=4){g->regent.orbit_spent-=4;gain_energy(g,g->regent.powers[R_ORBIT-REGENT_FIRST]);}
+ }
  if(index>=0){g->hand_count--;
   for(int j=index;j<g->hand_count;j++)g->hand[j]=g->hand[j+1];
  }
  int r151_before[6];r151_status_snapshot(g,r151_before);
  int n=up?3:0;
  switch(id){
+#include "a18_effects.inc"
   case 0:deal(g,enemy,6+n);break;case 1:card_block(g,5+n);break;
   case 2:deal(g,enemy,8+n);apply_vulnerable(g,&g->enemies[enemy],2+up);break;
   case 3:all_damage(g,12+3*up);break;
@@ -1502,10 +1557,10 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
   case 95:g->ic[IC_COVENANT]=MIN(1000000,g->ic[IC_COVENANT]+4+2*up);break;
  }
  r151_after_effect(g,r151_before);
- if(cards[id].type==2){g->ic[id>=93?47:33+id/31]|=(int)(1u<<(id%31));record_combat_fx(GFX_POWER,-1,-1,0,0);}
+ if(cards[id].type==2){if(!a18_is_card(id))g->ic[id>=93?47:33+id/31]|=(int)(1u<<(id%31));record_combat_fx(GFX_POWER,-1,-1,0,0);}
  if(CARD_MOD(raw)==MOD_KINDLED&&g->screen==COMBAT)draw_card(g);
  if(preview_trace)preview_phase=0;
- int must_exhaust=(id==9||id==30||id==34||id==38||id==40||
+ int must_exhaust=(a18_exhausts(id)||id==9||id==30||id==34||id==38||id==40||
    id==42||id==47||id==67||id==71||id==75||id==83||
    (id==63&&!up)|| (raw&CARD_FORCE_EXHAUST) ||
    (g->ic[IC_CORRUPTION]&&cards[id].type==1)||CARD_MOD(raw)==MOD_FLEETING||CARD_MOD(raw)==MOD_KINDLED);
@@ -1528,6 +1583,12 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
   if(g->ic[IC_DUELIST]==3){g->ic[IC_DUELIST]|=4;gain_energy(g,1);}
  }
  r151_played(g,cards[id].type);regent_foreign_finish(g,raw);
+ if(a18_custom){
+  if(cards[id].type==1)g->ninja.v[NS_SKILLS_TURN]++;
+  if(a18_after)relic_block(g,a18_after);
+  if(a18_serpent)ninja_proc(g,random_living_foe(g),a18_serpent,0);
+  for(int e=0;e<g->enemy_count;e++)if(g->ninja.v[NS_STRANGLE0+e])ninja_proc(g,e,g->ninja.v[NS_STRANGLE0+e],1);
+ }
  for(int repeat=0;repeat<repeat_this_attack&&g->screen==COMBAT&&g->ic[IC_CHAIN_DEPTH]<20;repeat++){
    int saved_x=repeated_x;repeated_x=id==10?x_value:-1;
    /* A replay resolves directly: it never consumes a hand slot, draws an
@@ -1548,7 +1609,7 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
  if(preview_trace){preview_depth--;preview_phase=saved_phase;}
 }
 void game_play_card(Game*g,int index,int enemy){
- if(index<0)return;if(index<g->hand_count&&(g->character==CHAR_REGENT||CARD_ID(g->hand[index])>=REGENT_FIRST)){regent_play(g,index,enemy);return;}if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
+ if(index<0)return;if(index<g->hand_count&&a18_is_card(g->hand[index])){resolve_card(g,index,enemy,-1);return;}if(index<g->hand_count&&(g->character==CHAR_REGENT||CARD_ID(g->hand[index])>=REGENT_FIRST)){regent_play(g,index,enemy);return;}if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
 }
 static void settle_card_choice(Game*g,int idx){
  int up=g->scroll;
@@ -1611,6 +1672,7 @@ void game_choose_node(Game*g,int lane){
 }
 void game_new(Game*g,uint32_t seed){
  memset(g,0,sizeof(*g));g->magic=0x52494654u;g->version=GAME_VERSION;
+ g->a18.slot=-1;g->a18.relic_award=-1;for(int i=0;i<2;i++)g->a18.card_awards[i]=g->a18.potion_awards[i]=-1;
  g->v151.potion_offer=-1;g->seed=seed?seed:0x1affadeu;g->rng=g->seed;
  g->screen=TITLE;g->selection=1;g->act=1;g->floor=0;g->lane=1;
  g->maxhp=g->hp=80;g->max_energy=3;g->gold=95;
@@ -1638,6 +1700,7 @@ int game_story_kind(const Game*g){
 }
 static uint32_t story_hash(uint32_t x){x^=x>>16;x*=0x7feb352du;x^=x>>15;x*=0x846ca68bu;return x^(x>>16);}
 void game_story_start(Game*g,int boss){
+ if(boss&&g->act==4&&g->a18.secret_route){g->screen=A18_BOSS_INTRO;g->selection=0;return;}
  if(boss&&g->act>3){game_start_battle(g,NODE_BOSS);return;}
  g->screen=boss?STORY_BOSS:STORY_ACT_BEFORE_BLESSING;g->selection=0;
  g->scroll=(int)(story_hash(g->seed^((uint32_t)g->character+1u)*0x9e3779b9u^((uint32_t)g->act)*0x85ebca6bu^(boss?0x170b055u:0x170ac7u))%(boss?5u:10u));
@@ -1657,7 +1720,8 @@ int game_music_silent(const Game*g){
 }
 int game_music_track(const Game*g){
  int screen=g->screen==PAUSE_MENU?game_pause_source():g->screen;
- if(screen==STORY_BOSS)return 0;
+ if(screen==STORY_BOSS||screen==A18_BOSS_INTRO)return 0;
+ if(screen==A18_SLOTS||screen==A18_SLOT_CONFIRM||screen==A18_COLLECTION)return 0;
  if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 0;
  if(screen==COMBAT||screen==CARD_CHOICE||screen==NINJA_CHOICE||screen==REGENT_CHOICE||(screen==DECK_VIEW&&g->prior_screen==COMBAT)){
   if(g->battle_type==NODE_ELITE)return 3;
@@ -1675,7 +1739,7 @@ static void shop_buy(Game*g,int choice){
    msg(g,"Choose card to remove; charge only when confirmed.");
  }else msg(g,"Not enough gold.");}
  else if(choice==5){if(g->gold>=50&&g->potion_count<MAX_POTIONS){
-   g->gold-=50;int potion=rnd(g,6);g->potions[g->potion_count++]=potion;
+   g->gold-=50;int potion=a18_random_potion(g);g->potions[g->potion_count++]=potion;
    snprintf(g->message,sizeof(g->message),"Potion gained: %s",game_potion_name(potion));
  }else msg(g,g->potion_count==MAX_POTIONS?"Belt full. No gold spent.":"Not enough gold.");}
  else if(choice==6){enter_map(g);}
@@ -1708,7 +1772,7 @@ void game_use_potion(Game*g,int index){
  int outside=game_inventory_available(g)&&!combat;
  if((!combat&&!outside)||g->potion_count<=0)return;
  if(index<0||index>=g->potion_count)return;
- int id=g->potions[index];int bonus=relic(g,17)?5:0;
+ int id=g->potions[index];if(id>=6){a18_use_potion(g,index);return;}int bonus=relic(g,17)?5:0;
  if(!combat&&id!=0){msg(g,"Use this potion during combat.");return;}
  if(!combat&&g->hp==g->maxhp){msg(g,"Already at full health. Potion kept.");return;}
  int old_hp=g->hp,old_strength=g->strength,old_block=g->block,old_energy=g->energy,old_hand=g->hand_count;
@@ -1757,6 +1821,7 @@ static int grid_down(int selected,int count){
  return (selected/3+1)*3<count?MIN(selected+3,count-1):selected;
 }
 void game_action(Game*g,int b){
+ if(a18_action(g,b))return;
  if(g->screen==COMBAT)g->ic[46]=0;
  if(b==BTN_PAUSE){
    if(g->screen==PAUSE_MENU){g->screen=paused_from_screen;return;}
@@ -1899,9 +1964,7 @@ void game_action(Game*g,int b){
   else if(b==BTN_BACK)enter_map(g);
   break;
  case EVENT:
-  if(g->effect_turn==1&&b==BTN_UP)g->scroll=MIN(g->scroll+1,MIN(20,MIN(g->gold/2,g->maxhp-g->hp)));
-  else if(g->effect_turn==1&&b==BTN_DOWN)g->scroll=MAX(0,g->scroll-1);
-  else if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+2)%3;
+  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+2)%3;
   else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%3;
   else if(b==BTN_BACK)do_event(g,2);
   else if(b==BTN_OK)do_event(g,g->selection);
@@ -2031,10 +2094,10 @@ static int valid_card_raw(int raw){
  return 1;
 }
 int game_validate(const Game*g){
- if(!g||g->character<0||g->character>2||g->ninja.task_count<0||g->ninja.task_count>NINJA_TASK_MAX||g->endless<0||g->endless>1||g->magic!=0x52494654u||g->version!=GAME_VERSION)return 0;
- if(g->act<1||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
+ if(!g||!a18_run_valid(g)||g->character<0||g->character>2||g->ninja.task_count<0||g->ninja.task_count>NINJA_TASK_MAX||g->endless<0||g->endless>1||g->magic!=0x52494654u||g->version!=GAME_VERSION)return 0;
+ if(g->act<1||(!g->endless&&g->act>3&&!g->a18.secret_route)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
- if(g->screen<TITLE||g->screen>STORY_ACT_BEFORE_BLESSING||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
+ if(g->screen<TITLE||g->screen>A18_TRUE_END||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
  if((g->screen==STORY_ACT||g->screen==STORY_ACT_BEFORE_BLESSING)&&(g->selection!=0||g->scroll<0||g->scroll>9))return 0;
  if(g->screen==STORY_BOSS&&(g->act>3||g->selection<0||g->selection>2||g->scroll<0||g->scroll>4))return 0;
  if(g->hand_count<0||g->hand_count>MAX_HAND||g->draw_count<0||g->draw_count>MAX_PILE||g->discard_count<0||g->discard_count>MAX_PILE||g->exhaust_count<0||g->exhaust_count>MAX_PILE)return 0;
@@ -2047,7 +2110,7 @@ int game_validate(const Game*g){
  for(int i=0;i<g->discard_count;i++)if(!valid_card_raw(g->discard[i]))return 0;
  for(int i=0;i<g->exhaust_count;i++)if(!valid_card_raw(g->exhaust[i]))return 0;
  for(int i=0;i<g->relic_count;i++)if(g->relics[i]<0||g->relics[i]>=RELIC_COUNT)return 0;
- for(int i=0;i<g->potion_count;i++)if(g->potions[i]<0||g->potions[i]>5)return 0;
+ for(int i=0;i<g->potion_count;i++)if(g->potions[i]<0||g->potions[i]>25)return 0;
  for(int r=0;r<MAP_ROWS;r++)for(int c=0;c<MAP_LANES;c++)if(g->map[r][c]<NODE_FIGHT||g->map[r][c]>NODE_BOSS)return 0;
  if(g->screen==CARD_CHOICE&&
  ((g->next_screen==25?g->discard_count:g->hand_count)<1||g->selection<0||
@@ -2071,7 +2134,7 @@ int game_validate(const Game*g){
  if(g->screen==NINJA_CHOICE&&(g->ninja.choice_kind<1||g->ninja.choice_kind>4||g->ninja.choice_remaining<1||g->ninja.choice_count<0||g->ninja.choice_count>MAX_HAND||g->selection<0||g->selection>=g->hand_count))return 0;
  if(g->screen==MAP&&(g->selection<0||g->selection>=MAP_LANES))return 0;
  if(g->screen==COMBAT&&(g->selection<0||g->selection>g->hand_count||g->target<0||g->target>=MAX(1,g->enemy_count)))return 0;
- if(g->v151.potion_offer< -1||g->v151.potion_offer>5||g->v151.card_done<0||g->v151.card_done>1)return 0;
+ if(g->v151.potion_offer< -1||g->v151.potion_offer>25||g->v151.card_done<0||g->v151.card_done>1)return 0;
  if(g->screen==REWARD&&(g->selection<0||g->selection>5))return 0;
  if(g->screen==BOSS_REWARD&&(g->selection<0||g->selection>3))return 0;
  if((g->screen==BLESSING||g->screen==REWARD_PREVIEW)&&(g->selection<0||g->selection>2))return 0;
@@ -2109,10 +2172,12 @@ int game_load(Game*g,const char*path){
  if(!ok||trailing!=0||n<16||check!=hash_bytes(raw,n))return 0;
  memset(&temp,0,sizeof(temp));uint32_t version;memcpy(&version,raw+4,4);
  if(version==GAME_VERSION){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);}
+ else if(version==23){if(n!=offsetof(Game,a18))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;temp.a18.slot=-1;}
  else if(version==22){if(n!=offsetof(Game,regent))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==21){if(n!=offsetof(Game,v151))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;temp.v151.potion_offer=-1;}
  else {if(version==20){if(!load_v20(&temp,raw,n))return 0;}else if(!load_legacy_run(&temp,raw,n,version))return 0;if(!migrate_raw_cards(&temp))return 0;temp.v151.potion_offer=-1;}
  if(version<23&&!migrate_raw22(&temp))return 0;
+ if(version<24)temp.a18.slot=-1;
  if(temp.screen==POTION_VIEW&&temp.prior_screen!=MAP)temp.prior_screen=SHOP;
  if(!game_validate(&temp))return 0;
  /* Retire the duplicate blessing without renumbering any saved relic IDs. */
@@ -2177,6 +2242,7 @@ int profile_load(RiftProfile*p,const char*path){
 }
 /* Temporary status and persistent Powers are separate; each Power appears once. */
 static int power_present(const Game*g,int id){
+ if(a18_is_card(id))return a18_card_character(id)==g->character?g->a18.powers[(id-334)%20]:0;
  if(id>=REGENT_FIRST)return g->regent.played[id-REGENT_FIRST];
  if(id>=NINJA_FIRST&&id<NINJA_LAST)return g->ninja.powers[id-NINJA_FIRST];
  if(g->ic[id>=93?47:33+id/31]&(int)(1u<<(id%31)))return 1;
@@ -2184,6 +2250,7 @@ static int power_present(const Game*g,int id){
  case 95:return g->ic[IC_COVENANT];case 54:return g->ic[IC_AGGRESSION];case 55:return g->ic[IC_BARRICADE];case 59:return g->ic[IC_CORRUPTION];case 60:return g->ic[IC_CRIMSON_COPIES];case 61:return g->ic[IC_CRUELTY];case 62:return g->ic[IC_DARK_EMBRACE];case 69:return g->ic[IC_HELLRAISER];case 72:return g->ic[IC_JUGGERNAUT];case 73:return g->ic[IC_JUGGLING];case 78:return g->ic[IC_PYRE];case 82:return g->ic[IC_STAMPEDE];case 84:return g->ic[IC_PLATING];case 85:return g->ic[IC_TANK];case 88:return g->ic[IC_UNMOVABLE];case 90:return g->ic[IC_VICIOUS];default:return 0;}
 }
 static void power_line(const Game*g,int id,char*out,int cap){
+ if(a18_is_card(id)){snprintf(out,cap,"%s: %s",cards[id].name,cards[id].desc);return;}
  if(id>=REGENT_FIRST){int n=g->regent.powers[id-REGENT_FIRST];const char*rule="active";
  switch(id){
  case R_ARSENAL:rule="+%d Strength per created card";break;
@@ -2322,3 +2389,5 @@ void game_status_line(const Game*g,int index,char*out,int cap){
 }
 
 #include "card_preview.inc"
+
+#include "a18_progress.inc"

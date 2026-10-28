@@ -1,0 +1,54 @@
+07:03:323 Vulkan/VulkanLoader.cpp:462 I[G3D]: VulkanMayBeAvailable: Device allowed ('SDL:Linux')
+07:03:323 Vulkan/VulkanLoader.cpp:401 I[G3D]: Vulkan library loaded ('libvulkan.so')
+07:03:323 Vulkan/VulkanLoader.cpp:511 I[G3D]: VulkanMayBeAvailable: Enumerating instance extensions
+07:03:328 Vulkan/VulkanLoader.cpp:522 I[G3D]: VulkanMayBeAvailable: Instance extension count: 25
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_device_group_creation (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_display (00000017)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_fence_capabilities (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_memory_capabilities (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_semaphore_capabilities (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_display_properties2 (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_physical_device_properties2 (00000002)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_surface_capabilities2 (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface (00000019)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_maintenance1 (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_protected_capabilities (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_wayland_surface (00000006)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xcb_surface (00000006)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xlib_surface (00000006)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_drm_display (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_xlib_display (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_report (0000000a)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_utils (00000002)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_direct_mode_display (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_display_surface_counter (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_headless_surface (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_surface_maintenance1 (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_swapchain_colorspace (00000005)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_portability_enumeration (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_LUNARG_direct_driver_loading (00000001)
+07:03:329 Vulkan/VulkanLoader.cpp:568 I[G3D]: VulkanMayBeAvailable: Calling vkCreateInstance
+07:03:345 Vulkan/VulkanLoader.cpp:575 I[G3D]: VulkanMayBeAvailable: Vulkan test instance created successfully.
+07:03:345 Vulkan/VulkanLoader.cpp:578 E[G3D]: VulkanMayBeAvailable: Failed to count physical devices (VK_ERROR_INITIALIZATION_FAILED)
+07:03:345 Vulkan/VulkanLoader.cpp:642 I[G3D]: VulkanMayBeAvailable: Destroying instance
+07:03:346 Vulkan/VulkanLoader.cpp:649 W[G3D]: Vulkan with working device not detected.
+DEBUG: Vulkan is not available, not using Vulkan.
+Info: We compiled against SDL version 2.32.8 and we are linking against SDL version 2.32.8. :)
+07:03:423 Thread/ThreadManager.cpp:227 I[SYSTEM]: ThreadManager::Init(compute threads: 4, all: 8)
+07:03:423 Util/PortManager.cpp:475 I[SCENET]: UPnPService: Begin of UPnPService Thread
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/ppsspp/AppDir/bin/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/ppsspp/AppDir/bin
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/games/ppsspp/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/ppsspp/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/games/ppsspp/assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : assets
+07:03:423 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/rift-pre2-old-renamed
+07:03:423 Core/Config.cpp:424 I[G3D]: Longest display side: 960 pixels. Choosing scale 1
+07:03:424 Core/Config.cpp:1535 E[LOADER]: Error saving config (Loaded appended config) - can't write ini '/home/runner/work/_temp/rift-pre2-old-renamed/.config/ppsspp/PSP/SYSTEM/ppsspp.ini'
+OpenGL 2.0 or higher.
+07:03:593 Core/System.cpp:634 N[BOOT]: PPSSPP v1.20.4
+07:03:671 idle0        N[BOOT]: UI/EmuScreen.cpp:391 Booted /home/runner/work/_temp/rift-pre2-old-renamed/.config/ppsspp/PSP/GAME/Rift Ascent Test/EBOOT.PBP...
+07:03:728 Core/Config.cpp:1544 E[LOADER]: Error saving controller config - can't read ini first '/home/runner/work/_temp/rift-pre2-old-renamed/.config/ppsspp/PSP/SYSTEM/controls.ini'
+Leaving main

@@ -8,7 +8,7 @@ static const char*event_titles[EVENT_COUNT]={
  "ECHO CRYPT","BLACK ANVIL","CINDER SCRIPTORIUM","RELIQUARY AUCTION","WARDEN'S BARGAIN"};
 static const char*event_lore[EVENT_COUNT]={
  "A scorched purse is caught in a thorned iron trap.",
- "Moonwater can mend your wounds, or wait in a bottle.",
+ "The moon offers relief, or a second reflection of your power.",
  "The grimoire offers a difficult lesson or a familiar one.",
  "Two candles burn: one for endurance, one for relief.",
  "You can reach the offering, or collect the loose coins.",
@@ -26,7 +26,7 @@ static const char*event_lore[EVENT_COUNT]={
  "The archivist can cut a page, or bind its twin."};
 static const EventOffer event_offers[EVENT_COUNT][2]={
  {{"SEIZE THE PURSE","Gain 75 Gold. Lose 8 HP.",0,0,8,0},{"GATHER LOOSE COINS","Gain 25 Gold. No HP cost.",0,0,0,0}},
- {{"DRINK","Heal up to 20 HP. Pay 2 Gold per HP. UP/DOWN adjusts.",0,0,0,0},{"BOTTLE MOONWATER","Pay 40 Gold. Gain a Healing potion (18 HP). Requires an empty belt slot.",0,40,0,0}},
+ {{"DRINK MOONWATER","Heal 20 HP, up to your maximum. No Gold cost.",0,0,0,0},{"CAPTURE A REFLECTION","Pay 30 Gold to copy one eligible deck card, keeping its upgrade and modification. Pay only after confirming the card.",EVENT_COPY,30,0,0}},
  {{"STUDY THE DEEPER LESSON","Pay 35 Gold. Take the shown upgraded Uncommon card.",0,35,0,0},{"READ THE MARGIN","Take the shown Common card for free.",0,0,0,0}},
  {{"LIGHT THE ENDURING FLAME","Gain 5 maximum HP and heal 5 HP.",0,0,0,0},{"LIGHT THE MERCIFUL FLAME","Heal 18 HP. Maximum HP is unchanged.",0,0,0,0}},
  {{"REACH THROUGH THE TRAP","Lose 7 HP. Take the shown relic.",0,0,7,0},{"TAKE THE LOOSE COINS","Gain 40 Gold. Leave the relic.",0,0,0,0}},
@@ -57,7 +57,7 @@ void game_event_option(const Game*g,int option,char*title,int tc,char*detail,int
  if(option==2){snprintf(title,tc,"LEAVE");snprintf(detail,dc,"Leave without spending anything.");return;}
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);option=CLAMP(option,0,1);
  const EventOffer*o=&event_offers[id][option];snprintf(title,tc,"%s",o->title);snprintf(detail,dc,"%s",o->detail);
- if(id==1&&!option){int n=game_moon_heal_now(g);snprintf(detail,dc,"Heal %d HP for %d Gold. UP/DOWN adjusts the amount (2 Gold per HP, up to 20 HP).",n,n*2);}
+ if(id==1&&!option)snprintf(detail,dc,"Heal 20 HP, up to your maximum. No Gold cost. You will recover %d HP.",game_moon_heal_now(g));
  if(id==2||id==6){int raw=g->reward[option];if(CARD_ID(raw)<CARD_COUNT)snprintf(title,tc,"%s%s",cards[CARD_ID(raw)].name,CARD_UP(raw)?"+":"");}
  if((id==4&&!option)||id==11||id==15){int r=event_relic_id(g,option);if(r>=0&&r<RELIC_COUNT)snprintf(detail,dc,"%s\n%s: %s",o->detail,relic_defs[r].name,relic_defs[r].desc);else snprintf(detail,dc,"No unowned relic remains for this offer.");}
 }
@@ -69,7 +69,7 @@ int game_event_choice_available(const Game*g,int option){
  if(o->action){int n=0;for(int i=0;i<g->deck_count;i++)n+=event_card_ok(g->deck[i],o->action);
   if(!n||(o->action==EVENT_REMOVE&&g->deck_count<=1)||(o->action==EVENT_COPY&&g->deck_count>=MAX_DECK))return 0;}
  if((id==2||id==6||(id==8&&!option)||(id==9&&option)||(id==11&&!option))&&g->deck_count>=MAX_DECK)return 0;
- if(id==1){if(!option&&game_moon_heal_now(g)<1)return 0;if(option&&g->potion_count>=MAX_POTIONS)return 0;}
+ if(id==1&&!option&&game_moon_heal_now(g)<1)return 0;
  if((id==3&&option)||(id==5&&!option)||(id==7&&option)||id==8)if(g->hp==g->maxhp)return 0;
  if((id==4&&!option)||id==11||id==15){int r=event_relic_id(g,option);if(r<0||r>=RELIC_COUNT||relic(g,r)||g->relic_count>=MAX_RELICS)return 0;if(o->maxhp&&g->maxhp-o->maxhp-(r==11?12:0)<25)return 0;}
  return 1;
@@ -128,7 +128,7 @@ static void do_event(Game*g,int option){
  event_pay(g,o);
  switch(id){
  case 0:g->gold+=option?25:75;snprintf(text,sizeof(text),option?"Gained 25 Gold.":"Gained 75 Gold. Lost 8 HP.");break;
- case 1:if(option){g->potions[g->potion_count++]=0;snprintf(text,sizeof(text),"Gained Healing potion. Paid 40 Gold.");}else{int n=game_moon_heal_now(g);g->gold-=n*2;heal(g,n);snprintf(text,sizeof(text),"Healed %d HP for %d Gold.",n,n*2);}break;
+ case 1:{int n=game_moon_heal_now(g);heal(g,n);snprintf(text,sizeof(text),"Moonwater restored %d HP. No Gold spent.",n);break;}
  case 2:case 6:card=g->reward[option];add_card(g,card);snprintf(text,sizeof(text),"Received %s%s.",cards[CARD_ID(card)].name,CARD_UP(card)?"+":"");break;
  case 3:if(!option){g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Gained 5 maximum HP and healed 5 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Healed up to 18 HP.");}break;
  case 4:if(option){g->gold+=40;snprintf(text,sizeof(text),"Gained 40 Gold.");}else relic_id=event_relic_id(g,option);break;

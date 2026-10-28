@@ -1,0 +1,116 @@
+[
+  {
+    "enemy": 0,
+    "source": "refined-early/enemy_00.png",
+    "source_sha256": "10b813ab82ac1ace153752ddf7a165cc8a2866878380772d7974de0d12e51fa2",
+    "sprite_sha256": "8ca99b1fe9f35da13f26867f18fdeb325c3d7fd32fdc4c34fe3b17605e639445",
+    "source_rect": [
+      8,
+      72,
+      496,
+      400
+    ],
+    "bounds": [
+      2,
+      30,
+      100,
+      77
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  },
+  {
+    "enemy": 1,
+    "source": "refined-early/enemy_01.png",
+    "source_sha256": "c8e428022b0bafc22cd3faa03ba15f3f36483bed8053c704761ccde4e3b29204",
+    "sprite_sha256": "36b76f36f3464a9150651309662a9b56e14bdc56120915ae3bd364eacd57f842",
+    "source_rect": [
+      15,
+      9,
+      289,
+      480
+    ],
+    "bounds": [
+      21,
+      2,
+      61,
+      106
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  },
+  {
+    "enemy": 11,
+    "source": "refined-early/enemy_11.png",
+    "source_sha256": "2e90c21c1c6856d0667aea13800feb9314bee322803a5a42ba05f2d218261e3d",
+    "sprite_sha256": "9194bd422695542ca4a9e9e4d2be85f60e54bc7d2206d83d77ca86376a83c309",
+    "source_rect": [
+      2,
+      5,
+      503,
+      494
+    ],
+    "bounds": [
+      2,
+      7,
+      100,
+      101
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  },
+  {
+    "enemy": 18,
+    "source": "refined-late/enemy_18.png",
+    "source_sha256": "a86e85d60ee51db30cee37f511b3fd50a40f5fe82122cd8f83bf882caf06a758",
+    "sprite_sha256": "3ab5f4af75dead38e85208fa2e20ea69b553213789fd6d7e554fce7f20fef939",
+    "source_rect": [
+      119,
+      21,
+      250,
+      443
+    ],
+    "bounds": [
+      23,
+      2,
+      58,
+      106
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  },
+  {
+    "enemy": 21,
+    "source": "refined-late/enemy_21.png",
+    "source_sha256": "c50302ef7b6b1797ebaa7d1ab23170b557c1a2b3ffc944cfafdb582bd028045f",
+    "sprite_sha256": "3f862ec8ce1daf3653c6f5d160fe5a4f635f887321552b809e73b600a8ad1e07",
+    "source_rect": [
+      118,
+      35,
+      365,
+      451
+    ],
+    "bounds": [
+      14,
+      2,
+      75,
+      106
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  },
+  {
+    "enemy": 31,
+    "source": "refined-late/enemy_31.png",
+    "source_sha256": "682bf516c8f3312331069dc6f5b7591f50cf58669a4a249b7d4b275837be9460",
+    "sprite_sha256": "5ab21367233daee4d40d5c8da9aa2d082cdd19339487873d26445e5cfd611602",
+    "source_rect": [
+      124,
+      20,
+      197,
+      466
+    ],
+    "bounds": [
+      30,
+      2,
+      43,
+      106
+    ],
+    "processing": "Deterministic foreground segmentation, isolated main connected component, aspect-preserving resize and mild saturation reduction"
+  }
+]

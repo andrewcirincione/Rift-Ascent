@@ -1,0 +1,290 @@
+[
+  {
+    "name": "card_354",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded assassin holding a thin dagger threaded with green poison, close-up",
+    "seed": 246100,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "ba50eb7dea6f373cc847dec5d966ef83a55952d217f28760c5ac9779a1c3b395"
+  },
+  {
+    "name": "card_355",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded rogue wrapping a silver dagger in flowing protective silk",
+    "seed": 246101,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "93497b149aa66c3dcbeea77a145cd22a3f479d1d7913c8486636e46b3f0b4cb9"
+  },
+  {
+    "name": "card_356",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white gloved hand releasing a black raven over moonlit playing parchments",
+    "seed": 246102,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "69f42f292d1e4ddb55b2122059e70ca94fabcff80bf21c62bfe41a3ac0ec4f29"
+  },
+  {
+    "name": "card_357",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. one translucent crystal dagger with green reflections against a dark stone wall",
+    "seed": 246103,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "ae8d4767d45ec387d7907b5df68735d5925781449d79e0ffd5331c5a0f42c918"
+  },
+  {
+    "name": "card_358",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. two polished throwing daggers and a rolled white cloak laid on a wooden crate",
+    "seed": 246104,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "fb42c8b9690cff3817adb324b4d98a490149fea2e65bafc71f4bacb5dfc0a5ca"
+  },
+  {
+    "name": "card_359",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white cloaked assassin stepping silently between moonlit gothic pillars",
+    "seed": 246105,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "b5db8e9a855b2e32aa34d099d23e226a810e880635601cb0f71e24ea58c50e0e"
+  },
+  {
+    "name": "card_360",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a hidden silver dagger above a green glass poison flask in tall night grass",
+    "seed": 246106,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "12b62467bf6af60b3832daa4d3d2042589144d550e4308d19903662b80b69951"
+  },
+  {
+    "name": "card_361",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. two white gloved hands exchanging a sealed scroll and a dagger beneath moonlight",
+    "seed": 246107,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "8db29b02bc1e755fd9cf2890c99d0ad7708d373d43c7391d0ec1ce94cdc07c8d"
+  },
+  {
+    "name": "card_362",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded rogue holding a matte black knife upright in falling snow",
+    "seed": 246108,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "cbadcb84ff329c94b8c09919e1ab89cc50600fb9cf666720e5e6c2365e0fcc8d"
+  },
+  {
+    "name": "card_363",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white cloak billowing through translucent green mist, silver blade in foreground",
+    "seed": 246109,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "8fbfb1ec59db84273cf07b0fcdcc28d6e60483eba4953527bc34dc5cca572bc4"
+  },
+  {
+    "name": "card_364",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. two ornate silver daggers crossed over a dusk-colored wax seal",
+    "seed": 246110,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "a91aa6de8f49e1b1d54495e970ad027133f84133de95d4e7af6e22ecb04631ee"
+  },
+  {
+    "name": "card_365",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a spectral white hooded figure trailing silver silk through a blue ruined corridor",
+    "seed": 246111,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "be665496b7d82c5a571f61dfb9b02a08e395b141e4fa2fb5dda512db6420af9c"
+  },
+  {
+    "name": "card_366",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a vast ruined cathedral illuminated by luminous green vines and poison mist",
+    "seed": 246112,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "0342ae5aaec11cda9cc518bfdcd15892d3f9f912ec7885fd7082b23c5e5e5ca5"
+  },
+  {
+    "name": "card_367",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. three silver throwing knives hovering above candles in a dark chapel",
+    "seed": 246113,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "13398bd9611386f30d70dd37380e6fbe6ae591a7909de00ed9e7eea2402e0d69"
+  },
+  {
+    "name": "card_368",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an elegant empty black dagger sheath lying across a white cloak, moonlit close-up",
+    "seed": 246114,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "40e131574b38d99daad84dd80416a16172a3739a4cfbf0bb2db613fac508b24b"
+  },
+  {
+    "name": "card_369",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded rogue collecting glowing green night flowers in an old graveyard",
+    "seed": 246115,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "ef029b9dac2f465efbeea41d8a1b1b89675a90aa3a665b5c288f0136a5798ccf"
+  },
+  {
+    "name": "card_370",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white cloaked traveler sheltered under a silver translucent dome in midnight rain",
+    "seed": 246116,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "50b6d35cf32a42fdae9e82d7236bca9cca8dd7b8dffede2ff274d73c5274b371"
+  },
+  {
+    "name": "card_371",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an ancient silver bell wrapped in white cloth, hanging in a ruined dark tower",
+    "seed": 246117,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "917ee091c7a5ce1ef0b4494f5db05fbdc81a6ae634a18266e03899046d48873a"
+  },
+  {
+    "name": "card_372",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded assassin with one finger at a closed mask, green dagger glint",
+    "seed": 246118,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "9917cefb7338d472a11f62590b1d247fa264469328e40a5b241eed82e1d2bcaa"
+  },
+  {
+    "name": "card_373",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white hooded rogue beneath a floating broken silver crown, purple twilight",
+    "seed": 246119,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "bc5f257b0a017373b30e168811cb2c57c1c8e166644530f2cdb813eaeaab9b38"
+  },
+  {
+    "name": "vesper_ending",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a slender white hooded assassin with silver daggers standing alone before a fallen gothic throne at dawn, exhausted triumph. Wide cinematic environment, entire body visible, no interface.",
+    "seed": 246120,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "ddce229c49d1f2fa0df1e9adf1fb4e272c034e9ecb1acf3adc46ac1d75a7fee2"
+  },
+  {
+    "name": "vesper_beyond",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a slender white hooded assassin with silver daggers discovering an immense violet doorway behind the shattered throne, stars beyond it. Wide cinematic environment, entire body visible, no interface.",
+    "seed": 246121,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "7b4642461e8dc3add9e95ce29d2554b49b01d46863c5b880eddd86516dcf570e"
+  },
+  {
+    "name": "vesper_before",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a slender white hooded assassin with silver daggers facing a huge distant cosmic gatekeeper across a purple obsidian arena. Wide cinematic environment, entire body visible, no interface.",
+    "seed": 246122,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "85345ae0763532beee9878a660eced9d93c621c3d54ad3bcd23a2f97ff90b3ff"
+  },
+  {
+    "name": "vesper_true",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a slender white hooded assassin with silver daggers walking away as an ancient cosmic chain breaks into stars, quiet freedom, purple sunrise. Wide cinematic environment, entire body visible, no interface.",
+    "seed": 246123,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "3b2fa32d7ea5ce59df71a73af1c8b1a0352b94e0b8697bbc0468df515fdf68d3"
+  }
+]

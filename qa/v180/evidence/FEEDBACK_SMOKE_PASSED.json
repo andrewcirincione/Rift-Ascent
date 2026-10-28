@@ -1,0 +1,19 @@
+{
+  "sha256": "f6b48ee66fb5661efa7fdf8bf26509b4ecbcac68560447ef222a8bb725235204",
+  "cases": [
+    "options-toggle",
+    "save-safe-inset",
+    "high-maxhp",
+    "boss-facing",
+    "pause-no-cross",
+    "debug-L",
+    "debug-R",
+    "inventory-shoulder-preserved",
+    "debug-off-noop",
+    "moon-fixed-heal",
+    "moon-reflection",
+    "act4-random",
+    "character-corners"
+  ],
+  "scope": "Exact complete EBOOT, renamed install directory, controller inputs and read-only state assertions; seeded saved-game fixtures; no live-memory or executable patches."
+}

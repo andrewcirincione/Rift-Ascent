@@ -1,0 +1,308 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ TARGET = rift_ascent_crt_free
+-OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o
++OBJS = launch_path.o psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o
+ PSP_FW_VERSION = 660
+ PSP_LARGE_MEMORY = 0
+ CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
+--- a/boot_trace.h
++++ b/boot_trace.h
+@@ -1,5 +1,6 @@
+ #ifndef RIFT_BOOT_TRACE_H
+ #define RIFT_BOOT_TRACE_H
+ void boot_trace_reset(void);
++void boot_trace_text(const char *stage,const char *value);
+ void boot_trace(const char *stage,int result);
+ #endif
+--- a/boot_trace.c
++++ b/boot_trace.c
+@@ -9,7 +9,8 @@
+ #include <stdio.h>
+ #include <string.h>
+ 
+-#define BOOT_LOG_PATH "ms0:/RIFT_BOOT.LOG"
++#include "launch_path.h"
++#define BOOT_LOG_PATH rift_launch_boot_log()
+ void boot_trace_reset(void) {
+ #ifdef RIFT_BOOT_TRACE
+     SceUID f=sceIoOpen(BOOT_LOG_PATH, PSP_O_WRONLY|PSP_O_CREAT|PSP_O_TRUNC, 0777);
+@@ -31,3 +32,15 @@
+     (void)stage;(void)result;
+ #endif
+ }
++
++void boot_trace_text(const char *stage,const char *value) {
++#ifdef RIFT_BOOT_TRACE
++    if(!stage||!value)return;
++    char buf[384];int n=snprintf(buf,sizeof(buf),"%s: %s\n",stage,value);
++    if(n<=0)return;if(n>=(int)sizeof(buf))n=(int)sizeof(buf)-1;
++    SceUID f=sceIoOpen(BOOT_LOG_PATH,PSP_O_WRONLY|PSP_O_CREAT|PSP_O_APPEND,0777);
++    if(f<0)return;sceIoWrite(f,buf,(SceSize)n);sceIoClose(f);
++#else
++    (void)stage;(void)value;
++#endif
++}
+--- a/psp_start.c
++++ b/psp_start.c
+@@ -24,6 +24,7 @@
+ #include <pspaudio.h>
+ #include <pspiofilemgr.h>
+ #include "boot_trace.h"
++#include "launch_path.h"
+ 
+ /* PSPSDK crt0 usually declares linker boundary symbols. */
+ __asm__(
+@@ -89,7 +90,7 @@
+ }
+ static int soundtrack_open(void){
+  soundtrack_close();
+- soundtrack_fd=sceIoOpen("ms0:/PSP/GAME/RIFTASCENT_A18/EBOOT.PBP",PSP_O_RDONLY,0);
++ soundtrack_fd=rift_launch_open_package();
+  if(soundtrack_fd<0)return 0;
+  int end=sceIoLseek32(soundtrack_fd,0,2);
+  if(end<RIFT_MUSIC_FOOTER){soundtrack_close();return 0;}
+@@ -299,12 +300,10 @@
+        (key==BTN_OK&&before_input.screen==SHOP))
+         game_render_feedback(&before_input,&game,key,tick);
+ }
++#include "startup_diagnostic.h"
+ static int run_game(SceSize bytes,void *argp) {
+     (void)bytes;(void)argp;
+     boot_trace("worker entered",1);
+-    int assets_ready=rift_assets_open();
+-    boot_trace("streamed artwork bank",assets_ready);
+-    if(!assets_ready){boot_trace("FATAL artwork bank",-8);sceKernelExitGame();return -8;}
+     void *vram=sceGeEdramGetAddr();
+     boot_trace("EDRAM base", (int)(uintptr_t)vram);
+     if(!vram) {boot_trace("FATAL EDRAM", -1);sceKernelExitGame();return -1;}
+@@ -324,11 +323,24 @@
+     if(mode_result<0) {
+         sceKernelExitGame();return -2;
+     }
++    sceCtrlSetSamplingCycle(0);sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
++    setup_home_callback();
++    startup_loading(uncached0);
++    int splash_result=sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,PSP_DISPLAY_SETBUF_NEXTVSYNC);
++    boot_trace("startup loading framebuffer",splash_result);
++    sceDisplayWaitVblankStart();
++    boot_trace_text("launch executable",rift_launch_executable());
++    int assets_ready=rift_assets_open();
++    boot_trace("streamed artwork bank",assets_ready);
++    if(!assets_ready)return startup_failure(vram,uncached0,"Cannot load artwork from this EBOOT.",-8);
+     /* Seed chosen without libc startup/time import; different in each new run. */
+     boot_trace("game_new entering",1);
+     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
+     boot_trace("game_new finished",game.screen);
+-    boot_trace("A1.8 profile journal",a18_storage_open("ms0:/PSP/GAME/RIFTASCENT_A18"));
++    boot_trace_text("profile directory",rift_launch_directory());
++    int storage_ready=a18_storage_open(rift_launch_directory());
++    boot_trace("A1.8 profile journal",storage_ready);
++    if(!storage_ready)return startup_failure(vram,uncached0,"Cannot write the 1.8 save/profile files.",-11);
+     game.selection=game_resume_available()?0:1;
+     profile_init(&lifetime);game_render_set_profile(&lifetime);
+     rift_sound_reset(&music);
+@@ -356,7 +368,6 @@
+         boot_trace("FATAL initial vblank",initial_vblank);
+         sceKernelExitGame();return -6;
+     }
+-    setup_home_callback();
+     boot_trace("exit callback setup",1);
+     unsigned int last=0;
+     unsigned int frame=1;
+@@ -540,13 +551,15 @@
+     return 0;
+ }
+ int _start(SceSize args,void *argp) {
+-    (void)args;(void)argp;
++    int captured=rift_launch_capture((unsigned)args,argp);
+     boot_trace_reset();
+     boot_trace("PSP module start",1);
++    boot_trace("launch argument bytes",(int)args);
++    boot_trace("launch path captured",captured);
+     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
+                                   192*1024,PSP_THREAD_ATTR_USER,0);
+     boot_trace("main thread ID",th);
+-    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
++    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,args,argp));
+     else boot_trace("FATAL could not create thread",th);
+     return 0;
+ }
+--- a/asset_stream.c
++++ b/asset_stream.c
+@@ -5,8 +5,10 @@
+ #ifdef RIFT_STREAMED_ART
+ #ifdef __PSP__
+ #include <pspiofilemgr.h>
++#include "launch_path.h"
++#include "boot_trace.h"
+ static int asset_fd=-1;
+-static int disk_open(void){asset_fd=sceIoOpen("ms0:/PSP/GAME/RIFTASCENT_A18/EBOOT.PBP",PSP_O_RDONLY,0);return asset_fd>=0;}
++static int disk_open(void){asset_fd=rift_launch_open_package();return asset_fd>=0;}
+ static int disk_seek(int offset,int origin){return sceIoLseek32(asset_fd,offset,origin);}
+ static int disk_read(void*dst,unsigned size){return sceIoRead(asset_fd,dst,size);}
+ static void disk_close(void){if(asset_fd>=0)sceIoClose(asset_fd);asset_fd=-1;}
+@@ -51,7 +53,11 @@
+  if(!read_at(bank_end-16,bank,16)||memcmp(bank,"RIFTART1",8))goto fail;
+  bank_size=rd32(bank+8);if(!bank_size||bank_size>bank_end-16)goto fail;
+  bank_base=bank_end-16-bank_size;opened=1;return 1;
+-fail: disk_close();bank_base=bank_size=0;rift_asset_errors++;return 0;
++fail:
++#ifdef __PSP__
++ boot_trace("art bank open failure",rift_launch_last_io_error());
++#endif
++ disk_close();bank_base=bank_size=0;rift_asset_errors++;return 0;
+ }
+ void rift_assets_close(void){disk_close();opened=0;cursor=0;memset(entries,0,sizeof(entries));memset(owners,0,sizeof(owners));}
+ #ifdef RIFT_ASSET_TEST
+--- /dev/null
++++ b/launch_path.h
+@@ -0,0 +1,13 @@
++#ifndef RIFT_LAUNCH_PATH_H
++#define RIFT_LAUNCH_PATH_H
++/* The kernel passes a byte-counted block of NUL-separated argument strings.
++   Capture argv[0] before the module entry returns. No heap or CRT is used. */
++#define RIFT_LAUNCH_PATH_MAX 256
++#define RIFT_LAUNCH_DIR_MAX 192
++int rift_launch_capture(unsigned bytes,const void *argp);
++const char *rift_launch_executable(void);
++const char *rift_launch_directory(void);
++const char *rift_launch_boot_log(void);
++int rift_launch_last_io_error(void);
++int rift_launch_open_package(void);
++#endif
+--- /dev/null
++++ b/launch_path.c
+@@ -0,0 +1,86 @@
++#include "launch_path.h"
++#include <string.h>
++#ifdef __PSP__
++#include <pspiofilemgr.h>
++#include "boot_trace.h"
++#endif
++static char executable[RIFT_LAUNCH_PATH_MAX];
++static char directory[RIFT_LAUNCH_DIR_MAX]=".";
++static int io_error;
++static int assign_path(const char *path,unsigned length){
++ unsigned last=0;int slash=0;
++ if(!path||!length||length>=sizeof(executable))return 0;
++ for(unsigned i=0;i<length;i++){
++  unsigned char c=(unsigned char)path[i];
++  if(c<32||c==127||c=='\\')return 0;
++  if(c=='/'){last=i;slash=1;}
++ }
++ if(slash&&last>=sizeof(directory))return 0;
++ if(length<4||path[length-4]!='.'||
++   (path[length-3]!='p'&&path[length-3]!='P')||
++   (path[length-2]!='b'&&path[length-2]!='B')||
++   (path[length-1]!='p'&&path[length-1]!='P'))return 0;
++ memcpy(executable,path,length);executable[length]=0;
++ if(slash){if(!last){directory[0]='/';directory[1]=0;}
++  else{memcpy(directory,path,last);directory[last]=0;}}
++ else{directory[0]='.';directory[1]=0;}
++ return 1;
++}
++int rift_launch_capture(unsigned bytes,const void *argp){
++ executable[0]=0;directory[0]='.';directory[1]=0;io_error=0;
++ if(!argp||!bytes)return 0;
++ const char *p=(const char*)argp;unsigned n=0;
++ while(n<bytes&&n<sizeof(executable)&&p[n])n++;
++ if(n==bytes||n>=sizeof(executable))return 0;
++ return assign_path(p,n);
++}
++const char *rift_launch_executable(void){return executable[0]?executable:"EBOOT.PBP";}
++const char *rift_launch_directory(void){return directory;}
++const char *rift_launch_boot_log(void){
++ return !memcmp(executable,"ef0:",4)?"ef0:/RIFT_BOOT.LOG":"ms0:/RIFT_BOOT.LOG";
++}
++int rift_launch_last_io_error(void){return io_error;}
++#ifdef __PSP__
++static unsigned rlp_u32(const unsigned char*p){return p[0]|(unsigned)p[1]<<8|(unsigned)p[2]<<16|(unsigned)p[3]<<24;}
++static int read_exact(int fd,void*dst,unsigned bytes){
++ unsigned done=0;while(done<bytes){int n=sceIoRead(fd,(char*)dst+done,bytes-done);
++  if(n<=0){io_error=n;return 0;}done+=(unsigned)n;}return 1;
++}
++static int validate_package(int fd){
++ unsigned char hdr[40],sfo[1024],tail[56],bank[16];
++ const char title[]="RIFT ASCENT 1.8 PRE-RELEASE";int found=0;
++ if(!read_exact(fd,hdr,sizeof(hdr))||memcmp(hdr,"\0PBP",4))return 0;
++ unsigned start=rlp_u32(hdr+8),stop=rlp_u32(hdr+12);
++ if(start<40||stop<=start||stop-start>sizeof(sfo))return 0;
++ if(sceIoLseek32(fd,(int)start,0)!=(int)start||!read_exact(fd,sfo,stop-start))return 0;
++ for(unsigned i=0;i+sizeof(title)<=stop-start;i++)
++  if(!memcmp(sfo+i,title,sizeof(title))){found=1;break;}
++ if(!found)return 0; /* Never silently borrow another release's assets. */
++ int end=sceIoLseek32(fd,0,2);
++ if(end<72||sceIoLseek32(fd,end-56,0)!=end-56||!read_exact(fd,tail,56)||memcmp(tail,"RIFTM311",8))return 0;
++ unsigned music=rlp_u32(tail+48);if(music>(unsigned)end-72)return 0;
++ unsigned bankend=(unsigned)end-56-music;
++ if(sceIoLseek32(fd,(int)bankend-16,0)!=(int)bankend-16||!read_exact(fd,bank,16)||memcmp(bank,"RIFTART1",8))return 0;
++ if(!rlp_u32(bank+8)||rlp_u32(bank+8)>bankend-16||bankend-16-rlp_u32(bank+8)<rlp_u32(hdr+36))return 0;
++ return sceIoLseek32(fd,0,0)==0;
++}
++static int try_package(const char*path){
++ int fd=sceIoOpen(path,PSP_O_RDONLY,0);io_error=fd;
++ if(fd<0){boot_trace_text("package open failed",path);boot_trace("package I/O result",fd);return fd;}
++ if(!validate_package(fd)){sceIoClose(fd);io_error=-9;boot_trace_text("package invalid",path);return -1;}
++ char copy[RIFT_LAUNCH_PATH_MAX];unsigned n=(unsigned)strlen(path);
++ if(n>=sizeof(copy)){sceIoClose(fd);return -1;}
++ memcpy(copy,path,n+1);if(!assign_path(copy,n)){sceIoClose(fd);io_error=-10;return -1;}
++ io_error=0;boot_trace_text("package opened",executable);return fd;
++}
++int rift_launch_open_package(void){
++ /* A valid launch argument is authoritative. Do not hide damaged packages
++    by selecting a different installation when the active one is invalid. */
++ if(executable[0])return try_package(executable);
++ const char*const fallback[]={"EBOOT.PBP","ms0:/PSP/GAME/RIFTASCENT_A18/EBOOT.PBP","ef0:/PSP/GAME/RIFTASCENT_A18/EBOOT.PBP"};
++ for(unsigned i=0;i<sizeof(fallback)/sizeof(fallback[0]);i++){
++  int fd=try_package(fallback[i]);if(fd>=0)return fd;
++ }
++ return -1;
++}
++#endif
+--- /dev/null
++++ b/startup_diagnostic.h
+@@ -0,0 +1,42 @@
++#ifndef RIFT_STARTUP_DIAGNOSTIC_H
++#define RIFT_STARTUP_DIAGNOSTIC_H
++/* Asset-independent diagnostics: still works when the texture bank cannot open. */
++#include "font.h"
++static void startup_text(uint32_t*p,int x,int y,const char*s,uint32_t ink){
++ int ox=x;
++ for(;*s;s++){
++  if(*s=='\n'||x>W-20-7){x=ox;y+=14;if(*s=='\n')continue;}
++  unsigned c=(unsigned char)*s;if(c<32||c>126)c='?';
++  for(int yy=0;yy<11;yy++)for(int xx=0;xx<7;xx++)
++   if((rift_font[c-32][yy]&(1u<<xx))&&(unsigned)(x+xx)<W&&(unsigned)(y+yy)<H)
++    p[(y+yy)*STRIDE+x+xx]=ink;
++  x+=7;
++ }
++}
++static void startup_loading(uint32_t*p){
++ for(unsigned i=0;i<STRIDE*H;i++)p[i]=0xff16100dU;
++ startup_text(p,30,96,"RIFT ASCENT 1.8 PRE-RELEASE",0xffc7deeeU);
++ startup_text(p,30,124,"Loading artwork and profile...",0xffaaaaaaU);
++}
++static int startup_failure(void*vram,uint32_t*p,const char*reason,int code){
++ char number[64];boot_trace(reason,code);
++ for(unsigned i=0;i<STRIDE*H;i++)p[i]=0xff16100dU;
++ startup_text(p,22,18,"RIFT ASCENT - STARTUP ERROR",0xffc7deeeU);
++ startup_text(p,22,49,reason,0xffddddffU);
++ snprintf(number,sizeof(number),"Error: %d / last I/O: %d",code,rift_launch_last_io_error());
++ startup_text(p,22,73,number,0xffdededeU);
++ startup_text(p,22,99,"Package being opened:",0xffdededeU);
++ startup_text(p,22,119,rift_launch_executable(),0xffeeeeeeU);
++ startup_text(p,22,187,"Please send RIFT_BOOT.LOG from the storage root.",0xffdededeU);
++ startup_text(p,22,225,"Press X or HOME to return to the PSP menu.",0xffc7deeeU);
++ sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,PSP_DISPLAY_SETBUF_NEXTVSYNC);
++ sceDisplayWaitVblankStart();SceCtrlData pad;int released=0;
++ while(running){
++  sceCtrlPeekBufferPositive(&pad,1);
++  if(!(pad.Buttons&PSP_CTRL_CROSS))released=1;
++  if(released&&(pad.Buttons&PSP_CTRL_CROSS))break;
++  sceKernelDelayThread(20000);
++ }
++ sceKernelExitGame();return code;
++}
++#endif

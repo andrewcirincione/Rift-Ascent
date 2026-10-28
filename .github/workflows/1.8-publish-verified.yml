@@ -1,0 +1,92 @@
+name: Publish verified 1.8 prerelease
+on:
+  push:
+    branches: ['1.8-Pre-release']
+    paths: ['.github/workflows/1.8-publish-verified.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: rift-1-8-prerelease-only
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/1.8-Pre-release'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TESTED_COMMIT: 7c760355237ae1c842289534494e0dec78dda0fa
+      EXPECTED_EBOOT: 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 7c760355237ae1c842289534494e0dec78dda0fa
+      - name: Verify all existing draft assets against tested source and public digests
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = '1.8-Pre-release'
+          mkdir -p publication-verification/downloads
+          git ls-remote origin 'refs/heads/*' 'refs/tags/*' | grep -v 'refs/tags/v1.8-pre.1' | sort > publication-verification/protected-refs.before
+          gh api "repos/$GITHUB_REPOSITORY/releases/latest" > publication-verification/latest.before.json
+          gh api --paginate "repos/$GITHUB_REPOSITORY/releases?per_page=100" --slurp > publication-verification/releases.before.json
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,os,hashlib,subprocess
+          root=Path('publication-verification')
+          releases=[r for page in json.loads((root/'releases.before.json').read_text()) for r in page]
+          candidates=[r for r in releases if r['tag_name']=='v1.8-pre.1']
+          assert len(candidates)==1, 'Expected the one already-uploaded v1.8-pre.1 draft'
+          r=candidates[0];assert r['prerelease'],r
+          assert r['target_commitish']==os.environ['TESTED_COMMIT'], r['target_commitish']
+          sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+          source=Path('prerelease/1.8');smoke=json.loads((source/'evidence/SMOKE_PASSED.json').read_text())
+          audit=json.loads((source/'release/PACKAGE_AUDIT.json').read_text())
+          assert sha(source/'release/EBOOT.PBP')==smoke['sha256']==audit['sha256']==os.environ['EXPECTED_EBOOT']
+          assert len(smoke['cases'])==8 and audit['unique_custom_card_images']==60
+          assert 'ALL 1.8 PRERELEASE NATIVE TESTS PASSED' in (source/'evidence/native-tests.txt').read_text()
+          expected={'EBOOT.PBP','PACKAGE_AUDIT.json','RELEASE_NOTES.md','RELEASE_MANIFEST.json','SHA256SUMS.txt','Rift-Ascent-1.8-Pre-release-PSP.zip','Rift-Ascent-1.8-Pre-release-Source.zip','Rift-Ascent-1.8-Pre-release-Validation.zip'}
+          assert {a['name'] for a in r['assets']}==expected
+          for a in r['assets']:
+              p=root/'downloads'/a['name']
+              with p.open('wb') as f:subprocess.run(['gh','api','-H','Accept: application/octet-stream',f"repos/{os.environ['GITHUB_REPOSITORY']}/releases/assets/{a['id']}"],stdout=f,check=True)
+              assert p.stat().st_size==a['size'],a['name']
+              assert a['digest']=='sha256:'+sha(p),a['name']
+              print('VERIFIED remote bytes',a['name'],sha(p),flush=True)
+          manifest=json.loads((root/'downloads/RELEASE_MANIFEST.json').read_text())
+          for name,entry in manifest['assets'].items():
+              p=root/'downloads'/name;assert sha(p)==entry['sha256'] and p.stat().st_size==entry['bytes'],name
+          assert sha(root/'downloads/EBOOT.PBP')==os.environ['EXPECTED_EBOOT']
+          (root/'release.before.json').write_text(json.dumps(r,indent=2))
+          with open(os.environ['GITHUB_ENV'],'a') as f:f.write(f"VERIFIED_RELEASE_ID={r['id']}\n")
+          print('PASS all eight release assets downloaded and verified; exact tested EBOOT preserved')
+          PY
+      - name: Publish this verified draft using its numeric release ID
+        run: |
+          set -euo pipefail
+          gh api --method PATCH "repos/$GITHUB_REPOSITORY/releases/$VERIFIED_RELEASE_ID" \
+            -F draft=false -F prerelease=true -f make_latest=false > publication-verification/PUBLISHED.json
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/v1.8-pre.1" > publication-verification/PUBLIC_RELEASE.json
+          gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/v1.8-pre.1" > publication-verification/tag.json
+          gh api "repos/$GITHUB_REPOSITORY/releases/latest" > publication-verification/latest.after.json
+          git ls-remote origin 'refs/heads/*' 'refs/tags/*' | grep -v 'refs/tags/v1.8-pre.1' | sort > publication-verification/protected-refs.after
+          cmp publication-verification/protected-refs.before publication-verification/protected-refs.after
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,os
+          d=Path('publication-verification');r=json.loads((d/'PUBLIC_RELEASE.json').read_text());before=json.loads((d/'release.before.json').read_text())
+          assert r['id']==int(os.environ['VERIFIED_RELEASE_ID']) and not r['draft'] and r['prerelease']
+          assert r['tag_name']=='v1.8-pre.1' and r['target_commitish']==os.environ['TESTED_COMMIT']
+          assert {a['name']:a['digest'] for a in r['assets']}=={a['name']:a['digest'] for a in before['assets']}
+          assert json.loads((d/'tag.json').read_text())['object']['sha']==os.environ['TESTED_COMMIT']
+          assert json.loads((d/'latest.before.json').read_text())['id']==json.loads((d/'latest.after.json').read_text())['id']
+          with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:f.write('## Published verified 1.8 prerelease\n'+r['html_url']+'\n\nAll eight uploaded assets downloaded and checksum-verified. Exact packaged EBOOT passed all eight PPSSPP cases. Other branches, tags and latest stable release unchanged.\n')
+          print('PUBLIC RELEASE:',r['html_url'])
+          print('PASS: publication complete; all other refs and latest stable release unchanged')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: 1.8-prerelease-publication-proof
+          path: publication-verification/*.json
+          if-no-files-found: warn
