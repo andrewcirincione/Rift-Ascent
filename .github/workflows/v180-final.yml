@@ -1,0 +1,120 @@
+name: Verify stable Rift Ascent 1.8
+on:
+  push:
+    branches: [release-1.8-final]
+    paths: ['.github/workflows/v180-final.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: verify-stable-180
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+      R: qa/v180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release-1.8-final
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Preserve other references and install pinned review tools
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = release-1.8-final
+          git ls-remote origin refs/heads/main refs/heads/1.8-Pre-release refs/heads/A1.8 'refs/tags/*' > "$RUNNER_TEMP/protected.before"
+          python -m pip install pillow==12.3.0 numpy==2.3.5 opencv-python-headless==4.13.0.92 websockets==15.0.1
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb xauth libgl1-mesa-dri libglu1-mesa libasound2t64 libpulse0
+      - name: Restore patched readable sources and import reviewed generated enemies
+        run: |
+          set -euo pipefail
+          python "$R/prepare.py"
+          mkdir -p "$R/evidence" "$R/art/refined-early" "$R/art/refined-late"
+          for item in early:12848856519 late:12849385493; do
+            group=${item%:*}; id=${item#*:}
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" > "$RUNNER_TEMP/art-$group.zip"
+            unzip -o -q "$RUNNER_TEMP/art-$group.zip" -d "$R/art/refined-$group"
+          done
+          python "$R/import_enemies.py" "$R" | tee "$R/evidence/art-import.txt"
+      - name: Sanitized progression, debug, Moon Spring and encounter regression tests
+        run: |
+          set -euo pipefail
+          gcc -std=gnu11 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -I "$R/source" "$R/tests/progression.c" "$R/source/game.c" -o "$RUNNER_TEMP/progression"
+          ASAN_OPTIONS=detect_leaks=1 "$RUNNER_TEMP/progression" | tee "$R/evidence/native-regression.txt"
+          gcc -std=gnu11 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -I "$R/source" "$R/tests/feedback.c" "$R/source/game.c" -o "$RUNNER_TEMP/feedback"
+          ASAN_OPTIONS=detect_leaks=1 "$RUNNER_TEMP/feedback" | tee "$R/evidence/feedback-native.txt"
+          gcc -O1 -I "$R/source" prerelease/1.8/bootfix/test_launch_path.c "$R/source/launch_path.c" -o "$RUNNER_TEMP/launch"
+          "$RUNNER_TEMP/launch" | tee "$R/evidence/launch-tests.txt"
+      - name: Fresh PSPDEV build and complete artwork/music packaging
+        run: |
+          set -euo pipefail
+          docker run --rm -v "$PWD/$R/source:/src" -w /src pspdev/pspdev:v20261001 sh -c 'set -eu; make clean; make -j2; psp-nm -S rift_ascent_crt_free.elf > symbols.txt' 2>&1 | tee "$R/evidence/pspdev-build.log"
+          sudo chown -R "$(id -u):$(id -g)" "$R/source"
+          cp "$R/source/symbols.txt" "$R/evidence/symbols.txt"
+          python "$R/package.py" "$R" prerelease/1.8/release/EBOOT.PBP tools/fix_psp_elf_metadata.py | tee "$R/evidence/package-tests.txt"
+          gcc -std=gnu11 -O1 -g -fsanitize=address,undefined -DRIFT_STREAMED_ART -I "$R/source" "$R/tests/render_feedback.c" "$R/source/"{game,artwork,motion_art,enemy_art,asset_stream,sound}.c -o "$RUNNER_TEMP/render"
+          ASAN_OPTIONS=detect_leaks=1 "$RUNNER_TEMP/render" "$R/release/EBOOT.PBP" "$R/evidence" | tee "$R/evidence/render-tests.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v180-compiled-candidate
+          path: |
+            qa/v180/source/
+            qa/v180/release/
+            qa/v180/evidence/
+          compression-level: 1
+      - name: Prepare exact-EBOOT PPSSPP review
+        run: |
+          set -euo pipefail
+          gcc -O1 -I "$R/source" "$R/tests/review_fixtures.c" "$R/source/game.c" -o "$R/tests/review_fixtures"
+          gcc -O1 -DLAYOUT_ONLY -I "$R/source" "$R/tests/review_fixtures.c" -o "$RUNNER_TEMP/layout"
+          "$RUNNER_TEMP/layout" > "$R/evidence/review-layout.json"
+          mkdir -p "$RUNNER_TEMP/ppsspp"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/12795586984/zip" > "$RUNNER_TEMP/ppsspp.zip"
+          unzip -q "$RUNNER_TEMP/ppsspp.zip" -d "$RUNNER_TEMP/ppsspp"
+          image=$(find "$RUNNER_TEMP/ppsspp" -name PPSSPP.AppImage -print -quit)
+          chmod +x "$image"; cd "$RUNNER_TEMP/ppsspp"; "$image" --appimage-extract >/dev/null
+          app=$(find "$RUNNER_TEMP/ppsspp" -path '*/AppDir/AppRun' -print -quit)
+          test -n "$app"
+          sed -i 's/SDL_AUDIODRIVER=pulseaudio/SDL_AUDIODRIVER=dummy/' "$(dirname "$app")/.env"
+          echo "PPSSPP_APP=$app" >> "$GITHUB_ENV"
+      - name: Playtest final EBOOT options, shoulder shortcuts, high HP, saves and character UI
+        run: |
+          set -euo pipefail
+          xvfb-run -a -s '-screen 0 960x544x24' python "$R/tests/smoke_feedback.py" "$R" "$PPSSPP_APP" 2>&1 | tee "$R/evidence/feedback-smoke.txt"
+          python "$R/finalize.py"
+          python tools/verify_release.py
+      - name: Commit verified source and release only to the staging branch
+        run: |
+          set -euo pipefail
+          rm -f "$R/tests/review_fixtures"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f "$R/source" "$R/tests" "$R/art" "$R/evidence" "$R/release" "$R/assets.json" "$R/import_enemies.py" "$R/package.py" "$R/"recovery.*.b64 GAME/src portable_build versions/1.8 release/current.json
+          git diff --cached --name-only > "$RUNNER_TEMP/changed"
+          python - "$RUNNER_TEMP/changed" <<'PY'
+          import sys
+          paths=open(sys.argv[1]).read().splitlines()
+          assert paths and all(p.startswith(('qa/v180/','GAME/src/','portable_build/','versions/1.8/')) or p=='release/current.json' for p in paths)
+          PY
+          git commit -m 'Release 1.8: verified feedback fixes, debug options, generated enemies, UI and canonical media build'
+          git push origin HEAD:refs/heads/release-1.8-final
+          git ls-remote origin refs/heads/main refs/heads/1.8-Pre-release refs/heads/A1.8 'refs/tags/*' > "$RUNNER_TEMP/protected.after"
+          cmp "$RUNNER_TEMP/protected.before" "$RUNNER_TEMP/protected.after"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v180-release-evidence
+          path: |
+            qa/v180/evidence/
+            qa/v180/release/
+            qa/v180/art/sprites/
+            versions/1.8/
+          compression-level: 1
