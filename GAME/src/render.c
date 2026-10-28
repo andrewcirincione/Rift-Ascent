@@ -104,7 +104,7 @@ const Game*game_render_audio_state(const Game*g,unsigned tick){
  return game_render_transition_busy(tick)&&tick-r161_transition_tick<r161_transition_length/2?&r161_transition_before:g;
 }
 int game_render_story_input(const Game*g,int key,unsigned tick){
- int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS;
+ int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING;
  if(game_render_transition_busy(tick)){
   if(scene&&key==BTN_OK&&r170_story_queue<3)r170_story_queue++;
   return 0;
@@ -195,7 +195,7 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  if(before->screen==PAUSE_MENU&&after->screen!=PAUSE_MENU){
   fx_transition=0;game_render_begin_transition(before,tick);
  }
- if(before->screen!=after->screen&&(before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS)){
+ if(before->screen!=after->screen&&(before->screen==ACT_INTRO||after->screen==ACT_INTRO||before->screen==STORY_ACT_BEFORE_BLESSING||after->screen==STORY_ACT_BEFORE_BLESSING||before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS)){
   fx_transition=0;game_render_begin_transition(before,tick);r161_transition_length=32;
  }
  if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT)){
@@ -1010,10 +1010,12 @@ static void rest_screen(const Game*g){
 static void event_screen(const Game*g){
  header(g,"A CHOICE IN THE DARK");
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);gilded_panel(20,42,440,210,1);
+ int card_offer=(id==2||id==6)&&g->selection<2;
  r134_center(240,51,game_event_title(id),GOLD,&r134_f18b);
  const uint32_t*art=id>=12?r150_events[id-12]:r134_event_icons[id];
- r134_blit(33,70,52,52,art,80,80,255);
- r134_wrap(106,83,329,2,12,game_event_lore(id),WHITE,&r134_f10,0);
+ r134_blit(33,74,card_offer?42:52,card_offer?42:52,art,80,80,255);
+ if(card_offer)r134_wrap(83,79,125,4,10,game_event_lore(id),WHITE,&r134_f9,0);
+ else r134_wrap(106,83,329,2,12,game_event_lore(id),WHITE,&r134_f10,0);
  char title[96],detail[512];
  for(int i=0;i<3;i++){
   int y=i<2?123+i*46:217,h=i<2?43:25;
@@ -1025,13 +1027,16 @@ static void event_screen(const Game*g){
 
  }
  game_event_option(g,g->selection,title,sizeof(title),detail,sizeof(detail));
- if((id==2||id==6)&&g->selection<2){
-  int raw=g->reward[g->selection],height=r135_card_layout(raw,152).height;
-  card_render(274,111,152,height,raw,1,1);
-  r134_text(226,112,id==2?(g->selection==0?"35 G":"FREE"):"-6 HP",GOLD,&r134_f9b);
+ if(card_offer){
+  int raw=g->reward[g->selection];R135CardLayout l=r135_card_layout(raw,180);
+  for(int w=182;l.height>166&&w<=214;w+=2)l=r135_card_layout(raw,w);
+  card_render(335-l.width/2,81,l.width,l.height,raw,1,1);
+  r134_center(335,70,game_event_choice_available(g,g->selection)?(id==2?(g->selection==0?"35 GOLD":"FREE"):"6 HP"):"UNAVAILABLE",game_event_choice_available(g,g->selection)?GOLD:RED,&r134_f9b);
  }else r134_wrap(229,124,215,10,11,detail,WHITE,&r134_f9,0);
- if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
- else if(g->message[0])r134_wrap(229,231,215,1,10,g->message,RED,&r134_f8,1);
+ if(!card_offer){
+  if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
+  else if(g->message[0])r134_wrap(229,231,215,1,10,g->message,RED,&r134_f8,1);
+ }
  footer(id==1?"D-PAD HEAL  X TAKE  O LEAVE  SQ DECK  START INVENTORY":"D-PAD CHOOSE  X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
 }
 static void event_card_screen(const Game*g){
@@ -1280,7 +1285,7 @@ static void title_screen(const Game*g){
  if(profile_data&&profile_data->runs){
   char b[60];snprintf(b,sizeof(b),"RUNS %lu    WINS %lu",(unsigned long)profile_data->runs,(unsigned long)profile_data->wins);r134_center(367,244,b,GOLD,&r134_f8);
  }else r134_center(367,244,g->selection==0&&!game_resume_available()?"NO SAVED RUN":"THREE WARRIORS / THREE ACTS",GOLD,&r134_f8);
- footer("UP/DOWN SELECT     X CONFIRM");
+ footer("UP/DOWN CHOOSE     X CONFIRM");
 }
 
 static void help_screen(const Game*g){
@@ -1448,7 +1453,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    return;
  }
  pix=pixels;sw=stride;
- if(g->screen==STORY_ACT||g->screen==STORY_BOSS){
+ if(g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING){
   rect(0,0,W,H,RGB(0,0,0));
   int a=CLAMP(g->act-1,0,3),c=CLAMP(g->character,0,2);
   const uint16_t*image=g->screen==STORY_BOSS?r170_boss_images[c][MIN(a,2)]:r170_entry_images[c][a];
@@ -1464,6 +1469,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
   int t=g->scroll,alpha=t<10?0:t<40?(t-10)*255/30:t<85?255:t<115?(115-t)*255/30:0;
   art_blit(0,0,480,272,r162_acts[g->act>3?3:CLAMP(g->act-1,0,2)],480,272);
   dark_rect(0,0,480,272,255-alpha);
+  rect(0,198,480,74,RGB(0,0,0));
   char label[40];snprintf(label,sizeof(label),"ACT %d",g->act);
   r134_center(240,208,label,RGB(230,222,202),&r134_f18b);
   if(g->endless)r134_center(240,235,"ENDLESS ASCENT",GOLD,&r138_title9);
@@ -1508,11 +1514,10 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    dark_rect(0,0,W,H,195);
    r134_blit(60,47,360,180,r162_pause,360,180,255);
    r134_center(240,76,"ASCENT PAUSED",GOLD,&r138_title10);
-   button(139,108,202,32,"SAVE & QUIT",1);
-   button(139,153,202,32,"RESUME",0);
-   r134_blit(112,117,14,14,r135_cross,14,14,255);
-   r134_blit(112,162,14,14,r135_circle,14,14,255);
-   footer("X SAVE & QUIT   O / SELECT RESUME");
+   button(139,108,202,32,"SAVE & QUIT",game_pause_selection()==0);
+   button(139,153,202,32,"RESUME",game_pause_selection()==1);
+   r134_blit(112,117+45*game_pause_selection(),14,14,r135_cross,14,14,255);
+   footer("UP/DOWN CHOOSE   X CONFIRM   O / SELECT RESUME");
 
    break;
  }

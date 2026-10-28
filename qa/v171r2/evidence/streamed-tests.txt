@@ -1,0 +1,2 @@
+cases=2287 combined-frame-hash=d9696f6383404061
+PASS 2287 native visual equivalence cases; asset errors=0

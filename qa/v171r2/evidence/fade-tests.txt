@@ -1,0 +1,11 @@
+SHOT fade-boot
+SHOT fade-splash-story-0
+SHOT fade-splash-story-1
+SHOT fade-splash-story-2
+SHOT fade-splash-story-3
+SHOT fade-story-relic-0
+SHOT fade-story-relic-1
+SHOT fade-story-relic-2
+SHOT fade-story-relic-3
+PASS exact packaged EBOOT: screenshot phases of splash-to-story and story-to-relic fades, silent entry and RiftMenu handoff
+SHA256 13e440423f640939d41f271fc94b8cf57adb74fc57db8b030bacb267d0b0ec1c

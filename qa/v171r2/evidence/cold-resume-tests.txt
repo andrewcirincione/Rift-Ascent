@@ -1,0 +1,3 @@
+SHOT resume-boot
+SHOT cold-resume-story
+PASS cold resume preserves pre-relic story and silence, then offers relic exactly once

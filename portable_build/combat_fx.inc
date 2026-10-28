@@ -174,6 +174,22 @@ static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,in
  }
 }
 static int r170_boss_index(int art){return art==15?0:art==24?1:art==8?2:-1;}
+/* Anchor the visible sampled sprite, not transparent padding. The last source
+   row can be skipped by nearest-neighbour downsampling, leaving a 1-2px gap. */
+static int r171_ground_gap(int art,int w,int h,int flip){
+ int b=r170_boss_index(art),iw=0,ih=0,left=0,top=0,cw=0,ch=0;
+ const uint32_t*rgba=0;const uint16_t*rgb=0;
+ if(b>=0){iw=r170_boss_size[b][0];ih=r170_boss_size[b][1];rgba=r170_boss_sprites[b];}
+ else if(art>=36){iw=r150_enemy_size[art-36][0];ih=r150_enemy_size[art-36][1];rgba=r150_enemies[art-36];}
+ else if(art==9){iw=144;ih=96;rgba=r1310_hound;}
+ else{iw=RIFT_ENEMY_W;ih=RIFT_ENEMY_H;rgb=rift_enemy_sprites[art];left=r1311_enemy_bounds[art][0];top=r1311_enemy_bounds[art][1];cw=r1311_enemy_bounds[art][2];ch=r1311_enemy_bounds[art][3];}
+ if(rgba){rgba=rift_asset_resolve(rgba,(unsigned)iw*ih*4);if(!rgba)return 0;cw=iw;ch=ih;}
+ for(int gap=0;gap<6&&gap<h;gap++){
+  int sy=top+(h-1-gap)*ch/h,count=0;
+  for(int x=0;x<w;x++){int sx=x*cw/w;if(flip)sx=cw-1-sx;sx+=left;if(rgba?(rgba[sy*iw+sx]>>24)>=64:rgb[sy*iw+sx]!=RIFT_TRANSPARENT_565)if(++count>=2)return gap;}
+ }
+ return 0;
+}
 static void r150_enemy_actor(int x,int y,int w,int h,int art,int lean,int opacity,int flash){r170_rgba_actor(x,y,w,h,r150_enemies[art-36],r150_enemy_size[art-36][0],r150_enemy_size[art-36][1],lean,opacity,flash);}
 static int r137_local_time(int age,int tier){int hold=r137_hold(tier);return age<hold?0:age-hold;}
 static int r137_latest(int actor,int kind,int age){
@@ -190,7 +206,7 @@ static const int r1311_power_x[6]={50,51,54,54,63,63};
 static const int r1311_power_y[6]={60,60,61,61,63,63};
 /* Three readable casting poses, then immediately return to the idle stance. */
 static int r140_power_pose(int age){return age<0||age>=16?-1:age<4?1:age<12?3:5;}
-static int r140_idle_breath(int art,unsigned tick){return (wave(tick/4u+(unsigned)art*17u,48+art%5*4,4)+5)/4;}
+static int r140_idle_breath(int art,unsigned tick){return (wave(tick/4u+(unsigned)art*17u,32+art%5*3,4)+5)/4;}
 static int r160_star_count(int stars){return CLAMP(stars,0,15)*2;}
 static void r160_particles(const Game*g,unsigned tick,int front){
  if(g->hp<=0)return;int level=CLAMP(g->regent.stars,0,15),count=r160_star_count(level);
@@ -227,7 +243,7 @@ static void r137_scene(const Game*g){
   else if(pose==2)frame=11;
   else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<10?13:14;}
   else if(player_flash)frame=15;
-  else {static const int cycle[8]={0,1,2,3,4,3,2,1};frame=cycle[(animation_tick/48u)%8];}
+  else {static const int cycle[8]={0,1,2,3,4,3,2,1};frame=cycle[(animation_tick/32u)%8];}
   if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,0);
   r160_sprite(48+dx,78,144,96,g->character==CHAR_NIGHTSHADE?&r161_vesper[frame]:frame<5?&r161_proxy_idle[frame]:&r160_regent[frame],1);
   if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,1);
@@ -237,7 +253,7 @@ static void r137_scene(const Game*g){
  }else{
   r137_fire(g,118+dx,animation_tick/4,0);
   if(pose){r138_hero_clip=1;if(pose==1)r137_blit(51+dx,61+dy,163,113,r140_attack[pose_frame],208,144,255,0);else if(pose==3)r137_blit(r1311_power_x[pose_frame]+dx,r1311_power_y[pose_frame]+3,150,113,r137_hero_frames[12+pose_frame],192,144,255,0);else r137_blit(53+dx,61+dy,150,113,r137_hero_frames[(pose-1)*6+pose_frame],192,144,255,0);r138_hero_clip=0;}
-  else {static const int cycle[10]={0,1,2,3,4,5,4,3,2,1};r160_sprite(48+dx,78+dy,144,96,&r161_warden[cycle[(animation_tick/36u)%10]],1);}
+  else {static const int cycle[10]={0,1,2,3,4,5,4,3,2,1};r160_sprite(48+dx,78+dy,144,96,&r161_warden[cycle[(animation_tick/24u)%10]],1);}
   r137_fire(g,118+dx,animation_tick/4,1);
  }
  for(int e=0;e<g->enemy_count;e++){
@@ -257,6 +273,7 @@ static void r137_scene(const Game*g){
   if(guard>=0&&age-r137_at[guard]<18){y+=4;h-=4;w+=4;tilt=3;}
   if(hit>=0){int a=age-r137_at[hit],tier=game_impact_tier(r137_events[hit].amount),t=r137_local_time(a,tier);if(t<18){ex+=(3+tier*3)*(18-t)/18;tilt=5+tier;flash=t<2?90+tier*20:0;}if(foe->hp<=0){opacity=CLAMP(255-a*11,0,255);y+=a/2;}}
   int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==35||art==28);
+  y+=r171_ground_gap(art,w,h,boss<0&&art<36&&art!=9?flip:0);
   if(boss<0&&art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
   if(boss>=0)r170_rgba_actor(ex-w/2,y,w,h,r170_boss_sprites[boss],r170_boss_size[boss][0],r170_boss_size[boss][1],tilt,opacity,flash);
   else if(art>=36)r150_enemy_actor(ex-w/2,y,w,h,art,tilt,opacity,flash);

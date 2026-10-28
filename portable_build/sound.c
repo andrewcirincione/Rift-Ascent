@@ -171,7 +171,8 @@ void rift_audio_generate(RiftSound *s,int16_t *out,int frames,int battle,int acc
 }
 
 int rift_sound_music_gain(const RiftSound*s){
- int gain=160;
- for(int i=0;i<4;i++)if(s->impact_tier[i]&&s->impact_age[i]<4410u){int g=48+(int)s->impact_age[i]*112/4410;if(g<gain)gain=g;}
+ /* +15% music only; preserve the impact duck and leave SFX untouched. */
+ int gain=184;
+ for(int i=0;i<4;i++)if(s->impact_tier[i]&&s->impact_age[i]<4410u){int g=(48+(int)s->impact_age[i]*112/4410)*23/20;if(g<gain)gain=g;}
  return gain;
 }

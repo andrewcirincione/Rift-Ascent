@@ -1,0 +1,6 @@
+PASS 12 character/act flows: splash -> silent story -> relic -> map; automatic/X progression, save/pause compatibility, old-save no-double-gift and buffered-X boundaries
+PASS solid black act-title bar across 480 fade phases; scene music switches at black midpoint
+PASS 1144 enemy grounding configurations; only idle cycles accelerated, save layout unchanged
+PASS 668 full card layouts fit the mystery panel; actual Tome/Armory rewards, payment and leave behavior for all characters
+PASS pause UP/DOWN highlights, X resumes chosen option and preserves underlying selection; separate Save & Quit dispatch
+PASS music gain +15%, smooth impact ducking and recovery; music-only maximum 72% leaves PCM headroom

@@ -13,7 +13,7 @@ static void disk_close(void){if(asset_fd>=0)sceIoClose(asset_fd);asset_fd=-1;}
 #else
 #include <stdio.h>
 static FILE *asset_file;
-static const char*asset_path="qa/v171/evidence/EBOOT.PBP";
+static const char*asset_path="qa/v171r2/evidence/EBOOT.PBP";
 void rift_assets_set_file(const char*path){rift_assets_close();asset_path=path;}
 static int disk_open(void){asset_file=fopen(asset_path,"rb");return asset_file!=0;}
 static int disk_seek(int offset,int origin){if(!asset_file||fseek(asset_file,offset,origin))return -1;return (int)ftell(asset_file);}

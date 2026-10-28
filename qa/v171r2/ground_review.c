@@ -1,0 +1,5 @@
+#include "game.h"
+#include "render.c"
+#include <assert.h>
+static uint32_t frame[W*H];
+int main(void){pix=frame;sw=W;for(int art=0;art<ENEMY_COUNT;art++){rect(0,0,W,H,RGB(70,62,57));int b=r170_boss_index(art),h=b>=0||art>=42?98:92;int w=b>=0?r170_boss_size[b][0]*h/r170_boss_size[b][1]:art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];if(w>144){h=h*144/w;w=144;}if(b>=0)r170_rgba_actor(240-w/2,174-h,w,h,r170_boss_sprites[b],r170_boss_size[b][0],r170_boss_size[b][1],0,255,0);else if(art>=36)r150_enemy_actor(240-w/2,174-h,w,h,art,0,255,0);else if(art==9)r137_blit(240-w/2,174-h,w,h,r1310_hound,144,96,255,0);else r137_actor(240-w/2,174-h,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,0,0,255,0);char p[100];snprintf(p,sizeof(p),"qa/v171r2/evidence/enemy-%02d.ppm",art);FILE*f=fopen(p,"wb");fprintf(f,"P6\n160 110\n255\n");for(int y=66;y<176;y++)for(int x=160;x<320;x++){uint32_t c=frame[y*W+x];fputc(c&255,f);fputc((c>>8)&255,f);fputc((c>>16)&255,f);}fclose(f);}return 0;}
