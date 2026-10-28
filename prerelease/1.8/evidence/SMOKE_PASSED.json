@@ -1,0 +1,14 @@
+{
+  "sha256": "4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560",
+  "cases": [
+    "tenth:0",
+    "boss4:0",
+    "tenth:1",
+    "boss4:1",
+    "tenth:2",
+    "boss4:2",
+    "archive:0",
+    "combat:0"
+  ],
+  "scope": "Exact PSP binary; assisted saved-game fixtures; controller input; read-only running state; checksum-validated persistent records. No executable/live-memory patches or CPU breakpoints."
+}

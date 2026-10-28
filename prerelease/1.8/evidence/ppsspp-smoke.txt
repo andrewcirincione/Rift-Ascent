@@ -1,0 +1,69 @@
+FIXTURE tenth char0 screen2
+SCREENSHOT title-tenth-0 screen 0
+SCREENSHOT slots-tenth-0 screen 29
+SCREENSHOT act3-before-0 screen 2
+SCREENSHOT act3-ending-0 screen 32
+SCREENSHOT unlock-cards-0 screen 33
+SCREENSHOT unlock-potions-0 screen 34
+SCREENSHOT unlock-relic-0 screen 35
+SCREENSHOT beyond-0 screen 36
+SCREENSHOT act4-arrival-0 screen 20
+PASS exact EBOOT tenth 0 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE boss4 char0 screen37
+SCREENSHOT title-boss4-0 screen 0
+SCREENSHOT slots-boss4-0 screen 29
+SCREENSHOT act4-intro-0 screen 37
+SCREENSHOT act4-fight-0 screen 2
+SCREENSHOT true-ending-0 screen 38
+SCREENSHOT act4-record-0 screen 8
+PASS exact EBOOT boss4 0 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE tenth char1 screen2
+SCREENSHOT title-tenth-1 screen 0
+SCREENSHOT slots-tenth-1 screen 29
+SCREENSHOT act3-before-1 screen 2
+SCREENSHOT act3-ending-1 screen 32
+SCREENSHOT unlock-cards-1 screen 33
+SCREENSHOT unlock-potions-1 screen 34
+SCREENSHOT unlock-relic-1 screen 35
+SCREENSHOT beyond-1 screen 36
+SCREENSHOT act4-arrival-1 screen 20
+PASS exact EBOOT tenth 1 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE boss4 char1 screen37
+SCREENSHOT title-boss4-1 screen 0
+SCREENSHOT slots-boss4-1 screen 29
+SCREENSHOT act4-intro-1 screen 37
+SCREENSHOT act4-fight-1 screen 2
+SCREENSHOT true-ending-1 screen 38
+SCREENSHOT act4-record-1 screen 8
+PASS exact EBOOT boss4 1 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE tenth char2 screen2
+SCREENSHOT title-tenth-2 screen 0
+SCREENSHOT slots-tenth-2 screen 29
+SCREENSHOT act3-before-2 screen 2
+SCREENSHOT act3-ending-2 screen 32
+SCREENSHOT unlock-cards-2 screen 33
+SCREENSHOT unlock-potions-2 screen 34
+SCREENSHOT unlock-relic-2 screen 35
+SCREENSHOT beyond-2 screen 36
+SCREENSHOT act4-arrival-2 screen 20
+PASS exact EBOOT tenth 2 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE boss4 char2 screen37
+SCREENSHOT title-boss4-2 screen 0
+SCREENSHOT slots-boss4-2 screen 29
+SCREENSHOT act4-intro-2 screen 37
+SCREENSHOT act4-fight-2 screen 2
+SCREENSHOT true-ending-2 screen 38
+SCREENSHOT act4-record-2 screen 8
+PASS exact EBOOT boss4 2 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE archive char0 screen31
+SCREENSHOT title-archive-0 screen 0
+SCREENSHOT slots-archive-0 screen 29
+SCREENSHOT collection-cards screen 31
+SCREENSHOT collection-potions screen 31
+SCREENSHOT collection-relics screen 31
+PASS exact EBOOT archive 0 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560
+FIXTURE combat char0 screen2
+SCREENSHOT title-combat-0 screen 0
+SCREENSHOT slots-combat-0 screen 29
+SCREENSHOT two-enemy-combat screen 2
+PASS exact EBOOT combat 0 4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560

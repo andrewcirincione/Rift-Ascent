@@ -1,0 +1,434 @@
+[
+  {
+    "name": "void_arena",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an EMPTY broad flat obsidian fighting platform floating in deep purple outer space, broken gothic arches at the sides, indigo and violet nebulae, distant stars, luminous galaxy, level unobstructed arena floor, no people, no creatures, no writing, no interface",
+    "seed": 235200,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      768,
+      432
+    ],
+    "sha256": "32eb3b173651571229a83524a751d12ee796ec131fb2c0555bf44b77c0cd2c0b"
+  },
+  {
+    "name": "boss_warden",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a colossal armored cosmic jailer with a broken iron halo and a huge key-shaped sword, full body centered, isolated against a plain black background, facing left, readable silhouette",
+    "seed": 235201,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "78fad6d24f817f8431ad896f6ababb86ed46aa1eb991c0a6f09c9f70b3cc8957"
+  },
+  {
+    "name": "boss_vesper",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a slender faceless cosmic witness draped in violet ribbons and silver masks, full body centered, isolated against a plain black background, facing left, readable silhouette",
+    "seed": 235202,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "dd9db3c7fba9e0f4de73ddfbe7af36947cbea4496df58f61a97e89388c50efac"
+  },
+  {
+    "name": "boss_proxy",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an ancient floating obsidian king with a shattered crown and a blue star in its chest, full body centered, isolated against a plain black background, facing left, readable silhouette",
+    "seed": 235203,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "5eab65cb15d2efe65a9b5ba9131971a13d9a8b821a8a3f27df867817b5f45a3e"
+  },
+  {
+    "name": "potion_06",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a blue and orange frosted round glass potion, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235204,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "4150ed80793540a12da8e6489d9cb13996c6fd84da71124e94255f95ba1fe606"
+  },
+  {
+    "name": "potion_07",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a dark green flask shaped like a leaf, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235205,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "5f149ab2e4b91030b00a852a56e3f36f804956b4c714a8ad0c8d567f8f91e543"
+  },
+  {
+    "name": "potion_08",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a jagged amber potion flask, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235206,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "a8e5e235fb1d06b16a495d73583e704ad384e56f4292a47c5f0771dd71a9c640"
+  },
+  {
+    "name": "potion_09",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a steel-bound cobalt potion bottle, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235207,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "277c41f40fe4c95a8a1e0ebb4f4ba7d0e1cf66a35283b2180c8bf74d83f0aa74"
+  },
+  {
+    "name": "potion_10",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a violet swirling potion in a tall crystal flask, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235208,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "298441e9face8eb5be5900995f174ba6862a4ec66937b68b664de97eedfb3b6d"
+  },
+  {
+    "name": "potion_11",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a sapphire vial filled with tiny stars, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235209,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "2094c20d11c9366816743c340d31ed99ab02125ef111fa930ee65ea2f8f1da0c"
+  },
+  {
+    "name": "potion_12",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a clear pearlescent potion in a diamond flask, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235210,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "582376b332977cc4ce2a6d6c8737b063cdbb6f5dc6e7c6a61ed16f02347d3f47"
+  },
+  {
+    "name": "potion_13",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a pale turquoise raindrop potion bottle, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235211,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "2c7599239e0eb1c591f1d2df2e46e4952c871c626b2275d5b9e75a92df2b1f01"
+  },
+  {
+    "name": "potion_14",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a dark ruby ceremonial potion chalice, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235212,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "86eacc7f1aa1240debceed9b5e3aae1fc23345ebee7fbfc2d3f8707c60c83e41"
+  },
+  {
+    "name": "potion_15",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a narrow black potion vial with a silver stopper, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235213,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "fc44a72c3a6ee85489f01cf2fe87161424c7b12b9cd983082f95c3203576d548"
+  },
+  {
+    "name": "potion_16",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a smoky gray flask glowing softly orange, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235214,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "05156021ea0ed8f2baa289048c5477efd3a005013ed49d8b9bf4b12643b7ad71"
+  },
+  {
+    "name": "potion_17",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a green potion bottle wrapped in silver thorn vines, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235215,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "976cc19503ff1d1b9f78bc3637088910565dfa20d1076c81b966a97be458da74"
+  },
+  {
+    "name": "potion_18",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a golden hourglass flask filled with glowing sand, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235216,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "7b6e9b5c539425b1740e7889f64febe9443fc35e3d546d330bf3008b77bc3920"
+  },
+  {
+    "name": "potion_19",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a twin-necked indigo potion bottle, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235217,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "c977e4c2a019e140542242ca4da709383924a6d1e1798929c8a4e75a178328b5"
+  },
+  {
+    "name": "potion_20",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a shield-shaped jade potion flask, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235218,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "bc56244e495a2743a3bf199762446e5835d966fb4b04bc357b6852bdc31c6377"
+  },
+  {
+    "name": "potion_21",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a black ink bottle with purple luminous liquid, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235219,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "190d41fb30e459fe074c78041b6b36cffdbd185f7f75269a6f92e0c39810351e"
+  },
+  {
+    "name": "potion_22",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a long glass flask with silver dagger-like stoppers, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235220,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "208dc04a77fc5b3a5413362b2f1f3cd1de572bf716691a9baeba428c9386fbd7"
+  },
+  {
+    "name": "potion_23",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a royal sapphire bottle with a gold crown stopper, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235221,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "390e7def3ea31a9d570e1ddec6ce32d8207ddb6ae72f07392265af328819ff91"
+  },
+  {
+    "name": "potion_24",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a warm crimson healing potion in a round brass flask, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235222,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "a889a3844df6bb2631ba60cd8a0d59d46c99b61a711772a95faa961b61761108"
+  },
+  {
+    "name": "potion_25",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a deep violet shell-shaped potion bottle, one object centered, isolated on a plain black background, ornate alchemy illustration",
+    "seed": 235223,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "edc08549532d583654f0b2a0c16c6d6c7153c9ce1c39d08240e426b68657c6a4"
+  },
+  {
+    "name": "relic_64",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an ornate iron lantern filled with glowing cinders, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235224,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "c6b06ab00e5fd4809a517bef96874457f252662dc9682702744cf875c7645dc7"
+  },
+  {
+    "name": "relic_65",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a small ancient oath stone wrapped in silver chain, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235225,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "8260c3ddb6b0c470e679e5036cee017567e8d298f8ff88cd547509bfe19b6789"
+  },
+  {
+    "name": "relic_66",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a silver compass pointing toward a tiny violet rift, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235226,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "1ad1abf945c09cca4d8bab5287e7ed1e72c89afea37c13db52926b52f53e078a"
+  },
+  {
+    "name": "relic_67",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a black glass riding spur tipped with green light, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235227,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "2c55dec4d1ea036bcfbda68d9c8ec0d26874b818dfa9af3c577cef80837a7b24"
+  },
+  {
+    "name": "relic_68",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a royal wax seal cast from glowing blue star metal, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235228,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "d821976afdcfe8f881192da5dc78bae4378126448ea2a93c82b1c8e5d779346b"
+  },
+  {
+    "name": "relic_69",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a small tarnished silver crown hung with black pearls, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235229,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "1c8846649b414610dfc74620591c1b6a65b426f64429ea3881dd84d7675a5b3e"
+  },
+  {
+    "name": "relic_70",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. an obsidian hourglass containing a purple galaxy, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235230,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "1e6a4d5eeff062a41bcdbdf8cfec584d52d740d64927744b8fced7df1ecf7e1f"
+  },
+  {
+    "name": "relic_71",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a gold reliquary holding a single burning coal, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235231,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "37058bcded903231aad373427eebe5eb40bff3aaa2d65f591a5b2e2efd448960"
+  },
+  {
+    "name": "relic_72",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a white feather quill in an ornate dark inkwell, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235232,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "6f6542dde26982f62a981f860334e07c7645a48fc8dcdbe35ccbac1c0e603740"
+  },
+  {
+    "name": "relic_73",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a purple crystal sigil mounted in gothic silver, one small object centered, isolated on plain black, fantasy inventory illustration",
+    "seed": 235233,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "5e7a8babe04abb1064aa54543a043c52afc1e78ff639aca61ae2aa5c3ae06535"
+  },
+  {
+    "name": "badge_flame",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a small stylized orange flame inside a dark metal round medal, centered, isolated black",
+    "seed": 235234,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "a4470d7681f7ca3462238c3cd3d72b888e16c7e56d5ce9acf88821a835849fd3"
+  },
+  {
+    "name": "badge_rift",
+    "prompt": "Detailed hand-painted dark gothic fantasy book illustration, cinematic lighting, strong recognizable silhouette, textured steel and cloth, rich atmosphere, full bleed unlettered painting. a small violet spiral portal inside a dark metal round medal, centered, isolated black",
+    "seed": 235235,
+    "model": "stabilityai/sd-turbo",
+    "steps": 4,
+    "size": [
+      512,
+      512
+    ],
+    "sha256": "d97b281831bf09ff33e050fb3e71b4f54e7088c314423b9526ae07f17853fc56"
+  }
+]
