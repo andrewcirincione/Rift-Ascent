@@ -80,6 +80,7 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
   target=0;while(target+1<g->enemy_count&&g->enemies[target].hp<=0)target++;
  }
  CardPreview p;game_card_preview(g,raw,target,&p);
+ if(id>=ASCENT_CARD_FIRST){append_mod_rules(raw,out,cap,0);return;}
  if(id>=REGENT_FIRST){regent_description_now(g,raw,target,&p,out,cap);return;}
  if(id>=NINJA_FIRST&&id<NINJA_LAST){ninja_description_now(g,raw,target,&p,out,cap);return;}
  char damage[32],block[32],temp[320];int low=0,high=0,seen=0;

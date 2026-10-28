@@ -8,13 +8,13 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 44
+#define ENEMY_COUNT 45
 #define INTENT_COUNT 18
 #define MAX_RELICS 64
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 23
+#define GAME_VERSION 180
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -31,7 +31,7 @@ enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -43,7 +43,7 @@ enum {
  IC_VICIOUS,IC_NEXT_ATTACK_REPEAT,IC_CHAIN_DEPTH,IC_PREVENT_EXHAUST,
  IC_ATTACKS_THIS_TURN,IC_OWN_TURN,IC_GUARD,IC_CASCADE_QUEUE
 };
-enum {BTN_UP=1,BTN_DOWN=2,BTN_LEFT=4,BTN_RIGHT=8,BTN_OK=16,BTN_BACK=32,BTN_ALT=64,BTN_POTION=128,BTN_START=256,BTN_PAUSE=512,BTN_TAB_LEFT=4096,BTN_TAB_RIGHT=8192};
+enum {BTN_UP=1,BTN_DOWN=2,BTN_LEFT=4,BTN_RIGHT=8,BTN_OK=16,BTN_BACK=32,BTN_ALT=64,BTN_POTION=128,BTN_START=256,BTN_PAUSE=512,BTN_TAB_LEFT=4096,BTN_TAB_RIGHT=8192,BTN_DEBUG_KILL=16384,BTN_DEBUG_ACT=32768};
 #define UPBIT 0x200
 #define CARD_ID(x) ((x)&0x1ff)
 #define CARD_UP(x) (((x)&UPBIT)!=0)
@@ -187,6 +187,8 @@ typedef struct {
  int automation_phase[10],panache_phase[5];
 } RegentState;
 
+#include "ascent_progress.h"
+
 typedef struct {char name[24];int hp,maxhp,block,strength,weak,vulnerable,poison;int intent,intent_value,phase;int art;} Enemy;
 typedef struct {
  uint32_t magic,version,seed,rng;
@@ -208,6 +210,7 @@ typedef struct {
  /* Appended to preserve the complete v21 prefix for migration. */
  struct {int potion_offer,card_done;int relic[16];} v151;
  RegentState regent;
+ AscentRun ascent;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -332,4 +335,16 @@ int game_render_transition_busy(unsigned tick);
 
 
 uint32_t game_random(Game *g);
+const AscentAccount*ascent_profile(void);
+const AscentSlot*ascent_slot(int slot);
+int ascent_popcount(unsigned mask);
+int ascent_secret(int character);
+int ascent_open(const char*root);
+int ascent_begin(Game*g,int slot,int character,unsigned seed);
+int ascent_resume(Game*g,int slot);
+int ascent_checkpoint(Game*g);
+int ascent_card_available(const Game*g,int id);
+int ascent_debug(void);
+int ascent_set_debug(int enabled);
+int ascent_story_screen(int screen);
 #endif

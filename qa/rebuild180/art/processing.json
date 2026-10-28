@@ -1,0 +1,1458 @@
+[
+  {
+    "file": "act4-fight.png",
+    "original_size": [
+      1672,
+      941
+    ],
+    "original_sha256": "d6c69b71210bc2f19c23e6bbb7f692d84c691048256b577eda227c38450af5e4",
+    "optimized_size": [
+      960,
+      544
+    ],
+    "optimized_sha256": "0113fd6b76d2d140b413ad64192c1038c21ff4d147d8568d2d4f3ce930544476"
+  },
+  {
+    "file": "act4-map.png",
+    "original_size": [
+      1672,
+      941
+    ],
+    "original_sha256": "dda26b0f2db9722448710056672eecde047691ce3bcdb3afd61b2f01a71fc7e5",
+    "optimized_size": [
+      960,
+      544
+    ],
+    "optimized_sha256": "ea839d2050f8eb15056c72c16494d3776ff90bc6120224aab3e2476cb76c38be"
+  },
+  {
+    "file": "act4-title.png",
+    "original_size": [
+      1672,
+      941
+    ],
+    "original_sha256": "a06a79a46b55893658472a1e8f5349aeb1e7b3d6f6f7d7aff9980e7857eb6e4c",
+    "optimized_size": [
+      960,
+      544
+    ],
+    "optimized_sha256": "01f18ad225f37317dd024fbc3098842d37647482e5716d6975edb74d6d63e7c8"
+  },
+  {
+    "file": "badge-fire.png",
+    "original_size": [
+      1024,
+      1536
+    ],
+    "original_sha256": "ff753a662d5d70fbd99b84b157eb71940d466d122262c2ac6075ed9207d8ec21",
+    "optimized_size": [
+      120,
+      120
+    ],
+    "optimized_sha256": "f873fdf71ca84242ba44543eed7e1530ab65cb1dbd450d690183df236ef61e46"
+  },
+  {
+    "file": "badge-rift.png",
+    "original_size": [
+      1024,
+      1536
+    ],
+    "original_sha256": "04d0f1464f48aad69b22ae83be7a32f32e953a1bb4e3785b927b6399f8f82eef",
+    "optimized_size": [
+      120,
+      120
+    ],
+    "optimized_sha256": "81b785918bf235f0a70af20d8a71ba71502cde14464c6450edacce6da944653f"
+  },
+  {
+    "file": "card-334.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "8c23bf63ad0dbfbd614038735018aacd41b4bb9961910f5a242d90a6613e5be9",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "fe3ba8acff7d8b764350d1bdbe0d9fe22694e49226febf4f2f4714951c5808b8"
+  },
+  {
+    "file": "card-335.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "20893bd3b84ebb1a16ea7d960e6b52f96a81466c6a736eecb65ad09540de38f9",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "f470a77fd04395114cef8b4b58833ab9d4b28c327915750a5fcab95f9c683c32"
+  },
+  {
+    "file": "card-336.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "45952533fc6e9e9a566779654bee8173b0e3bccec577cdd892659161e18c10fa",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "9b1d5115d2a3322780d8854e55840ad24c657830209abb3629e553e388a9ef3a"
+  },
+  {
+    "file": "card-337.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "44dfdf5c5c688864e88be0a4fbda5a424826d2eb7c709b40e69ff46b623dfb81",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "c9b9a947993a98e153f1c31ad324ee3a074377e2b8ca2df6ce10d5d6766276e7"
+  },
+  {
+    "file": "card-338.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "53aa199b5750ea424802409cccf3ace009a4234bfee333f781716474cb0c2746",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "667331daedb27b1092e0326eb2db2282df970e0eeab7401a89eadb000928b7f4"
+  },
+  {
+    "file": "card-339.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "a4455a77b5f98854c2e1d012ed31a3ad7d1c5098eb55a846d006ddb8db5723c0",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "bd3df24427224b948808f2a7f3b0dfb34e9745c94632156788eb77f40cf50bde"
+  },
+  {
+    "file": "card-340.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "3669ec540cea744db37e8f5ddc0005ce07b3723ba0e4942debe7715693bd2c4b",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "0873038d205ce033818a01333e700f750d7a2fe402757168650a60a6218da6a5"
+  },
+  {
+    "file": "card-341.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "f076349bfa595c4c3ab129937694f1918b00fbe5bfeb5e3d30b17c572969e5df",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "75f319608519d1bce532d09b921a64baabc3e0f2c28cbec667e0088ff0b0871a"
+  },
+  {
+    "file": "card-342.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "7ced14bd80969e73a0a8356c14bd8f3b41e6ed58748370ecf16b6f5694453bd4",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "616183326a8240f56fa022a77d3823e0fab2370a81b0d8e5bab6515d15cb93f6"
+  },
+  {
+    "file": "card-343.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "1b829139499a8e1d98643247a2e7be398f2a022bc56a72d77084f855801f2fed",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "d38b0c33859e1bc99a0d3c80580e645aafc1d9cbf18853df16b28e5c978244a9"
+  },
+  {
+    "file": "card-344.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "49cc880e70ebea9b5e03d701ab16a7474cb64ece19ae62b9b385c9d1773d76c4",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "776aaaf5733bc932522c3dd2e4676b3385add4a513dfe6b8d5a195f1b821148e"
+  },
+  {
+    "file": "card-345.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "37d3af9455455066982b8800967153004728fdf27ad9c296d50e2b164396a1ac",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "53d225a55cc6e0b360463cb074e1c8420661757a503a82666b6b0a9288e02e37"
+  },
+  {
+    "file": "card-346.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "59e83c75dceee820853270835090784c4e94f32f8f1d5ce373fa4fbec4fcea60",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "f9368f48ff145268e2ee5ae4377d57529c5a2f8abd9807667d103c1bdf5a7220"
+  },
+  {
+    "file": "card-347.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "2ee1b98714c9f713036b3326c8bee99dff822daf463acbb14263b5a4a29bac5c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "833f27e226d0c91d016aa1ddc2c06a9b86e234ebcd6880ba924c5ef9bc653ff8"
+  },
+  {
+    "file": "card-348.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "2213720bd9a7e5a61df0d00ba48d13ddbdcd844b9c319b713b3e37b5c16c0b2c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "1de1f9cbef375e71c6d4c06a482fc5d3624b1b9fe9f1ee09a481588eb2c913b9"
+  },
+  {
+    "file": "card-349.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "6a61f716bd5f85e1d4b7133c65ac3a465409408d3878ddd0b468c8dfb790442c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "a251c090da573de3da85e54e1db1919e3d111f7a4cfd118a805b0ff2a0ec40ef"
+  },
+  {
+    "file": "card-350.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "9e59770c6bf8bf7102ba1e866ec6e22bb3c8d2085ba5232c28290a951ac0652f",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "d7f4b8d305d6f872dd76112fca0d4151982c6281035c0e1b46affaca346a2777"
+  },
+  {
+    "file": "card-351.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "7510309dbe15c54d885a091042c77d7bf4da686fb8a9b08085bade1048ac931c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "133505285d5cded1940b69f80d7831d34eb7ac6f9f8bb3afefc7ca95c167243a"
+  },
+  {
+    "file": "card-352.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "37c2380c3a74dbe6420eabb70892ba46cca6b404dbece99feb563c48e132e17c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "c451af76c8aa863b50e9a9d8c6867b94c4fc9794ec95959d3a2ce28754b16006"
+  },
+  {
+    "file": "card-353.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "5e6c0f247f7f62a7246660e5fd6ac4cb0d6211da50cc15005254229236826174",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "5940a1adf6c6b1b95a65d778fa0b6b2745323cbab70d8c306d2105210cc7b72e"
+  },
+  {
+    "file": "card-354.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "0a01e456c629c83613395233fced39307f6fe0fd2ef53e5d8d4b1da74d66bd17",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e65b5684a97c2c0d33ee7549d0d521b073ddf80bdfee05b6ae1a2709ad12c97b"
+  },
+  {
+    "file": "card-355.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "8801c12ba7405ee0d8b194ca702fefdb31ace1424ea85b5e4af9a204a4c24285",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "158f9532a26b5b4f9fdff50d10d714372b17eb45078ba8379298bf6295dec792"
+  },
+  {
+    "file": "card-356.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "3f3fbc47d1998ef3513dc9eac9ba8146087313662952a25fda9171f1afbe5862",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "1896726677d00b8e929837055bcb2e1777652e15786b080a3c5722079321565a"
+  },
+  {
+    "file": "card-357.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "972fe7a4bd3ef085962876b378289b79143706f1fbfb7b8a6ac4268256976dde",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "afcb537574d3560a2c202f40b5b630874d7d6c1f5ca12d26f6145604b29c96e4"
+  },
+  {
+    "file": "card-358.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "7c70539f217e699d7268fdf94748f669a9e41387b90a0a8f373bf5f9a4a4f876",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "63d5ae4bcf51f3f533fb2a4525b4e0cf6e4caa66448862fb4a29e794ef2c2361"
+  },
+  {
+    "file": "card-359.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "a852fad1ef432da6ddde78c4a77d8749188864e9c671620df750c66838ac9d48",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "290ea137447e004389aac4ca072c576409a85ced03c5bad1845a7b5544b9ce0a"
+  },
+  {
+    "file": "card-360.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "0ea8dc3e35211115b499027809dd2172983d39272a333f1b5f5f006a18375658",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e355a495f1dff440beb24930bac788b6d14ea030136d308f8aaf77a95c8ea1d1"
+  },
+  {
+    "file": "card-361.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "a529eb393a208b217eac9ce545915f3669c27378e00a8a1d0ec5d98c800b43bb",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "accfcad786a61935d9c3fac22e806d313faa9af7f69486061bebe59460aee52e"
+  },
+  {
+    "file": "card-362.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "3ba99f78f48a5bea745fca9348186a9157f5fdcc815a83c0cfc4fd4ec408466d",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "b656c81238a78a83d3c16478908b027d2ceb7da4749233a2bdc42cc4c29d078a"
+  },
+  {
+    "file": "card-363.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "70f0cb3f24d37e51c106221098ad56bf4ccd061651928aa6d11783b1b64f7536",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "56eb9805609b47752557963acbb978979b3409db7a237d1c54e58c7e1310429d"
+  },
+  {
+    "file": "card-364.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "f63f5b70b9fa61bebfc9b2bde209f369e500609b5c15cfe903c075366d7bb9ae",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "d774ed37873eeb3bfa67119ac44df5c1109fdf710109bf27d7f7c2445a322b11"
+  },
+  {
+    "file": "card-365.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "fb198307db6936245c18598e95148f9e60f1e9f2dac0eb8a36c36fd80b74ee0a",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "81222310200c7405b9142db5f1003d7c2b543357430470438d17949ee9fe6c4e"
+  },
+  {
+    "file": "card-366.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "be7fdb3e6aca96b7fe1038a29a4a0af4ac7e0a6d76eb7f7054b9595b42bbdf58",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "5bbbcda35f328f9c66e6dbb3dd3d11c7d5c3752b5ee6d91fd1d0bac3982d3f12"
+  },
+  {
+    "file": "card-367.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "f792ed913881393be2af70ad54c54c41f361b475ec9de53d9076437c90b86dcb",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "b067fe9bdfc01a26098a196ec67e68e6b51ac3bb51dff4b6cef1c29124fd7592"
+  },
+  {
+    "file": "card-368.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "f6dfe77d30e5744727de8b9daff15b2c5b2e61c9cf01b53b2eb7be2d037a3757",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "b4a3ec2e506a92efd9ad2adbba8226cee3e58220b0eab97836711d1a981b0246"
+  },
+  {
+    "file": "card-369.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "c3f73491df47ab9b697a26fde69a900f48d1eadc379ae79bb6259fe5072095e2",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "03633e66819ec488bccb45d38f604ee06b8f4d6835c550b477ef887d1cece82d"
+  },
+  {
+    "file": "card-370.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "02fb676fe84af5c62304eaa63735845f55e334fcb9b3c3bef5325f3b47b278fe",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "7bcc965ded44d96f27b48fe4cddc47f4cd180d3a6faac48797545f1d9807064b"
+  },
+  {
+    "file": "card-371.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "c031599da2b3076e43be9a0324599f6b9bd5065b4cb863a580aa8c880f6ea3a7",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "7fd68d8707476c90e0645e23dcaa9e65bbce9b4e01da8b1828e82109e9f02033"
+  },
+  {
+    "file": "card-372.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "64b8f3cba7d8920732ad2afe9e92a5a6caeff4df83e41abaf4ed556380f57fff",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "a6c00025ed714fc5d3393b6ab7793f8080c7a993fefeb379e9e974a30227d73f"
+  },
+  {
+    "file": "card-373.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "16284a02f58f0f635d7bf6630600cfc1a082e25013db53a17a3e4866a6e64917",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e88c32866bb20f4f6cc6cbc0db2bd1d8f53e8640dbcdff4458a4df7691503c91"
+  },
+  {
+    "file": "card-374.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "4e9c9b6daf31be5ccedb3a6ba9cd16e988ea193fcb6e755533111a230eca1c6e",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "6dda5a92accdafd32e1721a83fe0d198f51c7b363a30ca865134f0c63c1bfcdd"
+  },
+  {
+    "file": "card-375.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "0dcd288b19c294a3fb16b4d3ae162593f69abd72e46cc29fc87cf0f3aef269bb",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "234e364a2307fbbfc2cc451efc07e800206f7e2d636b53b75bda3c6bee24af20"
+  },
+  {
+    "file": "card-376.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "e011d746fc35063aa0fc3a5260cb8116f1f297c929ad8cbe7b45b502008cea6c",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "d2b8a7d5f1b27e39d382d26a6b13da3f7d4669791c4ce71d3c31da85100fedfb"
+  },
+  {
+    "file": "card-377.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "c97b1339e8d38b9019f1a4b884ba3ead489c7188b16a1edd2cf3b38a1341b35b",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "a668588aa9749cfe9cc8c251f6043333ec7902378d602e256104ea85de627d14"
+  },
+  {
+    "file": "card-378.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "db2759c8c2ffa7985fde791bc071b8909f7f63018f1084997da7c61230e344b8",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "dd5db039ab2965431fc6315832ecd6b99357b54448907622cb13a50ccff32729"
+  },
+  {
+    "file": "card-379.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "706877abb11eecc93c688c4fa149eee8fde2681b4dfc673a642a06a586df0108",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "6ab973fa6bc24d86e818e3cd99ce41dccd07306d89ec1cc19516222f152faef4"
+  },
+  {
+    "file": "card-380.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "321842897498ebb4683560795810845e1036fe0f94fc4974468fc1e533713bf0",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "daf69a20be5d3b24644ff194a456eb8df0da6b6e96067fa8b967bc427ee35b8f"
+  },
+  {
+    "file": "card-381.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "2d9ff6e95fe06a44a0bae98d9dbff2ab6b4d6e79687a1f0cd38c083e2f36f384",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "313dc3aa90a055568506546f3e11d67b55c61b76af157d8c7987065e83625759"
+  },
+  {
+    "file": "card-382.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "2ad07f6d6ccedb4a62996df43ebf98c36cec4ff4a21709c09339a75b07e79d62",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e6c993c7f1b28193a194fa93c728fc2857e5e0b1559e3f15e6ed6cd645a11844"
+  },
+  {
+    "file": "card-383.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "52b70215dec54c0e4499d30414c351af2a6df0da56ad409b54ea032b2dcc44c0",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "554ad26daa6799bfd821e06f47dbdcda8e239794888ef21ec81f4a26f62d0702"
+  },
+  {
+    "file": "card-384.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "f9204e28f35d4e0ad961a4accbb26120bc0feacbdbb2ecff986a17b2793d1641",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e86c88ae9a0f40d1e019538d95a93ccdd0a429c2f1cdcbfcd7b9170265b0302f"
+  },
+  {
+    "file": "card-385.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "b829636d3d939d8fada1777cada43e904129d31d34e9be14f3c0cd58f4653e37",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "2ff7b1d1331ca27c75e6481a27d0c894c7b2cae5b9ba174a9ba12c955d0b4698"
+  },
+  {
+    "file": "card-386.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "db0cb6f843fde778c0525a7457de8a90a146c84eb1d3d1a4056fa51db37a177b",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "4e46a5bdd0943391d42ca714f77725a58344feb77f99cecb2ffbf16134f3064d"
+  },
+  {
+    "file": "card-387.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "3d59dd4beb09020f018bd5d376c92c66d78bc9ad77277fc7fd9131e5589539e0",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "b9948a45289ad15a39e212d2bbf3972397d58e5491bf894f00a16cccb1f29623"
+  },
+  {
+    "file": "card-388.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "9cb9fdbac75f044b8b38ad5ffb82e718dbb6328b3312d5ebb062166b52b771ce",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "869efd85bd023ec7b52964add0d42e691a98bf58c398cb5c06539cd29791f5bb"
+  },
+  {
+    "file": "card-389.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "50dc20d3b8f7d440d5fd0b04700eea2594ebc5518253cef993d3ba7cff115749",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "ec8e9fe6cddbc1ba71169f1e736e61992257368aef11a5d03e5f0ca53e7ffccb"
+  },
+  {
+    "file": "card-390.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "8bc10be87fd11d6a6876ff7f5de1e0d5f168ce9a54932c7d20d8c778d1744911",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "698534ccc12e8efd3a72f188d918b9292e8961e78b0c693c67c86a2bccd4ff3a"
+  },
+  {
+    "file": "card-391.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "05b8fd7a950b776154f9f88081e642da99cda8e6163f423915896ae640e8479a",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "e3cdd3e04c0962eaf3656545d9f1d72e42ec633376a44d48d33c525f5f66e971"
+  },
+  {
+    "file": "card-392.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "ca9c7d10c4a0eb04f378339c9e1b26533a166738d2fc3202ad612dfb70a4335b",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "0ce103a9e2faec2ff36f691eabd499b6a0293b8271c153ac90828036a8152e55"
+  },
+  {
+    "file": "card-393.png",
+    "original_size": [
+      1536,
+      1024
+    ],
+    "original_sha256": "9ee6554faff3771523daf86150136f7172f6d649cdac604e6d63f6b901d4597b",
+    "optimized_size": [
+      720,
+      480
+    ],
+    "optimized_sha256": "ed45722690840e250a23d583729d628e047e607a93944467c84bd111033a3404"
+  },
+  {
+    "file": "enemy-18.png",
+    "original_size": [
+      1143,
+      1376
+    ],
+    "original_sha256": "c8d12ed7521e4e3ca836395a515add564a7b6f9a51446e3e453d6515b76f716c",
+    "optimized_size": [
+      432,
+      480
+    ],
+    "optimized_sha256": "4eb0c51ada52fb16ac787208171b0d338b93f0b3ef7c74ad9867ae83fc3ffdaf"
+  },
+  {
+    "file": "enemy-2.png",
+    "original_size": [
+      1312,
+      1199
+    ],
+    "original_sha256": "5f43a5c3446c4ab39c89c32acf006d32fb85ac7bc7736313755cc4a0bf1396e6",
+    "optimized_size": [
+      432,
+      480
+    ],
+    "optimized_sha256": "2d4695f0ace71d91c87932e40f8181072a01b179da74ce24a6705b231e25c1bf"
+  },
+  {
+    "file": "enemy-25.png",
+    "original_size": [
+      1024,
+      1536
+    ],
+    "original_sha256": "65607c787702c6966759d2e0ea499b3ab34de7d3c1935f51576c2ae6b0f8ede3",
+    "optimized_size": [
+      432,
+      480
+    ],
+    "optimized_sha256": "bf2d63fba62923665135d5a353478589eff9c5e82b5762e2cc897381a2a56df4"
+  },
+  {
+    "file": "potion-10.png",
+    "original_size": [
+      1192,
+      1320
+    ],
+    "original_sha256": "51f2a985a883304379d2cf697fc843e5e49b0c0e3172da15d18baf58b7a14a54",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "827798a300ba1e69cf678fde96c47d63ce3f1c977049f00a2e67093e3c4d6909"
+  },
+  {
+    "file": "potion-11.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "f1a9ed5d36436dd8b10636094f8e41aaf870e353d0184ed460e78a375ca52c73",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "f35133a03c8090b867338716828d9b7f793c2a9211345ebfaa740b2d0e386273"
+  },
+  {
+    "file": "potion-12.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "c7ba7b374b3ccb857a5a8b50070e7d3bc5205b120a53a9a168f5a604146aa8a3",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "121fcae8a001a15965792aa7d6540f3c4f0cd3befe1561ebddf2927adf34b57e"
+  },
+  {
+    "file": "potion-13.png",
+    "original_size": [
+      1238,
+      1271
+    ],
+    "original_sha256": "4993b14c8bc34e7c861aaff047d986cab20a2911e68e8b5873bf2e30e384501c",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "68ca66402c1b216334d584aac585c30de51a7b5e34ddafa2c880d16f08ded420"
+  },
+  {
+    "file": "potion-14.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "10c091a70f64ac7b7bdcc978aeac3fc3e20966f36795e07e3a09a88a1b5fa293",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "b8f48acc603c80c80143152d034c4878b632520b4ea3facd1e6f2ee738f14329"
+  },
+  {
+    "file": "potion-15.png",
+    "original_size": [
+      1262,
+      1246
+    ],
+    "original_sha256": "6e432069d0672db41558472a3a875aaf1b2e36bcc0db081c34535e2cd0184299",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "58b6261fafe98dc6f1b3dc4364f2c638f2a6ea25e1729c6dcda4f83eb7be055e"
+  },
+  {
+    "file": "potion-16.png",
+    "original_size": [
+      1263,
+      1246
+    ],
+    "original_sha256": "4ba7b0b7942642c957284a70dae6216ec4b98bdc5c7db7ea511f42420c57d7d4",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "d03cfeecaecd5d6c188d998aae22226865fd62e218af15ea2c6f74c3f700e1ad"
+  },
+  {
+    "file": "potion-17.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "755909bd273aab45bbd03269b52667f76ace58198250e407f0f80e2e32b45897",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "d98ea7646fe93cbfcdbf9af95917c9472752e19a048df0b3fca372cc411ce7f3"
+  },
+  {
+    "file": "potion-18.png",
+    "original_size": [
+      1247,
+      1261
+    ],
+    "original_sha256": "eee1cd496d364421433c79cf4efcdbb98550c487eb8136d8764162e67794b1a7",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "4d661fe1f52cedffa101cd459b07695a28916678ce08d2d97fe7b83a8f9a161b"
+  },
+  {
+    "file": "potion-19.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "bd1334186db5c1214a5bec65780b11efa13f4b5ebfb64b620de6b354bc9bbb0c",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "3e09ecf7fb2767d59a299e9734fd897b65b3af853fba6e0a320de6233d7e2a67"
+  },
+  {
+    "file": "potion-20.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "f4cee46f68d157d848f03c535f2cb455e185e93ee0699428a8456307682ced76",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "8c182f73400a5c63c9bc05a491f1db7ed6e3b168211914b0ca13169c578ea240"
+  },
+  {
+    "file": "potion-21.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "dfe0f251e76fe899c99d5a3c5c74676a484554fd9d77561388d6e6d18f20d655",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "0e3d3768a6666a9056543cb9bcc5f291edc06b64f4369fb5188693222faf0674"
+  },
+  {
+    "file": "potion-22.png",
+    "original_size": [
+      1222,
+      1287
+    ],
+    "original_sha256": "b00347fee78bba416413c4529d7e12d2a12c1c13d864ae8ad7d0d7f2f0800e69",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "46cf0c5aa500541e954029d7942cce273d2a00814125bc7ab7ff81f8b5bebd8c"
+  },
+  {
+    "file": "potion-23.png",
+    "original_size": [
+      1174,
+      1339
+    ],
+    "original_sha256": "e41f79d59e7c7124e6abea9d7b7b81e3d22686adf84051fb97e0b0872205a642",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "1aa9c1e9b95a4cefc4e819898c513b0558b1f4bd9bfde40ec11a7d9694ea4239"
+  },
+  {
+    "file": "potion-24.png",
+    "original_size": [
+      1166,
+      1349
+    ],
+    "original_sha256": "e8723010e0b06208b71a06ed1d990e9e04385bd2b554524b146baaf4f49dacaf",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "a53f575ec73ca3944322d91450954a78207f4734394322f151d272dcc4ef0a72"
+  },
+  {
+    "file": "potion-25.png",
+    "original_size": [
+      1241,
+      1267
+    ],
+    "original_sha256": "96f5acf695c89505fead80053a42600094095bb0edddf6cae6ec773d807ae49e",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "d64af2bce3f86a3d8cc5a3fac7c6e4bedac8d24c18f86c40a0192f4393d69d3f"
+  },
+  {
+    "file": "potion-6.png",
+    "original_size": [
+      1220,
+      1289
+    ],
+    "original_sha256": "2aece07993aab061434f19e018bb189ed094b970aa790fc8ae5fd927341e4f95",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "8ac216b3102f86904b4ec22b432f10d817d8b0c6d4a35c391e61f2b431e6190a"
+  },
+  {
+    "file": "potion-7.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "945dd981912731dab5510ba42721dc00e3775cadbe6fc29baba7e87b69724284",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "6d57394c2b1c71d5a85c2c6b2b0da992f994e6fa7d0bc575ca15abaa1c13aa4c"
+  },
+  {
+    "file": "potion-8.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "0bb7093cff8ad04956edc3fbd492b9080b369f1c14a4407ab06d432d40eced2a",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "a08e73408c0eb5440e707ed5c08d5b812cfe8ef380b3d4f361ac6c5428528d2c"
+  },
+  {
+    "file": "potion-9.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "7446fa6ce3441f472f77b4aaed9b10e7fb1ae85bc28b294db2057a9e8b6dea42",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "1441c9b7d4634e9050c674277d40503d2be5166f0ab9ac99c3c84ed7c80d6349"
+  },
+  {
+    "file": "proxy-ending.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "f49d2cb55bad7f32d91a388061fcbc1254b9dbecfa85321ea9be87a0122a4bda",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "676fcd6838bd321f47dd9b88dd97a4a89884c31bd26864de42bd4f3a490d98f3"
+  },
+  {
+    "file": "proxy-preboss.png",
+    "original_size": [
+      2046,
+      769
+    ],
+    "original_sha256": "394c3d902246a67467421b3a756c50f2e9c4f657e2fd183502a6d7e6dafbdbb9",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "e7e22814c0fef176fc5d267b3699d5cf83d8e252972694130e922d8931370a4f"
+  },
+  {
+    "file": "proxy-revelation.png",
+    "original_size": [
+      2056,
+      765
+    ],
+    "original_sha256": "6ee0ed306529134dedcd497598b780f2d8e9c85907bf41ed196308de0a8c1c37",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "5d13b1ba8dc6ea3a6fb47ee5fe26c938003900f64a6e415e2916590a1cfd1577"
+  },
+  {
+    "file": "proxy-true-ending.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "843ac9c6a62cb98f61836e991c4dea3886b12f6c6f54e03e65c3342c0306b636",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "de5ab1f7a90816f9778fbae737ef04f8dab212af6539c19b14514c6b5e124e5b"
+  },
+  {
+    "file": "relic-64.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "f83939e8acdc0e5f6d008878e9df6f721dad35500d494ac06b9b778bd8ba91c5",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "70eeccbe3e6e828fdd7186871280de0bd52d41edb9a4c08027f5789571ea67f5"
+  },
+  {
+    "file": "relic-65.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "d73a22f92472c04090d6af0e09a402013b681db97756faf18497dc38625e6f8f",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "6005ae381abb98caa4d9930b821001d86eedbbeef36fe018fee535b0e4b235c6"
+  },
+  {
+    "file": "relic-66.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "03f4c1512358003a1872c36d948744f5ea1bfae2fb8f9ec28dc36225be3a9603",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "9b87a616a9de2604f05e7cc792ffa2c101c22629bd55deceb243371d43978574"
+  },
+  {
+    "file": "relic-67.png",
+    "original_size": [
+      1222,
+      1287
+    ],
+    "original_sha256": "0c445075b9452029f124953afdbff404e4fb5168a1143a46d9479ade6c190fb8",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "564c14b4fa96962b9b832aded4163d99de85888a6f75c372421ee886b9c70ad8"
+  },
+  {
+    "file": "relic-68.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "4204cda6edd802c56b901c9e8565b1e40c1c28fbf1f093dbc2ffe98b4c50125f",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "74f932a234849671b4378a418c830eb116b0bf992070d3ab3d4cc3680b94e968"
+  },
+  {
+    "file": "relic-69.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "11dc982ba0c2f447dac021e5e82a5b0d559ea60bf64dfa98e33e6fd9a4770f64",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "7303073220098d060e073ed0616dc59f55b5468d2f6e6ed4ec83c7f3bc530d53"
+  },
+  {
+    "file": "relic-70.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "33f7be50279b4c237eb78ead41c77847fd0cf2c88d7eccfe85301695a07f8c15",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "c77db24ad624d762a58a275e9f84ad84ab5717514a056446195a98d41a7034ee"
+  },
+  {
+    "file": "relic-71.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "a2f7adc7a49f7d1fd266cd5415bb6ae379dd522402f44d8d644eaaffc951094e",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "d766e0c482bdc27e3f10c050010b29fece89d4a46d9ced4581f22e6f2f41b32b"
+  },
+  {
+    "file": "relic-72.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "6b956cc912d734abaac20910891a568c746badd995d74f16e3ce7af2ee6ae9f5",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "cbd5abeb9cfb3786da4b29f07d14385173221e86d5f89f48cbe1e0b05286dba6"
+  },
+  {
+    "file": "relic-73.png",
+    "original_size": [
+      1254,
+      1254
+    ],
+    "original_sha256": "0229e947c16a3fc0ed0b4b5af1d9ebe28a20b135061bfa1660d63be80432e71b",
+    "optimized_size": [
+      240,
+      240
+    ],
+    "optimized_sha256": "85a5d7619fdde0fe96f37dbe8db8a0002979504bcc44a83097925cad27ec5932"
+  },
+  {
+    "file": "unmaker-arena.png",
+    "original_size": [
+      1672,
+      941
+    ],
+    "original_sha256": "bcc9e39709d2c8b0ca4d33837df375f8936b4143a8998118ab13e6e20fea79c4",
+    "optimized_size": [
+      960,
+      544
+    ],
+    "optimized_sha256": "d479066889fc8b3129526bbaa8bf2dfb7877e74b49cc4345651a421275547e0c"
+  },
+  {
+    "file": "unmaker.png",
+    "original_size": [
+      1024,
+      1536
+    ],
+    "original_sha256": "5ece11fe40602da9cc6301fd568653857cbea56db7abadb9d6d3503b7fd5877d",
+    "optimized_size": [
+      480,
+      576
+    ],
+    "optimized_sha256": "5eab0f579df8b837ef4d4ae61cb2bfdc8fd70901b86adc893c173b72c434d374"
+  },
+  {
+    "file": "vesper-ending.png",
+    "original_size": [
+      2051,
+      767
+    ],
+    "original_sha256": "6f0f860e9e14e09aaa86218552774b7f027a6a5766f4c528714983475442c932",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "e47facef4b0ee3b1a6964223ec1c8579465936b7f931b246b287d98c9fa6add1"
+  },
+  {
+    "file": "vesper-preboss.png",
+    "original_size": [
+      2046,
+      768
+    ],
+    "original_sha256": "7105978d468d907eb800bbbe38ce49553a19038d79bfffc3bc6baf9c92f30e05",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "a1eb2c172a0be499ccad020371ce7b956ed1d6848a2ce9ca1a402dc6fcf459a9"
+  },
+  {
+    "file": "vesper-revelation.png",
+    "original_size": [
+      2046,
+      769
+    ],
+    "original_sha256": "78385a71d7886bb3a3710672a52cad2c0ea647aa9b578fb42681a6642bbf2610",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "bface78a9e5fb9b1ccdee4bc5312418405a56f9544342dee83afe6c77abb4911"
+  },
+  {
+    "file": "vesper-true-ending.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "dca16f8c74ddef39211d760fa8274228fccb3c1f2a02079f42559097f2154e0d",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "def4393c4093e830812d117b286bd73e0d9a61818645015f00dd4ef597ae500a"
+  },
+  {
+    "file": "warden-ending.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "b26073591e6b11fe695e1d443eb06ecff03ffb38e10432cce13607381f15e411",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "2143ff973b0e88cbb3d789a31610b8eb81654d65a5273c7b07f7ef627f3762d4"
+  },
+  {
+    "file": "warden-preboss.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "7ad5575cf6427d76c98edd56b1cc778bc3f599df3f5c6d6b777c5296efd80915",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "28beeb3be562739848a29eb1f37f6815d6cb03af0186522529d4499fae8e15c9"
+  },
+  {
+    "file": "warden-revelation.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "bb5a22aab523a292ae76aa5c81ac0616287030c1145dbddebf234b26ce530adb",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "f15e89d309994612e324bab657e81586353272169e2d64e61f77032ac1191b43"
+  },
+  {
+    "file": "warden-true-ending.png",
+    "original_size": [
+      2048,
+      768
+    ],
+    "original_sha256": "fad7a7d3b4e675959d5e2c808f3fdd60b8f59009097ae55bccfd5935e6902aa3",
+    "optimized_size": [
+      1008,
+      378
+    ],
+    "optimized_sha256": "64ad7786f0fc4ec872009458af1a3326e1947442724cae78e1feac51d7085819"
+  }
+]

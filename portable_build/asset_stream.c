@@ -5,8 +5,9 @@ unsigned rift_asset_reads,rift_asset_errors,rift_asset_recoveries;
 #ifdef RIFT_STREAMED_ART
 #ifdef __PSP__
 #include <pspiofilemgr.h>
+#include "ascent_paths.h"
 static int asset_fd=-1;
-static int disk_open(void){asset_fd=sceIoOpen("ms0:/PSP/GAME/RIFTASCENT/EBOOT.PBP",PSP_O_RDONLY,0);return asset_fd>=0;}
+static int disk_open(void){asset_fd=sceIoOpen(ascent_eboot_path(),PSP_O_RDONLY,0);return asset_fd>=0;}
 static int disk_seek(int offset,int origin){return sceIoLseek32(asset_fd,offset,origin);}
 static int disk_read(void*dst,unsigned size){return sceIoRead(asset_fd,dst,size);}
 static void disk_close(void){if(asset_fd>=0)sceIoClose(asset_fd);asset_fd=-1;}
@@ -42,12 +43,12 @@ static int read_at(unsigned offset,void*dst,unsigned bytes){
 }
 int rift_assets_open(void){
  if(opened)return 1;
- unsigned char footer[56],bank[16];
+ unsigned char footer[136],bank[16];
  if(!disk_open())goto fail;
- int end=disk_seek(0,2);if(end<72||!read_at((unsigned)end-56,footer,56))goto fail;
- if(memcmp(footer,"RIFTM311",8))goto fail;
- unsigned music=rd32(footer+48);if(music>(unsigned)end-72)goto fail;
- unsigned bank_end=(unsigned)end-56-music;
+ int end=disk_seek(0,2);if(end<152||!read_at((unsigned)end-136,footer,136))goto fail;
+ if(memcmp(footer,"RIFTAU18",8))goto fail;
+ unsigned music=rd32(footer+128);if(music>(unsigned)end-152)goto fail;
+ unsigned bank_end=(unsigned)end-136-music;
  if(!read_at(bank_end-16,bank,16)||memcmp(bank,"RIFTART1",8))goto fail;
  bank_size=rd32(bank+8);if(!bank_size||bank_size>bank_end-16)goto fail;
  bank_base=bank_end-16-bank_size;opened=1;return 1;

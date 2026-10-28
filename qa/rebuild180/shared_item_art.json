@@ -1,0 +1,283 @@
+{
+  "relics": [
+    {
+      "id": 0,
+      "name": "Cinder Heart",
+      "art_from_id": 72,
+      "art_from_name": "Furnace Heart"
+    },
+    {
+      "id": 1,
+      "name": "Copper Ring",
+      "art_from_id": 71,
+      "art_from_name": "Unworn Halo"
+    },
+    {
+      "id": 2,
+      "name": "Spiked Mail",
+      "art_from_id": 70,
+      "art_from_name": "Judgment Nail"
+    },
+    {
+      "id": 3,
+      "name": "Glass Emblem",
+      "art_from_id": 69,
+      "art_from_name": "Drowned Lens"
+    },
+    {
+      "id": 4,
+      "name": "Stone Flask",
+      "art_from_id": 53,
+      "art_from_name": "Bloodglass Phial"
+    },
+    {
+      "id": 5,
+      "name": "Fury Censer",
+      "art_from_id": 64,
+      "art_from_name": "Gatekeeper's Coal"
+    },
+    {
+      "id": 6,
+      "name": "Merchant Coin",
+      "art_from_id": 66,
+      "art_from_name": "Orphan Star"
+    },
+    {
+      "id": 7,
+      "name": "Old Compass",
+      "art_from_id": 73,
+      "art_from_name": "Last Astrolabe"
+    },
+    {
+      "id": 8,
+      "name": "Resting Idol",
+      "art_from_id": 68,
+      "art_from_name": "White Reliquary"
+    },
+    {
+      "id": 9,
+      "name": "Rust Amulet",
+      "art_from_id": 55,
+      "art_from_name": "Twinfang Brooch"
+    },
+    {
+      "id": 10,
+      "name": "Guardian Knot",
+      "art_from_id": 47,
+      "art_from_name": "Grave Bindings"
+    },
+    {
+      "id": 11,
+      "name": "Ashen Crown",
+      "art_from_id": 63,
+      "art_from_name": "Divine Right"
+    },
+    {
+      "id": 12,
+      "name": "Medal of Valor",
+      "art_from_id": 66,
+      "art_from_name": "Orphan Star"
+    },
+    {
+      "id": 13,
+      "name": "Locket",
+      "art_from_id": 43,
+      "art_from_name": "Duelist's Reliquary"
+    },
+    {
+      "id": 14,
+      "name": "Burning Thorn",
+      "art_from_id": 61,
+      "art_from_name": "Thornbound Seal"
+    },
+    {
+      "id": 15,
+      "name": "Fortress Pin",
+      "art_from_id": 70,
+      "art_from_name": "Judgment Nail"
+    },
+    {
+      "id": 16,
+      "name": "Gold Tooth",
+      "art_from_id": 67,
+      "art_from_name": "Ash Tally"
+    },
+    {
+      "id": 17,
+      "name": "Violet Orb",
+      "art_from_id": 69,
+      "art_from_name": "Drowned Lens"
+    },
+    {
+      "id": 18,
+      "name": "Sage's Ink",
+      "art_from_id": 49,
+      "art_from_name": "Hidden Scroll"
+    },
+    {
+      "id": 19,
+      "name": "Broken Clock",
+      "art_from_id": 73,
+      "art_from_name": "Last Astrolabe"
+    },
+    {
+      "id": 20,
+      "name": "Iron Seed",
+      "art_from_id": 64,
+      "art_from_name": "Gatekeeper's Coal"
+    },
+    {
+      "id": 21,
+      "name": "Wildflower",
+      "art_from_id": 59,
+      "art_from_name": "Briar Rosary"
+    },
+    {
+      "id": 22,
+      "name": "Worn Chain",
+      "art_from_id": 56,
+      "art_from_name": "Sepulchral Spindle"
+    },
+    {
+      "id": 23,
+      "name": "Last Ember",
+      "art_from_id": 64,
+      "art_from_name": "Gatekeeper's Coal"
+    },
+    {
+      "id": 24,
+      "name": "Bloodstone",
+      "art_from_id": 72,
+      "art_from_name": "Furnace Heart"
+    },
+    {
+      "id": 25,
+      "name": "Sun Token",
+      "art_from_id": 66,
+      "art_from_name": "Orphan Star"
+    },
+    {
+      "id": 26,
+      "name": "Hollow Skull",
+      "art_from_id": 45,
+      "art_from_name": "Venom Skull"
+    },
+    {
+      "id": 27,
+      "name": "Scavenger",
+      "art_from_id": 67,
+      "art_from_name": "Ash Tally"
+    },
+    {
+      "id": 28,
+      "name": "Vow of Steel",
+      "art_from_id": 70,
+      "art_from_name": "Judgment Nail"
+    },
+    {
+      "id": 29,
+      "name": "Sanctuary",
+      "art_from_id": 68,
+      "art_from_name": "White Reliquary"
+    },
+    {
+      "id": 30,
+      "name": "Old Compass",
+      "art_from_id": 73,
+      "art_from_name": "Last Astrolabe"
+    },
+    {
+      "id": 31,
+      "name": "Vital Offering",
+      "art_from_id": 57,
+      "art_from_name": "Hollow Chalice"
+    },
+    {
+      "id": 32,
+      "name": "Pilgrim's Purse",
+      "art_from_id": 60,
+      "art_from_name": "Grave Ledger"
+    },
+    {
+      "id": 33,
+      "name": "Ember Pact",
+      "art_from_id": 40,
+      "art_from_name": "Ashen Hourglass"
+    },
+    {
+      "id": 34,
+      "name": "Blood Vow",
+      "art_from_id": 53,
+      "art_from_name": "Bloodglass Phial"
+    },
+    {
+      "id": 35,
+      "name": "Bulwark Oath",
+      "art_from_id": 71,
+      "art_from_name": "Unworn Halo"
+    },
+    {
+      "id": 36,
+      "name": "Quiet Mercy",
+      "art_from_id": 68,
+      "art_from_name": "White Reliquary"
+    },
+    {
+      "id": 37,
+      "name": "Enduring Might",
+      "art_from_id": 61,
+      "art_from_name": "Thornbound Seal"
+    },
+    {
+      "id": 38,
+      "name": "Enduring Vitality",
+      "art_from_id": 72,
+      "art_from_name": "Furnace Heart"
+    },
+    {
+      "id": 39,
+      "name": "Enduring Fortune",
+      "art_from_id": 67,
+      "art_from_name": "Ash Tally"
+    }
+  ],
+  "potions": [
+    {
+      "id": 0,
+      "name": "Healing",
+      "art_from_id": 11,
+      "art_from_name": "Mercy Ash"
+    },
+    {
+      "id": 1,
+      "name": "Strength",
+      "art_from_id": 17,
+      "art_from_name": "Oath Resin"
+    },
+    {
+      "id": 2,
+      "name": "Guard",
+      "art_from_id": 24,
+      "art_from_name": "Pale Aegis"
+    },
+    {
+      "id": 3,
+      "name": "Fire",
+      "art_from_id": 20,
+      "art_from_name": "Ember Crown"
+    },
+    {
+      "id": 4,
+      "name": "Energy",
+      "art_from_id": 15,
+      "art_from_name": "Rift Salt"
+    },
+    {
+      "id": 5,
+      "name": "Insight",
+      "art_from_id": 22,
+      "art_from_name": "Deep Recollection"
+    }
+  ],
+  "oldest_40_relics_distinct_icons": 22
+}

@@ -1,0 +1,134 @@
+[
+  {
+    "character": 0,
+    "kind": 0,
+    "key": "warden-ending",
+    "lines": [
+      "You built a heaven out of our graves.",
+      "I climbed every damn one.",
+      "Keep your crown. I came for the head that wore it."
+    ],
+    "subject": "a black-armored crown-helmet knight with torn crimson cape standing above a shattered golden throne in a ruined white-gold celestial cathedral"
+  },
+  {
+    "character": 0,
+    "kind": 1,
+    "key": "warden-revelation",
+    "lines": [
+      "That was no throne. It was a lock.",
+      "Something below the light is still pulling my chains.",
+      "Then I keep climbing. Until there is nothing left to kneel to."
+    ],
+    "subject": "the knight discovering a titanic chain running from a broken heaven through a violet fissure into a hidden cathedral beyond the stars"
+  },
+  {
+    "character": 0,
+    "kind": 2,
+    "key": "warden-preboss",
+    "lines": [
+      "UNMAKER: I wrote your suffering into the stone.",
+      "WARDEN: Then watch me tear out the fucking page.",
+      "UNMAKER: You cannot kill the hand that made you."
+    ],
+    "subject": "the knight confronting the Unmaker across a shattered obsidian causeway suspended in a violet cosmic cathedral"
+  },
+  {
+    "character": 0,
+    "kind": 3,
+    "key": "warden-true-ending",
+    "lines": [
+      "You forged me to bear your chains.",
+      "You should have made them stronger.",
+      "No more masters. No more graves. We walk out of here alive."
+    ],
+    "subject": "the knight breaking his last chains at a ruined cathedral gate as warm dawn reveals a free valley beyond"
+  },
+  {
+    "character": 1,
+    "kind": 0,
+    "key": "vesper-ending",
+    "lines": [
+      "The choir promised I would die without a name.",
+      "Listen carefully. That silence is mine.",
+      "Tell your saints Vesper sent them."
+    ],
+    "subject": "an ivory-hooded female assassin with antique gold and black leather armor and twin curved knives looking over a silent white-gold celestial choir filled with broken marble saints"
+  },
+  {
+    "character": 1,
+    "kind": 1,
+    "key": "vesper-revelation",
+    "lines": [
+      "The choir is dead. So who is still singing?",
+      "There. A voice behind the wound in the world.",
+      "One last throat. One last prayer."
+    ],
+    "subject": "the assassin kneeling beside a thin emerald seam of light in a ruined celestial sanctuary as an immense violet cathedral is revealed beyond it"
+  },
+  {
+    "character": 1,
+    "kind": 2,
+    "key": "vesper-preboss",
+    "lines": [
+      "UNMAKER: Every blade you carried was part of my design.",
+      "VESPER: Then you know exactly how this ends.",
+      "UNMAKER: I gave you your name. VESPER: You can choke on it."
+    ],
+    "subject": "the assassin facing the Unmaker on an ivory bridge in a violet cosmic cathedral, her twin knives lowered and steady"
+  },
+  {
+    "character": 1,
+    "kind": 3,
+    "key": "vesper-true-ending",
+    "lines": [
+      "You taught the world to fear the dark.",
+      "Now it knows what the dark was hiding from.",
+      "My name is Vesper. And no one owns it anymore."
+    ],
+    "subject": "the assassin casting a cracked ivory ceremonial mask into a dying violet rift, turning toward a golden dawn outside an open cathedral"
+  },
+  {
+    "character": 2,
+    "kind": 0,
+    "key": "proxy-ending",
+    "lines": [
+      "You crowned yourself with stolen stars.",
+      "I have come to collect.",
+      "Let heaven remember who brought the fucking sky down."
+    ],
+    "subject": "a blue-robed bronze-crowned star sovereign with a gigantic golden greatsword standing before a fallen celestial throne beneath broken constellations"
+  },
+  {
+    "character": 2,
+    "kind": 1,
+    "key": "proxy-revelation",
+    "lines": [
+      "These stars are not fading. They are being recalled.",
+      "A hand beyond the throne still claims them.",
+      "It will learn the difference between a sovereign and a servant."
+    ],
+    "subject": "the star sovereign raising a hand as gold constellations reveal hidden chains stretching into a violet cathedral beyond heaven"
+  },
+  {
+    "character": 2,
+    "kind": 2,
+    "key": "proxy-preboss",
+    "lines": [
+      "UNMAKER: I am the law that holds your heavens together.",
+      "PROXY: Then let the heavens break.",
+      "UNMAKER: Without me, you are nothing. PROXY: Watch nothing rise."
+    ],
+    "subject": "the star sovereign confronting the Unmaker at the center of a shattered cosmic observatory with greatsword planted before him"
+  },
+  {
+    "character": 2,
+    "kind": 3,
+    "key": "proxy-true-ending",
+    "lines": [
+      "Your throne was a cage with better lighting.",
+      "I owe this world more than another king.",
+      "Take back your stars. The sky belongs to all of us."
+    ],
+    "subject": "the star sovereign laying a broken crown on a stone altar as thousands of liberated gold stars rise over a dawn-lit kingdom"
+  }
+]

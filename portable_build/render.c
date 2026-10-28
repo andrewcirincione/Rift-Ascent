@@ -27,6 +27,8 @@
 #include "rift139_art.h"
 #include "rift1310_art.h"
 #include "sound.h"
+#include "ascent_art.h"
+#include "ascent_dialogue.h"
 #include "rift117_card_fonts.h"
 #include "rift116_intent_icons.h"
 #include "rift110_map_icons.h"
@@ -104,7 +106,7 @@ const Game*game_render_audio_state(const Game*g,unsigned tick){
  return game_render_transition_busy(tick)&&tick-r161_transition_tick<r161_transition_length/2?&r161_transition_before:g;
 }
 int game_render_story_input(const Game*g,int key,unsigned tick){
- int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING;
+ int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING||ascent_story_screen(g->screen);
  if(game_render_transition_busy(tick)){
   if(scene&&key==BTN_OK&&r170_story_queue<3)r170_story_queue++;
   return 0;
@@ -195,10 +197,10 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  if(before->screen==PAUSE_MENU&&after->screen!=PAUSE_MENU){
   fx_transition=0;game_render_begin_transition(before,tick);
  }
- if(before->screen!=after->screen&&(before->screen==ACT_INTRO||after->screen==ACT_INTRO||before->screen==STORY_ACT_BEFORE_BLESSING||after->screen==STORY_ACT_BEFORE_BLESSING||before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS)){
+ if(before->screen!=after->screen&&(before->screen==ACT_INTRO||after->screen==ACT_INTRO||before->screen==STORY_ACT_BEFORE_BLESSING||after->screen==STORY_ACT_BEFORE_BLESSING||before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS||ascent_story_screen(before->screen)||ascent_story_screen(after->screen))){
   fx_transition=0;game_render_begin_transition(before,tick);r161_transition_length=32;
  }
- if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT)){
+ if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR)){
     victory_scene=*after;
     fx_transition=0; /* The finishing clip has its own fade after contact. */
     victory_tick=tick;
@@ -391,6 +393,7 @@ static void r160_sprite(int x,int y,int w,int h,const Rift160Sprite*src,int comb
   for(int xx=0;xx<w;xx++){int dx=x+xx;if((unsigned)dx>=W)continue;uint32_t c=src->palette[src->pixels[(yy*96/h)*144+xx*144/w]];int a=c>>24;if(a)pix[dy*sw+dx]=r134_mix(pix[dy*sw+dx],c,a);}}
 }
 static void r134_card_art(int x,int y,int w,int h,int id){
+ if(id>=334&&id<394){art_blit(x,y,w,h,ascent_card_art[id-334],180,120);return;}
  if(id>=REGENT_FIRST&&id<EXTRA_LAST){
   int iw=160,ih=112,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/6;const uint8_t*src=r160_cards[id-REGENT_FIRST];const uint16_t*pal=r160_card_palettes[id-REGENT_FIRST];
   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(pal[src[(top+yy*crop/h)*iw+xx*iw/w]]);}return;
@@ -504,19 +507,20 @@ static void rift120_hp_meter(int x,int y,int w,int hp,int maxhp,int shield){
 }
 static void r138_player_meter(const Game*g){
  const int x=32,y=36;char value[24];
- rect(x+36,y+13,89,9,RGB(40,17,23));
- if(g->maxhp>0)rect(x+36,y+13,(int)(89LL*CLAMP(g->hp,0,g->maxhp)/g->maxhp),9,RGB(160,30,43));
+ rect(x+39,y+14,82,7,RGB(40,17,23));
+ if(g->maxhp>0)rect(x+39,y+14,(int)(82LL*CLAMP(g->hp,0,g->maxhp)/g->maxhp),7,RGB(160,30,43));
  r134_blit(x,y,140,30,r138_player_hp,140,30,255);
  snprintf(value,sizeof(value),"%d/%d",g->hp,g->maxhp);r135_shadow_text(x+82-r134_width(value,&r134_f9b)/2,y+13,value,WHITE,&r134_f9b);
  if(g->block>0){rift131_shield(x+143,y+5);snprintf(value,sizeof(value),"%d",g->block);r1310_block_number(x+153,y+10,value);}
 }
 static const uint16_t *rift130_fight(const Game *g){
+ if(g->act>=4)return g->act==4&&g->ascent.secret&&g->battle_type==NODE_BOSS?ascent_unmaker_arena:ascent_act4_fight;
  int act=CLAMP(g->act-1,0,2),variant=(g->floor+g->lane)&1;
  return r162_world[act][g->battle_type==NODE_BOSS?6:g->battle_type==NODE_ELITE?4+variant:2+variant];
 }
 static void background(const Game*g){
- int act=CLAMP(g->act-1,0,2);const uint16_t *src=r162_world[act][1];
- if(g->screen==TITLE||g->screen==NEW_RUN_CONFIRM||g->screen==HELP)src=r162_menu;
+ int act=CLAMP(g->act-1,0,2);const uint16_t *src=g->act>=4?ascent_act4_map:r162_world[act][1];
+ if(g->screen==TITLE||g->screen==NEW_RUN_CONFIRM||g->screen==HELP||g->screen==ASCENT_SLOTS_VIEW||g->screen==ASCENT_OVERWRITE||g->screen==ASCENT_OPTIONS||g->screen==ASCENT_COLLECTION)src=r162_menu;
  else if(g->screen==COMBAT||g->screen==VICTORY||g->screen==DEFEAT)src=rift130_fight(g);
  else if(g->screen==REST||(g->screen==DECK_VIEW&&g->prior_screen==REST))src=r162_world[act][7];
  else if(g->screen==SHOP||(g->screen==DECK_VIEW&&g->prior_screen==SHOP))src=r162_world[act][8];
@@ -663,7 +667,12 @@ static void r135_status_icons(const Game*g,int enemy,int x){
  }
 }
 static void r150b_relic_icon(int x,int y,int size,int id){
- if(id==63)r134_blit(x,y,size,size,r160_crown,80,80,255);
+ /* The oldest forty relic IDs formerly shared one generic icon. Reuse the
+    broader themed icon library so old and newly unlocked items belong together. */
+ static const unsigned char legacy_art[40]={72,71,70,69,53,64,66,73,68,55,47,63,66,43,61,70,67,69,49,73,64,59,56,64,72,66,45,67,70,68,73,57,60,40,53,71,68,61,72,67};
+ if(id>=0&&id<40)id=legacy_art[id];
+ if(id>=64&&id<74)r134_blit(x,y,size,size,ascent_relic_art[id-64],80,80,255);
+ else if(id==63)r134_blit(x,y,size,size,r160_crown,80,80,255);
  else if(id>=53&&id<63)r134_blit(x,y,size,size,r151_relics[id-53],80,80,255);
  else if(id>=NR_SNAKE&&id<=NR_DRAKE)r134_blit(x,y,size,size,r150b_icons[id-NR_SNAKE],80,80,255);
  else if(id>=40&&id<44)r134_blit(x,y,size,size,r150_relics[id-40],80,80,255);
@@ -881,7 +890,7 @@ static void combat(const Game*g){
  }
  int need_energy=g->selection<g->hand_count&&game_card_cost_now(g,g->hand[g->selection])>g->energy;
  int need_stars=g->selection<g->hand_count&&game_card_star_cost(g,g->hand[g->selection])>g->regent.stars;
- card_combat_context=0;footer(need_stars?"NOT ENOUGH STARS   O END   SQ DECK   TRI POTIONS   START STATUS":need_energy?"NOT ENOUGH ENERGY   O END   SQ DECK   TRI POTIONS   START STATUS":"X PLAY   O END   SQ DECK   TRI POTIONS   START STATUS");
+ card_combat_context=0;footer(need_stars?"NOT ENOUGH STARS   O END   TRI POTIONS   SQ DECK   START STATUS":need_energy?"NOT ENOUGH ENERGY   O END   TRI POTIONS   SQ DECK   START STATUS":"X PLAY   O END   TRI POTIONS   SQ DECK   START STATUS");
 }
 
 static uint32_t node_color(int n){switch(n){case NODE_FIGHT:return RED;case NODE_ELITE:return PURPLE;case NODE_EVENT:return BLUE;case NODE_REST:return GREEN;case NODE_SHOP:return GOLD;case NODE_TREASURE:return RGB(209,160,72);default:return WHITE;}}
@@ -925,15 +934,14 @@ static void map_screen(const Game*g){
  r134_text(335,174,reward,WHITE,&r134_f8);
  if(!g->scroll)r134_text(335,204,"X TAKE PATH",GOLD,&r134_f9);
  r134_text(335,224,"SQUARE DECK",MUTED,&r134_f8);
- footer("D-PAD MAP  X ENTER  SQ DECK  TRI POTIONS  START INVENTORY");
+ footer("D-PAD MAP  X ENTER  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void relic_result_screen(const Game*g){
  header(g,"RELIC");
  gilded_panel(39,47,401,193,1);
  int id=g->reward[0];
  center(240,58,g->relic_pending?"A RELIC AWAITS":"RELIC ACQUIRED",GOLD,2);
- if(id>=40&&id<RELIC_COUNT)r150b_relic_icon(211,86,58,id);
- else r134_blit(211,86,58,58,r134_utility_icons[1],40,40,255);
+ r150b_relic_icon(211,86,58,id);
  if(id>=0&&id<RELIC_COUNT){
     center(240,150,relic_defs[id].name,GOLD,1);
     wrapped_text(62,171,relic_defs[id].desc,51,3,WHITE);
@@ -953,9 +961,10 @@ static void event_result_screen(const Game*g){
  r134_wrap(35,216,410,2,12,g->message,GOLD,&r134_f10,0);
  footer("X CONTINUE  O CONTINUE");
 }
+#include "ascent_ui.inc"
 static void r140_potion_card(const Game*g,int id,int x,int y,int w){
  r134_blit(x,y,w,43,r140_selection,208,28,255);
- r134_blit(x+15,y+8,27,27,r134_utility_icons[0],40,40,255);
+ ascent_potion_icon(x+15,y+8,27,id);
  r134_text(x+49,y+7,game_potion_name(id),GOLD,&r134_f9b);
  r134_wrap(x+49,y+20,w-70,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
 }
@@ -966,12 +975,12 @@ static void reward_screen(const Game*g){
   int chosen=!g->v151.card_done&&g->selection==i,x=27+i*144,y=41;
   r162_card_choice=1;card_render(x,y,138,148,g->reward[i],chosen,1);r162_card_choice=0;
   int rarity=cards[CARD_ID(g->reward[i])].rarity;
-  r134_center(x+69,y+132-(chosen?5:0),rarity==2?"RARE":rarity==1?"UNCOMMON":"COMMON",rarity==2?GOLD:rarity==1?BLUE:WHITE,&r138_title7);
+  r134_center(x+69,y+132-(chosen?5:0),rarity==3?"ANCIENT":rarity==2?"RARE":rarity==1?"UNCOMMON":"COMMON",rarity>=2?GOLD:rarity==1?BLUE:WHITE,&r138_title7);
   if(g->v151.card_done)dark_rect(x+6,y+8,126,132,140);
  }
  int id=g->v151.potion_offer>=0?g->v151.potion_offer:g->ic[37]>0&&g->ic[37]<=6?g->ic[37]-1:-1;
  if(id>=0){
-  r134_blit(45,194,25,25,r134_utility_icons[0],40,40,255);
+  ascent_potion_icon(45,194,25,id);
   r134_text(80,192,game_potion_name(id),GOLD,&r134_f9b);
   r134_wrap(80,205,240,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
   if(g->v151.potion_offer>=0)button(326,195,125,27,"TAKE POTION",g->selection==4);
@@ -985,7 +994,7 @@ static void boss_reward_screen(const Game*g){
  for(int i=0;i<3;i++){
   int x=18+i*150,selected=g->selection==i,y=47-(selected?4:0);
   gilded_panel(x,y,144,178,selected);
-  r134_blit(x+47,y+12,50,50,r134_utility_icons[1],40,40,selected?255:180);
+  r150b_relic_icon(x+47,y+12,50,g->reward[i]);
   if(g->reward[i]>=0){
    r134_wrap(x+13,y+69,118,2,12,relic_defs[g->reward[i]].name,GOLD,&r134_f10,0);
    r134_wrap(x+13,y+98,118,5,12,relic_defs[g->reward[i]].desc,WHITE,&r134_f9,0);
@@ -1037,7 +1046,7 @@ static void event_screen(const Game*g){
   if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
   else if(g->message[0])r134_wrap(229,231,215,1,10,g->message,RED,&r134_f8,1);
  }
- footer(id==1?"D-PAD HEAL  X TAKE  O LEAVE  SQ DECK  START INVENTORY":"D-PAD CHOOSE  X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
+ footer("D-PAD CHOOSE  X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
 }
 static void event_card_screen(const Game*g){
  int action=g->next_screen;char title[80],detail[512],quote[96];
@@ -1123,7 +1132,8 @@ static void shop_screen(const Game*g){
    card_render(295,51,126,166,g->shop_cards[selected],1,1);
  }else{
    r134_center(358,112,title,GOLD,&r134_f10);
-   r134_blit(337,65,40,40,r134_utility_icons[selected==3?1:selected==5?0:2],40,40,255);
+   if(selected==3)r150b_relic_icon(337,65,40,g->shop_relic);
+   else r134_blit(337,65,40,40,r134_utility_icons[selected==5?0:2],40,40,255);
    r134_wrap(265,134,186,6,13,caption,WHITE,&r134_f10,0);
  }
  if(price){
@@ -1132,13 +1142,13 @@ static void shop_screen(const Game*g){
    text(270,227,cost,g->gold>=price&&!(selected==5&&g->potion_count==MAX_POTIONS)?GREEN:RED,1);
  }
  if(r140_potion_gained>=0&&animation_tick-r140_potion_tick<720)r140_potion_card(g,r140_potion_gained,28,209,424);
- footer("X BUY  O LEAVE  SQ DECK  TRI POTIONS  START INVENTORY");
+ footer("X BUY  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void potion_screen(const Game*g){
  char title[32];snprintf(title,sizeof(title),"POTION BELT / %d OF %d",g->potion_count,MAX_POTIONS);header(g,title);
  for(int i=0;i<g->potion_count;i++){
   int y=53+i*56;if(i==g->selection)r134_blit(27,y,426,54,r140_selection,208,28,255);
-  r134_blit(42,y+8,36,36,r134_utility_icons[0],40,40,255);
+  ascent_potion_icon(42,y+8,36,g->potions[i]);
   r134_text(112,y+10,game_potion_name(g->potions[i]),GOLD,&r134_f10);
   r134_wrap(89,y+27,341,2,12,game_potion_description_now(g,g->potions[i]),WHITE,&r134_f9,0);
  }
@@ -1167,6 +1177,7 @@ static void character_screen(const Game*g){
   r160_sprite(x,78+dy,144,96,i==1?&r161_vesper[0]:i==2?&r161_proxy_idle[0]:&r161_warden[0],0);
   r134_center(x+72,188+dy,hp[i],WHITE,&r134_f9b);r134_center(x+72,204+dy,build[i],MUTED,&r134_f9);r134_center(x+72,220+dy,gift[i],GOLD,&r134_f8);
   if(chosen)r134_blit(x+51,32,42,28,r138_choice,42,28,255);else dark_rect(x+7,74,130,164,65);
+  ascent_badges(x,74+dy,i);
  }
  footer("LEFT/RIGHT CHOOSE   X BEGIN   O BACK");
 }
@@ -1201,7 +1212,7 @@ static void blessing_screen(const Game*g){
 static void reward_preview_screen(const Game*g){
  header(g,"CARD REWARD / INSPECT");int raw=g->reward[g->selection];
  R135CardLayout layout=r135_card_layout(raw,174);card_render(153,55,174,(layout.height>174?layout.height:174),raw,1,1);
- const char*rarity=cards[CARD_ID(raw)].rarity==2?"RARE":cards[CARD_ID(raw)].rarity==1?"UNCOMMON":"COMMON";
+ const char*rarity=cards[CARD_ID(raw)].rarity==3?"ANCIENT":cards[CARD_ID(raw)].rarity==2?"RARE":cards[CARD_ID(raw)].rarity==1?"UNCOMMON":"COMMON";
  r134_center(240,237,rarity,GOLD,&r134_f9b);footer("LEFT/RIGHT BROWSE   O RETURN");
 }
 static void battle_piles_screen(const Game*g){
@@ -1277,14 +1288,17 @@ static void deck_screen(const Game*g){
 }
 static void title_screen(const Game*g){
  r134_blit(269,37,197,91,r134_logo,222,102,255);
- const char*buttons[]={"RESUME RUN","BEGIN ASCENT","HOW TO PLAY"};
- for(int i=0;i<3;i++){int y=136+i*34,selected=CLAMP(g->selection,0,2)==i,enabled=i!=0||game_resume_available();
-  r134_blit(279,y,176,27,r138_button_on,176,32,enabled?(selected?255:145):80);
-  r161_centered_text(289,y+2,156,23,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
+ const char*buttons[]={"RESUME RUN","BEGIN ASCENT","UNLOCKS","OPTIONS"};
+ for(int i=0;i<4;i++){int y=126+i*28,selected=CLAMP(g->selection,0,3)==i,enabled=i!=0||game_resume_available();
+  r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
+  r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- if(profile_data&&profile_data->runs){
-  char b[60];snprintf(b,sizeof(b),"RUNS %lu    WINS %lu",(unsigned long)profile_data->runs,(unsigned long)profile_data->wins);r134_center(367,244,b,GOLD,&r134_f8);
- }else r134_center(367,244,g->selection==0&&!game_resume_available()?"NO SAVED RUN":"THREE WARRIORS / THREE ACTS",GOLD,&r134_f8);
+ const AscentAccount*a=ascent_profile();char b[96];
+ dark_rect(15,181,235,68,175);
+ snprintf(b,sizeof(b),"CARDS  W %d/20   V %d/20   P %d/20",ascent_popcount(a->cards[0]),ascent_popcount(a->cards[1]),ascent_popcount(a->cards[2]));r134_text(25,191,b,GOLD,&r134_f8);
+ snprintf(b,sizeof(b),"POTIONS  %d/20     RELICS  %d/10",ascent_popcount(a->potions),ascent_popcount(a->relics));r134_text(25,208,b,WHITE,&r134_f8);
+ r134_text(25,230,"RIFT ASCENT 1.8",MUTED,&r134_f8);
+
  footer("UP/DOWN CHOOSE     X CONFIRM");
 }
 
@@ -1303,8 +1317,8 @@ static void help_screen(const Game*g){
  footer("RIFT ASCENT  /  THREE CHARACTERS  /  THREE ACTS");
 }
 static void end_screen(const Game*g){
- header(g,g->screen==VICTORY?"VICTORY / THE HOLLOW KING FALLS":"DEFEAT / THE DARKNESS CLAIMS YOU");
- if(g->screen==VICTORY)r134_blit(110,48,260,80,r140_victory,324,100,255);
+ header(g,g->screen==VICTORY?"ASCENT COMPLETE":"DEFEAT / THE DARKNESS CLAIMS YOU");
+ if(g->screen==VICTORY){r134_center(240,74,g->ascent.ascended?"THE TRUE ASCENT":"THE SPIRE HAS FALLEN",GOLD,&r134_f18b);}
  else center(240,77,"THE END",RED,2);
  char b[80];snprintf(b,sizeof(b),"FOES VANQUISHED: %d",g->kill_count);center(240,136,b,WHITE,1);
  snprintf(b,sizeof(b),"DECK: %d CARDS",g->deck_count);center(240,155,b,WHITE,1);
@@ -1377,7 +1391,7 @@ static void inspector(const Game*g){
        if(selected)r134_blit(30,y-5,420,43,r151_selection,420,60,255);
        snprintf(b,sizeof(b),"%d. %s",i+1,game_potion_name(g->potions[i]));
        r134_text(112,y+1,b,selected?GOLD:WHITE,&r134_f9b);
-       r134_blit(82,y+4,20,27,r134_utility_icons[0],40,40,255);
+       ascent_potion_icon(78,y+1,27,g->potions[i]);
        r134_wrap(112,y+15,300,2,10,game_potion_description_now(g,g->potions[i]),WHITE,&r134_f8,0);
     }
     if(g->potion_count==0)center(240,113,"NO POTIONS IN YOUR BELT",MUTED,1);
@@ -1429,7 +1443,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
   }
   r161_transition_active=0;
  }
- if((g->screen==REWARD||g->screen==RELIC_RESULT||g->screen==VICTORY||g->screen==DEFEAT)&&victory_replay&&tick>=victory_tick &&
+ if((g->screen==REWARD||g->screen==RELIC_RESULT||g->screen==VICTORY||g->screen==DEFEAT||g->screen==ASCENT_ENDING||g->screen==ASCENT_TRUE_END||g->screen==ASCENT_SAVE_ERROR)&&victory_replay&&tick>=victory_tick &&
     (r1311_finishing?r137_raw_age(tick)<r1311_finish_end():game_render_fx_busy(tick))){
    static Game shot;
    shot=victory_scene;
@@ -1440,7 +1454,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
     int banner=r1311_banner_at();
     if(age>=(unsigned)banner){
      pix=pixels;sw=stride;
-     r134_blit(126,88,228,70,r140_victory,324,100,255);
+     /* Preserve the finisher hold/fade without the victory graphic. */
      int fade= (int)age-banner-R1311_VICTORY_HOLD;
      if(fade>0)dark_rect(0,0,W,H,MIN(255,fade*255/R1311_VICTORY_FADE));
     }
@@ -1453,6 +1467,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    return;
  }
  pix=pixels;sw=stride;
+ if(ascent_story_screen(g->screen)){ascent_scene_view(g);return;}
  if(g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING){
   rect(0,0,W,H,RGB(0,0,0));
   int a=CLAMP(g->act-1,0,3),c=CLAMP(g->character,0,2);
@@ -1467,18 +1482,24 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  if(g->screen==ACT_INTRO){
   rect(0,0,W,H,RGB(0,0,0));
   int t=g->scroll,alpha=t<10?0:t<40?(t-10)*255/30:t<85?255:t<115?(115-t)*255/30:0;
-  art_blit(0,0,480,272,r162_acts[g->act>3?3:CLAMP(g->act-1,0,2)],480,272);
+  art_blit(0,0,480,272,g->act==4&&g->ascent.secret?ascent_act4_title:r162_acts[g->act>3?3:CLAMP(g->act-1,0,2)],480,272);
   dark_rect(0,0,480,272,255-alpha);
   rect(0,198,480,74,RGB(0,0,0));
   char label[40];snprintf(label,sizeof(label),"ACT %d",g->act);
   r134_center(240,208,label,RGB(230,222,202),&r134_f18b);
-  if(g->endless)r134_center(240,235,"ENDLESS ASCENT",GOLD,&r138_title9);
+  if(g->endless)r134_center(240,235,g->act==4&&g->ascent.secret?"BEFORE THE FIRST THRONE":"ENDLESS ASCENT",GOLD,&r138_title9);
   dark_rect(0,198,480,74,255-alpha);return;
  }
  background(g);
  ambient_particles(g);
  switch(g->screen){
  case TITLE:title_screen(g);break;
+ case ASCENT_SLOTS_VIEW:ascent_slots_view(g);break;
+ case ASCENT_OVERWRITE:ascent_overwrite_view(g);break;
+ case ASCENT_OPTIONS:ascent_options_view(g);break;
+ case ASCENT_COLLECTION:ascent_collection_view(g);break;
+ case ASCENT_CARDS:case ASCENT_POTIONS:case ASCENT_RELIC:ascent_unlock_view(g);break;
+ case ASCENT_SAVE_ERROR:ascent_heading("UNLOCKS NOT YET SAVED");r134_wrap(70,95,340,4,15,"The completion is waiting to be saved. Check free space on the Memory Stick and press X to retry.",WHITE,&r134_f10,0);footer("X RETRY SAVE");break;
  case NEW_RUN_CONFIRM:{
   Game title=*g;title.selection=1;
   title_screen(&title);dark_rect(0,0,W,H,205);gilded_panel(62,62,356,162,1);

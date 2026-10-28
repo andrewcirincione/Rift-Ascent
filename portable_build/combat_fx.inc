@@ -42,7 +42,7 @@ static int r137_all(int raw){int c=CARD_ID(raw);return c==3||c==10||c==14||c==19
 static void r137_feedback(const Game*before,const Game*after,int action,unsigned tick){
  int n=0;const GameCombatFx*events=game_combat_fx_events(&n);
  if(before->screen!=COMBAT){r1311_finishing=0;r137_count=0;r137_held_valid=0;r138_death_active=0;return;}
- r1311_finishing=after->screen==VICTORY||after->screen==REWARD||after->screen==RELIC_RESULT;
+ r1311_finishing=after->screen==VICTORY||after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR;
  r138_death_active=after->screen==DEFEAT;r138_death_start=0;
  r137_before=*before;r137_count=MIN(n,R137_MAX_EVENTS);r137_start=tick;r137_duration=0;r137_held_valid=0;r137_held_event=-1;
  r137_player_action=0;r140_chime_done=0;
@@ -78,7 +78,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
   for(int i=0;i<r137_count;i++)if(r137_events[i].target==-1&&r137_events[i].kind!=GFX_BLOCK&&r137_at[i]>r138_death_start)r138_death_start=r137_at[i];
   if(r137_duration<r138_death_start+72)r137_duration=r138_death_start+72;
  }
- if((after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY)&&r137_duration<72)r137_duration=72;
+ if((after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR)&&r137_duration<72)r137_duration=72;
  r1311_kill_at=0;
  if(r1311_finishing){
   int hp[2]={before->enemies[0].hp,before->enemies[1].hp};
@@ -95,7 +95,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
 void game_render_update_fx(unsigned tick){
  int age=r137_age(tick);
  if(r1311_finishing&&!r140_chime_done&&r137_raw_age(tick)>=r1311_banner_at()){
-  r140_chime_done=1;rift_sound_effect(10);
+  r140_chime_done=1;/* No victory fanfare. */
  }
  for(int i=0;i<r137_count;i++)if(!r137_audio_done[i]&&age>=r137_at[i]){
   const GameCombatFx*e=&r137_events[i];r137_audio_done[i]=1;
@@ -173,13 +173,16 @@ static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,in
   }
  }
 }
+static const uint32_t*ascent_enemy_art(int art){return art==2?ascent_enemy_2:art==18?ascent_enemy_18:art==25?ascent_enemy_25:0;}
 static int r170_boss_index(int art){return art==15?0:art==24?1:art==8?2:-1;}
 /* Anchor the visible sampled sprite, not transparent padding. The last source
    row can be skipped by nearest-neighbour downsampling, leaving a 1-2px gap. */
 static int r171_ground_gap(int art,int w,int h,int flip){
  int b=r170_boss_index(art),iw=0,ih=0,left=0,top=0,cw=0,ch=0;
  const uint32_t*rgba=0;const uint16_t*rgb=0;
- if(b>=0){iw=r170_boss_size[b][0];ih=r170_boss_size[b][1];rgba=r170_boss_sprites[b];}
+ if(ascent_enemy_art(art)){iw=144;ih=160;rgba=ascent_enemy_art(art);}
+ else if(art==44){iw=160;ih=192;rgba=ascent_unmaker;}
+ else if(b>=0){iw=r170_boss_size[b][0];ih=r170_boss_size[b][1];rgba=r170_boss_sprites[b];}
  else if(art>=36){iw=r150_enemy_size[art-36][0];ih=r150_enemy_size[art-36][1];rgba=r150_enemies[art-36];}
  else if(art==9){iw=144;ih=96;rgba=r1310_hound;}
  else{iw=RIFT_ENEMY_W;ih=RIFT_ENEMY_H;rgb=rift_enemy_sprites[art];left=r1311_enemy_bounds[art][0];top=r1311_enemy_bounds[art][1];cw=r1311_enemy_bounds[art][2];ch=r1311_enemy_bounds[art][3];}
@@ -261,7 +264,7 @@ static void r137_scene(const Game*g){
   for(int i=0;i<r137_count;i++)if(r137_events[i].target==e&&(r137_events[i].kind==GFX_ATTACK||r137_events[i].kind==GFX_PROC)&&age>=r137_at[i]&&age-r137_at[i]<28)hit=i;
   if(foe->hp<=0&&hit<0)continue;
   int art=foe->art,boss=r170_boss_index(foe->art),maxw=g->enemy_count==1?144:112,h=boss>=0||foe->art>=42?98:92;
-  int w=boss>=0?r170_boss_size[boss][0]*h/r170_boss_size[boss][1]:art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];
+  int w=ascent_enemy_art(art)?144*h/160:art==44?160*h/192:boss>=0?r170_boss_size[boss][0]*h/r170_boss_size[boss][1]:art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];
   if(w>maxw){h=h*maxw/w;w=maxw;}
   int ex=r134_enemy_x(g,e),y=174-h,tilt=0,flash=0,opacity=255;
   int atk=r137_latest(e,GFX_ATTACK,age),guard=r137_latest(e,GFX_BLOCK,age);
@@ -272,10 +275,12 @@ static void r137_scene(const Game*g){
   if(atk>=0){int tier=game_impact_tier(r137_events[atk].amount),t=r137_local_time(age-r137_at[atk],tier);if(t<18){ex-=(20+4*tier)*(18-t)/18;tilt=-(9+tier)*(18-t)/18;w+=6;y+=2;h-=2;}}
   if(guard>=0&&age-r137_at[guard]<18){y+=4;h-=4;w+=4;tilt=3;}
   if(hit>=0){int a=age-r137_at[hit],tier=game_impact_tier(r137_events[hit].amount),t=r137_local_time(a,tier);if(t<18){ex+=(3+tier*3)*(18-t)/18;tilt=5+tier;flash=t<2?90+tier*20:0;}if(foe->hp<=0){opacity=CLAMP(255-a*11,0,255);y+=a/2;}}
-  int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==35||art==28);
-  y+=r171_ground_gap(art,w,h,boss<0&&art<36&&art!=9?flip:0);
-  if(boss<0&&art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
-  if(boss>=0)r170_rgba_actor(ex-w/2,y,w,h,r170_boss_sprites[boss],r170_boss_size[boss][0],r170_boss_size[boss][1],tilt,opacity,flash);
+  int flip=(art==5||art==24||art==1||art==4||art==9||art==10||art==13||art==14||art==15||art==16||art==19||art==20||art==26||art==29||art==32||art==2||art==7||art==11||art==18||art==21||art==27||art==30||art==33||art==28);
+  y+=r171_ground_gap(art,w,h,!ascent_enemy_art(art)&&boss<0&&art<36&&art!=9?flip:0);
+  if(!ascent_enemy_art(art)&&boss<0&&art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
+  if(ascent_enemy_art(art))r170_rgba_actor(ex-w/2,y,w,h,ascent_enemy_art(art),144,160,tilt,opacity,flash);
+  else if(art==44)r170_rgba_actor(ex-w/2,y,w,h,ascent_unmaker,160,192,tilt,opacity,flash);
+  else if(boss>=0)r170_rgba_actor(ex-w/2,y,w,h,r170_boss_sprites[boss],r170_boss_size[boss][0],r170_boss_size[boss][1],tilt,opacity,flash);
   else if(art>=36)r150_enemy_actor(ex-w/2,y,w,h,art,tilt,opacity,flash);
   else if(art==9)r137_blit(ex-w/2,y,w,h,r1310_hound,144,96,opacity,0);
   else r137_actor(ex-w/2,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,opacity,flash);

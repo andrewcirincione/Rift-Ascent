@@ -61,7 +61,7 @@ int game_regent_choice_raw(const Game*g,int i){if(i<0||i>=game_regent_choice_cou
 int game_regent_choice_eligible(const Game*g,int i){int raw=game_regent_choice_raw(g,i);if(raw<0)return 0;int id=CARD_ID(raw),k=g->regent.choice_kind;
  if(k==RC_SKILL_TRIPLE||k==RC_SEEK_SKILL)return cards[id].type==1;
  if(k==RC_SEEK_ATTACK)return cards[id].type==0;
- if(k==RC_COPY_COLORLESS)return id>=COLORLESS_FIRST||id==R_MINION_STRIKE||id==R_MINION_DIVE_BOMB||id==R_MINION_SACRIFICE||id==R_DEBRIS;
+ if(k==RC_COPY_COLORLESS)return (id>=COLORLESS_FIRST&&id<EXTRA_LAST)||id==R_MINION_STRIKE||id==R_MINION_DIVE_BOMB||id==R_MINION_SACRIFICE||id==R_DEBRIS;
  if(k==RC_GUARDS)return id!=R_MINION_SACRIFICE;
  if(k==RC_TRANSFORM_DRAW)return id!=R_MINION_DIVE_BOMB;
  return 1;
@@ -77,7 +77,8 @@ static void regent_open_choice(Game*g,RegentTask t){
 static void regent_offer(Game*g,int raw,int e,int up,int mode,int depth){
  g->regent.option_count=0;int pool[512],n=0;
  for(int id=3;id<CARD_COUNT;id++){
-  int valid=mode==0?id>=COLORLESS_FIRST:mode==1?(id>=REGENT_FIRST&&id<REGENT_LAST&&solo_reward_eligible(id)&&id!=R_ROYALTIES):(id<NINJA_LAST&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].type==0&&solo_reward_eligible(id));
+  int valid=mode==0?(id>=COLORLESS_FIRST&&id<EXTRA_LAST):mode==1?(id>=REGENT_FIRST&&id<REGENT_LAST&&solo_reward_eligible(id)&&id!=R_ROYALTIES):(id<NINJA_LAST&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].type==0&&solo_reward_eligible(id));
+  if(id>=ASCENT_CARD_FIRST)valid=ascent_card_available(g,id)&&(mode==1||(mode==2&&cards[id].type==0));
   if(valid)pool[n++]=id;
  }
  for(int i=0;i<3&&n;i++){int k=rnd(g,n);g->regent.options[g->regent.option_count++]=pool[k]|(up?UPBIT:0)|(mode?CARD_FREE:0);pool[k]=pool[--n];}
@@ -149,6 +150,7 @@ static void regent_process(Game*g){
   if(preview_trace){preview_phase=t.depth>0&&t.depth<=2;preview_depth=t.depth;}
   switch(t.kind){
   case RT_PLAY:{
+   if(id>=ASCENT_CARD_FIRST){resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
    if(id<REGENT_FIRST){
     /* Colorless Splash can create Warden/Nightshade cards. Their own tested
        resolver remains responsible for their choices and physical pile move. */

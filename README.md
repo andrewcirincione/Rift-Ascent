@@ -2,21 +2,21 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.71-r2**. Act cutscenes now precede relic choices, with silent introductions, a solid act-title bar, grounded enemies, faster idle animation, readable mystery rewards, working pause selection and louder music. Releases include the complete EBOOT with its intended
+Current version: **1.8** (release tag **v1.8-r2**). Rebuilt directly from **1.71-r2**, with no code, artwork or dialogue reused from the previous 1.8 prerelease. Adds four run slots, shared unlock progress, 60 character cards, 20 potions, 10 relics, character endings and a hidden fourth-act boss. Releases include the complete EBOOT with its intended
 soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
 
 Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
-it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` and
-`PROFILE.DAT`. Version 1.6 adds Proxy and the redesigned Vesper, and migrates prior runs while preserving cards, items and active combat choices.
+it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT`,
+`PROFILE.DAT`, and all `ASCENT18_ACCOUNT.*` / `ASCENT18_RUN_*` files. A valid stable single-save run imports into slot 1 on first launch. The older save stays untouched.
 
 ## Source and validation
 
-- [Current patch notes](versions/1.71-r2/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v171r2/README.md)
-- Canonical source: `qa/v171r2/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.71-r2/EBOOT.PBP` (release tag `v1.71-r2`)
+- [Current patch notes](versions/1.8-r2/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/rebuild180/README.md)
+- Canonical source: `qa/rebuild180/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.8-r2/EBOOT.PBP` (release tag `v1.8-r2`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
-  Version 1.71 is tested in 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; hardware confirmation of this patch remains pending.
+  Uses 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; hardware confirmation of 1.8 remains pending.
 
 ## Publishing
 

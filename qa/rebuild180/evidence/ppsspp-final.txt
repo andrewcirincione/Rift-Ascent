@@ -1,0 +1,6 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT slots-empty
+SHOT characters-new
+SHOT first-map
+SHOT slots-saved

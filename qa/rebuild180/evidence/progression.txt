@@ -1,0 +1,2 @@
+PASS pairs 1500/6000; 36 wins; all unlocks; idempotence; new profile cold load
+PASS 120 fresh card base/upgraded resolutions and preview isolation

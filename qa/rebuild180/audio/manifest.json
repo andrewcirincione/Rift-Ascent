@@ -1,0 +1,116 @@
+{
+  "source_zip_sha256": "5d26f6d50f5d3daeb1d963bd277cab43784f8a2825cea0215f8b294aeaf5f932",
+  "format": "Stereo IMA ADPCM, low nibble left / high nibble right; independent zero initial state",
+  "tracks": [
+    {
+      "index": 0,
+      "name": "RiftBoss",
+      "rate": 44100,
+      "frames": 8996400,
+      "seconds": 204.0,
+      "snr_db": 29.991,
+      "source_sha256": "eb2f41cb1ece1c35e819d3218836abfd46271ce89065024ce5b1f9a49b901ea7",
+      "pcm_sha256": "89b9b4986947859e674d9f464aff94de8c337059e1487934af1252c18b834c96",
+      "encoded_sha256": "4a66f9b2a9b84ac4c564a7e4452bdaa725bda52019d3b7162e82886b4b86c009"
+    },
+    {
+      "index": 1,
+      "name": "RiftMenu",
+      "rate": 22050,
+      "frames": 1512000,
+      "seconds": 68.57142857142857,
+      "snr_db": 25.931,
+      "source_sha256": "762e797f933905a042a628a9484cb4d6531335403ad9471083771529ccb7364b",
+      "pcm_sha256": "b55568b03b39f926258d6f7846dd8ef9aff61cbacc907673b144e0f7ca863209",
+      "encoded_sha256": "b54fd9d4a5004982888f8aab6f734eddc77ff7396ef20ceb1c72e970f599da06"
+    },
+    {
+      "index": 2,
+      "name": "RiftFight",
+      "rate": 22050,
+      "frames": 2419200,
+      "seconds": 109.71428571428571,
+      "snr_db": 28.89,
+      "source_sha256": "1cc64acfd0ececf015dd708806e7944a9c9317da94e87065b5e9dac50e92c30b",
+      "pcm_sha256": "639a2f45673913631a5cbb9ed836cd61510db1506523b8816d9f639654bf812a",
+      "encoded_sha256": "93d772d0c8119447aa503aed906f0e78c8e0f06e12a045dd4573127b108496c8"
+    },
+    {
+      "index": 3,
+      "name": "RiftFight2",
+      "rate": 22050,
+      "frames": 2721600,
+      "seconds": 123.42857142857143,
+      "snr_db": 26.35,
+      "source_sha256": "25bc393cd462512c9571cc9a8e2c08f818785c163edb6557e017b8e31f90d712",
+      "pcm_sha256": "84fd18f4b0d30ad664149f0c3d1684958b282d3db018b2d9d0b145a5f3ba2b11",
+      "encoded_sha256": "ca010251472de0fc9ab2811b44d4b65fdb1b3e955e46b882a2a67448724b24d2"
+    },
+    {
+      "index": 4,
+      "name": "RiftFight3",
+      "rate": 22050,
+      "frames": 2318400,
+      "seconds": 105.14285714285714,
+      "snr_db": 27.868,
+      "source_sha256": "de65aa07d8cd972dbe81231433d86ba7a2b4eb4f945a9d10f50c4bd3a67194c7",
+      "pcm_sha256": "26b51496f9e4aad6cc4a3395ab31ad8d1fbc8365e82117926f6173ffa05c0e39",
+      "encoded_sha256": "0e3199a397c5c02ec7f85937092c19e11661567366b2872af4068b3f848c67d9"
+    },
+    {
+      "index": 5,
+      "name": "RiftFight4",
+      "rate": 22050,
+      "frames": 2822400,
+      "seconds": 128.0,
+      "snr_db": 30.433,
+      "source_sha256": "25645f7b1bdd153defa21bd25cc48952e0cc35c1e5ea5f7bfc3f6a4987392495",
+      "pcm_sha256": "48324d7a36100363384dee3d6fa0ebb3f711a63f7a64f666151f9b56555b4fe7",
+      "encoded_sha256": "994b80a062d40b54970b6219f4e038cd0a69a3da7060bc5f3686a8af715b1a10"
+    },
+    {
+      "index": 6,
+      "name": "RiftFight5",
+      "rate": 22050,
+      "frames": 2217600,
+      "seconds": 100.57142857142857,
+      "snr_db": 27.269,
+      "source_sha256": "a6ffbe7209e0c51dbb8f1fd44601c577432c7a163f7550f323781da6b2c5859b",
+      "pcm_sha256": "2aa685e0c79b7647f20e0abda0179fe2e5c91df69e15ede706203b5327a7b6a9",
+      "encoded_sha256": "731bf21c8f849eb6c144d8c40e5280562e3ac5368d6c8b71a7f008af7734c21a"
+    },
+    {
+      "index": 7,
+      "name": "RiftMenu2",
+      "rate": 22050,
+      "frames": 1310400,
+      "seconds": 59.42857142857143,
+      "snr_db": 26.647,
+      "source_sha256": "963c8708e40badcc7433c4a8757da8f5403ed60e65ce452724f0ce0aac67e68f",
+      "pcm_sha256": "f2ad84d5ce86d0d225067f526b9f13fd3a780088fcd25e3d4bd8cd1d810ab849",
+      "encoded_sha256": "3987c7185dc2a53c4ef82fae10d84709aa047d2b3f5c58711e3d6326251a261d"
+    },
+    {
+      "index": 8,
+      "name": "RiftMenu3",
+      "rate": 22050,
+      "frames": 1310400,
+      "seconds": 59.42857142857143,
+      "snr_db": 25.747,
+      "source_sha256": "37a608a50dace818a39b1945b6b53123d28b35c9945a4cc80212cfe2e60d999e",
+      "pcm_sha256": "4bcd54a99c5dac7ddcefe537c7dd073da03368be029d6c97e005eafbc7e96161",
+      "encoded_sha256": "33c1187ddf683ebd8322798fdc4793066547efcc09687391b73813e34f7cbc1e"
+    },
+    {
+      "index": 9,
+      "name": "RiftMenu4",
+      "rate": 22050,
+      "frames": 1310400,
+      "seconds": 59.42857142857143,
+      "snr_db": 27.178,
+      "source_sha256": "441fadfc0b0b3e288159e26acb1b8d8c602a7df92b8c6867fbf7ba11ad3b5cf0",
+      "pcm_sha256": "2670f47d35e8580940bfd416446da4441d0fec0529d7735322d5d4287ef219e4",
+      "encoded_sha256": "00cc0a60c089c8f31839428685cf35e90cc3e7290f76bbac6d71f5a01a7af01d"
+    }
+  ]
+}

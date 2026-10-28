@@ -1,12 +1,12 @@
 TARGET = rift_ascent_crt_free
-OBJS = psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o
+OBJS = ascent_paths.o psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o
 PSP_FW_VERSION = 660
 PSP_LARGE_MEMORY = 0
 CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector
-LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map
+LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = RIFT ASCENT 1.71
+PSP_EBOOT_TITLE = RIFT ASCENT 1.8
 PSP_EBOOT_ICON = ICON0.PNG
 PSP_EBOOT_ICON1 = ICON1.PMF
 PSP_EBOOT_PIC1 = PIC1.PNG
@@ -29,3 +29,6 @@ render.o: rift162_art.h
 render.o: rift170_art.h
 
 game.o: story170_data.h
+
+render.o: ascent_art.h ascent_ui.inc ascent_dialogue.h
+game.o: ascent_storage.inc ascent_flow.inc ascent_progress.h new_cards.inc new_effects.inc new_potions.h new_potion_effects.inc new_relics.inc new_card_flags.h
