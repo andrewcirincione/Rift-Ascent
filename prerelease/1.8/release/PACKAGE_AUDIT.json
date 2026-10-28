@@ -1,8 +1,8 @@
 {
   "version": "1.8 Pre-release",
   "branch": "1.8-Pre-release",
-  "sha256": "4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560",
-  "eboot_bytes": 54882622,
+  "sha256": "f4edacf5421003eb7b1a5e4c9e3be1dce1a23e5ef89d5fad1233c43a917ba1f4",
+  "eboot_bytes": 54887422,
   "base_sha256": "13e440423f640939d41f271fc94b8cf57adb74fc57db8b030bacb267d0b0ec1c",
   "custom_card_images": 60,
   "unique_custom_card_images": 60,
@@ -21,5 +21,10 @@
     "boss4:2",
     "archive:0",
     "combat:0"
-  ]
+  ],
+  "release_tag": "v1.8-pre.2",
+  "startup_fix": "Kernel launch argument selects the executable and saves; failed package loading displays diagnostics.",
+  "media_tail_preserved": true,
+  "previous_sha256": "4e8c80ff4a519e6dfda7a9ad6a125b654dd4dcbb216aefa48842abd587498560",
+  "hardware_tested": false
 }

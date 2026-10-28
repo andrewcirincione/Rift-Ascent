@@ -1,0 +1,54 @@
+11:36:770 Vulkan/VulkanLoader.cpp:462 I[G3D]: VulkanMayBeAvailable: Device allowed ('SDL:Linux')
+11:36:770 Vulkan/VulkanLoader.cpp:401 I[G3D]: Vulkan library loaded ('libvulkan.so')
+11:36:770 Vulkan/VulkanLoader.cpp:511 I[G3D]: VulkanMayBeAvailable: Enumerating instance extensions
+11:36:775 Vulkan/VulkanLoader.cpp:522 I[G3D]: VulkanMayBeAvailable: Instance extension count: 25
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_device_group_creation (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_display (00000017)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_fence_capabilities (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_memory_capabilities (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_semaphore_capabilities (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_display_properties2 (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_physical_device_properties2 (00000002)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_surface_capabilities2 (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface (00000019)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_maintenance1 (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_protected_capabilities (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_wayland_surface (00000006)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xcb_surface (00000006)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xlib_surface (00000006)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_drm_display (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_xlib_display (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_report (0000000a)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_utils (00000002)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_direct_mode_display (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_display_surface_counter (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_headless_surface (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_surface_maintenance1 (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_swapchain_colorspace (00000005)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_portability_enumeration (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_LUNARG_direct_driver_loading (00000001)
+11:36:775 Vulkan/VulkanLoader.cpp:568 I[G3D]: VulkanMayBeAvailable: Calling vkCreateInstance
+11:36:777 Vulkan/VulkanLoader.cpp:575 I[G3D]: VulkanMayBeAvailable: Vulkan test instance created successfully.
+11:36:777 Vulkan/VulkanLoader.cpp:578 E[G3D]: VulkanMayBeAvailable: Failed to count physical devices (VK_ERROR_INITIALIZATION_FAILED)
+11:36:777 Vulkan/VulkanLoader.cpp:642 I[G3D]: VulkanMayBeAvailable: Destroying instance
+11:36:778 Vulkan/VulkanLoader.cpp:649 W[G3D]: Vulkan with working device not detected.
+DEBUG: Vulkan is not available, not using Vulkan.
+Info: We compiled against SDL version 2.32.8 and we are linking against SDL version 2.32.8. :)
+11:36:793 Thread/ThreadManager.cpp:227 I[SYSTEM]: ThreadManager::Init(compute threads: 4, all: 8)
+11:36:793 Util/PortManager.cpp:475 I[SCENET]: UPnPService: Begin of UPnPService Thread
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/ppsspp/AppDir/bin/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/ppsspp/AppDir/bin
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/games/ppsspp/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/ppsspp/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/games/ppsspp/assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : assets
+11:36:793 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /home/runner/work/_temp/rift-pre2-damaged
+11:36:793 Core/Config.cpp:424 I[G3D]: Longest display side: 960 pixels. Choosing scale 1
+11:36:794 Core/Config.cpp:1535 E[LOADER]: Error saving config (Loaded appended config) - can't write ini '/home/runner/work/_temp/rift-pre2-damaged/.config/ppsspp/PSP/SYSTEM/ppsspp.ini'
+OpenGL 2.0 or higher.
+11:36:923 Core/System.cpp:634 N[BOOT]: PPSSPP v1.20.4
+11:37:001 idle0        N[BOOT]: UI/EmuScreen.cpp:391 Booted /home/runner/work/_temp/rift-pre2-damaged/.config/ppsspp/PSP/GAME/Rift Ascent Test/EBOOT.PBP...
+12:59:369 Core/Config.cpp:1544 E[LOADER]: Error saving controller config - can't read ini first '/home/runner/work/_temp/rift-pre2-damaged/.config/ppsspp/PSP/SYSTEM/controls.ini'
+Leaving main

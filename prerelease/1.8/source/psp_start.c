@@ -24,6 +24,7 @@ void game_render_preplay(const Game *g,unsigned tick);
 #include <pspaudio.h>
 #include <pspiofilemgr.h>
 #include "boot_trace.h"
+#include "launch_path.h"
 
 /* PSPSDK crt0 usually declares linker boundary symbols. */
 __asm__(
@@ -89,7 +90,7 @@ static void soundtrack_close(void){
 }
 static int soundtrack_open(void){
  soundtrack_close();
- soundtrack_fd=sceIoOpen("ms0:/PSP/GAME/RIFTASCENT_A18/EBOOT.PBP",PSP_O_RDONLY,0);
+ soundtrack_fd=rift_launch_open_package();
  if(soundtrack_fd<0)return 0;
  int end=sceIoLseek32(soundtrack_fd,0,2);
  if(end<RIFT_MUSIC_FOOTER){soundtrack_close();return 0;}
@@ -299,12 +300,10 @@ static void step_action(int key,unsigned tick) {
        (key==BTN_OK&&before_input.screen==SHOP))
         game_render_feedback(&before_input,&game,key,tick);
 }
+#include "startup_diagnostic.h"
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
     boot_trace("worker entered",1);
-    int assets_ready=rift_assets_open();
-    boot_trace("streamed artwork bank",assets_ready);
-    if(!assets_ready){boot_trace("FATAL artwork bank",-8);sceKernelExitGame();return -8;}
     void *vram=sceGeEdramGetAddr();
     boot_trace("EDRAM base", (int)(uintptr_t)vram);
     if(!vram) {boot_trace("FATAL EDRAM", -1);sceKernelExitGame();return -1;}
@@ -324,11 +323,24 @@ static int run_game(SceSize bytes,void *argp) {
     if(mode_result<0) {
         sceKernelExitGame();return -2;
     }
+    sceCtrlSetSamplingCycle(0);sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
+    setup_home_callback();
+    startup_loading(uncached0);
+    int splash_result=sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,PSP_DISPLAY_SETBUF_NEXTVSYNC);
+    boot_trace("startup loading framebuffer",splash_result);
+    sceDisplayWaitVblankStart();
+    boot_trace_text("launch executable",rift_launch_executable());
+    int assets_ready=rift_assets_open();
+    boot_trace("streamed artwork bank",assets_ready);
+    if(!assets_ready)return startup_failure(vram,uncached0,"Cannot load artwork from this EBOOT.",-8);
     /* Seed chosen without libc startup/time import; different in each new run. */
     boot_trace("game_new entering",1);
     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
     boot_trace("game_new finished",game.screen);
-    boot_trace("A1.8 profile journal",a18_storage_open("ms0:/PSP/GAME/RIFTASCENT_A18"));
+    boot_trace_text("profile directory",rift_launch_directory());
+    int storage_ready=a18_storage_open(rift_launch_directory());
+    boot_trace("A1.8 profile journal",storage_ready);
+    if(!storage_ready)return startup_failure(vram,uncached0,"Cannot write the 1.8 save/profile files.",-11);
     game.selection=game_resume_available()?0:1;
     profile_init(&lifetime);game_render_set_profile(&lifetime);
     rift_sound_reset(&music);
@@ -356,7 +368,6 @@ static int run_game(SceSize bytes,void *argp) {
         boot_trace("FATAL initial vblank",initial_vblank);
         sceKernelExitGame();return -6;
     }
-    setup_home_callback();
     boot_trace("exit callback setup",1);
     unsigned int last=0;
     unsigned int frame=1;
@@ -540,13 +551,15 @@ static int run_game(SceSize bytes,void *argp) {
     return 0;
 }
 int _start(SceSize args,void *argp) {
-    (void)args;(void)argp;
+    int captured=rift_launch_capture((unsigned)args,argp);
     boot_trace_reset();
     boot_trace("PSP module start",1);
+    boot_trace("launch argument bytes",(int)args);
+    boot_trace("launch path captured",captured);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
                                   192*1024,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);
-    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
+    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,args,argp));
     else boot_trace("FATAL could not create thread",th);
     return 0;
 }
