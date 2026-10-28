@@ -1,0 +1,53 @@
+59:08:435 Vulkan/VulkanLoader.cpp:462 I[G3D]: VulkanMayBeAvailable: Device allowed ('SDL:Linux')
+59:08:435 Vulkan/VulkanLoader.cpp:401 I[G3D]: Vulkan library loaded ('libvulkan.so')
+59:08:435 Vulkan/VulkanLoader.cpp:511 I[G3D]: VulkanMayBeAvailable: Enumerating instance extensions
+59:08:441 Vulkan/VulkanLoader.cpp:522 I[G3D]: VulkanMayBeAvailable: Instance extension count: 25
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_device_group_creation (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_display (00000017)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_fence_capabilities (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_memory_capabilities (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_external_semaphore_capabilities (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_display_properties2 (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_physical_device_properties2 (00000002)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_get_surface_capabilities2 (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface (00000019)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_protected_capabilities (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_wayland_surface (00000006)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xcb_surface (00000006)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_xlib_surface (00000006)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_drm_display (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_acquire_xlib_display (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_report (0000000a)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_debug_utils (00000002)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_direct_mode_display (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_display_surface_counter (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_headless_surface (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_surface_maintenance1 (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_surface_maintenance1 (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_EXT_swapchain_colorspace (00000005)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_KHR_portability_enumeration (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:530 I[G3D]: VulkanMaybeAvailable: Instance extension found: VK_LUNARG_direct_driver_loading (00000001)
+59:08:441 Vulkan/VulkanLoader.cpp:568 I[G3D]: VulkanMayBeAvailable: Calling vkCreateInstance
+59:08:444 Vulkan/VulkanLoader.cpp:575 I[G3D]: VulkanMayBeAvailable: Vulkan test instance created successfully.
+59:08:444 Vulkan/VulkanLoader.cpp:578 E[G3D]: VulkanMayBeAvailable: Failed to count physical devices (VK_ERROR_INITIALIZATION_FAILED)
+59:08:444 Vulkan/VulkanLoader.cpp:642 I[G3D]: VulkanMayBeAvailable: Destroying instance
+59:08:445 Vulkan/VulkanLoader.cpp:649 W[G3D]: Vulkan with working device not detected.
+DEBUG: Vulkan is not available, not using Vulkan.
+Info: We compiled against SDL version 2.32.8 and we are linking against SDL version 2.32.8. :)
+59:08:459 Thread/ThreadManager.cpp:227 I[SYSTEM]: ThreadManager::Init(compute threads: 9, all: 18)
+59:08:459 Util/PortManager.cpp:475 I[SCENET]: UPnPService: Begin of UPnPService Thread
+59:08:459 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /workspace/scratch/9a81aefb5adc/runtime/AppDir/bin/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /workspace/scratch/9a81aefb5adc/runtime/AppDir/bin
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/ppsspp/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /usr/local/share/games/ppsspp/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/ppsspp/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /tmp/NjN1Q/games/ppsspp/assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : assets
+59:08:460 VFS/VFS.cpp:14 D[IO]: Registered VFS for prefix : /root
+OpenGL 2.0 or higher.
+59:08:647 Core/System.cpp:634 N[BOOT]: PPSSPP v1.20.4
+59:08:719 idle0        N[SCEAUDIO]: HLE/__sceAudio.cpp:482 Starting Audio logging
+59:08:736 idle0        N[BOOT]: UI/EmuScreen.cpp:391 Booted /workspace/scratch/9a81aefb5adc/runtime/qa171finalconfig/ppsspp/PSP/GAME/RIFTASCENT/EBOOT.PBP...
+59:24:872 HLE/__sceAudio.cpp:492 N[SCEAUDIO]: Stopping Audio logging
+Leaving main

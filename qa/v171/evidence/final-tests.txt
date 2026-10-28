@@ -1,0 +1,37 @@
+Rift Ascent 1.71 final validation
+SHA256 45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd
+EBOOT bytes: 49216726
+
+maw-tests.txt [report SHA256 355446ad07216827a68cfa5b22f54966c489c1754e7b9a785e53b5c8654448c6]
+PASS 826 native Maw frames: all characters, idle, incoming hit, enemy attack, guard and killing-blow fade; framebuffer canaries intact, no asset errors
+
+resident-tests.txt [report SHA256 1144c17a17464ec2d20f3edcf37aa3e5fd87a1964be13f79fe50be105387f20a]
+PASS 2287 native visual equivalence cases; asset errors=0
+
+streamed-tests.txt [report SHA256 1144c17a17464ec2d20f3edcf37aa3e5fd87a1964be13f79fe50be105387f20a]
+PASS 2287 native visual equivalence cases; asset errors=0
+
+asset-tests.txt [report SHA256 a8e1e371d3ea9198437e4f0cc14b4e69aa03109896ac52e404fd722debf7a77b]
+PASS stale artwork file handle automatically reopens; CRC verified, no errors
+PASS 1347 exact texture-byte comparisons plus cache hits, wraparound/eviction and 3 malformed-descriptor checks; 38301360 resource bytes, no palette/resolution/color changes
+
+scope-tests.txt [report SHA256 39eaf1a3643830b279adcffba200340e4d2becfe1d7aac438d464d9722a823a2]
+PASS only Furnace Maw texture pixels changed among 449 streamed assets; game rules, AI, timing, save layout and all other canonical sources unchanged (art header and host audit path excepted)
+
+media-tests.txt [report SHA256 da9f304dc74dfb77f3415f35faf7b7c5b1ed21c70fd2db14311f2f8f062f9d72]
+PASS {'sha256': '45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd', 'bytes': 49216726, 'icon1_bytes': 239616, 'snd0_bytes': 198864, 'pic1_unchanged': True, 'riftboss_snd0_unchanged': True, 'all_five_soundtrack_payloads_unchanged': True, 'music_crc': 1214111141}
+
+ppsspp-tests.txt [report SHA256 06a23fc2f8e66ab95d3a1267c88fb08258dc77745557da868bb85f33574bda41]
+PASS exact 1.71 EBOOT: all three characters against repainted Furnace Maw, boss dialogue into battle, card previews, save/quit/resume; no asset errors
+SHA256 45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd
+
+animation-tests.txt [report SHA256 e135dea191e656dcb4daede1616e281b6b608a1c47edb523697bed52bcb48c71]
+PASS exact EBOOT Maw idle/hit/attack/guard/finisher screenshots; battle music stays muted until spoils track
+SHA256 45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd
+
+cold-resume-tests.txt [report SHA256 f2544dcdda2aa7e5fd85948b075b731dd28733beb42d562c3abef56034ee6b44]
+PASS cold Resume into saved combat, RiftBoss selected
+
+Visual review: final native PPSSPP captures show distinct silver-gray armor planes against the red/orange arena, complete feet/limbs and unchanged character alignment. Idle, hit, strike, guard and death frames checked. No new clipping, missing art or ghosting observed.
+32 MiB PSP mode, bounded 4 MiB cache and prior hardware-confirmed loader correction preserved. Physical PSP testing of 1.71 remains pending.
+PASS final release EBOOT

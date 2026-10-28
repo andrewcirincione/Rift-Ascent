@@ -1,11 +1,11 @@
 {
-  "version": "1.7",
-  "tag": "v1.7",
-  "eboot": "versions/1.7/EBOOT.PBP",
-  "eboot_sha256": "6d8e3addb7c8930fc9fc08cb157456305758552315f0a55a21b36a412fefcfb3",
-  "notes": "versions/1.7/PATCH_NOTES.md",
-  "screenshot": "versions/1.7/Combat.png",
-  "canonical_source": "qa/v170/source",
-  "validation": "qa/v170/evidence/final-tests.txt",
-  "resources_manifest": "qa/v170/assets.json"
+  "version": "1.71",
+  "tag": "v1.71",
+  "eboot": "versions/1.71/EBOOT.PBP",
+  "eboot_sha256": "45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd",
+  "notes": "versions/1.71/PATCH_NOTES.md",
+  "screenshot": "versions/1.71/Combat.png",
+  "canonical_source": "qa/v171/source",
+  "validation": "qa/v171/evidence/final-tests.txt",
+  "resources_manifest": "qa/v171/assets.json"
 }

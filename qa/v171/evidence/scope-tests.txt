@@ -1,0 +1,1 @@
+PASS only Furnace Maw texture pixels changed among 449 streamed assets; game rules, AI, timing, save layout and all other canonical sources unchanged (art header and host audit path excepted)

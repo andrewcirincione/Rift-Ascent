@@ -1,0 +1,44 @@
+[
+  {
+    "frame": 0,
+    "tick": 68,
+    "route": 0,
+    "age": 68,
+    "finishing": 0
+  },
+  {
+    "frame": 1,
+    "tick": 104,
+    "route": 0,
+    "age": 104,
+    "finishing": 0
+  },
+  {
+    "frame": 2,
+    "tick": 140,
+    "route": 0,
+    "age": 140,
+    "finishing": 0
+  },
+  {
+    "frame": 3,
+    "tick": 176,
+    "route": 0,
+    "age": 176,
+    "finishing": 0
+  },
+  {
+    "frame": 4,
+    "tick": 212,
+    "route": 0,
+    "age": 212,
+    "finishing": 0
+  },
+  {
+    "frame": 5,
+    "tick": 248,
+    "route": 0,
+    "age": 248,
+    "finishing": 0
+  }
+]

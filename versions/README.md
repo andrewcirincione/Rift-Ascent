@@ -1,5 +1,6 @@
 # Released Rift Ascent binaries
 
+- [1.71](1.71/PATCH_NOTES.md): clearer Furnace Maw contrast, generated steel repaint and targeted combat/animation checks.
 - [1.7](1.7/PATCH_NOTES.md): character backstories, painted act/boss scenes, matching boss models, smooth transitions and continuous boss music.
 - [1.6.2](1.6.2/PATCH_NOTES.md): coherent act worlds, varied fight arenas, card/reward/inventory improvements, route variety and artwork recovery.
 - [1.6.1](1.6.1/PATCH_NOTES.md): anchored animation, consistent buttons, aligned costs and reward/pause/fade/audio fixes.

@@ -1,0 +1,1 @@
+PASS 826 native Maw frames: all characters, idle, incoming hit, enemy attack, guard and killing-blow fade; framebuffer canaries intact, no asset errors

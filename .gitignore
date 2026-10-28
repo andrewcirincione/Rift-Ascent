@@ -78,3 +78,11 @@ qa/v170/evidence/*.s16le
 qa/v170/evidence/*xvfb.log
 qa/v170/evidence/*pulse.log
 qa/v170/evidence/first-pass/
+
+# Reproducible 1.71 intermediates.
+qa/v171/assets.bin
+qa/v171/evidence/*.ppm
+qa/v171/evidence/*.s16le
+qa/v171/evidence/*xvfb.log
+qa/v171/evidence/*pulse.log
+qa/v171/evidence/first-pass/

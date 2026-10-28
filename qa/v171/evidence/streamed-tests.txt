@@ -1,0 +1,1 @@
+PASS 2287 native visual equivalence cases; asset errors=0

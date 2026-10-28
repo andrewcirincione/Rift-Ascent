@@ -2,7 +2,7 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.7**. Character stories unfold through new gothic act-entry and boss scenes, with matching boss models, smooth fades and continuous boss music. Releases include the complete EBOOT with its intended
+Current version: **1.71**. The Furnace Maw has repainted steel armor that stands out against its fiery arena, with tested animation and artwork streaming. Releases include the complete EBOOT with its intended
 soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
 
 Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
@@ -11,12 +11,12 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT` an
 
 ## Source and validation
 
-- [Current patch notes](versions/1.7/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v170/README.md)
-- Canonical source: `qa/v170/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.7/EBOOT.PBP` (release tag `v1.7`)
+- [Current patch notes](versions/1.71/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v171/README.md)
+- Canonical source: `qa/v171/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.71/EBOOT.PBP` (release tag `v1.71`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
-  Version 1.7 is tested in 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; hardware confirmation of this patch remains pending.
+  Version 1.71 is tested in 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; hardware confirmation of this patch remains pending.
 
 ## Publishing
 

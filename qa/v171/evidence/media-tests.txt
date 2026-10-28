@@ -1,0 +1,1 @@
+PASS {'sha256': '45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd', 'bytes': 49216726, 'icon1_bytes': 239616, 'snd0_bytes': 198864, 'pic1_unchanged': True, 'riftboss_snd0_unchanged': True, 'all_five_soundtrack_payloads_unchanged': True, 'music_crc': 1214111141}

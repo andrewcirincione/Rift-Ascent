@@ -1,0 +1,13 @@
+SHOT boot
+SHOT dialogue-0
+SHOT combat-0
+SHOT preview-0
+SHOT dialogue-1
+SHOT combat-1
+SHOT preview-1
+SHOT dialogue-2
+SHOT combat-2
+SHOT preview-2
+SHOT resumed-combat
+PASS exact 1.71 EBOOT: all three characters against repainted Furnace Maw, boss dialogue into battle, card previews, save/quit/resume; no asset errors
+SHA256 45cb2f46602dc0f5b0e2e3321604731d30e2fdafce7b83316cff047eb24559fd

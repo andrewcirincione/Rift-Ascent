@@ -1,0 +1,114 @@
+[
+  {
+    "frame": 0,
+    "tick": 316,
+    "route": 0,
+    "age": 316,
+    "finishing": 0
+  },
+  {
+    "frame": 1,
+    "tick": 320,
+    "route": 0,
+    "age": 320,
+    "finishing": 0
+  },
+  {
+    "frame": 2,
+    "tick": 324,
+    "route": 0,
+    "age": 324,
+    "finishing": 0
+  },
+  {
+    "frame": 3,
+    "tick": 328,
+    "route": 0,
+    "age": 0,
+    "finishing": 0
+  },
+  {
+    "frame": 4,
+    "tick": 332,
+    "route": 0,
+    "age": 4,
+    "finishing": 0
+  },
+  {
+    "frame": 5,
+    "tick": 336,
+    "route": 0,
+    "age": 8,
+    "finishing": 0
+  },
+  {
+    "frame": 6,
+    "tick": 340,
+    "route": 0,
+    "age": 12,
+    "finishing": 0
+  },
+  {
+    "frame": 7,
+    "tick": 344,
+    "route": 0,
+    "age": 16,
+    "finishing": 0
+  },
+  {
+    "frame": 8,
+    "tick": 348,
+    "route": 0,
+    "age": 20,
+    "finishing": 0
+  },
+  {
+    "frame": 9,
+    "tick": 352,
+    "route": 0,
+    "age": 24,
+    "finishing": 0
+  },
+  {
+    "frame": 10,
+    "tick": 356,
+    "route": 0,
+    "age": 28,
+    "finishing": 0
+  },
+  {
+    "frame": 11,
+    "tick": 360,
+    "route": 0,
+    "age": 32,
+    "finishing": 0
+  },
+  {
+    "frame": 12,
+    "tick": 368,
+    "route": 0,
+    "age": 40,
+    "finishing": 0
+  },
+  {
+    "frame": 13,
+    "tick": 372,
+    "route": 0,
+    "age": 44,
+    "finishing": 0
+  },
+  {
+    "frame": 14,
+    "tick": 376,
+    "route": 0,
+    "age": 48,
+    "finishing": 0
+  },
+  {
+    "frame": 15,
+    "tick": 380,
+    "route": 0,
+    "age": 52,
+    "finishing": 0
+  }
+]
