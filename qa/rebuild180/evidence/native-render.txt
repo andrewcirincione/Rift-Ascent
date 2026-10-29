@@ -1,0 +1,1 @@
+PASS native renderer: all new cards, collections, 36 dialogue pages, 45 enemy sprites, large HP; no streaming errors

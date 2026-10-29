@@ -1,0 +1,12 @@
+WAIT ticks 8 64 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+PASS all three tenth-win records and golden A badges survived cold restart
+SHOT cold-resume-slots
+SHOT cold-resumed-run
+PASS cold process resume; slots and global account retained
+SHOT endless-random-boss-act-4
+PASS Endless boss selected from acts 1-3: 4 24
+SHOT endless-random-boss-act-5
+PASS Endless boss selected from acts 1-3: 5 24
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8

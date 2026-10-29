@@ -1,28 +1,11 @@
 {
   "version": "1.8",
-  "tag": "v1.8",
-  "canonical_source": "qa/v180/source",
-  "eboot": "versions/1.8/EBOOT.PBP",
-  "eboot_sha256": "f6b48ee66fb5661efa7fdf8bf26509b4ecbcac68560447ef222a8bb725235204",
-  "notes": "versions/1.8/PATCH_NOTES.md",
-  "screenshot": "versions/1.8/combat.png",
-  "validation": "versions/1.8/validation.log",
-  "resources_manifest": "versions/1.8/resources.json",
-  "install_folder": "PSP/GAME/RIFTASCENT_A18",
-  "source_paths": [
-    "AGENTS.md",
-    "release",
-    "versions/1.8",
-    "qa/v180",
-    "prerelease/1.8/source",
-    "prerelease/1.8/tests",
-    "prerelease/1.8/release/EBOOT.PBP",
-    "tools",
-    "GAME/src",
-    "GAME/verify_eboot.py",
-    "portable_build"
-  ],
-  "supersedes": "v1.71-r2",
-  "basis": "v1.8-pre.2",
-  "notes_summary": "Debug Options, six generated enemy refreshes, proportional HP, Moon Spring choices, consistent footer, save/character/pause UI fixes, launch diagnostics hidden."
+  "tag": "v1.8-r2",
+  "eboot": "versions/1.8-r2/EBOOT.PBP",
+  "eboot_sha256": "e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8",
+  "notes": "versions/1.8-r2/PATCH_NOTES.md",
+  "screenshot": "versions/1.8-r2/Combat.png",
+  "canonical_source": "qa/rebuild180/source",
+  "validation": "qa/rebuild180/evidence/final-tests.txt",
+  "resources_manifest": "qa/rebuild180/assets.json"
 }

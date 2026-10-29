@@ -1,5 +1,0 @@
-PASS debug OFF by default; disabled shortcuts no-op; enabled L kills both enemies through rewards; R advances without awarding clears; Options toggles.
-PASS independent options persistence and corrupt-settings safe-OFF; run/profile layout unchanged.
-PASS Moon Spring free flat 20 HP, health cap, D-pad selection, transactional reflection copy with upgrade/mod preserved.
-PASS 10,000 Act 4/12 encounters draw all 30 NORMAL species; no elites, bosses or duplicate pairs.
-ALL 1.8 FEEDBACK TESTS PASSED

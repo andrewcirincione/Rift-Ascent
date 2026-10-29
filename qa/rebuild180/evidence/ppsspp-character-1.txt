@@ -1,0 +1,22 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+PASS previous character records persisted after cold process restart
+WAIT ticks 88 100 24
+SHOT act3-1-before
+WAIT ticks 120 148 32
+QA skipped repeated finisher presentation after resolution
+ACT3 result 1 33
+SHOT act3-1-ending
+SHOT cards-1
+SHOT potions-1
+SHOT relic-1
+SHOT revelation-1
+SHOT act4-intro-1
+SHOT act4-map-1
+SHOT preboss-1
+SHOT secret-boss-1
+QA skipped repeated finisher presentation after resolution
+SHOT true-ending-1
+SHOT endless-after-secret-1
+PASS character secret-ending sequence [1]
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8

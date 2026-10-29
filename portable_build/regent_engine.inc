@@ -78,6 +78,7 @@ static void regent_offer(Game*g,int raw,int e,int up,int mode,int depth){
  g->regent.option_count=0;int pool[512],n=0;
  for(int id=3;id<CARD_COUNT;id++){
   int valid=mode==0?(id>=COLORLESS_FIRST&&id<EXTRA_LAST):mode==1?(id>=REGENT_FIRST&&id<REGENT_LAST&&solo_reward_eligible(id)&&id!=R_ROYALTIES):(id<NINJA_LAST&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].type==0&&solo_reward_eligible(id));
+  if(id>=ASCENT_CARD_FIRST)valid=ascent_card_available(g,id)&&(mode==1||(mode==2&&cards[id].type==0));
   if(valid)pool[n++]=id;
  }
  for(int i=0;i<3&&n;i++){int k=rnd(g,n);g->regent.options[g->regent.option_count++]=pool[k]|(up?UPBIT:0)|(mode?CARD_FREE:0);pool[k]=pool[--n];}
@@ -149,10 +150,11 @@ static void regent_process(Game*g){
   if(preview_trace){preview_phase=t.depth>0&&t.depth<=2;preview_depth=t.depth;}
   switch(t.kind){
   case RT_PLAY:{
-   if(id<REGENT_FIRST||a18_is_card(id)){
+   if(id>=ASCENT_CARD_FIRST){resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
+   if(id<REGENT_FIRST){
     /* Colorless Splash can create Warden/Nightshade cards. Their own tested
        resolver remains responsible for their choices and physical pile move. */
-    if(id>=NINJA_FIRST&&!a18_is_card(id)){ninja_push(g,NT_PLAY,t.raw|CARD_FREE,t.target,t.n,0,t.depth);ninja_process(g);}
+    if(id>=NINJA_FIRST){ninja_push(g,NT_PLAY,t.raw|CARD_FREE,t.target,t.n,0,t.depth);ninja_process(g);}
     else resolve_card(g,-1,t.target,t.raw|CARD_FREE);
     break;
    }

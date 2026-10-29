@@ -8,13 +8,13 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 47
+#define ENEMY_COUNT 45
 #define INTENT_COUNT 18
 #define MAX_RELICS 64
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 24
+#define GAME_VERSION 180
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -31,7 +31,7 @@ enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,A18_SLOTS,A18_SLOT_CONFIRM,A18_COLLECTION,A18_ENDING,A18_UNLOCK_CARDS,A18_UNLOCK_POTIONS,A18_UNLOCK_RELIC,A18_BEYOND,A18_BOSS_INTRO,A18_TRUE_END};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -44,8 +44,6 @@ enum {
  IC_ATTACKS_THIS_TURN,IC_OWN_TURN,IC_GUARD,IC_CASCADE_QUEUE
 };
 enum {BTN_UP=1,BTN_DOWN=2,BTN_LEFT=4,BTN_RIGHT=8,BTN_OK=16,BTN_BACK=32,BTN_ALT=64,BTN_POTION=128,BTN_START=256,BTN_PAUSE=512,BTN_TAB_LEFT=4096,BTN_TAB_RIGHT=8192,BTN_DEBUG_KILL=16384,BTN_DEBUG_ACT=32768};
-int game_debug_enabled(void);
-int game_set_debug_enabled(int enabled);
 #define UPBIT 0x200
 #define CARD_ID(x) ((x)&0x1ff)
 #define CARD_UP(x) (((x)&UPBIT)!=0)
@@ -189,7 +187,7 @@ typedef struct {
  int automation_phase[10],panache_phase[5];
 } RegentState;
 
-#include "a18_types.h"
+#include "ascent_progress.h"
 
 typedef struct {char name[24];int hp,maxhp,block,strength,weak,vulnerable,poison;int intent,intent_value,phase;int art;} Enemy;
 typedef struct {
@@ -212,7 +210,7 @@ typedef struct {
  /* Appended to preserve the complete v21 prefix for migration. */
  struct {int potion_offer,card_done;int relic[16];} v151;
  RegentState regent;
- A18Run a18;
+ AscentRun ascent;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -264,7 +262,6 @@ int game_card_is_retained(const Game *g,int raw);
 int game_ninja_choice_eligible(const Game *g,int index);
 const char *game_ninja_choice_title(const Game *g);
 int game_moon_heal_now(const Game *g);
-int game_debug_available(const Game*g);
 void game_action(Game *g,int button);
 int game_pause_source(void);
 int game_pause_selection(void);
@@ -337,23 +334,17 @@ void game_render_begin_transition(const Game *before,unsigned tick);
 int game_render_transition_busy(unsigned tick);
 
 
-
-int a18_popcount(unsigned value);
-int a18_is_card(int raw);
-int a18_card_character(int raw);
-int a18_card_available(const Game*g,int id);
-int a18_potion_available(const Game*g,int id);
-int a18_relic_available(const Game*g,int id);
-int a18_random_potion(Game*g);
-const A18Profile*a18_profile(void);
-const A18SlotInfo*a18_slot(int slot);
-int a18_secret_unlocked(int character);
-int a18_storage_open(const char*root);
-int a18_begin_run(Game*g,int slot,int character,unsigned seed);
-int a18_resume_slot(Game*g,int slot);
-int a18_checkpoint(Game*g);
-int a18_run_valid(const Game*g);
-int a18_is_ending(int screen);
-
 uint32_t game_random(Game *g);
+const AscentAccount*ascent_profile(void);
+const AscentSlot*ascent_slot(int slot);
+int ascent_popcount(unsigned mask);
+int ascent_secret(int character);
+int ascent_open(const char*root);
+int ascent_begin(Game*g,int slot,int character,unsigned seed);
+int ascent_resume(Game*g,int slot);
+int ascent_checkpoint(Game*g);
+int ascent_card_available(const Game*g,int id);
+int ascent_debug(void);
+int ascent_set_debug(int enabled);
+int ascent_story_screen(int screen);
 #endif

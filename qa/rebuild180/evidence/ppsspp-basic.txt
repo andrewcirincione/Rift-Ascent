@@ -1,0 +1,9 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT slots-empty
+SHOT characters-new
+SHOT first-map
+SHOT slots-saved
+SHOT options
+PASS actual new run, stable save/resume inputs, Options and audio in final executable
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8

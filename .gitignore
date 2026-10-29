@@ -94,3 +94,13 @@ qa/v171r2/evidence/*.s16le
 qa/v171r2/evidence/*xvfb.log
 qa/v171r2/evidence/*pulse.log
 qa/v171r2/evidence/first-pass/
+
+# Fresh stable-base 1.8 build intermediates.
+qa/rebuild180/assets.bin
+qa/rebuild180/audio/source/
+qa/rebuild180/audio/*.pcm
+qa/rebuild180/audio/soundtrack.bank
+qa/rebuild180/evidence/*.ppm
+qa/rebuild180/evidence/*xvfb.log
+qa/rebuild180/evidence/ppsspp.log
+qa/rebuild180/source/PARAM.SFO

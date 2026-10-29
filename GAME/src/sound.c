@@ -21,7 +21,6 @@ void rift_sound_impact(int damage,int blocked){
  if(blocked)block_serial++;
 }
 void rift_sound_effect(int kind){
- if(kind==10)return; /* A1.8: no victory fanfare. */
  if(scene_mode&&kind!=7)return;
  if(kind<=0||kind>11)return;
  if(kind==11){stars_serial++;return;}

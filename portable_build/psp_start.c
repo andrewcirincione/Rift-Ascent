@@ -24,7 +24,7 @@ void game_render_preplay(const Game *g,unsigned tick);
 #include <pspaudio.h>
 #include <pspiofilemgr.h>
 #include "boot_trace.h"
-#include "launch_path.h"
+#include "ascent_paths.h"
 
 /* PSPSDK crt0 usually declares linker boundary symbols. */
 __asm__(
@@ -43,13 +43,13 @@ PSP_MODULE_INFO("Rift Ascent Bare", PSP_MODULE_USER, 1, 1);
 #define STRIDE 512
 static Game game;
 static RiftProfile lifetime;
+static char legacy_profile_path[360];
 static volatile int running=1;
 static volatile int music_battle=0;
 static volatile int music_paused=0;
 /* The audio thread reads track and mute state together, never a stale pair. */
 static volatile unsigned music_route=0;
 static Game before_input;
-static int pending_resume_reset;
 static int inspect_open=0,inspect_tab=0,inspect_potion=0,inspect_scroll=0;
 static int enemy_turn_delay=0,action_cooldown=0;
 static int plating_delay=0;
@@ -57,16 +57,16 @@ static int plating_delay=0;
 static RiftSound music;
 static short audio_buffer[1024] __attribute__((aligned(64)));
 static int audio_thread_id=-1;
-#define RIFT_TRACK_COUNT 5
-#define RIFT_MUSIC_FOOTER 56
+#define RIFT_TRACK_COUNT 10
+#define RIFT_MUSIC_FOOTER 136
 static SceUID soundtrack_fd=-1;
-static unsigned soundtrack_offset[RIFT_TRACK_COUNT],soundtrack_samples[RIFT_TRACK_COUNT];
+static unsigned soundtrack_offset[RIFT_TRACK_COUNT],soundtrack_samples[RIFT_TRACK_COUNT],soundtrack_rate[RIFT_TRACK_COUNT];
 static unsigned soundtrack_base=0,soundtrack_total=0;
 static int soundtrack_current=-1,soundtrack_active=0;
 static unsigned left_samples=0,track_seek=0;
 static unsigned char audio_cache[4096] __attribute__((aligned(64)));
-static int audio_pos=0,audio_length=0,audio_half=0,audio_byte=0;
-static int audio_predictor=0,audio_step_idx=0,audio_last=0;
+static int audio_pos=0,audio_length=0,audio_byte=0;
+static int audio_predictor[2],audio_step_idx[2],audio_last[2];
 static unsigned audio_phase=0;
 static const int adpcm_steps[89]={
  7,8,9,10,11,12,13,14,16,17,19,21,23,25,28,31,
@@ -90,7 +90,7 @@ static void soundtrack_close(void){
 }
 static int soundtrack_open(void){
  soundtrack_close();
- soundtrack_fd=rift_launch_open_package();
+ soundtrack_fd=sceIoOpen(ascent_eboot_path(),PSP_O_RDONLY,0);
  if(soundtrack_fd<0)return 0;
  int end=sceIoLseek32(soundtrack_fd,0,2);
  if(end<RIFT_MUSIC_FOOTER){soundtrack_close();return 0;}
@@ -101,26 +101,27 @@ static int soundtrack_open(void){
  if(sceIoRead(soundtrack_fd,footer,sizeof(footer))!=(int)sizeof(footer)){
    soundtrack_close();return 0;
  }
- const char magic[8]={'R','I','F','T','M','3','1','1'};
+ const char magic[8]={'R','I','F','T','A','U','1','8'};
  for(int i=0;i<8;i++)if(footer[i]!=(unsigned char)magic[i]){
    soundtrack_close();return 0;
  }
- soundtrack_total=read_u32(footer+48);
+ soundtrack_total=read_u32(footer+128);
  if(soundtrack_total==0||soundtrack_total>(unsigned)(end-RIFT_MUSIC_FOOTER)){
    soundtrack_close();return 0;
  }
  soundtrack_base=(unsigned)end-RIFT_MUSIC_FOOTER-soundtrack_total;
  for(int i=0;i<RIFT_TRACK_COUNT;i++){
-   soundtrack_offset[i]=read_u32(footer+8+i*8);
-   soundtrack_samples[i]=read_u32(footer+12+i*8);
-   if(soundtrack_samples[i]==0||
+   soundtrack_offset[i]=read_u32(footer+8+i*12);
+   soundtrack_samples[i]=read_u32(footer+12+i*12);
+   soundtrack_rate[i]=read_u32(footer+16+i*12);
+   if((soundtrack_rate[i]!=22050&&soundtrack_rate[i]!=44100)||soundtrack_samples[i]==0||
       soundtrack_offset[i]>=soundtrack_total||
-      (soundtrack_samples[i]+1u)/2u>soundtrack_total-soundtrack_offset[i]){
+      soundtrack_samples[i]>soundtrack_total-soundtrack_offset[i]){
       soundtrack_close();return 0;
    }
  }
  soundtrack_active=1;
- boot_trace("Rift 1.3.11 five music tracks loaded",RIFT_TRACK_COUNT);
+ boot_trace("Rift 1.8 ten stereo music tracks loaded",RIFT_TRACK_COUNT);
  return 1;
 }
 static int soundtrack_select(int track){
@@ -129,43 +130,30 @@ static int soundtrack_select(int track){
  if(sceIoLseek32(soundtrack_fd,(int)track_seek,0)<0)return 0;
  soundtrack_current=track;
  left_samples=soundtrack_samples[track];
- audio_pos=audio_length=audio_half=audio_byte=0;
- audio_predictor=audio_step_idx=audio_last=0;
+ audio_pos=audio_length=audio_byte=0;
+ for(int c=0;c<2;c++)audio_predictor[c]=audio_step_idx[c]=audio_last[c]=0;
  audio_phase=0;
  return 1;
 }
-static int soundtrack_sample(void){
- if(!soundtrack_active||soundtrack_current<0)return 0;
- if(left_samples==0){
-   if(!soundtrack_select(soundtrack_current))return 0;
+static void soundtrack_sample(void){
+ if(!soundtrack_active||soundtrack_current<0)return;
+ if(!left_samples&&!soundtrack_select(soundtrack_current))return;
+ if(audio_pos>=audio_length){
+  unsigned want=left_samples<sizeof(audio_cache)?left_samples:sizeof(audio_cache);
+  audio_length=sceIoRead(soundtrack_fd,audio_cache,want);audio_pos=0;
+  if(audio_length<=0){soundtrack_close();audio_last[0]=audio_last[1]=0;return;}
  }
- int nibble;
- if(!audio_half){
-   if(audio_pos>=audio_length){
-     audio_length=sceIoRead(soundtrack_fd,audio_cache,sizeof(audio_cache));
-     audio_pos=0;
-     if(audio_length<=0){soundtrack_close();return 0;}
-   }
-   audio_byte=audio_cache[audio_pos++];
-   nibble=audio_byte&15;
-   audio_half=1;
- }else{
-   nibble=(audio_byte>>4)&15;
-   audio_half=0;
+ unsigned byte=audio_cache[audio_pos++];
+ for(int c=0;c<2;c++){
+  int nibble=(byte>>(4*c))&15,step=adpcm_steps[audio_step_idx[c]],delta=step>>3;
+  if(nibble&1)delta+=step>>2;if(nibble&2)delta+=step>>1;if(nibble&4)delta+=step;
+  audio_predictor[c]+=(nibble&8)?-delta:delta;
+  if(audio_predictor[c]>32767)audio_predictor[c]=32767;if(audio_predictor[c]<-32768)audio_predictor[c]=-32768;
+  audio_step_idx[c]+=adpcm_index_delta[nibble];
+  if(audio_step_idx[c]<0)audio_step_idx[c]=0;if(audio_step_idx[c]>88)audio_step_idx[c]=88;
+  audio_last[c]=audio_predictor[c];
  }
- int step=adpcm_steps[audio_step_idx];
- int delta=step>>3;
- if(nibble&1)delta+=step>>2;
- if(nibble&2)delta+=step>>1;
- if(nibble&4)delta+=step;
- if(nibble&8)audio_predictor-=delta;else audio_predictor+=delta;
- if(audio_predictor>32767)audio_predictor=32767;
- if(audio_predictor< -32768)audio_predictor=-32768;
- audio_step_idx+=adpcm_index_delta[nibble];
- if(audio_step_idx<0)audio_step_idx=0;
- if(audio_step_idx>88)audio_step_idx=88;
  left_samples--;
- return audio_predictor;
 }
 static short audio_clip(int n){return (short)(n>31000?31000:(n< -31000?-31000:n));}
 static int sound_worker(SceSize arglen,void *argp) {
@@ -192,12 +180,12 @@ static int sound_worker(SceSize arglen,void *argp) {
         int gain=rift_sound_music_gain(&music);
         for(int i=0;i<512;i++){
            if(soundtrack_active&&!paused){
-              if(audio_phase==0)audio_last=soundtrack_sample();
-              audio_phase=(audio_phase+1u)&3u;
-           }else if(!soundtrack_active)audio_last=0;
-           int l=soundtrack_active&&!paused?audio_last*gain/256+(int)audio_buffer[i*2]:
+              if(audio_phase==0)soundtrack_sample();
+              audio_phase=(audio_phase+1u)%(44100u/soundtrack_rate[track]);
+           }else if(!soundtrack_active)audio_last[0]=audio_last[1]=0;
+           int l=soundtrack_active&&!paused?audio_last[0]*gain/256+(int)audio_buffer[i*2]:
               (int)audio_buffer[i*2];
-           int r=soundtrack_active&&!paused?audio_last*gain/256+(int)audio_buffer[i*2+1]:
+           int r=soundtrack_active&&!paused?audio_last[1]*gain/256+(int)audio_buffer[i*2+1]:
               (int)audio_buffer[i*2+1];
            audio_buffer[i*2]=audio_clip(l);
            audio_buffer[i*2+1]=audio_clip(r);
@@ -272,21 +260,16 @@ static void step_action(int key,unsigned tick) {
     else if(key==1024)game_prepare_end_turn(&game);
     else game_action(&game,key);
     game_combat_fx_end();
-    /* All saves are isolated to A1.8; profile is independent of run slots. */
-    if(before_input.screen==A18_SLOTS&&game.screen!=A18_SLOTS){
-      game_render_reset_fx();inspect_open=0;pending_resume_reset=1;
+    if(game.screen==VICTORY || game.screen==DEFEAT) {
+        game_set_resume_available(1);
+        if(game.screen!=oldscreen && profile_record(&lifetime,&game))
+            profile_save(&lifetime,legacy_profile_path);
     }
-    if(game.a18.serial&&game.a18.slot>=0&&game.screen!=TITLE&&
-       game.screen!=HELP&&game.screen!=A18_SLOTS&&game.screen!=A18_SLOT_CONFIRM&&
-       game.screen!=A18_COLLECTION&&game.screen!=CHARACTER_SELECT&&game.screen!=PAUSE_MENU&&
-       (before_input.screen!=game.screen || key==BTN_OK || key==BTN_BACK || key==1024 ||
-        (key==2048&&game.screen!=COMBAT&&before_input.screen!=ACT_INTRO)))
-      a18_checkpoint(&game);
     if(oldscreen==COMBAT && key==BTN_BACK && game.hp<oldhp)fx=4;
     if(fx)game_effect_start(fx,tick);
     int moved=before_input.selection!=game.selection||before_input.scroll!=game.scroll||before_input.target!=game.target||(game.screen==PAUSE_MENU&&(key==BTN_UP||key==BTN_DOWN));
     int sound=0,events=0;game_combat_fx_events(&events);
-    if((key==BTN_UP||key==BTN_DOWN||key==BTN_LEFT||key==BTN_RIGHT||key==BTN_TAB_LEFT||key==BTN_TAB_RIGHT)&&before_input.screen==game.screen&&moved)sound=6;
+    if((key==BTN_UP||key==BTN_DOWN||key==BTN_LEFT||key==BTN_RIGHT)&&before_input.screen==game.screen&&moved)sound=6;
     else if(key==BTN_OK&&before_input.screen!=COMBAT)sound=7;
     else if(before_input.screen!=game.screen&&oldscreen!=COMBAT)sound=5;
     if((game_story_kind(&before_input)||game_story_kind(&game)||game_music_silent(&before_input)||game_music_silent(&game))&&key!=BTN_OK)sound=0;
@@ -300,10 +283,14 @@ static void step_action(int key,unsigned tick) {
        (key==BTN_OK&&before_input.screen==SHOP))
         game_render_feedback(&before_input,&game,key,tick);
 }
-#include "startup_diagnostic.h"
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
+    ascent_open(ascent_directory());
+    snprintf(legacy_profile_path,sizeof(legacy_profile_path),"%s/PROFILE.DAT",ascent_directory());
     boot_trace("worker entered",1);
+    int assets_ready=rift_assets_open();
+    boot_trace("streamed artwork bank",assets_ready);
+    if(!assets_ready){boot_trace("FATAL artwork bank",-8);sceKernelExitGame();return -8;}
     void *vram=sceGeEdramGetAddr();
     boot_trace("EDRAM base", (int)(uintptr_t)vram);
     if(!vram) {boot_trace("FATAL EDRAM", -1);sceKernelExitGame();return -1;}
@@ -323,26 +310,16 @@ static int run_game(SceSize bytes,void *argp) {
     if(mode_result<0) {
         sceKernelExitGame();return -2;
     }
-    sceCtrlSetSamplingCycle(0);sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
-    setup_home_callback();
-    startup_loading(uncached0);
-    int splash_result=sceDisplaySetFrameBuf(vram,STRIDE,PSP_DISPLAY_PIXEL_FORMAT_8888,PSP_DISPLAY_SETBUF_NEXTVSYNC);
-    boot_trace("startup loading framebuffer",splash_result);
-    sceDisplayWaitVblankStart();
-    boot_trace_text("launch executable",rift_launch_executable());
-    int assets_ready=rift_assets_open();
-    boot_trace("streamed artwork bank",assets_ready);
-    if(!assets_ready)return startup_failure(vram,uncached0,"Cannot load artwork from this EBOOT.",-8);
     /* Seed chosen without libc startup/time import; different in each new run. */
     boot_trace("game_new entering",1);
     game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
     boot_trace("game_new finished",game.screen);
-    boot_trace_text("profile directory",rift_launch_directory());
-    int storage_ready=a18_storage_open(rift_launch_directory());
-    boot_trace("A1.8 profile journal",storage_ready);
-    if(!storage_ready)return startup_failure(vram,uncached0,"Cannot write the 1.8 save/profile files.",-11);
-    game.selection=game_resume_available()?0:1;
-    profile_init(&lifetime);game_render_set_profile(&lifetime);
+    {int found=0;for(int i=0;i<ASCENT_SLOTS;i++)found|=ascent_slot(i)->present;
+     game_set_resume_available(found);game.selection=found?0:1;}
+    profile_init(&lifetime);
+    boot_trace("profile load result",profile_load(&lifetime,legacy_profile_path));
+    game_render_set_profile(&lifetime);
+    boot_trace("profile set",1);
     rift_sound_reset(&music);
     game_render_set_overlay(0,0,0);
     sceCtrlSetSamplingCycle(0);
@@ -368,6 +345,7 @@ static int run_game(SceSize bytes,void *argp) {
         boot_trace("FATAL initial vblank",initial_vblank);
         sceKernelExitGame();return -6;
     }
+    setup_home_callback();
     boot_trace("exit callback setup",1);
     unsigned int last=0;
     unsigned int frame=1;
@@ -392,22 +370,18 @@ static int run_game(SceSize bytes,void *argp) {
         if(frame==14)key=BTN_OK;
         if(frame==19)key=BTN_OK;
 #endif
+        if(ascent_debug()&&!inspect_open&&(game.screen==COMBAT||game.screen==MAP||game.screen==REST||game.screen==SHOP||game.screen==EVENT||game.screen==REWARD)){
+         if(key==BTN_TAB_LEFT)key=BTN_DEBUG_KILL;
+         if(key==BTN_TAB_RIGHT)key=BTN_DEBUG_ACT;
+        }
         key=game_render_story_input(&game,key,frame*4u);
-        if(!inspect_open&&game_debug_enabled()&&game_debug_available(&game)){
-            if(key==BTN_TAB_LEFT&&game.screen==COMBAT)key=BTN_DEBUG_KILL;
-            else if(key==BTN_TAB_RIGHT)key=BTN_DEBUG_ACT;
-        }
-        if(key==BTN_DEBUG_KILL||key==BTN_DEBUG_ACT){
-            pending_card_ticks=enemy_turn_delay=plating_delay=action_cooldown=0;
-            game_render_reset_fx();step_action(key,frame*4u);key=0;
-        }
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
         if(game.screen==PAUSE_MENU && key==BTN_OK && game_pause_selection()==0) {
             Game leaving=game;
             Game snapshot=game;
             snapshot.screen=game_pause_source();
-            if(a18_checkpoint(&snapshot)){
+            if(ascent_checkpoint(&snapshot)){
                 boot_trace("save and quit result",1);
                 game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
                 game_set_resume_available(1);game.selection=0;key=0;
@@ -433,7 +407,8 @@ static int run_game(SceSize bytes,void *argp) {
            if(handled==2){game_render_feedback(&before_input,&game,BTN_POTION,frame*4u);game_effect_start(3,frame*4u);rift_sound_effect(3);}
            else if(handled&&key)rift_sound_effect(6);
            if(handled>=2&&game.screen!=COMBAT){
-              a18_checkpoint(&game);
+              if((game.screen==VICTORY||game.screen==DEFEAT)&&game.screen!=before_input.screen&&profile_record(&lifetime,&game))profile_save(&lifetime,legacy_profile_path);
+              ascent_checkpoint(&game);
            }
            if(handled)key=0;
         }
@@ -502,12 +477,13 @@ static int run_game(SceSize bytes,void *argp) {
         game_render_set_enemy_windup(enemy_turn_delay*4);
         game_render_set_overlay(inspect_open,inspect_tab,inspect_potion);
         game_render_set_status_scroll(inspect_scroll);
-        if(pending_resume_reset){
-          pending_resume_reset=0;inspect_open=0;pending_card_ticks=enemy_turn_delay=plating_delay=0;
-        }
-        if(game.screen!=last_screen || game.act!=last_act || game.floor!=last_floor){
-          if(game.screen==MAP||game.screen==VICTORY||game.screen==DEFEAT)a18_checkpoint(&game);
-          last_screen=game.screen;last_act=game.act;last_floor=game.floor;
+        if((key==BTN_OK||key==BTN_BACK||key==BTN_DEBUG_KILL||key==BTN_DEBUG_ACT) && game.screen!=TITLE && game.screen!=HELP &&
+           game.screen!=COMBAT && game.screen!=DEFEAT && game.screen!=PAUSE_MENU && game.screen!=CHARACTER_SELECT && game.screen!=NEW_RUN_CONFIRM)
+            ascent_checkpoint(&game);
+        if(game.screen!=last_screen || game.act!=last_act || game.floor!=last_floor) {
+            if(game.screen==MAP || game.screen==VICTORY || game.screen==DEFEAT)
+                ascent_checkpoint(&game);
+            last_screen=game.screen;last_act=game.act;last_floor=game.floor;
         }
         if(!game_render_transition_busy(frame*4u)&&(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count))))step_action(2048,frame*4u);
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
@@ -559,15 +535,13 @@ static int run_game(SceSize bytes,void *argp) {
     return 0;
 }
 int _start(SceSize args,void *argp) {
-    int captured=rift_launch_capture((unsigned)args,argp);
+    ascent_launch_path(args,argp);
     boot_trace_reset();
     boot_trace("PSP module start",1);
-    boot_trace("launch argument bytes",(int)args);
-    boot_trace("launch path captured",captured);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
                                   192*1024,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);
-    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,args,argp));
+    if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
     else boot_trace("FATAL could not create thread",th);
     return 0;
 }

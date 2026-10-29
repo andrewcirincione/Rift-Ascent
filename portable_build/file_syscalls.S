@@ -37,7 +37,6 @@ sceIoWrite:
 sceIoClose:
     jr $ra
     nop
-
 .globl sceIoLseek32
 sceIoLseek32:
     jr $ra

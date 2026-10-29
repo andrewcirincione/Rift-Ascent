@@ -1,0 +1,51 @@
+PASS final release EBOOT
+Version: 1.8; tag: v1.8-r2
+Base: v1.71-r2, 16717db18a040f717acce2e63529621554cf0439
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8
+Packaged EBOOT bytes: 78868620
+
+Native ASan/UBSan: 36 completed runs; all 120 base/upgraded custom card
+resolutions; 20 potion and 10 relic effects; 500 ten-win rarity schedules;
+four slots; torn-write recovery; failed-write rollback; stable save import;
+6,000 normal fights with exactly 1,500 paired encounters; 900 boss selections
+covering all Act 1-3 Endless bosses and the reserved secret Act 4 boss.
+Native rendering: all cards/items, 36 dialogue pages, 45 enemy sprites,
+collections and large HP values; zero streamed-asset errors.
+
+Exact release EBOOT in PPSSPP 1.20.4, PSP 32 MiB mode:
+- Actual new-run creation, save, resume, Options, and stereo PCM output.
+- Each character's tenth-win ending, separate card/potion/relic screens,
+  revelation, direct Act 4 entry, pre-boss scene, actual Unmaker encounter,
+  true ending, golden A and subsequent Endless choice.
+- Incomplete character still receives Endless after Act 3.
+- Cold process restarts retain all three ten-win records and golden A badges.
+- Actual Act 4 and Act 5 Endless boss entries use the Act 1-3 roster.
+- All five act menu music routes; debug L kill and R act skip; legacy item art.
+- No missing assets or streamed-art errors in the captured screens.
+
+Late-game checks use explicit nine-win/debugger fixtures and real game inputs,
+not full unassisted playthroughs. Warden observes the unchanged full finisher
+timeline. Vesper/Proxy skip repeated display fades/replays after resolution.
+The tested executable is unchanged by this external harness.
+No physical PSP validation is claimed; that remains pending.
+
+Media verification: all ten supplied music streams and exact rates, updated
+RiftBoss ATRAC3 LP2 splash, art/audio CRCs and hashes, no missing paintings,
+and original v1.71-r2 art bank preserved byte-for-byte.
+
+Detailed evidence:
+- ppsspp-basic.txt
+- ppsspp-character-0-entry.txt
+- ppsspp-character-0-finish.txt
+- ppsspp-character-1.txt
+- ppsspp-character-2.txt
+- ppsspp-cold-resume.txt
+- progression.txt
+- storage.txt
+- effects.txt
+- media.txt
+
+Screenshot review: two captures landed on black transition frames and were
+omitted (Proxy Act 4 intro and cold-resumed run). Act 4 art is visible in the
+Warden/Vesper intro captures; the cold-load assertions and subsequent actual
+Endless battle captures passed. These were capture timing, not missing assets.
