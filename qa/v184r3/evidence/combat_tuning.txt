@@ -1,0 +1,4 @@
+PASS 12960 intent/value/Strength combinations: damage-only +6% rounded per hit; zero-damage actions and hits below 9 unchanged; sample aggregate +6.02%.
+PASS all 27 intent displays match actual direct damage, including multi-hits, Weak and Vulnerable.
+PASS Pyre Castellan: Gain 9 Block; add Burn to discard; save/load and actual turn effects; appears in 946/1000 scheduled turns.
+PASS Storm Golem: Deal 6 DMG twice; drain 1 Energy next turn; save/load and actual turn effects; appears in 1000/1000 scheduled turns.

@@ -1,0 +1,2 @@
+PRESERVED distribution=e80457a0 legacy_routes=639b777f maps=70000
+PASS 629238 forks: every pair of routes differs in room sequence before reconnection; all 70,000 opening pairs differ by floor two; no new elites in the opening floors.

@@ -9,7 +9,7 @@
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
 #define ENEMY_COUNT 59
-#define INTENT_COUNT 25
+#define INTENT_COUNT 27
 #define MAX_RELICS 96
 #define LEGACY_RELIC_CAP 64
 #define MAX_POTIONS 3
@@ -361,6 +361,7 @@ int ascent_checkpoint(Game*g);
 int game_collection_unlock_count(int tab);
 int game_collection_count(int tab);
 int game_collection_id(int tab,int index);
+int game_collection_unlocked(int tab,int index);
 int ascent_card_available(const Game*g,int id);
 int ascent_debug(void);
 int ascent_set_debug(int enabled);

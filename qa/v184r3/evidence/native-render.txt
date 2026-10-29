@@ -1,0 +1,3 @@
+PASS all 42 event result art lookups, every selectable base item, all 27 overhead intents and instant combat deck return
+PASS new enemy sprites on act backgrounds, subtle shadow on/off comparison, all mystery choices, selected cards, menu panels and transition/music boundaries
+PASS all 180 new dialogue pages fit; 60 gifts; 20 relics; five collection tabs; all 59 enemy sprites; no asset errors

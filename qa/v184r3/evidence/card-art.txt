@@ -1,0 +1,1 @@
+PASS 1576 flagged/upgraded thumbnails exactly match their base artwork across all 394 cards; zero missing images or streamed-art errors.

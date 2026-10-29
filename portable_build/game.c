@@ -398,14 +398,23 @@ static int collection_base_card(int tab,int id){
 int game_collection_id(int tab,int index){
  if(tab<0||tab>=5||index<0)return -1;
  int custom=game_collection_unlock_count(tab);
- if(index<custom)return tab<3?ASCENT_CARD_FIRST+20*tab+index:tab==3?6+index:64+index;
- index-=custom;
- if(tab==3)return index<6?index:-1;
- for(int id=0;id<(tab==4?RELIC_COUNT:ASCENT_CARD_FIRST);id++){
-  int available=tab==4?((id<64||id>=74)&&id!=30&&(id<37||id>39)):collection_base_card(tab,id);
-  if(available&&index--==0)return id;
+ if(tab<3){
+  int first=index<custom?ASCENT_CARD_FIRST+20*tab:0,last=index<custom?first+20:ASCENT_CARD_FIRST;
+  if(index>=custom)index-=custom;
+  for(int type=0;type<4;type++)for(int id=first;id<last;id++)if(cards[id].type==type&&(first||collection_base_card(tab,id))&&index--==0)return id;
+  return -1;
  }
+ if(index<custom)return tab==3?6+index:64+index;
+ index-=custom;if(tab==3)return index<6?index:-1;
+ for(int id=0;id<RELIC_COUNT;id++)if((id<64||id>=74)&&id!=30&&(id<37||id>39)&&index--==0)return id;
  return -1;
+}
+int game_collection_unlocked(int tab,int index){
+ int id=game_collection_id(tab,index);if(id<0)return 0;
+ if(index>=game_collection_unlock_count(tab))return 1;
+ const AscentAccount*a=ascent_profile();unsigned mask=tab<3?a->cards[tab]:tab==3?a->potions:a->relics;
+ int bit=tab<3?id-(ASCENT_CARD_FIRST+20*tab):tab==3?id-6:id-64;
+ return !!(mask&(1u<<bit));
 }
 int game_collection_count(int tab){
  if(tab<0||tab>=5)return 0;
@@ -518,7 +527,7 @@ static unsigned room_route_layer(const Game*g,int wanted,int lane){
 /* Two live routes split into three, stay separate for two or three rooms,
    then reconnect on alternating/random sides. Every live route has a choice
    at the next split; no branch is a one-room detour or an absorbing edge. */
-static unsigned route_layer(const Game*g,int wanted,int lane){
+static unsigned route_layer184r2(const Game*g,int wanted,int lane){
  if(!g->revision184.route_style)return route_layer_legacy(g,wanted,lane);
  uint32_t seed=route_hash(g->seed^(unsigned)g->act*0x9e3779b9u);
  static const unsigned starts[]={3,5,6};unsigned live=starts[seed%3];
@@ -533,6 +542,48 @@ static unsigned route_layer(const Game*g,int wanted,int lane){
    split=r+1;merge=split+2+((h>>8)&1u);merge_lane=((h>>9)&1u)*2;
    if(split>MAP_ROWS-3)split=merge=MAP_ROWS+1;
   }
+  if(r==wanted)return lane<0?live:edges[lane];
+  unsigned next=0;for(int c=0;c<3;c++)if(live&(1u<<c))next|=edges[c];live=next;
+ }
+ return live;
+}
+/* Two or three rooms per commitment, with four or five recurring forks.
+   Room placement below makes every scheduled fork a distinct choice. */
+typedef struct {int split,merge,side;} RouteJunction;
+static int route_variety(const Game*g,int first,int last){
+ for(int row=first;row<=last&&row<MAP_ROWS;row++)if(g->map[row][0]!=g->map[row][1]||g->map[row][1]!=g->map[row][2])return 1;
+ return 0;
+}
+static int route_junctions(const Game*g,RouteJunction*out){
+ uint32_t seed=route_hash(g->seed^(unsigned)g->act*0x9e3779b9u);
+ int split=1+((seed>>5)&1u),merge=MIN(MAP_ROWS-1,split+2+((seed>>6)&1u)),side=((seed>>7)&1u)*2,n=0;
+ while(split<=MAP_ROWS-3){
+  /* A uniform shop followed by a guaranteed camp cannot form a choice.
+     Include the next room instead; this remains a three-room commitment. */
+  int movable=0;for(int r=split+1;r<=merge;r++)for(int c=0;c<3;c++)movable|=g->map[r][c]==NODE_FIGHT||g->map[r][c]==NODE_ELITE||g->map[r][c]==NODE_EVENT;
+  if(!movable&&!route_variety(g,split+1,merge)&&merge==split+2&&merge+1<MAP_ROWS)merge++;
+  out[n++]=(RouteJunction){split,merge,side};uint32_t h=route_hash(seed+(unsigned)merge*9199u);
+  split=merge+1;merge=MIN(MAP_ROWS-1,split+2+((h>>8)&1u));side=((h>>9)&1u)*2;
+ }
+ return n;
+}
+static unsigned route_layer(const Game*g,int wanted,int lane){
+ if(g->revision184.route_style<2)return route_layer184r2(g,wanted,lane);
+ uint32_t seed=route_hash(g->seed^(unsigned)g->act*0x9e3779b9u);
+ static const unsigned starts[]={3,5,6};unsigned choices[3],count=0;
+ for(int i=0;i<3;i++){int a=starts[i]&1?0:1,b=starts[i]&4?2:1;if(g->map[1][a]!=g->map[1][b])choices[count++]=starts[i];}
+ unsigned live=count?choices[seed%count]:starts[seed%3];RouteJunction plan[MAP_ROWS];int total=route_junctions(g,plan),junction=0;
+ for(int r=0;r<=wanted;r++){
+  unsigned edges[3]={1,2,4};
+  if(junction<total&&r==plan[junction].split){
+   int gap=!(live&1)?0:!(live&2)?1:2;
+   for(int c=0;c<3;c++)if(live&(1u<<c)){
+    int other=c<gap?c+1:c-1,different=0;
+    for(int row=r+1;row<=plan[junction].merge;row++)different|=g->map[row][c]!=g->map[row][other];
+    /* Even an unusual unrepaired layout must never offer a false choice. */
+    if(different)edges[c]|=1u<<other;
+   }
+  }else if(junction<total&&r==plan[junction].merge){if(live==7)edges[plan[junction].side]=2;junction++;}
   if(r==wanted)return lane<0?live:edges[lane];
   unsigned next=0;for(int c=0;c<3;c++)if(live&(1u<<c))next|=edges[c];live=next;
  }
@@ -592,8 +643,8 @@ static void map_distinguish_forks(Game*g){
 /* Move a room within its own floor only when a committed fork would otherwise
    show identical room sequences. Room counts and floor distribution stay exact. */
 static void map_distinguish_committed_routes(Game*g){
- for(int r=0;r<MAP_ROWS-1;r++)for(int c=0;c<3;c++)if(route_layer(g,r,-1)&(1u<<c)){
-  unsigned edges=route_layer(g,r,c);if(ascent_popcount(edges)<2)continue;
+ for(int r=0;r<MAP_ROWS-1;r++)for(int c=0;c<3;c++)if(route_layer184r2(g,r,-1)&(1u<<c)){
+  unsigned edges=route_layer184r2(g,r,c);if(ascent_popcount(edges)<2)continue;
   int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
   unsigned aa=1u<<a,bb=1u<<b;int different=0,candidate=-1;
   for(int row=r+1;row<MAP_ROWS;row++){
@@ -601,10 +652,44 @@ static void map_distinguish_committed_routes(Game*g){
    if(different)break;
    if(candidate<0&&(g->map[row][0]!=g->map[row][1]||g->map[row][1]!=g->map[row][2]))candidate=row;
    if(row==MAP_ROWS-1)break;
-   unsigned an=0,bn=0;for(int x=0;x<3;x++){if(aa&(1u<<x))an|=route_layer(g,row,x);if(bb&(1u<<x))bn|=route_layer(g,row,x);}
+   unsigned an=0,bn=0;for(int x=0;x<3;x++){if(aa&(1u<<x))an|=route_layer184r2(g,row,x);if(bb&(1u<<x))bn|=route_layer184r2(g,row,x);}
    if(an&bn)break;aa=an;bb=bn;
   }
   if(!different&&candidate>=0){int row=candidate,other=g->map[row][0]==g->map[row][1]?2:0,temp=g->map[row][1];g->map[row][1]=g->map[row][other];g->map[row][other]=temp;}
+ }
+}
+static int route_choice_windows(const Game*g,const RouteJunction*plan,int n){
+ int count=0;for(int i=0;i<n;i++)count+=route_variety(g,plan[i].split+1,plan[i].merge);return count;
+}
+static int route_movable_room(int type){return type==NODE_FIGHT||type==NODE_ELITE||type==NODE_EVENT;}
+/* First repair uniform branch windows with the nearest legal exchange of
+   combat/mystery rooms. Act totals, shops, treasures and camps stay intact;
+   elites never move into the opening floors. Then one distinct center room
+   makes BOTH adjacent branch pairs differ before their next merge. */
+static void map_distinguish_routes184r3(Game*g){
+ RouteJunction plan[MAP_ROWS];int n=route_junctions(g,plan);
+ uint32_t seed=route_hash(g->seed^(unsigned)g->act*9973u);
+ for(int i=0;i<n;i++)if(!route_variety(g,plan[i].split+1,plan[i].merge)){
+  int before=route_choice_windows(g,plan,n),best=100000,ar=-1,ac=0,br=0,bc=0;
+  for(int row=plan[i].split+1;row<=plan[i].merge;row++)for(int col=0;col<3;col++){
+   int type=g->map[row][col];if(!route_movable_room(type))continue;
+   for(int donor=2;donor<MAP_ROWS-1;donor++)if(donor!=row)for(int lane=0;lane<3;lane++){
+    int other=g->map[donor][lane];if(!route_movable_room(other)||other==type||(other==NODE_ELITE&&row<4)||(type==NODE_ELITE&&donor<4))continue;
+    int score=(row>donor?row-donor:donor-row)*100+((route_hash(seed+(unsigned)(row*311+col*79+donor*17+lane))>>8)%100u);if(score>=best)continue;
+    g->map[row][col]=other;g->map[donor][lane]=type;
+    int improves=route_choice_windows(g,plan,n)>before;
+    g->map[row][col]=type;g->map[donor][lane]=other;
+    if(improves){best=score;ar=row;ac=col;br=donor;bc=lane;}
+   }
+  }
+  if(ar>=0){int temp=g->map[ar][ac];g->map[ar][ac]=g->map[br][bc];g->map[br][bc]=temp;}
+ }
+ for(int i=0;i<n;i++){
+  int rows[3],count=0;for(int r=plan[i].split+1;r<=plan[i].merge;r++)if(route_variety(g,r,r))rows[count++]=r;
+  if(!count)continue;
+  int row=rows[route_hash(seed+(unsigned)plan[i].split*7117u)%(unsigned)count],other=-1;
+  if(g->map[row][0]==g->map[row][1])other=2;else if(g->map[row][1]==g->map[row][2])other=0;
+  if(other>=0){int temp=g->map[row][1];g->map[row][1]=g->map[row][other];g->map[row][other]=temp;}
  }
 }
 static void map_generate(Game*g){
@@ -646,6 +731,8 @@ static void map_generate(Game*g){
   }
  }
  map_distinguish_committed_routes(g);
+ map_distinguish_routes184r3(g);
+ g->revision184.route_style=2;
 }
 static void shuffle(Game*g,int *p,int count){for(int i=count-1;i>0;i--){int j=rnd(g,i+1),temp=p[i];p[i]=p[j];p[j]=temp;}}
 static int has_strike_tag(const char *name);
@@ -898,7 +985,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Chain Keeper",66,14,0,{8,0,1,7}},
  {"Drowned Penitent",53,12,0,{13,2,0,9}},
  {"Ossuary Beast",126,15,1,{1,7,23,10}},
- {"Storm Golem",143,16,1,{13,16,18,21}},
+ {"Storm Golem",143,16,1,{13,16,26,21}},
  {"THE CRIMSON JUDGE",240,19,2,{3,18,11,21}},
  {"Void Disciple",82,17,0,{5,8,0,1}},
  {"Bone Harvester",92,17,0,{7,0,12,3}},
@@ -925,7 +1012,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Cinder Sexton",37,9,0,{1,0,5,14}},
  {"Bellback Vermin",33,8,0,{0,14,1,3}},
  {"Waxbound Acolyte",39,9,0,{1,5,0,2}},
- {"Pyre Castellan",86,12,1,{1,19,21,18}},
+ {"Pyre Castellan",86,12,1,{1,19,25,18}},
  {"Saltglass Eel",57,13,0,{0,14,2,7}},
  {"Silt Reliquary",65,12,0,{1,0,3,14}},
  {"Rime Cantor",53,12,0,{2,0,11,14}},
@@ -954,7 +1041,7 @@ static void enemy_intent(Game*g,Enemy *e){
     keeps some danger while always showing the actual intended move. */
  if(g->turn==0&&(e->intent==4||e->intent==7||e->intent==10||e->intent==11)&&
     (route_hash(g->seed^(unsigned)e->art*101u^(unsigned)g->floor*37u)&7u))e->intent=0;
- if(e->art!=45&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||e->intent>=20)&&
+ if(e->art!=45&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||(e->intent>=20&&e->intent<=23)||e->intent==25)&&
     route_hash(g->seed^(unsigned)e->art*313u^(unsigned)g->floor*101u^(unsigned)g->turn*919u)%100u<4u)e->intent=0;
  /* A few basic strikes split their value between damage and protection.
     This adds mixed intents without increasing the number of attacking turns. */
@@ -965,7 +1052,7 @@ static void enemy_intent(Game*g,Enemy *e){
 }
 static const char *intent_titles[INTENT_COUNT]={
  "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
- "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE"
+ "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH"
 };
 static const char *intent_details[INTENT_COUNT]={
  "One direct hit. Block reduces its damage.",
@@ -992,7 +1079,9 @@ static const char *intent_details[INTENT_COUNT]={
  "Removes enemy Weak and Vulnerable, halves Poison, then gains Block.",
  "Applies 2 Weak and reduces your next turn Energy by 1. No direct hit.",
  "Adds 2 Poison and one Daze to your discard pile. No direct hit.",
- "A half-strength hit and gains half the normal Guard Block."
+ "A half-strength hit and gains half the normal Guard Block.",
+ "Gains half the normal Guard Block and adds a Burn to your discard pile.",
+ "Two small attacks; reduces your next turn Energy by 1."
 };
 const char *game_intent_title(int n){return n>=0&&n<INTENT_COUNT?intent_titles[n]:"UNKNOWN";}
 const char *game_intent_description(int n){return n>=0&&n<INTENT_COUNT?intent_details[n]:"No information";}
@@ -1207,7 +1296,7 @@ void game_start_turn(Game*g){
  if(relic(g,90)&&g->turn==3)ninja_poison_all(g,4);
  if(relic(g,91)&&g->turn==1){int powers=0;for(int i=0;i<g->deck_count;i++)powers+=cards[CARD_ID(g->deck[i])].type==2;if(powers>=3)draw_card(g);else relic_block(g,4);}
 }
-static int enemy_raw_damage(const Enemy *e){
+static int enemy_base_damage(const Enemy *e){
  int v=e->intent_value;
  switch(e->intent){
  case 0:return MAX(0,v+e->strength);
@@ -1217,9 +1306,14 @@ static int enemy_raw_damage(const Enemy *e){
  case 7:return MAX(0,v/2+e->strength);
  case 10:return MAX(0,v+v/4+e->strength);
  case 12:case 14:case 15:return MAX(0,v/2+e->strength);
- case 16:case 19:return MAX(0,v/3+e->strength);
+ case 16:case 19:case 26:return MAX(0,v/3+e->strength);
  default:return 0;
  }
+}
+static int enemy_raw_damage(const Enemy *e){
+ /* A modest damage-only increase, rounded per hit. Do not strengthen enemy
+    shields/healing or impose a minimum +1 on their smallest attacks. */
+ return (int)(((long long)enemy_base_damage(e)*106+50)/100);
 }
 static int enemy_attack_value(const Enemy *e){
  int n=enemy_raw_damage(e);
@@ -1228,7 +1322,7 @@ static int enemy_attack_value(const Enemy *e){
 int game_enemy_intent_hits(const Game *g,int index){
  if(!g||index<0||index>=g->enemy_count)return 0;
  const Enemy *e=&g->enemies[index];
- return e->hp>0&&enemy_raw_damage(e)>0?(e->intent==7||e->intent==19?2:e->intent==16?3:1):0;
+ return e->hp>0&&enemy_raw_damage(e)>0?(e->intent==7||e->intent==19||e->intent==26?2:e->intent==16?3:1):0;
 }
 int game_enemy_intent_damage(const Game *g,int index){
  int hits=game_enemy_intent_hits(g,index);
@@ -1273,6 +1367,8 @@ void game_enemy_intent_text(const Game*g,int index,char*out,int cap){
  case 22:snprintf(out,cap,"Apply 2 Weak; drain 1 Energy next turn");break;
  case 23:snprintf(out,cap,"Apply 2 Poison; add Daze to discard");break;
  case 24:snprintf(out,cap,"Deal %d DMG; gain %d Block",total,MAX(1,e->intent_value/2));break;
+ case 25:snprintf(out,cap,"Gain %d Block; add Burn to discard",MAX(1,e->intent_value/2));break;
+ case 26:snprintf(out,cap,"Deal %d DMG twice; drain 1 Energy next turn",hits?total/hits:0);break;
  }
 }
 static void enemy_hit(Game*g,Enemy*e,int raw){
@@ -1389,6 +1485,8 @@ void game_end_turn(Game*g){
    case 22:g->weak=MAX(g->weak,2);g->energy_penalty=MIN(2,g->energy_penalty+1);break;
    case 23:g->poison=MIN(12,g->poison+2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
    case 24:enemy_hit(g,e,enemy_attack_value(e));if(e->hp>0)e->block+=MAX(1,e->intent_value/2);break;
+   case 25:e->block+=MAX(1,e->intent_value/2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
+   case 26:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));if(g->screen==COMBAT)g->energy_penalty=MIN(2,g->energy_penalty+1);break;
   }
   if(e->block>0)record_combat_fx(GFX_BLOCK,k,k,e->block,0);
   if(g->screen==DEFEAT)return;
@@ -1505,7 +1603,7 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
   if(preview_phase&&preview_depth==2)preview_trace->repeated++;
  }
  int original_raw=raw;regent_foreign_begin(g,raw);
- int ascent_custom=id>=ASCENT_CARD_FIRST,ascent_after=ascent_custom?g->ninja.v[NS_AFTERIMAGE]:0,ascent_serpent=ascent_custom?g->ninja.v[NS_SERPENT]:0;
+ int ascent_custom=id>=ASCENT_CARD_FIRST,ascent_after=g->ninja.v[NS_AFTERIMAGE],ascent_serpent=ascent_custom?g->ninja.v[NS_SERPENT]:0;
  int repeat_this_attack=(!(raw&CARD_EPHEMERAL)&&CARD_MOD(raw)==MOD_ECHO)?1:0;
  if((g->character==CHAR_REGENT||g->revision184.custom)&&!(raw&CARD_EPHEMERAL))repeat_this_attack+=g->regent.instance_replay[CARD_INSTANCE(raw)];
  if(id<CARD_COUNT&&cards[id].type==0){
@@ -1774,9 +1872,9 @@ static void resolve_card(Game*g,int index,int enemy,int replay_raw){
   if(g->ic[IC_DUELIST]==3){g->ic[IC_DUELIST]|=4;gain_energy(g,1);}
  }
  r151_played(g,cards[id].type);regent_foreign_finish(g,raw);
+ if(ascent_after)relic_block(g,ascent_after);
  if(ascent_custom){
   if(cards[id].type==1)g->ninja.v[NS_SKILLS_TURN]++;
-  if(ascent_after)relic_block(g,ascent_after);
   if(ascent_serpent)ninja_proc(g,random_living_foe(g),ascent_serpent,0);
   for(int foe=0;foe<g->enemy_count;foe++)if(g->ninja.v[NS_STRANGLE0+foe])ninja_proc(g,foe,g->ninja.v[NS_STRANGLE0+foe],1);
  }
@@ -2297,7 +2395,7 @@ int game_validate(const Game*g){
   for(int i=0;i<2;i++){int a=g->ascent.unlocked_cards[i],b=g->ascent.unlocked_potions[i];if(a!=-1&&(a<334+20*g->character||a>=354+20*g->character))return 0;if(b!=-1&&(b<6||b>=26))return 0;}
   if(g->ascent.unlocked_relic!=-1&&(g->ascent.unlocked_relic<64||g->ascent.unlocked_relic>=74))return 0;
  }
- if(g->revision184.custom<0||g->revision184.custom>1||g->revision184.building<0||g->revision184.building>1||g->revision184.route_style<0||g->revision184.route_style>1||g->revision184.seen_act<0||g->revision184.seen_act>100000)return 0;
+ if(g->revision184.custom<0||g->revision184.custom>1||g->revision184.building<0||g->revision184.building>1||g->revision184.route_style<0||g->revision184.route_style>2||g->revision184.seen_act<0||g->revision184.seen_act>100000)return 0;
  if(g->revision184.building&&!g->revision184.custom)return 0;
  if(custom_setup_screen(g->screen)&&(!g->revision184.building||g->selection<0||g->revision184.tab<0||g->revision184.tab>3))return 0;
  if((g->screen==CUSTOM_CARDS||g->screen==CUSTOM_ITEMS)&&g->selection>=MAX(1,custom_count(g,g->revision184.tab)))return 0;
@@ -2344,7 +2442,7 @@ int game_validate(const Game*g){
  for(int i=0;i<10;i++)if(g->regent.automation_phase[i]<0||g->regent.automation_phase[i]>1000000)return 0;
  for(int i=0;i<5;i++)if(g->regent.panache_phase[i]<0||g->regent.panache_phase[i]>100000000)return 0;
  if(g->regent.option_count<0||g->regent.option_count>MAX_PILE||g->regent.return_count<0||g->regent.return_count>MAX_PILE||g->regent.task_count<0||g->regent.task_count>REGENT_TASK_MAX||g->regent.shuffle_pending<0||g->regent.shuffle_pending>1||g->regent.shuffle_draws<0||g->regent.shuffle_draws>MAX_PILE)return 0;
- for(int i=0;i<g->regent.task_count;i++){const RegentTask*t=&g->regent.tasks[i];if(t->kind<RT_PLAY||t->kind>RT_SEEK_THREE||!valid_card_raw(t->raw)||t->target< -1||t->target>=MAX_ENEMIES||t->n<0||t->n>1000000||t->aux<0||t->aux>1000000||t->depth<0||t->depth>3)return 0;}
+ for(int i=0;i<g->regent.task_count;i++){const RegentTask*t=&g->regent.tasks[i];if(t->kind<RT_PLAY||t->kind>RT_AFTERIMAGE||!valid_card_raw(t->raw)||t->target< -1||t->target>=MAX_ENEMIES||t->n<0||t->n>1000000||t->aux<0||t->aux>1000000||t->depth<0||t->depth>3)return 0;}
  for(int i=0;i<g->regent.option_count;i++)if(!valid_card_raw(g->regent.options[i]))return 0;
  for(int i=0;i<g->regent.return_count;i++)if(!valid_card_raw(g->regent.return_cards[i]))return 0;
  for(int i=0;i<512;i++)if(g->regent.instance_cost[i]<0||g->regent.instance_cost[i]>99||g->regent.instance_damage[i]<0||g->regent.instance_damage[i]>1000000||g->regent.instance_replay[i]<0||g->regent.instance_replay[i]>20)return 0;

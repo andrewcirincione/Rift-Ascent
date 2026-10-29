@@ -1,0 +1,2 @@
+ROOMS 4bdee071 200955 76789 100635 36886 94927 29808 0 0
+PASS 10000 maps: 1954 distinct topologies, at least 4 choices on every complete route, at most 4 consecutive forced transitions, 89872/89872 forks commit to at least two separate rooms; no single-route bottlenecks or crossing edges.

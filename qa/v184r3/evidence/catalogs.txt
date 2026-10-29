@@ -1,0 +1,2 @@
+PASS 386 collection cards and all three custom catalogs sorted Attack, Skill, Power, then other cards; stable within-type order, exact memberships, no duplicates or locked-card leakage.
+PASS all 60 single-card unlock masks follow actual card IDs after sorting; selected-deck order, variants and quantities preserved.

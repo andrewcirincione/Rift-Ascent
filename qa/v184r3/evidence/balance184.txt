@@ -1,0 +1,6 @@
+PASS 2000 reachable noncrossing maps; multiple starts throughout
+PASS normal and elite species never repeat until their act pool is exhausted
+PASS boss cards only Rare/eligible Ancient: 64763 / 7237; no locked cards
+PASS every event has a legal exit/choice at low HP, zero Gold, full potions/deck and ineligible cards; cancellation never pays; mandatory rooms cannot be skipped with Circle
+PASS all twelve pure healing choices work at full HP, cap HP, apply costs and continue to map
+PASS mixed attack/block intent appears in generated turns, predicts actual normal/Weak damage, gains six Block in same turn

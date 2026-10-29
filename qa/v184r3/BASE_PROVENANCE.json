@@ -1,0 +1,6 @@
+{
+  "release": "v1.8.4-r2",
+  "commit": "51f0ec49ad700bec22f6de6a85df3128d75966a8",
+  "eboot_sha256": "12a544e6b43fb8dd7deaf3e3f5838b7ebf9aefb0e4a4fd7e504ea5034cd5a3d5",
+  "source": "qa/v184r2/source"
+}

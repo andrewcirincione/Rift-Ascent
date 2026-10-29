@@ -1,0 +1,1 @@
+REPRODUCED missing Afterimage Block in 108/192 mixed-family plays (all characters, normal/custom, base/upgraded).

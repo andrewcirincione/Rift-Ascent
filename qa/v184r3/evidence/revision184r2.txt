@@ -1,0 +1,5 @@
+PASS custom catalogs and quantity/launch validation enforce each character's actual account unlocks; old drafts remain resumable/removable; Back to Loadout opens Your Deck.
+PASS 37,800 custom reward offers across all seven deck-family combinations, locked/unlocked accounts, normal/elite/boss rarities and upgraded cards; removed families disappear; no starter/token boss cards.
+PASS all 60 new cards, base and upgraded, resolve and preview identically across 240 actual combat cases; cost, damage, Block, healing, Stars, Forge, draw and Exhaust recorded.
+PASS zero-Energy Quiet Step/Starlit Writ decks terminate after two copies instead of cycling unlimited Block/Stars; Threadcutter requires a real discard.
+PASS new main-menu and Act 4 secret-boss themes; existing regular, elite, map, Act 1-3/7 boss routing retained.

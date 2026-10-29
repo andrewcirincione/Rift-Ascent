@@ -1,0 +1,103 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE afterimage-0
+AFTERIMAGE 0 0 {'screen': 2, 'hand_count': 5, 'selection': 0, 'energy': 19, 'block': 0, 'afterimage': 1}
+AFTERIMAGE 0 1 {'screen': 2, 'hand_count': 4, 'selection': 0, 'energy': 18, 'block': 1, 'afterimage': 1}
+AFTERIMAGE 0 2 {'screen': 2, 'hand_count': 3, 'selection': 0, 'energy': 17, 'block': 2, 'afterimage': 1}
+AFTERIMAGE 0 3 {'screen': 2, 'hand_count': 2, 'selection': 0, 'energy': 16, 'block': 3, 'afterimage': 1}
+AFTERIMAGE 0 4 {'screen': 2, 'hand_count': 1, 'selection': 0, 'energy': 16, 'block': 4, 'afterimage': 1}
+AFTERIMAGE 0 5 {'screen': 2, 'hand_count': 0, 'selection': 0, 'energy': 15, 'block': 5, 'afterimage': 2}
+SHOT afterimage-0-stacked
+SHOT afterimage-0-next-turn
+FIXTURE afterimage-1
+AFTERIMAGE 1 0 {'screen': 2, 'hand_count': 5, 'selection': 0, 'energy': 19, 'block': 0, 'afterimage': 1}
+AFTERIMAGE 1 1 {'screen': 2, 'hand_count': 4, 'selection': 0, 'energy': 18, 'block': 1, 'afterimage': 1}
+AFTERIMAGE 1 2 {'screen': 2, 'hand_count': 3, 'selection': 0, 'energy': 17, 'block': 2, 'afterimage': 1}
+AFTERIMAGE 1 3 {'screen': 2, 'hand_count': 2, 'selection': 0, 'energy': 16, 'block': 3, 'afterimage': 1}
+AFTERIMAGE 1 4 {'screen': 2, 'hand_count': 1, 'selection': 0, 'energy': 16, 'block': 4, 'afterimage': 1}
+AFTERIMAGE 1 5 {'screen': 2, 'hand_count': 0, 'selection': 0, 'energy': 15, 'block': 5, 'afterimage': 2}
+SHOT afterimage-1-stacked
+SHOT afterimage-resumed
+SHOT afterimage-1-next-turn
+FIXTURE afterimage-2
+AFTERIMAGE 2 0 {'screen': 2, 'hand_count': 5, 'selection': 0, 'energy': 19, 'block': 0, 'afterimage': 1}
+AFTERIMAGE 2 1 {'screen': 2, 'hand_count': 4, 'selection': 0, 'energy': 18, 'block': 1, 'afterimage': 1}
+AFTERIMAGE 2 2 {'screen': 2, 'hand_count': 3, 'selection': 0, 'energy': 17, 'block': 2, 'afterimage': 1}
+AFTERIMAGE 2 3 {'screen': 2, 'hand_count': 2, 'selection': 0, 'energy': 16, 'block': 3, 'afterimage': 1}
+AFTERIMAGE 2 4 {'screen': 2, 'hand_count': 1, 'selection': 0, 'energy': 16, 'block': 4, 'afterimage': 1}
+AFTERIMAGE 2 5 {'screen': 2, 'hand_count': 0, 'selection': 0, 'energy': 15, 'block': 5, 'afterimage': 2}
+SHOT afterimage-2-stacked
+SHOT afterimage-2-next-turn
+PASS Afterimage played with controller input: base/upgraded stacking, Vesper/Warden/Proxy/colorless cards, all characters, combat save/resume and later-turn Block
+FIXTURE new-intent-25
+SHOT new-intent-25
+SHOT new-intent-25-after
+FIXTURE new-intent-26
+SHOT new-intent-26
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1696, 'r137_start': 1672, 'r1311_kill_at': 0, 'r137_duration': 27, 'r137_count': 2, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT new-intent-26-after
+PASS Cinder Guard and Static Crush: visible mixed intent icons, actual Block/Burn and two hits/Energy drain
+FIXTURE custom-cards
+SHOT added-upgraded-card
+SHOT upgraded-card-removal
+FIXTURE custom-art
+SHOT mixed-art-page-1
+SHOT mixed-art-page-2
+SHOT mixed-art-quantity
+SHOT mixed-art-resumed
+FIXTURE catalog-0-0
+SHOT catalog-0-0
+FIXTURE sorted-unlocks-0-0
+SHOT unlocks-0-0
+FIXTURE catalog-0-1
+SHOT catalog-0-1
+FIXTURE sorted-unlocks-0-1
+SHOT unlocks-0-1
+FIXTURE catalog-0-2
+SHOT catalog-0-2
+FIXTURE sorted-unlocks-0-2
+SHOT unlocks-0-2
+SHOT sorted-base-0
+FIXTURE catalog-1-0
+SHOT catalog-1-0
+FIXTURE sorted-unlocks-1-0
+SHOT unlocks-1-0
+FIXTURE catalog-1-1
+SHOT catalog-1-1
+FIXTURE sorted-unlocks-1-1
+SHOT unlocks-1-1
+FIXTURE catalog-1-2
+SHOT catalog-1-2
+FIXTURE sorted-unlocks-1-2
+SHOT unlocks-1-2
+SHOT sorted-base-1
+FIXTURE catalog-2-0
+SHOT catalog-2-0
+FIXTURE sorted-unlocks-2-0
+SHOT unlocks-2-0
+FIXTURE catalog-2-1
+SHOT catalog-2-1
+FIXTURE sorted-unlocks-2-1
+SHOT unlocks-2-1
+FIXTURE catalog-2-2
+SHOT catalog-2-2
+FIXTURE sorted-unlocks-2-2
+SHOT unlocks-2-2
+SHOT sorted-base-2
+FIXTURE routes-1
+SHOT paths-1-opening
+SHOT paths-1-fork
+FIXTURE routes-2
+SHOT paths-2-opening
+SHOT paths-2-fork
+FIXTURE routes-3
+SHOT paths-3-opening
+SHOT paths-3-fork
+FIXTURE routes-4
+SHOT paths-4-opening
+SHOT paths-4-fork
+FIXTURE target
+SHOT release-combat
+PASS controller-added upgrades, mixed base/upgraded thumbnails from all characters, removal/quantity preview, saved draft resume; zero streamed-art errors
+PASS sorted Attack/Skill/Power custom catalogs, unlock catalogs and base catalogs rendered for all characters; meaningful map openings and fork commitments inspected
+SHA256 7413c8e5d39000a363beed70146008751ac9e40a58c9f9eeccb38a46ed610c6f

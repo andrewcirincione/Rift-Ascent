@@ -18,7 +18,7 @@ int custom_id(const Game*g,int tab,int index){
  if(index<0)return -1;
  if(g->screen==CUSTOM_CARDS||(g->screen==CUSTOM_QUANTITY&&g->prior_screen==CUSTOM_CARDS)){
   if(tab==3)return custom_unique(g,0,index);
-  for(int id=0;id<CARD_COUNT;id++)if(custom_card_tab(id)==tab&&ascent_card_available(g,id)&&index--==0)return id;
+  for(int type=0;type<4;type++)for(int id=0;id<CARD_COUNT;id++)if(cards[id].type==type&&custom_card_tab(id)==tab&&ascent_card_available(g,id)&&index--==0)return id;
  }else{
   if(tab==2||tab==3)return custom_unique(g,tab==2?1:2,index);
   if(tab==1)return index<26?index:-1;

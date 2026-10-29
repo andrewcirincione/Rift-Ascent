@@ -436,7 +436,8 @@ static void r160_sprite(int x,int y,int w,int h,const Rift160Sprite*src,int comb
  for(int yy=0;yy<h;yy++){int dy=y+yy;if(dy<(combat?54:0)||dy>=(combat?174:H))continue;
   for(int xx=0;xx<w;xx++){int dx=x+xx;if((unsigned)dx>=W)continue;uint32_t c=src->palette[src->pixels[(yy*96/h)*144+xx*144/w]];int a=c>>24;if(a)pix[dy*sw+dx]=r134_mix(pix[dy*sw+dx],c,a);}}
 }
-static void r134_card_art(int x,int y,int w,int h,int id){
+static void r134_card_art(int x,int y,int w,int h,int raw){
+ int id=CARD_ID(raw);if(raw<0||id>=CARD_COUNT)return;
  if(id>=334&&id<394){art_blit(x,y,w,h,ascent_card_art[id-334],180,120);return;}
  if(id>=REGENT_FIRST&&id<EXTRA_LAST){
   int iw=160,ih=112,crop=CLAMP(iw*h/w,35,ih),top=(ih-crop)/6;const uint8_t*src=r160_cards[id-REGENT_FIRST];const uint16_t*pal=r160_card_palettes[id-REGENT_FIRST];
@@ -848,6 +849,8 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   case 22:debuff=3;break; /* Weak + energy drain */
   case 23:debuff=3;break; /* Poison + Daze */
   case 24:block=CLAMP(e->intent_value/2,1,100000000);break; /* Attack and shield */
+  case 25:block=CLAMP(e->intent_value/2,1,100000000);debuff=1;break; /* Cinder Guard: Burn and shield */
+  case 26:debuff=1;break; /* Static Crush: two hits and energy drain */
  }
  if(block>=0&&count<3){
   glyph[count]=r134_map_icons[7];

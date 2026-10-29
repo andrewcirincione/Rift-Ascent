@@ -1,0 +1,29 @@
+PASS final release EBOOT — Rift Ascent 1.8.4, tag v1.8.4-r3
+SHA256 7413c8e5d39000a363beed70146008751ac9e40a58c9f9eeccb38a46ed610c6f
+Bytes 98394899
+Canonical source: qa/v184r3/source; GAME/src and portable_build match.
+Base: published v1.8.4-r2, commit 51f0ec49ad700bec22f6de6a85df3128d75966a8.
+
+Build: PSPDEV=/workspace/toolchain/pspdev bash qa/v184r3/build.sh
+PSP SDK v20261001 / GCC 15.2. PBP/ELF structure and user-mode imports pass.
+Resident span 11,674,240 bytes; conservative startup bytes 18,590,624.
+All artwork, twelve complete encoded tracks, footer and splash media remain byte-identical to the published r2 inputs (media.txt).
+
+Native: RIFT_SUITES='afterimage combat_tuning storage effects revision custom184 balance184 revision184r2 catalogs' bash qa/v184r3/test.sh
+All nine selected gameplay suites, ASan/UBSan rendering suites, collection layout and pixel-equivalence/performance checks passed without sanitizer findings.
+Afterimage baseline reproduces 108 missing triggers in 192 cases; corrected version passes all 192. Additional checks cover stacked copies, later turns, combat save/load, pending colorless choice save/load, rejected plays, draw-only behavior, Shadowmeld, cap, Echo and nested autoplay.
+Damage tuning passes 12,960 intent/value/Strength combinations and all 27 displayed intentions against actual direct damage with Weak/Vulnerable. Cinder Guard and Static Crush pass their rotation, effects and saved-combat tests.
+Custom reward pool regression covers 37,800 offers. All 60 new cards pass 240 base/upgraded combat scenarios. All 60 individual unlock masks remain bound to the correct card after sorting.
+
+Map tests: 70,000 maps, Acts 1–7, 629,238 forks; every pair of routes differs before reconnecting. Opening pairs differ by floor two. Baseline/current distribution digest e80457a0 and legacy-route digest 639b777f match.
+Independent topology test: 10,000 maps, 1,954 topologies, at least four choices per full route; 89,872/89,872 forks commit to at least two separate rooms. Separate route-choice test: 89,822/89,822 distinct forks.
+Artwork test: all 1,576 flagged/upgraded thumbnail variants across 394 cards exactly match their base artwork; original r2 reproduces all 1,576 blanks.
+
+Exact packaged EBOOT playtested in PPSSPP 1.20.4, PSP 1000 / 32 MiB mode.
+RIFT_AFTERIMAGE=1 RIFT_REVISION184R3=1: actual controller activation and plays across every family/all characters; base/upgraded stacking; combat save/resume; subsequent-turn Block; both new elite intentions and actual effects. Controller-added upgraded cards, mixed-character artwork, quantities/removal, saved custom-draft resume, sorted catalogs/base catalogs/unlocks and four map layouts pass.
+Normal regression: custom setup/launch/save/resume, potion cap, unlocks, target display, deck return without fade, purge intent, normal/elite sprites by act, mystery results, boss relic, quiet transitions, mandatory events, custom Act 3 record isolation, death-slot deletion, full-health healing choices, attack-plus-Block, and Normal/Fast presentation pass.
+Both completed runtime logs end in the exact SHA256 above. Zero streamed-art errors or observed runtime memory faults.
+Screenshots inspected: mixed-art pages, selected/sorted catalogs, unlock tiles, map opening/forks, Afterimage Block/save-resume, Cinder Guard and Static Crush overhead icons, and combat.
+
+Limits: isolated assisted state fixtures and controller input; software OpenGL, host fast-forward/frame skipping and dummy SDL audio with nonzero PCM checks. This is targeted emulator playtesting, not an unaided full campaign or physical PSP test.
+Existing saved acts retain their current paths; new runs and subsequent acts use the corrected generator. Save struct size and in-game version remain unchanged.

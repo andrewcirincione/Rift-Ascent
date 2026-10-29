@@ -1,6 +1,6 @@
 /* Regent 1.6. All resource payments occur exactly once at the hand boundary;
  * replay/autoplay tasks are free, retain their original X, and serialize choices. */
-enum {RT_PLAY=1,RT_EFFECT,RT_FINISH,RT_DRAW,RT_CHOOSE,RT_ENDTURN,RT_AUTOPLAY,RT_RETURN,RT_SEEK_THREE};
+enum {RT_PLAY=1,RT_EFFECT,RT_FINISH,RT_DRAW,RT_CHOOSE,RT_ENDTURN,RT_AUTOPLAY,RT_RETURN,RT_SEEK_THREE,RT_AFTERIMAGE};
 enum {RC_TOP=1,RC_DISCARD_TOP,RC_TRANSFORM_HAND,RC_TRANSFORM_DRAW,RC_GUARDS,RC_SKILL_TRIPLE,RC_COPY_COLORLESS,RC_GENERATE,RC_SEEK,RC_EXHAUST,RC_ENTROPY,RC_SEEK_SKILL,RC_SEEK_ATTACK,RC_STRATAGEM,RC_SEEK_THREE};
 #define RP(g,id) ((g)->regent.powers[(id)-REGENT_FIRST])
 static int regent_flags(int raw){int id=CARD_ID(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
@@ -188,10 +188,14 @@ static void regent_process(Game*g){
    if(cards[id].type==0){g->regent.attack_vigor=g->regent.vigor;g->regent.vigor=0;g->ic[IC_UNRELENTING]=0;}
    if(preview_trace&&t.depth==2)preview_trace->repeated++;
    for(int i=0;i<MIN(20,repeat);i++)regent_push(g,RT_PLAY,t.raw|CARD_FREE|CARD_EPHEMERAL,t.target,t.n,t.aux,t.depth?2:0);
+   /* Snapshot before the effect: a nested play can add another Afterimage.
+      Keep this serializable task pending through any card-selection screen. */
+   if(g->ninja.v[NS_AFTERIMAGE])regent_push(g,RT_AFTERIMAGE,t.raw,t.target,g->ninja.v[NS_AFTERIMAGE],0,t.depth);
    regent_push(g,RT_FINISH,t.raw,t.target,g->regent.monologue,RP(g,R_THE_SEALED_THRONE),t.depth);
    regent_push(g,RT_EFFECT,t.raw,t.target,t.n,t.aux,t.depth);break;}
   case RT_EFFECT:regent_effect(g,t);break;
   case RT_FINISH:if(preview_trace)preview_phase=0;regent_finish(g,t);break;
+  case RT_AFTERIMAGE:if(preview_trace)preview_phase=0;relic_block(g,t.n);break;
   case RT_DRAW:for(int i=0;i<t.n&&g->hand_count<MAX_HAND;i++)draw_card(g);break;
   case RT_CHOOSE:regent_open_choice(g,t);break;
   case RT_ENDTURN:

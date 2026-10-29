@@ -1,0 +1,3 @@
+#include "../source/game.c"
+#include "../source/render.c"
+int main(void){char lines[24][192];int bad=0;for(int tab=0;tab<3;tab++)for(int ix=0;ix<game_collection_count(tab);ix++){int raw=game_collection_id(tab,ix);R135CardLayout l=r135_card_layout(raw,143);int by=l.art_y+l.art_h+3,rows=(164-18-by)/l.leading;const RiftFont*f=l.font;const char*s=rift131_clean_rules(r136_rules(raw));if(r134_lines(s,109,f,lines)>rows){f=&r134_f8;rows=(164-18-by)/9;}int required=r134_lines(s,109,f,lines);if(required>rows){printf("Clips %d %s: %d rows need %d; layout %d\n",raw,cards[raw].name,rows,required,l.height);bad++;}}printf("PASS all base/unlockable card rules fit the collection preview; clipped=%d\n",bad);return bad!=0;}

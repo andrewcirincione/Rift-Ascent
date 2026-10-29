@@ -59,7 +59,7 @@ static void ascent_collection_view(const Game*g){
  for(int i=0;i<5;i++)button(23+i*87,45,85,23,labels[i],i==tab);
  r134_text(28,73,base?"BASE GAME / NO UNLOCK NEEDED":"EARNED BY COMPLETING ACT 3",MUTED,&r134_f8);
  for(int n=first;n<last&&n<first+6;n++){
-  int pos=n-first,x=24+pos%3*92,y=83+pos/3*74,open=base||(mask&(1u<<n));
+  int pos=n-first,x=24+pos%3*92,y=83+pos/3*74,open=game_collection_unlocked(tab,n);
   int id=game_collection_id(tab,n);if(n==index)y-=5;gilded_panel(x,y,85,69,n==index);
   if(open){if(tab<3)r134_card_art(x+8,y+5,69,32,id);else if(tab==3)ascent_potion_icon(x+20,y+5,46,id);else r150b_relic_icon(x+20,y+5,46,id);}
   else r134_center(x+42,y+24,"?",MUTED,&r134_f18b);
@@ -67,7 +67,7 @@ static void ascent_collection_view(const Game*g){
   else{snprintf(b,sizeof(b),"%02d%s",n-(base?custom:0)+1,open?"":" LOCKED");r134_center(x+42,y+55,b,open?GOLD:MUTED,&r134_f8);}
   if(n==index)r134_blit(x+23,y+1,40,23,r138_choice,42,28,255);else dark_rect(x+5,y+5,75,59,60);
  }
- if(base||(mask&(1u<<index))){
+ if(game_collection_unlocked(tab,index)){
   int id=game_collection_id(tab,index);
   if(tab<3)card_render(315,76,143,164,id,1,1);
   else{if(tab==3)ascent_potion_icon(363,86,48,id);else r150b_relic_icon(363,86,48,id);

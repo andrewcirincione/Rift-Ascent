@@ -169,3 +169,17 @@ qa/v184r2/source/*.SFO
 qa/v184r2/.*
 qa/v184r2/**/.*
 versions/1.8.4-r2/.*
+
+# Revised route and custom-card art build intermediates.
+qa/v184r3/assets.bin
+qa/v184r3/soundtrack.bank
+qa/v184r3/evidence/*.pcm
+qa/v184r3/evidence/*.ima
+qa/v184r3/evidence/*.ppm
+qa/v184r3/evidence/*.wav
+qa/v184r3/evidence/*.bin
+qa/v184r3/evidence/*.log
+qa/v184r3/source/*.SFO
+qa/v184r3/.*
+qa/v184r3/**/.*
+versions/1.8.4-r3/.*

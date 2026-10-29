@@ -1,0 +1,107 @@
+#include <assert.h>
+#include <stddef.h>
+#include <sys/stat.h>
+#include "../source/game.c"
+static void save(const char*name,const void*data,size_t size){if(size==sizeof(Game)&&!game_validate(data)){const Game*g=data;fprintf(stderr,"Invalid fixture %s: screen %d character %d act %d floor %d\n",name,g->screen,g->character,g->act,g->floor);abort();}char path[240];snprintf(path,sizeof(path),"qa/v184r3/evidence/%s.bin",name);FILE*f=fopen(path,"wb");assert(f&&fwrite(data,size,1,f)==1);fclose(f);}
+int main(void){char temp[]="/tmp/rift-184r2-fixtures-XXXXXX";assert(mkdtemp(temp)&&ascent_open(temp));ascent_account.debug=1;Game g,a;char n[80];
+ for(int c=0;c<3;c++){
+  assert(ascent_begin(&g,c,c,101+c));g.act=7;g.endless=1;g.floor=MAP_ROWS;g.hp=g.maxhp=800;game_story_start(&g,1);snprintf(n,sizeof(n),"fixture-god-before-%d",c);save(n,&g,sizeof(g));
+  game_start_battle(&g,NODE_BOSS);g.enemies[0].hp=1;g.hand_count=2;g.hand[0]=334+c*20;g.hand[1]=335+c*20;g.energy=10;g.regent.stars=20;g.selection=0;snprintf(n,sizeof(n),"fixture-god-kill-%d",c);save(n,&g,sizeof(g));
+  assert(ascent_begin(&g,c,c,111+c));g.hp=g.maxhp=800;
+  int found=0;for(int seed=1;seed<20000;seed++){g.seed=g.rng=seed;g.act=1;g.floor=4;game_start_battle(&g,c==1?NODE_ELITE:NODE_FIGHT);g.enemy_count=1;g.enemies[0].hp=1;g.hand_count=2;g.hand[0]=334+c*20;g.hand[1]=335+c*20;g.selection=0;g.energy=10;g.regent.stars=20;a=g;a.enemies[0].hp=0;check_win(&a);if(a.screen==RELIC_RESULT)game_action(&a,BTN_OK);game_action(&a,BTN_BACK);if(a.screen==EXPEDITION_STORY&&a.expedition.story_id==(c==1?1:0)){found=1;break;}}
+  assert(found);snprintf(n,sizeof(n),"fixture-story-fight-%d",c);save(n,&g,sizeof(g));
+  g.screen=MAP;g.revision182.room_pending=0;expedition_mystery(&g);snprintf(n,sizeof(n),"fixture-mystery-%d",c);save(n,&g,sizeof(g));
+ }
+ assert(ascent_begin(&g,3,0,144));g.hp=g.maxhp=800;game_start_battle(&g,NODE_FIGHT);g.relic_count=0;g.enemy_count=1;g.enemies[0].hp=g.enemies[0].maxhp=9999;g.hand_count=4;g.hand[0]=65;g.hand[1]=6;g.hand[2]=38;g.hand[3]=0;g.energy=10;g.potion_count=1;g.potions[0]=4;g.selection=0;save("fixture-energy",&g,sizeof(g));
+ g.screen=MAP;g.ascent.relics=1023;for(int i=0;i<RELIC_COUNT;i++)add_relic(&g,i);g.act=6;g.endless=1;game_start_battle(&g,NODE_BOSS);g.enemy_count=1;g.enemies[0].hp=1;g.hand_count=1;g.hand[0]=334;g.selection=0;g.energy=10;save("fixture-exhausted",&g,sizeof(g));
+ for(int act=1;act<=7;act++){assert(ascent_begin(&g,3,0,100+act));g.act=act;g.endless=act>3;g.screen=MAP;g.selection=0;snprintf(n,sizeof(n),"fixture-map-%d",act);save(n,&g,sizeof(g));}
+ assert(ascent_begin(&g,3,0,444));g.screen=ASCENT_COLLECTION;g.scroll=4;g.selection=10;save("fixture-collection",&g,sizeof(g));
+ for(int c=0;c<3;c++)for(int act=1;act<=3;act++){
+  assert(ascent_begin(&g,3,c,800+c*10+act));g.act=act;game_start_battle(&g,NODE_FIGHT);g.enemy_count=2;g.hp=g.maxhp=800;
+  int normal=act==1?(c==0?0:c==1?10:11):act==2?(c==0?17:c==1?20:21):(c==0?28:c==1?31:32);
+  int elite=enemy_elite[act-1][c];init_enemy(&g,&g.enemies[0],normal);init_enemy(&g,&g.enemies[1],elite);g.selection=g.hand_count;
+  snprintf(n,sizeof(n),"fixture-visual-%d-%d",c,act);save(n,&g,sizeof(g));
+ }
+ for(int id=0;id<EVENT_COUNT;id++){assert(ascent_begin(&g,3,0,900+id));g.gold=200;g.hp=40;g.potion_count=2;g.potions[0]=0;g.potions[1]=1;g.relic_count=0;g.screen=MAP;g.floor=0;g.map[0][0]=NODE_FIGHT;game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-event-%02d",id);save(n,&g,sizeof(g));}
+ for(int id=12;id<=16;id+=4){assert(ascent_begin(&g,3,0,1200+id));g.act=id==12?1:2;game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;init_enemy(&g,&g.enemies[0],id);g.selection=g.hand_count;snprintf(n,sizeof(n),"fixture-visual-extra-%d",id);save(n,&g,sizeof(g));}
+ for(int kind=0;kind<2;kind++){
+  int found=0;for(int seed=1;seed<100;seed++){
+   game_new(&g,seed);game_choose_character(&g,0);g.screen=MAP;g.floor=0;g.selection=0;while(!game_route_available(&g,g.selection))g.selection++;g.map[0][g.selection]=kind?NODE_ELITE:NODE_FIGHT;a=g;game_action(&a,BTN_OK);
+   if(a.screen==COMBAT&&a.combat_music==(kind?6:5)){found=1;break;}}
+  assert(found);snprintf(n,sizeof(n),"fixture-map-%s",kind?"elite":"normal");save(n,&g,sizeof(g));
+ }
+
+ for(int act=1;act<=3;act++)for(int k=0;k<4;k++){
+  assert(ascent_begin(&g,3,0,1800+act*10+k));g.act=act;game_start_battle(&g,k==3?NODE_ELITE:NODE_FIGHT);g.enemy_count=1;g.hp=g.maxhp=80;
+  init_enemy(&g,&g.enemies[0],47+(act-1)*4+k);g.selection=g.hand_count;snprintf(n,sizeof(n),"fixture-new-%d-%d",act,k);save(n,&g,sizeof(g));
+ }
+ assert(ascent_begin(&g,3,0,1830));game_start_battle(&g,NODE_ELITE);g.enemy_count=1;init_enemy(&g,&g.enemies[0],6);g.enemies[0].intent=21;g.enemies[0].intent_value=12;g.enemies[0].weak=2;g.enemies[0].vulnerable=2;g.enemies[0].poison=9;g.selection=g.hand_count;save("fixture-purge",&g,sizeof(g));
+ game_start_battle(&g,NODE_FIGHT);g.enemy_count=2;init_enemy(&g,&g.enemies[0],2);init_enemy(&g,&g.enemies[1],47);g.selection=g.hand_count;g.hp=g.maxhp=80;save("fixture-target",&g,sizeof(g));
+ for(int tab=0;tab<5;tab++){g.screen=ASCENT_COLLECTION;g.scroll=tab;g.selection=game_collection_unlock_count(tab);snprintf(n,sizeof(n),"fixture-base-%d",tab);save(n,&g,sizeof(g));}
+ g.screen=ASCENT_COLLECTION;g.scroll=0;g.selection=0;save("fixture-unlocks",&g,sizeof(g));
+ assert(ascent_begin(&g,3,0,1831));g.act=1;game_start_battle(&g,NODE_BOSS);g.enemies[0].hp=0;check_win(&g);save("fixture-boss-relic",&g,sizeof(g));
+ assert(ascent_begin(&g,0,0,1832));g.screen=MAP;g.gold=789;g.revision182.rare_offset=23;g.version=183;
+ unsigned head[5]={0x52413846u,1,100,offsetof(Game,revision184),hash_bytes((void*)&g,offsetof(Game,revision184))};FILE*old=fopen("qa/v184r3/evidence/legacy182-run.bin","wb");assert(old);fwrite(head,sizeof(head),1,old);fwrite(&g,offsetof(Game,revision184),1,old);fclose(old);
+ unsigned ah[5]={0x52413846u,1,100,sizeof(ascent_account),hash_bytes((void*)&ascent_account,sizeof(ascent_account))};old=fopen("qa/v184r3/evidence/legacy182-account.bin","wb");assert(old);fwrite(ah,sizeof(ah),1,old);fwrite(&ascent_account,sizeof(ascent_account),1,old);fclose(old);
+
+ assert(ascent_begin_mode(&g,2,0,1844,1));g.deck_count=3;g.deck[0]=0;g.deck[1]=N_ADRENALINE;g.deck[2]=R_VENERATE;g.screen=CUSTOM_CARDS;save("fixture-custom-cards",&g,sizeof(g));
+ g.screen=CUSTOM_ITEMS;g.relic_count=2;*relic_slot(&g,0)=4;*relic_slot(&g,1)=4;g.potion_count=3;g.potions[0]=g.potions[1]=25;g.potions[2]=0;save("fixture-custom-items",&g,sizeof(g));
+ g.screen=CUSTOM_CONFIRM;save("fixture-custom-ready",&g,sizeof(g));custom_launch(&g);g.act=3;game_start_battle(&g,NODE_BOSS);g.enemies[0].hp=1;g.potion_count=1;g.potions[0]=3;save("fixture-custom-win",&g,sizeof(g));
+ assert(ascent_begin(&g,2,0,1845));game_start_battle(&g,NODE_FIGHT);g.hp=1;g.block=0;g.enemies[0].intent=0;g.enemies[0].intent_value=99;g.hand_count=0;g.selection=0;save("fixture-death",&g,sizeof(g));
+ for(int id=39;id<42;id++){game_new(&g,1846+id);game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-bad-%d",id);save(n,&g,sizeof(g));}
+ assert(ascent_begin(&g,3,0,1848));game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].intent=24;g.enemies[0].intent_value=12;g.enemies[0].strength=0;g.enemies[0].weak=0;g.enemies[0].hp=g.enemies[0].maxhp=100;g.relic_count=0;g.hp=g.maxhp=80;g.block=0;g.selection=g.hand_count;save("fixture-braced-strike",&g,sizeof(g));
+ for(int id=1;id<=30;id+=29){game_new(&g,1849+id);g.hp=g.maxhp;game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-full-heal-%d",id);save(n,&g,sizeof(g));}
+ game_new(&g,1850);game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].hp=1;g.enemies[0].block=0;g.potion_count=1;g.potions[0]=3;save("fixture-normal-win",&g,sizeof(g));
+ g.screen=ASCENT_OPTIONS;g.selection=0;save("fixture-options",&g,sizeof(g));
+ for(int c=0;c<3;c++)for(int generator=0;generator<2;generator++){
+  game_new(&g,1851+c);game_choose_character(&g,c);g.revision184.custom=1;g.relic_count=0;g.deck_count=2;g.deck[0]=generator?R_VENERATE:0;g.deck[1]=R_CLOAK_OF_STARS;game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].hp=g.enemies[0].maxhp=999;g.enemies[0].intent=1;g.hand_count=2;g.hand[0]=g.deck[0];g.hand[1]=g.deck[1];g.draw_count=g.discard_count=g.exhaust_count=0;g.selection=0;
+  snprintf(n,sizeof(n),"fixture-stars-%d-%d",c,generator);save(n,&g,sizeof(g));
+ }
+
+ for(int c=0;c<3;c++){
+  game_new(&g,18420+c);game_choose_character(&g,c);g.act=4;g.endless=1;g.floor=MAP_ROWS;g.ascent.secret=1;g.ascent.cards=ASCENT_ALL_CARDS;game_story_start(&g,1);snprintf(n,sizeof(n),"fixture-secret-before-%d",c);save(n,&g,sizeof(g));
+  game_start_battle(&g,NODE_BOSS);snprintf(n,sizeof(n),"fixture-secret-fight-%d",c);save(n,&g,sizeof(g));
+ }
+ for(int seed=1;seed<=4;seed++){
+  game_new(&g,seed*1842);g.screen=MAP;g.floor=0;g.selection=0;while(!game_route_available(&g,g.selection))g.selection++;snprintf(n,sizeof(n),"fixture-routes-%d",seed);save(n,&g,sizeof(g));
+ }
+ for(int c=0;c<3;c++){
+  game_new(&g,18422+c);g.character=c;g.revision184.custom=1;g.deck_count=1;g.deck[0]=(c==0?0:c==1?N_STRIKE_SILENT:R_STRIKE_REGENT);g.screen=REWARD;g.battle_type=NODE_BOSS;fill_rewards(&g);snprintf(n,sizeof(n),"fixture-family-reward-%d",c);save(n,&g,sizeof(g));
+ }
+ ascent_account.cards[0]=0xc0243;ascent_account.cards[1]=0x3f;ascent_account.cards[2]=0x3f;
+
+ assert(ascent_begin_mode(&g,2,0,18431,1));
+ const int mixed[]={0,0|UPBIT,N_STRIKE_SILENT,N_STRIKE_SILENT|UPBIT,R_STRIKE_REGENT,R_STRIKE_REGENT|UPBIT,334,334|UPBIT,354,354|UPBIT,374,374|UPBIT};
+ g.deck_count=sizeof(mixed)/sizeof(*mixed);memcpy(g.deck,mixed,sizeof(mixed));g.screen=CUSTOM_CARDS;g.revision184.tab=3;g.selection=0;save("fixture-custom-art",&g,sizeof(g));
+ for(int character=0;character<3;character++){
+  g.revision184.tab=character;
+  for(int type=0;type<3;type++){
+   g.screen=CUSTOM_CARDS;g.selection=0;while(g.selection+1<custom_count(&g,character)&&cards[custom_id(&g,character,g.selection)].type<type)g.selection++;
+   snprintf(n,sizeof(n),"fixture-catalog-%d-%d",character,type);save(n,&g,sizeof(g));
+   g.screen=ASCENT_COLLECTION;g.scroll=character;g.selection=0;while(g.selection+1<20&&cards[game_collection_id(character,g.selection)].type<type)g.selection++;
+   snprintf(n,sizeof(n),"fixture-sorted-unlocks-%d-%d",character,type);save(n,&g,sizeof(g));
+  }g.screen=CUSTOM_CARDS;
+ }
+ for(int c=0;c<3;c++){
+  assert(ascent_begin(&g,0,c,18433+c));g.revision184.custom=c!=1;g.relic_count=0;
+  game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].hp=g.enemies[0].maxhp=9999;
+  g.enemies[0].block=0;g.enemies[0].intent=1;g.enemies[0].intent_value=0;g.energy=20;g.block=0;
+  const int hand[]={N_AFTERIMAGE,N_STRIKE_SILENT,0,R_STRIKE_REGENT,C_PANACHE,N_AFTERIMAGE|UPBIT};
+  g.hand_count=sizeof(hand)/sizeof(*hand);memcpy(g.hand,hand,sizeof(hand));g.deck_count=g.hand_count;memcpy(g.deck,hand,sizeof(hand));
+  g.draw_count=5;for(int j=0;j<5;j++)g.draw[j]=N_STRIKE_SILENT;g.discard_count=g.exhaust_count=0;g.selection=0;
+  snprintf(n,sizeof(n),"fixture-afterimage-%d",c);save(n,&g,sizeof(g));
+ }
+ for(int intent=25;intent<=26;intent++){
+  assert(ascent_begin(&g,0,1,18434+intent));g.act=intent==25?1:2;game_start_battle(&g,NODE_ELITE);g.relic_count=0;g.enemy_count=1;
+  init_enemy(&g,&g.enemies[0],intent==25?50:23);g.enemies[0].intent=intent;g.enemies[0].intent_value=18;g.enemies[0].strength=g.enemies[0].weak=0;
+  g.hp=g.maxhp=80;g.block=g.vulnerable=g.poison=0;g.hand_count=g.discard_count=0;g.draw_count=12;for(int j=0;j<12;j++)g.draw[j]=N_DEFEND_SILENT;g.selection=0;
+  snprintf(n,sizeof(n),"fixture-new-intent-%d",intent);save(n,&g,sizeof(g));
+ }
+ save("fixture-account",&ascent_account,sizeof(ascent_account));
+ FILE*f=fopen("qa/v184r3/evidence/state-layout.json","w");assert(f);fprintf(f,"{\"size\":%zu,\"account_size\":%zu",sizeof(Game),sizeof(AscentAccount));
+#define OFF(x) fprintf(f,",\"" #x "\":%zu",offsetof(Game,x))
+ OFF(screen);OFF(selection);OFF(scroll);OFF(act);OFF(character);OFF(hp);OFF(maxhp);OFF(ascent);OFF(enemy_count);OFF(enemies);OFF(floor);OFF(battle_type);OFF(combat_music);OFF(potion_count);OFF(potions);OFF(hand_count);OFF(hand);OFF(reward);OFF(prior_screen);OFF(energy);OFF(ic);OFF(expedition);OFF(deck_count);OFF(relic_count);OFF(v151);OFF(revision182);OFF(gold);OFF(strength);OFF(block);OFF(weak);OFF(vulnerable);OFF(deck);OFF(message);OFF(revision184);OFF(regent);OFF(ninja.v);
+ fprintf(f,",\"enemy_size\":%zu,\"enemy_hp\":%zu,\"enemy_art\":%zu,\"account_cards\":%zu,\"account_wins\":%zu,\"account_ascended\":%zu,\"account_debug\":%zu,\"energy_lock\":%d,\"potion_offer\":%zu,\"screens\":{",sizeof(Enemy),offsetof(Enemy,hp),offsetof(Enemy,art),offsetof(AscentAccount,cards),offsetof(AscentAccount,wins),offsetof(AscentAccount,ascended),offsetof(AscentAccount,debug),IC_ENERGY_LOCK,offsetof(Game,v151.potion_offer));
+#define SCREEN(x) fprintf(f,"\"" #x "\":%d,",x)
+ SCREEN(ASCENT_BOSS);SCREEN(CUSTOM_CARDS);SCREEN(CUSTOM_ITEMS);SCREEN(CUSTOM_QUANTITY);SCREEN(CUSTOM_CONFIRM);SCREEN(ASCENT_ENDING);SCREEN(DECK_VIEW);SCREEN(PAUSE_MENU);SCREEN(EVENT);SCREEN(EVENT_CARD);SCREEN(EVENT_RESULT);SCREEN(TITLE);SCREEN(MAP);SCREEN(COMBAT);SCREEN(VICTORY);SCREEN(ASCENT_SLOTS_VIEW);SCREEN(ASCENT_OPTIONS);SCREEN(ASCENT_COLLECTION);SCREEN(CHARACTER_SELECT);SCREEN(ACT_INTRO);SCREEN(BLESSING);SCREEN(STORY_ACT_BEFORE_BLESSING);SCREEN(EXPEDITION_STORY);SCREEN(EXPEDITION_GIFT);SCREEN(ABOMINATION_BEFORE);SCREEN(ABOMINATION_AFTER);SCREEN(MYSTERY_STORY);SCREEN(MYSTERY_CARDS);SCREEN(REWARD);SCREEN(RELIC_RESULT);fprintf(f,"\"DEFEAT\":%d}}\n",DEFEAT);fclose(f);return 0;
+}

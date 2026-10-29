@@ -1,0 +1,3 @@
+PASS custom catalogs, mixed/unlocked cards, quantities/removal, potion cap, draft resume, effects applied once, no account/profile records, death deletion/tombstone, normal slot reuse, persisted speed
+PASS every supported card resolves and previews safely for all three custom characters
+PASS conditional Star HUD for Warden/Vesper across deck and combat piles, active generator powers, spending-only cards and upgraded generator/spender cards; Proxy always visible; actual gain/spend/carry-over; no unearned Proxy starter Stars

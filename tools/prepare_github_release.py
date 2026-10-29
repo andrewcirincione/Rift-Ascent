@@ -82,8 +82,19 @@ def main():
     with zipfile.ZipFile(dest/(prefix+'-PSP.zip'), 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
         archive.write(pbp, 'PSP/GAME/RIFTASCENT/EBOOT.PBP')
         archive.writestr('README.txt', 'Rift Ascent '+version+'\n\nExtract PSP to the Memory Stick root. Keep SAVE.DAT, PROFILE.DAT and every ASCENT18_ACCOUNT / ASCENT18_RUN file to preserve progress.\n\n'+notes.read_text())
+    # Keep current build inputs while avoiding an archive of every historical
+    # compiled release. Those binaries remain in Git and their own releases.
+    source_paths = ['.']
+    if 'source_dependencies' in meta:
+        keep = {meta['eboot'], *meta['source_dependencies']}
+        for name in keep:
+            repo_file(name)
+        historical = subprocess.check_output(
+            ['git', 'ls-files', '--', 'versions/*/EBOOT.PBP'], cwd=ROOT, text=True).splitlines()
+        source_paths += [':(exclude)'+name for name in historical if name not in keep]
     subprocess.run(['git', 'archive', '--format=zip', '--prefix=rift-ascent/',
-                    '--output='+str(dest/(prefix+'-Source.zip')), 'HEAD'], cwd=ROOT, check=True)
+                    '--output='+str(dest/(prefix+'-Source.zip')), 'HEAD', *source_paths], cwd=ROOT, check=True)
+    assert (dest/(prefix+'-Source.zip')).stat().st_size < 2**31, 'Source archive exceeds the GitHub asset limit'
     checksums = {p.name:sha(p) for p in sorted(dest.iterdir())}
     (dest/'SHA256SUMS.txt').write_text(''.join(digest+'  '+name+'\n' for name, digest in checksums.items()))
     for path in dest.glob('*.zip'):
