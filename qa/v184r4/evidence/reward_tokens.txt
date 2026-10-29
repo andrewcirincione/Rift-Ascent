@@ -1,0 +1,4 @@
+PASS 54000 normal/elite/boss card offers across all characters and locked/unlocked accounts; no generated tokens. Real unlocked Ancient rewards remain possible (1834 seen); story/event rarity picks and shop cards exclude Debris.
+PASS old slot/legacy saves repair only unclaimed Debris offers, preserving other offers and already-owned cards.
+PASS replacing an old upgraded Debris offer preserves its upgrade.
+PASS Collision Course still creates playable Debris, and Debris still exhausts normally.

@@ -1,0 +1,9 @@
+PASS 12960 attacks compared with the published r3 resolver: exactly +30% before nearest-integer rounding; sample aggregate +30.11%; no minimum damage on non-attacks.
+PASS small attack-frequency increase: 428 -> 973 attacks across 10,000 otherwise-defensive Ash Crawler turns.
+PASS Stone Giant attacks on at least three turns in every four-turn rotation across 1,000 seeds (3103/4,000 attacking turns), keeps Purge and braced Block, and does not open with Crush.
+PASS all 31 displayed intentions match actual direct damage with Weak/Vulnerable and multi-hits.
+PASS paired enemies each use 75% of single-enemy damage; all 31 intents, Weak/Crane, multi-hits and actual combined enemy turns agree with previews; survivor damage never jumps.
+PASS Bone Captain / BONE BULWARK: Deal 10 DMG; all foes gain 4 Block; actual effects and combat save/load.
+PASS Chain Keeper / CHAIN LASH: Remove 3 Block; deal 13 DMG; drain 1 Energy; actual effects and combat save/load.
+PASS Cathedral Horror / GRAVE CHOIR: All foes gain 5 Block; apply 2 Poison; actual effects and combat save/load.
+PASS Rift Behemoth / RIFT REND: Deal 13 DMG; apply 2 Vulnerable; add Daze; actual effects and combat save/load.

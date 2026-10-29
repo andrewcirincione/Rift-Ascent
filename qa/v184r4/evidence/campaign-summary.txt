@@ -1,0 +1,2 @@
+unlocked: 46/300 wins (15.3%), 0 policy stalls; deaths Act 1=82, Act 2=89, Act 3=83; wins Warden=25, Vesper=18, Proxy=3.
+fresh: 16/300 wins (5.3%), 0 policy stalls; deaths Act 1=107, Act 2=96, Act 3=81; wins Warden=10, Vesper=4, Proxy=2.

@@ -851,6 +851,10 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   case 24:block=CLAMP(e->intent_value/2,1,100000000);break; /* Attack and shield */
   case 25:block=CLAMP(e->intent_value/2,1,100000000);debuff=1;break; /* Cinder Guard: Burn and shield */
   case 26:debuff=1;break; /* Static Crush: two hits and energy drain */
+  case 27:block=4;break; /* Bone Bulwark shields living allies too. */
+  case 28:debuff=4;break; /* Remove three Block and drain one Energy. */
+  case 29:block=5;debuff=2;break; /* Grave Choir: shield and Poison. */
+  case 30:debuff=3;break; /* Two Vulnerable and a Daze. */
  }
  if(block>=0&&count<3){
   glyph[count]=r134_map_icons[7];
@@ -1041,7 +1045,7 @@ static void reward_screen(const Game*g){
   int chosen=!g->v151.card_done&&g->selection==i,x=27+i*144,y=41;
   r162_card_choice=1;card_render(x,y,138,148,g->reward[i],chosen,1);r162_card_choice=0;
   int rarity=cards[CARD_ID(g->reward[i])].rarity;
-  r134_center(x+69,y+132-(chosen?5:0),rarity==3?"ANCIENT":rarity==2?"RARE":rarity==1?"UNCOMMON":"COMMON",rarity>=2?GOLD:rarity==1?BLUE:WHITE,&r138_title7);
+  r134_center(x+69,y+132-(chosen?5:0),cards[CARD_ID(g->reward[i])].type==3?"STATUS":rarity==3?"ANCIENT":rarity==2?"RARE":rarity==1?"UNCOMMON":"COMMON",rarity>=2?GOLD:rarity==1?BLUE:WHITE,&r138_title7);
   if(g->v151.card_done)dark_rect(x+6,y+8,126,132,140);
  }
  int id=g->v151.potion_offer>=0?g->v151.potion_offer:g->ic[37]>0&&g->ic[37]<=6?g->ic[37]-1:-1;
@@ -1278,7 +1282,7 @@ static void blessing_screen(const Game*g){
 static void reward_preview_screen(const Game*g){
  header(g,"CARD REWARD / INSPECT");int raw=g->reward[g->selection];
  R135CardLayout layout=r135_card_layout(raw,174);card_render(153,55,174,(layout.height>174?layout.height:174),raw,1,1);
- const char*rarity=cards[CARD_ID(raw)].rarity==3?"ANCIENT":cards[CARD_ID(raw)].rarity==2?"RARE":cards[CARD_ID(raw)].rarity==1?"UNCOMMON":"COMMON";
+ const char*rarity=cards[CARD_ID(raw)].type==3?"STATUS":cards[CARD_ID(raw)].rarity==3?"ANCIENT":cards[CARD_ID(raw)].rarity==2?"RARE":cards[CARD_ID(raw)].rarity==1?"UNCOMMON":"COMMON";
  r134_center(240,237,rarity,GOLD,&r134_f9b);footer("O RETURN");
 }
 static void battle_piles_screen(const Game*g){

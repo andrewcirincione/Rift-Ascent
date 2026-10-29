@@ -183,3 +183,17 @@ qa/v184r3/source/*.SFO
 qa/v184r3/.*
 qa/v184r3/**/.*
 versions/1.8.4-r3/.*
+
+# Combat revision build intermediates.
+qa/v184r4/assets.bin
+qa/v184r4/soundtrack.bank
+qa/v184r4/evidence/*.pcm
+qa/v184r4/evidence/*.ima
+qa/v184r4/evidence/*.ppm
+qa/v184r4/evidence/*.wav
+qa/v184r4/evidence/*.bin
+qa/v184r4/evidence/*.log
+qa/v184r4/source/*.SFO
+qa/v184r4/.*
+qa/v184r4/**/.*
+versions/1.8.4-r4/.*

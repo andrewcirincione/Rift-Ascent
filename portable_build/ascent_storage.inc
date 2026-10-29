@@ -109,6 +109,7 @@ int ascent_resume(Game*g,int slot){
  vb=vb&&b.screen!=DEFEAT&&b.hp>0&&b.ascent.id>dead&&game_validate(&b)&&b.ascent.id&&b.ascent.slot==(unsigned)slot;
  if(!va&&!vb)return 0;
  *g=vb&&(!va||gb>ga)?b:a;unsigned gen=vb&&(!va||gb>ga)?gb:ga;
+ repair_generated_offers(g);
  ascent_slot_info(slot,g,gen);return 1;
 }
 int ascent_checkpoint(Game*g){

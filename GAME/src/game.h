@@ -9,7 +9,7 @@
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
 #define ENEMY_COUNT 59
-#define INTENT_COUNT 27
+#define INTENT_COUNT 31
 #define MAX_RELICS 96
 #define LEGACY_RELIC_CAP 64
 #define MAX_POTIONS 3

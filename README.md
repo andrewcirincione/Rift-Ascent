@@ -2,11 +2,11 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.8.4** (release tag **v1.8.4-r3**). Makes alternate map
-branches offer distinct room sequences, fixes upgraded-card artwork in custom
-loadouts, and sorts character card catalogs by Attack, Skill and Power.
-Also fixes mixed-deck Afterimage, slightly increases enemy damage and adds
-two distinctive elite moves.
+Current version: **1.8.4** (release tag **v1.8.4-r4**). Increases enemy attack
+damage by 30% over r3, balances paired enemies, gives Stone Giant a more active
+rotation, and adds four distinctive enemy moves. Debris no longer appears as
+an obtainable card reward. Retains the distinct map branches, custom-card art,
+sorted catalogs and Afterimage fixes from r3.
 Continues the fresh 1.8-r2 rebuild from 1.71-r2.
 Releases include the complete EBOOT and soundtrack, an installable PSP ZIP,
 source, a combat screenshot and SHA-256 checksums.
@@ -17,10 +17,10 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT`,
 
 ## Source and validation
 
-- [Current patch notes](versions/1.8.4-r3/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v184r3/README.md)
-- Canonical source: `qa/v184r3/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.8.4-r3/EBOOT.PBP` (release tag `v1.8.4-r3`)
+- [Current patch notes](versions/1.8.4-r4/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v184r4/README.md)
+- Canonical source: `qa/v184r4/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.8.4-r4/EBOOT.PBP` (release tag `v1.8.4-r4`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
   Uses 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; the current build has emulator and native validation; physical PSP testing remains unverified.
 

@@ -1,0 +1,414 @@
+PASS all artwork and twelve complete encoded music tracks preserved from v1.8.4-r2
+make: Entering directory '/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v184r4/source'
+psp-gcc -I. -I/workspace/toolchain/pspdev/psp/include -I/workspace/toolchain/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o game.o game.c
+game.c: In function 'game_collection_count':
+game.c:421:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  421 |  if(tab==3)return 26;if(tab==4)return 90;
+      |  ^~
+game.c:421:22: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  421 |  if(tab==3)return 26;if(tab==4)return 90;
+      |                      ^~
+game.c: In function 'map_distinguish_committed_routes':
+game.c:672:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  672 |    if(an&bn)break;aa=an;bb=bn;
+      |    ^~
+game.c:672:19: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  672 |    if(an&bn)break;aa=an;bb=bn;
+      |                   ^~
+game.c: In function 'check_win':
+game.c:957:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  957 |  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
+      |  ^~
+game.c:957:26: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  957 |  if(relic(g,0))heal(g,6);if(relic(g,36))heal(g,3);
+      |                          ^~
+game.c: In function 'game_start_battle':
+game.c:1220:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1220 |     if(i&&candidate==g->enemies[0].art)continue;pool[n++]=candidate;
+      |     ^~
+game.c:1220:49: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1220 |     if(i&&candidate==g->enemies[0].art)continue;pool[n++]=candidate;
+      |                                                 ^~~~
+game.c:1236:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1236 |  if(relic(g,70))g->strength++;if(relic(g,71))g->dexterity++;
+      |  ^~
+game.c:1236:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1236 |  if(relic(g,70))g->strength++;if(relic(g,71))g->dexterity++;
+      |                               ^~
+game.c:1241:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1241 |  if(relic(g,64))g->block+=6;if(relic(g,66))regent_gain_stars(g,3);
+      |  ^~
+game.c:1241:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1241 |  if(relic(g,64))g->block+=6;if(relic(g,66))regent_gain_stars(g,3);
+      |                             ^~
+game.c:1242:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1242 |  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+      |  ^~
+game.c:1242:30: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1242 |  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+      |                              ^~
+game.c: In function 'game_start_turn':
+game.c:1281:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1281 |  if(relic(g,20)&&g->turn%3==0)heal(g,4);if(relic(g,34)&&g->turn%3==0)g->strength++;
+      |  ^~
+game.c:1281:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1281 |  if(relic(g,20)&&g->turn%3==0)heal(g,4);if(relic(g,34)&&g->turn%3==0)g->strength++;
+      |                                         ^~
+game.c: In function 'game_enemy_intent_text':
+game.c:1366:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1366 |  if(!out||cap<=0)return;out[0]=0;
+      |  ^~
+game.c:1366:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1366 |  if(!out||cap<=0)return;out[0]=0;
+      |                         ^~~
+In file included from game.c:1597:
+ninja_engine.inc: In function 'card_character':
+ninja_engine.inc:36:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   36 |  if(id<NINJA_FIRST)return CHAR_WARDEN;if(id<NINJA_LAST)return CHAR_NIGHTSHADE;
+      |  ^~
+ninja_engine.inc:36:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   36 |  if(id<NINJA_FIRST)return CHAR_WARDEN;if(id<NINJA_LAST)return CHAR_NIGHTSHADE;
+      |                                       ^~
+ninja_engine.inc: In function 'ninja_process':
+ninja_engine.inc:229:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  229 |  if(ninja_processing)return;ninja_processing=1;
+      |  ^~
+ninja_engine.inc:229:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  229 |  if(ninja_processing)return;ninja_processing=1;
+      |                             ^~~~~~~~~~~~~~~~
+ninja_engine.inc: In function 'ninja_play_from_hand':
+ninja_engine.inc:285:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  285 |  for(int i=index;i+1<g->hand_count;i++)g->hand[i]=g->hand[i+1];g->hand_count--;
+      |  ^~~
+ninja_engine.inc:285:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  285 |  for(int i=index;i+1<g->hand_count;i++)g->hand[i]=g->hand[i+1];g->hand_count--;
+      |                                                                ^
+ninja_engine.inc: In function 'ninja_start_turn_after':
+ninja_engine.inc:327:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  327 |  for(int i=0;i<g->ninja.nightmare_count;i++)for(int j=0;j<g->ninja.nightmare_n[i];j++)add_generated(g,g->ninja.nightmare_raw[i]&~CARD_INSTANCE_MASK);g->ninja.nightmare_count=0;
+      |  ^~~
+ninja_engine.inc:327:150: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  327 |  for(int i=0;i<g->ninja.nightmare_count;i++)for(int j=0;j<g->ninja.nightmare_n[i];j++)add_generated(g,g->ninja.nightmare_raw[i]&~CARD_INSTANCE_MASK);g->ninja.nightmare_count=0;
+      |                                                                                                                                                      ^
+In file included from game.c:1598:
+relics151.inc: In function 'r151_skip_reward':
+relics151.inc:37:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   37 |  if(!relic(g,60))return;g->gold+=8;
+      |  ^~
+relics151.inc:37:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   37 |  if(!relic(g,60))return;g->gold+=8;
+      |                         ^
+In file included from game.c:1599:
+regent_engine.inc: In function 'game_shows_stars':
+regent_engine.inc:28:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   28 |  if(!g)return 0;if(g->character==CHAR_REGENT)return 1;
+      |  ^~
+regent_engine.inc:28:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   28 |  if(!g)return 0;if(g->character==CHAR_REGENT)return 1;
+      |                 ^~
+regent_engine.inc: In function 'regent_created':
+regent_engine.inc:39:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   39 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.created=MIN(1000000,g->regent.created+1);
+      |  ^~
+regent_engine.inc:39:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   39 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.created=MIN(1000000,g->regent.created+1);
+      |                                                                ^
+regent_engine.inc: In function 'regent_on_draw':
+regent_engine.inc:43:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   43 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int id=CARD_ID(raw),k=CARD_INSTANCE(raw);
+      |  ^~
+regent_engine.inc:43:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   43 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int id=CARD_ID(raw),k=CARD_INSTANCE(raw);
+      |                                                                ^~~
+regent_engine.inc: In function 'regent_forge':
+regent_engine.inc:68:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   68 |  if(n<=0)return;int factor=1+MIN(20,RP(g,R_HAMMER_TIME));g->regent.forge=MIN(1000000,g->regent.forge+n*factor);
+      |  ^~
+regent_engine.inc:68:17: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   68 |  if(n<=0)return;int factor=1+MIN(20,RP(g,R_HAMMER_TIME));g->regent.forge=MIN(1000000,g->regent.forge+n*factor);
+      |                 ^~~
+regent_engine.inc: In function 'regent_foreign_finish':
+regent_engine.inc:152:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  152 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int type=cards[CARD_ID(raw)].type;
+      |  ^~
+regent_engine.inc:152:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  152 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int type=cards[CARD_ID(raw)].type;
+      |                                                                ^~~
+regent_engine.inc: In function 'regent_process':
+regent_engine.inc:163:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  163 |  if(regent_processing||g->ninja.task_count)return;regent_processing=1;
+      |  ^~
+regent_engine.inc:163:51: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  163 |  if(regent_processing||g->ninja.task_count)return;regent_processing=1;
+      |                                                   ^~~~~~~~~~~~~~~~~
+regent_engine.inc: In function 'regent_play':
+regent_engine.inc:224:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  224 |  if(cost==-1)cost=g->energy;if(scost==-1)scost=g->regent.stars;
+      |  ^~
+regent_engine.inc:224:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  224 |  if(cost==-1)cost=g->energy;if(scost==-1)scost=g->regent.stars;
+      |                             ^~
+regent_engine.inc: In function 'regent_choose':
+regent_engine.inc:233:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  233 |  if(g->screen!=REGENT_CHOICE)return;int kind=g->regent.choice_kind,source=g->regent.choice_raw,up=CARD_UP(source),e=g->regent.choice_target,depth=g->regent.choice_depth;
+      |  ^~
+regent_engine.inc:233:37: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  233 |  if(g->screen!=REGENT_CHOICE)return;int kind=g->regent.choice_kind,source=g->regent.choice_raw,up=CARD_UP(source),e=g->regent.choice_target,depth=g->regent.choice_depth;
+      |                                     ^~~
+regent_engine.inc:233:141: warning: unused variable 'depth' [-Wunused-variable]
+  233 |  if(g->screen!=REGENT_CHOICE)return;int kind=g->regent.choice_kind,source=g->regent.choice_raw,up=CARD_UP(source),e=g->regent.choice_target,depth=g->regent.choice_depth;
+      |                                                                                                                                             ^~~~~
+regent_engine.inc: In function 'regent_before_turn':
+regent_engine.inc:256:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  256 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.stars_gained=g->regent.skills=g->regent.nostalgia_used=g->regent.void_used=0;
+      |  ^~
+regent_engine.inc:256:64: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  256 |  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.stars_gained=g->regent.skills=g->regent.nostalgia_used=g->regent.void_used=0;
+      |                                                                ^
+game.c: In function 'resolve_card':
+game.c:1871:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1871 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+      |     ^~
+game.c:1871:58: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1871 |     if(g->enemies[enemy].hp>0)deal(g,enemy,4+2*up+added);break;
+      |                                                          ^~~~~
+game.c: In function 'game_play_card':
+game.c:1936:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1936 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=ASCENT_CARD_FIRST){resolve_card(g,index,enemy,-1);return;}if(index<g->hand_count&&(g->character==CHAR_REGENT||CARD_ID(g->hand[index])>=REGENT_FIRST)){regent_play(g,index,enemy);return;}if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
+      |  ^~
+game.c:1936:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1936 |  if(index<0)return;if(index<g->hand_count&&CARD_ID(g->hand[index])>=ASCENT_CARD_FIRST){resolve_card(g,index,enemy,-1);return;}if(index<g->hand_count&&(g->character==CHAR_REGENT||CARD_ID(g->hand[index])>=REGENT_FIRST)){regent_play(g,index,enemy);return;}if(index<g->hand_count&&CARD_ID(g->hand[index])>=NINJA_FIRST){ninja_play_from_hand(g,index,enemy);return;}resolve_card(g,index,enemy,-1);
+      |                    ^~
+In file included from game.c:2083:
+events150.inc: In function 'event_next_fits':
+events150.inc:141:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  141 |  for(int i=0;i<5;i++)if(g->revision182.next_combat[i]+add[i]>limit[i])return 0;return 1;
+      |  ^~~
+events150.inc:141:80: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  141 |  for(int i=0;i<5;i++)if(g->revision182.next_combat[i]+add[i]>limit[i])return 0;return 1;
+      |                                                                                ^~~~~~
+game.c: In function 'game_discard_potion':
+game.c:2097:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+ 2097 |  for(int i=index;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;msg(g,"Potion discarded.");
+      |  ^~~
+game.c:2097:72: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+ 2097 |  for(int i=index;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;msg(g,"Potion discarded.");
+      |                                                                        ^
+game.c: In function 'game_action':
+game.c:2184:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+ 2184 |   else if(b==BTN_BACK){g->screen=ASCENT_SLOTS_VIEW;g->scroll=1+g->revision184.custom;g->selection=g->master_index;}break;
+      |   ^~~~
+game.c:2184:116: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+ 2184 |   else if(b==BTN_BACK){g->screen=ASCENT_SLOTS_VIEW;g->scroll=1+g->revision184.custom;g->selection=g->master_index;}break;
+      |                                                                                                                    ^~~~~
+game.c:2191:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+ 2191 |   else if(b==BTN_BACK)regent_choose(g,0,1);break;}
+      |   ^~~~
+game.c:2191:44: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+ 2191 |   else if(b==BTN_BACK)regent_choose(g,0,1);break;}
+      |                                            ^~~~~
+game.c:2198:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+ 2198 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
+      |   ^~~~
+game.c:2198:43: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+ 2198 |   else if(b==BTN_BACK)ninja_choose(g,0,1);break;}
+      |                                           ^~~~~
+In file included from game.c:2520:
+save_legacy.inc: In function 'load_legacy_run':
+save_legacy.inc:113:2: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  113 |  for(int i=IC_HOURGLASS;i<=IC_COVENANT;i++)out->ic[i]=0;out->ic[47]=0;
+      |  ^~~
+save_legacy.inc:113:57: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  113 |  for(int i=IC_HOURGLASS;i<=IC_COVENANT;i++)out->ic[i]=0;out->ic[47]=0;
+      |                                                         ^~~
+In file included from game.c:2521:
+save_v22.inc: In function 'migrate_card22':
+save_v22.inc:5:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+    5 |  if(raw<0)return raw;int instance=(raw>>21)&1023,tag=0;
+      |  ^~
+save_v22.inc:5:22: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+    5 |  if(raw<0)return raw;int instance=(raw>>21)&1023,tag=0;
+      |                      ^~~
+game.c: In function 'status_entries':
+game.c:2741:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2741 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+      |   ^~
+game.c:2741:63: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2741 |   if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"POWERS");n++;
+      |                                                               ^
+game.c:2743:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2743 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+      |    ^~
+game.c:2743:54: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2743 |    if(n==wanted&&out&&cap>0)power_line(g,id,out,cap);n++;
+      |                                                      ^
+game.c: In function 'game_status_line':
+game.c:2752:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 2752 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+      |  ^~
+game.c:2752:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 2752 |  if(out&&cap>0)out[0]=0;status_entries(g,index,out,cap);
+      |                         ^~~~~~~~~~~~~~
+In file included from card_preview.inc:69,
+                 from game.c:2755:
+ninja_preview.inc: In function 'ninja_replace_value':
+ninja_preview.inc:5:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+    5 |  if(*p<'0'||*p>'9')return;char*end=p;while(*end>='0'&&*end<='9')end++;
+      |  ^~
+ninja_preview.inc:5:27: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+    5 |  if(*p<'0'||*p>'9')return;char*end=p;while(*end>='0'&&*end<='9')end++;
+      |                           ^~~~
+card_preview.inc: In function 'game_card_description_now':
+card_preview.inc:89:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   89 |   if(!seen||p.low[e]<low)low=p.low[e];if(!seen||p.high[e]>high)high=p.high[e];seen=1;
+      |   ^~
+card_preview.inc:89:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   89 |   if(!seen||p.low[e]<low)low=p.low[e];if(!seen||p.high[e]>high)high=p.high[e];seen=1;
+      |                                       ^~
+card_preview.inc: In function 'game_enemy_status_line':
+card_preview.inc:139:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  139 |  if(out&&cap>0)out[0]=0;enemy_status_entries(g,e,index,out,cap);
+      |  ^~
+card_preview.inc:139:25: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  139 |  if(out&&cap>0)out[0]=0;enemy_status_entries(g,e,index,out,cap);
+      |                         ^~~~~~~~~~~~~~~~~~~~
+In file included from game.c:2757:
+ascent_storage.inc: In function 'ascent_read':
+ascent_storage.inc:20:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   20 |  if(ok)*generation=head[2];return ok;
+      |  ^~
+ascent_storage.inc:20:28: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   20 |  if(ok)*generation=head[2];return ok;
+      |                            ^~~~~~
+ascent_storage.inc: In function 'ascent_write':
+ascent_storage.inc:27:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   27 |  if(fclose(f))ok=0;return ok;
+      |  ^~
+ascent_storage.inc:27:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   27 |  if(fclose(f))ok=0;return ok;
+      |                    ^~~~~~
+ascent_storage.inc: In function 'ascent_card_available':
+ascent_storage.inc:166:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  166 |  if(id<0||id>=ASCENT_CARD_LAST)return 0;if(id<ASCENT_CARD_FIRST)return 1;
+      |  ^~
+ascent_storage.inc:166:41: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  166 |  if(id<0||id>=ASCENT_CARD_LAST)return 0;if(id<ASCENT_CARD_FIRST)return 1;
+      |                                         ^~
+ascent_storage.inc: In function 'ascent_unlock_cards':
+ascent_storage.inc:189:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  189 |  if(!n)return;int which=rnd(g,n);
+      |  ^~
+ascent_storage.inc:189:15: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  189 |  if(!n)return;int which=rnd(g,n);
+      |               ^~~
+In file included from game.c:2758:
+custom_run.inc: In function 'custom_card_tab':
+custom_run.inc:7:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+    7 |  if(id<NINJA_FIRST)return 0;if(id<NINJA_LAST)return 1;return 2;
+      |  ^~
+custom_run.inc:7:29: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+    7 |  if(id<NINJA_FIRST)return 0;if(id<NINJA_LAST)return 1;return 2;
+      |                             ^~
+custom_run.inc: In function 'custom_limit':
+custom_run.inc:38:10: warning: suggest parentheses around '&&' within '||' [-Wparentheses]
+   38 |  if(cards&&tab==3||!cards&&tab>=2)return custom_copies(g,tab,g->revision184.item);
+      |     ~~~~~^~~~~~~~
+custom_run.inc: In function 'custom_action':
+custom_run.inc:72:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   72 |   if(b==BTN_UP)g->selection=(g->selection+2)%3;if(b==BTN_DOWN)g->selection=(g->selection+1)%3;
+      |   ^~
+custom_run.inc:72:48: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   72 |   if(b==BTN_UP)g->selection=(g->selection+2)%3;if(b==BTN_DOWN)g->selection=(g->selection+1)%3;
+      |                                                ^~
+custom_run.inc:75:3: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+   75 |   else if(b==BTN_OK&&g->selection==2){unsigned seed=g->rng;if(ascent_forget(g))game_new(g,seed);else msg(g,"Could not discard the slot. Try again.");}return 1;
+      |   ^~~~
+custom_run.inc:75:151: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+   75 |   else if(b==BTN_OK&&g->selection==2){unsigned seed=g->rng;if(ascent_forget(g))game_new(g,seed);else msg(g,"Could not discard the slot. Try again.");}return 1;
+      |                                                                                                                                                       ^~~~~~
+custom_run.inc:79:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   79 |  if(b==BTN_LEFT)g->selection=MAX(0,g->selection-1);if(b==BTN_RIGHT)g->selection=MIN(MAX(0,n-1),g->selection+1);
+      |  ^~
+custom_run.inc:79:52: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   79 |  if(b==BTN_LEFT)g->selection=MAX(0,g->selection-1);if(b==BTN_RIGHT)g->selection=MIN(MAX(0,n-1),g->selection+1);
+      |                                                    ^~
+custom_run.inc:80:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   80 |  if(b==BTN_UP)g->selection=MAX(0,g->selection-3);if(b==BTN_DOWN)g->selection=MIN(MAX(0,n-1),g->selection+3);
+      |  ^~
+custom_run.inc:80:50: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   80 |  if(b==BTN_UP)g->selection=MAX(0,g->selection-3);if(b==BTN_DOWN)g->selection=MIN(MAX(0,n-1),g->selection+3);
+      |                                                  ^~
+In file included from game.c:2759:
+ascent_flow.inc: In function 'ascent_action':
+ascent_flow.inc:57:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   57 |   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
+      |   ^~
+ascent_flow.inc:57:66: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   57 |   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
+      |                                                                  ^~~~~~
+In file included from game.c:2760:
+expedition_flow.inc: In function 'expedition_action':
+expedition_flow.inc:81:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   81 |   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
+      |   ^~
+expedition_flow.inc:81:66: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   81 |   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
+      |                                                                  ^~~~~~
+expedition_flow.inc:83:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   83 |   if(b==BTN_OK&&++g->selection>=3)expedition_boss_spoils(g);return 1;
+      |   ^~
+expedition_flow.inc:83:61: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   83 |   if(b==BTN_OK&&++g->selection>=3)expedition_boss_spoils(g);return 1;
+      |                                                             ^~~~~~
+game.c: At top level:
+game.c:448:12: warning: 'card_reward' defined but not used [-Wunused-function]
+  448 | static int card_reward(Game*g){return reward_of_rarity(g,roll_rarity(g,3,34,0,0),-1,-1);}
+      |            ^~~~~~~~~~~
+psp-gcc -I. -I/workspace/toolchain/pspdev/psp/include -I/workspace/toolchain/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/toolchain/pspdev/psp/lib -L/workspace/toolchain/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128 -Wl,-zmax-page-size=128  ascent_paths.o psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf
+psp-fixup-imports rift_ascent_crt_free.elf
+psp-strip rift_ascent_crt_free.elf -o rift_ascent_crt_free_strip.elf
+pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
+	ICON1.PMF NULL PIC1.PNG  \
+	SND0.AT3  rift_ascent_crt_free_strip.elf NULL
+[0]        324 bytes | PARAM.SFO
+[1]      16905 bytes | ICON0.PNG
+[2]     239616 bytes | ICON1.PMF
+[3]          0 bytes | NULL
+[4]      60202 bytes | PIC1.PNG
+[5]     231696 bytes | SND0.AT3
+[6]    6917088 bytes | rift_ascent_crt_free_strip.elf
+[7]          0 bytes | NULL
+rm -f rift_ascent_crt_free_strip.elf
+make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v184r4/source'
+/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:40: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for rr,gg,bb,aa in art.getdata():
+/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:63: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for px in im.getdata():
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [5486048]
+ART REUSE: ra_title_bg offset= 5486048 length= 261120
+MATCH rift_hero full-length candidates [5775328]
+ART REUSE: rift_hero offset= 5775328 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
+PASS PSP first-load module-info locator: 0x8804000 -> ELF file offset 0x4d760
+qa/v184r4/source/EBOOT.PBP
+  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
+  LoadExecForUser 0x40090000 NIDs 0x05572a5f
+  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324, 0xf27a9c51
+  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
+  LoadExecForUser 0x40090000 NIDs 0x4ac57943
+  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
+  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
+  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
+  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
+PASS: no kernel-only import libraries
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 7697248
+elf_size: 6917088
+segments: 2
+static_memory: 11674688
+resident_span: 11674944
+conservative_startup_bytes: 18592032
+sha256: 1807d897c174fe51410bf0af164c09a004d37c2781443f7ceec192cbc5c6c97e
+98395603 d640c98ba4dc8acbae978fa6f4a70ac3938f316bf9794830d350a7f4190865a7

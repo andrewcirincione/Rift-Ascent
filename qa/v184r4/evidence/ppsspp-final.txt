@@ -1,0 +1,55 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE stone
+SHOT stone-turn-1-intent
+SHOT stone-turn-1-after
+PASS TURN stone 1 {'intent': 24, 'shown': 7, 'hp': 73, 'energy': 3, 'enemy_block': 5, 'vulnerable': 0, 'poison': 0}
+SHOT stone-turn-2-intent
+SHOT stone-turn-2-after
+PASS TURN stone 2 {'intent': 10, 'shown': 18, 'hp': 55, 'energy': 3, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+SHOT stone-turn-3-intent
+SHOT stone-turn-3-after
+PASS TURN stone 3 {'intent': 21, 'shown': 0, 'hp': 55, 'energy': 3, 'enemy_block': 5, 'vulnerable': 0, 'poison': 0}
+SHOT stone-turn-4-intent
+SHOT stone-turn-4-after
+PASS TURN stone 4 {'intent': 0, 'shown': 16, 'hp': 39, 'energy': 3, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+SHOT stone-resumed
+FIXTURE combat-1
+SHOT combat-1-turn-1-intent
+SHOT combat-1-turn-1-after
+PASS TURN combat-1 1 {'intent': 27, 'shown': 5, 'hp': 75, 'energy': 3, 'enemy_block': 4, 'vulnerable': 0, 'poison': 0}
+FIXTURE combat-2
+SHOT combat-2-turn-1-intent
+SHOT combat-2-turn-1-after
+PASS TURN combat-2 1 {'intent': 28, 'shown': 9, 'hp': 73, 'energy': 2, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+FIXTURE combat-3
+SHOT combat-3-turn-1-intent
+SHOT combat-3-turn-1-after
+PASS TURN combat-3 1 {'intent': 29, 'shown': 0, 'hp': 78, 'energy': 3, 'enemy_block': 5, 'vulnerable': 0, 'poison': 1}
+FIXTURE combat-4
+SHOT combat-4-turn-1-intent
+SHOT combat-4-turn-1-after
+PASS TURN combat-4 1 {'intent': 30, 'shown': 17, 'hp': 63, 'energy': 3, 'enemy_block': 0, 'vulnerable': 1, 'poison': 0}
+FIXTURE combat-5
+SHOT combat-5-turn-1-intent
+SHOT combat-5-turn-1-after
+PASS TURN combat-5 1 {'intent': 0, 'shown': 9, 'hp': 71, 'energy': 3, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+FIXTURE combat-6
+SHOT combat-6-turn-1-intent
+SHOT combat-6-turn-1-after
+PASS TURN combat-6 1 {'intent': 10, 'shown': 49, 'hp': 31, 'energy': 3, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+FIXTURE combat-7
+SHOT combat-7-turn-1-intent
+SHOT combat-7-turn-1-after
+PASS TURN combat-7 1 {'intent': 0, 'shown': 7, 'hp': 66, 'energy': 3, 'enemy_block': 0, 'vulnerable': 0, 'poison': 0}
+SHOT debris-offer-repaired
+PASS actual slot resume repairs an old unclaimed Debris reward and preserves the other two cards
+FIXTURE proxy-energy
+SHOT proxy-energy-before
+SHOT proxy-energy-bonus
+SHOT proxy-energy-reset
+PASS Hegemony+ and Refine Blade+ played through controller input: 7 Energy next turn, preserved by Save & Quit, then 3 on each following turn
+FIXTURE stone
+SHOT release-combat
+PASS final release EBOOT: Stone Giant four-turn rotation, four new enemy moves, ordinary/boss damage, intent icons and combat save/resume; zero asset errors or memory faults
+SHA256 d640c98ba4dc8acbae978fa6f4a70ac3938f316bf9794830d350a7f4190865a7

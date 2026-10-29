@@ -387,7 +387,7 @@ static int solo_reward_eligible(int id){
 static int combat_reward_eligible(int id){
  return solo_reward_eligible(id)&&id!=R_STRIKE_REGENT&&id!=R_DEFEND_REGENT&&
    id!=R_VENERATE&&id!=R_FALLING_STAR&&id!=R_MINION_STRIKE&&id!=R_MINION_DIVE_BOMB&&
-   id!=R_MINION_SACRIFICE&&id!=R_SOVEREIGN_BLADE;
+   id!=R_MINION_SACRIFICE&&id!=R_SOVEREIGN_BLADE&&id!=R_DEBRIS;
 }
 int game_collection_unlock_count(int tab){return tab==4?10:20;}
 static int collection_base_card(int tab,int id){
@@ -454,6 +454,22 @@ static void fill_rewards(Game*g){
   int upgraded=relic(g,13)||(rare<2&&rnd(g,100)<MIN(2,g->act-1)*25);
   g->reward[i]=c|(upgraded?UPBIT:0);
  }
+}
+static void repair_generated_offers(Game*g){
+ /* Keep old saves and already-owned cards intact, replacing only unclaimed
+    Debris offers produced when its legacy rarity was mistaken for Ancient. */
+ int screen=g->screen;
+ if(screen==DECK_VIEW||screen==POTION_VIEW||screen==RELIC_VIEW)screen=g->prior_screen;
+ if((screen==REWARD||screen==REWARD_PREVIEW)&&!g->v151.card_done){
+  for(int i=0;i<3;i++)if(CARD_ID(g->reward[i])==R_DEBRIS)
+   g->reward[i]=reward_of_rarity(g,3,CARD_ID(g->reward[(i+1)%3]),CARD_ID(g->reward[(i+2)%3]))|(g->reward[i]&UPBIT);
+ }
+ if(screen==SHOP)for(int i=0;i<3;i++)if(g->shop_cards[i]>=0&&CARD_ID(g->shop_cards[i])==R_DEBRIS)
+  g->shop_cards[i]=reward_of_rarity(g,3,-1,-1)|(g->shop_cards[i]&UPBIT);
+ if(screen==EVENT&&(g->effect_turn==2||g->effect_turn==6||g->effect_turn==17||g->effect_turn==34))
+  for(int i=0;i<(g->effect_turn==17?1:2);i++)if(CARD_ID(g->reward[i])==R_DEBRIS)g->reward[i]=reward_of_rarity(g,3,-1,-1)|(g->reward[i]&UPBIT);
+ if((screen==EXPEDITION_STORY||screen==EXPEDITION_GIFT)&&!g->expedition.gift_kind&&CARD_ID(g->expedition.gift)==R_DEBRIS)
+  g->expedition.gift=reward_of_rarity(g,3,-1,-1)|(g->expedition.gift&UPBIT);
 }
 static void add_relic(Game*g,int id){if(id<0||id>=RELIC_COUNT)return;if(id==NR_DRAKE&&!g->revision184.custom){for(int i=0;i<g->relic_count;i++)if(game_relic_id(g,i)==NR_SNAKE){*relic_slot(g,i)=NR_DRAKE;return;}}if(id==30)id=7;if(id>=37&&id<=39){if(id==37)g->permanent_strength+=2;else if(id==38){g->maxhp+=10;g->hp=g->maxhp;}else if(id==39)g->gold+=150;return;}if(g->relic_count>=MAX_RELICS||(!g->revision184.custom&&relic(g,id)))return;*relic_slot(g,g->relic_count++)=id;if(id==4){g->maxhp+=14;g->hp+=14;}if(id==31){g->maxhp+=12;g->hp=g->maxhp;}if(id==32)g->gold+=100;if(id==11){g->max_energy++;g->maxhp=MAX(1,g->maxhp-12);g->hp=MIN(g->hp,g->maxhp);}if(id==25)g->max_energy++;if(id==72){g->maxhp+=10;g->hp+=10;}if(id==85){g->maxhp+=8;g->hp+=8;}}
 static int random_relic_except(Game*g,int excluded){
@@ -968,7 +984,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Iron Wight",38,9,0,{0,3,1,0}},
  {"Grave Knight",53,11,0,{0,1,10,0}},
  {"Brine Witch",50,12,0,{6,0,2,1}},
- {"Stone Giant",87,13,1,{1,10,21,4}},
+ {"Stone Giant",87,13,1,{24,10,21,0}},
  {"Fallen Warden",155,18,1,{1,18,10,22}},
  {"THE HOLLOW KING",300,23,2,{4,10,22,20}},
  {"Cinder Hound",33,9,0,{7,0,6,0}},
@@ -976,13 +992,13 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Glimmer Moth",29,8,0,{8,2,0,9}},
  {"Oathbreaker",42,10,0,{4,0,0,10}},
  {"Ember Seer",78,12,1,{5,19,9,18}},
- {"Bone Captain",85,11,1,{20,7,18,3}},
+ {"Bone Captain",85,11,1,{27,7,18,3}},
  {"THE FURNACE MAW",168,15,2,{1,19,10,4}},
  {"Rust Reaver",56,12,0,{0,10,1,0}},
  {"Sable Lurker",52,12,0,{7,8,0,2}},
  {"Mire Oracle",50,11,0,{6,9,5,0}},
  {"Wound Collector",62,12,0,{12,0,3,4}},
- {"Chain Keeper",66,14,0,{8,0,1,7}},
+ {"Chain Keeper",66,14,0,{28,0,1,7}},
  {"Drowned Penitent",53,12,0,{13,2,0,9}},
  {"Ossuary Beast",126,15,1,{1,7,23,10}},
  {"Storm Golem",143,16,1,{13,16,26,21}},
@@ -997,7 +1013,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Twilight Shade",88,18,0,{8,6,2,7}},
  {"Infernal Colossus",173,19,1,{4,19,10,21}},
  {"Spectral Marshal",163,19,1,{20,3,7,22}},
- {"Rift Behemoth",185,20,1,{1,10,23,7}},
+ {"Rift Behemoth",185,20,1,{1,10,30,7}},
  {"Gallows Stalker",34,8,0,{0,15,1,0}},
  {"Candle Wretch",32,8,0,{16,0,2,1}},
  {"Sepulcher Guard",62,12,0,{15,1,0,17}},
@@ -1005,7 +1021,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Veil Duelist",88,17,0,{14,0,16,1}},
  {"Tomb Cantor",94,16,0,{17,0,6,14}},
  {"Oathless Lancer",90,12,1,{14,15,18,16}},
- {"Cathedral Horror",148,17,1,{17,23,16,21}},
+ {"Cathedral Horror",148,17,1,{29,23,16,21}},
  {"THE UNMAKER",340,22,2,{1,11,10,4}},
  {"THE UNBEGOTTEN",610,31,2,{13,16,11,10}},
  {"Crown Eater",174,19,1,{22,7,21,18}},
@@ -1041,8 +1057,8 @@ static void enemy_intent(Game*g,Enemy *e){
     keeps some danger while always showing the actual intended move. */
  if(g->turn==0&&(e->intent==4||e->intent==7||e->intent==10||e->intent==11)&&
     (route_hash(g->seed^(unsigned)e->art*101u^(unsigned)g->floor*37u)&7u))e->intent=0;
- if(e->art!=45&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||(e->intent>=20&&e->intent<=23)||e->intent==25)&&
-    route_hash(g->seed^(unsigned)e->art*313u^(unsigned)g->floor*101u^(unsigned)g->turn*919u)%100u<4u)e->intent=0;
+ if(e->art!=45&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||(e->intent>=20&&e->intent<=23)||e->intent==25||e->intent==29)&&
+    route_hash(g->seed^(unsigned)e->art*313u^(unsigned)g->floor*101u^(unsigned)g->turn*919u)%100u<9u)e->intent=0;
  /* A few basic strikes split their value between damage and protection.
     This adds mixed intents without increasing the number of attacking turns. */
  if(e->intent==0&&route_hash(g->seed^(unsigned)e->art*727u^(unsigned)g->floor*379u^(unsigned)g->turn*1429u)%10u==0)e->intent=24;
@@ -1052,7 +1068,7 @@ static void enemy_intent(Game*g,Enemy *e){
 }
 static const char *intent_titles[INTENT_COUNT]={
  "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
- "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH"
+ "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH","BONE BULWARK","CHAIN LASH","GRAVE CHOIR","RIFT REND"
 };
 static const char *intent_details[INTENT_COUNT]={
  "One direct hit. Block reduces its damage.",
@@ -1081,7 +1097,11 @@ static const char *intent_details[INTENT_COUNT]={
  "Adds 2 Poison and one Daze to your discard pile. No direct hit.",
  "A half-strength hit and gains half the normal Guard Block.",
  "Gains half the normal Guard Block and adds a Burn to your discard pile.",
- "Two small attacks; reduces your next turn Energy by 1."
+ "Two small attacks; reduces your next turn Energy by 1.",
+ "A light attack; every living enemy gains 4 Block.",
+ "Removes 3 of your Block, makes a light attack, then drains 1 Energy next turn.",
+ "All living enemies gain 5 Block; applies 2 Poison to you.",
+ "A light attack; applies 2 Vulnerable and adds a Daze to discard."
 };
 const char *game_intent_title(int n){return n>=0&&n<INTENT_COUNT?intent_titles[n]:"UNKNOWN";}
 const char *game_intent_description(int n){return n>=0&&n<INTENT_COUNT?intent_details[n]:"No information";}
@@ -1302,7 +1322,7 @@ static int enemy_base_damage(const Enemy *e){
  case 0:return MAX(0,v+e->strength);
  case 2:return MAX(0,v/2+e->strength);
  case 3:return MAX(0,v+e->strength);
- case 5:case 6:case 8:case 18:case 24:return MAX(0,v/2+e->strength);
+ case 5:case 6:case 8:case 18:case 24:case 27:case 28:case 30:return MAX(0,v/2+e->strength);
  case 7:return MAX(0,v/2+e->strength);
  case 10:return MAX(0,v+v/4+e->strength);
  case 12:case 14:case 15:return MAX(0,v/2+e->strength);
@@ -1311,12 +1331,19 @@ static int enemy_base_damage(const Enemy *e){
  }
 }
 static int enemy_raw_damage(const Enemy *e){
- /* A modest damage-only increase, rounded per hit. Do not strengthen enemy
-    shields/healing or impose a minimum +1 on their smallest attacks. */
- return (int)(((long long)enemy_base_damage(e)*106+50)/100);
+ /* Increase the published r3 per-hit damage by 30%, rounded once more.
+    Preserve its rounding so this is relative to that build, not the old base. */
+ int previous=(int)(((long long)enemy_base_damage(e)*106+50)/100);
+ return (int)(((long long)previous*130+50)/100);
 }
-static int enemy_attack_value(const Enemy *e){
+static int enemy_encounter_damage(const Game*g,const Enemy*e){
  int n=enemy_raw_damage(e);
+ /* A pair shares the damage budget: retain this reduction for its survivor
+    so killing one foe never unexpectedly raises the other's shown attack. */
+ return g->enemy_count>1?(int)(((long long)n*75+50)/100):n;
+}
+static int enemy_attack_value(const Game*g,const Enemy *e){
+ int n=enemy_encounter_damage(g,e);
  return e->weak?n*3/4:n;
 }
 int game_enemy_intent_hits(const Game *g,int index){
@@ -1327,8 +1354,8 @@ int game_enemy_intent_hits(const Game *g,int index){
 int game_enemy_intent_damage(const Game *g,int index){
  int hits=game_enemy_intent_hits(g,index);
  if(!hits)return 0;
- int n=enemy_attack_value(&g->enemies[index]);
- if(g->enemies[index].weak&&relic(g,NR_KRANE))n=enemy_raw_damage(&g->enemies[index])*3/5;
+ int n=enemy_attack_value(g,&g->enemies[index]);
+ if(g->enemies[index].weak&&relic(g,NR_KRANE))n=enemy_encounter_damage(g,&g->enemies[index])*3/5;
  if(g->ic[IC_COLOSSUS]&&g->enemies[index].vulnerable)n=(n+1)/2;
  if(g->ic[IC_TANK])n*=2;
  if(g->vulnerable)n=n*3/2;
@@ -1369,13 +1396,17 @@ void game_enemy_intent_text(const Game*g,int index,char*out,int cap){
  case 24:snprintf(out,cap,"Deal %d DMG; gain %d Block",total,MAX(1,e->intent_value/2));break;
  case 25:snprintf(out,cap,"Gain %d Block; add Burn to discard",MAX(1,e->intent_value/2));break;
  case 26:snprintf(out,cap,"Deal %d DMG twice; drain 1 Energy next turn",hits?total/hits:0);break;
+ case 27:snprintf(out,cap,"Deal %d DMG; all foes gain 4 Block",total);break;
+ case 28:snprintf(out,cap,"Remove 3 Block; deal %d DMG; drain 1 Energy",total);break;
+ case 29:snprintf(out,cap,"All foes gain 5 Block; apply 2 Poison");break;
+ case 30:snprintf(out,cap,"Deal %d DMG; apply 2 Vulnerable; add Daze",total);break;
  }
 }
 static void enemy_hit(Game*g,Enemy*e,int raw){
  if(e->hp<=0)return;
  if(g->ic[IC_COLOSSUS]&&e->vulnerable)raw=(raw+1)/2;
  if(g->ic[IC_TANK])raw*=2;
- if(e->weak&&relic(g,NR_KRANE)){int full=enemy_raw_damage(e);raw=full*3/5;if(g->ic[IC_COLOSSUS]&&e->vulnerable)raw=(raw+1)/2;if(g->ic[IC_TANK])raw*=2;}
+ if(e->weak&&relic(g,NR_KRANE)){int full=enemy_encounter_damage(g,e);raw=full*3/5;if(g->ic[IC_COLOSSUS]&&e->vulnerable)raw=(raw+1)/2;if(g->ic[IC_TANK])raw*=2;}
  int old_source=combat_fx_source;combat_fx_source=(int)(e-g->enemies);
  damage_player(g,raw);combat_fx_source=old_source;
  if(g->shop_cards[1]>0){
@@ -1460,33 +1491,37 @@ void game_end_turn(Game*g){
   for(int p=0;p<=MIN(1000,g->ninja.v[NS_ACCELERANT])&&e->hp>0&&e->poison>0;p++){record_combat_fx(GFX_PROC,-1,k,e->poison,0);e->hp-=e->poison;e->poison--;}
   if(e->hp<=0)continue;
   switch(e->intent){
-   case 0: {int dmg=enemy_attack_value(e);enemy_hit(g,e,dmg);break;}
+   case 0: {int dmg=enemy_attack_value(g,e);enemy_hit(g,e,dmg);break;}
    case 1:e->block+=e->intent_value;break;
-   case 2:enemy_hit(g,e,enemy_attack_value(e));g->weak=MAX(g->weak,2);break;
-   case 3:enemy_hit(g,e,enemy_attack_value(e));g->vulnerable=MAX(g->vulnerable,2);break;
+   case 2:enemy_hit(g,e,enemy_attack_value(g,e));g->weak=MAX(g->weak,2);break;
+   case 3:enemy_hit(g,e,enemy_attack_value(g,e));g->vulnerable=MAX(g->vulnerable,2);break;
    case 4:e->strength+=2;e->block+=8;break;
-   case 5:enemy_hit(g,e,enemy_attack_value(e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
-   case 6:enemy_hit(g,e,enemy_attack_value(e));g->poison=MIN(12,g->poison+2);break;
-   case 7:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));break;
-   case 8:enemy_hit(g,e,enemy_attack_value(e));g->energy_penalty=MIN(2,g->energy_penalty+1);break;
+   case 5:enemy_hit(g,e,enemy_attack_value(g,e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
+   case 6:enemy_hit(g,e,enemy_attack_value(g,e));g->poison=MIN(12,g->poison+2);break;
+   case 7:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(g,e));break;
+   case 8:enemy_hit(g,e,enemy_attack_value(g,e));g->energy_penalty=MIN(2,g->energy_penalty+1);break;
    case 9:e->hp=MIN(e->maxhp,e->hp+e->maxhp/9+3);e->block+=e->intent_value/2;break;
-   case 10:enemy_hit(g,e,enemy_attack_value(e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
+   case 10:enemy_hit(g,e,enemy_attack_value(g,e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
    case 11:if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=53;e->block+=e->intent_value/2;break;
-   case 12:{int before=g->hp;enemy_hit(g,e,enemy_attack_value(e));e->hp=MIN(e->maxhp,e->hp+MAX(0,before-g->hp));break;}
+   case 12:{int before=g->hp;enemy_hit(g,e,enemy_attack_value(g,e));e->hp=MIN(e->maxhp,e->hp+MAX(0,before-g->hp));break;}
    case 13:e->block+=e->intent_value;e->strength++;break;
-   case 14:{int preserved=g->block;g->block=0;enemy_hit(g,e,enemy_attack_value(e));g->block+=preserved;break;}
-   case 15:g->block=MAX(0,g->block-4);enemy_hit(g,e,enemy_attack_value(e));break;
-   case 16:for(int hit=0;hit<3&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));break;
+   case 14:{int preserved=g->block;g->block=0;enemy_hit(g,e,enemy_attack_value(g,e));g->block+=preserved;break;}
+   case 15:g->block=MAX(0,g->block-4);enemy_hit(g,e,enemy_attack_value(g,e));break;
+   case 16:for(int hit=0;hit<3&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(g,e));break;
    case 17:if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=52;e->block+=e->intent_value/2;break;
-   case 18:enemy_hit(g,e,enemy_attack_value(e));g->weak=MAX(g->weak,2);g->vulnerable=MAX(g->vulnerable,2);break;
-   case 19:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
+   case 18:enemy_hit(g,e,enemy_attack_value(g,e));g->weak=MAX(g->weak,2);g->vulnerable=MAX(g->vulnerable,2);break;
+   case 19:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(g,e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
    case 20:for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0){g->enemies[z].strength++;g->enemies[z].block+=8;}break;
    case 21:e->weak=e->vulnerable=0;e->poison/=2;e->block+=e->intent_value/2;break;
    case 22:g->weak=MAX(g->weak,2);g->energy_penalty=MIN(2,g->energy_penalty+1);break;
    case 23:g->poison=MIN(12,g->poison+2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
-   case 24:enemy_hit(g,e,enemy_attack_value(e));if(e->hp>0)e->block+=MAX(1,e->intent_value/2);break;
+   case 24:enemy_hit(g,e,enemy_attack_value(g,e));if(e->hp>0)e->block+=MAX(1,e->intent_value/2);break;
    case 25:e->block+=MAX(1,e->intent_value/2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
-   case 26:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));if(g->screen==COMBAT)g->energy_penalty=MIN(2,g->energy_penalty+1);break;
+   case 26:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(g,e));if(g->screen==COMBAT)g->energy_penalty=MIN(2,g->energy_penalty+1);break;
+   case 27:enemy_hit(g,e,enemy_attack_value(g,e));for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0)g->enemies[z].block+=4;break;
+   case 28:g->block=MAX(0,g->block-3);enemy_hit(g,e,enemy_attack_value(g,e));if(g->screen==COMBAT)g->energy_penalty=MIN(2,g->energy_penalty+1);break;
+   case 29:for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0)g->enemies[z].block+=5;g->poison=MIN(12,g->poison+2);break;
+   case 30:enemy_hit(g,e,enemy_attack_value(g,e));g->vulnerable=MAX(g->vulnerable,2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
   }
   if(e->block>0)record_combat_fx(GFX_BLOCK,k,k,e->block,0);
   if(g->screen==DEFEAT)return;
@@ -2525,7 +2560,7 @@ int game_load(Game*g,const char*path){
   int invalid=0;for(int i=0;i<3;i++)invalid|=cards[CARD_ID(temp.reward[i])].rarity<2;
   if(invalid)fill_rewards(&temp);
  }
- *g=temp;return 1;
+ repair_generated_offers(&temp);*g=temp;return 1;
 }
 
 /* Persistent, versioned lifetime profile. One result per unique run seed. */

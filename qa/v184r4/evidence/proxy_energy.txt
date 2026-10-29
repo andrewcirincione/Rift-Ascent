@@ -1,0 +1,4 @@
+PASS Hegemony/Refine Blade/Convergence, base/upgraded: 600 previews leave Energy unchanged; delayed Energy applies once, survives save/load, and does not repeat on subsequent turns or after resuming.
+PASS Hegemony+ and Refine Blade+ correctly produce 7 Energy for one turn only; pending Energy never leaks into the next combat.
+PASS Prism Bone grants its 2 Energy once per combat, not each turn; Furnace grants Forge, not Energy.
+PASS supplied Proxy save resumes with 6 Energy, then returns to 3 for three consecutive turns without playing cards; no persistent unexplained Energy reproduced.
