@@ -28,6 +28,7 @@
 #include "rift1310_art.h"
 #include "sound.h"
 #include "ascent_art.h"
+#include "expedition_art.h"
 #include "ascent_dialogue.h"
 #include "rift117_card_fonts.h"
 #include "rift116_intent_icons.h"
@@ -106,7 +107,7 @@ const Game*game_render_audio_state(const Game*g,unsigned tick){
  return game_render_transition_busy(tick)&&tick-r161_transition_tick<r161_transition_length/2?&r161_transition_before:g;
 }
 int game_render_story_input(const Game*g,int key,unsigned tick){
- int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING||ascent_story_screen(g->screen);
+ int scene=g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING||ascent_story_screen(g->screen)||expedition_scene(g->screen);
  if(game_render_transition_busy(tick)){
   if(scene&&key==BTN_OK&&r170_story_queue<3)r170_story_queue++;
   return 0;
@@ -197,10 +198,10 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  if(before->screen==PAUSE_MENU&&after->screen!=PAUSE_MENU){
   fx_transition=0;game_render_begin_transition(before,tick);
  }
- if(before->screen!=after->screen&&(before->screen==ACT_INTRO||after->screen==ACT_INTRO||before->screen==STORY_ACT_BEFORE_BLESSING||after->screen==STORY_ACT_BEFORE_BLESSING||before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS||ascent_story_screen(before->screen)||ascent_story_screen(after->screen))){
+ if(before->screen!=after->screen&&(before->screen==ACT_INTRO||after->screen==ACT_INTRO||before->screen==STORY_ACT_BEFORE_BLESSING||after->screen==STORY_ACT_BEFORE_BLESSING||before->screen==STORY_ACT||before->screen==STORY_BOSS||after->screen==STORY_ACT||after->screen==STORY_BOSS||ascent_story_screen(before->screen)||ascent_story_screen(after->screen)||expedition_scene(before->screen)||expedition_scene(after->screen))){
   fx_transition=0;game_render_begin_transition(before,tick);r161_transition_length=32;
  }
- if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR)){
+ if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR||after->screen==ABOMINATION_AFTER)){
     victory_scene=*after;
     fx_transition=0; /* The finishing clip has its own fade after contact. */
     victory_tick=tick;
@@ -514,6 +515,7 @@ static void r138_player_meter(const Game*g){
  if(g->block>0){rift131_shield(x+143,y+5);snprintf(value,sizeof(value),"%d",g->block);r1310_block_number(x+153,y+10,value);}
 }
 static const uint16_t *rift130_fight(const Game *g){
+ if(g->act==7&&g->battle_type==NODE_BOSS)return expedition_god_arena;
  if(g->act>=4)return g->act==4&&g->ascent.secret&&g->battle_type==NODE_BOSS?ascent_unmaker_arena:ascent_act4_fight;
  int act=CLAMP(g->act-1,0,2),variant=(g->floor+g->lane)&1;
  return r162_world[act][g->battle_type==NODE_BOSS?6:g->battle_type==NODE_ELITE?4+variant:2+variant];
@@ -669,9 +671,11 @@ static void r135_status_icons(const Game*g,int enemy,int x){
 static void r150b_relic_icon(int x,int y,int size,int id){
  /* The oldest forty relic IDs formerly shared one generic icon. Reuse the
     broader themed icon library so old and newly unlocked items belong together. */
- static const unsigned char legacy_art[40]={72,71,70,69,53,64,66,73,68,55,47,63,66,43,61,70,67,69,49,73,64,59,56,64,72,66,45,67,70,68,73,57,60,40,53,71,68,61,72,67};
+ static const unsigned char legacy_art[40]={72,76,70,69,53,64,66,74,68,55,47,85,66,43,61,70,67,69,80,73,64,59,56,64,72,66,45,81,70,68,73,57,60,40,53,71,68,61,79,87};
  if(id>=0&&id<40)id=legacy_art[id];
- if(id>=64&&id<74)r134_blit(x,y,size,size,ascent_relic_art[id-64],80,80,255);
+ static const unsigned char expedition_icons[20]={0,1,2,3,4,5,6,7,2,1,7,4,0,5,3,6,1,2,7,5};
+ if(id>=74&&id<94)r134_blit(x,y,size,size,expedition_relic_art[expedition_icons[id-74]],80,80,255);
+ else if(id>=64&&id<74)r134_blit(x,y,size,size,ascent_relic_art[id-64],80,80,255);
  else if(id==63)r134_blit(x,y,size,size,r160_crown,80,80,255);
  else if(id>=53&&id<63)r134_blit(x,y,size,size,r151_relics[id-53],80,80,255);
  else if(id>=NR_SNAKE&&id<=NR_DRAKE)r134_blit(x,y,size,size,r150b_icons[id-NR_SNAKE],80,80,255);
@@ -962,6 +966,7 @@ static void event_result_screen(const Game*g){
  footer("X CONTINUE  O CONTINUE");
 }
 #include "ascent_ui.inc"
+#include "expedition_ui.inc"
 static void r140_potion_card(const Game*g,int id,int x,int y,int w){
  r134_blit(x,y,w,43,r140_selection,208,28,255);
  ascent_potion_icon(x+15,y+8,27,id);
@@ -1076,7 +1081,7 @@ static void shop_screen(const Game*g){
 
  header(g,"BLACK MARKET / INSPECT BEFORE YOU BUY");
  int discount=0;
- for(int i=0;i<g->relic_count;i++)if(g->relics[i]==6)discount=30;
+ for(int i=0;i<g->relic_count;i++)if(game_relic_id(g,i)==6)discount=30;
  char label[90],caption[140],title[52],cost[24];
  int selected=g->selection,price=0;
  gilded_panel(10,44,230,204,0);
@@ -1162,9 +1167,9 @@ static void relic_screen(const Game*g){
  int first=CLAMP(g->selection-2,0,g->relic_count>6?g->relic_count-6:0);
  for(int i=first;i<g->relic_count&&i<first+6;i++){int y=56+(i-first)*30,chosen=i==g->selection;
   if(chosen)r134_blit(23,y-4,208,28,r140_selection,208,28,255);
-  r134_text(46,y+5,relic_defs[g->relics[i]].name,chosen?WHITE:MUTED,&r134_f9);
+  r134_text(46,y+5,relic_defs[game_relic_id(g,i)].name,chosen?WHITE:MUTED,&r134_f9);
  }
- if(g->relic_count){int id=g->relics[g->selection];r150b_relic_icon(332,59,40,id);r134_wrap(264,111,178,2,13,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(264,144,178,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
+ if(g->relic_count){int id=game_relic_id(g,g->selection);r150b_relic_icon(332,59,40,id);r134_wrap(264,111,178,2,13,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(264,144,178,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
  footer("UP/DOWN BROWSE   X/CIRCLE RETURN");
 }
 static void character_screen(const Game*g){
@@ -1297,7 +1302,7 @@ static void title_screen(const Game*g){
  dark_rect(15,181,235,68,175);
  snprintf(b,sizeof(b),"CARDS  W %d/20   V %d/20   P %d/20",ascent_popcount(a->cards[0]),ascent_popcount(a->cards[1]),ascent_popcount(a->cards[2]));r134_text(25,191,b,GOLD,&r134_f8);
  snprintf(b,sizeof(b),"POTIONS  %d/20     RELICS  %d/10",ascent_popcount(a->potions),ascent_popcount(a->relics));r134_text(25,208,b,WHITE,&r134_f8);
- r134_text(25,230,"RIFT ASCENT 1.8",MUTED,&r134_f8);
+ r134_text(25,230,"RIFT ASCENT 1.8.1",MUTED,&r134_f8);
 
  footer("UP/DOWN CHOOSE     X CONFIRM");
 }
@@ -1400,9 +1405,9 @@ static void inspector(const Game*g){
     int pick=CLAMP(overlay_status_scroll,0,g->relic_count?g->relic_count-1:0),first=CLAMP(pick-2,0,g->relic_count>5?g->relic_count-5:0);
     for(int i=first;i<g->relic_count&&i<first+5;i++){int y=91+(i-first)*27;
       if(i==pick)r134_blit(31,y-5,200,28,r151_selection,420,60,255);
-      r134_text(55,y+3,relic_defs[g->relics[i]].name,i==pick?WHITE:MUTED,&r134_f9);
+      r134_text(55,y+3,relic_defs[game_relic_id(g,i)].name,i==pick?WHITE:MUTED,&r134_f9);
     }
-    if(g->relic_count){int id=g->relics[pick];r150b_relic_icon(251,91,40,id);r134_wrap(301,95,136,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
+    if(g->relic_count){int id=game_relic_id(g,pick);r150b_relic_icon(251,91,40,id);r134_wrap(301,95,136,2,14,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(251,135,186,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
     else r134_text(41,99,"No relics",MUTED,&r134_f9);
  }
  if(overlay_page==5){
@@ -1443,7 +1448,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
   }
   r161_transition_active=0;
  }
- if((g->screen==REWARD||g->screen==RELIC_RESULT||g->screen==VICTORY||g->screen==DEFEAT||g->screen==ASCENT_ENDING||g->screen==ASCENT_TRUE_END||g->screen==ASCENT_SAVE_ERROR)&&victory_replay&&tick>=victory_tick &&
+ if((g->screen==REWARD||g->screen==RELIC_RESULT||g->screen==VICTORY||g->screen==DEFEAT||g->screen==ASCENT_ENDING||g->screen==ASCENT_TRUE_END||g->screen==ASCENT_SAVE_ERROR||g->screen==ABOMINATION_AFTER)&&victory_replay&&tick>=victory_tick &&
     (r1311_finishing?r137_raw_age(tick)<r1311_finish_end():game_render_fx_busy(tick))){
    static Game shot;
    shot=victory_scene;
@@ -1467,6 +1472,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    return;
  }
  pix=pixels;sw=stride;
+ if(expedition_scene(g->screen)){expedition_scene_view(g);return;}
  if(ascent_story_screen(g->screen)){ascent_scene_view(g);return;}
  if(g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING){
   rect(0,0,W,H,RGB(0,0,0));
@@ -1498,6 +1504,8 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case ASCENT_OVERWRITE:ascent_overwrite_view(g);break;
  case ASCENT_OPTIONS:ascent_options_view(g);break;
  case ASCENT_COLLECTION:ascent_collection_view(g);break;
+ case EXPEDITION_GIFT:expedition_gift_view(g);break;
+ case MYSTERY_CARDS:expedition_mystery_view(g);break;
  case ASCENT_CARDS:case ASCENT_POTIONS:case ASCENT_RELIC:ascent_unlock_view(g);break;
  case ASCENT_SAVE_ERROR:ascent_heading("UNLOCKS NOT YET SAVED");r134_wrap(70,95,340,4,15,"The completion is waiting to be saved. Check free space on the Memory Stick and press X to retry.",WHITE,&r134_f10,0);footer("X RETRY SAVE");break;
  case NEW_RUN_CONFIRM:{

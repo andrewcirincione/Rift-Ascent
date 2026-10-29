@@ -1,0 +1,1 @@
+{'samples': 616080, 'frames': 603, 'delay': 1024, 'loop_start': 1024, 'loop_end': 617103, 'bytes': 231696, 'combined_bytes': 471312}

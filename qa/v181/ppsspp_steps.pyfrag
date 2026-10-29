@@ -1,0 +1,45 @@
+ # Seed an isolated QA account; no user save files are touched.
+ if os.environ.get('RIFT_COLD')=='1':
+  await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['ABOMINATION_BEFORE'];await shot('cold-resume-god-before')
+  for _ in range(3):await button('cross')
+  assert await screen()==screens['COMBAT'];assert field(await state(),'act')==7;await shot('cold-resume-god-combat');await audible()
+  print('PASS cold restart of Act 7 cutscene into exact boss fight; saved account and run retained',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
+ if os.environ.get('RIFT_STAGE','all') in ('all','new'):
+  await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['CHARACTER_SELECT'];await button('cross');assert await screen()==screens['ACT_INTRO'];await button('cross');await button('cross');await button('cross');assert await screen()==screens['MAP'];await shot('new-run-map')
+  await button('select');await button('cross');assert await screen()==screens['TITLE'];await button('cross');await button('cross');assert await screen()==screens['MAP']
+  print('PASS actual new run, save-and-quit, slot resume',flush=True)
+ await command('cpu.stepping');await req('memory.write',address=syms['ascent_account'],base64=base64.b64encode((E/'fixture-account.bin').read_bytes()).decode());await command('cpu.resume')
+ if os.environ.get('RIFT_STAGE','all') in ('all','new','rewards'):
+  await fixture('energy');await button('cross');raw=await state();assert field(raw,'ic',L['energy_lock'])==1;e=field(raw,'energy');await button('cross');assert field(await state(),'energy')==e;await button('cross');assert field(await state(),'energy')==e
+  await button('triangle');await button('cross');assert field(await state(),'energy')==e;assert field(await state(),'potion_count')==0;await shot('energy-lock')
+  print('PASS real inputs: Expect a Fight blocks Bloodletting, Offering and Energy potion',flush=True)
+  for c in range(3):
+   await fixture('story-fight-'+str(c));await shot('story-fight-'+str(c))
+   if c==0:os.environ['RIFT_FAST_PRESENTATION']='0'
+   await button('cross');os.environ['RIFT_FAST_PRESENTATION']='1';assert await screen() in (screens['REWARD'],screens['RELIC_RESULT'])
+   if await screen()==screens['RELIC_RESULT']:await button('cross')
+   assert await screen()==screens['REWARD'];await button('circle');assert await screen()==screens['EXPEDITION_STORY'];await shot('story-'+str(c))
+   for _ in range(3):await button('cross')
+   assert await screen()==screens['EXPEDITION_GIFT'];await shot('gift-'+str(c));raw=await state();cards0=field(raw,'deck_count');relics0=field(raw,'relic_count');await button('cross');raw=await state();assert field(raw,'screen')==screens['MAP'];assert field(raw,'deck_count')==cards0+1 or field(raw,'relic_count')==relics0+1
+  print('PASS normal/elite victories naturally roll queued story; all heroes, dialogue, gifts, single collection; first full finisher observed',flush=True)
+  await fixture('mystery-0');await shot('mystery-scene');
+  for _ in range(3):await button('cross')
+  assert await screen()==screens['MYSTERY_CARDS'];await shot('mystery-cards');count=field(await state(),'deck_count');await button('cross');assert await screen()==screens['MAP'] and field(await state(),'deck_count')==count+1
+  await fixture('exhausted');assert field(await state(),'relic_count')>64;await button('cross');assert await screen()==screens['RELIC_RESULT'];assert field(await state(),'reward') in [37,38,39];await shot('exhausted-relic-fallback');await button('cross');assert await screen()==screens['REWARD']
+  await fixture('collection');await shot('base-relic-collection');await button('r');assert field(await state(),'scroll')==0;await button('l');assert field(await state(),'scroll')==5
+  print('PASS foreign rare choice, >64 relic run, repeatable reward after pool exhaustion, six-tab collection navigation',flush=True)
+ if os.environ.get('RIFT_STAGE','all') in ('all','god'):
+  await fixture('god-before-0');await shot('god-before');
+  for _ in range(3):await button('cross')
+  assert await screen()==screens['COMBAT'];raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+L['enemy_art'])[0]==45;assert await val('soundtrack_current')==0;await audible();await shot('god-combat');await button('circle');assert await screen()==screens['COMBAT'];await shot('god-turn-two')
+  await fixture('god-kill-0');await button('cross');assert await screen()==screens['ABOMINATION_AFTER'];await shot('god-after')
+  for _ in range(3):await button('cross')
+  assert await screen()==screens['RELIC_RESULT'];await button('cross');assert await screen()==screens['REWARD'];await button('circle');assert await screen()==screens['ACT_INTRO'] and field(await state(),'act')==8
+  print('PASS actual Act 7 entrance, full-HP boss combat/turn, killing hit, after scene, rewards, Act 8; RiftBoss PCM audible',flush=True)
+  for act,track in [(1,1),(2,7),(3,8),(4,9)]:
+   await fixture('map-'+str(act));assert await val('soundtrack_current')==track;await audible()
+  # Persist the before-boss scene to test it in a second, genuinely cold process.
+  await fixture('god-before-0');await button('select');await button('cross');assert await screen()==screens['TITLE']
+ print('PASS final release EBOOT targeted runtime playtest; zero streamed-art errors',flush=True)
+ print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)

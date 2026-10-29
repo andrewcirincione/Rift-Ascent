@@ -47,10 +47,20 @@ int ascent_set_debug(int enabled){unsigned old=ascent_account.debug;ascent_accou
 static void ascent_slot_info(int slot,const Game*g,unsigned gen){
  ascent_slots[slot]=(AscentSlot){1,g->character,g->act,g->floor,g->hp,g->maxhp,g->screen,gen};
 }
+static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
+ memset(g,0,sizeof(*g));
+ if(ascent_read(stem,side,g,sizeof(*g),generation))return game_validate(g);
+ memset(g,0,sizeof(*g));
+ if(!ascent_read(stem,side,g,offsetof(Game,expedition),generation)||g->version!=180||g->relic_count>64)return 0;
+ g->version=GAME_VERSION;
+ /* Old exhausted boss offers become an explicit, repeatable stat blessing. */
+ if(g->screen==RELIC_RESULT&&g->relic_pending&&g->reward[0]<0)g->reward[0]=37;
+ return game_validate(g);
+}
 int ascent_resume(Game*g,int slot){
  if(slot<0||slot>=ASCENT_SLOTS)return 0;
  char stem[40];snprintf(stem,sizeof(stem),"ASCENT18_RUN_%d",slot+1);
- Game a,b;unsigned ga=0,gb=0;int va=ascent_read(stem,0,&a,sizeof(a),&ga),vb=ascent_read(stem,1,&b,sizeof(b),&gb);
+ Game a,b;unsigned ga=0,gb=0;int va=ascent_read_run(stem,0,&a,&ga),vb=ascent_read_run(stem,1,&b,&gb);
  va=va&&game_validate(&a)&&a.ascent.id&&a.ascent.slot==(unsigned)slot;
  vb=vb&&game_validate(&b)&&b.ascent.id&&b.ascent.slot==(unsigned)slot;
  if(!va&&!vb)return 0;

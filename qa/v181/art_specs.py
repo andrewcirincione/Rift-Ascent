@@ -1,0 +1,54 @@
+from pathlib import Path
+import json
+r=Path(__file__).parent
+style="Richly painted dark gothic medieval fantasy, realistic aged stone and metal, restrained violet cosmic light, warm candle gold, deep chiaroscuro, intricate but readable shapes, the atmosphere of a ruined cathedral in an unforgiving dark-fantasy game. No cartoon, no modern objects, no text, letters, interface, frame, or watermark."
+wide="A very wide cinematic landscape painting, composed to remain readable when cropped to a 2.67:1 horizontal cutscene strip. Keep all important subjects in the central horizontal band; no letterbox bars. "
+heroes=[
+ "The Warden, a powerful male warrior in battered dark plate armor, a torn deep crimson cloak and an enormous worn greatsword, face mostly obscured by his grim helmet",
+ "Vesper, a small agile female assassin in a weathered ivory-white hood and long ivory cloak over dark fitted leather armor, two discreet daggers, her face shadowed, quiet crouched or guarded posture",
+ "The Proxy, a male fallen star-sovereign with dark hair, long weathered royal-blue cloak and dark blue armor with old gold details, carrying a slender sovereign sword, restrained pale-blue starlight"
+]
+settings=[
+ [
+  "among unnamed soldiers' graves and spear markers, beside a torn war standard and a low surviving brazier; endless black cathedral silhouettes beyond",
+  "inside an ancient cold forge, beside a blind elderly blacksmith, chains and broken swords in the shadows, a single furnace glowing ember orange",
+  "on a black river shore beside a narrow old ferry, half-submerged helmets and spear shafts, a pale moon over a vast ruined stone bridge",
+  "inside a burned military chapel, ruined pews, a cracked stone saint and fallen candle stands, shafts of dusty gold light"
+ ],
+ [
+  "moving quietly through a secret night market beneath gothic arches, masked merchants and hanging ivory masks in the distant shadows, narrow lantern light",
+  "at the edge of a moonlit canal beneath deserted medieval stone bridges, an empty gondola and small silver lantern, eerie reflections with faint emerald and violet glimmers",
+  "crouched on wet slate rooftops beside a wrapped cracked bell and a blind stone gargoyle, distant gothic towers beneath a moonless star-filled sky",
+  "within an abandoned sanctuary with a broken confessional, an open hidden door behind the altar, long cold shadows and a few leaning candle flames"
+ ],
+ [
+  "inside an immense astral archive, old parchment scrolls and books, a quiet shadowed librarian, a cracked star chart lit by tiny hovering blue lights",
+  "beside a damaged brass orrery and an old telescope in a ruined observatory, broken celestial rings and a violet sky visible through the shattered dome",
+  "standing before an empty royal court of ancient carved stone chairs, a cracked crown on a low table, long blue-gold shadows, no other rulers",
+  "on an impossible stone bridge between two nights, a broken giant clock and floating glass fragments above a star-filled abyss, a narrow distant dawn"
+ ]
+]
+spec=[]
+def add(file,key,size,alpha,prompt):
+ spec.append(dict(file=file,key=key,width=size[0],height=size[1],alpha=alpha,prompt=prompt))
+for c in range(3):
+ for i in range(4):add(f"story-{c}-{i}.png",f"story_{c}_{i}",(336,126),False,"Use case: illustration-story. Asset type: character event cutscene for Rift Ascent. "+wide+heroes[c]+" "+settings[c][i]+". The hero is the unmistakable focal figure but small enough for the environment to tell the story. "+style)
+god="an immense nonhuman divine abomination made of ivory reliquary bones and cracked gold cathedral organs, many eclipsed eyes in broken halos, six ragged wings like scorched illuminated manuscripts, hanging black sinews; its hollow bell-shaped body contains a dead white star"
+add("god-before.png","god_before",(336,126),False,"Use case: illustration-story. Asset type: before the final Act 7 boss. "+wide+"The sky has opened inward above the seventh ascent. "+god+" unfolds over an impossibly vast ruined cosmic cathedral. Every altar is tilted toward it. Tiny anonymous ruined statues emphasize its enormous scale. No player character or heroic king; the subject is cosmic religious horror, an abomination beyond the gods. "+style)
+add("god-after.png","god_after",(336,126),False,"Use case: illustration-story. Asset type: after defeating a god-abomination. "+wide+"The aftermath above a shattered cosmic cathedral: a huge EMPTY broken reliquary bell lies in ruins, ivory bones and shattered gold halos fall through a violet celestial wound, its dead white star extinguished into silver dust. No living monster, no hero, no character portraits. Vast silence after something divine has died; a faint dawn at the very far horizon. "+style)
+add("god-arena.png","god_arena",(480,272),False,"Use case: stylized-concept. Asset type: combat background for a 480x272 PSP game. Wide 16:9 landscape. An immense ruined cathedral at the edge of creation, broken ivory altars and torn golden celestial rings floating in a violet-black cosmos, a pale wound in the sky behind the center. A broad dark STONE FLOOR across the lower middle gives two combatants room to stand. Left and right foreground must be clear empty space for battle sprites. No people, no monster or creatures, no lettering. "+style)
+add("mystery-scene.png","mystery_scene",(336,126),False,"Use case: illustration-story. Asset type: rare mystery cutscene. "+wide+"A faceless hooded trader sits behind a velvet table inside a tiny impossible doorway between worlds. Three luminous painted playing cards lie on the table, showing an abstract crimson sword, an ivory shadow, and a blue crown, WITHOUT text, letters, numbers or borders. Cracked mirrors and violet mist behind the trader; the three memories are the focal point. No player hero. "+style)
+icons=[
+ ("relic-0.png","a small antique iron abacus with charred ivory counting beads and glowing ember dust"),
+ ("relic-1.png","an old hanging silver incense censer on a short chain, purple smoke curling very close to its ornate metal body"),
+ ("relic-2.png","a long ritual nail of black iron encased in translucent pale blue frost, wrapped once in tarnished silver wire"),
+ ("relic-3.png","a tiny blackened hand loom woven with a few silver threads and a single drop of dark red wax"),
+ ("relic-4.png","a broken ivory crown repaired by rough gold surgical stitches, weathered and sacred"),
+ ("relic-5.png","a compact antique brass sextant with an empty black circular lens and one tiny violet star suspended in the opening"),
+ ("relic-6.png","a black iron rosette shaped like a dark flower with subtle emerald poison glowing between its layered metal petals"),
+ ("relic-7.png","a tightly rolled charred parchment writ held by a red wax seal, the edges glowing ember orange, no letters or visible writing")
+]
+for i,(file,subject) in enumerate(icons):add(file,f"relic_{i}",(80,80),True,"Use case: stylized-concept. Asset type: isolated inventory relic icon for a dark gothic fantasy game. A single object: "+subject+". Center the entire object with generous transparent empty margins, a strong compact silhouette readable at 80 pixels. Detailed painted antique materials and dramatic highlights. No ground, no cast shadow, no scene, no text or labels. Actual transparent background. "+style)
+(r/'art-specs.json').write_text(json.dumps(spec,indent=2)+'\n')
+for s in spec:(r/'art/prompts'/Path(s['file']).with_suffix('.txt')).write_text(s['prompt']+'\n')
+print(len(spec),"new illustrations plus the already generated Unbegotten sprite")

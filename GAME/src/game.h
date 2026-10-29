@@ -8,13 +8,14 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 45
+#define ENEMY_COUNT 46
 #define INTENT_COUNT 18
-#define MAX_RELICS 64
+#define MAX_RELICS 96
+#define LEGACY_RELIC_CAP 64
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 180
+#define GAME_VERSION 181
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -31,7 +32,7 @@ enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
 #define EVENT_COUNT 17
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR,EXPEDITION_STORY,EXPEDITION_GIFT,ABOMINATION_BEFORE,ABOMINATION_AFTER,MYSTERY_STORY,MYSTERY_CARDS};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -188,13 +189,14 @@ typedef struct {
 } RegentState;
 
 #include "ascent_progress.h"
+#include "expedition.h"
 
 typedef struct {char name[24];int hp,maxhp,block,strength,weak,vulnerable,poison;int intent,intent_value,phase;int art;} Enemy;
 typedef struct {
  uint32_t magic,version,seed,rng;
  int screen,prior_screen,act,floor,lane,selection,target,scroll;
  int hp,maxhp,block,energy,max_energy,gold,turn,energy_penalty,strength,dexterity,weak,vulnerable,poison;
- int potion_count,potions[MAX_POTIONS],relic_count,relics[MAX_RELICS];
+ int potion_count,potions[MAX_POTIONS],relic_count,relics[LEGACY_RELIC_CAP];
  int deck_count,deck[MAX_DECK],master_index;
  int draw_count,draw[MAX_PILE],discard_count,discard[MAX_PILE],exhaust_count,exhaust[MAX_PILE],hand_count,hand[MAX_HAND];
  int map[MAP_ROWS][MAP_LANES],map_selected[MAP_ROWS],enemy_count,reward[3],reward_gold;
@@ -211,6 +213,7 @@ typedef struct {
  struct {int potion_offer,card_done;int relic[16];} v151;
  RegentState regent;
  AscentRun ascent;
+ Expedition181 expedition;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -230,6 +233,11 @@ extern const CardDef cards[];
 extern const int CARD_COUNT;
 extern const RelicDef relic_defs[];
 extern const int RELIC_COUNT;
+int game_relic_id(const Game*,int);
+int expedition_scene(int screen);
+const char*expedition_title(const Game*);
+const char*expedition_line(const Game*);
+int expedition_art(const Game*);
 const char *node_name(int type);
 const char *game_enemy_name(int id);
 const char *card_description(int raw);

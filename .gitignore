@@ -104,3 +104,13 @@ qa/rebuild180/evidence/*.ppm
 qa/rebuild180/evidence/*xvfb.log
 qa/rebuild180/evidence/ppsspp.log
 qa/rebuild180/source/PARAM.SFO
+
+# Reproducible 1.8.1 intermediates; keep art, fixtures and final QA evidence.
+qa/v181/assets.bin
+qa/v181/soundtrack.bank
+qa/v181/evidence/*.ppm
+qa/v181/evidence/*.s16le
+qa/v181/evidence/*xvfb.log
+qa/v181/evidence/ppsspp.log
+qa/v181/evidence/build-draft.txt
+qa/v181/source/PARAM.SFO

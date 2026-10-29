@@ -81,6 +81,7 @@ static int event_typed_card(Game*g,int type){
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weights[i])return pool[i];roll-=weights[i];}return type?5:11;
 }
 int game_next_event(Game*g){
+ if(rnd(g,25)==0)return EVENT_COUNT; /* Rare optional cross-character offer. */
  unsigned full=(1u<<EVENT_COUNT)-1u,seen=(unsigned)g->v151.relic[R162_EVENT_SEEN]&full;
  int last=g->v151.relic[R162_EVENT_LAST]-1,pool[EVENT_COUNT],n=0;
  if(seen==full)seen=0;
@@ -91,6 +92,7 @@ int game_next_event(Game*g){
  int id=pool[rnd(g,n)];g->v151.relic[R162_EVENT_SEEN]=(int)(seen|(1u<<id));g->v151.relic[R162_EVENT_LAST]=id+1;return id;
 }
 void game_begin_event(Game*g,int id){
+ if(id==EVENT_COUNT){expedition_mystery(g);return;}
  g->screen=EVENT;g->effect_turn=CLAMP(id,0,EVENT_COUNT-1);g->selection=0;
  g->scroll=MIN(20,MIN(g->gold/2,g->maxhp-g->hp));g->next_screen=0;g->reward[0]=g->reward[1]=g->reward[2]=-1;msg(g,"");
  if(id==2){g->reward[0]=reward_of_rarity(g,1,-1,-1)|UPBIT;g->reward[1]=reward_of_rarity(g,0,-1,-1);}

@@ -47,22 +47,22 @@ static void ascent_options_view(const Game*g){
  r134_center(240,207,g->message[0]?g->message:"Debug is off by default and saved for all slots.",MUTED,&r134_f8);
  footer("X TOGGLE   O BACK");
 }
-static unsigned ascent_collection_mask(int tab){const AscentAccount*a=ascent_profile();return tab<3?a->cards[tab]:tab==3?a->potions:a->relics;}
+static unsigned ascent_collection_mask(int tab){const AscentAccount*a=ascent_profile();return tab<3?a->cards[tab]:tab==3?a->potions:tab==4?a->relics:0xfffffu;}
 static void ascent_collection_view(const Game*g){
- const char*labels[]={"WARDEN","VESPER","PROXY","POTIONS","RELICS"};
- int tab=CLAMP(g->scroll,0,4),count=tab==4?10:20,index=CLAMP(g->selection,0,count-1),first=index/6*6;
+ const char*labels[]={"WARDEN","VESPER","PROXY","POTIONS","RELICS","BASE RELICS"};
+ int tab=CLAMP(g->scroll,0,5),count=tab==4?10:20,index=CLAMP(g->selection,0,count-1),first=index/6*6;
  unsigned mask=ascent_collection_mask(tab);char b[80];snprintf(b,sizeof(b),"UNLOCKS / %s  %d / %d",labels[tab],ascent_popcount(mask),count);ascent_heading(b);
- for(int i=0;i<5;i++){int x=21+i*89;r134_text(x,43,labels[i],i==tab?GOLD:MUTED,&r134_f8);}
+ for(int i=0;i<6;i++){int x=21+i*75;r134_text(x,43,labels[i],i==tab?GOLD:MUTED,&r134_f8);}
  for(int n=first;n<count&&n<first+6;n++){
   int pos=n-first,x=24+pos%3*92,y=70+pos/3*82,open=(mask&(1u<<n))!=0;
   gilded_panel(x,y,85,76,n==index);
-  if(open){if(tab<3)r134_card_art(x+8,y+9,69,46,334+tab*20+n);else if(tab==3)ascent_potion_icon(x+20,y+8,46,n+6);else r150b_relic_icon(x+20,y+8,46,n+64);}
+  if(open){if(tab<3)r134_card_art(x+8,y+9,69,46,334+tab*20+n);else if(tab==3)ascent_potion_icon(x+20,y+8,46,n+6);else r150b_relic_icon(x+20,y+8,46,n+(tab==5?74:64));}
   else r134_center(x+42,y+28,"?",MUTED,&r134_f18b);
   snprintf(b,sizeof(b),"%02d%s",n+1,open?"":" LOCKED");r134_center(x+42,y+59,b,open?GOLD:MUTED,&r134_f8);
  }
  if(mask&(1u<<index)){
   if(tab<3){int raw=334+tab*20+index;card_render(315,67,143,177,raw,1,1);}
-  else{int id=index+(tab==3?6:64);if(tab==3)ascent_potion_icon(363,69,48,id);else r150b_relic_icon(363,69,48,id);
+  else{int id=index+(tab==3?6:tab==5?74:64);if(tab==3)ascent_potion_icon(363,69,48,id);else r150b_relic_icon(363,69,48,id);
    r134_wrap(317,131,136,3,12,tab==3?game_potion_name(id):relic_defs[id].name,GOLD,&r134_f9b,0);
    r134_wrap(317,173,136,6,11,tab==3?game_potion_description(id):relic_defs[id].desc,WHITE,&r134_f9,0);
   }

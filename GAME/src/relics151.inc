@@ -4,12 +4,18 @@ static void r151_self_loss(Game*g){
  g->v151.relic[0]=1;gain_energy(g,1);relic_block(g,4);
 }
 static void r151_exhaust(Game*g){
+ if((g->screen==COMBAT||g->screen==CARD_CHOICE)&&relic(g,80)&&!g->expedition.combat[E181_EXHAUST_HEAL]){g->expedition.combat[E181_EXHAUST_HEAL]=1;heal(g,2);}
  if((g->screen!=COMBAT&&g->screen!=CARD_CHOICE)||!relic(g,56)||g->v151.relic[3]>=3)return;
  if(++g->v151.relic[3]==3){if(g->screen==CARD_CHOICE)g->v151.relic[11]=1;else{gain_energy(g,1);draw_card(g);draw_card(g);}}
 }
 static void r151_played(Game*g,int type){
  if(g->screen==CARD_CHOICE){g->v151.relic[10]=type+1;return;}
  if(g->screen!=COMBAT)return;
+ int played=++g->expedition.combat[E181_CARDS];
+ if(relic(g,74)&&played%5==0)gain_energy(g,1);
+ if(relic(g,82)&&type==2&&!g->expedition.combat[E181_POWER_ENERGY]){g->expedition.combat[E181_POWER_ENERGY]=1;gain_energy(g,1);}
+ if(relic(g,83)&&played==10)for(int i=0;i<g->enemy_count;i++){g->enemies[i].weak+=3;g->enemies[i].vulnerable+=3;}
+ if(type==0&&!g->expedition.combat[E181_FIRST_ATTACK]){g->expedition.combat[E181_FIRST_ATTACK]=1;if(relic(g,93))gain_energy(g,1);}
  if(type==2)g->v151.relic[4]=MIN(3,g->v151.relic[4]+1);
  if(type==0&&relic(g,55)&&g->ic[IC_ATTACKS_THIS_TURN]%3==0)ninja_poison_all(g,1);
  if(type>=0&&type<=2&&relic(g,62)&&!(g->v151.relic[9]&8)){
@@ -26,6 +32,7 @@ static void r151_after_effect(Game*g,const int before[6]){
  for(int i=0;i<g->enemy_count*3;i++)if(now[i]>before[i]){g->v151.relic[5]=1;draw_card(g);break;}
 }
 static void r151_skip_reward(Game*g){
+ if(relic(g,92)){g->maxhp++;heal(g,1);}
  if(relic(g,27))heal(g,6);
  if(!relic(g,60))return;g->gold+=8;
  if(++g->v151.relic[7]>=3){
