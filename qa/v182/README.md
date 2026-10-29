@@ -77,5 +77,10 @@ bank and emits checked texture descriptors. `--draft` exists solely for early
 compile checks; release packaging and media checks reject missing assets.
 
 The emulator tests use the complete packaged executable, real button input,
-and explicitly named state fixtures for targeted late-game scenarios. Native
-sanitizer tests cover game logic, save migration and all rendered content.
+and explicitly named state fixtures for targeted late-game scenarios. Fixtures
+are injected at a breakpoint on the next render entry, so a state swap cannot
+interrupt a live sprite or card blit. Transition checks wait for emulated frames;
+repeated non-combat presentation delays may be skipped by the QA flag above.
+Native sanitizer tests cover game logic, save migration and all rendered content.
+XMB music is checked by ATRAC decode and the PSP media-size budget; physical
+PSP hardware was not available for this test.

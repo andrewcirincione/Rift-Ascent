@@ -1,0 +1,54 @@
+Rift Ascent 1.8.2 — final validation
+
+PASS final release EBOOT compiled, inspected and exercised in PPSSPP 1.20.4.
+SHA256 fbbd532cd12a0b4abf44744ae45fca04594f00f1c431de3168bc23182d451b9c
+Bytes 85228768
+
+Build/media
+PASS PSP user-mode imports, ELF/PBP structural checks and PSP-1000 startup budget.
+PASS all ten complete supplied soundtrack streams preserved byte-for-byte.
+PASS appended art bank checksums and all 28 new textures (27 enemies and target marker).
+PASS splash ATRAC stereo decode; silent lead, softened entrance and tail;
+     combined ICON1/SND0 471312 bytes, below 480 KiB.
+
+Native ASan/UBSan checks
+PASS progression, storage, effects, expedition, boundaries, revision and events_extra suites.
+PASS four independent save slots, account unlocks, save recovery, 1.8/1.8.1 migration.
+PASS 6000 encounters / 1500 pairs; all character unlock gates, secret Act 4 and Endless bosses.
+PASS 120 base/upgraded custom-card resolutions, 20 potion and 10 unlock-relic effects.
+PASS 60 character stories / 180 dialogue pages; Act 7 progression for all heroes.
+PASS rarity bands, rare offset persistence/reset, shop handling, upgrade odds and boss rewards.
+PASS one 1% story roll after each completed non-boss room; no inventory rerolls.
+PASS 39 mystery rooms and every available offer; cancelled payment, resource limits,
+     potion upgrade, card transformation, 64-bit event rotation, saved next-combat effects.
+PASS all 47 enemy sprites, act pools, six new intents and Rally ally-block persistence.
+PASS native render checks and visual inspection of menus, all mystery choices,
+     selected cards, portrait-only event offers, actor shadows and act backgrounds.
+
+Exact packaged EBOOT runtime
+PASS title RiftBoss stereo PCM, normal and elite silent transitions, RiftFight4 normal
+     and RiftFight5 elite routes, menu music by act, save slots and character selection.
+PASS controller-driven modification cancellation/commit, potion-for-upgrade payment,
+     Rare card and relic gifts, transformation, next-fight Strength/Block/Vulnerable.
+PASS Nameless Exchange left/middle selection feedback at its original card dimensions.
+PASS Act 7 entrance, full-HP boss turn, killing hit with the full finishing presentation,
+     after-scene, relic/card rewards, Act 8, save-and-quit and cold restart into Act 7.
+PASS final runtime and cold restart contain zero streamed-art errors or memory faults.
+PASS inspected exact-runtime actor, event, menu and boss screenshots; Combat.png is
+     an unmodified 480x272 capture of this EBOOT.
+
+Evidence and scope
+Native suite reports, native PNGs, media.txt and build-checks.txt contain detailed results.
+ppsspp-final-part1.txt records the earlier exact-binary actor/event passes, then an
+incorrect harness expectation for a relic screen. ppsspp-final-part2.txt records the
+subsequent event passes and a wall-clock polling timeout. These are partial runs,
+not overall passes. The harness now changes fixtures only at a render-entry breakpoint
+and observes transition frames; arbitrary mid-render fixture writes were removed.
+ppsspp-final-events-clean.txt covers the clean rerun of later new events and Exchange;
+ppsspp-final.txt covers transitions, menus and Act 7; ppsspp-cold.txt covers cold resume.
+All these targeted final tests use the SHA256 above. Earlier pre-extra-event captures
+are retained separately and are not evidence for the final binary.
+Late-game scenarios are fixture-assisted controller tests, not an unaided seven-act run.
+Repeated presentation-only delays may be skipped except the measured fight fades and
+Act 7 killing-hit finisher. Physical PSP hardware/XMB listening was not available;
+the XMB track was decoded and checked structurally instead.

@@ -1,0 +1,48 @@
+WAIT ticks 0 64 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+FIXTURE map-normal
+TRANSITION normal {'animation_tick': 108, 'music_route': 257, 'r182_combat_transition': 1, 'r161_transition_active': 1, 'r161_transition_tick': 104, 'r161_transition_length': 64, 'screen': 2}
+SHOT transition-normal
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 132, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 144, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 156, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT music-normal
+PASS silent map transition and correct fight track normal 5 {'animation_tick': 108, 'music_route': 257, 'r182_combat_transition': 1, 'r161_transition_active': 1, 'r161_transition_tick': 104, 'r161_transition_length': 64, 'screen': 2}
+FIXTURE map-elite
+TRANSITION elite {'animation_tick': 216, 'music_route': 257, 'r182_combat_transition': 1, 'r161_transition_active': 1, 'r161_transition_tick': 212, 'r161_transition_length': 64, 'screen': 2}
+SHOT transition-elite
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 236, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 252, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 264, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT music-elite
+PASS silent map transition and correct fight track elite 6 {'animation_tick': 216, 'music_route': 257, 'r182_combat_transition': 1, 'r161_transition_active': 1, 'r161_transition_tick': 212, 'r161_transition_length': 64, 'screen': 2}
+FIXTURE map-1
+SHOT save-slots
+WAIT ticks 448 448 8
+SHOT character-select
+WAIT ticks 516 516 8
+SHOT character-select-vesper
+PASS new actor shadows/art on all act backgrounds; seven event variants; raised Exchange cards; save selection and character dimming
+FIXTURE god-before-0
+SHOT god-before
+SHOT god-combat
+SHOT god-turn-two
+FIXTURE god-kill-0
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 788, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 804, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 836, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 860, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 880, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 900, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 936, 'r137_start': 752, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT god-after
+QA skipped repeated finisher presentation after resolution
+PASS actual Act 7 entrance, full-HP boss combat/turn, killing hit, after scene, rewards, Act 8; RiftBoss PCM audible
+FIXTURE map-1
+FIXTURE map-2
+FIXTURE map-3
+FIXTURE map-4
+FIXTURE god-before-0
+PASS final release EBOOT targeted runtime playtest; zero streamed-art errors or memory faults
+SHA256 fbbd532cd12a0b4abf44744ae45fca04594f00f1c431de3168bc23182d451b9c

@@ -1,0 +1,9 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT actors-0-act-1
+SHOT actors-0-act-2
+WAIT ticks 168 188 24
+SHOT actors-0-act-3
+SHOT actors-1-act-1
+WAIT ticks 232 248 24
+SHOT actors-1-act-2
