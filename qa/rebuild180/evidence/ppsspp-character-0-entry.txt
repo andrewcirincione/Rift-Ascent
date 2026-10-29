@@ -1,0 +1,23 @@
+WAIT ticks 8 48 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT act3-0-before
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 180, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 200, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 208, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 236, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 272, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 316, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+ACT3 result 0 33
+SHOT act3-0-ending
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 408, 'r137_start': 140, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT cards-0
+SHOT potions-0
+SHOT relic-0
+SHOT revelation-0
+SHOT act4-intro-0
+SHOT act4-map-0
+SHOT preboss-0
+WAIT ticks 800 804 8
+SHOT secret-boss-0
+PASS Warden tenth-win chain and actual secret boss entrance; continuation tested after cold resume

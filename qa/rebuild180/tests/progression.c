@@ -39,5 +39,7 @@ int main(void){
   game_play_card(&g,0,0);assert(g.turn_played==1);assert(game_validate(&g));assert(g.screen==COMBAT);
  }
  puts("PASS 120 fresh card base/upgraded resolutions and preview isolation");
+ int boss_counts[3]={0};for(int seed=1;seed<=900;seed++){Game g;game_new(&g,seed);g.act=4+seed%5;g.endless=1;g.ascent.secret=seed%2;game_start_battle(&g,NODE_BOSS);int id=g.enemies[0].art;if(g.act==4&&g.ascent.secret)assert(id==44);else{int found=0;for(int i=0;i<3;i++)if(id==enemy_boss[i]){found=1;boss_counts[i]++;}assert(found);}}
+ for(int i=0;i<3;i++)assert(boss_counts[i]>150);printf("PASS Endless uses Act 1-3 bosses (%d/%d/%d); secret Act 4 remains the Unmaker\n",boss_counts[0],boss_counts[1],boss_counts[2]);
  return 0;
 }

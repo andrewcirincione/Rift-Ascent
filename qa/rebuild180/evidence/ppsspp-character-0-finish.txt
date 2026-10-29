@@ -1,0 +1,20 @@
+WAIT ticks 4 24 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT preboss-cold-resume
+WAIT ticks 168 184 32
+WAIT ticks 168 184 32
+WAIT ticks 168 184 32
+WAIT ticks 168 184 32
+SHOT secret-boss-0
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 1, 'animation_tick': 232, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 252, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 280, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 308, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 336, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 352, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 364, 'r137_start': 204, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT true-ending-0
+SHOT endless-after-secret-0
+PASS Warden cold resume before secret boss; L kill; full victory timing; true ending; golden A; Endless after boss
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8

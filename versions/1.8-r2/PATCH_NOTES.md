@@ -14,6 +14,7 @@ This overhaul starts from v1.71-r2 (16717db18a040f717acce2e63529621554cf0439). N
 ## Combat, presentation and items
 
 - Normal fights have a 25% chance of two enemies. Heavy opening attacks are usually deferred beyond round one. Act 4 and later normal enemies draw from the wider roster.
+- Once Endless begins, each boss encounter randomly selects one of the Act 1–3 bosses, with the current act's scaling. The secret fourth-act Unmaker remains mandatory before Endless for a fully unlocked character.
 - Removed the victory banner and winning sound while preserving the existing finishing animation and delay before spoils.
 - Added 112 original painted assets: 60 card illustrations, 20 potion bottles, ten relic icons, twelve character scenes, four fourth-act environments, the secret boss, three refreshed enemies and two record badges.
 - The oldest forty relics now share 22 different themed icons from the expanded library. The six original potions each share a suitable new bottle. Actual item artwork is consistent in shops, rewards and inventories; new items no longer stand apart from a largely generic old collection.

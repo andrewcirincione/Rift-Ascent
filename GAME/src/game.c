@@ -939,7 +939,7 @@ void game_start_battle(Game*g,int mode){
  g->enemy_count=mode==NODE_FIGHT&&route_hash(g->seed^(unsigned)g->act*7919u^(unsigned)g->floor*101u)%4u==0?2:1;
  for(int i=0;i<g->enemy_count;i++){
   int act=MIN(2,g->act-1);
-  int id=mode==NODE_BOSS?(g->act==4&&g->ascent.secret?44:enemy_boss[act]):
+  int id=mode==NODE_BOSS?(g->act==4&&g->ascent.secret?44:enemy_boss[g->endless&&g->act>3?rnd(g,3):act]):
     mode==NODE_ELITE?enemy_elite[act][rnd(g,4)]:
     g->act>=4?enemy_normal[rnd(g,3)][rnd(g,10)]:enemy_normal[act][rnd(g,10)];
   if(i>0&&id==g->enemies[0].art){

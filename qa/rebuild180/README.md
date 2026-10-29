@@ -26,7 +26,7 @@ The complete executable is `qa/rebuild180/evidence/EBOOT.PBP`. The intermediate 
 `test.sh` runs native suites with AddressSanitizer and UndefinedBehaviorSanitizer:
 
 - 36 completed runs, exact 20-card sets, idempotent account receipts, character-specific tenth-win and true-ending routes.
-- 6,000 seeded normal fights (1,500 two-enemy encounters).
+- 6,000 seeded normal fights (1,500 two-enemy encounters), plus 900 boss selections that cover all three original bosses in Endless while reserving the secret Act 4 encounter.
 - All 120 base/upgraded custom card resolutions and preview isolation; Vesper discard/Sly/Pounce/Burst interactions and Proxy replay integration.
 - All 20 new potion effects and ten relic effects.
 - Four independent slots, torn-write recovery, failed-write rollback, debug persistence, stable v23 save import, 500 ten-win rarity schedules.
@@ -35,6 +35,8 @@ The complete executable is `qa/rebuild180/evidence/EBOOT.PBP`. The intermediate 
 `qa_ppsspp.py` drives the exact packaged executable in PPSSPP 1.20.4 / 32 MiB mode. It checks normal new-run/save/resume inputs, Options, all three fixture-assisted tenth-win paths, three pre-boss scenes, actual secret boss encounters, three true endings, the Endless gates, completed collections, all act music routes, active PCM output and reused legacy item icons. `RIFT_RESUME=1` separately verifies persistence after a cold process restart. Its external emulator/SDK/display paths are configured near the top of the script for this workspace and may need adapting elsewhere.
 
 The fixture-assisted tests intentionally prepare late-game state in debugger memory; they exercise actual runtime progression and rendering without claiming full natural playthroughs. Native tests supply the broader repeated unlock/save coverage. No physical PSP test is claimed for 1.8.
+
+Character checks can run as separate processes (`RIFT_CHARACTERS=0`, then 1 and 2), retaining account files with `RIFT_KEEP=1` and `RIFT_SEED_ACCOUNT=0` after the first. The first character observes the complete finisher timing. `RIFT_FAST_PRESENTATION=1` skips repeated screen fades and display replays after the game has resolved later fixture actions; it does not advance progression or grant unlocks. This avoids replaying the same long presentation repeatedly in the software-rendered test environment.
 
 ## Release
 

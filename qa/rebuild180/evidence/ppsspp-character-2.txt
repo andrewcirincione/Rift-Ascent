@@ -1,0 +1,48 @@
+WAIT ticks 12 76 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+PASS previous character records persisted after cold process restart
+SHOT act3-2-before
+QA skipped repeated finisher presentation after resolution
+ACT3 result 2 33
+SHOT act3-2-ending
+SHOT cards-2
+SHOT potions-2
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 296, 'r137_start': 144, 'r1311_kill_at': 0, 'action_cooldown': 1, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 296, 'r137_start': 144, 'r1311_kill_at': 0, 'action_cooldown': 1, 'enemy_turn_delay': 0}
+SHOT relic-2
+SHOT revelation-2
+SHOT act4-intro-2
+SHOT act4-map-2
+SHOT preboss-2
+SHOT secret-boss-2
+QA skipped repeated finisher presentation after resolution
+SHOT true-ending-2
+SHOT endless-after-secret-2
+SHOT characters-ascended
+WAIT ticks 704 708 8
+SHOT collection-0
+SHOT collection-1
+SHOT collection-2
+SHOT collection-3
+SHOT collection-4
+WAIT ticks 744 752 24
+QA skipped repeated finisher presentation after resolution
+SHOT endless-before-unlocked
+SHOT menu-music-act-1
+SHOT menu-music-act-2
+SHOT menu-music-act-3
+SHOT menu-music-act-4
+SHOT menu-music-act-5
+SHOT combat
+PASS debug R act skip
+SHOT old-potions-0
+SHOT old-potions-1
+SHOT old-relic-0
+SHOT old-relic-1
+SHOT old-relic-2
+SHOT old-relic-3
+SHOT act3-1-ending
+SHOT true-ending-1
+PASS exact release EBOOT: real save/resume; three tenth-win chains; cards/potions/relic screens; direct secret Act 4; pre/post boss scenes; true-ending gate; prior-win Endless; all act menu routes; actual PCM; zero asset errors
+SHA256 e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8
