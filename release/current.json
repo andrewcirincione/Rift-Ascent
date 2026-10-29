@@ -1,11 +1,11 @@
 {
-  "version": "1.8",
-  "tag": "v1.8-r2",
-  "eboot": "versions/1.8-r2/EBOOT.PBP",
-  "eboot_sha256": "e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8",
-  "notes": "versions/1.8-r2/PATCH_NOTES.md",
-  "screenshot": "versions/1.8-r2/Combat.png",
-  "canonical_source": "qa/rebuild180/source",
-  "validation": "qa/rebuild180/evidence/final-tests.txt",
-  "resources_manifest": "qa/rebuild180/assets.json"
+  "version": "1.8.1",
+  "tag": "v1.8.1",
+  "eboot": "versions/1.8.1/EBOOT.PBP",
+  "eboot_sha256": "b0d016a4eadaca721f5e639b27f6b3e02e2629d7ca012a5c3bedcaa1736065e3",
+  "notes": "versions/1.8.1/PATCH_NOTES.md",
+  "screenshot": "versions/1.8.1/Combat.png",
+  "canonical_source": "qa/v181/source",
+  "validation": "qa/v181/evidence/final-tests.txt",
+  "resources_manifest": "qa/v181/assets.json"
 }

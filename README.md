@@ -2,8 +2,12 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.8** (release tag **v1.8-r2**). Rebuilt directly from **1.71-r2**, with no code, artwork or dialogue reused from the previous 1.8 prerelease. Adds four run slots, shared unlock progress, 60 character cards, 20 potions, 10 relics, character endings and a hidden fourth-act boss. Releases include the complete EBOOT with its intended
-soundtrack, an installable PSP ZIP, source, a combat screenshot and SHA-256 checksums.
+Current version: **1.8.1** (release tag **v1.8.1**). Adds the Act 7 Unbegotten boss,
+60 character story encounters, 20 immediately available relics, a rare cross-character
+card event, stronger Endless scaling, the Expect a Fight Energy fix and repaired PSP
+splash audio. Continues the fresh 1.8-r2 rebuild from 1.71-r2. Releases include the
+complete EBOOT and soundtrack, an installable PSP ZIP, source, a combat screenshot
+and SHA-256 checksums.
 
 Extract the PSP ZIP to the Memory Stick root. For the standalone download, rename
 it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT`,
@@ -11,12 +15,12 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT`,
 
 ## Source and validation
 
-- [Current patch notes](versions/1.8-r2/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/rebuild180/README.md)
-- Canonical source: `qa/rebuild180/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.8-r2/EBOOT.PBP` (release tag `v1.8-r2`)
+- [Current patch notes](versions/1.8.1/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v181/README.md)
+- Canonical source: `qa/v181/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.8.1/EBOOT.PBP` (release tag `v1.8.1`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
-  Uses 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; hardware confirmation of 1.8 remains pending.
+  Uses 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; physical PSP XMB playback of the repaired 1.8.1 preview remains unverified.
 
 ## Publishing
 

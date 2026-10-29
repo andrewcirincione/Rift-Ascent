@@ -1,0 +1,15 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT god-before
+SHOT god-combat
+SHOT god-turn-two
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 336, 'r137_start': 300, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 364, 'r137_start': 300, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 400, 'r137_start': 300, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 440, 'r137_start': 300, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 468, 'r137_start': 300, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT god-after
+QA skipped repeated finisher presentation after resolution
+PASS actual Act 7 entrance, full-HP boss combat/turn, killing hit, after scene, rewards, Act 8; RiftBoss PCM audible
+PASS final release EBOOT targeted runtime playtest; zero streamed-art errors
+SHA256 b0d016a4eadaca721f5e639b27f6b3e02e2629d7ca012a5c3bedcaa1736065e3

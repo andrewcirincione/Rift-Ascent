@@ -1,0 +1,57 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT new-run-map
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 292, 'r137_start': 0, 'r1311_kill_at': 0, 'action_cooldown': 1, 'enemy_turn_delay': 0}
+PASS actual new run, save-and-quit, slot resume
+WAIT ticks 520 548 32
+SHOT energy-lock
+PASS real inputs: Expect a Fight blocks Bloodletting, Offering and Energy potion
+SHOT story-fight-0
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 704, 'r137_start': 656, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 728, 'r137_start': 656, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 752, 'r137_start': 656, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 800, 'r137_start': 656, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 832, 'r137_start': 656, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+QA skipped repeated finisher presentation after resolution
+SHOT story-0
+SHOT gift-0
+SHOT story-fight-1
+QA skipped repeated finisher presentation after resolution
+SHOT story-1
+SHOT gift-1
+SHOT story-fight-2
+QA skipped repeated finisher presentation after resolution
+SHOT story-2
+SHOT gift-2
+PASS normal/elite victories naturally roll queued story; all heroes, dialogue, gifts, single collection; first full finisher observed
+SHOT mystery-scene
+SHOT mystery-cards
+QA skipped repeated finisher presentation after resolution
+SHOT exhausted-relic-fallback
+SHOT base-relic-collection
+PASS foreign rare choice, >64 relic run, repeatable reward after pool exhaustion, six-tab collection navigation
+SHOT god-before
+SHOT god-combat
+SHOT god-turn-two
+QA skipped repeated finisher presentation after resolution
+SHOT god-after
+PASS actual Act 7 entrance, full-HP boss combat/turn, killing hit, after scene, rewards, Act 8; RiftBoss PCM audible
+Traceback (most recent call last):
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v181/qa_ppsspp.py", line 169, in <module>
+    asyncio.run(run())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v181/qa_ppsspp.py", line 166, in run
+    async with w:await check(w)
+                 ^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v181/qa_ppsspp.py", line 152, in check
+    await fixture('god-before-0');await button('select');await button('cross');assert await screen()==screens['TITLE']
+                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

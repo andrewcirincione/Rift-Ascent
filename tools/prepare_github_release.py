@@ -26,6 +26,8 @@ def main():
     assert data[:4] == b'\0PBP' and tuple(sorted(offsets)) == offsets
     assert version.encode() in data[offsets[0]:offsets[1]]
     assert data[offsets[5]:offsets[5]+4] == b'RIFF', 'Missing home-screen music'
+    assert offsets[3]-offsets[2]+offsets[6]-offsets[5] <= 480*1024, 'ICON1 + SND0 exceed safe combined PSP XMB budget'
+
     modern = data[-136:-128] == b'RIFTAU18'
     footer = 136 if modern else 56
     assert modern or data[-56:-48] == b'RIFTM311', 'Missing complete soundtrack'
@@ -44,6 +46,7 @@ def main():
     assert cursor == size
     if meta.get('resources_manifest'):
         manifest = json.loads(repo_file(meta['resources_manifest']).read_text())
+        assert not manifest.get('draft_missing'), 'Draft artwork cannot be released'
         bank_end = len(data) - footer - size
         assert data[bank_end-16:bank_end-8] == b'RIFTART1', 'Missing streamed artwork'
         bank_size, bank_crc = struct.unpack_from('<II', data, bank_end-8)

@@ -1,0 +1,201 @@
+[
+  {
+    "batch": 0,
+    "results": [
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-0-0.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-0d8f517b-63d8-4018-ae77-8628b78136bc.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-0-1.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-39da5229-caf4-4d78-afd5-99205511da2c.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-0-2.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-a1f39e36-3635-4c83-812f-14dffec8be7b.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-0-3.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-b7db4f40-ba30-4178-9625-c12af6046bed.png"
+        }
+      }
+    ]
+  },
+  {
+    "batch": 1,
+    "results": [
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-1-0.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-ddf61abc-1ad5-4a2d-b108-cba043086fd8.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-1-1.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-36b2694a-6d8c-4943-8146-e9520f179f13.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-1-2.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-1ee2f368-17ea-4c13-9501-53a9a01efb46.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-1-3.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-0568af51-b9e1-4716-b6e5-19cbba038658.png"
+        }
+      }
+    ]
+  },
+  {
+    "batch": 2,
+    "results": [
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-2-0.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-9ecf80d2-36ae-4973-9392-aa13c28f6ac4.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-2-1.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-0e2d0458-23fd-47e8-8393-070579798cfa.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-2-2.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-c8144105-2d53-4923-a239-238f6354062b.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "story-2-3.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-f81aa0e4-ff3e-42dc-90e4-47e4360224d0.png"
+        }
+      }
+    ]
+  },
+  {
+    "batch": 3,
+    "results": [
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "god-before.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-b078022d-b799-412c-b050-632ce5ea26ff.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "god-after.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-07914111-bb20-4866-81b3-2ca9a91d52e1.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "god-arena.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-65993112-b971-42b2-97da-5280ddac1980.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "mystery-scene.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-2912ca24-4d8b-4305-9a9c-57f4437cfbf5.png"
+        }
+      }
+    ]
+  },
+  {
+    "batch": 4,
+    "results": [
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-0.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-ad714179-913c-42f5-9616-b446a0bff059.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-1.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-0de71abb-6115-48ba-a74e-7d1aa6233a19.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-2.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-72a633f8-f11e-43a0-b324-a8c97dd359a9.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-3.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-0f299a55-7a0c-49c1-b61f-87b7a7790eeb.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-4.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-cd9389a8-ef46-468e-b06b-c6669bfedae7.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-5.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-787396a3-5836-4ae9-aa79-1dd103ed86f0.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-6.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-40047967-1429-4705-bea7-166573ea70fb.png"
+        }
+      },
+      {
+        "status": "fulfilled",
+        "value": {
+          "file": "relic-7.png",
+          "path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-075a416f-64d7-4af2-aab8-f3fd04099b40.png"
+        }
+      }
+    ]
+  },
+  {
+    "asset": "unbegotten.png",
+    "generator": "image_gen.imagegen",
+    "original_path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-fc3e9c33-935c-4580-93e7-ad6566f957b1.png",
+    "prompt": "prompts/unbegotten.txt"
+  }
+]

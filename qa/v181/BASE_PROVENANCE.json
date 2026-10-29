@@ -1,0 +1,7 @@
+{
+  "base_tag": "v1.8-r2",
+  "base_main": "c28191e9161cda3e4a15ee8e5e7c28c753a4ae96",
+  "base_tree": "606e0f4819a37efff6d3a0b32cd7c268cdac9838",
+  "base_eboot_sha256": "e158981993f61c5b0b5e9a51086002cbdd2e0c3feb4019cc2d16e67b06bcf0f8",
+  "ancestry": "Fresh v1.8-r2, rebuilt from v1.71-r2. No abandoned 1.8 prerelease reused."
+}

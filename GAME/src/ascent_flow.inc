@@ -25,8 +25,8 @@ static int ascent_action(Game*g,int b){
   if(b==BTN_OK){if(!ascent_set_debug(!ascent_debug()))msg(g,"Could not save Options. Try again.");}
   if(b==BTN_BACK){g->screen=TITLE;g->selection=3;}return 1;
  case ASCENT_COLLECTION:
-  if(b==BTN_TAB_LEFT){g->scroll=(g->scroll+4)%5;g->selection=0;}
-  if(b==BTN_TAB_RIGHT){g->scroll=(g->scroll+1)%5;g->selection=0;}
+  if(b==BTN_TAB_LEFT){g->scroll=(g->scroll+5)%6;g->selection=0;}
+  if(b==BTN_TAB_RIGHT){g->scroll=(g->scroll+1)%6;g->selection=0;}
   if(b==BTN_LEFT&&g->selection>0)g->selection--;
   if(b==BTN_RIGHT)g->selection=MIN(g->scroll==4?9:19,g->selection+1);
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
