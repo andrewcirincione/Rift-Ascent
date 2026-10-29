@@ -1,0 +1,363 @@
+[
+  {
+    "id": 24,
+    "title": "THREADS UNDER SKIN",
+    "lore": "A seamstress pulls silver thread from beneath her skin.",
+    "offers": [
+      [
+        "STITCH A MEMORY",
+        "Lose 9 HP. Give one card Retain.",
+        "MOD_BOUND",
+        0,
+        9,
+        0
+      ],
+      [
+        "LIGHT THE THREAD",
+        "Pay 35 Gold. One Attack or Skill draws an extra card, but Exhausts.",
+        "MOD_KINDLED",
+        35,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 25,
+    "title": "FORGE OF WHISPERS",
+    "lore": "Three hammers argue over the shape of your next mistake.",
+    "offers": [
+      [
+        "SHARPEN",
+        "Pay 30 Gold. One Attack gains +2 base damage per hit.",
+        "MOD_KEEN",
+        30,
+        0,
+        0
+      ],
+      [
+        "REINFORCE",
+        "Lose 10 HP. One Block-granting card gains +4 base Block.",
+        "MOD_WARD",
+        0,
+        10,
+        0
+      ],
+      [
+        "LET IT ANSWER",
+        "Pay 65 Gold and lose 5 HP. A fixed-cost Attack plays twice, but costs 1 more Energy.",
+        "MOD_ECHO",
+        65,
+        5,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 26,
+    "title": "PAPER SAINT",
+    "lore": "The saint offers to fold a piece of your life into a card.",
+    "offers": [
+      [
+        "FOLD YOUR YEARS",
+        "Lose 4 maximum HP. One Attack or Skill costs 1 less Energy, but Exhausts. Keep at least 25 maximum HP.",
+        "MOD_FLEETING",
+        0,
+        0,
+        4
+      ]
+    ]
+  },
+  {
+    "id": 27,
+    "title": "GRAVE ENGRAVER",
+    "lore": "The engraver has space for one more word on your weapon.",
+    "offers": [
+      [
+        "CARVE A WOUND",
+        "Lose 3 maximum HP. One Attack gains +2 base damage per hit. Keep at least 25 maximum HP.",
+        "MOD_KEEN",
+        0,
+        0,
+        3
+      ],
+      [
+        "CARVE A PROMISE",
+        "Pay 25 Gold. Give one card Retain.",
+        "MOD_BOUND",
+        25,
+        0,
+        0
+      ],
+      [
+        "CARVE A SPARK",
+        "Lose 8 HP. One Attack or Skill draws an extra card, but Exhausts.",
+        "MOD_KINDLED",
+        0,
+        8,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 28,
+    "title": "RED COMMUNION",
+    "lore": "A cup of living iron waits beside a bowl of clean water.",
+    "offers": [
+      [
+        "DRINK THE IRON",
+        "Lose 8 HP. Next combat only: gain 3 Strength and begin with 2 Vulnerable.",
+        "0",
+        0,
+        8,
+        0
+      ],
+      [
+        "CHOOSE CLEAN WATER",
+        "Pay 30 Gold. Heal 18 HP.",
+        "0",
+        30,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 29,
+    "title": "SALT CHAPEL",
+    "lore": "White salt has preserved every kneeling pilgrim except you.",
+    "offers": [
+      [
+        "KNEEL IN THE SALT",
+        "Heal 28 HP. Begin your next combat with 2 Weak.",
+        "0",
+        0,
+        0,
+        0
+      ],
+      [
+        "TAKE A SALT WARD",
+        "Pay 15 Gold. Begin your next combat with 12 extra Block.",
+        "0",
+        15,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 30,
+    "title": "LEECH GARDEN",
+    "lore": "Pale leeches grow inside glass fruit. The gardener smiles.",
+    "offers": [
+      [
+        "LET THEM FEED",
+        "Lose 5 maximum HP, then heal to full. Keep at least 25 maximum HP.",
+        "0",
+        0,
+        0,
+        5
+      ],
+      [
+        "PRESS TWO FRUITS",
+        "Lose 9 HP. Gain two random unlocked potions. Requires two empty belt slots.",
+        "0",
+        0,
+        9,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 31,
+    "title": "GLASS HEART",
+    "lore": "A second heartbeat sounds from an unbroken glass chest.",
+    "offers": [
+      [
+        "ACCEPT THE HEART",
+        "Gain 12 maximum HP and heal 12. Add an unplayable Injury to your deck.",
+        "0",
+        0,
+        0,
+        0
+      ],
+      [
+        "CUT A SHARD FREE",
+        "Pay 40 Gold to remove one card.",
+        "EVENT_REMOVE",
+        40,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 32,
+    "title": "RELIQUARY OF DEBTS",
+    "lore": "The dead kept careful accounts. Three debts remain unpaid.",
+    "offers": [
+      [
+        "PAY IN BLOOD",
+        "Lose 8 HP. Receive this relic.",
+        "0",
+        0,
+        8,
+        0
+      ],
+      [
+        "PAY IN COIN",
+        "Pay 65 Gold. Receive this other relic.",
+        "0",
+        65,
+        0,
+        0
+      ],
+      [
+        "SETTLE THE SMALL DEBT",
+        "Pay 20 Gold. Gain one random unlocked potion.",
+        "0",
+        20,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 33,
+    "title": "THE STILL ROOM",
+    "lore": "An alchemist can distill more than medicine from your belt.",
+    "offers": [
+      [
+        "DISTILL A LESSON",
+        "Pay 20 Gold and trade your first potion to upgrade one chosen card.",
+        "EVENT_UPGRADE",
+        20,
+        0,
+        0
+      ],
+      [
+        "DISTILL A HEARTBEAT",
+        "Trade your first two potions. Gain 8 maximum HP and heal 8.",
+        "0",
+        0,
+        0,
+        0
+      ],
+      [
+        "SELL THE WHOLE BELT",
+        "Lose every carried potion. Gain 18 Gold for each potion sold.",
+        "0",
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 34,
+    "title": "BONE ORCHARD",
+    "lore": "Two pale fruits bear the memories of warriors buried below.",
+    "offers": [
+      [
+        "BUY THE GOLDEN FRUIT",
+        "Pay 45 Gold. Receive the shown Rare card.",
+        "0",
+        45,
+        0,
+        0
+      ],
+      [
+        "PLUCK THE THORNED FRUIT",
+        "Lose 7 HP. Receive the shown upgraded Uncommon card.",
+        "0",
+        0,
+        7,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 35,
+    "title": "WAR DRUM",
+    "lore": "A drum of stretched hide beats in time with your pulse.",
+    "offers": [
+      [
+        "LEARN ITS RHYTHM",
+        "Pay 25 Gold. Gain 3 Strength for your next combat only.",
+        "0",
+        25,
+        0,
+        0
+      ],
+      [
+        "STRIKE IT WITH BLOOD",
+        "Lose 6 HP. Draw 2 extra cards in your next opening hand, up to the hand limit.",
+        "0",
+        0,
+        6,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 36,
+    "title": "TAX ON BREATH",
+    "lore": "The collector accepts either blood now or coin for shelter.",
+    "offers": [
+      [
+        "PAY THE BLOOD TAX",
+        "Lose 10 HP. Gain 100 Gold.",
+        "0",
+        0,
+        10,
+        0
+      ],
+      [
+        "BUY A NIGHT'S SHELTER",
+        "Pay 50 Gold. Heal 25 HP and begin your next combat with 12 extra Block.",
+        "0",
+        50,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 37,
+    "title": "THE FACELESS DRAFTER",
+    "lore": "The stranger erases a face from a card and offers you the pen.",
+    "offers": [
+      [
+        "REWRITE A CARD",
+        "Pay 20 Gold. Replace one card with a different random Uncommon from your character. Its old upgrade and modifier are lost.",
+        "EVENT_TRANSFORM",
+        20,
+        0,
+        0
+      ],
+      [
+        "KEEP YOUR OLD NAME",
+        "Gain 15 Gold. Your deck stays the same.",
+        "0",
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "id": 38,
+    "title": "CANDLE FOR A STRANGER",
+    "lore": "A stranded soul needs a little warmth to find the road.",
+    "offers": [
+      [
+        "SHARE YOUR FLAME",
+        "Lose 6 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",
+        "0",
+        0,
+        6,
+        0
+      ]
+    ]
+  }
+]

@@ -5,7 +5,7 @@ from pathlib import Path
 import os,subprocess,time,asyncio,json,base64,struct,hashlib,shutil
 import websockets
 from PIL import Image
-R=Path(__file__).resolve().parents[2];Q=R/'qa/v182';E=Q/'evidence';T=R.parent/'toolchain';C=T/'qa182';C.mkdir(exist_ok=True)
+R=Path(__file__).resolve().parents[2];Q=R/'qa/v182';E=Q/'evidence';T=R.parent/'toolchain';instance=os.environ.get('RIFT_INSTANCE','182');prefix=os.environ.get('RIFT_PREFIX','');display=os.environ.get('RIFT_DISPLAY','519');port=os.environ.get('RIFT_PORT','19519');C=T/('qa'+instance);C.mkdir(exist_ok=True)
 M=C/'ppsspp';S=M/'PSP/SYSTEM';S.mkdir(parents=True,exist_ok=True)
 (S/'controls.ini').write_text('[ControlMapping]\nScreenshot = 1-131\n')
 D=M/'PSP/GAME/RIFT182VERIFY';D.mkdir(parents=True,exist_ok=True)
@@ -13,8 +13,8 @@ resume=os.environ.get('RIFT_COLD')=='1';smoke=os.environ.get('RIFT_SMOKE')=='1'
 if not resume and os.environ.get('RIFT_KEEP')!='1':
  for f in D.glob('ASCENT18_*'):f.unlink()
 shutil.copyfile(E/'EBOOT.PBP',D/'EBOOT.PBP')
-conf=C/'settings.ini';conf.write_text('[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = 19519\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\n[Graphics]\nInternalResolution = 1\nVSyncInterval = False\n[Sound]\nEnable = True\n[SystemParam]\nPSPModel = 0\n')
-env=os.environ.copy();env.update(DISPLAY='127.0.0.1:519',LIBGL_ALWAYS_SOFTWARE='1',SDL_VIDEODRIVER='x11',SDL_AUDIODRIVER='dummy',XDG_CONFIG_HOME=str(C),LD_LIBRARY_PATH=str(T/'sysroot/usr/lib/x86_64-linux-gnu'))
+conf=C/'settings.ini';conf.write_text(f'[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = {port}\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\n[Graphics]\nInternalResolution = 1\nVSyncInterval = False\n[Sound]\nEnable = True\n[SystemParam]\nPSPModel = 0\n')
+env=os.environ.copy();env.update(DISPLAY='127.0.0.1:'+display,LIBGL_ALWAYS_SOFTWARE='1',SDL_VIDEODRIVER='x11',SDL_AUDIODRIVER='dummy',XDG_CONFIG_HOME=str(C),LD_LIBRARY_PATH=str(T/'sysroot/usr/lib/x86_64-linux-gnu'))
 nm=subprocess.check_output([str(T/'pspdev/bin/psp-nm'),'-S',str(Q/'source/rift_ascent_crt_free.elf')],text=True)
 syms={p[3]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split())==4}
 L=json.loads((E/'state-layout.json').read_text());screens=L['screens'];seq=0
@@ -91,7 +91,7 @@ async def check(w):
      if not src.read_bytes().endswith(bytes.fromhex('49454e44ae426082')):continue
     except Exception:continue
     assert await val('rift_asset_errors')==0,n
-    shutil.copyfile(src,E/('ppsspp-'+n+'.png'));print('SHOT',n,flush=True);return
+    shutil.copyfile(src,E/('ppsspp-'+prefix+n+'.png'));print('SHOT',n,flush=True);return
   raise AssertionError('Screenshot timeout '+n)
  async def fixture(n,patch=None):
   await command('cpu.stepping');raw=bytearray((E/('fixture-'+n+'.bin')).read_bytes());assert len(raw)==L['size']
@@ -138,10 +138,12 @@ async def check(w):
   await fixture('exhausted');assert field(await state(),'relic_count')>64;await button('cross');assert await screen()==screens['RELIC_RESULT'];assert field(await state(),'reward') in [37,38,39];await shot('exhausted-relic-fallback');await button('cross');assert await screen()==screens['REWARD']
   await fixture('collection');await shot('base-relic-collection');await button('r');assert field(await state(),'scroll')==0;await button('l');assert field(await state(),'scroll')==5
   print('PASS foreign rare choice, >64 relic run, repeatable reward after pool exhaustion, six-tab collection navigation',flush=True)
- if os.environ.get('RIFT_STAGE','all') in ('all','revision'):
+ if os.environ.get('RIFT_STAGE','all') in ('all','revision','final'):
   for c in range(3):
    for act in range(1,4):
     await fixture(f'visual-{c}-{act}');await shot(f'actors-{c}-act-{act}');assert await val('rift_asset_errors')==0
+  for id in [12,16]:
+   await fixture(f'visual-extra-{id}');await shot(f'actor-extra-{id}')
   for event in [6,17,18,19,20,21,22,23]:
    await fixture(f'event-{event:02d}');await shot(f'event-{event:02d}')
    if event in [18,19,22]:
@@ -149,6 +151,25 @@ async def check(w):
    if event==18:
     await button('cross');assert await screen()==screens['EVENT_CARD'];await shot('event-third-picker');await button('circle');assert await screen()==screens['EVENT'] and field(await state(),'selection')==2
    await button('circle');assert await screen() in [screens['MAP'],screens['EXPEDITION_STORY']]
+  for event in [24,25,28,32,33,34,37,38]:
+   await fixture(f'event-{event:02d}');await shot(f'extra-event-{event:02d}');before=await state()
+   await button('cross')
+   if event in [24,25,33,37]:
+    assert await screen()==screens['EVENT_CARD'];await shot(f'extra-picker-{event:02d}')
+    await button('circle');assert await screen()==screens['EVENT']
+    assert field(await state(),'gold')==field(before,'gold') and field(await state(),'potion_count')==field(before,'potion_count')
+    await button('cross');await button('cross')
+   assert await screen()==screens['EVENT_RESULT'];after=await state();await shot(f'extra-result-{event:02d}')
+   if event==33:assert field(after,'gold')==field(before,'gold')-20 and field(after,'potion_count')==1
+   if event==37:assert field(after,'deck')!=field(before,'deck') and field(after,'deck_count')==field(before,'deck_count')
+   await button('cross');assert await screen()==screens['MAP']
+   if event in [28,38]:
+    await button('cross');assert await screen()==screens['COMBAT'];raw=await state()
+    assert field(raw,'strength')==(3 if event==28 else 2)
+    assert field(raw,'vulnerable')==(2 if event==28 else 0)
+    assert field(raw,'block')==(0 if event==28 else 10)
+    assert not any(raw[L['revision182']+16:L['revision182']+36]);await shot(f'extra-boon-combat-{event:02d}')
+  print('PASS extra mysteries: controller choices, card picker cancellation/commit, potion payment, transform, relic/card gifts and next-fight Strength/Block/Vulnerable',flush=True)
   await fixture('mystery-0')
   for _ in range(3):await button('cross')
   await shot('exchange-selected-left');await button('right');await shot('exchange-selected-middle');assert field(await state(),'selection')==1
@@ -174,7 +195,7 @@ async def check(w):
    await button('down');await button('cross')
   assert await screen()==screens['CHARACTER_SELECT'];await shot('character-select');await button('right');await shot('character-select-vesper');await button('circle')
   print('PASS new actor shadows/art on all act backgrounds; seven event variants; raised Exchange cards; save selection and character dimming',flush=True)
- if os.environ.get('RIFT_STAGE','all') in ('all','god'):
+ if os.environ.get('RIFT_STAGE','all') in ('all','god','final'):
   await fixture('god-before-0');await shot('god-before');
   for _ in range(3):await button('cross')
   assert await screen()==screens['COMBAT'];raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+L['enemy_art'])[0]==45;assert await val('soundtrack_current')==0;await audible();await shot('god-combat');await button('circle');assert await screen()==screens['COMBAT'];await shot('god-turn-two')
@@ -191,13 +212,13 @@ async def check(w):
 
 p=None;x=None
 try:
- x=subprocess.Popen([str(T/'sysroot/usr/bin/Xvfb'),':519','-screen','0','960x544x24','-ac','-nolisten','unix','-listen','tcp','-extension','MIT-SHM','-xkbdir','/usr/share/X11/xkb'],env=env,stdout=open(E/'xvfb.log','w'),stderr=subprocess.STDOUT);time.sleep(.5);assert x.poll() is None
- p=subprocess.Popen([str(T/'ppsspp/AppDir/AppRun'),'--appendconfig='+str(conf),'--graphics=opengl','--windowed',str(D/'EBOOT.PBP')],env=env,stdout=open(E/'ppsspp.log','w'),stderr=subprocess.STDOUT)
+ x=subprocess.Popen([str(T/'sysroot/usr/bin/Xvfb'),':'+display,'-screen','0','960x544x24','-ac','-nolisten','unix','-listen','tcp','-extension','MIT-SHM','-xkbdir','/usr/share/X11/xkb'],env=env,stdout=open(E/(prefix+'xvfb.log'),'w'),stderr=subprocess.STDOUT);time.sleep(.5);assert x.poll() is None
+ p=subprocess.Popen([str(T/'ppsspp/AppDir/AppRun'),'--appendconfig='+str(conf),'--graphics=opengl','--windowed',str(D/'EBOOT.PBP')],env=env,stdout=open(E/(prefix+'ppsspp.log'),'w'),stderr=subprocess.STDOUT)
  async def run():
   for _ in range(120):
    await asyncio.sleep(.5)
    if p.poll() is not None:raise RuntimeError('Emulator exited; see ppsspp.log')
-   try:w=await websockets.connect('ws://127.0.0.1:19519/debugger',subprotocols=['debugger.ppsspp.org'],proxy=None,max_size=10000000)
+   try:w=await websockets.connect(f'ws://127.0.0.1:{port}/debugger',subprotocols=['debugger.ppsspp.org'],proxy=None,max_size=10000000)
    except OSError:continue
    async with w:await check(w)
    return

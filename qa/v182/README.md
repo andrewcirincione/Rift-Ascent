@@ -16,19 +16,23 @@ This revision starts from the published 1.8.1 tree and complete EBOOT. The
 - The XMB RiftBoss preview is re-encoded from the original supplied WAV with a
   180 ms silent lead, gentle entrance and silent tail. All ten full in-game
   soundtrack streams are preserved byte-for-byte.
-- 25 enemy illustrations replace repeated or low-contrast designs, including
+- 27 enemy illustrations replace repeated or low-contrast designs, including
   Ash Crawler, Crypt Archer, Glimmer Moth, Chain Keeper and Sable Lurker.
   Acts 1–3 each have ten regular species and four distinct elite species;
   Crown Eater supplies Act 3's fourth unique elite. Later acts mix these pools.
 - Every player pose and enemy silhouette receives a small, feathered shadow
   derived from its existing alpha. This uses renderer code, no new shadow art.
 - The multi-enemy target marker is smaller and quieter. Mystery card previews
-  have portrait proportions; the Nameless Exchange raises/highlights selection.
+  have portrait proportions; other preview dimensions are unchanged. The
+  Nameless Exchange now shares the raised/highlighted card-choice feedback.
 - Selected elites/bosses can fracture defenses, sear, rally allies, purge
   debuffs, inflict gloom or blight. Intents and the combat log state the effects.
-- Seven mystery rooms add one-offer and three-offer layouts, potion trades,
+- Twenty-two new mystery rooms (39 total) add one-offer and three-offer layouts, potion trades,
   permanent Strength, multiple upgrades, modifications and a coin gamble.
   Costs are checked on commitment; canceling a card picker spends nothing.
+  The extra 15 include four modification rooms, potion distillation, card
+  transformation, and next-combat bargains visible in the status browser.
+  A 64-bit event bag preserves coverage above 32 rooms.
 - Character stories roll once, at 1%, after a completed non-boss map room and
   its rewards. Inventory visits do not create new rolls. The pending room and
   rare-card offset persist in saves; 1.8 and 1.8.1 runs migrate without changing

@@ -22,7 +22,8 @@ int main(void){char temp[]="/tmp/rift-182-fixtures-XXXXXX";assert(mkdtemp(temp)&
   int elite=enemy_elite[act-1][c];init_enemy(&g,&g.enemies[0],normal);init_enemy(&g,&g.enemies[1],elite);g.selection=g.hand_count;
   snprintf(n,sizeof(n),"fixture-visual-%d-%d",c,act);save(n,&g,sizeof(g));
  }
- for(int id=0;id<EVENT_COUNT;id++){assert(ascent_begin(&g,3,0,900+id));g.gold=200;g.hp=40;game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-event-%02d",id);save(n,&g,sizeof(g));}
+ for(int id=0;id<EVENT_COUNT;id++){assert(ascent_begin(&g,3,0,900+id));g.gold=200;g.hp=40;g.potion_count=2;g.potions[0]=0;g.potions[1]=1;g.relic_count=0;g.screen=MAP;g.floor=0;g.map[0][0]=NODE_FIGHT;game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-event-%02d",id);save(n,&g,sizeof(g));}
+ for(int id=12;id<=16;id+=4){assert(ascent_begin(&g,3,0,1200+id));g.act=id==12?1:2;game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;init_enemy(&g,&g.enemies[0],id);g.selection=g.hand_count;snprintf(n,sizeof(n),"fixture-visual-extra-%d",id);save(n,&g,sizeof(g));}
  for(int kind=0;kind<2;kind++){
   int found=0;for(int seed=1;seed<100;seed++){
    game_new(&g,seed);game_choose_character(&g,0);g.screen=MAP;g.floor=0;g.selection=0;g.map[0][0]=kind?NODE_ELITE:NODE_FIGHT;a=g;game_action(&a,BTN_OK);
@@ -32,7 +33,7 @@ int main(void){char temp[]="/tmp/rift-182-fixtures-XXXXXX";assert(mkdtemp(temp)&
  save("fixture-account",&ascent_account,sizeof(ascent_account));
  FILE*f=fopen("qa/v182/evidence/state-layout.json","w");assert(f);fprintf(f,"{\"size\":%zu,\"account_size\":%zu",sizeof(Game),sizeof(AscentAccount));
 #define OFF(x) fprintf(f,",\"" #x "\":%zu",offsetof(Game,x))
- OFF(screen);OFF(selection);OFF(scroll);OFF(act);OFF(character);OFF(hp);OFF(maxhp);OFF(ascent);OFF(enemy_count);OFF(enemies);OFF(floor);OFF(battle_type);OFF(combat_music);OFF(potion_count);OFF(potions);OFF(hand_count);OFF(hand);OFF(reward);OFF(prior_screen);OFF(energy);OFF(ic);OFF(expedition);OFF(deck_count);OFF(relic_count);OFF(v151);OFF(revision182);
+ OFF(screen);OFF(selection);OFF(scroll);OFF(act);OFF(character);OFF(hp);OFF(maxhp);OFF(ascent);OFF(enemy_count);OFF(enemies);OFF(floor);OFF(battle_type);OFF(combat_music);OFF(potion_count);OFF(potions);OFF(hand_count);OFF(hand);OFF(reward);OFF(prior_screen);OFF(energy);OFF(ic);OFF(expedition);OFF(deck_count);OFF(relic_count);OFF(v151);OFF(revision182);OFF(gold);OFF(strength);OFF(block);OFF(weak);OFF(vulnerable);OFF(deck);
  fprintf(f,",\"enemy_size\":%zu,\"enemy_hp\":%zu,\"enemy_art\":%zu,\"account_cards\":%zu,\"account_wins\":%zu,\"account_ascended\":%zu,\"account_debug\":%zu,\"energy_lock\":%d,\"potion_offer\":%zu,\"screens\":{",sizeof(Enemy),offsetof(Enemy,hp),offsetof(Enemy,art),offsetof(AscentAccount,cards),offsetof(AscentAccount,wins),offsetof(AscentAccount,ascended),offsetof(AscentAccount,debug),IC_ENERGY_LOCK,offsetof(Game,v151.potion_offer));
 #define SCREEN(x) fprintf(f,"\"" #x "\":%d,",x)
  SCREEN(EVENT);SCREEN(EVENT_CARD);SCREEN(EVENT_RESULT);SCREEN(TITLE);SCREEN(MAP);SCREEN(COMBAT);SCREEN(VICTORY);SCREEN(ASCENT_SLOTS_VIEW);SCREEN(ASCENT_OPTIONS);SCREEN(ASCENT_COLLECTION);SCREEN(CHARACTER_SELECT);SCREEN(ACT_INTRO);SCREEN(BLESSING);SCREEN(STORY_ACT_BEFORE_BLESSING);SCREEN(EXPEDITION_STORY);SCREEN(EXPEDITION_GIFT);SCREEN(ABOMINATION_BEFORE);SCREEN(ABOMINATION_AFTER);SCREEN(MYSTERY_STORY);SCREEN(MYSTERY_CARDS);SCREEN(REWARD);SCREEN(RELIC_RESULT);fprintf(f,"\"DEFEAT\":%d}}\n",DEFEAT);fclose(f);return 0;

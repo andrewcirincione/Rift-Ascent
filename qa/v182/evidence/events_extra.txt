@@ -1,0 +1,4 @@
+PASS 15 extra rooms for all heroes; costs committed once; potion upgrade cancel/revalidation; transformative card eligibility and removal of old metadata
+PASS queued boons/debuffs in status, persistence before/after combat, exact opening stats/cards, single consumption and capacity gates
+PASS all 39 rooms reached, safe 64-bit bag and high-bit save/reload/reset
+PASS resource-poor/full-deck boundaries for every additional offer

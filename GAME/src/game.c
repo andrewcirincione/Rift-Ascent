@@ -1008,6 +1008,10 @@ void game_start_battle(Game*g,int mode){
  reshuffle_battle(g);msg(g,"The enemy is preparing an attack.");game_start_turn(g);
  if(relic(g,64))g->block+=6;if(relic(g,66))regent_gain_stars(g,3);
  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+ int *boon=g->revision182.next_combat;int extra=boon[2],any=0;for(int i=0;i<5;i++)any|=boon[i];
+ g->strength+=boon[0];g->block=MIN(999,g->block+boon[1]);g->weak+=boon[3];g->vulnerable+=boon[4];
+ memset(boon,0,sizeof(g->revision182.next_combat));for(int i=0;i<extra;i++)draw_card(g);
+ if(any)msg(g,"Your mystery bargains take effect. Inspect STATUS for details.");
 }
 static void check_win(Game*g);
 void game_start_turn(Game*g){
@@ -2166,6 +2170,8 @@ int game_validate(const Game*g){
   if(g->ascent.unlocked_relic!=-1&&(g->ascent.unlocked_relic<64||g->ascent.unlocked_relic>=74))return 0;
  }
  if(g->revision182.rare_offset< -5||g->revision182.rare_offset>40||g->revision182.room_pending<0||g->revision182.room_pending>1||g->revision182.room_type<0||g->revision182.room_type>NODE_BOSS)return 0;
+ if(g->revision182.event_seen_hi>127u)return 0;
+ const int next_limits[5]={30,99,5,5,5};for(int i=0;i<5;i++)if(g->revision182.next_combat[i]<0||g->revision182.next_combat[i]>next_limits[i])return 0;
  if(g->act<1||g->act>100000||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
  if(g->screen<TITLE||g->screen>MYSTERY_CARDS||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
@@ -2220,8 +2226,9 @@ int game_validate(const Game*g){
  if(g->screen==REST&&(g->selection<0||g->selection>1))return 0;
  if(g->screen==EVENT&&(g->selection<0||g->selection>=game_event_choice_count(g)||g->effect_turn<0||g->effect_turn>=EVENT_COUNT))return 0;
  if(g->screen==EVENT_RESULT&&g->reward[0]!=-1&&!valid_card_raw(g->reward[0]))return 0;
- if(g->screen==EVENT&&(g->effect_turn==2||g->effect_turn==6))for(int i=0;i<2;i++)if(!valid_card_raw(g->reward[i])||!game_card_is_playable(g->reward[i]))return 0;
- if(g->screen==EVENT_CARD&&(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||g->next_screen<1||g->next_screen>EVENT_COPY||g->selection<0||g->selection>=g->deck_count||g->shop_selection<0||g->shop_selection>=game_event_choice_count(g)-1))return 0;
+ if(g->screen==EVENT&&(g->effect_turn==2||g->effect_turn==6||g->effect_turn==34))for(int i=0;i<2;i++)if(!valid_card_raw(g->reward[i])||!game_card_is_playable(g->reward[i]))return 0;
+ if(g->screen==EVENT&&g->effect_turn==17&&(!valid_card_raw(g->reward[0])||!game_card_is_playable(g->reward[0])))return 0;
+ if(g->screen==EVENT_CARD&&(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||g->next_screen<1||g->next_screen>EVENT_TRANSFORM||g->selection<0||g->selection>=g->deck_count||g->shop_selection<0||g->shop_selection>=game_event_choice_count(g)-1))return 0;
  if(g->screen==SHOP&&(g->selection<0||g->selection>7))return 0;
  if(g->screen==DECK_VIEW){
    int count=g->prior_screen==COMBAT?
@@ -2419,6 +2426,11 @@ static int status_entries(const Game*g,int wanted,char*out,int cap){
  int n=0;
 #define STATUS_FLAG(value,label) do {if(value){if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"%s",label);n++;}}while(0)
 #define STATUS(value,format) do {int v=(value);if(v){if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,format,v);n++;}}while(0)
+ STATUS(g->revision182.next_combat[0],"Next combat: +%d Strength for that fight");
+ STATUS(g->revision182.next_combat[1],"Next combat: +%d starting Block");
+ STATUS(g->revision182.next_combat[2],"Next combat: draw %d extra opening cards");
+ STATUS(g->revision182.next_combat[3],"Next combat: start with %d Weak");
+ STATUS(g->revision182.next_combat[4],"Next combat: start with %d Vulnerable");
  if(g->character==CHAR_REGENT){STATUS(g->regent.stars,"Stars: %d available; saved between turns");STATUS(g->regent.forge,"Forge: +%d Sovereign Blade damage");STATUS(g->regent.created,"Cards created this combat: %d");STATUS(g->regent.vigor,"Vigor: +%d damage on next Attack");STATUS(g->regent.next_stars,"Gain %d Stars next turn");STATUS(g->regent.next_energy,"Gain %d Energy next turn");STATUS(g->regent.next_draw,"Draw %d extra cards next turn");STATUS_FLAG(g->regent.reflect,"Reflect: return blocked attack damage");STATUS(g->regent.panic,"Panic: no card Block for %d turn starts");}
  STATUS(g->strength,"Strength: %d damage per hit");
  STATUS(g->dexterity,"Dexterity: %d Block from cards");

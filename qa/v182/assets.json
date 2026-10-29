@@ -1,6 +1,6 @@
 {
-  "bytes": 50303088,
-  "sha256": "34d103492c5221c57782f596f23f09d0f52c08d3d5b09d99d05ad9fdb97de26a",
+  "bytes": 50619376,
+  "sha256": "058f3b749753f06d6a7f14067ca2c732f614b1dab333e0b885e381cdae18eee5",
   "assets": [
     {
       "name": "ascent_card_334",
@@ -1794,6 +1794,28 @@
       "crc32": "a709dacc",
       "sha256": "0237cbe4876f531ed5c14b0a1665967c30ae2a5fc2aa011b0e86e4e6b7a2df03",
       "source_sha256": "3c5fb6d3930cbab3cbe3a9390e31f1ce5d6752af4c57ebecb5ec70f13a02ab89"
+    },
+    {
+      "name": "aesthetic_enemy_12",
+      "file": "enemy-12.png",
+      "width": 224,
+      "height": 149,
+      "bytes": 133504,
+      "offset": 50303088,
+      "crc32": "9710220f",
+      "sha256": "a0660acecbb5e9f0654a27baca8a940be112d3b59bc560318b56fafe96528a78",
+      "source_sha256": "784266a5073f6ffb681028dd067724c4ef9c9b9fdd88fa9d3d186dd881162480"
+    },
+    {
+      "name": "aesthetic_enemy_16",
+      "file": "enemy-16.png",
+      "width": 224,
+      "height": 204,
+      "bytes": 182784,
+      "offset": 50436592,
+      "crc32": "f590c70a",
+      "sha256": "29e35690644a820b0a65cbb36a94cc6abdd19ac2b4cc45760402aa93b1f339f7",
+      "source_sha256": "9a0cc7dc8b2fdf6a20237b68a6e9b981decf72886536203ff6e0d572335d873e"
     }
   ],
   "base": "v1.8.1",
@@ -2085,6 +2107,28 @@
       "crc32": "a709dacc",
       "sha256": "0237cbe4876f531ed5c14b0a1665967c30ae2a5fc2aa011b0e86e4e6b7a2df03",
       "source_sha256": "3c5fb6d3930cbab3cbe3a9390e31f1ce5d6752af4c57ebecb5ec70f13a02ab89"
+    },
+    {
+      "name": "aesthetic_enemy_12",
+      "file": "enemy-12.png",
+      "width": 224,
+      "height": 149,
+      "bytes": 133504,
+      "offset": 50303088,
+      "crc32": "9710220f",
+      "sha256": "a0660acecbb5e9f0654a27baca8a940be112d3b59bc560318b56fafe96528a78",
+      "source_sha256": "784266a5073f6ffb681028dd067724c4ef9c9b9fdd88fa9d3d186dd881162480"
+    },
+    {
+      "name": "aesthetic_enemy_16",
+      "file": "enemy-16.png",
+      "width": 224,
+      "height": 204,
+      "bytes": 182784,
+      "offset": 50436592,
+      "crc32": "f590c70a",
+      "sha256": "29e35690644a820b0a65cbb36a94cc6abdd19ac2b4cc45760402aa93b1f339f7",
+      "source_sha256": "9a0cc7dc8b2fdf6a20237b68a6e9b981decf72886536203ff6e0d572335d873e"
     }
   ],
   "draft_missing": []

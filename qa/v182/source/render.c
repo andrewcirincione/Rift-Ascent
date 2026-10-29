@@ -1063,9 +1063,9 @@ static void rest_screen(const Game*g){
 static void event_screen(const Game*g){
  header(g,"A CHOICE IN THE DARK");
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);gilded_panel(20,42,440,210,1);
- int card_offer=((id==2||id==6)&&g->selection<2)||(id==17&&!g->selection);
+ int card_offer=((id==2||id==6||id==34)&&g->selection<2)||(id==17&&!g->selection);
  r134_center(240,51,game_event_title(id),GOLD,&r134_f18b);
- static const int art_map[7]={3,12,8,16,11,5,0};int artid=id<17?id:art_map[id-17];
+ static const int art_map[22]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3};int artid=id<17?id:art_map[id-17];
  const uint32_t*art=artid>=12?r150_events[artid-12]:r134_event_icons[artid];
  r134_blit(33,74,card_offer?42:52,card_offer?42:52,art,80,80,255);
  if(card_offer)r134_wrap(83,79,125,4,10,game_event_lore(id),WHITE,&r134_f9,0);
@@ -1085,7 +1085,7 @@ static void event_screen(const Game*g){
  if(card_offer){
   int raw=g->reward[g->selection];
   card_render(265,81,140,165,raw,1,1);
-  r134_center(335,70,game_event_choice_available(g,g->selection)?(id==2?(g->selection==0?"35 GOLD":"FREE"):id==17?"7 HP":"6 HP"):"UNAVAILABLE",game_event_choice_available(g,g->selection)?GOLD:RED,&r134_f9b);
+  r134_center(335,70,game_event_choice_available(g,g->selection)?(id==2?(g->selection==0?"35 GOLD":"FREE"):id==17?"7 HP":id==34?(g->selection?"7 HP":"45 GOLD"):"6 HP"):"UNAVAILABLE",game_event_choice_available(g,g->selection)?GOLD:RED,&r134_f9b);
  }else r134_wrap(229,124,215,10,11,detail,WHITE,&r134_f9,0);
  if(!card_offer){
   if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
@@ -1095,7 +1095,7 @@ static void event_screen(const Game*g){
 }
 static void event_card_screen(const Game*g){
  int action=g->next_screen;char title[80],detail[512],quote[96];
- snprintf(title,sizeof(title),action<MOD_COUNT?"APPLY %s / CHOOSE A CARD":action==EVENT_UPGRADE?"UPGRADE / CHOOSE A CARD":action==EVENT_REMOVE?"REMOVE / CHOOSE A CARD":"COPY / CHOOSE A CARD",game_mod_name(action));
+ snprintf(title,sizeof(title),action<MOD_COUNT?"APPLY %s / CHOOSE A CARD":action==EVENT_UPGRADE?"UPGRADE / CHOOSE A CARD":action==EVENT_REMOVE?"REMOVE / CHOOSE A CARD":action==EVENT_TRANSFORM?"TRANSFORM / CHOOSE A CARD":"COPY / CHOOSE A CARD",game_mod_name(action));
  header(g,title);
  game_event_option(g,g->shop_selection,quote,sizeof(quote),detail,sizeof(detail));
  r134_wrap(25,57,430,2,11,detail,GOLD,&r134_f9,0);
@@ -1112,7 +1112,7 @@ static void event_card_screen(const Game*g){
  int height=r135_card_layout(raw,154).height;
  r162_side_preview(raw,76);
  if(!eligible)r134_center(391,246,CARD_MOD(raw)&&action<MOD_COUNT?"ALREADY MODIFIED":"NOT ELIGIBLE",RED,&r134_f8);
- else r134_center(391,246,action==EVENT_REMOVE?"WILL BE REMOVED":action==EVENT_COPY?"COPY TO BE ADDED":"AFTER",GOLD,&r134_f9);
+ else r134_center(391,246,action==EVENT_REMOVE?"WILL BE REMOVED":action==EVENT_COPY?"COPY TO BE ADDED":action==EVENT_TRANSFORM?"WILL BE REPLACED":"AFTER",GOLD,&r134_f9);
  if(g->message[0])r134_wrap(20,238,288,1,10,g->message,RED,&r134_f8,1);
  footer("D-PAD CHOOSE   X CONFIRM & PAY   O CANCEL");
 }

@@ -1,0 +1,1 @@
+PASS all 20 new potion effects, all 10 relic effects, and cross-card base damage

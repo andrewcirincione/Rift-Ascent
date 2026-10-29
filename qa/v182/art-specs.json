@@ -306,5 +306,29 @@
     "height": 24,
     "alpha": true,
     "prompt": "Use case: stylized-concept. Production asset: a single restrained gothic targeting marker for a PSP dark fantasy game, genuine transparent background. A shallow low elliptical shadow with a thin weathered antique-brass double-pointed crescent on its front edge and a small ivory diamond at the exact center. Horizontal roughly 5 to 1 aspect silhouette. Quiet, worn, minimal medieval metal detail, subtly raised from the soft black shadow, readable at 54x12 pixels. No ornate flourishes, no crown, no wings, no flames, no letters, no background. One isolated UI marker, full shape visible."
+  },
+  {
+    "key": "enemy_12",
+    "file": "enemy-12.png",
+    "width": 192,
+    "height": 224,
+    "alpha": true,
+    "id": 12,
+    "act": 1,
+    "elite": 0,
+    "name": "Oathbreaker",
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Oathbreaker. A fallen paladin reduced to an elongated crawling beast, moving on four angular armored limbs. Split ivory antlered helmet, torn crimson oath ribbons, broken pale armor plates over charred flesh, huge fractured sword clutched low in its right claw. A strong hunched crawling silhouette, different from an upright knight or a robed wraith. Pale bone highlights separate it from a red burning cathedral. Regular enemy, compact and characterful."
+  },
+  {
+    "key": "enemy_16",
+    "file": "enemy-16.png",
+    "width": 192,
+    "height": 224,
+    "alpha": true,
+    "id": 16,
+    "act": 2,
+    "elite": 0,
+    "name": "Rust Reaver",
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Rust Reaver. An inhuman flooded-ossuary scavenger, a tall asymmetrical crustacean creature with a rusted diving bell fused to its narrow torso, one huge hooked anchor claw aimed LEFT, another small bone grasping limb, four long jointed crab legs. Barnacles, oxidized copper, pale ivory shell and tattered seaweed. An unmistakable non-humanoid silhouette, strong ivory highlights against blue moonlit ruins. Full figure with every limb visible. Regular enemy, compact and characterful."
   }
 ]

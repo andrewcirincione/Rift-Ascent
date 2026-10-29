@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 export ASAN_OPTIONS=detect_leaks=0
-for suite in progression storage effects expedition boundaries revision; do
+for suite in progression storage effects expedition boundaries revision events_extra; do
   gcc -O1 -g -std=gnu11 -fsanitize=address,undefined -fno-omit-frame-pointer "qa/v182/tests/$suite.c" -o "/tmp/rift-182-$suite"
   "/tmp/rift-182-$suite" > "qa/v182/evidence/$suite.txt"
 done
