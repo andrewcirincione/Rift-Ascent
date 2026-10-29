@@ -112,7 +112,7 @@ async def check(w):
   await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['ABOMINATION_BEFORE'];await shot('cold-resume-god-before')
   for _ in range(3):await button('cross')
   assert await screen()==screens['COMBAT'];assert field(await state(),'act')==7;await shot('cold-resume-god-combat');await audible()
-  print('PASS cold restart of Act 7 cutscene into exact boss fight; saved account and run retained',flush=True)
+  print('PASS cold restart of Act 7 cutscene into exact boss fight; saved run retained',flush=True)
   print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
  if os.environ.get('RIFT_STAGE','all') in ('all','new'):
   await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['CHARACTER_SELECT'];await button('cross');assert await screen()==screens['ACT_INTRO'];await button('cross');await button('cross');await button('cross');assert await screen()==screens['MAP'];await shot('new-run-map')

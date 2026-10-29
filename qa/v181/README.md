@@ -62,10 +62,13 @@ eligible foreign card for both other heroes, overflow saves, old-save recovery,
 full-deck choices and Act 7 transitions. Existing progression/card/potion/storage
 regressions remain included. All new dialogue fits the four-line scene area.
 
-PPSSPP tests operate the exact release EBOOT using controller inputs. Late-game
-states are explicitly seeded fixtures, not a claimed unaided seven-act run.
-One complete victory hold is observed; repeated presentation fades may be
-skipped after state resolution to accommodate slow software rendering. The
-second process cold-loads the saved Act 7 scene. Screenshots and logs are kept
-in `evidence/`. XMB audio decoding, loop metadata and combined media size are
+PPSSPP tests operate the exact release EBOOT using controller inputs for the
+Act 7 entrance, combat, full victory hold, aftermath, rewards, Act 8 and a
+second-process cold load of the saved pre-boss scene. Broader gameplay checks
+were completed on the prior build with identical gameplay code; the final
+change corrects a render-only victory hold. `evidence/final-tests.txt` records
+both hashes, coverage and a corrected QA fixture error from the first pass.
+Late-game states are seeded fixtures, not a claimed unaided seven-act run.
+Repeated presentation fades may be skipped after state resolution to accommodate
+slow software rendering. Screenshots and logs are kept in `evidence/`. XMB audio decoding, loop metadata and combined media size are
 validated separately: PPSSPP does not reproduce a physical PSP's XMB browser.

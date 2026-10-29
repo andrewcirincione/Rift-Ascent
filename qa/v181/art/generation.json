@@ -191,5 +191,11 @@
         }
       }
     ]
+  },
+  {
+    "asset": "unbegotten.png",
+    "generator": "image_gen.imagegen",
+    "original_path": "/workspace/scratch/9a81aefb5adc/generated_images/exec-fc3e9c33-935c-4580-93e7-ad6566f957b1.png",
+    "prompt": "prompts/unbegotten.txt"
   }
 ]
