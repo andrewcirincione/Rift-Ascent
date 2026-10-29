@@ -1,0 +1,54 @@
+Rift Ascent 1.8.4 validation
+
+SHA256 24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c
+Bytes 87140896
+
+Native ASan/UBSan
+PASS progression, storage, effects, expedition, boundaries, revision, events_extra, revision183, custom184 and balance184.
+PASS all supported custom cards resolve and preview safely for all three characters.
+PASS custom quantities, removal, mixed/locked cards, potion cap, draft save/resume, pickup effects applied once and account/profile isolation.
+PASS custom wins, act records and true-ending completions do not change lifetime progress.
+PASS defeated slots delete both generations; retirement receipts prevent old-generation resurrection; normal slots can be reused.
+PASS Normal/Fast preference persists independently of lifetime progression.
+PASS 2,000 reachable, noncrossing maps cover all seven starting-lane combinations.
+PASS normal and elite species do not repeat until the relevant act pool is exhausted.
+PASS 24,000 boss reward packs: 64,763 Rare and 7,237 eligible Ancient cards, with no Common/Uncommon, locked or duplicate offers.
+PASS all 42 mystery rooms have a legal choice/exit at low HP, zero Gold, full inventories and ineligible decks; the three adverse rooms cannot be bypassed with Circle.
+PASS twelve healing choices work at full HP, respect maximum HP, apply costs and return to the map.
+PASS mixed attack/block turns predict actual normal and Weak-adjusted damage and gain Block during the same enemy turn.
+PASS 665,280 normal card-source unlock checks and legacy-save regression coverage.
+PASS every collection card's rules fit the existing preview dimensions.
+PASS all 59 enemy sprites, 25 overhead intent rows, all event-result artwork and 180 dialogue pages render without asset errors.
+PASS new custom/collection layouts, generated gothic target crest, and victory-message regression under native rendering.
+PASS 500 pixel-identical drawing comparisons against the original routines, including alpha, clipping, selection, panels and card frames.
+
+Build and media
+PASS PSP user-mode imports, complete EBOOT structure and PSP-1000 startup memory budget.
+PASS all ten complete supplied music streams and splash audio remain byte-identical to 1.8.3.
+PASS stereo splash decode, quiet leading samples and safe 471,312-byte combined ICON1/SND0 budget.
+PASS complete published 1.8.3 art bank retained; the appended original target crest passes asset checksums.
+PASS generated source art, full prompt/provenance, source, build scripts and validation evidence retained together.
+
+Final packaged EBOOT / PPSSPP 1.20.4
+PASS final release EBOOT targeted runtime playtest; zero streamed-art errors or memory faults.
+PASS actual controller custom setup across all character tabs; quantities, selected-deck removal, relic/potion selection, launch, CUSTOM slot label, save and resume.
+PASS all five unlock tabs, base listings, wrapping controls and raised selection artwork.
+PASS larger gothic target indicator on both opponents; immediate combat-deck return without a fade.
+PASS Stone Giant cleanse/shield intent, actual turn resolution and normal/elite artwork in all three acts.
+PASS mystery selection/results, card removal footer, boss relic presentation and card spoils.
+PASS normal/elite map transitions retain the silent interval and RiftFight4/RiftFight5 routing.
+PASS three mandatory adverse events resolve; custom Act 3 completion skips unlock awards and leaves the account unchanged.
+PASS an actual combat saved to slot 3 was resumed, lost to an enemy attack, and both save generations were removed with a persistent retirement receipt.
+PASS full-health Moon Spring and maximum-health trade choices remain selectable, cap HP and finish normally.
+PASS Braced Strike shows both overhead icons, deals the predicted six damage and gains six Block in that turn.
+PASS Normal and Fast Options settings; six game-render intervals advance 24 and 72 presentation ticks respectively.
+PASS a killing Fire potion keeps the notice/log empty throughout the full unskipped finishing presentation, then shows card spoils.
+PASS cold import of a serialized 1.8.3 slot retains its map and 789 Gold and updates the run format to 1.8.4.
+PASS exact, unmodified 480x272 combat capture copied to versions/1.8.4/Combat.png.
+
+Scope and limits
+The runtime logs are ppsspp-final.txt, ppsspp-cold.txt, ppsspp-focus.txt and ppsspp-latest.txt; all record the SHA256 above.
+Combat/menu/event scenarios use assisted state fixtures at safe frame-entry breakpoints followed by actual controller actions. This is targeted testing, not an unaided whole-game run.
+Repeated presentation waits may be skipped; map transitions and the focused victory sequence were observed unskipped. Host fast-forward/frontend frame skipping only affect emulator display cadence; the game's render loop remains active. Speed timing is measured over game render calls, not host wall time.
+The representative native drawing benchmark measured 14.5% less host CPU work; this is not a claim about overall PSP frame rate.
+Physical PSP hardware and XMB listening were unavailable. Splash audio was decoded and structurally validated; in-game PCM output was checked inside PPSSPP.

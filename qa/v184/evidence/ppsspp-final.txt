@@ -1,0 +1,104 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 0
+SHOT title
+SHOT custom-empty
+SHOT custom-quantity
+SHOT custom-deck
+SHOT custom-relics
+SHOT custom-potions
+SHOT custom-confirm
+SHOT custom-saved-title
+SHOT custom-save-slot
+PASS real controller custom setup, all card tabs, multiple copies/removal, three potion cap, selected item lists, launch, save and resume
+FIXTURE unlocks
+SHOT unlocks-warden
+SHOT unlocks-1
+SHOT unlocks-2
+SHOT unlocks-3
+SHOT unlocks-4
+FIXTURE base-0
+SHOT base-0
+FIXTURE base-1
+SHOT base-1
+FIXTURE base-2
+SHOT base-2
+FIXTURE base-3
+SHOT base-3
+FIXTURE base-4
+SHOT base-4
+PASS five framed unlock tabs, base catalogs, wrapping controls
+FIXTURE target
+SHOT mist-gazer-target-left
+SHOT mist-gazer-target-right
+SHOT combat-deck
+SHOT instant-deck-return
+PASS combat deck closes immediately, both target indicators and brighter Mist Gazer
+FIXTURE purge
+SHOT stone-giant-purge
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1676, 'r137_start': 1660, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 2, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT stone-giant-after-purge
+PASS Stone Giant overhead cleanse/shield intent and actual turn resolution
+FIXTURE new-1-0
+SHOT new-1-0
+FIXTURE new-1-3
+SHOT new-1-3
+FIXTURE new-2-0
+SHOT new-2-0
+FIXTURE new-2-3
+SHOT new-2-3
+FIXTURE new-3-0
+SHOT new-3-0
+FIXTURE new-3-3
+SHOT new-3-3
+PASS normal and elite from each act rendered in exact EBOOT; all twelve also inspected in native renders
+FIXTURE event-28
+SHOT event-28-result
+FIXTURE event-32
+SHOT event-32-result
+FIXTURE event-38
+SHOT event-38-result
+FIXTURE event-18
+SHOT remove-card-result
+FIXTURE boss-relic
+SHOT boss-relic
+PASS newer mystery results, single continue hint after removal, dedicated boss relic display
+FIXTURE map-normal
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 2292, 'r137_start': 1660, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+FIXTURE map-elite
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 2392, 'r137_start': 1660, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 2416, 'r137_start': 1660, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+PASS silent map transition and correct normal/elite soundtrack routing
+FIXTURE bad-39
+SHOT bad-event-39
+FIXTURE bad-40
+SHOT bad-event-40
+FIXTURE bad-41
+SHOT bad-event-41
+FIXTURE custom-win
+QA skipped repeated finisher presentation after resolution
+SHOT custom-victory-no-unlocks
+FIXTURE death
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 2876, 'r137_start': 2856, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 2904, 'r137_start': 2856, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT defeat
+SHOT slot-after-death
+PASS mandatory bad events, custom Act 3 completion without account changes/unlock screens, and dead slot files removed
+FIXTURE full-heal-1
+SHOT full-health-event-1
+FIXTURE full-heal-30
+SHOT full-health-event-30
+FIXTURE braced-strike
+SHOT braced-strike-intent
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 3248, 'r137_start': 3232, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 2, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT braced-strike-after
+PASS full-health healing choices and actual simultaneous enemy attack/block with both overhead icons
+FIXTURE options
+SHOT speed-0
+FIXTURE braced-strike
+FIXTURE options
+SHOT speed-1
+FIXTURE braced-strike
+PASS Normal/Fast options, persistent setting, exact 3x combat presentation clock: [24, 72]
+FIXTURE target
+SHOT release-combat
+PASS final release EBOOT targeted runtime playtest; zero streamed-art errors or memory faults
+SHA256 24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c

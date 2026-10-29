@@ -1,0 +1,19 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 0
+SHOT title
+FIXTURE full-heal-1
+SHOT full-health-event-1
+FIXTURE full-heal-30
+SHOT full-health-event-30
+FIXTURE braced-strike
+SHOT braced-strike-intent
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 308, 'r137_start': 296, 'r1311_kill_at': 0, 'r137_duration': 19, 'r137_count': 2, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+SHOT braced-strike-after
+PASS full-health healing choices and actual simultaneous enemy attack/block with both overhead icons
+FIXTURE options
+SHOT speed-0
+FIXTURE braced-strike
+FIXTURE options
+SHOT speed-1
+FIXTURE braced-strike
+PASS Normal/Fast options, persistent setting, exact 3x combat presentation clock: [24, 72]
+SHA256 24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c

@@ -51,6 +51,7 @@ int main(void){char temp[]="/tmp/rift-184-fixtures-XXXXXX";assert(mkdtemp(temp)&
  for(int id=39;id<42;id++){game_new(&g,1846+id);game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-bad-%d",id);save(n,&g,sizeof(g));}
  assert(ascent_begin(&g,3,0,1848));game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].intent=24;g.enemies[0].intent_value=12;g.enemies[0].strength=0;g.enemies[0].weak=0;g.enemies[0].hp=g.enemies[0].maxhp=100;g.relic_count=0;g.hp=g.maxhp=80;g.block=0;g.selection=g.hand_count;save("fixture-braced-strike",&g,sizeof(g));
  for(int id=1;id<=30;id+=29){game_new(&g,1849+id);g.hp=g.maxhp;game_begin_event(&g,id);snprintf(n,sizeof(n),"fixture-full-heal-%d",id);save(n,&g,sizeof(g));}
+ game_new(&g,1850);game_start_battle(&g,NODE_FIGHT);g.enemy_count=1;g.enemies[0].hp=1;g.enemies[0].block=0;g.potion_count=1;g.potions[0]=3;save("fixture-normal-win",&g,sizeof(g));
  g.screen=ASCENT_OPTIONS;g.selection=0;save("fixture-options",&g,sizeof(g));
  save("fixture-account",&ascent_account,sizeof(ascent_account));
  FILE*f=fopen("qa/v184/evidence/state-layout.json","w");assert(f);fprintf(f,"{\"size\":%zu,\"account_size\":%zu",sizeof(Game),sizeof(AscentAccount));

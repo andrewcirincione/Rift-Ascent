@@ -19,7 +19,7 @@ if resume:
  for f in D.glob('ASCENT18_*'):f.unlink()
  shutil.copyfile(E/'legacy182-run.bin',D/'ASCENT18_RUN_1.0')
  shutil.copyfile(E/'legacy182-account.bin',D/'ASCENT18_ACCOUNT.0')
-conf=C/'settings.ini';conf.write_text(f'[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = {port}\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\n[Graphics]\nInternalResolution = 1\nVerticalSync = False\n[Sound]\nEnable = True\n[SystemParam]\nPSPModel = 0\n')
+conf=C/'settings.ini';conf.write_text(f'[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = {port}\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\n[Graphics]\nInternalResolution = 1\nVerticalSync = False\nFrameSkip = 8\nAutoFrameSkip = True\n[Sound]\nEnable = True\n[SystemParam]\nPSPModel = 0\n')
 env=os.environ.copy();env.update(DISPLAY='127.0.0.1:'+display,LIBGL_ALWAYS_SOFTWARE='1',SDL_VIDEODRIVER='x11',SDL_AUDIODRIVER='dummy',SDL_VIDEO_X11_XSHM='0',XDG_CONFIG_HOME=str(C),LD_LIBRARY_PATH=str(T/'sysroot/usr/lib/x86_64-linux-gnu'))
 nm=subprocess.check_output([str(T/'pspdev/bin/psp-nm'),'-S',str(Q/'source/rift_ascent_crt_free.elf')],text=True)
 syms={p[3]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split())==4}
@@ -43,7 +43,7 @@ async def check(w):
    assert d.get('event')!='error',d
    if d.get('event')==event:return
   raise AssertionError('CPU command timeout '+event)
- async def val(n):return (await req('memory.read_u32',address=syms[n]))['value']
+ async def val(n):return (await req('cpu.evaluate',expression=f'[0x{syms[n]:08x}]'))['uintValue']
  async def put(n,v):await req('memory.write_u32',address=syms[n],value=v&0xffffffff)
  async def memory(n,size):return base64.b64decode((await req('memory.read',address=syms[n],size=size))['base64'])
  async def audible():
@@ -54,7 +54,7 @@ async def check(w):
   raise AssertionError('No PCM output: '+str({k:await val(k) for k in ['soundtrack_active','soundtrack_current','left_samples','music_route','audio_pos']}))
  async def state():return await memory('game',L['size'])
  def field(b,k,idx=0):return struct.unpack_from('<i',b,L[k]+idx*4)[0]
- async def screen():return field(await state(),'screen')
+ async def screen():return (await req('cpu.evaluate',expression=f'[0x{syms["game"]+L["screen"]:08x}]'))['uintValue']
  async def ticks(n):
   if (E/'STOP_QA').exists():raise SystemExit('QA stopped by operator')
   if fast_frame_ready and os.environ.get('RIFT_FAST_PRESENTATION')=='1' and await screen()!=screens['COMBAT']:
@@ -67,11 +67,10 @@ async def check(w):
    await asyncio.sleep(.1)
   raise AssertionError('Emulated frames stopped')
  async def settle():
-  keys=['r161_transition_active','r1311_finishing','animation_tick','r137_start','r1311_kill_at']
+  keys=['r161_transition_active','r1311_finishing','animation_tick','r137_start','r1311_kill_at','r137_duration','r137_count','r138_death_active','r137_last_screen']
   first=min(syms[k] for k in keys);end=max(syms[k] for k in keys)+4
   for attempt in range(800):
-   blob=base64.b64decode((await req('memory.read',address=first,size=end-first))['base64'])
-   values={k:struct.unpack_from('<I',blob,syms[k]-first)[0] for k in keys}
+   values={k:await val(k) for k in keys}
    for k in ['action_cooldown','enemy_turn_delay']:values[k]=await val(k)
    if os.environ.get('RIFT_FAST_PRESENTATION')=='1' and values['r161_transition_active']:
     await put('r161_transition_active',0)
@@ -84,7 +83,10 @@ async def check(w):
     print('QA skipped repeated finisher presentation after resolution',flush=True)
     await ticks(8)
     continue
-   if not values['r161_transition_active'] and values['action_cooldown']==0 and values['enemy_turn_delay']==0 and (not values['r1311_finishing'] or values['animation_tick']-values['r137_start']>values['r1311_kill_at']+184):return
+   fx_end=values['r137_duration']
+   if values['r137_last_screen'] in [screens[k] for k in ['REWARD','RELIC_RESULT','VICTORY','DEFEAT']]:fx_end=max(fx_end,30)+10
+   fx_busy=(values['r137_count'] or values['r138_death_active']) and values['animation_tick']-values['r137_start']<fx_end
+   if not values['r161_transition_active'] and values['action_cooldown']==0 and values['enemy_turn_delay']==0 and not fx_busy and (not values['r1311_finishing'] or values['animation_tick']-values['r137_start']>values['r1311_kill_at']+184):return
    if attempt and attempt%40==0:print('WAIT settle',values,flush=True)
    await asyncio.sleep(.1)
   raise AssertionError('Transition did not settle')
@@ -92,7 +94,7 @@ async def check(w):
   k={'l':'ltrigger','r':'rtrigger'}.get(k,k)
   await settle();await req('input.buttons.send',buttons={k:True});await ticks(8);await req('input.buttons.send',buttons={k:False});await ticks(8);await settle()
  async def shot(n):
-  await ticks(4)
+  await ticks(36)
   f=M/'PSP/SCREENSHOT';before=set(f.glob('*.png'))
   subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'key','F1'],env=env,check=True)
   for _ in range(200):
@@ -126,6 +128,21 @@ async def check(w):
    if key in syms:await put(key,0)
   for key in ['rift120_played_card','rift120_auto_card','r140_potion_gained']:await put(key,-1)
   await command('cpu.resume');await ticks(8);await settle()
+ async def latest_checks():
+  for event in [1,30]:
+   await fixture('full-heal-'+str(event));before=field(await state(),'hp');await shot('full-health-event-'+str(event));await button('cross');raw=await state();assert field(raw,'screen')==screens['EVENT_RESULT'] and field(raw,'hp')==field(raw,'maxhp') and field(raw,'hp')==before-(5 if event==30 else 0);await button('cross');assert await screen()==screens['MAP']
+  await fixture('braced-strike');await shot('braced-strike-intent');await button('circle');raw=await state();assert field(raw,'hp')==74 and struct.unpack_from('<i',raw,L['enemies']+32)[0]==6;await shot('braced-strike-after')
+  print('PASS full-health healing choices and actual simultaneous enemy attack/block with both overhead icons',flush=True)
+  rates=[]
+  for fast in [0,1]:
+   await fixture('options');await put('ascent_fast_setting',1-fast);await button('cross');assert await val('ascent_fast_setting')==fast;await shot('speed-'+str(fast))
+   await fixture('braced-strike');os.environ['RIFT_FAST_PRESENTATION']='0';await pause_at_frame();start_tick=await val('animation_tick')
+   for frame in range(6):
+    await command('cpu.resume');await pause_at_frame()
+   end_tick=await val('animation_tick');rates.append(end_tick-start_tick);await command('cpu.resume')
+  assert rates==[24,72],rates
+  print('PASS Normal/Fast options, persistent setting, exact 3x combat presentation clock:',rates,flush=True)
+  os.environ['RIFT_FAST_PRESENTATION']='1'
  await asyncio.sleep(2)
  ids=subprocess.check_output([str(T/'sysroot/usr/bin/xdotool'),'search','--onlyvisible','--name','.*'],env=env,text=True).split()
  subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'windowfocus',ids[-1]],env=env,check=True)
@@ -136,6 +153,8 @@ async def check(w):
   except AssertionError as error:
    if 'CPU not started' not in str(error):raise
    await asyncio.sleep(.25)
+ if os.environ.get('RIFT_BOOT_ONLY')=='1':
+  start=await val('animation_tick');await asyncio.sleep(10);print('BOOT BENCHMARK ticks in ten seconds:',(await val('animation_tick'))-start,flush=True);return
  await ticks(16)
  for _ in range(600):
   if await val('soundtrack_active')==1 and await val('soundtrack_current')==0:break
@@ -144,6 +163,19 @@ async def check(w):
  if os.environ.get('RIFT_BOOT_ONLY')=='1':
   start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
  fast_frame_ready=True
+ if os.environ.get('RIFT_LATEST184')=='1':
+  await latest_checks();print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
+ if os.environ.get('RIFT_FOCUS184')=='1':
+  await fixture('death');await button('select');await button('cross');assert await screen()==screens['TITLE'];assert list(D.glob('ASCENT18_RUN_3.[01]'))
+  await button('cross');await button('down');await button('down');await button('cross');assert await screen()==screens['COMBAT']
+  await button('circle');assert await screen()==screens['DEFEAT'];assert not list(D.glob('ASCENT18_RUN_3.[01]'));assert (D/'ASCENT18_DEAD_3.0').exists();await shot('retired-slot-death');await button('cross');await button('up');await button('cross');await shot('retired-slot-list')
+  print('PASS real saved combat resumed from slot 3, killed through an enemy turn, both disk generations removed, retirement receipt persisted',flush=True)
+  await fixture('normal-win');await put('ascent_fast_setting',0);await button('triangle');os.environ['RIFT_FAST_PRESENTATION']='0'
+  await req('input.buttons.send',buttons={'cross':True});await ticks(8);await req('input.buttons.send',buttons={'cross':False});assert await screen()==screens['REWARD'];raw=await state();assert raw[L['message']]==0
+  assert not (await memory('r1310_potion_notice',192)).split(b'\0',1)[0];assert b'Victory' not in await memory('rift120_log',576)
+  await shot('silent-victory-transition');await settle();await shot('normal-card-spoils')
+  print('PASS real killing potion keeps victory notice/log empty throughout the unskipped finishing presentation, then displays card spoils',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
  await req('input.buttons.send',buttons={'ltrigger':False,'rtrigger':False})
  # Seed an isolated QA account; no user save files are touched.
 
@@ -152,6 +184,7 @@ async def check(w):
   assert field(raw,'screen')==screens['MAP'] and field(raw,'gold')==789 and struct.unpack_from('<I',raw,4)[0]==184
   await shot('cold-183-migration')
   print('PASS cold 1.8.3 slot import into 1.8.4 retains gold, map and rarity state',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
  else:
   await button('down');await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['CHARACTER_SELECT'];await button('cross');assert await screen()==screens['CUSTOM_CARDS'];await shot('custom-empty')
   await button('cross');assert await screen()==screens['CUSTOM_QUANTITY'];await button('right');await button('right');await shot('custom-quantity');await button('cross');assert field(await state(),'deck_count')==3
@@ -207,20 +240,7 @@ async def check(w):
  await fixture('death');await button('circle');assert await screen()==screens['DEFEAT'];await shot('defeat');await button('cross');assert await screen()==screens['TITLE']
  await button('up');await button('cross');await shot('slot-after-death');assert not list(D.glob('ASCENT18_RUN_3.[01]'))
  print('PASS mandatory bad events, custom Act 3 completion without account changes/unlock screens, and dead slot files removed',flush=True)
- for event in [1,30]:
-  await fixture('full-heal-'+str(event));before=field(await state(),'hp');await shot('full-health-event-'+str(event));await button('cross');raw=await state();assert field(raw,'screen')==screens['EVENT_RESULT'] and field(raw,'hp')==field(raw,'maxhp') and field(raw,'hp')==before-(5 if event==30 else 0);await button('cross');assert await screen()==screens['MAP']
- await fixture('braced-strike');await shot('braced-strike-intent');await button('circle');raw=await state();assert field(raw,'hp')==74 and struct.unpack_from('<i',raw,L['enemies']+32)[0]==6;await shot('braced-strike-after')
- print('PASS full-health healing choices and actual simultaneous enemy attack/block with both overhead icons',flush=True)
- rates=[]
- for fast in [0,1]:
-  await fixture('options');await put('ascent_fast_setting',1-fast);await button('cross');assert await val('ascent_fast_setting')==fast;await shot('speed-'+str(fast))
-  await fixture('braced-strike');os.environ['RIFT_FAST_PRESENTATION']='0';await pause_at_frame();start_tick=await val('animation_tick')
-  for frame in range(6):
-   await command('cpu.resume');await pause_at_frame()
-  end_tick=await val('animation_tick');rates.append(end_tick-start_tick);await command('cpu.resume')
- assert rates==[24,72],rates
- print('PASS Normal/Fast options, persistent setting, exact 3x combat presentation clock:',rates,flush=True)
- os.environ['RIFT_FAST_PRESENTATION']='1'
+ await latest_checks()
  await fixture('target');await shot('release-combat')
  assert 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
  print('PASS final release EBOOT targeted runtime playtest; zero streamed-art errors or memory faults',flush=True)
