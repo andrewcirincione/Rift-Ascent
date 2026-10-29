@@ -1,0 +1,59 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+WAIT ticks 100 112 24
+SHOT actors-0-act-1
+WAIT ticks 132 144 24
+SHOT actors-0-act-2
+SHOT actors-0-act-3
+SHOT actors-1-act-1
+WAIT ticks 228 244 24
+SHOT actors-1-act-2
+SHOT actors-1-act-3
+SHOT actors-2-act-1
+SHOT actors-2-act-2
+SHOT actors-2-act-3
+WAIT ticks 388 404 24
+SHOT actor-extra-12
+SHOT actor-extra-16
+SHOT event-06
+SHOT event-17
+SHOT event-18
+SHOT event-18-third
+SHOT event-third-picker
+SHOT event-19
+SHOT event-19-third
+SHOT event-20
+SHOT event-21
+SHOT event-22
+SHOT event-22-third
+SHOT event-23
+SHOT extra-event-24
+SHOT extra-picker-24
+SHOT extra-result-24
+SHOT extra-event-25
+SHOT extra-picker-25
+SHOT extra-result-25
+SHOT extra-event-28
+SHOT extra-result-28
+SHOT extra-boon-combat-28
+SHOT extra-event-32
+Traceback (most recent call last):
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 226, in <module>
+    async with w:await check(w)
+  ^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 223, in run
+    if p.poll() is not None:raise RuntimeError('Emulator exited; see ppsspp.log')
+                 ^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 162, in check
+    await button('circle');assert await screen()==screens['EVENT']
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

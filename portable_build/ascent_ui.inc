@@ -24,9 +24,9 @@ static void ascent_slots_view(const Game*g){
  ascent_heading(g->scroll?"BEGIN ASCENT / SAVE SLOT":"RESUME / SAVE SLOT");
  for(int i=0;i<ASCENT_SLOTS;i++){
   const AscentSlot*s=ascent_slot(i);int y=46+i*45;char b[100];
-  if(i==g->selection)r134_blit(27,y,426,42,r140_selection,208,28,255);
-  snprintf(b,sizeof(b),"SLOT %d   %s",i+1,s->present?ascent_names[CLAMP(s->character,0,2)]:"EMPTY");r134_text(44,y+7,b,i==g->selection?GOLD:WHITE,&r134_f9b);
-  if(s->present){snprintf(b,sizeof(b),"Act %d / Floor %d     HP %d / %d",s->act,s->floor+1,s->hp,s->maxhp);r134_text(44,y+23,b,MUTED,&r134_f9);}
+  if(i==g->selection)r134_blit(27,y-2,426,42,r151_selection,420,60,255);
+  snprintf(b,sizeof(b),"SLOT %d   %s",i+1,s->present?ascent_names[CLAMP(s->character,0,2)]:"EMPTY");r134_text(78,y+8,b,i==g->selection?GOLD:WHITE,&r134_f9b);
+  if(s->present){snprintf(b,sizeof(b),"Act %d / Floor %d     HP %d / %d",s->act,s->floor+1,s->hp,s->maxhp);r134_text(78,y+24,b,MUTED,&r134_f9);}
  }
  r134_center(240,235,g->message[0]?g->message:"Unlocks are shared across all four save slots.",GOLD,&r134_f8);
  footer("UP/DOWN CHOOSE   X CONFIRM   O BACK");

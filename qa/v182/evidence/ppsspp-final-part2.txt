@@ -1,0 +1,38 @@
+WAIT ticks 4 80 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT extra-event-32
+SHOT extra-result-32
+SHOT extra-event-33
+SHOT extra-picker-33
+SHOT extra-result-33
+SHOT extra-event-34
+SHOT extra-result-34
+SHOT extra-event-37
+SHOT extra-picker-37
+SHOT extra-result-37
+SHOT extra-event-38
+SHOT extra-result-38
+SHOT extra-boon-combat-38
+PASS extra mysteries: controller choices, card picker cancellation/commit, potion payment, transform, relic/card gifts and next-fight Strength/Block/Vulnerable
+SHOT exchange-selected-left
+SHOT exchange-selected-middle
+Traceback (most recent call last):
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 230, in <module>
+    asyncio.run(run())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 227, in run
+    async with w:await check(w)
+                 ^^^^^^^^^^^^^^
+  File "/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v182/qa_ppsspp.py", line 190, in check
+    assert any(route&256 for _,route,_ in samples),(kind,samples)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('normal', [(828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0), (828, 1, 0)])

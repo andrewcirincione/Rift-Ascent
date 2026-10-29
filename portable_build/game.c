@@ -18,6 +18,7 @@ static void expedition_prepare_gift(Game*);
 static void expedition_mystery(Game*);
 static void expedition_boss_spoils(Game*);
 static int expedition_relic(Game*);
+static void revision182_migrate_room(Game*);
 static void ascent_record_act(Game*);
 static int ascent_random_potion(Game*);
 static int preview_depth,preview_phase,preview_choice=-1,preview_nested;
@@ -359,6 +360,7 @@ int game_relic_id(const Game*g,int i){if(i<0||i>=MAX_RELICS)return -1;return i<L
 static int*relic_slot(Game*g,int i){return i<LEGACY_RELIC_CAP?&g->relics[i]:&g->expedition.extra_relics[i-LEGACY_RELIC_CAP];}
 static int relic(const Game *g,int id){for(int i=0;i<g->relic_count;i++)if(game_relic_id(g,i)==id)return 1;return 0;}
 static void enter_map(Game*g){
+ if(g->revision182.room_pending){g->revision182.room_pending=0;expedition_roll(g);}
  if(g->expedition.story_pending){g->expedition.story_pending=0;g->screen=EXPEDITION_STORY;g->selection=0;expedition_prepare_gift(g);return;}
  g->screen=MAP;g->scroll=0;g->selection=CLAMP(g->lane,0,2);
  if(g->floor<MAP_ROWS&&!game_route_available(g,g->selection))
@@ -390,15 +392,22 @@ static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weight[i])return pool[i];roll-=weight[i];}
  return pool[n-1];
 }
-/* Events and shops keep their rarity rates; novelty affects only selection
-   within the rolled rarity, never the rarity itself. */
-static int card_reward_except(Game*g,int a,int b){int roll=rnd(g,100);return reward_of_rarity(g,roll<2?3:roll<11?2:roll<46?1:0,a,b);}
-static int card_reward(Game*g){return card_reward_except(g,-1,-1);}
+/* STS2 base bands, with a persisted -5..40 rare offset. Ancient cards are
+   reserved for character story gifts and explicit mystery rewards. */
+static int roll_rarity(Game*g,int rare_base,int uncommon,int use_offset,int advance){
+ int rare=rare_base+(use_offset?g->revision182.rare_offset:0),roll=rnd(g,100);
+ int result=roll<rare?2:roll<rare+uncommon?1:0;
+ if(advance)g->revision182.rare_offset=result==2?-5:MIN(40,g->revision182.rare_offset+1);
+ return result;
+}
+static int card_reward_except(Game*g,int a,int b){return reward_of_rarity(g,roll_rarity(g,9,37,1,0),a,b);}
+static int card_reward(Game*g){return reward_of_rarity(g,roll_rarity(g,3,34,0,0),-1,-1);}
 static void fill_rewards(Game*g){
  for(int i=0;i<3;i++){
-  int roll=rnd(g,100),rare=g->battle_type==NODE_BOSS?(roll<20?3:2):g->battle_type==NODE_ELITE?(roll<5?3:roll<15?2:roll<50?1:0):(roll<2?3:roll<5?2:roll<37?1:0);
+  int rare=g->battle_type==NODE_BOSS?2:roll_rarity(g,g->battle_type==NODE_ELITE?10:3,g->battle_type==NODE_ELITE?40:37,1,1);
+  if(g->battle_type==NODE_BOSS)g->revision182.rare_offset=-5;
   int c=reward_of_rarity(g,rare,i>0?CARD_ID(g->reward[0]):-1,i>1?CARD_ID(g->reward[1]):-1);
-  int upgraded=relic(g,13)||(rare!=2&&rnd(g,100)<MIN(4,g->act-1)*25);
+  int upgraded=relic(g,13)||(rare<2&&rnd(g,100)<MIN(2,g->act-1)*25);
   g->reward[i]=c|(upgraded?UPBIT:0);
  }
 }
@@ -424,7 +433,7 @@ static void offer_blessing(Game*g){
  }
  g->screen=BLESSING;g->selection=g->scroll=0;msg(g,"Choose one blessing for your ascent.");
 }
-static void begin_act(Game*g){g->screen=ACT_INTRO;g->scroll=0;g->selection=0;}
+static void begin_act(Game*g){g->revision182.room_pending=0;g->revision182.rare_offset=-5;g->screen=ACT_INTRO;g->scroll=0;g->selection=0;}
 int game_moon_heal_now(const Game*g){return MIN(20,g->maxhp-g->hp);}
 /* Deterministic branching edges: no save struct layout changes. Edges are
    seeded by the run and act, so maps persist correctly across reloads. */
@@ -754,15 +763,14 @@ static void check_win(Game*g){
   else msg(g,"All relics found. Card reward next.");
   return;
  }
- expedition_roll(g);
- fill_rewards(g);g->screen=REWARD;g->selection=0;
+ g->screen=REWARD;g->selection=0;
  if(g->battle_type==NODE_ELITE){
   int gift=expedition_relic(g);
   if(gift>=0){g->reward[0]=gift;g->relic_pending=1;
    g->relic_resume=REWARD;g->screen=RELIC_RESULT;g->selection=0;
    msg(g,"Elite defeated.");
   }else msg(g,"Elite defeated. No relics remain.");
- }else msg(g,"Victory! Choose one reward.");
+ }else{fill_rewards(g);msg(g,"Victory! Choose one reward.");}
 }
 /* Thirty-six deterministic, species-specific enemy profiles, balanced by act. */
 typedef struct {const char *name;short hp,attack,tier; unsigned char moves[4];} EnemyDef;
@@ -772,26 +780,26 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Mist Gazer",32,9,0,{0,2,0,9}},
  {"Iron Wight",38,9,0,{0,3,1,0}},
  {"Grave Knight",53,11,0,{0,1,10,0}},
- {"Scorch Witch",50,12,0,{5,0,6,1}},
- {"Stone Giant",87,13,1,{1,10,0,4}},
- {"Fallen Warden",155,18,1,{7,3,4,0}},
- {"THE HOLLOW KING",300,23,2,{4,10,11,7}},
+ {"Brine Witch",50,12,0,{6,0,2,1}},
+ {"Stone Giant",87,13,1,{1,10,21,4}},
+ {"Fallen Warden",155,18,1,{1,18,10,22}},
+ {"THE HOLLOW KING",300,23,2,{4,10,22,20}},
  {"Cinder Hound",33,9,0,{7,0,6,0}},
  {"Crypt Archer",37,9,0,{0,3,0,1}},
  {"Glimmer Moth",29,8,0,{8,2,0,9}},
  {"Oathbreaker",42,10,0,{4,0,0,10}},
- {"Ember Seer",78,12,1,{5,6,9,10}},
- {"Bone Captain",85,11,1,{11,7,4,3}},
- {"THE FURNACE MAW",168,15,2,{6,10,4,7}},
+ {"Ember Seer",78,12,1,{5,19,9,18}},
+ {"Bone Captain",85,11,1,{20,7,18,3}},
+ {"THE FURNACE MAW",168,15,2,{1,19,10,4}},
  {"Rust Reaver",56,12,0,{0,10,1,0}},
  {"Sable Lurker",52,12,0,{7,8,0,2}},
  {"Mire Oracle",50,11,0,{6,9,5,0}},
  {"Wound Collector",62,12,0,{12,0,3,4}},
  {"Chain Keeper",66,14,0,{8,0,1,7}},
- {"Ashborne Monk",53,12,0,{13,2,0,9}},
- {"Ossuary Beast",126,15,1,{10,7,6,1}},
- {"Storm Golem",143,16,1,{13,10,4,0}},
- {"THE CRIMSON JUDGE",240,19,2,{3,10,11,4}},
+ {"Drowned Penitent",53,12,0,{13,2,0,9}},
+ {"Ossuary Beast",126,15,1,{1,7,23,10}},
+ {"Storm Golem",143,16,1,{13,16,18,21}},
+ {"THE CRIMSON JUDGE",240,19,2,{3,18,11,21}},
  {"Void Disciple",82,17,0,{5,8,0,1}},
  {"Bone Harvester",92,17,0,{7,0,12,3}},
  {"Abyss Watcher",78,16,0,{6,9,2,10}},
@@ -800,23 +808,24 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Crownless Saint",91,16,0,{13,12,3,0}},
  {"Entropy Knight",102,19,0,{0,4,7,10}},
  {"Twilight Shade",88,18,0,{8,6,2,7}},
- {"Infernal Colossus",173,19,1,{4,10,6,0}},
- {"Spectral Marshal",163,19,1,{11,3,7,13}},
- {"Rift Behemoth",185,20,1,{10,6,4,7}},
+ {"Infernal Colossus",173,19,1,{4,19,10,21}},
+ {"Spectral Marshal",163,19,1,{20,3,7,22}},
+ {"Rift Behemoth",185,20,1,{1,10,23,7}},
  {"Gallows Stalker",34,8,0,{0,15,1,0}},
  {"Candle Wretch",32,8,0,{16,0,2,1}},
  {"Sepulcher Guard",62,12,0,{15,1,0,17}},
  {"Thorn Penitent",55,12,0,{16,2,0,4}},
  {"Veil Duelist",88,17,0,{14,0,16,1}},
  {"Tomb Cantor",94,16,0,{17,0,6,14}},
- {"Oathless Lancer",90,12,1,{14,15,1,16}},
- {"Cathedral Horror",148,17,1,{17,15,16,4}},
+ {"Oathless Lancer",90,12,1,{14,15,18,16}},
+ {"Cathedral Horror",148,17,1,{17,23,16,21}},
  {"THE UNMAKER",340,22,2,{1,11,10,4}},
  {"THE UNBEGOTTEN",610,31,2,{13,16,11,10}},
+ {"Crown Eater",174,19,1,{22,7,21,18}},
 };
 /* Normal / elite / boss pools are separate so bosses never show up as ordinary foes. */
 static const unsigned char enemy_normal[3][10]={{0,1,2,3,9,10,11,12,36,37},{4,5,16,17,18,19,20,21,38,39},{25,26,27,28,29,30,31,32,40,41}};
-static const unsigned char enemy_elite[3][4]={{6,13,14,42},{7,22,23,43},{33,34,35,43}};
+static const unsigned char enemy_elite[3][4]={{6,13,14,42},{7,22,23,43},{33,34,35,46}};
 static const unsigned char enemy_boss[3]={15,24,8};
 static void enemy_intent(Game*g,Enemy *e){
  const EnemyDef*d=&enemy_defs[e->art];
@@ -839,7 +848,7 @@ static void enemy_intent(Game*g,Enemy *e){
 }
 static const char *intent_titles[INTENT_COUNT]={
  "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
- "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB"
+ "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT"
 };
 static const char *intent_details[INTENT_COUNT]={
  "One direct hit. Block reduces its damage.",
@@ -859,7 +868,13 @@ static const char *intent_details[INTENT_COUNT]={
  "A light attack that ignores your Block. Weak still reduces it.",
  "Removes 4 of your Block, then makes a light attack.",
  "Three small attacks. Each hit is reduced separately by Block.",
- "Adds one unplayable Injury to discard for this combat and gains Block."
+ "Adds one unplayable Injury to discard for this combat and gains Block.",
+ "A half-strength hit; applies 2 Weak and 2 Vulnerable.",
+ "Two small attacks, then adds a Burn to your discard pile.",
+ "All living enemies gain 1 Strength and 8 Block.",
+ "Removes enemy Weak and Vulnerable, halves Poison, then gains Block.",
+ "Applies 2 Weak and reduces your next turn Energy by 1. No direct hit.",
+ "Adds 2 Poison and one Daze to your discard pile. No direct hit."
 };
 const char *game_intent_title(int n){return n>=0&&n<INTENT_COUNT?intent_titles[n]:"UNKNOWN";}
 const char *game_intent_description(int n){return n>=0&&n<INTENT_COUNT?intent_details[n]:"No information";}
@@ -960,15 +975,16 @@ static void init_enemy(Game*g,Enemy*e,int id){
 const char *game_enemy_name(int id){return id>=0&&id<ENEMY_COUNT?enemy_defs[id].name:"Unknown";}
 void game_start_battle(Game*g,int mode){
  g->screen=COMBAT;g->battle_type=mode;
+ g->revision182.room_type=mode;g->revision182.room_pending=mode!=NODE_BOSS;
  /* Music selection uses a separate seed hash, preserving gameplay RNG. */
  unsigned music_hash=route_hash(g->seed^(unsigned)g->act*17041u^(unsigned)g->floor*6781u);
- g->combat_music=mode==NODE_ELITE?(music_hash&1?3:5):(music_hash%3==0?2:music_hash%3==1?4:6);
+ g->combat_music=mode==NODE_ELITE?(music_hash&1?3:6):(music_hash%3==0?2:music_hash%3==1?4:5);
  g->turn=0;
  g->enemy_count=mode==NODE_FIGHT&&route_hash(g->seed^(unsigned)g->act*7919u^(unsigned)g->floor*101u)%4u==0?2:1;
  for(int i=0;i<g->enemy_count;i++){
   int act=MIN(2,g->act-1);
   int id=mode==NODE_BOSS?(g->act==7?45:g->act==4&&g->ascent.secret?44:enemy_boss[g->endless&&g->act>3?rnd(g,3):act]):
-    mode==NODE_ELITE?enemy_elite[act][rnd(g,4)]:
+    mode==NODE_ELITE?enemy_elite[g->act>=4?rnd(g,3):act][rnd(g,4)]:
     g->act>=4?enemy_normal[rnd(g,3)][rnd(g,10)]:enemy_normal[act][rnd(g,10)];
   if(i>0&&id==g->enemies[0].art){
    int pool[30],n=0;for(int a=0;a<(g->act>=4?3:1);a++)for(int k=0;k<10;k++){
@@ -992,6 +1008,10 @@ void game_start_battle(Game*g,int mode){
  reshuffle_battle(g);msg(g,"The enemy is preparing an attack.");game_start_turn(g);
  if(relic(g,64))g->block+=6;if(relic(g,66))regent_gain_stars(g,3);
  if(relic(g,10))g->block+=12;if(relic(g,29))g->block+=10;
+ int *boon=g->revision182.next_combat;int extra=boon[2],any=0;for(int i=0;i<5;i++)any|=boon[i];
+ g->strength+=boon[0];g->block=MIN(999,g->block+boon[1]);g->weak+=boon[3];g->vulnerable+=boon[4];
+ memset(boon,0,sizeof(g->revision182.next_combat));for(int i=0;i<extra;i++)draw_card(g);
+ if(any)msg(g,"Your mystery bargains take effect. Inspect STATUS for details.");
 }
 static void check_win(Game*g);
 void game_start_turn(Game*g){
@@ -1070,11 +1090,11 @@ static int enemy_raw_damage(const Enemy *e){
  case 0:return MAX(0,v+e->strength);
  case 2:return MAX(0,v/2+e->strength);
  case 3:return MAX(0,v+e->strength);
- case 5:case 6:case 8:return MAX(0,v/2+e->strength);
+ case 5:case 6:case 8:case 18:return MAX(0,v/2+e->strength);
  case 7:return MAX(0,v/2+e->strength);
  case 10:return MAX(0,v+v/4+e->strength);
  case 12:case 14:case 15:return MAX(0,v/2+e->strength);
- case 16:return MAX(0,v/3+e->strength);
+ case 16:case 19:return MAX(0,v/3+e->strength);
  default:return 0;
  }
 }
@@ -1085,7 +1105,7 @@ static int enemy_attack_value(const Enemy *e){
 int game_enemy_intent_hits(const Game *g,int index){
  if(!g||index<0||index>=g->enemy_count)return 0;
  const Enemy *e=&g->enemies[index];
- return e->hp>0&&enemy_raw_damage(e)>0?(e->intent==7?2:e->intent==16?3:1):0;
+ return e->hp>0&&enemy_raw_damage(e)>0?(e->intent==7||e->intent==19?2:e->intent==16?3:1):0;
 }
 int game_enemy_intent_damage(const Game *g,int index){
  int hits=game_enemy_intent_hits(g,index);
@@ -1123,6 +1143,12 @@ void game_enemy_intent_text(const Game*g,int index,char*out,int cap){
  case 15:snprintf(out,cap,"Remove 4 Block, then deal %d DMG",total);break;
  case 16:snprintf(out,cap,"Deal %d DMG three times",hits?total/hits:0);break;
  case 17:snprintf(out,cap,"Add Injury to discard; gain %d Block",e->intent_value/2);break;
+ case 18:snprintf(out,cap,"Deal %d DMG; apply 2 Weak and Vulnerable",total);break;
+ case 19:snprintf(out,cap,"Deal %d DMG twice; add Burn",hits?total/hits:0);break;
+ case 20:snprintf(out,cap,"All foes gain 1 Strength and 8 Block");break;
+ case 21:snprintf(out,cap,"Cleanse Weak/Vulnerable, halve Poison; %d Block",e->intent_value/2);break;
+ case 22:snprintf(out,cap,"Apply 2 Weak; drain 1 Energy next turn");break;
+ case 23:snprintf(out,cap,"Apply 2 Poison; add Daze to discard");break;
  }
 }
 static void enemy_hit(Game*g,Enemy*e,int raw){
@@ -1208,9 +1234,9 @@ void game_end_turn(Game*g){
  for(int i=0;i<g->discard_count;i++)g->discard[i]&=~CARD_SLY_TURN;
  for(int i=0;i<g->exhaust_count;i++)g->exhaust[i]&=~CARD_SLY_TURN;
  /* Block shields the incoming enemy turn, then expires before the next draw. */
+ for(int k=0;k<g->enemy_count;k++)g->enemies[k].block=0;
  for(int k=0;k<g->enemy_count;k++){
   Enemy *e=&g->enemies[k];if(e->hp<=0)continue;
-  e->block=0;
   for(int p=0;p<=MIN(1000,g->ninja.v[NS_ACCELERANT])&&e->hp>0&&e->poison>0;p++){record_combat_fx(GFX_PROC,-1,k,e->poison,0);e->hp-=e->poison;e->poison--;}
   if(e->hp<=0)continue;
   switch(e->intent){
@@ -1232,6 +1258,12 @@ void game_end_turn(Game*g){
    case 15:g->block=MAX(0,g->block-4);enemy_hit(g,e,enemy_attack_value(e));break;
    case 16:for(int hit=0;hit<3&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));break;
    case 17:if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=52;e->block+=e->intent_value/2;break;
+   case 18:enemy_hit(g,e,enemy_attack_value(e));g->weak=MAX(g->weak,2);g->vulnerable=MAX(g->vulnerable,2);break;
+   case 19:for(int hit=0;hit<2&&g->screen==COMBAT&&e->hp>0;hit++)enemy_hit(g,e,enemy_attack_value(e));if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=50;break;
+   case 20:for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0){g->enemies[z].strength++;g->enemies[z].block+=8;}break;
+   case 21:e->weak=e->vulnerable=0;e->poison/=2;e->block+=e->intent_value/2;break;
+   case 22:g->weak=MAX(g->weak,2);g->energy_penalty=MIN(2,g->energy_penalty+1);break;
+   case 23:g->poison=MIN(12,g->poison+2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
   }
   if(e->block>0)record_combat_fx(GFX_BLOCK,k,k,e->block,0);
   if(g->screen==DEFEAT)return;
@@ -1680,6 +1712,7 @@ static void settle_card_choice(Game*g,int idx){
 }
 const char *node_name(int type){static const char*names[]={"BATTLE","ELITE","MYSTERY","MERCHANT","CAMPFIRE","RELIC","BOSS"};return type>=0&&type<=6?names[type]:"UNKNOWN";}
 static void encounter(Game*g,int node){
+ g->revision182.room_type=node;g->revision182.room_pending=node!=NODE_BOSS;
  g->selection=0;
  switch(node){
  case NODE_FIGHT:case NODE_ELITE:game_start_battle(g,node);break;
@@ -1706,7 +1739,7 @@ void game_choose_node(Game*g,int lane){
 }
 void game_new(Game*g,uint32_t seed){
  memset(g,0,sizeof(*g));g->magic=0x52494654u;g->version=GAME_VERSION;
- g->v151.potion_offer=-1;g->seed=seed?seed:0x1affadeu;g->rng=g->seed;
+ g->revision182.rare_offset=-5;g->v151.potion_offer=-1;g->seed=seed?seed:0x1affadeu;g->rng=g->seed;
  g->screen=TITLE;g->selection=1;g->act=1;g->floor=0;g->lane=1;
  g->maxhp=g->hp=80;g->max_energy=3;g->gold=95;
  for(int i=0;i<5;i++)add_card(g,0);
@@ -1760,9 +1793,9 @@ int game_music_track(const Game*g){
  if(screen>=ASCENT_SLOTS_VIEW&&screen<=ASCENT_OPTIONS)return 0;
  if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 0;
  if(screen==COMBAT||screen==CARD_CHOICE||screen==NINJA_CHOICE||screen==REGENT_CHOICE||(screen==DECK_VIEW&&g->prior_screen==COMBAT)){
-  if(g->battle_type==NODE_ELITE)return g->combat_music==5?5:3;
+  if(g->battle_type==NODE_ELITE)return g->combat_music==6?6:3;
   if(g->battle_type==NODE_BOSS)return 0;
-  return g->combat_music==4?4:g->combat_music==6?6:2;
+  return g->combat_music==4?4:g->combat_music==5?5:2;
  }
  return g->act==1?1:g->act==2?7:g->act==3?8:9;
 }
@@ -2000,9 +2033,9 @@ void game_action(Game*g,int b){
   else if(b==BTN_BACK)enter_map(g);
   break;
  case EVENT:
-  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+2)%3;
-  else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%3;
-  else if(b==BTN_BACK)do_event(g,2);
+  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+game_event_choice_count(g)-1)%game_event_choice_count(g);
+  else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%game_event_choice_count(g);
+  else if(b==BTN_BACK)do_event(g,game_event_choice_count(g)-1);
   else if(b==BTN_OK)do_event(g,g->selection);
   break;
  case EVENT_CARD:
@@ -2136,6 +2169,9 @@ int game_validate(const Game*g){
   for(int i=0;i<2;i++){int a=g->ascent.unlocked_cards[i],b=g->ascent.unlocked_potions[i];if(a!=-1&&(a<334+20*g->character||a>=354+20*g->character))return 0;if(b!=-1&&(b<6||b>=26))return 0;}
   if(g->ascent.unlocked_relic!=-1&&(g->ascent.unlocked_relic<64||g->ascent.unlocked_relic>=74))return 0;
  }
+ if(g->revision182.rare_offset< -5||g->revision182.rare_offset>40||g->revision182.room_pending<0||g->revision182.room_pending>1||g->revision182.room_type<0||g->revision182.room_type>NODE_BOSS)return 0;
+ if(g->revision182.event_seen_hi>127u)return 0;
+ const int next_limits[5]={30,99,5,5,5};for(int i=0;i<5;i++)if(g->revision182.next_combat[i]<0||g->revision182.next_combat[i]>next_limits[i])return 0;
  if(g->act<1||g->act>100000||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
  if(g->screen<TITLE||g->screen>MYSTERY_CARDS||g->deck_count<1||g->deck_count>MAX_DECK)return 0;
@@ -2188,10 +2224,11 @@ int game_validate(const Game*g){
  if(g->screen==REWARD_PREVIEW)for(int i=0;i<3;i++)if(!solo_reward_eligible(CARD_ID(g->reward[i])))return 0;
  if(g->screen==RELIC_RESULT&&(g->selection<0||g->selection>1||g->reward[0]<-1||g->reward[0]>=RELIC_COUNT))return 0;
  if(g->screen==REST&&(g->selection<0||g->selection>1))return 0;
- if(g->screen==EVENT&&(g->selection<0||g->selection>2||g->effect_turn<0||g->effect_turn>=EVENT_COUNT))return 0;
+ if(g->screen==EVENT&&(g->selection<0||g->selection>=game_event_choice_count(g)||g->effect_turn<0||g->effect_turn>=EVENT_COUNT))return 0;
  if(g->screen==EVENT_RESULT&&g->reward[0]!=-1&&!valid_card_raw(g->reward[0]))return 0;
- if(g->screen==EVENT&&(g->effect_turn==2||g->effect_turn==6))for(int i=0;i<2;i++)if(!valid_card_raw(g->reward[i])||!game_card_is_playable(g->reward[i]))return 0;
- if(g->screen==EVENT_CARD&&(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||g->next_screen<1||g->next_screen>EVENT_COPY||g->selection<0||g->selection>=g->deck_count||g->shop_selection<0||g->shop_selection>1))return 0;
+ if(g->screen==EVENT&&(g->effect_turn==2||g->effect_turn==6||g->effect_turn==34))for(int i=0;i<2;i++)if(!valid_card_raw(g->reward[i])||!game_card_is_playable(g->reward[i]))return 0;
+ if(g->screen==EVENT&&g->effect_turn==17&&(!valid_card_raw(g->reward[0])||!game_card_is_playable(g->reward[0])))return 0;
+ if(g->screen==EVENT_CARD&&(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||g->next_screen<1||g->next_screen>EVENT_TRANSFORM||g->selection<0||g->selection>=g->deck_count||g->shop_selection<0||g->shop_selection>=game_event_choice_count(g)-1))return 0;
  if(g->screen==SHOP&&(g->selection<0||g->selection>7))return 0;
  if(g->screen==DECK_VIEW){
    int count=g->prior_screen==COMBAT?
@@ -2218,12 +2255,14 @@ int game_load(Game*g,const char*path){
  if(!ok||trailing!=0||n<16||check!=hash_bytes(raw,n))return 0;
  memset(&temp,0,sizeof(temp));uint32_t version;memcpy(&version,raw+4,4);
  if(version==GAME_VERSION){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);}
+ else if(version==181){if(n!=offsetof(Game,revision182))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==180){if(n!=offsetof(Game,expedition))return 0;memcpy(&temp,raw,n);if(temp.relic_count>64)return 0;temp.version=GAME_VERSION;}
  else if(version==23){if(n!=offsetof(Game,ascent))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==22){if(n!=offsetof(Game,regent))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==21){if(n!=offsetof(Game,v151))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;temp.v151.potion_offer=-1;}
  else {if(version==20){if(!load_v20(&temp,raw,n))return 0;}else if(!load_legacy_run(&temp,raw,n,version))return 0;if(!migrate_raw_cards(&temp))return 0;temp.v151.potion_offer=-1;}
  if(version<23&&!migrate_raw22(&temp))return 0;
+ if(version<182){temp.revision182.rare_offset=-5;revision182_migrate_room(&temp);}
  if(temp.screen==POTION_VIEW&&temp.prior_screen!=MAP)temp.prior_screen=SHOP;
  if(version==180&&temp.screen==RELIC_RESULT&&temp.reward[0]<0)temp.reward[0]=37;
  if(!game_validate(&temp))return 0;
@@ -2387,6 +2426,11 @@ static int status_entries(const Game*g,int wanted,char*out,int cap){
  int n=0;
 #define STATUS_FLAG(value,label) do {if(value){if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,"%s",label);n++;}}while(0)
 #define STATUS(value,format) do {int v=(value);if(v){if(n==wanted&&out&&cap>0)snprintf(out,(size_t)cap,format,v);n++;}}while(0)
+ STATUS(g->revision182.next_combat[0],"Next combat: +%d Strength for that fight");
+ STATUS(g->revision182.next_combat[1],"Next combat: +%d starting Block");
+ STATUS(g->revision182.next_combat[2],"Next combat: draw %d extra opening cards");
+ STATUS(g->revision182.next_combat[3],"Next combat: start with %d Weak");
+ STATUS(g->revision182.next_combat[4],"Next combat: start with %d Vulnerable");
  if(g->character==CHAR_REGENT){STATUS(g->regent.stars,"Stars: %d available; saved between turns");STATUS(g->regent.forge,"Forge: +%d Sovereign Blade damage");STATUS(g->regent.created,"Cards created this combat: %d");STATUS(g->regent.vigor,"Vigor: +%d damage on next Attack");STATUS(g->regent.next_stars,"Gain %d Stars next turn");STATUS(g->regent.next_energy,"Gain %d Energy next turn");STATUS(g->regent.next_draw,"Draw %d extra cards next turn");STATUS_FLAG(g->regent.reflect,"Reflect: return blocked attack damage");STATUS(g->regent.panic,"Panic: no card Block for %d turn starts");}
  STATUS(g->strength,"Strength: %d damage per hit");
  STATUS(g->dexterity,"Dexterity: %d Block from cards");

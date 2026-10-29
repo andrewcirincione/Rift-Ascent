@@ -1,0 +1,34 @@
+WAIT ticks 0 64 80
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT new-run-map
+PASS actual new run, save-and-quit, slot resume
+SHOT energy-lock
+PASS real inputs: Expect a Fight blocks Bloodletting, Offering and Energy potion
+SHOT story-fight-0
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 668, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 680, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 692, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 708, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 744, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 780, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 808, 'r137_start': 636, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+QA skipped repeated finisher presentation after resolution
+SHOT story-0
+SHOT gift-0
+SHOT story-fight-1
+QA skipped repeated finisher presentation after resolution
+SHOT story-1
+SHOT gift-1
+SHOT story-fight-2
+QA skipped repeated finisher presentation after resolution
+SHOT story-2
+SHOT gift-2
+PASS normal/elite victories naturally roll queued story; all heroes, dialogue, gifts, single collection; full finisher timing separately inspected
+SHOT mystery-scene
+SHOT mystery-cards
+WAIT ticks 1572 1600 32
+WAIT ticks 1572 1600 32
+QA skipped repeated finisher presentation after resolution
+SHOT exhausted-relic-fallback
+SHOT base-relic-collection

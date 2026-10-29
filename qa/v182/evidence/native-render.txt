@@ -1,0 +1,2 @@
+PASS new enemy sprites on act backgrounds, subtle shadow on/off comparison, all mystery choices, selected cards, menu panels and transition/music boundaries
+PASS all 180 new dialogue pages fit; 60 gifts; 20 relics; six collection tabs; all 47 enemy sprites; no asset errors

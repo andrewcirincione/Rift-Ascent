@@ -1,0 +1,8 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT cold-resume-god-before
+SHOT cold-resume-god-combat
+PASS cold restart of Act 7 cutscene into exact boss fight; saved run retained
+FIXTURE visual-0-1
+SHOT release-combat
+SHA256 fbbd532cd12a0b4abf44744ae45fca04594f00f1c431de3168bc23182d451b9c

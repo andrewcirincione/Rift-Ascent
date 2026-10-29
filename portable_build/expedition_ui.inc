@@ -20,7 +20,7 @@ static void expedition_mystery_view(const Game*g){
  ascent_heading("THE NAMELESS EXCHANGE");
  for(int i=0;i<3;i++){
   int id=CARD_ID(g->reward[i]),owner=id<NINJA_FIRST?0:id<NINJA_LAST?1:2;
-  card_render(20+i*156,46,128,169,g->reward[i],g->selection==i,1);
+  r162_card_choice=1;card_render(20+i*156,46,128,169,g->reward[i],g->selection==i,1);r162_card_choice=0;
   r134_center(84+i*156,222,ascent_names[owner],GOLD,&r134_f8);
  }
  button(171,236,138,23,"LEAVE",g->selection==3);

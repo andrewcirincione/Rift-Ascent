@@ -1,0 +1,10 @@
+PASS: no kernel-only import libraries
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 7670440
+elf_size: 6890280
+segments: 2
+static_memory: 11647552
+resident_span: 11647808
+conservative_startup_bytes: 18538088
+sha256: bf7e1c46da45d9d8f81584c2f6b550ba529328d946aedda9f547593a0bd2d790
+85228768 fbbd532cd12a0b4abf44744ae45fca04594f00f1c431de3168bc23182d451b9c

@@ -114,3 +114,18 @@ qa/v181/evidence/*xvfb.log
 qa/v181/evidence/ppsspp.log
 qa/v181/evidence/build-draft.txt
 qa/v181/source/PARAM.SFO
+
+# 1.8.2 generated build products
+qa/v182/assets.bin
+qa/v182/soundtrack.bank
+qa/v182/evidence/*.ppm
+qa/v182/evidence/*.wav
+qa/v182/evidence/*.log
+qa/v182/source/*.o
+qa/v182/source/*.elf
+qa/v182/source/*.prx
+qa/v182/source/*.PBP
+qa/v182/source/*.SFO
+qa/v182/source/game.map
+qa/v182/source/*.log
+qa/v182/evidence/.EBOOT*

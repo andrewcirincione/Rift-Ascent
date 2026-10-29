@@ -8,14 +8,14 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 46
-#define INTENT_COUNT 18
+#define ENEMY_COUNT 47
+#define INTENT_COUNT 24
 #define MAX_RELICS 96
 #define LEGACY_RELIC_CAP 64
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 181
+#define GAME_VERSION 182
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -28,8 +28,8 @@
 #define CARD_MOD(raw) (((raw) >> CARD_MOD_SHIFT) & 7)
 enum {MOD_NONE,MOD_ECHO,MOD_BOUND,MOD_KEEN,MOD_WARD,MOD_FLEETING,MOD_KINDLED,MOD_COUNT};
 enum {IC_HOURGLASS=39,IC_BELL,IC_NEEDLE,IC_DUELIST,IC_PENDING_CARD=43,IC_COVENANT=44};
-enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY};
-#define EVENT_COUNT 17
+enum {EVENT_UPGRADE=7,EVENT_REMOVE,EVENT_COPY,EVENT_TRANSFORM};
+#define EVENT_COUNT 39
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
 enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR,EXPEDITION_STORY,EXPEDITION_GIFT,ABOMINATION_BEFORE,ABOMINATION_AFTER,MYSTERY_STORY,MYSTERY_CARDS};
@@ -214,6 +214,8 @@ typedef struct {
  RegentState regent;
  AscentRun ascent;
  Expedition181 expedition;
+ /* Append-only 1.8.2 state: leave every older save offset intact. */
+ struct {int rare_offset,room_pending,room_type;unsigned event_seen_hi;int next_combat[5];} revision182;
 } Game;
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
@@ -247,6 +249,7 @@ int game_can_modify(int raw,int mod);
 const char *game_event_title(int id);
 const char *game_event_lore(int id);
 void game_event_option(const Game *g,int option,char *title,int title_cap,char *detail,int detail_cap);
+int game_event_choice_count(const Game *g);
 int game_event_choice_available(const Game *g,int option);
 int game_event_card_eligible(const Game *g,int raw);
 void game_begin_event(Game *g,int id);
@@ -278,6 +281,7 @@ void game_story_start(Game*g,int boss);
 int game_story_kind(const Game*g);
 const char*game_story_text(const Game*g);
 const char*game_story_speaker(const Game*g);
+int game_render_transition_silent(const Game*g,unsigned tick);
 const Game*game_render_audio_state(const Game*g,unsigned tick);
 int game_render_story_input(const Game*g,int key,unsigned tick);
 void game_render(const Game *g,uint32_t *pixels,int stride);

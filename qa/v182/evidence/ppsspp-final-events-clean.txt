@@ -1,0 +1,19 @@
+BOOT 0 asset errors 0 stereo streaming 1
+SHOT title
+SHOT extra-event-32
+SHOT extra-result-32
+SHOT extra-event-33
+SHOT extra-picker-33
+SHOT extra-result-33
+SHOT extra-event-34
+SHOT extra-result-34
+SHOT extra-event-37
+SHOT extra-picker-37
+SHOT extra-result-37
+SHOT extra-event-38
+SHOT extra-result-38
+WAIT ticks 676 704 32
+SHOT extra-boon-combat-38
+PASS extra mysteries: controller choices, card picker cancellation/commit, potion payment, transform, relic/card gifts and next-fight Strength/Block/Vulnerable
+SHOT exchange-selected-left
+SHOT exchange-selected-middle

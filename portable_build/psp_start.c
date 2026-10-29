@@ -493,7 +493,7 @@ static int run_game(SceSize bytes,void *argp) {
         int story_audio=game_music_silent(audio_scene)?1:game_story_kind(audio_scene);
         rift_sound_scene_mode(story_audio);
         if(!game_render_fx_busy(frame*4u))music_battle=game_music_track(audio_scene);
-        music_paused=story_audio==1||game_render_music_paused(frame*4u);
+        music_paused=story_audio==1||game_render_transition_silent(&game,frame*4u)||game_render_music_paused(frame*4u);
         music_route=(music_battle&255)|(music_paused?256u:0u);
         if(frame==1)boot_trace("frame 1 rendered",game.screen);
         if(frame==12) {
