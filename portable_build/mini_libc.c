@@ -150,3 +150,5 @@ int fclose(FILE *stream) {
     f->in_use=0;
     return result>=0?0:-1;
 }
+
+int remove(const char*path){return sceIoRemove(path)<0?-1:0;}

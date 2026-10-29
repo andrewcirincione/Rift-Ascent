@@ -129,9 +129,9 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  r137_feedback(before,after,action,tick);
  if(after->potion_count>before->potion_count&&before->screen==SHOP){r140_potion_gained=after->potions[after->potion_count-1];r140_potion_tick=tick;}
  else if(before->screen!=after->screen||(before->screen==SHOP&&before->selection==5&&action==BTN_OK))r140_potion_gained=-1;
- if(action==BTN_POTION&&before->screen==COMBAT&&after->potion_count<before->potion_count){
+ if(action==BTN_POTION&&before->screen==COMBAT&&after->screen==COMBAT&&after->potion_count<before->potion_count){
   snprintf(r1310_potion_notice,sizeof(r1310_potion_notice),"%s",after->message);r1310_notice_tick=tick;
- }else if(before->screen!=COMBAT)r1310_potion_notice[0]=0;
+ }else if(before->screen!=COMBAT||after->screen!=COMBAT)r1310_potion_notice[0]=0;
  if(before->screen==COMBAT && action==BTN_OK &&
     before->selection>=0&&before->selection<before->hand_count){
    int raw=before->hand[before->selection];
@@ -169,7 +169,7 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
    snprintf(linebuf,sizeof(linebuf),"SHIELD: +%d BLOCK",after->block-before->block);
    rift120_log_add(linebuf);
  }
- if(before->screen==COMBAT&&memcmp(before->message,after->message,sizeof(before->message))!=0)
+ if(before->screen==COMBAT&&after->screen==COMBAT&&memcmp(before->message,after->message,sizeof(before->message))!=0)
    rift120_log_add(after->message);
  if(before->screen!=COMBAT&&after->screen==COMBAT){
    rift120_log_count=0;memset(rift120_log,0,sizeof(rift120_log));
@@ -318,12 +318,14 @@ static uint32_t r134_mix(uint32_t bg,uint32_t fg,int a){
 static void r134_blit(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int opacity){
  if(w<=0||h<=0)return;
  src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
+ int first=CLAMP(-x,0,w),last=CLAMP(W-x,0,w),xs[W];
+ for(int xx=first;xx<last;xx++)xs[xx-first]=xx*iw/w;
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
   const uint32_t*row=src+(yy*ih/h)*iw;
-  for(int xx=0;xx<w;xx++){
-   int dx=x+xx;if((unsigned)dx>=W)continue;
-   uint32_t c=row[xx*iw/w];int a=(int)(c>>24)*opacity/255;if(!a)continue;
+  for(int xx=first;xx<last;xx++){
+   int dx=x+xx;
+   uint32_t c=row[xs[xx-first]];int a=(int)(c>>24)*opacity/255;if(!a)continue;
    uint32_t*d=&pix[dy*sw+dx];*d=a==255?c:r134_mix(*d,c,a);
   }
  }
@@ -332,14 +334,15 @@ static void r134_panel(int x,int y,int w,int h,int selected){
  /* Nine-slice sculpted art: corner shapes never stretch into content. */
  const uint32_t*panel=rift_asset_resolve(r134_menu_panel,480u*240*4);if(!panel)return;
  int side=MIN(22,MIN(w/3,h/3));
+ int first=CLAMP(-x,0,w),last=CLAMP(W-x,0,w),xs[W];
+ for(int xx=first;xx<last;xx++){int sx=xx<side?xx*30/side:xx>=w-side?480-(w-xx)*30/side:30+(xx-side)*420/(w-2*side);xs[xx-first]=CLAMP(sx,0,479);}
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
   int sy=yy<side?yy*30/side:yy>=h-side?240-(h-yy)*30/side:30+(yy-side)*180/(h-2*side);
   sy=CLAMP(sy,0,239);
-  for(int xx=0;xx<w;xx++){
-   int dx=x+xx;if((unsigned)dx>=W)continue;
-   int sx=xx<side?xx*30/side:xx>=w-side?480-(w-xx)*30/side:30+(xx-side)*420/(w-2*side);
-   uint32_t c=panel[sy*480+CLAMP(sx,0,479)];
+  for(int xx=first;xx<last;xx++){
+   int dx=x+xx;
+   uint32_t c=panel[sy*480+xs[xx-first]];
    if(!selected)c=r134_mix(c,RGB(8,12,18),27);
    pix[dy*sw+dx]=c|0xff000000u;
   }
@@ -727,12 +730,13 @@ static void r134_card_frame(int x,int y,int w,int h,int type){
     Nine-slicing keeps the corner ornaments proportional on hand thumbnails. */
  int small=w<105&&h<105;int side=w<100?7:12,top=small?11:20,base=small?9:16;
  const uint32_t*src=rift_asset_resolve(r134_card_frames[type],126u*166*4);if(!src)return;
+ int first=CLAMP(-x,0,w),last=CLAMP(W-x,0,w),xs[W];
+ for(int xx=first;xx<last;xx++)xs[xx-first]=xx<side?xx*24/side:xx>=w-side?102+(xx-w+side)*24/side:24+(xx-side)*78/(w-2*side);
  for(int yy=0;yy<h;yy++){
   int dy=y+yy;if((unsigned)dy>=H)continue;
   int sy=yy<top?yy*43/top:yy>=h-base?134+(yy-h+base)*32/base:43+(yy-top)*91/(h-top-base);
-  for(int xx=0;xx<w;xx++){
-   int dx=x+xx;if((unsigned)dx>=W)continue;
-   int sx=xx<side?xx*24/side:xx>=w-side?102+(xx-w+side)*24/side:24+(xx-side)*78/(w-2*side);
+  for(int xx=first;xx<last;xx++){
+   int dx=x+xx,sx=xs[xx-first];
    uint32_t c=src[sy*126+sx];int a=c>>24;if(a){uint32_t*d=&pix[dy*sw+dx];*d=r134_mix(*d,c,a);}
   }
  }
@@ -843,6 +847,7 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   case 21:buff=-2;block=e->intent_value/2;break; /* Purge and shield */
   case 22:debuff=3;break; /* Weak + energy drain */
   case 23:debuff=3;break; /* Poison + Daze */
+  case 24:block=CLAMP(e->intent_value/2,1,100000000);break; /* Attack and shield */
  }
  if(block>=0&&count<3){
   glyph[count]=r134_map_icons[7];
@@ -910,7 +915,7 @@ static void combat(const Game*g){
  /* Opaque native-resolution surface covers every pixel below the battlefield. */
  r134_blit(0,174,480,98,r134_hand_hud,480,98,255);
  char b[16];
- if(g->character==CHAR_REGENT){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
+ if((g->character==CHAR_REGENT||g->revision184.custom)){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
   snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;
   r160_star_badge(7,217,40,b,f,g->regent.stars>0,0);
  }else{r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);}
@@ -1000,8 +1005,9 @@ static void relic_result_screen(const Game*g){
  footer(g->relic_pending?"X CONFIRM   O SKIP":"X CONTINUE");
 }
 static const uint32_t*event_art(int id){
- static const unsigned char art_map[22]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3};
- id=CLAMP(id,0,EVENT_COUNT-1);int artid=id<17?id:art_map[id-17];
+ static const unsigned char art_map[]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3,11,0,8};
+ _Static_assert(sizeof(art_map)==EVENT_COUNT-17,"Every added event needs an art mapping");
+ id=CLAMP(id,0,16+(int)sizeof(art_map));int artid=id<17?id:art_map[id-17];
  return artid>=12?r150_events[artid-12]:r134_event_icons[artid];
 }
 static void event_result_screen(const Game*g){
@@ -1017,6 +1023,7 @@ static void event_result_screen(const Game*g){
  footer("X CONTINUE");
 }
 #include "ascent_ui.inc"
+#include "custom_ui.inc"
 #include "expedition_ui.inc"
 static void r140_potion_card(const Game*g,int id,int x,int y,int w){
  r134_blit(x,y,w,43,r140_selection,208,28,255);
@@ -1025,7 +1032,7 @@ static void r140_potion_card(const Game*g,int id,int x,int y,int w){
  r134_wrap(x+49,y+20,w-70,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
 }
 static void reward_screen(const Game*g){
- header(g,!memcmp(g->message,"Belt full.",10)?g->message:g->battle_type==NODE_BOSS?"BOSS SPOILS / RARE CARD":"SPOILS OF BATTLE");
+ header(g,!memcmp(g->message,"Belt full.",10)?g->message:g->battle_type==NODE_BOSS?"BOSS SPOILS":"SPOILS OF BATTLE");
  gilded_panel(10,30,460,227,0);
  for(int i=0;i<3;i++){
   int chosen=!g->v151.card_done&&g->selection==i,x=27+i*144,y=41;
@@ -1084,7 +1091,7 @@ static void event_screen(const Game*g){
  char title[96],detail[512];
  int choices=game_event_choice_count(g);
  for(int i=0;i<choices;i++){
-  int leave=i==choices-1,y=leave?217:choices==4?122+i*31:123+i*46,h=leave?25:choices==4?29:43;
+  int leave=game_event_can_leave(g)&&i==choices-1,y=leave?217:choices>=3?122+i*31:123+i*46,h=leave?25:choices>=3?29:43;
   int available=game_event_choice_available(g,i),selected=g->selection==i;
   if(selected)r134_blit(31,y,179,h,r151_selection,420,60,255);
   game_event_option(g,i,title,sizeof(title),detail,sizeof(detail));
@@ -1102,7 +1109,7 @@ static void event_screen(const Game*g){
   if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
   else if(g->message[0])r134_wrap(229,231,215,1,10,g->message,RED,&r134_f8,1);
  }
- footer("X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
+ footer(game_event_can_leave(g)?"X CONFIRM  O LEAVE  SQ DECK  START INVENTORY":"X CONFIRM  SQ DECK  START INVENTORY");
 }
 static void event_card_screen(const Game*g){
  int action=g->next_screen;char title[80],detail[512],quote[96];
@@ -1344,12 +1351,12 @@ static void deck_screen(const Game*g){
 }
 static void title_screen(const Game*g){
  r134_blit(269,37,197,91,r134_logo,222,102,255);
- const char*buttons[]={"RESUME RUN","BEGIN ASCENT","UNLOCKS","OPTIONS"};
- for(int i=0;i<4;i++){int y=126+i*28,selected=CLAMP(g->selection,0,3)==i,enabled=i!=0||game_resume_available();
+ const char*buttons[]={"RESUME RUN","BEGIN ASCENT","CUSTOM RUN","UNLOCKS","OPTIONS"};
+ for(int i=0;i<5;i++){int y=115+i*25,selected=CLAMP(g->selection,0,4)==i,enabled=i!=0||game_resume_available();
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- r135_shadow_text(25,236,"RIFT ASCENT 1.8.3",MUTED,&r134_f8);
+ r135_shadow_text(25,236,"RIFT ASCENT 1.8.4",MUTED,&r134_f8);
 
  footer("X CONFIRM");
 }
@@ -1536,6 +1543,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case ASCENT_SLOTS_VIEW:ascent_slots_view(g);break;
  case ASCENT_OVERWRITE:ascent_overwrite_view(g);break;
  case ASCENT_OPTIONS:ascent_options_view(g);break;
+ case CUSTOM_CARDS:case CUSTOM_ITEMS:case CUSTOM_QUANTITY:case CUSTOM_CONFIRM:custom_view(g);break;
  case ASCENT_COLLECTION:ascent_collection_view(g);break;
  case EXPEDITION_GIFT:expedition_gift_view(g);break;
  case MYSTERY_CARDS:expedition_mystery_view(g);break;

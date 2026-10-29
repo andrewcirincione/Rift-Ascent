@@ -349,6 +349,7 @@ static int run_game(SceSize bytes,void *argp) {
     boot_trace("exit callback setup",1);
     unsigned int last=0;
     unsigned int frame=1;
+    unsigned int presentation_tick=4;
     int held=0;
     int pending_card_ticks=0;
     int last_screen=game.screen, last_act=game.act, last_floor=game.floor;
@@ -374,7 +375,7 @@ static int run_game(SceSize bytes,void *argp) {
          if(key==BTN_TAB_LEFT)key=BTN_DEBUG_KILL;
          if(key==BTN_TAB_RIGHT)key=BTN_DEBUG_ACT;
         }
-        key=game_render_story_input(&game,key,frame*4u);
+        key=game_render_story_input(&game,key,presentation_tick);
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
         if(game.screen==PAUSE_MENU && key==BTN_OK && game_pause_selection()==0) {
@@ -387,24 +388,24 @@ static int run_game(SceSize bytes,void *argp) {
                 game_set_resume_available(1);game.selection=0;key=0;
                 inspect_open=0;pending_card_ticks=enemy_turn_delay=plating_delay=0;
                 game_render_reset_fx();
-                game_render_begin_transition(&leaving,frame*4u);
+                game_render_begin_transition(&leaving,presentation_tick);
             }else {
                 boot_trace("save and quit FAILED",-1);
                 key=0;
             }
         }
-        music_paused=game_render_music_paused(frame*4u);
-        game_render_update_fx(frame*4u);
+        music_paused=game_render_music_paused(presentation_tick);
+        game_render_update_fx(presentation_tick);
         /* Finish the short action clip before accepting another combat action.
            The OS, audio worker and controller polling continue during hitstop. */
-        if((game_render_fx_busy(frame*4u)||plating_delay)&&key!=BTN_PAUSE)key=0;
+        if((game_render_fx_busy(presentation_tick)||plating_delay)&&key!=BTN_PAUSE)key=0;
         /* Shared overlay controller is exercised by native control audits. */
         if(key || inspect_open){
            int using_potion=inspect_open&&inspect_tab==3&&key==BTN_OK;
            if(using_potion){before_input=game;game_combat_fx_begin();}
            int handled=game_inventory_action(&game,key,&inspect_open,&inspect_tab,&inspect_scroll,&inspect_potion);
            if(using_potion)game_combat_fx_end();
-           if(handled==2){game_render_feedback(&before_input,&game,BTN_POTION,frame*4u);game_effect_start(3,frame*4u);rift_sound_effect(3);}
+           if(handled==2){game_render_feedback(&before_input,&game,BTN_POTION,presentation_tick);game_effect_start(3,presentation_tick);rift_sound_effect(3);}
            else if(handled&&key)rift_sound_effect(6);
            if(handled>=2&&game.screen!=COMBAT){
               if((game.screen==VICTORY||game.screen==DEFEAT)&&game.screen!=before_input.screen&&profile_record(&lifetime,&game))profile_save(&lifetime,legacy_profile_path);
@@ -421,8 +422,8 @@ static int run_game(SceSize bytes,void *argp) {
             int raw=game.hand[game.selection];
             int cost=game_card_cost_now(&game,raw);
             if(game_card_is_playable(raw)&&(cost==-1||cost<=game.energy)&&game_card_star_cost(&game,raw)<=game.regent.stars){
-                game_render_preplay(&game,frame*4u);
-                pending_card_ticks=5;
+                game_render_preplay(&game,presentation_tick);
+                pending_card_ticks=ascent_fast()?2:5;
                 key=0;
             }
         }
@@ -430,33 +431,33 @@ static int run_game(SceSize bytes,void *argp) {
             pending_card_ticks--;
             key=0;
             if(pending_card_ticks==0){
-                step_action(BTN_OK,frame*4u);
-                action_cooldown=4;
+                step_action(BTN_OK,presentation_tick);
+                action_cooldown=ascent_fast()?1:4;
             }
         }
         /* Separate "end turn" selection from engine resolution so enemies
            telegraph their attack, then damage numbers remain visible. */
         if(game.screen==COMBAT&&!inspect_open&&!enemy_turn_delay&&!plating_delay &&
            (key==BTN_BACK || (key==BTN_OK&&game.selection>=game.hand_count))){
-            step_action(1024,frame*4u);
-            if(game.screen==COMBAT)plating_delay=game.ic[IC_PLATING]>0?14:1;
+            step_action(1024,presentation_tick);
+            if(game.screen==COMBAT)plating_delay=game.ic[IC_PLATING]>0?(ascent_fast()?5:14):1;
             action_cooldown=0;
             rift_sound_effect(7);
             key=0;
         }
         /* Resume a saved mid-turn Plating phase without granting it twice. */
-        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&game.ic[38]&&!plating_delay&&!enemy_turn_delay)plating_delay=1;
-        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&plating_delay>0){
+        if(!game_render_transition_busy(presentation_tick)&&game.screen==COMBAT&&game.ic[38]&&!plating_delay&&!enemy_turn_delay)plating_delay=1;
+        if(!game_render_transition_busy(presentation_tick)&&game.screen==COMBAT&&plating_delay>0){
             plating_delay--;
-            if(!plating_delay&&!game_render_fx_busy(frame*4u))enemy_turn_delay=6;
+            if(!plating_delay&&!game_render_fx_busy(presentation_tick))enemy_turn_delay=ascent_fast()?2:6;
             else if(!plating_delay)plating_delay=1;
             key=0;
         }
-        if(!game_render_transition_busy(frame*4u)&&game.screen==COMBAT&&enemy_turn_delay>0){
+        if(!game_render_transition_busy(presentation_tick)&&game.screen==COMBAT&&enemy_turn_delay>0){
             enemy_turn_delay--;
             if(enemy_turn_delay==0){
-               step_action(BTN_BACK,frame*4u);
-               action_cooldown=4;
+               step_action(BTN_BACK,presentation_tick);
+               action_cooldown=ascent_fast()?1:4;
             }
             key=0;
         }
@@ -466,14 +467,14 @@ static int run_game(SceSize bytes,void *argp) {
         }
         if(key) {
            int prevscreen=game.screen;
-           step_action(key,frame*4u);
+           step_action(key,presentation_tick);
            if(prevscreen==COMBAT&&game.screen==REWARD)action_cooldown=15;
            else if(prevscreen!=game.screen)action_cooldown=5;
-           else if(prevscreen==COMBAT&&key==BTN_OK)action_cooldown=4;
+           else if(prevscreen==COMBAT&&key==BTN_OK)action_cooldown=ascent_fast()?1:4;
         }
         if(game.screen==REWARD&&action_cooldown>0)key=0;
-        music_paused=game_render_music_paused(frame*4u);
-        game_render_update_fx(frame*4u);
+        music_paused=game_render_music_paused(presentation_tick);
+        game_render_update_fx(presentation_tick);
         game_render_set_enemy_windup(enemy_turn_delay*4);
         game_render_set_overlay(inspect_open,inspect_tab,inspect_potion);
         game_render_set_status_scroll(inspect_scroll);
@@ -485,15 +486,15 @@ static int run_game(SceSize bytes,void *argp) {
                 ascent_checkpoint(&game);
             last_screen=game.screen;last_act=game.act;last_floor=game.floor;
         }
-        if(!game_render_transition_busy(frame*4u)&&(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count))))step_action(2048,frame*4u);
+        if(!game_render_transition_busy(presentation_tick)&&(game.screen==ACT_INTRO||(game.screen==COMBAT&&(game.regent.task_count||game.regent.shuffle_pending||game.ninja.task_count))))step_action(2048,presentation_tick);
         uint32_t *next_frame=(frame&1U)?uncached1:uncached0;
-        game_render_frame(&game,next_frame,STRIDE,frame*4u);
+        game_render_frame(&game,next_frame,STRIDE,presentation_tick);
         /* Keep its stream selected but paused after the killing contact. */
-        const Game*audio_scene=game_render_audio_state(&game,frame*4u);
+        const Game*audio_scene=game_render_audio_state(&game,presentation_tick);
         int story_audio=game_music_silent(audio_scene)?1:game_story_kind(audio_scene);
         rift_sound_scene_mode(story_audio);
-        if(!game_render_fx_busy(frame*4u))music_battle=game_music_track(audio_scene);
-        music_paused=story_audio==1||game_render_transition_silent(&game,frame*4u)||game_render_music_paused(frame*4u);
+        if(!game_render_fx_busy(presentation_tick))music_battle=game_music_track(audio_scene);
+        music_paused=story_audio==1||game_render_transition_silent(&game,presentation_tick)||game_render_music_paused(presentation_tick);
         music_route=(music_battle&255)|(music_paused?256u:0u);
         if(frame==1)boot_trace("frame 1 rendered",game.screen);
         if(frame==12) {
@@ -529,6 +530,7 @@ static int run_game(SceSize bytes,void *argp) {
         if(frame==60)boot_trace("frame 60 reached",game.screen);
         if(frame==180)boot_trace("frame 180 reached",game.screen);
         last=down;
+        presentation_tick+=(ascent_fast()&&!game_render_transition_busy(presentation_tick)&&(game.screen==COMBAT||game_render_fx_busy(presentation_tick)))?12u:4u;
         frame++;
     }
     sceKernelExitGame();

@@ -143,3 +143,15 @@ qa/v183/source/*.PBP
 qa/v183/source/*.prx
 qa/v183/source/*.SFO
 qa/v183/source/game.map
+
+# Reproducible 1.8.4 build and QA intermediates.
+qa/v184/assets.bin
+qa/v184/soundtrack.bank
+qa/v184/evidence/*.ppm
+qa/v184/evidence/*.wav
+qa/v184/evidence/*.log
+qa/v184/evidence/*.bin
+qa/v184/source/*.SFO
+qa/v184/.*
+qa/v184/**/.*
+versions/1.8.4/.*

@@ -1,0 +1,16 @@
+In file included from qa/v184/tests/render.c:6:
+qa/v184/tests/../source/render.c:43: warning: "CLAMP" redefined
+   43 | #define CLAMP(x,a,b) ((x)<(a)?(a):((x)>(b)?(b):(x)))
+      | 
+In file included from qa/v184/tests/render.c:5:
+qa/v184/tests/../source/game.c:357: note: this is the location of the previous definition
+  357 | #define CLAMP(x,a,b) MAX(a,MIN(x,b))
+      | 
+In file included from qa/v184/tests/collection_layout.c:2:
+qa/v184/tests/../source/render.c:43: warning: "CLAMP" redefined
+   43 | #define CLAMP(x,a,b) ((x)<(a)?(a):((x)>(b)?(b):(x)))
+      | 
+In file included from qa/v184/tests/collection_layout.c:1:
+qa/v184/tests/../source/game.c:357: note: this is the location of the previous definition
+  357 | #define CLAMP(x,a,b) MAX(a,MIN(x,b))
+      | 

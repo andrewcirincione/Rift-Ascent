@@ -18,12 +18,13 @@ static int ascent_action(Game*g,int b){
   }return 1;
  case ASCENT_OVERWRITE:
   if(b==BTN_UP||b==BTN_DOWN)g->selection=1-g->selection;
-  else if(b==BTN_BACK||(b==BTN_OK&&!g->selection)){g->screen=ASCENT_SLOTS_VIEW;g->scroll=1;g->selection=g->master_index;}
+  else if(b==BTN_BACK||(b==BTN_OK&&!g->selection)){g->screen=ASCENT_SLOTS_VIEW;g->scroll=1+g->revision184.custom;g->selection=g->master_index;}
   else if(b==BTN_OK){g->screen=CHARACTER_SELECT;g->selection=g->character;}
   return 1;
  case ASCENT_OPTIONS:
-  if(b==BTN_OK){if(!ascent_set_debug(!ascent_debug()))msg(g,"Could not save Options. Try again.");}
-  if(b==BTN_BACK){g->screen=TITLE;g->selection=3;}return 1;
+  if(b==BTN_UP||b==BTN_DOWN)g->selection=1-g->selection;
+  if(b==BTN_OK){int ok=g->selection?ascent_set_debug(!ascent_debug()):ascent_set_fast(!ascent_fast());if(!ok)msg(g,"Could not save Options. Try again.");}
+  if(b==BTN_BACK){g->screen=TITLE;g->selection=4;}return 1;
  case ASCENT_COLLECTION:
   if(b==BTN_ALT)g->selection=g->selection>=game_collection_unlock_count(g->scroll)?0:game_collection_unlock_count(g->scroll);
   if(b==BTN_TAB_LEFT){g->scroll=(g->scroll+4)%5;g->selection=0;}
@@ -33,12 +34,12 @@ static int ascent_action(Game*g,int b){
   if(b==BTN_UP&&g->selection>=3)g->selection-=3;
   if(b==BTN_DOWN)g->selection=MIN(game_collection_count(g->scroll)-1,g->selection+3);
   if(b==BTN_OK)g->selection=(g->selection+1)%game_collection_count(g->scroll);
-  if(b==BTN_BACK){g->screen=TITLE;g->selection=2;}return 1;
+  if(b==BTN_BACK){g->screen=TITLE;g->selection=3;}return 1;
  case ASCENT_SAVE_ERROR:
   if(b==BTN_OK&&ascent_complete(g,g->selection)){g->screen=g->selection?ASCENT_TRUE_END:ASCENT_ENDING;g->selection=0;}
   return 1;
  case ASCENT_ENDING:
-  if(b==BTN_OK&&++g->selection>=3){g->screen=ASCENT_CARDS;g->selection=0;}return 1;
+  if(b==BTN_OK&&++g->selection>=3){g->screen=g->revision184.custom?(g->ascent.secret?ASCENT_REVELATION:VICTORY):ASCENT_CARDS;g->selection=0;}return 1;
  case ASCENT_CARDS:
   if(b==BTN_OK){g->screen=ASCENT_POTIONS;g->selection=0;}return 1;
  case ASCENT_POTIONS:

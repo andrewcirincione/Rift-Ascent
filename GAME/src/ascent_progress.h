@@ -17,5 +17,5 @@ typedef struct {
  unsigned wins[3],best_act[3],ascended,debug;
  AscentReceipt receipts[ASCENT_SLOTS];
 } AscentAccount;
-typedef struct {int present,character,act,floor,hp,maxhp,screen;unsigned generation;} AscentSlot;
+typedef struct {int present,character,act,floor,hp,maxhp,screen;unsigned generation;int custom;} AscentSlot;
 #endif

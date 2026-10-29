@@ -164,13 +164,7 @@ static void r137_actor(int x,int y,int w,int h,const uint16_t*src,int iw,int ih,
  }
 }
 static void r183_target(int cx){
- const uint32_t*src=rift_asset_resolve(aesthetic_target,108*24*4);if(!src)return;
- for(int yy=0;yy<17;yy++)for(int xx=0;xx<76;xx++){
-  uint32_t c=src[(yy*24/17)*108+xx*108/76];int a=c>>24;
-  int light=c&255;if((int)((c>>8)&255)>light)light=(c>>8)&255;if((int)((c>>16)&255)>light)light=(c>>16)&255;
-  if(light>38)c=r134_mix(c,RGB(255,220,124),115);
-  int x=cx-38+xx,y=158+yy;if(x>=0&&x<W&&a)pix[y*sw+x]=r134_mix(pix[y*sw+x],c,a);
- }
+ r134_blit(cx-52,150,104,26,aesthetic_target184,208,52,255);
 }
 static int r183_actor_light;
 static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int lean,int opacity,int flash){

@@ -1,0 +1,14 @@
+BASE rarity 0 C/U/R: 119493/74505/6002 per 200000
+BASE rarity 1 C/U/R: 99661/80250/20089 per 200000
+BASE rarity 2 C/U/R: 107600/74336/18064 per 200000
+PASS pity progression/reset, unique owned-character ordinary rewards, no Ancient cards, act upgrade rates, Rare/Ancient bosses, shop read-only pity
+ROOM 0 stories 315/30000; no reroll on inventory return
+ROOM 1 stories 315/30000; no reroll on inventory return
+ROOM 2 stories 315/30000; no reroll on inventory return
+ROOM 3 stories 315/30000; no reroll on inventory return
+ROOM 4 stories 315/30000; no reroll on inventory return
+ROOM 5 stories 315/30000; no reroll on inventory return
+ROOM 6 stories 0/30000; no reroll on inventory return
+PASS all 39 events/options, picker cancel and costs, three-choice saves, potion/capacity/HP boundaries
+PASS 39 normal/15 unique elite act pools, endless mixes all acts, swapped music, six new intents and ally Rally persistence
+PASS 1.8.1 prefix migration and 1.8.2 persistent rarity/room state

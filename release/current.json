@@ -1,11 +1,11 @@
 {
-  "version": "1.8.3",
-  "tag": "v1.8.3",
-  "eboot": "versions/1.8.3/EBOOT.PBP",
-  "eboot_sha256": "b928b825642915746dfd85826a508a26b77004efd6ecdc6ea854a99f4fffd5f9",
-  "notes": "versions/1.8.3/PATCH_NOTES.md",
-  "screenshot": "versions/1.8.3/Combat.png",
-  "canonical_source": "qa/v183/source",
-  "validation": "qa/v183/evidence/final-tests.txt",
-  "resources_manifest": "qa/v183/assets.json"
+  "version": "1.8.4",
+  "tag": "v1.8.4",
+  "eboot": "versions/1.8.4/EBOOT.PBP",
+  "eboot_sha256": "24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c",
+  "notes": "versions/1.8.4/PATCH_NOTES.md",
+  "screenshot": "versions/1.8.4/Combat.png",
+  "canonical_source": "qa/v184/source",
+  "validation": "qa/v184/evidence/final-tests.txt",
+  "resources_manifest": "qa/v184/assets.json"
 }

@@ -5,7 +5,7 @@ enum {RC_TOP=1,RC_DISCARD_TOP,RC_TRANSFORM_HAND,RC_TRANSFORM_DRAW,RC_GUARDS,RC_S
 #define RP(g,id) ((g)->regent.powers[(id)-REGENT_FIRST])
 static int regent_flags(int raw){int id=CARD_ID(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 static int regent_stamp(Game*g,int raw){
- if((g->character!=CHAR_REGENT&&CARD_ID(raw)<REGENT_FIRST)||CARD_INSTANCE(raw))return raw;
+ if(((g->character!=CHAR_REGENT&&!g->revision184.custom)&&CARD_ID(raw)<REGENT_FIRST)||CARD_INSTANCE(raw))return raw;
  for(int i=0;i<511;i++){int k=g->ninja.next_instance%511+1;g->ninja.next_instance=k;if(ninja_instance_used(g,k))continue;int used=0;for(int t=0;t<g->regent.task_count;t++)if(CARD_INSTANCE(g->regent.tasks[t].raw)==k)used=1;for(int t=0;t<g->regent.return_count;t++)if(CARD_INSTANCE(g->regent.return_cards[t])==k)used=1;if(used)continue;g->regent.instance_cost[k]=g->regent.instance_damage[k]=g->regent.instance_replay[k]=0;return raw|(k<<CARD_INSTANCE_SHIFT);}return raw;
 }
 static int regent_push(Game*g,int kind,int raw,int target,int n,int aux,int depth){if(g->regent.task_count>=REGENT_TASK_MAX){msg(g,"Effect queue full.");return 0;}g->regent.tasks[g->regent.task_count++]=(RegentTask){kind,raw,target,n,aux,depth};return 1;}
@@ -17,17 +17,17 @@ static int regent_cost_now(const Game*g,int raw){
 int game_card_star_cost(const Game*g,int raw){int id=CARD_ID(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;if((raw&CARD_FREE)||(g&&RP(g,R_VOID_FORM)&&g->regent.void_used<2*RP(g,R_VOID_FORM)))return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];return CARD_UP(raw)?d->upstars:d->stars;}
 static void regent_gain_stars(Game*g,int n){if(n<=0)return;n=MIN(n,999-g->regent.stars);if(!n)return;g->regent.stars+=n;record_combat_fx(GFX_STARS,-1,-1,n,0);g->regent.stars_gained=MIN(1000000,g->regent.stars_gained+n);if(RP(g,R_BLACK_HOLE))ninja_all_proc(g,RP(g,R_BLACK_HOLE));}
 static void regent_created(Game*g){
- if(g->character!=CHAR_REGENT)return;g->regent.created=MIN(1000000,g->regent.created+1);
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.created=MIN(1000000,g->regent.created+1);
  g->strength=MIN(1000000,g->strength+RP(g,R_ARSENAL));if(RP(g,R_PILLAR_OF_CREATION))relic_block(g,RP(g,R_PILLAR_OF_CREATION));
 }
 static void regent_on_draw(Game*g,int raw){
- if(g->character!=CHAR_REGENT)return;int id=CARD_ID(raw),k=CARD_INSTANCE(raw);
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int id=CARD_ID(raw),k=CARD_INSTANCE(raw);
  if(id==R_KINGLY_KICK&&k)g->regent.instance_cost[k]=MIN(99,g->regent.instance_cost[k]+1);
  if(id==R_KINGLY_PUNCH&&k)g->regent.instance_damage[k]=MIN(1000000,g->regent.instance_damage[k]+4+2*CARD_UP(raw));
  g->regent.draws=(g->regent.draws+1)%10;gain_energy(g,g->regent.automation_phase[g->regent.draws]);
 }
 static void regent_on_hit(Game*g,int e,int amount){
- (void)amount;if(!r140_attack_context||g->character!=CHAR_REGENT)return;g->regent.hit_count[e]=MIN(1000000,g->regent.hit_count[e]+1);
+ (void)amount;if(!r140_attack_context||(g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.hit_count[e]=MIN(1000000,g->regent.hit_count[e]+1);
  int n=RP(g,R_MONARCHS_GAZE);if(n&&g->enemies[e].hp>0){g->enemies[e].strength-=n;g->ic[IC_MANGLE0+e]+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
 }
 static void regent_temp_weak(Game*g,int e,int n){if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)return;g->enemies[e].strength-=n;g->ic[IC_MANGLE0+e]+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
@@ -85,7 +85,7 @@ static void regent_offer(Game*g,int raw,int e,int up,int mode,int depth){
  regent_push(g,RT_CHOOSE,raw,e,RC_GENERATE,1,depth);
 }
 static void regent_process(Game*g);
-static void regent_after_shuffle(Game*g){if(g->character==CHAR_REGENT&&RP(g,C_STRATAGEM))g->regent.shuffle_pending=1;}
+static void regent_after_shuffle(Game*g){if((g->character==CHAR_REGENT||g->revision184.custom)&&RP(g,C_STRATAGEM))g->regent.shuffle_pending=1;}
 static void regent_seek_three(Game*g,int raw,int e,int depth){
  shuffle(g,g->draw,g->draw_count);regent_after_shuffle(g);
  regent_push(g,RT_SEEK_THREE,raw,e,0,0,depth);
@@ -126,11 +126,11 @@ static void regent_finish(Game*g,RegentTask t){
  g->regent.attack_vigor=0;g->selection=CLAMP(g->selection,0,MAX(0,g->hand_count-1));
 }
 static void regent_foreign_begin(Game*g,int raw){
- if(g->character!=CHAR_REGENT)return;
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;
  if(cards[CARD_ID(raw)].type==0){g->regent.attack_vigor=g->regent.vigor;g->regent.vigor=0;}
 }
 static void regent_foreign_finish(Game*g,int raw){
- if(g->character!=CHAR_REGENT)return;int type=cards[CARD_ID(raw)].type;
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;int type=cards[CARD_ID(raw)].type;
  g->regent.plays_combat=MIN(1000000,g->regent.plays_combat+1);
  if(type==1){g->regent.skills++;if(g->regent.skills%3==0){int*p[]={g->draw,g->discard,g->exhaust};int*n[]={&g->draw_count,&g->discard_count,&g->exhaust_count};for(int z=0;z<3;z++)for(int i=*n[z]-1;i>=0&&g->hand_count<MAX_HAND;i--)if(CARD_ID(p[z][i])==R_MAKE_IT_SO)regent_to_hand(g,regent_take(p[z],n[z],i));}}
  if(type==0&&RP(g,C_CALAMITY)){int pool[256],n=0;for(int c=REGENT_FIRST;c<REGENT_LAST;c++)if(solo_reward_eligible(c)&&cards[c].type==0)pool[n++]=c;for(int i=0;i<MIN(MAX_HAND,RP(g,C_CALAMITY))&&n;i++)regent_create(g,pool[rnd(g,n)]);}
@@ -230,12 +230,12 @@ static void regent_choose(Game*g,int index,int finish){
  g->regent.choice_kind=0;g->regent.option_count=0;g->screen=COMBAT;g->selection=0;regent_process(g);
 }
 static void regent_before_turn(Game*g){
- if(g->character!=CHAR_REGENT)return;g->regent.stars_gained=g->regent.skills=g->regent.nostalgia_used=g->regent.void_used=0;
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.stars_gained=g->regent.skills=g->regent.nostalgia_used=g->regent.void_used=0;
  memset(g->regent.panache_phase,0,sizeof(g->regent.panache_phase));g->regent.panache_phase[0]=RP(g,C_PANACHE);
  memset(g->regent.hit_count,0,sizeof(g->regent.hit_count));memset(g->regent.conqueror,0,sizeof(g->regent.conqueror));g->regent.reflect=0;if(g->regent.panic)g->regent.panic--;
 }
 static void regent_start_turn(Game*g){
- if(g->character!=CHAR_REGENT||g->screen!=COMBAT)return;
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom)||g->screen!=COMBAT)return;
  if(g->turn==1)regent_gain_stars(g,3);
  gain_energy(g,g->regent.next_energy);g->regent.next_energy=0;
  regent_gain_stars(g,g->regent.next_stars+RP(g,R_GENESIS));g->regent.next_stars=0;
@@ -254,7 +254,7 @@ static void regent_start_turn(Game*g){
  regent_process(g);
 }
 static void regent_end_turn(Game*g){
- if(g->character!=CHAR_REGENT||g->ic[38])return;
+ if((g->character!=CHAR_REGENT&&!g->revision184.custom)||g->ic[38])return;
  if(g->turn_played>=5)g->regent.next_draw+=RP(g,R_PALE_BLUE_DOT);
  for(int i=0;i<16;i++)if(g->regent.bomb_ticks[i]&&!--g->regent.bomb_ticks[i])ninja_all_proc(g,g->regent.bomb_damage[i]);
  if(g->draw_count&&CARD_ID(g->draw[g->draw_count-1])==R_IAM_INVINCIBLE){int raw=g->draw[--g->draw_count];regent_push(g,RT_PLAY,raw|CARD_FREE,g->target,0,0,0);regent_process(g);}

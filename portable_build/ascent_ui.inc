@@ -21,11 +21,11 @@ static void ascent_badges(int x,int y,int character){
  if(a->ascended&(1u<<character))r135_shadow_text(x+64,y+31,"A",RGB(255,210,89),&r134_f18b);
 }
 static void ascent_slots_view(const Game*g){
- ascent_heading(g->scroll?"BEGIN ASCENT / SAVE SLOT":"RESUME / SAVE SLOT");
+ ascent_heading(g->scroll==2?"CUSTOM RUN / SAVE SLOT":g->scroll?"BEGIN ASCENT / SAVE SLOT":"RESUME / SAVE SLOT");
  for(int i=0;i<ASCENT_SLOTS;i++){
   const AscentSlot*s=ascent_slot(i);int y=46+i*45;char b[100];
   if(i==g->selection)r134_blit(27,y-2,426,42,r151_selection,420,60,255);
-  snprintf(b,sizeof(b),"SLOT %d   %s",i+1,s->present?ascent_names[CLAMP(s->character,0,2)]:"EMPTY");r134_text(78,y+8,b,i==g->selection?GOLD:WHITE,&r134_f9b);
+  snprintf(b,sizeof(b),"SLOT %d   %s%s",i+1,s->present?ascent_names[CLAMP(s->character,0,2)]:"EMPTY",s->present&&s->custom?" / CUSTOM":"");r134_text(78,y+8,b,i==g->selection?GOLD:WHITE,&r134_f9b);
   if(s->present){snprintf(b,sizeof(b),"Act %d / Floor %d     HP %d / %d",s->act,s->floor+1,s->hp,s->maxhp);r134_text(78,y+24,b,MUTED,&r134_f9);}
  }
  r134_center(240,235,g->message[0]?g->message:"Unlocks are shared across all four save slots.",GOLD,&r134_f8);
@@ -41,10 +41,11 @@ static void ascent_overwrite_view(const Game*g){
  footer("X CONFIRM   O CANCEL");
 }
 static void ascent_options_view(const Game*g){
- ascent_heading("OPTIONS");button(100,81,280,42,ascent_debug()?"DEBUG SHORTCUTS: ON":"DEBUG SHORTCUTS: OFF",1);
- r134_center(240,147,"L: defeat all enemies during combat",WHITE,&r134_f9);
- r134_center(240,168,"R: advance to the next act",WHITE,&r134_f9);
- r134_center(240,207,g->message[0]?g->message:"Debug is off by default and saved for all slots.",MUTED,&r134_f8);
+ ascent_heading("OPTIONS");
+ button(85,66,310,35,ascent_fast()?"COMBAT SPEED: FAST":"COMBAT SPEED: NORMAL",g->selection==0);
+ button(85,116,310,35,ascent_debug()?"DEBUG SHORTCUTS: ON":"DEBUG SHORTCUTS: OFF",g->selection==1);
+ r134_center(240,173,g->selection?"L: defeat enemies   R: next act":"Fast shortens combat animations and action pauses.",WHITE,&r134_f8);
+ r134_center(240,207,g->message[0]?g->message:"Options are saved for all slots.",MUTED,&r134_f8);
  footer("X TOGGLE   O BACK");
 }
 static unsigned ascent_collection_mask(int tab){const AscentAccount*a=ascent_profile();return tab<3?a->cards[tab]:tab==3?a->potions:tab==4?a->relics:0xfffffu;}
@@ -59,10 +60,11 @@ static void ascent_collection_view(const Game*g){
  r134_text(28,73,base?"BASE GAME / NO UNLOCK NEEDED":"EARNED BY COMPLETING ACT 3",MUTED,&r134_f8);
  for(int n=first;n<last&&n<first+6;n++){
   int pos=n-first,x=24+pos%3*92,y=83+pos/3*74,open=base||(mask&(1u<<n));
-  int id=game_collection_id(tab,n);gilded_panel(x,y,85,69,n==index);
+  int id=game_collection_id(tab,n);if(n==index)y-=5;gilded_panel(x,y,85,69,n==index);
   if(open){if(tab<3)r134_card_art(x+8,y+6,69,44,id);else if(tab==3)ascent_potion_icon(x+20,y+5,46,id);else r150b_relic_icon(x+20,y+5,46,id);}
   else r134_center(x+42,y+24,"?",MUTED,&r134_f18b);
   snprintf(b,sizeof(b),"%02d%s",n-(base?custom:0)+1,open?"":" LOCKED");r134_center(x+42,y+55,b,open?GOLD:MUTED,&r134_f8);
+  if(n==index)r134_blit(x+23,y+1,40,23,r138_choice,42,28,255);else dark_rect(x+5,y+5,75,59,60);
  }
  if(base||(mask&(1u<<index))){
   int id=game_collection_id(tab,index);

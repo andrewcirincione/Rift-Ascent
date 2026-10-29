@@ -1,0 +1,7 @@
+{
+  "base_version": "1.8.3",
+  "base_commit": "3f5af5f3bc21824ed74a8f347232b38ce48f0714",
+  "base_eboot_sha256": "b928b825642915746dfd85826a508a26b77004efd6ecdc6ea854a99f4fffd5f9",
+  "lineage": "1.71-r2 -> fresh 1.8-r2 -> 1.8.1 -> 1.8.2 -> 1.8.3",
+  "abandoned_1_8_reused": false
+}

@@ -1,0 +1,2 @@
+PASS custom catalogs, mixed/locked cards, quantities/removal, potion cap, draft resume, effects applied once, no account/profile records, death deletion/tombstone, normal slot reuse, persisted speed
+PASS every supported card resolves and previews safely for all three custom characters

@@ -5,6 +5,7 @@ static AscentAccount ascent_account;
 static AscentSlot ascent_slots[ASCENT_SLOTS];
 static char ascent_root[256]=".";
 static int ascent_ready;
+static unsigned ascent_fast_setting;
 static int ascent_path(char*out,int cap,const char*stem,unsigned index){
  return snprintf(out,cap,"%s/%s.%u",ascent_root,stem,index)<cap;
 }
@@ -42,10 +43,12 @@ const AscentAccount*ascent_profile(void){return &ascent_account;}
 const AscentSlot*ascent_slot(int n){return n>=0&&n<ASCENT_SLOTS?&ascent_slots[n]:0;}
 int ascent_popcount(unsigned n){int count=0;for(;n;n&=n-1)count++;return count;}
 int ascent_secret(int c){return c>=0&&c<3&&ascent_account.cards[c]==ASCENT_ALL_CARDS;}
+int ascent_fast(void){return ascent_fast_setting!=0;}
+int ascent_set_fast(int enabled){unsigned value=!!enabled;if(!ascent_write("ASCENT18_SPEED",&value,sizeof(value),0))return 0;ascent_fast_setting=value;return 1;}
 int ascent_debug(void){return ascent_account.debug!=0;}
 int ascent_set_debug(int enabled){unsigned old=ascent_account.debug;ascent_account.debug=!!enabled;if(ascent_commit_account())return 1;ascent_account.debug=old;return 0;}
 static void ascent_slot_info(int slot,const Game*g,unsigned gen){
- ascent_slots[slot]=(AscentSlot){1,g->character,g->act,g->floor,g->hp,g->maxhp,g->screen,gen};
+ ascent_slots[slot]=(AscentSlot){1,g->character,g->act,g->floor,g->hp,g->maxhp,g->screen,gen,g->revision184.custom};
 }
 static void revision182_migrate_room(Game*g){
  int s=g->screen;if(s==DECK_VIEW||s==POTION_VIEW||s==RELIC_VIEW)s=g->prior_screen;
@@ -59,7 +62,14 @@ static void revision182_migrate_room(Game*g){
 static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
  memset(g,0,sizeof(*g));
  if(ascent_read(stem,side,g,sizeof(*g),generation)){
-  if(g->version==182){g->version=GAME_VERSION;if(g->screen==ASCENT_COLLECTION&&g->scroll==5){g->scroll=4;g->selection=10+60+g->selection;}}
+  
+  return game_validate(g);
+ }
+ memset(g,0,sizeof(*g));
+ if(ascent_read(stem,side,g,offsetof(Game,revision184),generation)&&(g->version==182||g->version==183)){
+  if(g->version==182&&g->screen==ASCENT_COLLECTION&&g->scroll==5){g->scroll=4;g->selection=70+g->selection;}
+  g->version=GAME_VERSION;
+  /* The old topology remains stable until the next act. */
   return game_validate(g);
  }
  memset(g,0,sizeof(*g));
@@ -72,17 +82,34 @@ static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generat
  if(g->screen==RELIC_RESULT&&g->relic_pending&&g->reward[0]<0)g->reward[0]=37;
  return game_validate(g);
 }
+/* A durable death receipt blocks both alternating snapshots before unlinking.
+   A surviving old generation can therefore never revive a dead run. */
+static unsigned ascent_dead_id(int slot){char stem[40];unsigned id=0,gen;snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%d",slot+1);if(!ascent_read(stem,0,&id,sizeof(id),&gen))return 0;return id;}
+int ascent_forget(Game*g){
+ if(!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS)return 0;
+ unsigned slot=g->ascent.slot,id=g->ascent.id;char stem[40],path[320];
+ snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%u",slot+1);
+ if(!ascent_write(stem,&id,sizeof(id),0))return 0;
+ snprintf(stem,sizeof(stem),"ASCENT18_RUN_%u",slot+1);
+ for(int side=0;side<2;side++)if(ascent_path(path,sizeof(path),stem,side))remove(path);
+ memset(&ascent_slots[slot],0,sizeof(ascent_slots[slot]));
+ int any=0;for(int i=0;i<ASCENT_SLOTS;i++)any|=ascent_slots[i].present;game_set_resume_available(any);return 1;
+}
 int ascent_resume(Game*g,int slot){
  if(slot<0||slot>=ASCENT_SLOTS)return 0;
  char stem[40];snprintf(stem,sizeof(stem),"ASCENT18_RUN_%d",slot+1);
  Game a,b;unsigned ga=0,gb=0;int va=ascent_read_run(stem,0,&a,&ga),vb=ascent_read_run(stem,1,&b,&gb);
- va=va&&game_validate(&a)&&a.ascent.id&&a.ascent.slot==(unsigned)slot;
- vb=vb&&game_validate(&b)&&b.ascent.id&&b.ascent.slot==(unsigned)slot;
+ unsigned dead=ascent_dead_id(slot);
+ if(va&&(a.screen==DEFEAT||a.hp<=0)){dead=MAX(dead,a.ascent.id);ascent_forget(&a);}
+ if(vb&&(b.screen==DEFEAT||b.hp<=0)){dead=MAX(dead,b.ascent.id);ascent_forget(&b);}
+ va=va&&a.screen!=DEFEAT&&a.hp>0&&a.ascent.id>dead&&game_validate(&a)&&a.ascent.id&&a.ascent.slot==(unsigned)slot;
+ vb=vb&&b.screen!=DEFEAT&&b.hp>0&&b.ascent.id>dead&&game_validate(&b)&&b.ascent.id&&b.ascent.slot==(unsigned)slot;
  if(!va&&!vb)return 0;
  *g=vb&&(!va||gb>ga)?b:a;unsigned gen=vb&&(!va||gb>ga)?gb:ga;
  ascent_slot_info(slot,g,gen);return 1;
 }
 int ascent_checkpoint(Game*g){
+ if(g->screen==DEFEAT||g->hp<=0)return ascent_forget(g);
  if(!ascent_ready||!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS||!game_validate(g))return 0;
  char stem[40];unsigned slot=g->ascent.slot,gen=ascent_slots[slot].generation+1;
  snprintf(stem,sizeof(stem),"ASCENT18_RUN_%u",slot+1);
@@ -100,7 +127,7 @@ int ascent_open(const char*root){
  memset(&ascent_account,0,sizeof(ascent_account));
  if(va||vb){ascent_account=vb&&(!va||gb>ga)?b:a;ascent_account.generation=vb&&(!va||gb>ga)?gb:ga;}
  else {ascent_account.magic=0x52413841u;ascent_account.version=1;ascent_account.next_run=1;}
- ascent_ready=1;memset(ascent_slots,0,sizeof(ascent_slots));
+ ascent_ready=1;ascent_fast_setting=0;{unsigned gen;ascent_read("ASCENT18_SPEED",0,&ascent_fast_setting,sizeof(ascent_fast_setting),&gen);if(ascent_fast_setting>1)ascent_fast_setting=0;}memset(ascent_slots,0,sizeof(ascent_slots));
  for(int i=0;i<ASCENT_SLOTS;i++){Game saved;ascent_resume(&saved,i);}
  /* Import the stable single-save prefix once. The old SAVE.DAT is untouched. */
  if(!va&&!vb&&!ascent_slots[0].present){
@@ -114,7 +141,7 @@ int ascent_open(const char*root){
  }
  return 1;
 }
-int ascent_begin(Game*g,int slot,int character,unsigned seed){
+static int ascent_begin_mode(Game*g,int slot,int character,unsigned seed,int custom){
  if(!ascent_ready||slot<0||slot>=ASCENT_SLOTS||character<0||character>2)return 0;
  AscentAccount old=ascent_account;
  if(ascent_account.next_run==0xffffffffu)return 0;
@@ -125,9 +152,14 @@ int ascent_begin(Game*g,int slot,int character,unsigned seed){
  g->ascent.potions=ascent_account.potions;g->ascent.relics=ascent_account.relics;g->ascent.secret=ascent_secret(character);
  for(int i=0;i<2;i++)g->ascent.unlocked_cards[i]=g->ascent.unlocked_potions[i]=-1;
  g->ascent.unlocked_relic=-1;begin_act(g);
+ if(custom){g->revision184.custom=g->revision184.building=1;g->ascent.cards=ASCENT_ALL_CARDS;g->ascent.potions=0xfffff;g->ascent.relics=1023;
+  g->deck_count=g->relic_count=g->potion_count=0;g->screen=CUSTOM_CARDS;g->selection=g->scroll=0;msg(g,"");}
+
  return ascent_checkpoint(g);
 }
+int ascent_begin(Game*g,int slot,int character,unsigned seed){return ascent_begin_mode(g,slot,character,seed,0);}
 int ascent_card_available(const Game*g,int id){
+ if(g->revision184.custom)return id>=0&&id<ASCENT_CARD_LAST;
  if(id<ASCENT_CARD_FIRST)return 1;if(id>=ASCENT_CARD_LAST)return 0;
  return (id-ASCENT_CARD_FIRST)/20==g->character&&(g->ascent.cards&(1u<<((id-ASCENT_CARD_FIRST)%20)));
 }
@@ -160,6 +192,7 @@ static void ascent_receipt_to_run(Game*g,const AscentReceipt*r){
 }
 static int ascent_complete(Game*g,int true_end){
  if(preview_trace)return 1;
+ if(g->revision184.custom){if(true_end)g->ascent.ascended=1;else g->ascent.won=1;return 1;}
  if(!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS)return 0;
  AscentAccount old=ascent_account;AscentReceipt*r=&ascent_account.receipts[g->ascent.slot];
  if(r->run>g->ascent.id){msg(g,"This run has been superseded in its save slot.");return 0;}
@@ -175,7 +208,7 @@ static int ascent_complete(Game*g,int true_end){
  ascent_receipt_to_run(g,r);return 1;
 }
 static void ascent_record_act(Game*g){
- if(preview_trace||!g->ascent.id)return;
+ if(preview_trace||!g->ascent.id||g->revision184.custom)return;
  unsigned old=ascent_account.best_act[g->character];
  if((unsigned)g->act>old){ascent_account.best_act[g->character]=g->act;if(!ascent_commit_account())ascent_account.best_act[g->character]=old;}
 }

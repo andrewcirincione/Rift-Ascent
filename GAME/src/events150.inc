@@ -21,7 +21,7 @@ static const char*event_titles[EVENT_COUNT]={
  "WAR DRUM",
  "TAX ON BREATH",
  "THE FACELESS DRAFTER",
- "CANDLE FOR A STRANGER"};
+ "CANDLE FOR A STRANGER","FALLING OSSUARY","THE EMPTY TITHE","SPORE WAKE"};
 static const char*event_lore[EVENT_COUNT]={
  "A scorched purse is caught in a thorned iron trap.",
  "Moonwater mends wounds. Its silver root can strengthen your mortal heart.",
@@ -61,7 +61,10 @@ static const char*event_lore[EVENT_COUNT]={
  "A drum of stretched hide beats in time with your pulse.",
  "The collector accepts either blood now or coin for shelter.",
  "The stranger erases a face from a card and offers you the pen.",
- "A stranded soul needs a little warmth to find the road."};
+ "A stranded soul needs a little warmth to find the road.",
+ "A ceiling of old bones breaks before you can turn back.",
+ "The doorway takes its toll from the coins at your belt.",
+ "Pale spores burst beneath your feet. Their chill follows you."};
 static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"SEIZE THE PURSE","Gain 75 Gold. Lose 8 HP.",0,0,8,0},{"GATHER LOOSE COINS","Gain 25 Gold. No HP cost.",0,0,0,0}},
  {{"DRINK","Heal 20 HP for free, up to your maximum.",0,0,0,0},{"TAKE THE SILVER ROOT","Pay 35 Gold. Gain 6 maximum HP and heal 6.",0,35,0,0}},
@@ -101,10 +104,21 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"LEARN ITS RHYTHM","Pay 25 Gold. Gain 3 Strength for your next combat only.",0,25,0,0},{"STRIKE IT WITH BLOOD","Lose 6 HP. Draw 2 extra cards in your next opening hand, up to the hand limit.",0,0,6,0}},
  {{"PAY THE BLOOD TAX","Lose 10 HP. Gain 100 Gold.",0,0,10,0},{"BUY A NIGHT'S SHELTER","Pay 50 Gold. Heal 25 HP and begin your next combat with 12 extra Block.",0,50,0,0}},
  {{"REWRITE A CARD","Pay 20 Gold. Replace one card with a different random Uncommon from your character. Its old upgrade and modifier are lost.",EVENT_TRANSFORM,20,0,0},{"KEEP YOUR OLD NAME","Gain 15 Gold. Your deck stays the same.",0,0,0,0}},
- {{"SHARE YOUR FLAME","Lose 6 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,6,0}}
+ {{"SHARE YOUR FLAME","Lose 6 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,6,0}},
+ {{"SHIELD YOUR HEAD","Lose up to 6 HP. This cannot reduce you below 1 HP.",0,0,0,0}},
+ {{"PAY THE TITHE","Lose up to 25 Gold. If your purse is empty, the doorway takes nothing.",0,0,0,0}},
+ {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}}
 };
-static const unsigned char event_offer_counts[EVENT_COUNT]={2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,2,1,3,1,2,3,1,3,2,2,2,2,3,3,2,2,2,2,1};
-int game_event_choice_count(const Game*g){return event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]+1;}
+static const unsigned char event_offer_counts[EVENT_COUNT]={2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,2,1,3,1,2,3,1,3,2,2,2,2,3,3,2,2,2,2,1,1,1,1};
+static int event_offer_available(const Game*g,int option);
+int game_event_can_leave(const Game*g){
+ int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);
+ /* Existing events retain their original choices and Leave option. */
+ if(id<39)return 1;
+ for(int i=0;i<event_offer_counts[id];i++)if(event_offer_available(g,i))return 0;
+ return 1; /* No affordable/eligible choice: never strand the player. */
+}
+int game_event_choice_count(const Game*g){return event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]+game_event_can_leave(g);}
 const char*game_event_title(int id){return id>=0&&id<EVENT_COUNT?event_titles[id]:"MYSTERY";}
 const char*game_event_lore(int id){return id>=0&&id<EVENT_COUNT?event_lore[id]:"";}
 static int event_card_ok(int raw,int action){
@@ -116,7 +130,7 @@ static int event_card_ok(int raw,int action){
 int game_event_card_eligible(const Game*g,int raw){return event_card_ok(raw,g->next_screen);}
 static int event_relic_id(const Game*g,int option){return g->reward[(g->effect_turn==15||g->effect_turn==32)?option:0];}
 void game_event_option(const Game*g,int option,char*title,int tc,char*detail,int dc){
- if(option==game_event_choice_count(g)-1){snprintf(title,tc,"LEAVE");snprintf(detail,dc,"Leave without spending anything.");return;}
+ if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]){snprintf(title,tc,"LEAVE");snprintf(detail,dc,"Leave without spending anything.");return;}
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);option=CLAMP(option,0,event_offer_counts[id]-1);
  const EventOffer*o=&event_offers[id][option];snprintf(title,tc,"%s",o->title);snprintf(detail,dc,"%s",o->detail);
  if(id==2||id==6||id==17||id==34){int raw=g->reward[id==17?0:option];if(CARD_ID(raw)<CARD_COUNT)snprintf(title,tc,"%s%s",cards[CARD_ID(raw)].name,CARD_UP(raw)?"+":"");}
@@ -126,31 +140,30 @@ static int event_next_fits(const Game*g,int strength,int block,int draw,int weak
  const int add[5]={strength,block,draw,weak,vulnerable},limit[5]={30,99,5,5,5};
  for(int i=0;i<5;i++)if(g->revision182.next_combat[i]+add[i]>limit[i])return 0;return 1;
 }
-int game_event_choice_available(const Game*g,int option){
- if(option==game_event_choice_count(g)-1)return 1;
+static int event_offer_available(const Game*g,int option){
  if(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||option<0||option>=event_offer_counts[g->effect_turn])return 0;
  const EventOffer*o=&event_offers[g->effect_turn][option];int id=g->effect_turn;
  if(g->gold<o->gold||g->hp<=o->hp||(o->maxhp>0&&g->maxhp-o->maxhp<25))return 0;
  if(o->action){int n=0;for(int i=0;i<g->deck_count;i++)n+=event_card_ok(g->deck[i],o->action);
   if(!n||(o->action==EVENT_REMOVE&&g->deck_count<=1)||(o->action==EVENT_COPY&&g->deck_count>=MAX_DECK))return 0;}
  if((id==2||id==6||(id==8&&!option)||(id==9&&option)||(id==11&&!option))&&g->deck_count>=MAX_DECK)return 0;
- if(id==1&&!option&&game_moon_heal_now(g)<1)return 0;
  if((id==17||id==21||id==34||(id==31&&!option))&&g->deck_count>=MAX_DECK)return 0;
  if(id==28&&!option&&!event_next_fits(g,3,0,0,0,2))return 0;
- if(id==28&&option&&g->hp==g->maxhp)return 0;
- if(id==29&&(!option?(g->hp==g->maxhp||!event_next_fits(g,0,0,0,2,0)):!event_next_fits(g,0,12,0,0,0)))return 0;
- if(id==30&&(option?g->potion_count>MAX_POTIONS-2:g->hp>=g->maxhp-5))return 0;
+ if(id==29&&(!option?!event_next_fits(g,0,0,0,2,0):!event_next_fits(g,0,12,0,0,0)))return 0;
+ if(id==30&&option&&g->potion_count>MAX_POTIONS-2)return 0;
  if(id==32&&option==2&&g->potion_count>=MAX_POTIONS)return 0;
  if(id==33&&g->potion_count<(option==1?2:1))return 0;
  if(id==35&&!event_next_fits(g,option?0:3,0,option?2:0,0,0))return 0;
  if(id==36&&option&&!event_next_fits(g,0,12,0,0,0))return 0;
  if(id==38&&!event_next_fits(g,2,10,0,0,0))return 0;
- if(id==19){if(!option&&g->potion_count>MAX_POTIONS-2)return 0;if(option&&g->potion_count<1)return 0;if(option==2&&g->hp==g->maxhp)return 0;}
+ if(id==19){if(!option&&g->potion_count>MAX_POTIONS-2)return 0;if(option&&g->potion_count<1)return 0;}
  if(id==20&&option==1&&count_upgradeable(g)<2)return 0;
- if(id==22&&!option&&g->hp==g->maxhp)return 0;
- if((id==3&&option)||(id==5&&!option)||(id==7&&option)||id==8)if(g->hp==g->maxhp)return 0;
  if((id==4&&!option)||id==11||id==15||(id==19&&option==1)||id==21||(id==32&&option<2)){int r=event_relic_id(g,option);if(r<0||r>=RELIC_COUNT||relic(g,r)||g->relic_count>=MAX_RELICS)return 0;if(o->maxhp&&g->maxhp-o->maxhp-(r==11?12:0)<25)return 0;}
  return 1;
+}
+int game_event_choice_available(const Game*g,int option){
+ if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)])return game_event_can_leave(g);
+ return event_offer_available(g,option);
 }
 static int event_typed_card(Game*g,int type){
  int pool[128],weights[128],n=0,total=0;
@@ -203,7 +216,7 @@ static void event_card_commit(Game*g){
  event_result(g,raw,text);
 }
 static void do_event(Game*g,int option){
- if(option==game_event_choice_count(g)-1){enter_map(g);msg(g,"You leave the chamber.");return;}
+ if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]&&game_event_can_leave(g)){enter_map(g);msg(g,"You leave the chamber.");return;}
  if(!game_event_choice_available(g,option)){msg(g,"Unavailable: check costs, deck, potions or queued boons.");return;}
  int id=g->effect_turn;const EventOffer*o=&event_offers[id][option];
  if(o->action){g->next_screen=o->action;g->shop_selection=option;g->screen=EVENT_CARD;g->selection=0;
@@ -238,6 +251,9 @@ static void do_event(Game*g,int option){
  case 35:if(!option){g->revision182.next_combat[0]+=3;snprintf(text,sizeof(text),"Paid 25 Gold. Next combat: +3 Strength.");}else{g->revision182.next_combat[2]+=2;snprintf(text,sizeof(text),"Lost 6 HP. Next opening hand: draw 2 extra cards.");}break;
  case 36:if(!option){g->gold+=100;snprintf(text,sizeof(text),"Lost 10 HP. Gained 100 Gold.");}else{heal(g,25);g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 50 Gold. Heal 25; next combat starts with +12 Block.");}break;
  case 37:g->gold+=15;snprintf(text,sizeof(text),"Kept your cards. Gained 15 Gold.");break;
+ case 39:{int loss=MIN(6,MAX(0,g->hp-1));g->hp-=loss;snprintf(text,sizeof(text),"Falling bone costs you %d HP.",loss);break;}
+ case 40:{int loss=MIN(25,g->gold);g->gold-=loss;snprintf(text,sizeof(text),"The tithe takes %d Gold.",loss);break;}
+ case 41:g->revision182.next_combat[3]=MIN(5,g->revision182.next_combat[3]+2);snprintf(text,sizeof(text),"The spores follow: begin your next combat with 2 Weak.");break;
  case 38:g->revision182.next_combat[0]+=2;g->revision182.next_combat[1]+=10;snprintf(text,sizeof(text),"Lost 6 HP. Next combat: +2 Strength and +10 Block.");break;
 
  }

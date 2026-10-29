@@ -30,7 +30,7 @@ static void ninja_reduce_instance(Game*g,int raw){
 static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
 int game_card_is_retained(const Game*g,int raw){return (regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
-static int ninja_owned_card(const Game*g,int id){if(id>=ASCENT_CARD_FIRST)return ascent_card_available(g,id);return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?g->character==CHAR_NIGHTSHADE:id<REGENT_LAST?g->character==CHAR_REGENT:0;}
+static int ninja_owned_card(const Game*g,int id){if(id>=ASCENT_CARD_FIRST)return ascent_card_available(g,id);return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?(g->character==CHAR_NIGHTSHADE||g->revision184.custom):id<REGENT_LAST?(g->character==CHAR_REGENT||g->revision184.custom):0;}
 static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_RETAIN_TURN);}
 static int ninja_base_damage(const Game*g,int raw,int in_hand){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;
@@ -58,7 +58,7 @@ static void ninja_poison_all(Game*g,int n){for(int e=0;e<g->enemy_count;e++)ninj
 static void ninja_weak(Game*g,int e,int n){if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)return;g->enemies[e].weak=MIN(99,g->enemies[e].weak+n);record_combat_fx(GFX_STATUS,-1,e,2,0);}
 static void ninja_on_draw(Game*g,int raw){
  g->ninja.v[NS_LAST_DRAW]=raw+1;
- if(g->character!=CHAR_NIGHTSHADE)return;
+ if((g->character!=CHAR_NIGHTSHADE&&!g->revision184.custom))return;
  g->ninja.v[NS_DRAWS_COMBAT]=MIN(1000000,g->ninja.v[NS_DRAWS_COMBAT]+1);
  if(!g->ic[IC_OWN_TURN]||g->ninja.v[NS_OPENING_DRAW])return;
  if(g->ninja.v[NS_CORROSIVE])ninja_poison_all(g,g->ninja.v[NS_CORROSIVE]);
@@ -233,7 +233,7 @@ static void ninja_process(Game*g){
    r140_rust_targets=0;regent_foreign_begin(g,t.raw);
    int repeat=0;
    if(!(t.raw&CARD_EPHEMERAL)){
-    if(g->character==CHAR_REGENT)repeat+=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
+    if((g->character==CHAR_REGENT||g->revision184.custom))repeat+=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
     if(cards[id].type==0){repeat+=CARD_MOD(t.raw)==MOD_ECHO;if(g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}}
     if(cards[id].type==1&&g->ninja.v[NS_BURST]>0){repeat++;g->ninja.v[NS_BURST]--;}
    }
