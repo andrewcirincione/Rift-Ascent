@@ -207,7 +207,8 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
   /* One full-frame transition; never lay a rectangular partial-screen veil
      over the new screen. Pause and card-choice overlays remain immediate. */
   fx_transition=0;
-  if(before->screen!=COMBAT&&after->screen!=PAUSE_MENU&&before->screen!=PAUSE_MENU){
+  if(before->screen!=COMBAT&&after->screen!=PAUSE_MENU&&before->screen!=PAUSE_MENU&&
+     !(before->screen==DECK_VIEW&&before->prior_screen==COMBAT&&after->screen==COMBAT)){
    game_render_begin_transition(before,tick);r161_transition_length=24;
    if(before->screen==MAP&&after->screen==COMBAT&&after->battle_type!=NODE_BOSS){
     r161_transition_length=64;r182_combat_transition=1;
@@ -836,6 +837,12 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   case 13:buff=1;block=e->intent_value;break;
   case 15:debuff=4;break;
   case 17:debuff=1;block=e->intent_value/2;break;
+  case 18:debuff=4;break; /* Weak + Vulnerable */
+  case 19:debuff=1;break; /* Burn */
+  case 20:buff=1;block=8;break; /* Rally */
+  case 21:buff=-2;block=e->intent_value/2;break; /* Purge and shield */
+  case 22:debuff=3;break; /* Weak + energy drain */
+  case 23:debuff=3;break; /* Poison + Daze */
  }
  if(block>=0&&count<3){
   glyph[count]=r134_map_icons[7];
@@ -977,7 +984,7 @@ static void map_screen(const Game*g){
  r134_text(335,174,reward,WHITE,&r134_f8);
  if(!g->scroll)r134_text(335,204,"X TAKE PATH",GOLD,&r134_f9);
  r134_text(335,224,"SQUARE DECK",MUTED,&r134_f8);
- footer("D-PAD MAP  X ENTER  TRI POTIONS  SQ DECK  START INVENTORY");
+ footer("X ENTER  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void relic_result_screen(const Game*g){
  header(g,"RELIC");
@@ -990,19 +997,24 @@ static void relic_result_screen(const Game*g){
     wrapped_text(62,171,relic_defs[id].desc,51,3,WHITE);
  }
  if(g->relic_pending){button(73,210,145,27,"TAKE",g->selection==0);button(263,210,145,27,"SKIP",g->selection==1);}
- footer(g->relic_pending?"LEFT/RIGHT SELECT   X CONFIRM   O SKIP":"X CONTINUE");
+ footer(g->relic_pending?"X CONFIRM   O SKIP":"X CONTINUE");
+}
+static const uint32_t*event_art(int id){
+ static const unsigned char art_map[22]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3};
+ id=CLAMP(id,0,EVENT_COUNT-1);int artid=id<17?id:art_map[id-17];
+ return artid>=12?r150_events[artid-12]:r134_event_icons[artid];
 }
 static void event_result_screen(const Game*g){
- header(g,g->effect_turn>=12&&g->effect_turn<=14?"CARD MODIFIED":"CHAMBER RESOLVED");
+ header(g,((g->effect_turn>=12&&g->effect_turn<=14)||(g->effect_turn>=24&&g->effect_turn<=27))?"CARD MODIFIED":"CHAMBER RESOLVED");
  if(g->reward[0]>=0){
   int height=r135_card_layout(g->reward[0],176).height;
   card_render(152,47+(167-height)/2,176,height,g->reward[0],1,1);
  }else{
-  const uint32_t*art=g->effect_turn>=12?r150_events[g->effect_turn-12]:r134_event_icons[g->effect_turn];
+  const uint32_t*art=event_art(g->effect_turn);
   r134_blit(190,75,100,100,art,80,80,255);
  }
  r134_wrap(35,216,410,2,12,g->message,GOLD,&r134_f10,0);
- footer("X CONTINUE  O CONTINUE");
+ footer("X CONTINUE");
 }
 #include "ascent_ui.inc"
 #include "expedition_ui.inc"
@@ -1031,7 +1043,7 @@ static void reward_screen(const Game*g){
   else r161_centered_text(329,197,119,23,"TAKEN",&r138_title9,MUTED);
  }
  button(166,228,148,26,"LEAVE",g->selection>=5||g->selection==3);
- footer("D-PAD CHOOSE  X TAKE  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
+ footer("X TAKE  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void boss_reward_screen(const Game*g){
  header(g,"GUARDIAN DEFEATED / SELECT A RELIC");
@@ -1045,7 +1057,7 @@ static void boss_reward_screen(const Game*g){
   }
  }
  button(195,229,90,25,"SKIP",g->selection==3);
- footer("LEFT/RIGHT SELECT  X CONFIRM  O SKIP");
+ footer("X CONFIRM  O SKIP");
 }
 static void rest_screen(const Game*g){
  header(g,"REST SITE / A MOMENT OF PEACE");
@@ -1058,15 +1070,14 @@ static void rest_screen(const Game*g){
   button(x+7,197,176,32,i?"UPGRADE A CARD":"HEAL 30% HP",chosen);
   if(chosen)r134_blit(x+74,42,42,28,r138_choice,42,28,255);
  }
- footer("LEFT/RIGHT CHOOSE  X CONFIRM  TRI POTIONS  SQ DECK  START INVENTORY");
+ footer("X CONFIRM  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void event_screen(const Game*g){
  header(g,"A CHOICE IN THE DARK");
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);gilded_panel(20,42,440,210,1);
  int card_offer=((id==2||id==6||id==34)&&g->selection<2)||(id==17&&!g->selection);
  r134_center(240,51,game_event_title(id),GOLD,&r134_f18b);
- static const int art_map[22]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3};int artid=id<17?id:art_map[id-17];
- const uint32_t*art=artid>=12?r150_events[artid-12]:r134_event_icons[artid];
+ const uint32_t*art=event_art(id);
  r134_blit(33,74,card_offer?42:52,card_offer?42:52,art,80,80,255);
  if(card_offer)r134_wrap(83,79,125,4,10,game_event_lore(id),WHITE,&r134_f9,0);
  else r134_wrap(106,83,329,2,12,game_event_lore(id),WHITE,&r134_f10,0);
@@ -1091,7 +1102,7 @@ static void event_screen(const Game*g){
   if(!game_event_choice_available(g,g->selection))r134_text(229,237,"UNAVAILABLE",RED,&r134_f9b);
   else if(g->message[0])r134_wrap(229,231,215,1,10,g->message,RED,&r134_f8,1);
  }
- footer("D-PAD CHOOSE  X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
+ footer("X CONFIRM  O LEAVE  SQ DECK  START INVENTORY");
 }
 static void event_card_screen(const Game*g){
  int action=g->next_screen;char title[80],detail[512],quote[96];
@@ -1114,7 +1125,7 @@ static void event_card_screen(const Game*g){
  if(!eligible)r134_center(391,246,CARD_MOD(raw)&&action<MOD_COUNT?"ALREADY MODIFIED":"NOT ELIGIBLE",RED,&r134_f8);
  else r134_center(391,246,action==EVENT_REMOVE?"WILL BE REMOVED":action==EVENT_COPY?"COPY TO BE ADDED":action==EVENT_TRANSFORM?"WILL BE REPLACED":"AFTER",GOLD,&r134_f9);
  if(g->message[0])r134_wrap(20,238,288,1,10,g->message,RED,&r134_f8,1);
- footer("D-PAD CHOOSE   X CONFIRM & PAY   O CANCEL");
+ footer("X CONFIRM & PAY   O CANCEL");
 }
 static void shop_screen(const Game*g){
  dark_rect(0,28,480,224,165);
@@ -1200,7 +1211,7 @@ static void potion_screen(const Game*g){
  if(!g->potion_count)center(240,110,"NO POTIONS",MUTED,1);
  const char*hint=g->message[0]?g->message:g->potion_count&&g->potions[g->selection]!=0?"Use this potion during combat.":"Healing potions can be used here.";
  r134_center(240,228,hint,WHITE,&r134_f8);
- footer("UP/DOWN BROWSE  X USE  O RETURN");
+ footer("X USE  O RETURN");
 }
 static void relic_screen(const Game*g){
  header(g,"RELICS / ITEMS DISCOVERED");gilded_panel(16,43,225,207,0);gilded_panel(244,43,220,207,1);
@@ -1210,7 +1221,7 @@ static void relic_screen(const Game*g){
   r134_text(46,y+5,relic_defs[game_relic_id(g,i)].name,chosen?WHITE:MUTED,&r134_f9);
  }
  if(g->relic_count){int id=game_relic_id(g,g->selection);r150b_relic_icon(332,59,40,id);r134_wrap(264,111,178,2,13,relic_defs[id].name,GOLD,&r138_title10,0);r134_wrap(264,144,178,7,12,relic_defs[id].desc,WHITE,&r134_f9,0);}
- footer("UP/DOWN BROWSE   X/CIRCLE RETURN");
+ footer("X/CIRCLE RETURN");
 }
 static void character_screen(const Game*g){
  Game display=*g;display.hp=display.maxhp=g->selection==1?70:g->selection==2?75:80;display.gold=g->selection?99:95;
@@ -1224,14 +1235,14 @@ static void character_screen(const Game*g){
   if(chosen)r134_blit(x+51,32,42,28,r138_choice,42,28,255);else dark_rect(x+7,54,130,180,65);
   ascent_badges(x,74+dy,i);
  }
- footer("LEFT/RIGHT CHOOSE   X BEGIN   O BACK");
+ footer("X BEGIN   O BACK");
 }
 static void regent_choice_screen(const Game*g){
  header(g,game_regent_choice_title(g));int count=game_regent_choice_count(g),first=g->selection/6*6;
  char b[80];snprintf(b,sizeof(b),"%d more to choose",g->regent.choice_remaining);r134_center(240,48,b,GOLD,&r134_f9);
  for(int i=first;i<count&&i<first+6;i++){int n=i-first,x=26+n%3*98,y=69+n/3*91,eligible=game_regent_choice_eligible(g,i);card_render(x,y,82,86,game_regent_choice_raw(g,i),i==g->selection,eligible);if(!eligible)dark_rect(x+7,y+9,68,69,115);}
  if(count){int raw=game_regent_choice_raw(g,g->selection);R135CardLayout l=r150_hand_preview_layout(raw);card_render(473-l.width,70,l.width,l.height,raw,1,1);}
- footer("D-PAD CHOOSE   X CONFIRM   O FINISH   SELECT PAUSE");
+ footer("X CONFIRM   O FINISH   SELECT PAUSE");
 }
 static void ninja_choice_screen(const Game*g){
  header(g,game_ninja_choice_title(g));char b[96];
@@ -1242,7 +1253,7 @@ static void ninja_choice_screen(const Game*g){
  int first=g->selection/6*6;
  for(int i=first;i<g->hand_count&&i<first+6;i++){int off=i-first,x=26+off%3*98,y=69+off/3*91,eligible=game_ninja_choice_eligible(g,i);card_render(x,y,82,86,g->hand[i],i==g->selection,eligible);if(!eligible)dark_rect(x+7,y+9,68,69,115);}
  if(g->hand_count){int raw=g->hand[g->selection];R135CardLayout l=r150_hand_preview_layout(raw);card_render(473-l.width,70,l.width,l.height,raw,1,1);}
- footer(g->ninja.choice_kind==4?"D-PAD CHOOSE   X RETAIN   O FINISH":"D-PAD CHOOSE   X CONFIRM   SELECT SAVE & QUIT");
+ footer(g->ninja.choice_kind==4?"X RETAIN   O FINISH":"X CONFIRM   SELECT SAVE & QUIT");
 }
 static void blessing_screen(const Game*g){
  char title[60];snprintf(title,sizeof(title),"ACT %d / CHOOSE YOUR BLESSING",g->act);header(g,title);
@@ -1252,13 +1263,13 @@ static void blessing_screen(const Game*g){
   else{r150b_relic_icon(x+49,69+dy,42,id);r134_wrap(x+13,119+dy,114,2,13,relic_defs[id].name,GOLD,&r138_title9,0);r134_wrap(x+13,154+dy,114,7,11,relic_defs[id].desc,WHITE,&r134_f9,0);}
   if(chosen)r134_blit(x+49,35,42,28,r138_choice,42,28,255);else dark_rect(x+7,55,126,182,70);
  }
- footer("LEFT/RIGHT CHOOSE   X ACCEPT BLESSING");
+ footer("X ACCEPT BLESSING");
 }
 static void reward_preview_screen(const Game*g){
  header(g,"CARD REWARD / INSPECT");int raw=g->reward[g->selection];
  R135CardLayout layout=r135_card_layout(raw,174);card_render(153,55,174,(layout.height>174?layout.height:174),raw,1,1);
  const char*rarity=cards[CARD_ID(raw)].rarity==3?"ANCIENT":cards[CARD_ID(raw)].rarity==2?"RARE":cards[CARD_ID(raw)].rarity==1?"UNCOMMON":"COMMON";
- r134_center(240,237,rarity,GOLD,&r134_f9b);footer("LEFT/RIGHT BROWSE   O RETURN");
+ r134_center(240,237,rarity,GOLD,&r134_f9b);footer("O RETURN");
 }
 static void battle_piles_screen(const Game*g){
  header(g,"COMBAT DECK / DRAW - HAND - DISCARD - EXHAUST");
@@ -1283,7 +1294,7 @@ static void battle_piles_screen(const Game*g){
  }
  if(count)r162_side_preview(pile[g->selection],72);
  else center(402,137,"EMPTY PILE",MUTED,1);
- footer("LEFT/RIGHT PILES  UP/DOWN CARDS  O CLOSE");
+ footer("O CLOSE");
 }
 static void card_choice_screen(const Game*g){
  header(g,"CHOOSE A CARD / RESOLVE THE EFFECT");
@@ -1303,7 +1314,7 @@ static void card_choice_screen(const Game*g){
   if(pending==23&&game_card_is_upgradeable(c))c|=UPBIT;
   r162_side_preview(c,70);
  }
- footer("D-PAD CHOOSE  X CONFIRM  SELECT SAVE & QUIT");
+ footer("X CONFIRM  SELECT SAVE & QUIT");
 }
 static void deck_screen(const Game*g){
  if(g->prior_screen==COMBAT){battle_piles_screen(g);return;}
@@ -1329,7 +1340,7 @@ static void deck_screen(const Game*g){
    snprintf(b,sizeof(b),"%d / %d",g->selection+1,g->deck_count);r134_center(404,238,b,GOLD,&r134_f9);
  }
  footer(g->prior_screen==REST||g->prior_screen==EVENT?
-        "D-PAD CHOOSE  X UPGRADE  O RETURN":"D-PAD BROWSE  O RETURN");
+        "X UPGRADE  O RETURN":"O RETURN");
 }
 static void title_screen(const Game*g){
  r134_blit(269,37,197,91,r134_logo,222,102,255);
@@ -1338,14 +1349,14 @@ static void title_screen(const Game*g){
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- r135_shadow_text(25,236,"RIFT ASCENT 1.8.2",MUTED,&r134_f8);
+ r135_shadow_text(25,236,"RIFT ASCENT 1.8.3",MUTED,&r134_f8);
 
- footer("UP/DOWN CHOOSE     X CONFIRM");
+ footer("X CONFIRM");
 }
 
 static void help_screen(const Game*g){
  header(g,"WALK THE SPIRE / CONTROLS");
- text(29,67,"D-PAD  Navigate cards, paths and menus",WHITE,1);
+ text(29,67,"Choose cards, paths and menus",WHITE,1);
  text(29,87,"CROSS  Select or play a card",WHITE,1);
  text(29,107,"RIGHT  Move to END, CROSS ends turn",WHITE,1);
  text(29,127,"START  Inspect card, enemy, or status",WHITE,1);
@@ -1368,7 +1379,7 @@ static void end_screen(const Game*g){
    button(x,196,196,38,i?"RETURN TO MENU":"CONTINUE ENDLESS",chosen);
    if(chosen)r134_blit(x+77,174,42,28,r138_choice,42,28,255);
   }
-  footer("LEFT/RIGHT CHOOSE   X CONFIRM   O MENU");
+  footer("X CONFIRM   O MENU");
  }else{button(139,190,202,35,"RETURN TO MENU",1);footer("X CONTINUE");}
 }
 static void inspector(const Game*g){
@@ -1453,8 +1464,8 @@ static void inspector(const Game*g){
    }
    if(g->deck_count)r162_side_preview(g->deck[pick],76);
  }
- footer(overlay_page==3?"L/R TABS  UP/DOWN  X USE  TRI DISCARD  START CLOSE":overlay_page==5?
-        "L/R TABS   D-PAD CARDS   START CLOSE":"L/R TABS  LEFT/RIGHT TABS  UP/DOWN BROWSE  START CLOSE");
+ footer(overlay_page==3?"L/R TABS  X USE  TRI DISCARD  START CLOSE":overlay_page==5?
+        "L/R TABS   START CLOSE":"L/R TABS  START CLOSE");
 
 }
 void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
@@ -1537,7 +1548,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
   r134_center(240,105,"Starting a new run will erase your saved run.",WHITE,&r134_f9);
   button(153,132,174,28,"KEEP SAVED RUN",g->selection==0);
   button(153,169,174,28,"START NEW RUN",g->selection==1);
-  footer("UP/DOWN CHOOSE   X CONFIRM   O CANCEL");break;}
+  footer("X CONFIRM   O CANCEL");break;}
  case CHARACTER_SELECT:character_screen(g);break;
  case NINJA_CHOICE:ninja_choice_screen(g);break;
  case REGENT_CHOICE:regent_choice_screen(g);break;
@@ -1568,7 +1579,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    button(139,108,202,32,"SAVE & QUIT",game_pause_selection()==0);
    button(139,153,202,32,"RESUME",game_pause_selection()==1);
    r134_blit(112,117+45*game_pause_selection(),14,14,r135_cross,14,14,255);
-   footer("UP/DOWN CHOOSE   X CONFIRM   O / SELECT RESUME");
+   footer("X CONFIRM   O / SELECT RESUME");
 
    break;
  }

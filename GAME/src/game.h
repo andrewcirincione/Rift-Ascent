@@ -8,14 +8,14 @@
 #define MAX_HAND 10
 #define MAX_PILE 128
 #define MAX_ENEMIES 2
-#define ENEMY_COUNT 47
+#define ENEMY_COUNT 59
 #define INTENT_COUNT 24
 #define MAX_RELICS 96
 #define LEGACY_RELIC_CAP 64
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 182
+#define GAME_VERSION 183
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -355,6 +355,9 @@ int ascent_open(const char*root);
 int ascent_begin(Game*g,int slot,int character,unsigned seed);
 int ascent_resume(Game*g,int slot);
 int ascent_checkpoint(Game*g);
+int game_collection_unlock_count(int tab);
+int game_collection_count(int tab);
+int game_collection_id(int tab,int index);
 int ascent_card_available(const Game*g,int id);
 int ascent_debug(void);
 int ascent_set_debug(int enabled);

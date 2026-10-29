@@ -1,0 +1,7 @@
+PASS Expect a Fight: all characters, Bloodletting, Offering, potion, relics, exhaust, choices; next-turn reset
+PASS 20 base relic effects and once-per-turn/combat boundaries
+PASS 60 stories/180 pages, persisted gifts, single claims; 993/100000 rolls, no repeats per bag, no boss stories
+PASS 900 foreign rare offers, both other heroes represented, every offered card resolves for both recipients base/upgraded
+PASS Act 7 before / three boss phases / after / relic / cards / Act 8 for every hero
+PASS >64 relic storage/persistence, exhaustion blessings, all 20 new relics available with zero account unlocks
+PASS exact 28224-byte v1.8 run migration and unchanged global account

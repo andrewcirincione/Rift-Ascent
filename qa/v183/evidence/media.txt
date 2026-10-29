@@ -1,0 +1,4 @@
+XMB {'samples': 616080, 'frames': 603, 'delay': 1024, 'loop_start': 1024, 'loop_end': 617103, 'bytes': 231696, 'combined_bytes': 471312}
+PASS ten exact supplied audio streams; stereo rates; 1.8.2 bank preserved; all new art checksums; no missing art; updated LP2 splash music
+SHA256 7c2121865698428474d759077572346636963ce36c9d4af503eec4d6d75fc915
+PASS splash decode non-silent stereo, unchanged safe combined-media budget; full soundtrack unchanged

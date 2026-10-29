@@ -29,7 +29,7 @@ static void ascent_slots_view(const Game*g){
   if(s->present){snprintf(b,sizeof(b),"Act %d / Floor %d     HP %d / %d",s->act,s->floor+1,s->hp,s->maxhp);r134_text(78,y+24,b,MUTED,&r134_f9);}
  }
  r134_center(240,235,g->message[0]?g->message:"Unlocks are shared across all four save slots.",GOLD,&r134_f8);
- footer("UP/DOWN CHOOSE   X CONFIRM   O BACK");
+ footer("X CONFIRM   O BACK");
 }
 static void ascent_overwrite_view(const Game*g){
  ascent_heading("REPLACE THIS SAVED RUN?");char b[80];snprintf(b,sizeof(b),"SLOT %d",g->master_index+1);
@@ -38,7 +38,7 @@ static void ascent_overwrite_view(const Game*g){
  r134_center(240,104,"All character unlocks and wins are kept.",MUTED,&r134_f9);
  button(131,133,218,31,"KEEP SAVED RUN",g->selection==0);
  button(131,179,218,31,"BEGIN NEW RUN",g->selection==1);
- footer("UP/DOWN CHOOSE   X CONFIRM   O CANCEL");
+ footer("X CONFIRM   O CANCEL");
 }
 static void ascent_options_view(const Game*g){
  ascent_heading("OPTIONS");button(100,81,280,42,ascent_debug()?"DEBUG SHORTCUTS: ON":"DEBUG SHORTCUTS: OFF",1);
@@ -49,25 +49,32 @@ static void ascent_options_view(const Game*g){
 }
 static unsigned ascent_collection_mask(int tab){const AscentAccount*a=ascent_profile();return tab<3?a->cards[tab]:tab==3?a->potions:tab==4?a->relics:0xfffffu;}
 static void ascent_collection_view(const Game*g){
- const char*labels[]={"WARDEN","VESPER","PROXY","POTIONS","RELICS","BASE RELICS"};
- int tab=CLAMP(g->scroll,0,5),count=tab==4?10:20,index=CLAMP(g->selection,0,count-1),first=index/6*6;
- unsigned mask=ascent_collection_mask(tab);char b[80];snprintf(b,sizeof(b),"UNLOCKS / %s  %d / %d",labels[tab],ascent_popcount(mask),count);ascent_heading(b);
- for(int i=0;i<6;i++){int x=21+i*75;r134_text(x,43,labels[i],i==tab?GOLD:MUTED,&r134_f8);}
- for(int n=first;n<count&&n<first+6;n++){
-  int pos=n-first,x=24+pos%3*92,y=70+pos/3*82,open=(mask&(1u<<n))!=0;
-  gilded_panel(x,y,85,76,n==index);
-  if(open){if(tab<3)r134_card_art(x+8,y+9,69,46,334+tab*20+n);else if(tab==3)ascent_potion_icon(x+20,y+8,46,n+6);else r150b_relic_icon(x+20,y+8,46,n+(tab==5?74:64));}
-  else r134_center(x+42,y+28,"?",MUTED,&r134_f18b);
-  snprintf(b,sizeof(b),"%02d%s",n+1,open?"":" LOCKED");r134_center(x+42,y+59,b,open?GOLD:MUTED,&r134_f8);
+ const char*labels[]={"WARDEN","VESPER","PROXY","POTIONS","RELICS"};
+ int tab=CLAMP(g->scroll,0,4),custom=game_collection_unlock_count(tab),count=game_collection_count(tab);
+ int index=CLAMP(g->selection,0,count-1),base=index>=custom;
+ int first=base?custom+(index-custom)/6*6:index/6*6,last=base?count:custom;
+ unsigned mask=ascent_collection_mask(tab);char b[100];
+ snprintf(b,sizeof(b),"UNLOCKS / %d OF %d",ascent_popcount(mask),custom);ascent_heading(b);
+ for(int i=0;i<5;i++)button(23+i*87,45,85,23,labels[i],i==tab);
+ r134_text(28,73,base?"BASE GAME / NO UNLOCK NEEDED":"EARNED BY COMPLETING ACT 3",MUTED,&r134_f8);
+ for(int n=first;n<last&&n<first+6;n++){
+  int pos=n-first,x=24+pos%3*92,y=83+pos/3*74,open=base||(mask&(1u<<n));
+  int id=game_collection_id(tab,n);gilded_panel(x,y,85,69,n==index);
+  if(open){if(tab<3)r134_card_art(x+8,y+6,69,44,id);else if(tab==3)ascent_potion_icon(x+20,y+5,46,id);else r150b_relic_icon(x+20,y+5,46,id);}
+  else r134_center(x+42,y+24,"?",MUTED,&r134_f18b);
+  snprintf(b,sizeof(b),"%02d%s",n-(base?custom:0)+1,open?"":" LOCKED");r134_center(x+42,y+55,b,open?GOLD:MUTED,&r134_f8);
  }
- if(mask&(1u<<index)){
-  if(tab<3){int raw=334+tab*20+index;card_render(315,67,143,177,raw,1,1);}
-  else{int id=index+(tab==3?6:tab==5?74:64);if(tab==3)ascent_potion_icon(363,69,48,id);else r150b_relic_icon(363,69,48,id);
-   r134_wrap(317,131,136,3,12,tab==3?game_potion_name(id):relic_defs[id].name,GOLD,&r134_f9b,0);
-   r134_wrap(317,173,136,6,11,tab==3?game_potion_description(id):relic_defs[id].desc,WHITE,&r134_f9,0);
+ if(base||(mask&(1u<<index))){
+  int id=game_collection_id(tab,index);
+  if(tab<3)card_render(315,76,143,164,id,1,1);
+  else{if(tab==3)ascent_potion_icon(363,86,48,id);else r150b_relic_icon(363,86,48,id);
+   r134_wrap(317,142,136,3,12,tab==3?game_potion_name(id):relic_defs[id].name,GOLD,&r134_f9b,0);
+   r134_wrap(317,184,136,5,11,tab==3?game_potion_description(id):relic_defs[id].desc,WHITE,&r134_f9,0);
   }
  }else{r134_center(385,113,"UNDISCOVERED",GOLD,&r134_f9);r134_wrap(319,145,134,5,12,tab<3?"Complete Act 3 with this character to unlock two cards.":tab==3?"Complete Act 3 with any character to unlock two potions.":"Complete Act 3 with any character to unlock a relic.",MUTED,&r134_f9,0);}
- footer("D-PAD BROWSE   L/R CATEGORY   O BACK");
+ snprintf(b,sizeof(b),"BASE: %d %s%s",count-custom,tab<3?"CARDS":tab==3?"POTIONS":"RELICS",tab==2?" (53 COLORLESS)":"");
+ r135_shadow_text(28,234,b,GOLD,&r134_f8);
+ footer(base?"L/R TABS   SQ UNLOCKABLES   O BACK":"L/R TABS   SQ BASE GAME   O BACK");
 }
 static void ascent_unlock_view(const Game*g){
  int kind=g->screen==ASCENT_CARDS?0:g->screen==ASCENT_POTIONS?1:2;

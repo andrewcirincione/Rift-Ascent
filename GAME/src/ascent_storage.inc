@@ -58,7 +58,10 @@ static void revision182_migrate_room(Game*g){
 }
 static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
  memset(g,0,sizeof(*g));
- if(ascent_read(stem,side,g,sizeof(*g),generation))return game_validate(g);
+ if(ascent_read(stem,side,g,sizeof(*g),generation)){
+  if(g->version==182){g->version=GAME_VERSION;if(g->screen==ASCENT_COLLECTION&&g->scroll==5){g->scroll=4;g->selection=10+60+g->selection;}}
+  return game_validate(g);
+ }
  memset(g,0,sizeof(*g));
  if(ascent_read(stem,side,g,offsetof(Game,revision182),generation)&&g->version==181){
   g->version=GAME_VERSION;g->revision182.rare_offset=-5;revision182_migrate_room(g);return game_validate(g);

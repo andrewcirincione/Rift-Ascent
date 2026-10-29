@@ -1,0 +1,110 @@
+[
+  {
+    "id": 47,
+    "name": "Cinder Sexton",
+    "file": "enemy-47.png",
+    "sha256": "a18d230e57c3367e6929b672924a435c49ef4552db5dca7348f581ba599d9688",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Cinder Sexton. A hunched skeletal cemetery sexton pushing a great iron brazier on a single cracked stone wheel, pale broad shovel braced forward, ash-white burial wrappings and copper coal light. Distinct wheel and hunched body silhouette. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 48,
+    "name": "Bellback Vermin",
+    "file": "enemy-48.png",
+    "sha256": "e11d7574d4b5479e406de5f77fc93cf9fa7900e078e6f79aa8a4f8e0e98f55d8",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Bellback Vermin. A squat six-legged bone rat with a broken bronze church bell fused over its back like a shell, long pale incisors pointing left, chimney of cold ash and dull ember eyes. Wide low animal silhouette. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 49,
+    "name": "Waxbound Acolyte",
+    "file": "enemy-49.png",
+    "sha256": "4a49e853f47129881d103c84bd5d98425371f0c4b4cc5f1c50d7f3299e6a9a3f",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Waxbound Acolyte. An emaciated wax-white figure with a tall cluster of melted church candles fused to its shoulders and hood, crooked long taper staff and draping pale wax armor. Small contained amber flames, blackened hands. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 50,
+    "name": "Pyre Castellan",
+    "file": "enemy-50.png",
+    "sha256": "f1f00dfb0bd4f34ac8c9a7318afd06a957423965c0141cbf0819e72daf685fcf",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Pyre Castellan. An enormous headless siege guardian whose torso is a ribbed pale stone furnace, enormous ruined cathedral door as a shield and a jagged iron fire rake aimed left. A broken bell hangs in the empty neck arch. Huge broad angular silhouette. This is an ELITE: exceptionally imposing and distinct from ordinary enemies."
+  },
+  {
+    "id": 51,
+    "name": "Saltglass Eel",
+    "file": "enemy-51.png",
+    "sha256": "ca45ff04fe876053645b78cdbcd8581bc249873b8e982031ea30ff1ca71e5f91",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Saltglass Eel. A sinuous airborne deep-sea eel with overlapping frost-white glass plates, jagged translucent dorsal spines and copper jaw hooks, curled S body with the head attacking left. Cold sea-blue creases and a small amber eye. No legs or robes. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 52,
+    "name": "Silt Reliquary",
+    "file": "enemy-52.png",
+    "sha256": "f03c32e7d699941b70c10370863ca7c1bd16e74e992258cdaf54e5e7cf83b41a",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Silt Reliquary. A walking submerged burial chest with a pale carved skull lid, corroded bronze corner armor, four jointed bone crab legs and trailing strips of blue-green seaweed. A faint warm pearl visible through its keyhole. Clearly a creature, not a prop. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 53,
+    "name": "Rime Cantor",
+    "file": "enemy-53.png",
+    "sha256": "130887cc083cb87d752843a4ec384bc7ceac2904789b07d6be997c888f1b0f32",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Rime Cantor. A drowned choir singer with a face hidden by an ivory fan of frozen organ pipes, salt-white robes, long thin arms holding a small tarnished bronze hand organ. Cold pale blue outer edges with rich dark teal folds. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 54,
+    "name": "Abyssal Sacristan",
+    "file": "enemy-54.png",
+    "sha256": "f1e80bd3d736968b37e8f114e35e2e98ad729f58db38f732083af80474df6275",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Abyssal Sacristan. A colossal many-armed drowned priest sealed inside a cracked ivory diving bell, two massive anchor claws and four smaller bone hands, barnacled brass rib armor and a pale torn mantle. Warm tiny pearl lights, terrifying broad deep-sea silhouette. This is an ELITE: exceptionally imposing and distinct from ordinary enemies."
+  },
+  {
+    "id": 55,
+    "name": "Halo Leech",
+    "file": "enemy-55.png",
+    "sha256": "a58d678258326df6c5ffb6d54dc983743ef3591a397c7e7bde73cbe8ccf2dbd4",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Halo Leech. A long ivory segmented celestial parasite biting through a broken golden halo, jointed silver claws, a curled tapered tail, a faceless round mouth angled left. Restrained violet fissures inside the white shell. No floating eyeball. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 56,
+    "name": "Starved Herald",
+    "file": "enemy-56.png",
+    "sha256": "81c03ad3a07f12e553dcb0799c143be6894a78e89dfb688fc2b141cd6b1e57b3",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Starved Herald. A skeletal royal herald with a long pale porcelain beak mask, narrow silver tabard, bent gilded trumpet aimed left and a fan of torn ivory pennants on the back. Angular bony shoulders, cold star pinpoint beneath the mask. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 57,
+    "name": "Throne Husk",
+    "file": "enemy-57.png",
+    "sha256": "0fff1caee43b826dbd0846f3435dfd8186164e06c71a13090de5f857f20d2d8c",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Throne Husk. A crawling empty ivory throne animated by six clawed gilt legs, a cracked faceless porcelain royal bust fused to the backrest and violet darkness recessed inside the seat. Wide low predatory shape, chipped pale stone against dark cosmic ruins. Regular enemy, compact and characterful."
+  },
+  {
+    "id": 58,
+    "name": "Eclipse Justiciar",
+    "file": "enemy-58.png",
+    "sha256": "45358b7b2916bd53b9aa1895be1aed97347a82c67bcb7400cb870a607aa9b643",
+    "tool": "image_gen.imagegen",
+    "transparent_background": true,
+    "prompt": "Use case: stylized-concept. Production asset: one full-body enemy sprite for Rift Ascent, a dark gothic PSP deckbuilding game. Rich hand-painted oil illustration, detailed weathered medieval materials, gritty solemn horror, restrained colors; neither cartoon nor pixel art. True transparent background with clean alpha. Single isolated creature in side-facing three-quarter combat stance, head and weapons aiming LEFT toward the player. Entire body, feet, weapons and appendages visible with generous transparent margins; nothing cropped. The design must read at about 90 pixels high: distinct anatomy, strong silhouette, pale lit material edges and restrained warm focal highlights. No scenery, pedestal, floor, cast background shadow, UI, text or watermark. Avoid muddy all-black silhouettes and blown-out glow. Subject: Eclipse Justiciar. A titanic six-winged judicial effigy in cracked ivory armor, wing structures are narrow blades and broken scales of justice, head is a dark eclipse ring framed by heavy antique gold. Massive asymmetric guillotine sword aimed left, imposing strong silhouette, restrained violet heart. This is an ELITE: exceptionally imposing and distinct from ordinary enemies."
+  }
+]

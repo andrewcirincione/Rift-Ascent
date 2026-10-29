@@ -14,7 +14,7 @@ static void expedition_gift_view(const Game*g){
  }else card_render(172,44,136,167,g->expedition.gift,1,1);
  button(73,215,145,27,"TAKE",g->selection==0);button(263,215,145,27,"LEAVE",g->selection==1);
  if(g->message[0])r134_center(240,246,g->message,GOLD,&r134_f8);
- footer("LEFT/RIGHT CHOOSE   X CONFIRM   O LEAVE");
+ footer("X CONFIRM   O LEAVE");
 }
 static void expedition_mystery_view(const Game*g){
  ascent_heading("THE NAMELESS EXCHANGE");
@@ -25,5 +25,5 @@ static void expedition_mystery_view(const Game*g){
  }
  button(171,236,138,23,"LEAVE",g->selection==3);
  if(g->message[0])r134_center(240,31,g->message,GOLD,&r134_f8);
- footer("LEFT/RIGHT CHOOSE   X TAKE ONE   O LEAVE");
+ footer("X TAKE ONE   O LEAVE");
 }

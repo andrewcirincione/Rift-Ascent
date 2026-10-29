@@ -163,6 +163,16 @@ static void r137_actor(int x,int y,int w,int h,const uint16_t*src,int iw,int ih,
   }
  }
 }
+static void r183_target(int cx){
+ const uint32_t*src=rift_asset_resolve(aesthetic_target,108*24*4);if(!src)return;
+ for(int yy=0;yy<17;yy++)for(int xx=0;xx<76;xx++){
+  uint32_t c=src[(yy*24/17)*108+xx*108/76];int a=c>>24;
+  int light=c&255;if((int)((c>>8)&255)>light)light=(c>>8)&255;if((int)((c>>16)&255)>light)light=(c>>16)&255;
+  if(light>38)c=r134_mix(c,RGB(255,220,124),115);
+  int x=cx-38+xx,y=158+yy;if(x>=0&&x<W&&a)pix[y*sw+x]=r134_mix(pix[y*sw+x],c,a);
+ }
+}
+static int r183_actor_light;
 static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,int ih,int lean,int opacity,int flash){
  src=rift_asset_resolve(src,(unsigned)iw*ih*4);if(!src)return;
  r182_shadow(x,y,w,h,src,4,0,iw,ih,0,0,iw,ih,0,lean,opacity);
@@ -172,6 +182,7 @@ static void r170_rgba_actor(int x,int y,int w,int h,const uint32_t*src,int iw,in
   for(int xx=0;xx<w;xx++){
    int dx=x+xx+shift;if(dx<22||dx>=W-10)continue;
    uint32_t c=src[(yy*ih/h)*iw+xx*iw/w];int alpha=(c>>24)*opacity/255;
+   if(r183_actor_light)c=r134_mix(c,RGB(205,214,216),r183_actor_light);
    if(flash)c=r134_mix(c,RGB(255,237,199),flash);
    if(alpha)pix[dy*sw+dx]=r134_mix(pix[dy*sw+dx],c,alpha);
   }
@@ -286,7 +297,7 @@ static void r137_scene(const Game*g){
   y+=r171_ground_gap(art,w,h,!revision182_enemy_art(art)&&!ascent_enemy_art(art)&&boss<0&&art<36&&art!=9?flip:0);
   if(!revision182_enemy_art(art)&&!ascent_enemy_art(art)&&boss<0&&art<36&&art!=9&&atk>=0&&age-r137_at[atk]<9)r137_actor(ex-w/2+9,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,45,0);
   if(revision182_enemy_art(art))r170_rgba_actor(ex-w/2,y,w,h,revision182_enemy_art(art),aesthetic_enemy_size[art][0],aesthetic_enemy_size[art][1],tilt,opacity,flash);
-  else if(ascent_enemy_art(art))r170_rgba_actor(ex-w/2,y,w,h,ascent_enemy_art(art),144,160,tilt,opacity,flash);
+  else if(ascent_enemy_art(art)){r183_actor_light=32;r170_rgba_actor(ex-w/2,y,w,h,ascent_enemy_art(art),144,160,tilt,opacity,flash);r183_actor_light=0;}
   else if(art==45)r170_rgba_actor(ex-w/2,y,w,h,expedition_unbegotten,192,224,tilt,opacity,flash);
   else if(art==44)r170_rgba_actor(ex-w/2,y,w,h,ascent_unmaker,160,192,tilt,opacity,flash);
   else if(boss>=0)r170_rgba_actor(ex-w/2,y,w,h,r170_boss_sprites[boss],r170_boss_size[boss][0],r170_boss_size[boss][1],tilt,opacity,flash);
@@ -294,7 +305,7 @@ static void r137_scene(const Game*g){
   else if(art==9)r137_blit(ex-w/2,y,w,h,r1310_hound,144,96,opacity,0);
   else r137_actor(ex-w/2,y,w,h,rift_enemy_sprites[art],RIFT_ENEMY_W,RIFT_ENEMY_H,flip,tilt,opacity,flash);
   int living=0;for(int k=0;k<g->enemy_count;k++)living+=g->enemies[k].hp>0;
-  if(living>1&&e==g->target&&foe->hp>0)r134_blit(ex-29,160,58,13,aesthetic_target,108,24,255);
+  if(living>1&&e==g->target&&foe->hp>0)r183_target(ex);
  }
  int holding=-1,hold_tier=0;
  for(int i=0;i<r137_count;i++){
