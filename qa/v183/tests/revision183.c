@@ -23,4 +23,6 @@ int main(void){char root[]="/tmp/rift183-gates-XXXXXX";assert(mkdtemp(root)&&asc
  assert(ascent_begin(&g,0,0,183));g.screen=MAP;g.gold=789;g.revision182.rare_offset=23;g.revision182.event_seen_hi=7;g.ascent.cards=5;g.version=182;assert(ascent_write("ASCENT18_RUN_1",&g,sizeof(g),50));assert(ascent_resume(&b,0)&&b.version==183&&b.gold==789&&b.revision182.rare_offset==23&&b.revision182.event_seen_hi==7&&b.ascent.cards==5);
  char path[300];snprintf(path,sizeof(path),"%s/SAVE.DAT",root);unsigned sum=hash_bytes((void*)&g,sizeof(g));FILE*f=fopen(path,"wb");assert(f);fwrite(&sum,4,1,f);fwrite(&g,sizeof(g),1,f);fclose(f);assert(game_load(&b,path)&&b.version==183&&b.gold==789);
  g.version=183;g.act=1;game_start_battle(&g,NODE_BOSS);g.enemies[0].hp=0;check_win(&g);assert(g.screen==RELIC_RESULT&&!g.message[0]);
+ g.act=1;game_start_battle(&g,NODE_BOSS);g.enemies[0].hp=1;g.enemies[0].block=0;g.potion_count=1;g.potions[0]=3;game_use_potion(&g,0);assert(g.screen==RELIC_RESULT&&!g.message[0]&&!g.potion_count);
+ puts("PASS killing Fire potion leaves no boss-reward text for the combat notification");
  puts("PASS 1.8.2 slot and legacy snapshot migration retains progress and rarity state; no boss reward message");return 0;}

@@ -36,6 +36,6 @@ Targeted combat/menu/event states are assisted fixtures inserted at a safe
 render-entry breakpoint; they are not an unaided whole-game playthrough.
 Presentation-only delays can be skipped except the measured combat transitions.
 The cold mode imports a genuine serialized 1.8.2 slot before boot. No user saves
-are used. Evidence/final-tests.txt records the final hash and actual results.
+are used. evidence/final-tests.txt records the final hash and actual results.
 Physical PSP hardware/XMB listening was not available; splash audio is decoded
 and checked structurally, and in-game PCM output is checked in PPSSPP.

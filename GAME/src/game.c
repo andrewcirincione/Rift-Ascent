@@ -398,7 +398,12 @@ int game_collection_id(int tab,int index){
  }
  return -1;
 }
-int game_collection_count(int tab){int count=0;while(game_collection_id(tab,count)>=0)count++;return count;}
+int game_collection_count(int tab){
+ if(tab<0||tab>=5)return 0;
+ if(tab==3)return 26;if(tab==4)return 90;
+ int count=20;for(int id=0;id<ASCENT_CARD_FIRST;id++)count+=collection_base_card(tab,id);
+ return count;
+}
 static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
  int pool[512],weight[512],n=0,total=0;
  for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1){

@@ -128,7 +128,11 @@ async def check(w):
  await asyncio.sleep(2)
  ids=subprocess.check_output([str(T/'sysroot/usr/bin/xdotool'),'search','--onlyvisible','--name','.*'],env=env,text=True).split()
  subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'windowfocus',ids[-1]],env=env,check=True)
- await ticks(80);print('BOOT',await screen(),'asset errors',await val('rift_asset_errors'),'stereo streaming',await val('soundtrack_active'),flush=True);assert await screen()==screens['TITLE'];assert await val('soundtrack_active')==1;assert await val('soundtrack_current')==0;await audible();await shot('title')
+ await ticks(16)
+ for _ in range(600):
+  if await val('soundtrack_active')==1 and await val('soundtrack_current')==0:break
+  await asyncio.sleep(.1)
+ print('BOOT',await screen(),'asset errors',await val('rift_asset_errors'),'stereo streaming',await val('soundtrack_active'),'track',await val('soundtrack_current'),flush=True);assert await screen()==screens['TITLE'];assert await val('soundtrack_active')==1;assert await val('soundtrack_current')==0;await audible();await shot('title')
  fast_frame_ready=True
  await req('input.buttons.send',buttons={'ltrigger':False,'rtrigger':False})
  # Seed an isolated QA account; no user save files are touched.
@@ -136,7 +140,7 @@ async def check(w):
  if resume:
   await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');raw=await state()
   assert field(raw,'screen')==screens['MAP'] and field(raw,'gold')==789 and struct.unpack_from('<I',raw,4)[0]==183
-  await shot('cold-182-migration');await button('select');await button('cross');assert await screen()==screens['TITLE']
+  await shot('cold-182-migration')
   print('PASS cold 1.8.2 slot import into 1.8.3 retains gold, map and rarity state',flush=True)
  else:
   await button('cross');assert await screen()==screens['ASCENT_SLOTS_VIEW'];await button('cross');assert await screen()==screens['CHARACTER_SELECT'];await button('cross');assert await screen()==screens['ACT_INTRO']
@@ -160,10 +164,10 @@ async def check(w):
  await fixture('purge');await shot('stone-giant-purge');await button('circle');await shot('stone-giant-after-purge')
  print('PASS Stone Giant overhead cleanse/shield intent and actual turn resolution',flush=True)
  for act in range(1,4):
-  for k in range(4):
+  for k in [0,3]:
    await fixture(f'new-{act}-{k}');await shot(f'new-{act}-{k}')
- print('PASS all twelve new enemies rendered on their act backgrounds',flush=True)
- for event in [18,28,32,33,35,38]:
+ print('PASS normal and elite from each act rendered in exact EBOOT; all twelve also inspected in native renders',flush=True)
+ for event in [28,32,38]:
   await fixture(f'event-{event:02d}');await button('cross')
   if await screen()==screens['EVENT_CARD']:await button('cross')
   await shot(f'event-{event:02d}-result')

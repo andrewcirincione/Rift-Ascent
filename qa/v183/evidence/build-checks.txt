@@ -1,11 +1,11 @@
 PBP/ELF structural checks PASS (not a PSP runtime test)
-size: 87083872
-elf_size: 6892456
+size: 87083968
+elf_size: 6892552
 segments: 2
-static_memory: 11649728
-resident_span: 11649984
-conservative_startup_bytes: 18542440
-sha256: 7c2121865698428474d759077572346636963ce36c9d4af503eec4d6d75fc915
+static_memory: 11649856
+resident_span: 11650112
+conservative_startup_bytes: 18542664
+sha256: b928b825642915746dfd85826a508a26b77004efd6ecdc6ea854a99f4fffd5f9
 versions/1.8.3/EBOOT.PBP
   ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
   LoadExecForUser 0x40090000 NIDs 0x05572a5f

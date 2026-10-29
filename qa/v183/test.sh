@@ -9,3 +9,6 @@ gcc -O1 -std=gnu11 qa/v183/tests/fixtures.c -o /tmp/rift-183-fixtures
 /tmp/rift-183-fixtures
 gcc -O1 -g -std=gnu11 -DRIFT_STREAMED_ART -fsanitize=address,undefined -fno-omit-frame-pointer qa/v183/tests/render.c qa/v183/source/asset_stream.c qa/v183/source/artwork.c qa/v183/source/motion_art.c qa/v183/source/enemy_art.c qa/v183/source/sound.c -lm -o /tmp/rift-183-render
 /tmp/rift-183-render > qa/v183/evidence/native-render.txt
+
+gcc -O0 -std=gnu11 -ffunction-sections -fdata-sections qa/v183/tests/collection_layout.c -Wl,--gc-sections -lm -o /tmp/rift-183-layout
+/tmp/rift-183-layout > qa/v183/evidence/collection-layout.txt
