@@ -129,3 +129,17 @@ qa/v182/source/*.SFO
 qa/v182/source/game.map
 qa/v182/source/*.log
 qa/v182/evidence/.EBOOT*
+
+qa/v183/assets.bin
+qa/v183/soundtrack.bank
+qa/v183/evidence/*.ppm
+qa/v183/evidence/*.wav
+qa/v183/evidence/*.log
+qa/v183/evidence/EBOOT.PBP
+qa/v183/evidence/*.bin
+qa/v183/source/*.o
+qa/v183/source/*.elf
+qa/v183/source/*.PBP
+qa/v183/source/*.prx
+qa/v183/source/*.SFO
+qa/v183/source/game.map

@@ -1,0 +1,6 @@
+Act 3 HP 162 (old 162), intent 22 (old 22)
+Act 4 HP 207 (old 203), intent 27 (old 26)
+Act 7 HP 392 (old 326), intent 44 (old 38)
+Act 10 HP 650 (old 449), intent 67 (old 51)
+Mystery event 1018/25000 rooms
+PASS unchanged Acts 1-3, increasing Endless pressure, bounded extreme acts, Act 3/4 relic benefits, full decks, old blank-offer recovery, 4% mystery rooms

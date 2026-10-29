@@ -1,0 +1,50 @@
+Rift Ascent 1.8.3 validation
+
+SHA256 b928b825642915746dfd85826a508a26b77004efd6ecdc6ea854a99f4fffd5f9
+Bytes 87083968
+
+Native ASan/UBSan
+PASS progression, storage, effects, expedition, boundaries, revision, events_extra and revision183.
+PASS four save slots and global unlock receipts; old-save migrations and progression remain intact.
+PASS 665,280 card-source checks across all characters and zero/single/full unlock masks.
+PASS a locked custom card cannot be acquired; existing decks remain intact.
+PASS 1.8.2 checksummed slots and legacy snapshots preserve rarity, room state, gold and unlock masks.
+PASS five collection tabs: 20/20/20/20/10 unlockables; 90/87/149/6/80 base entries.
+PASS base lists contain unique valid IDs; Square toggles base/unlockables; shoulder tabs wrap at five.
+PASS boss kills, including a killing Fire potion, leave no redundant reward notification.
+PASS 39 normal species and 15 elites remain in their act pools; endless mixes all three pools.
+PASS all 39 mystery rooms/options and every result artwork lookup; all 24 intent-icon rows draw.
+PASS all 59 enemy sprites, every base collection item, 180 story dialogue pages and card selection render.
+PASS every base/unlockable card rule fits its collection preview without clipped lines.
+PASS returning from the combat deck does not start a transition; normal/elite fades retain silent intervals.
+PASS original rarity bands, pity offset, upgrade rates, story frequency and combat behavior regressions.
+
+Media/build
+PASS PSP user-mode imports, complete EBOOT structure and PSP-1000 startup memory budget.
+PASS all ten complete supplied music streams and splash audio preserved from 1.8.2.
+PASS stereo splash decode, silent lead and 471312-byte combined ICON1/SND0 safe media budget.
+PASS complete 1.8.2 artwork bank preserved; all twelve appended enemy textures have valid checksums.
+PASS generated art, full prompts, final source and reproducible build scripts retained together.
+
+Final EBOOT runtime
+PASS final release EBOOT exercised in PPSSPP 1.20.4 with controller input.
+PASS cold 1.8.2 slot migration into this exact build; saved map and gold retained.
+PASS title RiftBoss streaming/PCM; all five framed tabs, base listings and wrap controls.
+PASS Square base/unlockable switch; immediate combat-deck return with no fade.
+PASS brighter target indicator switches between both living enemies; Mist Gazer lighting inspected.
+PASS Stone Giant Purge overhead cleanse/shield icons and actual enemy-turn resolution.
+PASS a new normal and elite from every act rendered in the exact EBOOT; all twelve inspected natively.
+PASS newer no-card event results, relic result, actual card removal and single Continue footer.
+PASS dedicated boss relic display without redundant message, followed by card spoils.
+PASS normal/elite transitions pause music, then select RiftFight4 / RiftFight5 correctly.
+PASS final runtime contains zero streamed-art errors or Bad memory access messages.
+PASS exact unmodified 480x272 combat capture copied to versions/1.8.3/Combat.png.
+
+Scope
+ppsspp-final.txt and its named screenshots are the final binary evidence above.
+Combat/menu/event scenarios use assisted state fixtures at safe render-entry breakpoints,
+then real controller actions. This is targeted testing, not an unaided complete run.
+Presentation-only waits can be skipped; combat transition timing was observed unskipped.
+Native sanitizer checks cover the full pools, all intents/results and card eligibility.
+Physical PSP hardware/XMB listening was not available; splash audio was decoded and
+validated structurally, and in-game PCM output was checked in PPSSPP.

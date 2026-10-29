@@ -1,0 +1,93 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 0
+SHOT title
+WAIT ticks 56 60 8
+WAIT ticks 64 64 8
+WAIT ticks 80 80 8
+SHOT cold-182-migration
+PASS cold 1.8.2 slot import into 1.8.3 retains gold, map and rarity state
+FIXTURE unlocks
+SHOT unlocks-warden
+WAIT ticks 132 136 8
+WAIT ticks 140 144 8
+SHOT unlocks-1
+SHOT unlocks-2
+SHOT unlocks-3
+SHOT unlocks-4
+WAIT ticks 236 240 8
+FIXTURE base-0
+SHOT base-0
+FIXTURE base-1
+WAIT ticks 280 284 8
+WAIT ticks 288 288 4
+SHOT base-1
+FIXTURE base-2
+SHOT base-2
+FIXTURE base-3
+SHOT base-3
+FIXTURE base-4
+SHOT base-4
+PASS five framed unlock tabs, base catalogs, wrapping controls
+FIXTURE target
+WAIT ticks 328 332 8
+SHOT mist-gazer-target-left
+WAIT ticks 340 344 8
+SHOT mist-gazer-target-right
+SHOT combat-deck
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 408, 'r137_start': 364, 'r1311_kill_at': 0, 'action_cooldown': 1, 'enemy_turn_delay': 0}
+SHOT instant-deck-return
+PASS combat deck closes immediately, both target indicators and brighter Mist Gazer
+FIXTURE purge
+SHOT stone-giant-purge
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 452, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 3, 'enemy_turn_delay': 0}
+SHOT stone-giant-after-purge
+PASS Stone Giant overhead cleanse/shield intent and actual turn resolution
+FIXTURE new-1-0
+SHOT new-1-0
+FIXTURE new-1-3
+WAIT ticks 480 484 8
+SHOT new-1-3
+FIXTURE new-2-0
+SHOT new-2-0
+FIXTURE new-2-3
+SHOT new-2-3
+FIXTURE new-3-0
+SHOT new-3-0
+FIXTURE new-3-3
+SHOT new-3-3
+PASS normal and elite from each act rendered in exact EBOOT; all twelve also inspected in native renders
+FIXTURE event-28
+WAIT ticks 548 552 8
+SHOT event-28-result
+FIXTURE event-32
+WAIT ticks 588 588 8
+WAIT ticks 588 588 8
+SHOT event-32-result
+FIXTURE event-38
+SHOT event-38-result
+FIXTURE event-18
+WAIT ticks 692 692 8
+WAIT ticks 692 696 8
+WAIT ticks 700 704 8
+SHOT remove-card-result
+FIXTURE boss-relic
+SHOT boss-relic
+PASS newer mystery results, single continue hint after removal, dedicated boss relic display
+FIXTURE map-normal
+WAIT ticks 796 800 8
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 820, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 832, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 836, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 840, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 856, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+FIXTURE map-elite
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 912, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 2, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 928, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 944, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 952, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 952, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 960, 'r137_start': 452, 'r1311_kill_at': 0, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+PASS silent map transition and correct normal/elite soundtrack routing
+FIXTURE target
+SHOT release-combat
+PASS final release EBOOT targeted runtime playtest; zero streamed-art errors or memory faults
+SHA256 b928b825642915746dfd85826a508a26b77004efd6ecdc6ea854a99f4fffd5f9

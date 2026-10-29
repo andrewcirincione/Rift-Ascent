@@ -1,0 +1,6 @@
+{
+  "base_version": "1.8.2",
+  "base_commit": "71c57110659a92bd1b0fe6c1f37e5e8acb6af36c",
+  "base_eboot_sha256": "fbbd532cd12a0b4abf44744ae45fca04594f00f1c431de3168bc23182d451b9c",
+  "lineage": "1.8.2 -> 1.8.1 -> 1.8-r2 fresh rebuild -> 1.71-r2; no abandoned prerelease assets"
+}

@@ -367,7 +367,8 @@ static void enter_map(Game*g){
    for(int k=0;k<MAP_LANES;k++)if(game_route_available(g,k)){g->selection=k;break;}
 }
 static void msg(Game*g,const char *s){snprintf(g->message,sizeof(g->message),"%s",s);}
-static void add_card(Game*g,int c){if(g->deck_count<MAX_DECK)g->deck[g->deck_count++]=c;}
+static void add_card(Game*g,int c){if(CARD_ID(c)>=ASCENT_CARD_FIRST&&!ascent_card_available(g,CARD_ID(c)))return;
+ if(g->deck_count<MAX_DECK)g->deck[g->deck_count++]=c;}
 int game_card_is_playable(int raw){
  int id=CARD_ID(raw);
  return id>=0&&id<CARD_COUNT&&!(id>=CARD_STATUS_MIN&&id<=CARD_STATUS_MAX);
@@ -379,6 +380,30 @@ static int solo_reward_eligible(int id){
  return id>=3&&id<CARD_COUNT&&game_card_is_playable(id)&&
    id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].rarity<=3;
 }
+int game_collection_unlock_count(int tab){return tab==4?10:20;}
+static int collection_base_card(int tab,int id){
+ if(tab<0||tab>2||id<0||id>=ASCENT_CARD_FIRST||!game_card_is_playable(id))return 0;
+ if(id==63||id==85||id==N_FLANKING||id==N_SNEAKY)return 0;
+ return (tab==2&&id>=COLORLESS_FIRST)||(tab==0?id<NINJA_FIRST:tab==1?id>=NINJA_FIRST&&id<NINJA_LAST:id>=REGENT_FIRST&&id<REGENT_LAST);
+}
+int game_collection_id(int tab,int index){
+ if(tab<0||tab>=5||index<0)return -1;
+ int custom=game_collection_unlock_count(tab);
+ if(index<custom)return tab<3?ASCENT_CARD_FIRST+20*tab+index:tab==3?6+index:64+index;
+ index-=custom;
+ if(tab==3)return index<6?index:-1;
+ for(int id=0;id<(tab==4?RELIC_COUNT:ASCENT_CARD_FIRST);id++){
+  int available=tab==4?((id<64||id>=74)&&id!=30&&(id<37||id>39)):collection_base_card(tab,id);
+  if(available&&index--==0)return id;
+ }
+ return -1;
+}
+int game_collection_count(int tab){
+ if(tab<0||tab>=5)return 0;
+ if(tab==3)return 26;if(tab==4)return 90;
+ int count=20;for(int id=0;id<ASCENT_CARD_FIRST;id++)count+=collection_base_card(tab,id);
+ return count;
+}
 static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
  int pool[512],weight[512],n=0,total=0;
  for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1){
@@ -388,7 +413,7 @@ static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
   pool[n]=id;weight[n]=owned?1:3;total+=weight[n++];
  }
  if(!n&&rarity==3)return reward_of_rarity(g,2,excluded0,excluded1);
- if(!n)return g->character==CHAR_NIGHTSHADE?N_BACKFLIP:5;
+ if(!n)return g->character==CHAR_NIGHTSHADE?N_BACKFLIP:g->character==CHAR_REGENT?R_DEFEND_REGENT:5;
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weight[i])return pool[i];roll-=weight[i];}
  return pool[n-1];
 }
@@ -758,9 +783,7 @@ static void check_win(Game*g){
   g->reward[0]=gift;
   g->win_screen=(!g->endless&&g->act>=3?2:1);
   g->selection=0;g->screen=RELIC_RESULT;
-  if(gift>=0)snprintf(g->message,sizeof(g->message),
-        "BOSS RELIC: %s. Card reward next.",relic_defs[gift].name);
-  else msg(g,"All relics found. Card reward next.");
+  msg(g,""); /* The relic screen owns all boss-reward text. */
   return;
  }
  g->screen=REWARD;g->selection=0;
@@ -822,10 +845,22 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"THE UNMAKER",340,22,2,{1,11,10,4}},
  {"THE UNBEGOTTEN",610,31,2,{13,16,11,10}},
  {"Crown Eater",174,19,1,{22,7,21,18}},
+ {"Cinder Sexton",37,9,0,{1,0,5,14}},
+ {"Bellback Vermin",33,8,0,{0,14,1,3}},
+ {"Waxbound Acolyte",39,9,0,{1,5,0,2}},
+ {"Pyre Castellan",86,12,1,{1,19,21,18}},
+ {"Saltglass Eel",57,13,0,{0,14,2,7}},
+ {"Silt Reliquary",65,12,0,{1,0,3,14}},
+ {"Rime Cantor",53,12,0,{2,0,11,14}},
+ {"Abyssal Sacristan",145,17,1,{1,23,21,16}},
+ {"Halo Leech",85,17,0,{1,12,0,14}},
+ {"Starved Herald",91,17,0,{2,0,10,14}},
+ {"Throne Husk",99,18,0,{1,0,14,3}},
+ {"Eclipse Justiciar",182,20,1,{13,18,22,16}},
 };
 /* Normal / elite / boss pools are separate so bosses never show up as ordinary foes. */
-static const unsigned char enemy_normal[3][10]={{0,1,2,3,9,10,11,12,36,37},{4,5,16,17,18,19,20,21,38,39},{25,26,27,28,29,30,31,32,40,41}};
-static const unsigned char enemy_elite[3][4]={{6,13,14,42},{7,22,23,43},{33,34,35,46}};
+static const unsigned char enemy_normal[3][13]={{0,1,2,3,9,10,11,12,36,37,47,48,49},{4,5,16,17,18,19,20,21,38,39,51,52,53},{25,26,27,28,29,30,31,32,40,41,55,56,57}};
+static const unsigned char enemy_elite[3][5]={{6,13,14,42,50},{7,22,23,43,54},{33,34,35,46,58}};
 static const unsigned char enemy_boss[3]={15,24,8};
 static void enemy_intent(Game*g,Enemy *e){
  const EnemyDef*d=&enemy_defs[e->art];
@@ -984,10 +1019,10 @@ void game_start_battle(Game*g,int mode){
  for(int i=0;i<g->enemy_count;i++){
   int act=MIN(2,g->act-1);
   int id=mode==NODE_BOSS?(g->act==7?45:g->act==4&&g->ascent.secret?44:enemy_boss[g->endless&&g->act>3?rnd(g,3):act]):
-    mode==NODE_ELITE?enemy_elite[g->act>=4?rnd(g,3):act][rnd(g,4)]:
-    g->act>=4?enemy_normal[rnd(g,3)][rnd(g,10)]:enemy_normal[act][rnd(g,10)];
+    mode==NODE_ELITE?enemy_elite[g->act>=4?rnd(g,3):act][rnd(g,5)]:
+    g->act>=4?enemy_normal[rnd(g,3)][rnd(g,13)]:enemy_normal[act][rnd(g,13)];
   if(i>0&&id==g->enemies[0].art){
-   int pool[30],n=0;for(int a=0;a<(g->act>=4?3:1);a++)for(int k=0;k<10;k++){
+   int pool[39],n=0;for(int a=0;a<(g->act>=4?3:1);a++)for(int k=0;k<13;k++){
     int candidate=enemy_normal[g->act>=4?a:act][k];if(candidate!=id)pool[n++]=candidate;
    }id=pool[rnd(g,n)];
   }
@@ -2214,6 +2249,7 @@ int game_validate(const Game*g){
  if(g->screen==REGENT_CHOICE&&(g->regent.choice_kind<1||g->regent.choice_kind>RC_SEEK_THREE||g->regent.choice_remaining<1||g->selection<0||g->selection>=game_regent_choice_count(g)))return 0;
  if(g->regent.stars<0||g->regent.stars>999||g->regent.task_count<0||g->regent.task_count>REGENT_TASK_MAX)return 0;
  if(g->screen==NINJA_CHOICE&&(g->ninja.choice_kind<1||g->ninja.choice_kind>4||g->ninja.choice_remaining<1||g->ninja.choice_count<0||g->ninja.choice_count>MAX_HAND||g->selection<0||g->selection>=g->hand_count))return 0;
+ if(g->screen==ASCENT_COLLECTION&&(g->scroll<0||g->scroll>=5||g->selection<0||g->selection>=game_collection_count(g->scroll)))return 0;
  if(g->screen==MAP&&(g->selection<0||g->selection>=MAP_LANES))return 0;
  if(g->screen==COMBAT&&(g->selection<0||g->selection>g->hand_count||g->target<0||g->target>=MAX(1,g->enemy_count)))return 0;
  if(g->v151.potion_offer< -1||g->v151.potion_offer>25||g->v151.card_done<0||g->v151.card_done>1)return 0;
@@ -2254,7 +2290,7 @@ int game_load(Game*g,const char*path){
  unsigned char extra;int trailing=fread(&extra,1,1,f);fclose(f);
  if(!ok||trailing!=0||n<16||check!=hash_bytes(raw,n))return 0;
  memset(&temp,0,sizeof(temp));uint32_t version;memcpy(&version,raw+4,4);
- if(version==GAME_VERSION){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);}
+ if(version==GAME_VERSION||version==182){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==181){if(n!=offsetof(Game,revision182))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version==180){if(n!=offsetof(Game,expedition))return 0;memcpy(&temp,raw,n);if(temp.relic_count>64)return 0;temp.version=GAME_VERSION;}
  else if(version==23){if(n!=offsetof(Game,ascent))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}

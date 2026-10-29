@@ -1,0 +1,8 @@
+PASS 665280 card source checks across all characters, zero/single/full unlock masks; locked acquisition guard
+PASS tab 0: 20 unlockable, 90 base entries
+PASS tab 1: 20 unlockable, 87 base entries
+PASS tab 2: 20 unlockable, 149 base entries
+PASS tab 3: 20 unlockable, 6 base entries
+PASS tab 4: 10 unlockable, 80 base entries
+PASS killing Fire potion leaves no boss-reward text for the combat notification
+PASS 1.8.2 slot and legacy snapshot migration retains progress and rarity state; no boss reward message

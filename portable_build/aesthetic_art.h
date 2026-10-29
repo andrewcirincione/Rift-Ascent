@@ -57,6 +57,30 @@ static const unsigned char aesthetic_enemy_12_data[24] __attribute__((aligned(4)
 #define aesthetic_enemy_12 ((const uint32_t*)aesthetic_enemy_12_data)
 static const unsigned char aesthetic_enemy_16_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,153,1,3,0,202,2,0,4,0,0,0,10,199,144,245};
 #define aesthetic_enemy_16 ((const uint32_t*)aesthetic_enemy_16_data)
-static const uint32_t*const aesthetic_enemies[47]={aesthetic_enemy_0,0,0,0,0,aesthetic_enemy_5,aesthetic_enemy_6,aesthetic_enemy_7,0,0,aesthetic_enemy_10,aesthetic_enemy_11,aesthetic_enemy_12,aesthetic_enemy_13,aesthetic_enemy_14,0,aesthetic_enemy_16,aesthetic_enemy_17,0,aesthetic_enemy_19,aesthetic_enemy_20,aesthetic_enemy_21,aesthetic_enemy_22,aesthetic_enemy_23,0,0,aesthetic_enemy_26,aesthetic_enemy_27,aesthetic_enemy_28,aesthetic_enemy_29,aesthetic_enemy_30,aesthetic_enemy_31,aesthetic_enemy_32,aesthetic_enemy_33,aesthetic_enemy_34,aesthetic_enemy_35,0,0,0,0,0,0,0,0,0,0,aesthetic_enemy_46};
-static const unsigned short aesthetic_enemy_size[47][2]={{224,150},{0,0},{0,0},{0,0},{0,0},{224,202},{224,205},{224,202},{0,0},{0,0},{224,205},{224,151},{224,149},{224,215},{224,205},{0,0},{224,204},{224,154},{0,0},{224,203},{224,202},{224,202},{224,148},{224,206},{0,0},{0,0},{224,205},{224,219},{150,224},{224,190},{209,224},{224,206},{224,148},{224,207},{224,205},{224,147},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{224,208}};
+static const unsigned char aesthetic_enemy_47_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,99,4,3,128,9,2,0,4,0,0,0,194,241,247,173};
+#define aesthetic_enemy_47 ((const uint32_t*)aesthetic_enemy_47_data)
+static const unsigned char aesthetic_enemy_48_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,109,6,3,0,13,2,0,4,0,0,0,198,215,111,54};
+#define aesthetic_enemy_48 ((const uint32_t*)aesthetic_enemy_48_data)
+static const unsigned char aesthetic_enemy_49_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,122,8,3,0,209,2,0,4,0,0,0,171,110,95,169};
+#define aesthetic_enemy_49 ((const uint32_t*)aesthetic_enemy_49_data)
+static const unsigned char aesthetic_enemy_50_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,75,11,3,128,205,2,0,4,0,0,0,154,154,13,0};
+#define aesthetic_enemy_50 ((const uint32_t*)aesthetic_enemy_50_data)
+static const unsigned char aesthetic_enemy_51_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,24,14,3,0,6,2,0,4,0,0,0,228,16,75,148};
+#define aesthetic_enemy_51 ((const uint32_t*)aesthetic_enemy_51_data)
+static const unsigned char aesthetic_enemy_52_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,30,16,3,128,2,2,0,4,0,0,0,181,117,168,137};
+#define aesthetic_enemy_52 ((const uint32_t*)aesthetic_enemy_52_data)
+static const unsigned char aesthetic_enemy_53_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,33,18,3,128,212,2,0,4,0,0,0,3,68,65,97};
+#define aesthetic_enemy_53 ((const uint32_t*)aesthetic_enemy_53_data)
+static const unsigned char aesthetic_enemy_54_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,245,20,3,128,9,2,0,4,0,0,0,29,141,80,249};
+#define aesthetic_enemy_54 ((const uint32_t*)aesthetic_enemy_54_data)
+static const unsigned char aesthetic_enemy_55_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,255,22,3,0,202,2,0,4,0,0,0,9,64,81,185};
+#define aesthetic_enemy_55 ((const uint32_t*)aesthetic_enemy_55_data)
+static const unsigned char aesthetic_enemy_56_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,201,25,3,0,202,2,0,4,0,0,0,242,110,71,145};
+#define aesthetic_enemy_56 ((const uint32_t*)aesthetic_enemy_56_data)
+static const unsigned char aesthetic_enemy_57_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,112,147,28,3,128,9,2,0,4,0,0,0,162,194,206,137};
+#define aesthetic_enemy_57 ((const uint32_t*)aesthetic_enemy_57_data)
+static const unsigned char aesthetic_enemy_58_data[24] __attribute__((aligned(4)))={82,73,70,84,83,73,77,71,240,156,30,3,0,13,2,0,4,0,0,0,211,118,241,133};
+#define aesthetic_enemy_58 ((const uint32_t*)aesthetic_enemy_58_data)
+static const uint32_t*const aesthetic_enemies[59]={aesthetic_enemy_0,0,0,0,0,aesthetic_enemy_5,aesthetic_enemy_6,aesthetic_enemy_7,0,0,aesthetic_enemy_10,aesthetic_enemy_11,aesthetic_enemy_12,aesthetic_enemy_13,aesthetic_enemy_14,0,aesthetic_enemy_16,aesthetic_enemy_17,0,aesthetic_enemy_19,aesthetic_enemy_20,aesthetic_enemy_21,aesthetic_enemy_22,aesthetic_enemy_23,0,0,aesthetic_enemy_26,aesthetic_enemy_27,aesthetic_enemy_28,aesthetic_enemy_29,aesthetic_enemy_30,aesthetic_enemy_31,aesthetic_enemy_32,aesthetic_enemy_33,aesthetic_enemy_34,aesthetic_enemy_35,0,0,0,0,0,0,0,0,0,0,aesthetic_enemy_46,aesthetic_enemy_47,aesthetic_enemy_48,aesthetic_enemy_49,aesthetic_enemy_50,aesthetic_enemy_51,aesthetic_enemy_52,aesthetic_enemy_53,aesthetic_enemy_54,aesthetic_enemy_55,aesthetic_enemy_56,aesthetic_enemy_57,aesthetic_enemy_58};
+static const unsigned short aesthetic_enemy_size[59][2]={{224,150},{0,0},{0,0},{0,0},{0,0},{224,202},{224,205},{224,202},{0,0},{0,0},{224,205},{224,151},{224,149},{224,215},{224,205},{0,0},{224,204},{224,154},{0,0},{224,203},{224,202},{224,202},{224,148},{224,206},{0,0},{0,0},{224,205},{224,219},{150,224},{224,190},{209,224},{224,206},{224,148},{224,207},{224,205},{224,147},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{224,208},{224,149},{224,150},{224,206},{224,205},{224,148},{224,147},{224,207},{224,149},{224,204},{224,204},{224,149},{224,150}};
 #endif
