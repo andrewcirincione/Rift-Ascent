@@ -6,7 +6,7 @@ CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 
 LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = RIFT ASCENT 1.8.1
+PSP_EBOOT_TITLE = RIFT ASCENT 1.8.2
 PSP_EBOOT_ICON = ICON0.PNG
 PSP_EBOOT_ICON1 = ICON1.PMF
 PSP_EBOOT_PIC1 = PIC1.PNG
@@ -34,4 +34,4 @@ render.o: ascent_art.h ascent_ui.inc ascent_dialogue.h
 game.o: ascent_storage.inc ascent_flow.inc ascent_progress.h new_cards.inc new_effects.inc new_potions.h new_potion_effects.inc new_relics.inc new_card_flags.h
 
 game.o: expedition.h expedition_stories.h expedition_flow.inc expedition_relics.inc
-render.o: expedition.h expedition_stories.h expedition_art.h expedition_ui.inc
+render.o: aesthetic_art.h expedition.h expedition_stories.h expedition_art.h expedition_ui.inc

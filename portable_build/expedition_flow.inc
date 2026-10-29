@@ -1,10 +1,10 @@
-/* All post-fight stories are queued once, then shown after ordinary spoils. */
+/* One 1% story roll after a completed non-boss map room and its spoils. */
 static int expedition_relic(Game*g){
  int id=random_relic(g);return id>=0?id:37+rnd(g,3);
 }
 static void expedition_roll(Game*g){
- if(preview_trace||(g->battle_type!=NODE_FIGHT&&g->battle_type!=NODE_ELITE))return;
- if(rnd(g,100)>=5)return;
+ if(preview_trace||g->revision182.room_type==NODE_BOSS||g->expedition.story_pending)return;
+ if(rnd(g,100)!=0)return;
  unsigned seen=g->expedition.story_seen;if(seen==0xfffffu)seen=0;
  int pool[20],n=0;for(int i=0;i<20;i++)if(!(seen&(1u<<i)))pool[n++]=i;
  int id=pool[rnd(g,n)];g->expedition.story_seen=seen|(1u<<id);

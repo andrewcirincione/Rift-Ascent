@@ -47,13 +47,25 @@ int ascent_set_debug(int enabled){unsigned old=ascent_account.debug;ascent_accou
 static void ascent_slot_info(int slot,const Game*g,unsigned gen){
  ascent_slots[slot]=(AscentSlot){1,g->character,g->act,g->floor,g->hp,g->maxhp,g->screen,gen};
 }
+static void revision182_migrate_room(Game*g){
+ int s=g->screen;if(s==DECK_VIEW||s==POTION_VIEW||s==RELIC_VIEW)s=g->prior_screen;
+ int in_room=s==COMBAT||s==REWARD||s==RELIC_RESULT||s==EVENT||s==EVENT_CARD||s==EVENT_RESULT||s==SHOP||s==REST||s==MYSTERY_STORY||s==MYSTERY_CARDS;
+ if(in_room&&g->floor>0){int lane=CLAMP(g->map_selected[g->floor-1],0,2);int node=g->map[g->floor-1][lane];
+  g->revision182.room_type=node;g->revision182.room_pending=node!=NODE_BOSS&&!g->win_screen&&!g->expedition.story_pending;
+ }
+ if(g->battle_type==NODE_ELITE&&g->combat_music==5)g->combat_music=6;
+ else if(g->battle_type==NODE_FIGHT&&g->combat_music==6)g->combat_music=5;
+}
 static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
  memset(g,0,sizeof(*g));
  if(ascent_read(stem,side,g,sizeof(*g),generation))return game_validate(g);
  memset(g,0,sizeof(*g));
+ if(ascent_read(stem,side,g,offsetof(Game,revision182),generation)&&g->version==181){
+  g->version=GAME_VERSION;g->revision182.rare_offset=-5;revision182_migrate_room(g);return game_validate(g);
+ }
+ memset(g,0,sizeof(*g));
  if(!ascent_read(stem,side,g,offsetof(Game,expedition),generation)||g->version!=180||g->relic_count>64)return 0;
- g->version=GAME_VERSION;
- /* Old exhausted boss offers become an explicit, repeatable stat blessing. */
+ g->version=GAME_VERSION;g->revision182.rare_offset=-5;revision182_migrate_room(g);
  if(g->screen==RELIC_RESULT&&g->relic_pending&&g->reward[0]<0)g->reward[0]=37;
  return game_validate(g);
 }
