@@ -1,0 +1,20 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 0
+SHOT title
+FIXTURE stars-0-0
+SHOT stars-0-without-generator
+FIXTURE stars-0-1
+SHOT stars-0-with-generator
+STAR PLAY {'screen': 2, 'selection': 0, 'hand_count': 1, 'energy': 2, 'regent': 2} b'The enemy is preparing an attack.'
+SHOT stars-0-gained
+SHOT stars-0-spent-and-retained
+FIXTURE stars-1-0
+SHOT stars-1-without-generator
+FIXTURE stars-1-1
+SHOT stars-1-with-generator
+STAR PLAY {'screen': 2, 'selection': 0, 'hand_count': 1, 'energy': 2, 'regent': 2} b'The enemy is preparing an attack.'
+SHOT stars-1-gained
+SHOT stars-1-spent-and-retained
+FIXTURE stars-2-0
+SHOT stars-2-without-generator
+PASS Warden/Vesper conditional Star HUD, actual gain/spend/carry-over and no automatic Proxy starting Stars; Proxy HUD unchanged
+SHA256 a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a

@@ -15,6 +15,25 @@ static int regent_cost_now(const Game*g,int raw){
  int n=game_card_cost(raw);if(CARD_ID(raw)==R_KINGLY_KICK)n=MAX(0,n-g->regent.instance_cost[CARD_INSTANCE(raw)]);return n;
 }
 int game_card_star_cost(const Game*g,int raw){int id=CARD_ID(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;if((raw&CARD_FREE)||(g&&RP(g,R_VOID_FORM)&&g->regent.void_used<2*RP(g,R_VOID_FORM)))return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];return CARD_UP(raw)?d->upstars:d->stars;}
+static int card_grants_stars(int raw){
+ switch(CARD_ID(raw)){
+ case R_BIG_BANG:case R_CONVERGENCE:case R_GATHER_LIGHT:case R_GENESIS:
+ case R_GLOW:case R_HIDDEN_CACHE:case R_KNOCKOUT_BLOW:case R_ROYAL_GAMBLE:
+ case R_SHINING_STRIKE:case R_SOLAR_STRIKE:case R_THE_SEALED_THRONE:case R_VENERATE:
+ case 374:case 375:case 377:case 379:case 381:case 384:case 385:case 386:case 391:case 393:return 1;
+ default:return 0;
+ }
+}
+int game_shows_stars(const Game*g){
+ if(!g)return 0;if(g->character==CHAR_REGENT)return 1;
+ /* A generator still belongs to the combat after drawing, discarding or
+    exhausting it. Active/delayed generator cards also keep their resource visible. */
+ if(RP(g,R_GENESIS)||RP(g,R_THE_SEALED_THRONE)||g->regent.next_stars)return 1;
+ const int*piles[]={g->deck,g->hand,g->draw,g->discard,g->exhaust};
+ const int counts[]={g->deck_count,g->hand_count,g->draw_count,g->discard_count,g->exhaust_count};
+ for(int p=0;p<5;p++)for(int i=0;i<counts[p];i++)if(card_grants_stars(piles[p][i]))return 1;
+ return 0;
+}
 static void regent_gain_stars(Game*g,int n){if(n<=0)return;n=MIN(n,999-g->regent.stars);if(!n)return;g->regent.stars+=n;record_combat_fx(GFX_STARS,-1,-1,n,0);g->regent.stars_gained=MIN(1000000,g->regent.stars_gained+n);if(RP(g,R_BLACK_HOLE))ninja_all_proc(g,RP(g,R_BLACK_HOLE));}
 static void regent_created(Game*g){
  if((g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.created=MIN(1000000,g->regent.created+1);
@@ -236,7 +255,7 @@ static void regent_before_turn(Game*g){
 }
 static void regent_start_turn(Game*g){
  if((g->character!=CHAR_REGENT&&!g->revision184.custom)||g->screen!=COMBAT)return;
- if(g->turn==1)regent_gain_stars(g,3);
+ if(g->turn==1&&(g->character==CHAR_REGENT||relic(g,63)))regent_gain_stars(g,3);
  gain_energy(g,g->regent.next_energy);g->regent.next_energy=0;
  regent_gain_stars(g,g->regent.next_stars+RP(g,R_GENESIS));g->regent.next_stars=0;
  if(g->regent.next_block){relic_block(g,g->regent.next_block);g->regent.next_block=0;}

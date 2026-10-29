@@ -32,5 +32,21 @@ int main(void){char root[]="/tmp/rift184-custom-XXXXXX";assert(mkdtemp(root)&&as
   if(!game_validate(&g)){fprintf(stderr,"invalid custom card %d character %d screen %d\n",id,c,g.screen);return 1;}
  }
  puts("PASS every supported card resolves and previews safely for all three custom characters");
+
+ for(int character=0;character<3;character++){
+  game_new(&g,184);game_choose_character(&g,character);g.revision184.custom=1;g.deck_count=2;g.deck[0]=0;g.deck[1]=R_CLOAK_OF_STARS;g.relic_count=0;game_start_battle(&g,NODE_FIGHT);
+  assert(game_shows_stars(&g)==(character==CHAR_REGENT));assert(g.regent.stars==(character==CHAR_REGENT?3:0));
+  if(character==CHAR_REGENT)continue;
+  const int generators[]={R_VENERATE,R_CONVERGENCE,R_GENESIS,R_THE_SEALED_THRONE,R_KNOCKOUT_BLOW,374,379,391,393};
+  const int nongenerators[]={0,N_ADRENALINE,R_CLOAK_OF_STARS,R_ALIGNMENT,R_BLACK_HOLE,R_CHILD_OF_THE_STARS,R_STARDUST,R_RADIATE,378,383,388,392};
+  for(unsigned i=0;i<sizeof(generators)/sizeof(*generators);i++){g.deck[1]=generators[i]|UPBIT;assert(game_shows_stars(&g));}
+  for(unsigned i=0;i<sizeof(nongenerators)/sizeof(*nongenerators);i++){g.deck[1]=nongenerators[i]|UPBIT;assert(!game_shows_stars(&g));}g.deck[1]=R_CLOAK_OF_STARS;
+  int*piles[]={g.hand,g.draw,g.discard,g.exhaust};int*counts[]={&g.hand_count,&g.draw_count,&g.discard_count,&g.exhaust_count};
+  for(int p=0;p<4;p++){for(int j=0;j<4;j++)*counts[j]=0;*counts[p]=1;piles[p][0]=R_VENERATE;assert(game_shows_stars(&g));piles[p][0]=R_CLOAK_OF_STARS;assert(!game_shows_stars(&g));}
+  for(int j=0;j<4;j++)*counts[j]=0;RP(&g,R_GENESIS)=2;assert(game_shows_stars(&g));RP(&g,R_GENESIS)=0;
+  g.deck[1]=R_VENERATE;g.hand_count=1;g.hand[0]=R_VENERATE;g.energy=9;game_play_card(&g,0,0);assert(g.regent.stars==2&&game_shows_stars(&g));
+  g.hand_count=1;g.hand[0]=R_CLOAK_OF_STARS;game_play_card(&g,0,0);assert(g.regent.stars==1&&g.block>=7);for(int k=0;k<g.enemy_count;k++)g.enemies[k].intent=1;game_end_turn(&g);assert(g.regent.stars==1&&game_shows_stars(&g));
+ }
+ puts("PASS conditional Star HUD for Warden/Vesper across deck and combat piles, active generator powers, spending-only cards and upgraded generator/spender cards; Proxy always visible; actual gain/spend/carry-over; no unearned Proxy starter Stars");
  return 0;
 }

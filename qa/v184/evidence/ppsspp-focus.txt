@@ -1,17 +1,17 @@
 BOOT 0 asset errors 0 stereo streaming 1 track 0
 SHOT title
 FIXTURE death
-WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 272, 'r137_start': 248, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
-WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 308, 'r137_start': 248, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 268, 'r137_start': 244, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 308, 'r137_start': 244, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0}
 SHOT retired-slot-death
 SHOT retired-slot-list
 PASS real saved combat resumed from slot 3, killed through an enemy turn, both disk generations removed, retirement receipt persisted
 FIXTURE normal-win
 SHOT silent-victory-transition
 WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 508, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
-WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 540, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
-WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 580, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
-WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 616, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 536, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 572, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 608, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0}
 SHOT normal-card-spoils
 PASS real killing potion keeps victory notice/log empty throughout the unskipped finishing presentation, then displays card spoils
-SHA256 24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c
+SHA256 a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a

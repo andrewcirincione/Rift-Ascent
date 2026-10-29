@@ -71,7 +71,7 @@ async def check(w):
   first=min(syms[k] for k in keys);end=max(syms[k] for k in keys)+4
   for attempt in range(800):
    values={k:await val(k) for k in keys}
-   for k in ['action_cooldown','enemy_turn_delay']:values[k]=await val(k)
+   for k in ['action_cooldown','enemy_turn_delay','plating_delay']:values[k]=await val(k)
    if os.environ.get('RIFT_FAST_PRESENTATION')=='1' and values['r161_transition_active']:
     await put('r161_transition_active',0)
     await ticks(8)
@@ -86,7 +86,7 @@ async def check(w):
    fx_end=values['r137_duration']
    if values['r137_last_screen'] in [screens[k] for k in ['REWARD','RELIC_RESULT','VICTORY','DEFEAT']]:fx_end=max(fx_end,30)+10
    fx_busy=(values['r137_count'] or values['r138_death_active']) and values['animation_tick']-values['r137_start']<fx_end
-   if not values['r161_transition_active'] and values['action_cooldown']==0 and values['enemy_turn_delay']==0 and not fx_busy and (not values['r1311_finishing'] or values['animation_tick']-values['r137_start']>values['r1311_kill_at']+184):return
+   if not values['r161_transition_active'] and values['action_cooldown']==0 and values['enemy_turn_delay']==0 and values['plating_delay']==0 and not fx_busy and (not values['r1311_finishing'] or values['animation_tick']-values['r137_start']>values['r1311_kill_at']+184):return
    if attempt and attempt%40==0:print('WAIT settle',values,flush=True)
    await asyncio.sleep(.1)
   raise AssertionError('Transition did not settle')
@@ -163,6 +163,15 @@ async def check(w):
  if os.environ.get('RIFT_BOOT_ONLY')=='1':
   start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
  fast_frame_ready=True
+ if os.environ.get('RIFT_STARS184')=='1':
+  for character in range(3):
+   await fixture(f'stars-{character}-0');assert field(await state(),'regent')==(3 if character==2 else 0);await shot(f'stars-{character}-without-generator')
+   if character==2:continue
+   await fixture(f'stars-{character}-1');assert field(await state(),'regent')==0;await shot(f'stars-{character}-with-generator')
+   await button('cross');await ticks(24);await settle();raw=await state();print('STAR PLAY', {k:field(raw,k) for k in ['screen','selection','hand_count','energy','regent']}, raw[L['message']:L['message']+100].split(b'\0')[0],flush=True);await shot(f'stars-{character}-gained');assert field(raw,'regent')==2
+   await button('cross');await ticks(24);await settle();assert field(await state(),'regent')==1;await button('circle');assert field(await state(),'regent')==1;await shot(f'stars-{character}-spent-and-retained')
+  print('PASS Warden/Vesper conditional Star HUD, actual gain/spend/carry-over and no automatic Proxy starting Stars; Proxy HUD unchanged',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
  if os.environ.get('RIFT_LATEST184')=='1':
   await latest_checks();print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);return
  if os.environ.get('RIFT_FOCUS184')=='1':

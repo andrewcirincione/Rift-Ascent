@@ -5,6 +5,7 @@
 - Defeated runs are deleted from their save slots. A small receipt prevents an older backup of the same run from reappearing. Account unlocks and character records are preserved.
 - Added Normal and Fast combat speed in Options. Fast advances combat animation timing three times as quickly and shortens input windups; map transitions and their quiet music interval retain their timing.
 - Selected unlocks and custom-loadout tiles rise above their neighbors and display the same gold selection crest used elsewhere in the interface.
+- Warden and Vesper show the Star counter only when they have a card that can grant Stars, including generators in combat piles or active card effects. Proxy always shows it. Custom Warden/Vesper do not receive Proxy's opening Stars unless Divine Right is selected.
 - Added a larger original gothic target crest for multi-enemy fights.
 - Reduced repeated drawing calculations for scaled artwork, panels and card frames. Pixel comparison checks retain identical visuals, including opacity and clipping.
 - Maps use seven possible opening-lane combinations with more varied forks, joins and connections. Imported runs keep their existing current-act routes; new acts use the new layouts.

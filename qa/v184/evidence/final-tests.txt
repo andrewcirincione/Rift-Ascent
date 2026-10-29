@@ -1,10 +1,11 @@
 Rift Ascent 1.8.4 validation
 
-SHA256 24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c
-Bytes 87140896
+SHA256 a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a
+Bytes 87141360
 
 Native ASan/UBSan
 PASS progression, storage, effects, expedition, boundaries, revision, events_extra, revision183, custom184 and balance184.
+PASS Warden/Vesper resource visibility follows Star-generating cards in the permanent deck, combat piles and active/delayed powers; a spender alone does not show it. Proxy retains its counter and opening Stars.
 PASS all supported custom cards resolve and preview safely for all three characters.
 PASS custom quantities, removal, mixed/locked cards, potion cap, draft save/resume, pickup effects applied once and account/profile isolation.
 PASS custom wins, act records and true-ending completions do not change lifetime progress.
@@ -43,11 +44,12 @@ PASS full-health Moon Spring and maximum-health trade choices remain selectable,
 PASS Braced Strike shows both overhead icons, deals the predicted six damage and gains six Block in that turn.
 PASS Normal and Fast Options settings; six game-render intervals advance 24 and 72 presentation ticks respectively.
 PASS a killing Fire potion keeps the notice/log empty throughout the full unskipped finishing presentation, then shows card spoils.
+PASS Warden/Vesper HUD hides without a Star generator and appears with one; Venerate grants two Stars, Cloak spends one, and the remaining Star carries into the next turn. Proxy always displays Stars.
 PASS cold import of a serialized 1.8.3 slot retains its map and 789 Gold and updates the run format to 1.8.4.
 PASS exact, unmodified 480x272 combat capture copied to versions/1.8.4/Combat.png.
 
 Scope and limits
-The runtime logs are ppsspp-final.txt, ppsspp-cold.txt, ppsspp-focus.txt and ppsspp-latest.txt; all record the SHA256 above.
+The runtime logs are ppsspp-final.txt, ppsspp-cold.txt, ppsspp-focus.txt and ppsspp-stars.txt; all record the SHA256 above.
 Combat/menu/event scenarios use assisted state fixtures at safe frame-entry breakpoints followed by actual controller actions. This is targeted testing, not an unaided whole-game run.
 Repeated presentation waits may be skipped; map transitions and the focused victory sequence were observed unskipped. Host fast-forward/frontend frame skipping only affect emulator display cadence; the game's render loop remains active. Speed timing is measured over game render calls, not host wall time.
 The representative native drawing benchmark measured 14.5% less host CPU work; this is not a claim about overall PSP frame rate.

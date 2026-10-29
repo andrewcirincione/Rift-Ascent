@@ -260,6 +260,7 @@ int game_card_is_playable(int raw);
 int game_card_is_upgradeable(int raw);
 int game_card_cost(int raw);
 int game_card_star_cost(const Game*g,int raw);
+int game_shows_stars(const Game*g);
 int game_regent_choice_count(const Game*g);
 int game_regent_choice_raw(const Game*g,int index);
 int game_regent_choice_eligible(const Game*g,int index);

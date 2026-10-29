@@ -915,7 +915,7 @@ static void combat(const Game*g){
  /* Opaque native-resolution surface covers every pixel below the battlefield. */
  r134_blit(0,174,480,98,r134_hand_hud,480,98,255);
  char b[16];
- if((g->character==CHAR_REGENT||g->revision184.custom)){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
+ if(game_shows_stars(g)){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
   snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;
   r160_star_badge(7,217,40,b,f,g->regent.stars>0,0);
  }else{r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);}

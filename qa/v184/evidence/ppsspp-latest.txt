@@ -1,3 +1,4 @@
+Historical focused check before the final conditional Star HUD update. The same scenarios are repeated on the final EBOOT in ppsspp-final.txt.
 BOOT 0 asset errors 0 stereo streaming 1 track 0
 SHOT title
 FIXTURE full-heal-1

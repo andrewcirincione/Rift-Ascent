@@ -2,7 +2,7 @@
   "version": "1.8.4",
   "tag": "v1.8.4",
   "eboot": "versions/1.8.4/EBOOT.PBP",
-  "eboot_sha256": "24081ff34d4d3b3c3ec2911694c08a1d5576e97e8d2986a175c713fb25c7e72c",
+  "eboot_sha256": "a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a",
   "notes": "versions/1.8.4/PATCH_NOTES.md",
   "screenshot": "versions/1.8.4/Combat.png",
   "canonical_source": "qa/v184/source",
