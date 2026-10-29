@@ -1,0 +1,2 @@
+PASS 500 pixel-identical scaled alpha/panel/card frame cases, including off-screen clipping, multiple sizes, selected/dim states and opacity
+Native representative drawing CPU: reference 834.44 ms, optimized 656.26 ms (21.4% less). PSP speed must be assessed separately.

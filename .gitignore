@@ -155,3 +155,17 @@ qa/v184/source/*.SFO
 qa/v184/.*
 qa/v184/**/.*
 versions/1.8.4/.*
+
+# Rebuilt 1.8.4 revision outputs
+qa/v184r2/assets.bin
+qa/v184r2/soundtrack.bank
+qa/v184r2/evidence/*.pcm
+qa/v184r2/evidence/*.ima
+qa/v184r2/evidence/*.ppm
+qa/v184r2/evidence/*.wav
+qa/v184r2/evidence/*.bin
+qa/v184r2/evidence/*.log
+qa/v184r2/source/*.SFO
+qa/v184r2/.*
+qa/v184r2/**/.*
+versions/1.8.4-r2/.*

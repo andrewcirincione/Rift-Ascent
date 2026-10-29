@@ -2,10 +2,10 @@
 
 **[Download the latest GitHub release](https://github.com/andrewcirincione/Rift-Ascent/releases/latest)**
 
-Current version: **1.8.4** (release tag **v1.8.4**). Adds Custom Run loadouts,
-Normal/Fast combat speed, clearer selection markers, varied map starts, enemy
-repeat avoidance, improved boss card spoils, three adverse mystery rooms, and
-full-health healing choices. Continues the fresh 1.8-r2 rebuild from 1.71-r2.
+Current version: **1.8.4** (revised release tag **v1.8.4-r2**). Restores sustained
+map forks and route commitments while preserving room distribution, adds the
+RiftMain and secret Act 4 boss themes, refines custom-run unlocks and rewards,
+and balances the new character cards. Continues the fresh 1.8-r2 rebuild from 1.71-r2.
 Releases include the complete EBOOT and soundtrack, an installable PSP ZIP,
 source, a combat screenshot and SHA-256 checksums.
 
@@ -15,10 +15,10 @@ it to `EBOOT.PBP` and place it in `PSP/GAME/RIFTASCENT/`. Preserve `SAVE.DAT`,
 
 ## Source and validation
 
-- [Current patch notes](versions/1.8.4/PATCH_NOTES.md)
-- [Build instructions and validation details](qa/v184/README.md)
-- Canonical source: `qa/v184/source`; runtime copies: `GAME/src` and `portable_build`
-- Exact tested binary: `versions/1.8.4/EBOOT.PBP` (release tag `v1.8.4`)
+- [Current patch notes](versions/1.8.4-r2/PATCH_NOTES.md)
+- [Build instructions and validation details](qa/v184r2/README.md)
+- Canonical source: `qa/v184r2/source`; runtime copies: `GAME/src` and `portable_build`
+- Exact tested binary: `versions/1.8.4-r2/EBOOT.PBP` (release tag `v1.8.4-r2`)
 - Tested in PPSSPP 1.20.4 with native sanitizer and gameplay regressions.
   Uses 32 MiB PSP mode. The user confirmed 1.6-r2 on physical PSP; the current build has emulator and native validation; physical PSP testing remains unverified.
 

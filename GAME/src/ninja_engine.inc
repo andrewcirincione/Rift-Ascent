@@ -30,7 +30,20 @@ static void ninja_reduce_instance(Game*g,int raw){
 static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
 int game_card_is_retained(const Game*g,int raw){return (regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
-static int ninja_owned_card(const Game*g,int id){if(id>=ASCENT_CARD_FIRST)return ascent_card_available(g,id);return id< NINJA_FIRST?g->character==CHAR_WARDEN:id<NINJA_LAST?(g->character==CHAR_NIGHTSHADE||g->revision184.custom):id<REGENT_LAST?(g->character==CHAR_REGENT||g->revision184.custom):0;}
+static int card_character(int id){
+ if(id<0||id>=CARD_COUNT)return -1;
+ if(id>=ASCENT_CARD_FIRST)return (id-ASCENT_CARD_FIRST)/20;
+ if(id<NINJA_FIRST)return CHAR_WARDEN;if(id<NINJA_LAST)return CHAR_NIGHTSHADE;
+ return id<REGENT_LAST?CHAR_REGENT:-1;
+}
+static unsigned custom_deck_characters(const Game*g){
+ unsigned mask=0;for(int i=0;i<g->deck_count;i++){int c=card_character(CARD_ID(g->deck[i]));if(c>=0)mask|=1u<<c;}
+ return mask?mask:1u<<g->character;
+}
+static int ninja_owned_card(const Game*g,int id){
+ int c=card_character(id);if(c<0||!ascent_card_available(g,id))return 0;
+ return g->revision184.custom?!!(custom_deck_characters(g)&(1u<<c)):c==g->character;
+}
 static int ninja_clean(int raw){return raw&~(CARD_FREE|CARD_FORCE_EXHAUST|CARD_EPHEMERAL|CARD_RETAIN_TURN);}
 static int ninja_base_damage(const Game*g,int raw,int in_hand){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;

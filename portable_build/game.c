@@ -382,6 +382,13 @@ static int solo_reward_eligible(int id){
  return id>=3&&id<CARD_COUNT&&game_card_is_playable(id)&&
    id!=CARD_GIANT_ROCK&&id!=63&&id!=85&&id!=N_FLANKING&&id!=N_SNEAKY&&cards[id].rarity<=3;
 }
+/* Legacy Proxy starters/tokens share rarity 3 with Ancient gifts. Keep old
+   saved offers readable, but never generate these as new reward/shop cards. */
+static int combat_reward_eligible(int id){
+ return solo_reward_eligible(id)&&id!=R_STRIKE_REGENT&&id!=R_DEFEND_REGENT&&
+   id!=R_VENERATE&&id!=R_FALLING_STAR&&id!=R_MINION_STRIKE&&id!=R_MINION_DIVE_BOMB&&
+   id!=R_MINION_SACRIFICE&&id!=R_SOVEREIGN_BLADE;
+}
 int game_collection_unlock_count(int tab){return tab==4?10:20;}
 static int collection_base_card(int tab,int id){
  if(tab<0||tab>2||id<0||id>=ASCENT_CARD_FIRST||!game_card_is_playable(id))return 0;
@@ -408,13 +415,13 @@ int game_collection_count(int tab){
 }
 static int reward_of_rarity(Game*g,int rarity,int excluded0,int excluded1){
  int pool[512],weight[512],n=0,total=0;
- for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1){
+ for(int id=3;id<CARD_COUNT;id++)if(combat_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==rarity&&id!=excluded0&&id!=excluded1){
   int owned=0;for(int i=0;i<g->deck_count;i++)if(CARD_ID(g->deck[i])==id){owned=1;break;}
   /* Upgraded copies count as owned. Duplicates remain possible, at one third
      the per-card weight of an unseen card in the same rarity tier. */
   pool[n]=id;weight[n]=owned?1:3;total+=weight[n++];
  }
- if(!n&&rarity==2){for(int id=3;id<CARD_COUNT;id++)if(solo_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==2)return id;}
+ if(!n&&rarity==2){for(int id=3;id<CARD_COUNT;id++)if(combat_reward_eligible(id)&&ninja_owned_card(g,id)&&cards[id].rarity==2)return id;}
  if(!n&&rarity==3)return reward_of_rarity(g,2,excluded0,excluded1);
  if(!n)return g->character==CHAR_NIGHTSHADE?N_BACKFLIP:g->character==CHAR_REGENT?R_DEFEND_REGENT:5;
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weight[i])return pool[i];roll-=weight[i];}
@@ -486,8 +493,10 @@ static unsigned route_layer_legacy(const Game*g,int wanted,int lane){
  }
  return live;
 }
+/* Room placement retains the published 1.8.4 seed schedule. This helper is
+   deliberately separate from the navigable paths below. */
 /* Seeded nearby shifts, forks and merges. Ordered destinations forbid crossings. */
-static unsigned route_layer(const Game*g,int wanted,int lane){
+static unsigned room_route_layer(const Game*g,int wanted,int lane){
  if(!g->revision184.route_style)return route_layer_legacy(g,wanted,lane);
  uint32_t seed=route_hash(g->seed^(unsigned)g->act*0x9e3779b9u);
  static const unsigned starts[]={1,2,4,3,5,6,7};unsigned live=starts[seed%7];
@@ -506,9 +515,34 @@ static unsigned route_layer(const Game*g,int wanted,int lane){
  }
  return live;
 }
+/* Two live routes split into three, stay separate for two or three rooms,
+   then reconnect on alternating/random sides. Every live route has a choice
+   at the next split; no branch is a one-room detour or an absorbing edge. */
+static unsigned route_layer(const Game*g,int wanted,int lane){
+ if(!g->revision184.route_style)return route_layer_legacy(g,wanted,lane);
+ uint32_t seed=route_hash(g->seed^(unsigned)g->act*0x9e3779b9u);
+ static const unsigned starts[]={3,5,6};unsigned live=starts[seed%3];
+ int split=(seed>>5)&1u,merge=split+2+((seed>>6)&1u),merge_lane=((seed>>7)&1u)*2;
+ for(int r=0;r<=wanted;r++){
+  unsigned edges[3]={1,2,4};
+  if(r==split){
+   int gap=!(live&1)?0:!(live&2)?1:2;
+   for(int c=0;c<3;c++)if(live&(1u<<c)){int other=c<gap?c+1:c-1;edges[c]|=1u<<other;}
+  }else if(r==merge){
+   edges[merge_lane]=2;uint32_t h=route_hash(seed+(unsigned)r*9199u);
+   split=r+1;merge=split+2+((h>>8)&1u);merge_lane=((h>>9)&1u)*2;
+   if(split>MAP_ROWS-3)split=merge=MAP_ROWS+1;
+  }
+  if(r==wanted)return lane<0?live:edges[lane];
+  unsigned next=0;for(int c=0;c<3;c++)if(live&(1u<<c))next|=edges[c];live=next;
+ }
+ return live;
+}
 unsigned game_route_mask(const Game*g,int row,int lane){
  if(!g||row<0||row>=MAP_ROWS-1||lane<0||lane>=3)return 0;
- return route_layer(g,row,lane);
+ unsigned edges=route_layer(g,row,lane);
+ if(row<g->floor-1&&g->map_selected[row]==lane&&g->map_selected[row+1]>=0)edges|=1u<<g->map_selected[row+1];
+ return edges;
 }
 unsigned game_route_row_mask(const Game*g,int row){
  if(!g||row<0||row>=MAP_ROWS)return 0;
@@ -539,9 +573,9 @@ static void map_distinguish_forks(Game*g){
  uint32_t seed=route_hash(g->seed^(uint32_t)g->act*9973u);
  int first=(int)(seed&1u)*2;g->map[1][first]=NODE_EVENT;g->map[1][2-first]=NODE_FIGHT;
  for(int r=0;r<MAP_ROWS-1;r++){
-  unsigned live=route_layer(g,r,-1);
+  unsigned live=room_route_layer(g,r,-1);
   for(int lane=0;lane<3;lane++)if(live&(1u<<lane)){
-   unsigned edges=route_layer(g,r,lane);if((edges&(edges-1))==0)continue;
+   unsigned edges=room_route_layer(g,r,lane);if((edges&(edges-1))==0)continue;
    int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
    uint32_t h=route_hash(seed+(unsigned)r*7117u);
    if(h&1u){int temp=a;a=b;b=temp;}
@@ -553,6 +587,24 @@ static void map_distinguish_forks(Game*g){
    }else if(choice==11){g->map[choice][a]=NODE_REST;g->map[choice][b]=NODE_EVENT;}
    else {g->map[choice][a]=NODE_ELITE;g->map[choice][b]=NODE_FIGHT;}
   }
+ }
+}
+/* Move a room within its own floor only when a committed fork would otherwise
+   show identical room sequences. Room counts and floor distribution stay exact. */
+static void map_distinguish_committed_routes(Game*g){
+ for(int r=0;r<MAP_ROWS-1;r++)for(int c=0;c<3;c++)if(route_layer(g,r,-1)&(1u<<c)){
+  unsigned edges=route_layer(g,r,c);if(ascent_popcount(edges)<2)continue;
+  int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
+  unsigned aa=1u<<a,bb=1u<<b;int different=0,candidate=-1;
+  for(int row=r+1;row<MAP_ROWS;row++){
+   for(int x=0;x<3;x++)for(int y=0;y<3;y++)if((aa&(1u<<x))&&(bb&(1u<<y)))different|=g->map[row][x]!=g->map[row][y];
+   if(different)break;
+   if(candidate<0&&(g->map[row][0]!=g->map[row][1]||g->map[row][1]!=g->map[row][2]))candidate=row;
+   if(row==MAP_ROWS-1)break;
+   unsigned an=0,bn=0;for(int x=0;x<3;x++){if(aa&(1u<<x))an|=route_layer(g,row,x);if(bb&(1u<<x))bn|=route_layer(g,row,x);}
+   if(an&bn)break;aa=an;bb=bn;
+  }
+  if(!different&&candidate>=0){int row=candidate,other=g->map[row][0]==g->map[row][1]?2:0,temp=g->map[row][1];g->map[row][1]=g->map[row][other];g->map[row][other]=temp;}
  }
 }
 static void map_generate(Game*g){
@@ -587,12 +639,13 @@ static void map_generate(Game*g){
  /* A guaranteed camp may occupy a fork's original distinguishing room.
     Preserve a real choice on the following floor before the merge. */
  for(int r=0;r<MAP_ROWS-2;r++)for(int c=0;c<3;c++){
-  unsigned edges=route_layer(g,r,c);if(!(route_layer(g,r,-1)&(1u<<c))||!(edges&(edges-1)))continue;
+  unsigned edges=room_route_layer(g,r,c);if(!(room_route_layer(g,r,-1)&(1u<<c))||!(edges&(edges-1)))continue;
   int a=0,b=2;while(!(edges&(1u<<a)))a++;while(!(edges&(1u<<b)))b--;
   if(g->map[r+1][a]==g->map[r+1][b]&&g->map[r+2][a]==g->map[r+2][b]&&r+2!=early&&r+2!=middle&&r+2!=17){
    g->map[r+2][a]=NODE_FIGHT;g->map[r+2][b]=NODE_ELITE;
   }
  }
+ map_distinguish_committed_routes(g);
 }
 static void shuffle(Game*g,int *p,int count){for(int i=count-1;i>0;i--){int j=rnd(g,i+1),temp=p[i];p[i]=p[j];p[j]=temp;}}
 static int has_strike_tag(const char *name);
@@ -1861,13 +1914,14 @@ int game_music_silent(const Game*g){
 }
 int game_music_track(const Game*g){
  int screen=g->screen==PAUSE_MENU?game_pause_source():g->screen;
- if(screen==STORY_BOSS||screen==ASCENT_BOSS||screen==ABOMINATION_BEFORE)return 0;
- if(screen>=ASCENT_SLOTS_VIEW&&screen<=ASCENT_OPTIONS)return 0;
- if(custom_setup_screen(screen))return 0;
- if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 0;
+ if(screen==ASCENT_BOSS)return 11;
+ if(screen==STORY_BOSS||screen==ABOMINATION_BEFORE)return 0;
+ if(screen>=ASCENT_SLOTS_VIEW&&screen<=ASCENT_OPTIONS)return 10;
+ if(custom_setup_screen(screen))return 10;
+ if(screen==TITLE||screen==NEW_RUN_CONFIRM||screen==HELP||screen==CHARACTER_SELECT)return 10;
  if(screen==COMBAT||screen==CARD_CHOICE||screen==NINJA_CHOICE||screen==REGENT_CHOICE||(screen==DECK_VIEW&&g->prior_screen==COMBAT)){
   if(g->battle_type==NODE_ELITE)return g->combat_music==6?6:3;
-  if(g->battle_type==NODE_BOSS)return 0;
+  if(g->battle_type==NODE_BOSS)return g->act==4&&g->ascent.secret?11:0;
   return g->combat_music==4?4:g->combat_music==5?5:2;
  }
  return g->act==1?1:g->act==2?7:g->act==3?8:9;

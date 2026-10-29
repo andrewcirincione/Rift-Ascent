@@ -1,0 +1,23 @@
+PASS final release EBOOT: Rift Ascent 1.8.4 revision 2 (v1.8.4-r2)
+SHA256 12a544e6b43fb8dd7deaf3e3f5838b7ebf9aefb0e4a4fd7e504ea5034cd5a3d5
+Bytes 98387939
+Base: published v1.8.4, commit 88d5b5ad0fbb19ba0a31791a17b6011bd97ec41d. Original release unchanged.
+
+PASS native ASan/UBSan progression, storage, effects, expedition, boundaries, revision, additional events, 1.8.3 regressions, custom 1.8.4, map/reward balance and revised 1.8.4 suites. Native render and layout checks pass with zero streamed-art errors.
+PASS 10,000 generated maps across five acts: 2,927 distinct topologies, at least four forks on every complete route, at most four forced transitions in succession, 96,530/96,530 forks with at least two separate rooms before reconnection, no single-route bottlenecks or crossing edges.
+PASS exact original room histogram on every floor for the same 10,000 maps: digest f5fc0fd9; 200955 fights, 76789 elites, 100635 events, 36886 shops, 94927 rests, 29808 treasures. Separate 10,000-seed Act 1 check: 90,393/96,650 forks (93.5%) offer different room sequences before reconnecting.
+PASS 37,800 custom reward offers across all seven deck-family combinations, unlocked/locked accounts, normal/elite/boss pools and upgrades. No locked card or starter/generated Proxy card leaks into new offers; old saved offers remain readable.
+PASS 240 actual card-resolution cases cover all 60 new cards and their upgrades against one/two enemies. Damage/Block previews agree with resolution; costs, healing, Stars, Forge, draw and Exhaust recorded in card-balance.csv. Free-resource loops terminate; Threadcutter needs a real discard. Detailed changes and testing limits: ../BALANCE_REVIEW.md.
+PASS all existing artwork bytes, ten original encoded music streams and RiftBoss splash audio remain identical. Both supplied songs encoded in full at 44.1 kHz stereo, 5 ms loop-edge fades; measured encoding SNR 27.821/36.454 dB. Artwork manifest, soundtrack CRC and media structure verified.
+
+PASS exact packaged EBOOT in PPSSPP 1.20.4, 32 MiB PSP mode, zero streamed-art errors or memory faults:
+- Controller-driven custom setup across all character tabs, quantities, removal, selected items, three-potion cap, launch, save and resume.
+- Named unlock tiles, selected tile, base catalog, raised menu logo, pause without redundant selected-row X, Back to Loadout opening Your Deck, family reward screens and four map seeds inspected from actual screenshots.
+- In-game audio buffer contains PCM on RiftMain and all three Act 4 secret boss routes. Act 7 boss and all four map themes retain their tracks. Normal/elite routing and silent transition interval verified.
+- Combat inventory/deck return, target selection, Stone Giant combined cleanse/Block intention and execution, act-specific enemy rendering, mystery outcomes, boss relic presentation, mandatory adverse rooms and full-health healing choices.
+- Custom Act 3 victory leaves account progress/records unchanged. Normal/Fast presentation clocks are exactly 1x/3x. Actual enemy attack plus Block resolves with both icons.
+- Saved slot 3 resumed and defeated by an enemy turn: both snapshot files removed, retirement receipt persists, slot unavailable. One initial file-removal assertion failed in the host environment; diagnostic syscall verification returned success for the existing file, and a fresh uninstrumented repeat passed. No game logic was altered to mask it. Logs: ppsspp-remove-diagnostic.txt and ppsspp-focus.txt.
+- Real killing potion retains an empty victory notice/log throughout the unskipped finishing presentation, then displays spoils.
+- Cold 1.8.3 save import preserves map, gold and rarity state.
+
+Limits: isolated fixtures and controller inputs constitute targeted playtesting, not an unaided complete campaign or measured balance win rate. Emulator uses software GL, dummy SDL audio and host fast-forward/frame skipping; PCM is checked in game memory. Physical PSP performance and XMB listening are unverified. Existing generated intent-icon header whitespace is byte-preserved from the previous source.

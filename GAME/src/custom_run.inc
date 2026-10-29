@@ -18,7 +18,7 @@ int custom_id(const Game*g,int tab,int index){
  if(index<0)return -1;
  if(g->screen==CUSTOM_CARDS||(g->screen==CUSTOM_QUANTITY&&g->prior_screen==CUSTOM_CARDS)){
   if(tab==3)return custom_unique(g,0,index);
-  for(int id=0;id<CARD_COUNT;id++)if(custom_card_tab(id)==tab&&index--==0)return id;
+  for(int id=0;id<CARD_COUNT;id++)if(custom_card_tab(id)==tab&&ascent_card_available(g,id)&&index--==0)return id;
  }else{
   if(tab==2||tab==3)return custom_unique(g,tab==2?1:2,index);
   if(tab==1)return index<26?index:-1;
@@ -42,6 +42,7 @@ static void custom_apply_quantity(Game*g){
  int tab=g->revision184.tab,id=g->revision184.item,n=g->revision184.quantity,cards=g->prior_screen==CUSTOM_CARDS;
  int removing=cards?tab==3:tab>=2;
  if(n<1||n>custom_limit(g)){msg(g,"No room for that quantity.");return;}
+ if(!removing&&cards&&!ascent_card_available(g,CARD_ID(id))){msg(g,"This card has not been unlocked.");return;}
  if(!removing){for(int i=0;i<n;i++){if(cards)g->deck[g->deck_count++]=id;else if(tab==0)*relic_slot(g,g->relic_count++)=id;else g->potions[g->potion_count++]=id;}}
  else{int count=cards?g->deck_count:tab==2?g->relic_count:g->potion_count,out=0;
   for(int i=0;i<count;i++){int value=cards?g->deck[i]:tab==2?game_relic_id(g,i):g->potions[i];if(value==id&&n){n--;continue;}
@@ -52,6 +53,7 @@ static void custom_apply_quantity(Game*g){
 }
 static void custom_launch(Game*g){
  if(!g->deck_count){msg(g,"Choose at least one card before starting.");return;}
+ for(int i=0;i<g->deck_count;i++)if(!ascent_card_available(g,CARD_ID(g->deck[i]))){g->screen=CUSTOM_CARDS;g->revision184.tab=3;g->selection=0;msg(g,"Remove locked cards before starting.");return;}
  int relics[MAX_RELICS],n=g->relic_count;for(int i=0;i<n;i++)relics[i]=game_relic_id(g,i);g->relic_count=0;
  for(int i=0;i<n;i++)add_relic(g,relics[i]);
  g->revision184.building=0;g->revision184.tab=0;g->selection=g->scroll=0;msg(g,"");begin_act(g);
@@ -68,7 +70,7 @@ static int custom_action(Game*g,int b){
  }
  if(g->screen==CUSTOM_CONFIRM){
   if(b==BTN_UP)g->selection=(g->selection+2)%3;if(b==BTN_DOWN)g->selection=(g->selection+1)%3;
-  if(b==BTN_BACK||(b==BTN_OK&&g->selection==1)){g->screen=CUSTOM_ITEMS;g->selection=0;g->revision184.tab=2;msg(g,"");}
+  if(b==BTN_BACK||(b==BTN_OK&&g->selection==1)){g->screen=CUSTOM_CARDS;g->selection=0;g->revision184.tab=3;msg(g,"");}
   else if(b==BTN_OK&&g->selection==0)custom_launch(g);
   else if(b==BTN_OK&&g->selection==2){unsigned seed=g->rng;if(ascent_forget(g))game_new(g,seed);else msg(g,"Could not discard the slot. Try again.");}return 1;
  }

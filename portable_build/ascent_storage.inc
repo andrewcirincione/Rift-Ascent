@@ -62,7 +62,10 @@ static void revision182_migrate_room(Game*g){
 static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
  memset(g,0,sizeof(*g));
  if(ascent_read(stem,side,g,sizeof(*g),generation)){
-  
+  if(g->revision184.custom==1&&g->revision184.building==1&&g->revision184.tab>=0&&g->revision184.tab<4&&g->deck_count>=0&&g->deck_count<=MAX_DECK&&g->relic_count>=0&&g->relic_count<=MAX_RELICS&&g->potion_count>=0&&g->potion_count<=MAX_POTIONS){
+   if(g->screen==CUSTOM_QUANTITY&&g->prior_screen==CUSTOM_CARDS&&!ascent_card_available(g,CARD_ID(g->revision184.item))){g->screen=CUSTOM_CARDS;g->revision184.tab=3;}
+   if(g->screen==CUSTOM_CARDS||g->screen==CUSTOM_ITEMS)g->selection=CLAMP(g->selection,0,MAX(0,custom_count(g,g->revision184.tab)-1));
+  }
   return game_validate(g);
  }
  memset(g,0,sizeof(*g));
@@ -152,15 +155,15 @@ static int ascent_begin_mode(Game*g,int slot,int character,unsigned seed,int cus
  g->ascent.potions=ascent_account.potions;g->ascent.relics=ascent_account.relics;g->ascent.secret=ascent_secret(character);
  for(int i=0;i<2;i++)g->ascent.unlocked_cards[i]=g->ascent.unlocked_potions[i]=-1;
  g->ascent.unlocked_relic=-1;begin_act(g);
- if(custom){g->revision184.custom=g->revision184.building=1;g->ascent.cards=ASCENT_ALL_CARDS;g->ascent.potions=0xfffff;g->ascent.relics=1023;
+ if(custom){g->revision184.custom=g->revision184.building=1;g->ascent.potions=0xfffff;g->ascent.relics=1023;
   g->deck_count=g->relic_count=g->potion_count=0;g->screen=CUSTOM_CARDS;g->selection=g->scroll=0;msg(g,"");}
 
  return ascent_checkpoint(g);
 }
 int ascent_begin(Game*g,int slot,int character,unsigned seed){return ascent_begin_mode(g,slot,character,seed,0);}
 int ascent_card_available(const Game*g,int id){
- if(g->revision184.custom)return id>=0&&id<ASCENT_CARD_LAST;
- if(id<ASCENT_CARD_FIRST)return 1;if(id>=ASCENT_CARD_LAST)return 0;
+ if(id<0||id>=ASCENT_CARD_LAST)return 0;if(id<ASCENT_CARD_FIRST)return 1;
+ if(g->revision184.custom)return (ascent_profile()->cards[(id-ASCENT_CARD_FIRST)/20]&(1u<<((id-ASCENT_CARD_FIRST)%20)))!=0;
  return (id-ASCENT_CARD_FIRST)/20==g->character&&(g->ascent.cards&(1u<<((id-ASCENT_CARD_FIRST)%20)));
 }
 static int ascent_random_potion(Game*g){

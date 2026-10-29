@@ -1,0 +1,5 @@
+XMB {'samples': 616080, 'frames': 603, 'delay': 1024, 'loop_start': 1024, 'loop_end': 617103, 'bytes': 231696, 'combined_bytes': 471312}
+PASS every artwork byte, original ten encoded audio streams and RiftBoss splash audio preserved; both supplied themes encoded in full at 44.1 kHz stereo with 5 ms loop-edge fades.
+New track SNR dB: [('RiftMain', 27.821), ('RiftAbomination', 36.454)]
+SHA256 12a544e6b43fb8dd7deaf3e3f5838b7ebf9aefb0e4a4fd7e504ea5034cd5a3d5
+Bytes 98387939

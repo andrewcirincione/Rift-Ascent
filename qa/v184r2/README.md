@@ -1,0 +1,13 @@
+# Rift Ascent 1.8.4 revision 2
+
+Based on the published `v1.8.4` commit recorded in BASE_PROVENANCE.json. The in-game version and save layout remain 1.8.4/184. The GitHub release tag is `v1.8.4-r2`, preserving the original release.
+
+Build with `PSPDEV=/path/to/pspdev bash qa/v184r2/build.sh`. The build extracts the exact existing artwork and ten audio streams from `versions/1.8.4/EBOOT.PBP`, appends the two supplied WAVs as 44.1 kHz stereo IMA streams, and packages the complete EBOOT. Original WAVs and encoding provenance are in audio/. Only 5 ms fades at the new tracks' loop edges are applied. Splash audio is unchanged.
+
+Run `bash qa/v184r2/test.sh` and `python3 qa/v184r2/check_media.py`. RIFT_SUITES can select specific native suites when rerunning a changed area. `tests/routes.c` checks 10,000 maps; compiling it with BASELINE compares each floor's room-type histogram against the published generator. `tests/route_choices.c` measures whether fork branches differ before reconnection. BALANCE_REVIEW.md explains the card changes and the limits of the balance tests.
+
+The route repair retains two or three live lanes, splits all current routes at recurring junctions, and keeps branches apart for at least two rooms. Room identities can move within a floor only to improve an otherwise identical choice; each floor's distribution is preserved. Existing run rooms and visited edges remain intact. The official Mega Crit map preview was reviewed as a reference for branching choices: https://www.megacrit.com/news/2024-11-07-neowsletter-issue-4/ . This is an independent generator adapted to the game's three-lane PSP interface.
+
+Runtime verification uses the exact packaged EBOOT in PPSSPP 1.20.4, controlled with its debugger and controller-input API. Set RIFT_TOOLCHAIN to a directory containing pspdev, the extracted official AppImage under squashfs-root, and Xvfb/xdotool under sysroot/usr/bin. RIFT_REVISION184R2=1 checks the revised menus, named unlocks, Back to Loadout, the three secret-boss music routes, unchanged map/Act 7 themes, pause display and committed map paths. Other modes retain the full interaction, saved death/victory, Star HUD and cold save-import checks. Isolated fixtures are inserted at safe frame boundaries; this is targeted testing, not an unaided complete run. Use distinct RIFT_INSTANCE, RIFT_DISPLAY and RIFT_PORT values for separate processes; no user saves are touched.
+
+The test environment uses software OpenGL, X11 TCP, dummy SDL audio, host fast-forward and frontend frame skipping. In-game PCM is verified inside the audio buffer. Physical PSP hardware and XMB listening are unavailable. Evidence identifies the exact tested SHA256.

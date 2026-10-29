@@ -45,10 +45,10 @@ static Game game;
 static RiftProfile lifetime;
 static char legacy_profile_path[360];
 static volatile int running=1;
-static volatile int music_battle=0;
+static volatile int music_battle=10;
 static volatile int music_paused=0;
 /* The audio thread reads track and mute state together, never a stale pair. */
-static volatile unsigned music_route=0;
+static volatile unsigned music_route=10;
 static Game before_input;
 static int inspect_open=0,inspect_tab=0,inspect_potion=0,inspect_scroll=0;
 static int enemy_turn_delay=0,action_cooldown=0;
@@ -57,8 +57,8 @@ static int plating_delay=0;
 static RiftSound music;
 static short audio_buffer[1024] __attribute__((aligned(64)));
 static int audio_thread_id=-1;
-#define RIFT_TRACK_COUNT 10
-#define RIFT_MUSIC_FOOTER 136
+#define RIFT_TRACK_COUNT 12
+#define RIFT_MUSIC_FOOTER 160
 static SceUID soundtrack_fd=-1;
 static unsigned soundtrack_offset[RIFT_TRACK_COUNT],soundtrack_samples[RIFT_TRACK_COUNT],soundtrack_rate[RIFT_TRACK_COUNT];
 static unsigned soundtrack_base=0,soundtrack_total=0;
@@ -101,11 +101,11 @@ static int soundtrack_open(void){
  if(sceIoRead(soundtrack_fd,footer,sizeof(footer))!=(int)sizeof(footer)){
    soundtrack_close();return 0;
  }
- const char magic[8]={'R','I','F','T','A','U','1','8'};
+ const char magic[8]={'R','I','F','T','A','U','1','9'};
  for(int i=0;i<8;i++)if(footer[i]!=(unsigned char)magic[i]){
    soundtrack_close();return 0;
  }
- soundtrack_total=read_u32(footer+128);
+ soundtrack_total=read_u32(footer+152);
  if(soundtrack_total==0||soundtrack_total>(unsigned)(end-RIFT_MUSIC_FOOTER)){
    soundtrack_close();return 0;
  }
@@ -121,7 +121,7 @@ static int soundtrack_open(void){
    }
  }
  soundtrack_active=1;
- boot_trace("Rift 1.8 ten stereo music tracks loaded",RIFT_TRACK_COUNT);
+ boot_trace("Rift 1.8.4 twelve stereo music tracks loaded",RIFT_TRACK_COUNT);
  return 1;
 }
 static int soundtrack_select(int track){

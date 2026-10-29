@@ -1350,7 +1350,7 @@ static void deck_screen(const Game*g){
         "X UPGRADE  O RETURN":"O RETURN");
 }
 static void title_screen(const Game*g){
- r134_blit(269,37,197,91,r134_logo,222,102,255);
+ r134_blit(269,27,197,91,r134_logo,222,102,255);
  const char*buttons[]={"RESUME RUN","BEGIN ASCENT","CUSTOM RUN","UNLOCKS","OPTIONS"};
  for(int i=0;i<5;i++){int y=115+i*25,selected=CLAMP(g->selection,0,4)==i,enabled=i!=0||game_resume_available();
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
@@ -1586,7 +1586,6 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    r134_center(240,76,"ASCENT PAUSED",GOLD,&r138_title10);
    button(139,108,202,32,"SAVE & QUIT",game_pause_selection()==0);
    button(139,153,202,32,"RESUME",game_pause_selection()==1);
-   r134_blit(112,117+45*game_pause_selection(),14,14,r135_cross,14,14,255);
    footer("X CONFIRM   O / SELECT RESUME");
 
    break;

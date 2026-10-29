@@ -43,12 +43,12 @@ static int read_at(unsigned offset,void*dst,unsigned bytes){
 }
 int rift_assets_open(void){
  if(opened)return 1;
- unsigned char footer[136],bank[16];
+ unsigned char footer[160],bank[16];unsigned footer_size=160;
  if(!disk_open())goto fail;
- int end=disk_seek(0,2);if(end<152||!read_at((unsigned)end-136,footer,136))goto fail;
- if(memcmp(footer,"RIFTAU18",8))goto fail;
- unsigned music=rd32(footer+128);if(music>(unsigned)end-152)goto fail;
- unsigned bank_end=(unsigned)end-136-music;
+ int end=disk_seek(0,2);if(end<176||!read_at((unsigned)end-160,footer,160))goto fail;
+ if(memcmp(footer,"RIFTAU19",8)){footer_size=136;if(!read_at((unsigned)end-136,footer,136)||memcmp(footer,"RIFTAU18",8))goto fail;}
+ unsigned music=rd32(footer+footer_size-8);if(music>(unsigned)end-footer_size-16)goto fail;
+ unsigned bank_end=(unsigned)end-footer_size-music;
  if(!read_at(bank_end-16,bank,16)||memcmp(bank,"RIFTART1",8))goto fail;
  bank_size=rd32(bank+8);if(!bank_size||bank_size>bank_end-16)goto fail;
  bank_base=bank_end-16-bank_size;opened=1;return 1;

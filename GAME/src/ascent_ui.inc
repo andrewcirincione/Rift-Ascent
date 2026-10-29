@@ -61,9 +61,10 @@ static void ascent_collection_view(const Game*g){
  for(int n=first;n<last&&n<first+6;n++){
   int pos=n-first,x=24+pos%3*92,y=83+pos/3*74,open=base||(mask&(1u<<n));
   int id=game_collection_id(tab,n);if(n==index)y-=5;gilded_panel(x,y,85,69,n==index);
-  if(open){if(tab<3)r134_card_art(x+8,y+6,69,44,id);else if(tab==3)ascent_potion_icon(x+20,y+5,46,id);else r150b_relic_icon(x+20,y+5,46,id);}
+  if(open){if(tab<3)r134_card_art(x+8,y+5,69,32,id);else if(tab==3)ascent_potion_icon(x+20,y+5,46,id);else r150b_relic_icon(x+20,y+5,46,id);}
   else r134_center(x+42,y+24,"?",MUTED,&r134_f18b);
-  snprintf(b,sizeof(b),"%02d%s",n-(base?custom:0)+1,open?"":" LOCKED");r134_center(x+42,y+55,b,open?GOLD:MUTED,&r134_f8);
+  if(open&&tab<3)r134_wrap(x+8,y+39,69,2,9,cards[id].name,n==index?WHITE:MUTED,&r134_f8,1);
+  else{snprintf(b,sizeof(b),"%02d%s",n-(base?custom:0)+1,open?"":" LOCKED");r134_center(x+42,y+55,b,open?GOLD:MUTED,&r134_f8);}
   if(n==index)r134_blit(x+23,y+1,40,23,r138_choice,42,28,255);else dark_rect(x+5,y+5,75,59,60);
  }
  if(base||(mask&(1u<<index))){

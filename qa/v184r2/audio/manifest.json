@@ -1,0 +1,117 @@
+{
+  "format": "RIFTAU19",
+  "tracks": [
+    {
+      "index": 0,
+      "name": "RiftBoss",
+      "offset": 0,
+      "frames": 8996400,
+      "rate": 44100,
+      "encoded_sha256": "4a66f9b2a9b84ac4c564a7e4452bdaa725bda52019d3b7162e82886b4b86c009",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 1,
+      "name": "RiftMenu",
+      "offset": 8996400,
+      "frames": 1512000,
+      "rate": 22050,
+      "encoded_sha256": "b54fd9d4a5004982888f8aab6f734eddc77ff7396ef20ceb1c72e970f599da06",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 2,
+      "name": "RiftFight",
+      "offset": 10508400,
+      "frames": 2419200,
+      "rate": 22050,
+      "encoded_sha256": "93d772d0c8119447aa503aed906f0e78c8e0f06e12a045dd4573127b108496c8",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 3,
+      "name": "RiftFight2",
+      "offset": 12927600,
+      "frames": 2721600,
+      "rate": 22050,
+      "encoded_sha256": "ca010251472de0fc9ab2811b44d4b65fdb1b3e955e46b882a2a67448724b24d2",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 4,
+      "name": "RiftFight3",
+      "offset": 15649200,
+      "frames": 2318400,
+      "rate": 22050,
+      "encoded_sha256": "0e3199a397c5c02ec7f85937092c19e11661567366b2872af4068b3f848c67d9",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 5,
+      "name": "RiftFight4",
+      "offset": 17967600,
+      "frames": 2822400,
+      "rate": 22050,
+      "encoded_sha256": "994b80a062d40b54970b6219f4e038cd0a69a3da7060bc5f3686a8af715b1a10",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 6,
+      "name": "RiftFight5",
+      "offset": 20790000,
+      "frames": 2217600,
+      "rate": 22050,
+      "encoded_sha256": "731bf21c8f849eb6c144d8c40e5280562e3ac5368d6c8b71a7f008af7734c21a",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 7,
+      "name": "RiftMenu2",
+      "offset": 23007600,
+      "frames": 1310400,
+      "rate": 22050,
+      "encoded_sha256": "3987c7185dc2a53c4ef82fae10d84709aa047d2b3f5c58711e3d6326251a261d",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 8,
+      "name": "RiftMenu3",
+      "offset": 24318000,
+      "frames": 1310400,
+      "rate": 22050,
+      "encoded_sha256": "33c1187ddf683ebd8322798fdc4793066547efcc09687391b73813e34f7cbc1e",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 9,
+      "name": "RiftMenu4",
+      "offset": 25628400,
+      "frames": 1310400,
+      "rate": 22050,
+      "encoded_sha256": "00cc0a60c089c8f31839428685cf35e90cc3e7290f76bbac6d71f5a01a7af01d",
+      "preserved_from": "v1.8.4"
+    },
+    {
+      "index": 10,
+      "name": "RiftMain",
+      "offset": 26938800,
+      "frames": 4233600,
+      "rate": 44100,
+      "encoded_sha256": "a249f86f818032e04dbc663bb536ab5c409481600f303dd8db91e778c2b6bd40",
+      "source_sha256": "2db85c14a9db903c111f9a512b6e35322901db67637f1fe867eb62dea70899dd",
+      "snr_db": 27.821,
+      "loop_edge_fade_ms": 5
+    },
+    {
+      "index": 11,
+      "name": "RiftAbomination",
+      "offset": 31172400,
+      "frames": 7010211,
+      "rate": 44100,
+      "encoded_sha256": "20de75575142c07b9de671fc2764e82790b5eae693979646ba99341405e42709",
+      "source_sha256": "2f04efe35b43d4af94bdbb13f5aa8a37ff17c33423ca4dc4a84c9886f5845faa",
+      "snr_db": 36.454,
+      "loop_edge_fade_ms": 5
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+id,name,upgrade,scenario,cost,damage,block,hp_change,stars_change,forge_change,hand_delta,exhausted
+334,Ash Oath,0,baseline,1,8,3,0,0,0,-1,0
+334,Ash Oath,0,two_foes_poison_strength_stars,1,11,5,0,0,0,-1,0
+334,Ash Oath,1,baseline,1,11,5,0,0,0,-1,0
+334,Ash Oath,1,two_foes_poison_strength_stars,1,14,7,0,0,0,-1,0
+335,Rivet Guard,0,baseline,1,0,7,0,0,0,-1,0
+335,Rivet Guard,0,two_foes_poison_strength_stars,1,0,9,0,0,0,-1,0
+335,Rivet Guard,1,baseline,1,0,10,0,0,0,-1,0
+335,Rivet Guard,1,two_foes_poison_strength_stars,1,0,12,0,0,0,-1,0
+336,Chainbreaker,0,baseline,1,7,0,0,0,0,-1,0
+336,Chainbreaker,0,two_foes_poison_strength_stars,1,10,0,0,0,0,-1,0
+336,Chainbreaker,1,baseline,1,10,0,0,0,0,-1,0
+336,Chainbreaker,1,two_foes_poison_strength_stars,1,13,0,0,0,0,-1,0
+337,Blood Tithe,0,baseline,0,0,0,-2,0,0,0,1
+337,Blood Tithe,0,two_foes_poison_strength_stars,0,0,0,-2,0,0,0,1
+337,Blood Tithe,1,baseline,0,0,0,-1,0,0,0,1
+337,Blood Tithe,1,two_foes_poison_strength_stars,0,0,0,-1,0,0,0,1
+338,Furnace Breath,0,baseline,1,6,0,0,0,0,-1,0
+338,Furnace Breath,0,two_foes_poison_strength_stars,1,18,0,0,0,0,-1,0
+338,Furnace Breath,1,baseline,1,9,0,0,0,0,-1,0
+338,Furnace Breath,1,two_foes_poison_strength_stars,1,24,0,0,0,0,-1,0
+339,Grave Weight,0,baseline,1,10,0,0,0,0,-1,0
+339,Grave Weight,0,two_foes_poison_strength_stars,1,13,2,0,0,0,-1,0
+339,Grave Weight,1,baseline,1,14,0,0,0,0,-1,0
+339,Grave Weight,1,two_foes_poison_strength_stars,1,17,2,0,0,0,-1,0
+340,Iron Testament,0,baseline,2,0,14,0,0,0,-1,0
+340,Iron Testament,0,two_foes_poison_strength_stars,2,0,16,0,0,0,-1,0
+340,Iron Testament,1,baseline,2,0,18,0,0,0,-1,0
+340,Iron Testament,1,two_foes_poison_strength_stars,2,0,20,0,0,0,-1,0
+341,Scalding Reprisal,0,baseline,1,9,0,0,0,0,-1,0
+341,Scalding Reprisal,0,two_foes_poison_strength_stars,1,12,0,0,0,0,-1,0
+341,Scalding Reprisal,1,baseline,1,13,0,0,0,0,-1,0
+341,Scalding Reprisal,1,two_foes_poison_strength_stars,1,16,0,0,0,0,-1,0
+342,Grave Toll,0,baseline,1,0,0,0,0,0,0,0
+342,Grave Toll,0,two_foes_poison_strength_stars,1,0,0,0,0,0,0,0
+342,Grave Toll,1,baseline,1,0,0,0,0,0,1,0
+342,Grave Toll,1,two_foes_poison_strength_stars,1,0,0,0,0,0,1,0
+343,Ruin March,0,baseline,2,24,0,0,0,0,-1,0
+343,Ruin March,0,two_foes_poison_strength_stars,2,30,0,0,0,0,-1,0
+343,Ruin March,1,baseline,2,32,0,0,0,0,-1,0
+343,Ruin March,1,two_foes_poison_strength_stars,2,38,0,0,0,0,-1,0
+344,Red Bastion,0,baseline,1,0,15,-2,0,0,-1,0
+344,Red Bastion,0,two_foes_poison_strength_stars,1,0,17,-2,0,0,-1,0
+344,Red Bastion,1,baseline,1,0,20,-2,0,0,-1,0
+344,Red Bastion,1,two_foes_poison_strength_stars,1,0,22,-2,0,0,-1,0
+345,Oath Reforged,0,baseline,1,0,0,0,0,0,0,1
+345,Oath Reforged,0,two_foes_poison_strength_stars,1,0,0,4,0,0,0,1
+345,Oath Reforged,1,baseline,1,0,0,0,0,0,0,1
+345,Oath Reforged,1,two_foes_poison_strength_stars,1,0,0,7,0,0,0,1
+346,Prison Sun,0,baseline,2,24,0,-3,0,0,-1,0
+346,Prison Sun,0,two_foes_poison_strength_stars,2,54,0,-3,0,0,-1,0
+346,Prison Sun,1,baseline,2,31,0,-3,0,0,-1,0
+346,Prison Sun,1,two_foes_poison_strength_stars,2,68,0,-3,0,0,-1,0
+347,Sovereign Anvil,0,baseline,2,0,22,0,0,0,-1,1
+347,Sovereign Anvil,0,two_foes_poison_strength_stars,2,0,24,0,0,0,-1,1
+347,Sovereign Anvil,1,baseline,2,0,28,0,0,0,-1,1
+347,Sovereign Anvil,1,two_foes_poison_strength_stars,2,0,30,0,0,0,-1,1
+348,Ninefold Chain,0,baseline,2,20,0,0,0,0,-1,0
+348,Ninefold Chain,0,two_foes_poison_strength_stars,2,35,0,0,0,0,-1,0
+348,Ninefold Chain,1,baseline,2,30,0,0,0,0,-1,0
+348,Ninefold Chain,1,two_foes_poison_strength_stars,2,48,0,0,0,0,-1,0
+349,Last Ward,0,baseline,1,0,10,0,0,0,-1,1
+349,Last Ward,0,two_foes_poison_strength_stars,1,0,42,0,0,0,-1,1
+349,Last Ward,1,baseline,1,0,15,0,0,0,-1,1
+349,Last Ward,1,two_foes_poison_strength_stars,1,0,52,0,0,0,-1,1
+350,Crown Breaker,0,baseline,2,23,0,0,0,0,-1,0
+350,Crown Breaker,0,two_foes_poison_strength_stars,2,26,0,0,0,0,-1,0
+350,Crown Breaker,1,baseline,2,30,0,0,0,0,-1,0
+350,Crown Breaker,1,two_foes_poison_strength_stars,2,33,0,0,0,0,-1,0
+351,Ashen Inheritance,0,baseline,1,0,0,0,0,0,-2,0
+351,Ashen Inheritance,0,two_foes_poison_strength_stars,1,0,0,0,0,0,-2,0
+351,Ashen Inheritance,1,baseline,1,0,0,0,0,0,-2,0
+351,Ashen Inheritance,1,two_foes_poison_strength_stars,1,0,0,0,0,0,-2,0
+352,Unmake Heaven,0,baseline,3,45,0,-6,0,0,-1,1
+352,Unmake Heaven,0,two_foes_poison_strength_stars,3,96,0,-6,0,0,-1,1
+352,Unmake Heaven,1,baseline,3,58,0,-4,0,0,-1,1
+352,Unmake Heaven,1,two_foes_poison_strength_stars,3,122,0,-4,0,0,-1,1
+353,The First Ember,0,baseline,2,0,0,0,0,0,-1,1
+353,The First Ember,0,two_foes_poison_strength_stars,2,0,0,8,0,0,-1,1
+353,The First Ember,1,baseline,2,0,0,0,0,0,-1,1
+353,The First Ember,1,two_foes_poison_strength_stars,2,0,0,12,0,0,-1,1
+354,Ivory Nick,0,baseline,1,6,0,0,0,0,-1,0
+354,Ivory Nick,0,two_foes_poison_strength_stars,1,9,0,0,0,0,-1,0
+354,Ivory Nick,1,baseline,1,9,0,0,0,0,-1,0
+354,Ivory Nick,1,two_foes_poison_strength_stars,1,12,0,0,0,0,-1,0
+355,Choir Veil,0,baseline,1,0,7,0,0,0,0,0
+355,Choir Veil,0,two_foes_poison_strength_stars,1,0,9,0,0,0,0,0
+355,Choir Veil,1,baseline,1,0,10,0,0,0,0,0
+355,Choir Veil,1,two_foes_poison_strength_stars,1,0,12,0,0,0,0,0
+356,Quiet Step,0,baseline,0,0,3,0,0,0,0,1
+356,Quiet Step,0,two_foes_poison_strength_stars,0,0,5,0,0,0,0,1
+356,Quiet Step,1,baseline,0,0,6,0,0,0,0,1
+356,Quiet Step,1,two_foes_poison_strength_stars,0,0,8,0,0,0,0,1
+357,Hushed Verdict,0,baseline,1,8,0,0,0,0,-1,0
+357,Hushed Verdict,0,two_foes_poison_strength_stars,1,11,0,0,0,0,-1,0
+357,Hushed Verdict,1,baseline,1,11,0,0,0,0,-1,0
+357,Hushed Verdict,1,two_foes_poison_strength_stars,1,14,0,0,0,0,-1,0
+358,Needle Rain,0,baseline,1,0,3,0,0,0,1,0
+358,Needle Rain,0,two_foes_poison_strength_stars,1,0,5,0,0,0,1,0
+358,Needle Rain,1,baseline,1,0,3,0,0,0,2,0
+358,Needle Rain,1,two_foes_poison_strength_stars,1,0,5,0,0,0,2,0
+359,Bitter Hymn,0,baseline,1,0,0,0,0,0,-1,0
+359,Bitter Hymn,0,two_foes_poison_strength_stars,1,0,0,0,0,0,-1,0
+359,Bitter Hymn,1,baseline,1,0,0,0,0,0,-1,0
+359,Bitter Hymn,1,two_foes_poison_strength_stars,1,0,0,0,0,0,-1,0
+360,Choirless,0,baseline,1,11,0,0,0,0,-1,0
+360,Choirless,0,two_foes_poison_strength_stars,1,14,0,0,0,0,1,0
+360,Choirless,1,baseline,1,16,0,0,0,0,-1,0
+360,Choirless,1,two_foes_poison_strength_stars,1,19,0,0,0,0,1,0
+361,Gilded Venom,0,baseline,1,0,6,0,0,0,-1,0
+361,Gilded Venom,0,two_foes_poison_strength_stars,1,0,8,0,0,0,-1,0
+361,Gilded Venom,1,baseline,1,0,9,0,0,0,-1,0
+361,Gilded Venom,1,two_foes_poison_strength_stars,1,0,11,0,0,0,-1,0
+362,Saints Silence,0,baseline,1,0,0,0,0,0,0,0
+362,Saints Silence,0,two_foes_poison_strength_stars,1,0,0,0,0,0,0,0
+362,Saints Silence,1,baseline,1,0,0,0,0,0,1,0
+362,Saints Silence,1,two_foes_poison_strength_stars,1,0,0,0,0,0,1,0
+363,White Wake,0,baseline,1,12,0,0,0,0,-1,0
+363,White Wake,0,two_foes_poison_strength_stars,1,21,0,0,0,0,-1,0
+363,White Wake,1,baseline,1,15,0,0,0,0,-1,0
+363,White Wake,1,two_foes_poison_strength_stars,1,24,0,0,0,0,-1,0
+364,Threadcutter,0,baseline,1,0,0,0,0,0,-2,1
+364,Threadcutter,0,two_foes_poison_strength_stars,1,0,0,0,0,0,-2,1
+364,Threadcutter,1,baseline,1,0,0,0,0,0,-2,1
+364,Threadcutter,1,two_foes_poison_strength_stars,1,0,0,0,0,0,-2,1
+365,Merciless Mercy,0,baseline,1,12,0,0,0,0,-1,1
+365,Merciless Mercy,0,two_foes_poison_strength_stars,1,15,0,3,0,0,-1,1
+365,Merciless Mercy,1,baseline,1,17,0,0,0,0,-1,1
+365,Merciless Mercy,1,two_foes_poison_strength_stars,1,20,0,5,0,0,-1,1
+366,False Benediction,0,baseline,2,0,10,0,0,0,-1,1
+366,False Benediction,0,two_foes_poison_strength_stars,2,0,12,0,0,0,-1,1
+366,False Benediction,1,baseline,2,0,16,0,0,0,-1,1
+366,False Benediction,1,two_foes_poison_strength_stars,2,0,18,0,0,0,-1,1
+367,Choir of Knives,0,baseline,2,0,0,0,0,0,3,0
+367,Choir of Knives,0,two_foes_poison_strength_stars,2,0,0,0,0,0,3,0
+367,Choir of Knives,1,baseline,2,0,0,0,0,0,4,0
+367,Choir of Knives,1,two_foes_poison_strength_stars,2,0,0,0,0,0,4,0
+368,Pale Intercession,0,baseline,1,0,18,0,0,0,-1,1
+368,Pale Intercession,0,two_foes_poison_strength_stars,1,0,20,0,0,0,-1,1
+368,Pale Intercession,1,baseline,1,0,25,0,0,0,-1,1
+368,Pale Intercession,1,two_foes_poison_strength_stars,1,0,27,0,0,0,-1,1
+369,Last Confession,0,baseline,2,18,0,0,0,0,-1,0
+369,Last Confession,0,two_foes_poison_strength_stars,2,26,0,0,0,0,-1,0
+369,Last Confession,1,baseline,2,25,0,0,0,0,-1,0
+369,Last Confession,1,two_foes_poison_strength_stars,2,33,0,0,0,0,-1,0
+370,Poisoned Crown,0,baseline,2,0,0,0,0,0,-1,1
+370,Poisoned Crown,0,two_foes_poison_strength_stars,2,0,0,0,0,0,-1,1
+370,Poisoned Crown,1,baseline,2,0,0,0,0,0,-1,1
+370,Poisoned Crown,1,two_foes_poison_strength_stars,2,0,0,0,0,0,-1,1
+371,Unwritten Prayer,0,baseline,0,0,0,0,0,0,2,1
+371,Unwritten Prayer,0,two_foes_poison_strength_stars,0,0,0,0,0,0,2,1
+371,Unwritten Prayer,1,baseline,0,0,0,0,0,0,3,1
+371,Unwritten Prayer,1,two_foes_poison_strength_stars,0,0,0,0,0,0,3,1
+372,Heaven Has Teeth,0,baseline,3,40,0,0,0,0,-1,1
+372,Heaven Has Teeth,0,two_foes_poison_strength_stars,3,55,0,0,0,0,-1,1
+372,Heaven Has Teeth,1,baseline,3,55,0,0,0,0,-1,1
+372,Heaven Has Teeth,1,two_foes_poison_strength_stars,3,70,0,0,0,0,-1,1
+373,The Unheard Saint,0,baseline,2,0,30,0,0,0,1,1
+373,The Unheard Saint,0,two_foes_poison_strength_stars,2,0,32,0,0,0,1,1
+373,The Unheard Saint,1,baseline,2,0,40,0,0,0,1,1
+373,The Unheard Saint,1,two_foes_poison_strength_stars,2,0,42,0,0,0,1,1
+374,Borrowed Dawn,0,baseline,1,7,0,0,2,0,-1,0
+374,Borrowed Dawn,0,two_foes_poison_strength_stars,1,10,0,0,2,0,-1,0
+374,Borrowed Dawn,1,baseline,1,10,0,0,3,0,-1,0
+374,Borrowed Dawn,1,two_foes_poison_strength_stars,1,13,0,0,3,0,-1,0
+375,Brass Orbit,0,baseline,1,0,7,0,2,0,-1,0
+375,Brass Orbit,0,two_foes_poison_strength_stars,1,0,9,0,2,0,-1,0
+375,Brass Orbit,1,baseline,1,0,10,0,3,0,-1,0
+375,Brass Orbit,1,two_foes_poison_strength_stars,1,0,12,0,3,0,-1,0
+376,Throne Shard,0,baseline,1,9,0,0,0,3,0,0
+376,Throne Shard,0,two_foes_poison_strength_stars,1,12,0,0,0,3,0,0
+376,Throne Shard,1,baseline,1,12,0,0,0,5,0,0
+376,Throne Shard,1,two_foes_poison_strength_stars,1,15,0,0,0,5,0,0
+377,Starlit Writ,0,baseline,0,0,0,0,1,0,0,1
+377,Starlit Writ,0,two_foes_poison_strength_stars,0,0,0,0,1,0,0,1
+377,Starlit Writ,1,baseline,0,0,0,0,2,0,0,1
+377,Starlit Writ,1,two_foes_poison_strength_stars,0,0,0,0,2,0,0,1
+378,Exile's Mantle,0,baseline,1,0,6,0,0,0,-1,0
+378,Exile's Mantle,0,two_foes_poison_strength_stars,1,0,16,0,0,0,-1,0
+378,Exile's Mantle,1,baseline,1,0,10,0,0,0,-1,0
+378,Exile's Mantle,1,two_foes_poison_strength_stars,1,0,20,0,0,0,-1,0
+379,Fallen Meridian,0,baseline,1,5,0,0,1,0,-1,0
+379,Fallen Meridian,0,two_foes_poison_strength_stars,1,16,0,0,2,0,-1,0
+379,Fallen Meridian,1,baseline,1,8,0,0,1,0,-1,0
+379,Fallen Meridian,1,two_foes_poison_strength_stars,1,22,0,0,2,0,-1,0
+380,Crown Kiln,0,baseline,1,0,4,0,0,8,0,0
+380,Crown Kiln,0,two_foes_poison_strength_stars,1,0,6,0,0,8,0,0
+380,Crown Kiln,1,baseline,1,0,6,0,0,12,0,0
+380,Crown Kiln,1,two_foes_poison_strength_stars,1,0,8,0,0,12,0,0
+381,Astral Levy,0,baseline,2,14,0,0,4,0,-1,0
+381,Astral Levy,0,two_foes_poison_strength_stars,2,17,0,0,4,0,-1,0
+381,Astral Levy,1,baseline,2,19,0,0,5,0,-1,0
+381,Astral Levy,1,two_foes_poison_strength_stars,2,22,0,0,5,0,-1,0
+382,Empty Court,0,baseline,2,0,12,0,0,0,1,0
+382,Empty Court,0,two_foes_poison_strength_stars,2,0,14,0,0,0,1,0
+382,Empty Court,1,baseline,2,0,17,0,0,0,1,0
+382,Empty Court,1,two_foes_poison_strength_stars,2,0,19,0,0,0,1,0
+383,Royal Cinder,0,baseline,0,0,0,0,0,0,-1,0
+383,Royal Cinder,0,two_foes_poison_strength_stars,0,0,0,0,-3,9,0,0
+383,Royal Cinder,1,baseline,0,0,0,0,0,0,-1,0
+383,Royal Cinder,1,two_foes_poison_strength_stars,0,0,0,0,-3,12,0,0
+384,Blue Mandate,0,baseline,1,12,0,0,2,0,-1,0
+384,Blue Mandate,0,two_foes_poison_strength_stars,1,18,0,0,2,0,-1,0
+384,Blue Mandate,1,baseline,1,16,0,0,3,0,-1,0
+384,Blue Mandate,1,two_foes_poison_strength_stars,1,22,0,0,3,0,-1,0
+385,Broken Zodiac,0,baseline,1,0,0,0,6,0,-1,1
+385,Broken Zodiac,0,two_foes_poison_strength_stars,1,0,0,0,6,0,-1,1
+385,Broken Zodiac,1,baseline,1,0,0,0,8,0,-1,1
+385,Broken Zodiac,1,two_foes_poison_strength_stars,1,0,0,0,8,0,-1,1
+386,Sunless Coronation,0,baseline,2,0,16,0,10,0,-1,1
+386,Sunless Coronation,0,two_foes_poison_strength_stars,2,0,18,0,10,0,-1,1
+386,Sunless Coronation,1,baseline,2,0,22,0,14,0,-1,1
+386,Sunless Coronation,1,two_foes_poison_strength_stars,2,0,24,0,14,0,-1,1
+387,Sovereign Rupture,0,baseline,2,18,0,0,0,0,-1,0
+387,Sovereign Rupture,0,two_foes_poison_strength_stars,2,36,0,0,0,0,-1,0
+387,Sovereign Rupture,1,baseline,2,25,0,0,0,0,-1,0
+387,Sovereign Rupture,1,two_foes_poison_strength_stars,2,43,0,0,0,0,-1,0
+388,The Last Decree,0,baseline,0,0,0,0,0,0,-1,1
+388,The Last Decree,0,two_foes_poison_strength_stars,0,0,0,0,-5,0,4,1
+388,The Last Decree,1,baseline,0,0,0,0,0,0,-1,1
+388,The Last Decree,1,two_foes_poison_strength_stars,0,0,0,0,-5,0,4,1
+389,Crownless Comet,0,baseline,2,22,0,0,0,6,0,0
+389,Crownless Comet,0,two_foes_poison_strength_stars,2,50,0,0,0,6,0,0
+389,Crownless Comet,1,baseline,2,30,0,0,0,9,0,0
+389,Crownless Comet,1,two_foes_poison_strength_stars,2,66,0,0,0,9,0,0
+390,Kingdom of One,0,baseline,2,0,18,0,0,0,-1,1
+390,Kingdom of One,0,two_foes_poison_strength_stars,2,0,20,0,0,0,-1,1
+390,Kingdom of One,1,baseline,2,0,25,0,0,0,-1,1
+390,Kingdom of One,1,two_foes_poison_strength_stars,2,0,27,0,0,0,-1,1
+391,Starless Forge,0,baseline,1,0,0,0,6,16,0,1
+391,Starless Forge,0,two_foes_poison_strength_stars,1,0,0,0,0,16,0,1
+391,Starless Forge,1,baseline,1,0,0,0,8,23,0,1
+391,Starless Forge,1,two_foes_poison_strength_stars,1,0,0,0,0,23,0,1
+392,Uncrown the Sky,0,baseline,3,25,0,0,0,0,-1,1
+392,Uncrown the Sky,0,two_foes_poison_strength_stars,3,116,0,0,-10,0,-1,1
+392,Uncrown the Sky,1,baseline,3,35,0,0,0,0,-1,1
+392,Uncrown the Sky,1,two_foes_poison_strength_stars,3,156,0,0,-10,0,-1,1
+393,The Unborrowed Sun,0,baseline,2,0,0,0,15,20,0,1
+393,The Unborrowed Sun,0,two_foes_poison_strength_stars,2,0,0,8,15,20,0,1
+393,The Unborrowed Sun,1,baseline,2,0,0,0,20,28,0,1
+393,The Unborrowed Sun,1,two_foes_poison_strength_stars,2,0,0,12,20,28,0,1

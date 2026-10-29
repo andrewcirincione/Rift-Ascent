@@ -1,0 +1,7 @@
+{
+  "release": "v1.8.4",
+  "commit": "88d5b5ad0fbb19ba0a31791a17b6011bd97ec41d",
+  "eboot_sha256": "a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a",
+  "source": "qa/v184/source",
+  "notes": "Revised 1.8.4; original fresh 1.71-r2 lineage preserved."
+}

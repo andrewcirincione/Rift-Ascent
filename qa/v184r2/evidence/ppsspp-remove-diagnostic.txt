@@ -1,0 +1,18 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE death
+REMOVE b'ms0:/PSP/GAME/RIFT184VERIFY/ASCENT18_RUN_3.0' {'event': 'cpu.evaluate', 'ticket': 785, 'uintValue': 2147549186, 'floatValue': '-0.000000'}
+REMOVE b'ms0:/PSP/GAME/RIFT184VERIFY/ASCENT18_RUN_3.1' {'event': 'cpu.evaluate', 'ticket': 798, 'uintValue': 0, 'floatValue': '0.000000'}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 296, 'r137_start': 252, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT retired-slot-death
+SHOT retired-slot-list
+PASS real saved combat resumed from slot 3, killed through an enemy turn, both disk generations removed, retirement receipt persisted
+FIXTURE normal-win
+SHOT silent-victory-transition
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 512, 'r137_start': 448, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 548, 'r137_start': 448, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 592, 'r137_start': 448, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 628, 'r137_start': 448, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 3, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT normal-card-spoils
+PASS real killing potion keeps victory notice/log empty throughout the unskipped finishing presentation, then displays card spoils
+SHA256 12a544e6b43fb8dd7deaf3e3f5838b7ebf9aefb0e4a4fd7e504ea5034cd5a3d5
