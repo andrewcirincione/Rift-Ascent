@@ -1,0 +1,43 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE recover
+SHOT recover-intent
+SHOT recover-opening
+PASS Recover: no damage and exactly one Vulnerable turn exposed
+FIXTURE boss-0
+SHOT boss-0-intent
+SHOT boss-0-cycle
+FIXTURE boss-1
+SHOT boss-1-intent
+SHOT boss-1-cycle
+FIXTURE boss-2
+SHOT boss-2-intent
+SHOT boss-2-cycle
+FIXTURE boss-3
+SHOT boss-3-intent
+SHOT boss-3-cycle
+FIXTURE forge
+SHOT late-spoils
+SHOT forge-menu
+SHOT forge-upgrade-preview
+SHOT forge-upgrade-complete
+PASS upgrade choice, result preview and mid-choice Save & Quit/resume
+FIXTURE forge
+SHOT forge-echo-preview
+SHOT forge-echo-complete
+PASS Echo cancel costs nothing; confirming spends exactly 4 max HP and replaces one card pick
+FIXTURE death
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1224, 'r137_start': 1192, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 1, 'r137_last_screen': 9, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT recap-death
+SHOT recap-deck
+SHOT recap-deck-selected
+SHOT recap-relics
+SHOT recap-relic-selected
+PASS death recap, final deck/relic browsing, killing enemy attribution and retired run cannot resume
+FIXTURE victory
+SHOT recap-victory
+PASS victory recap retains endless continuation
+FIXTURE release
+SHOT release-combat
+PASS final release EBOOT: beta Recover, boss pattern inspection, forge upgrade/Echo/cancel/save-resume, defeat/victory recap and endless continuation; zero streamed-art errors or memory faults
+SHA256 ae242a2581e7dd5ca8b05ca3fb5534bbeaef2325f14b22eb41430058a5f413bb

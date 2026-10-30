@@ -1,6 +1,6 @@
 """Validate the tested release and package GitHub download assets without rebuilding it."""
 from pathlib import Path
-import argparse, hashlib, json, re, shutil, struct, subprocess, zipfile, zlib
+import os, argparse, hashlib, json, re, shutil, struct, subprocess, zipfile, zlib
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,8 +18,10 @@ def main():
     args = parser.parse_args()
     meta = json.loads((ROOT/'release/current.json').read_text())
     version, tag = meta['version'], meta['tag']
+    if meta.get('prerelease') and not args.validate_only:
+        assert os.environ.get('RIFT_BETA_PUBLISH') == '1', 'Beta packaging requires the dedicated beta release job'
     assert re.fullmatch(r'\d+\.\d+(?:\.\d+)?[a-z]?', version)
-    assert re.fullmatch('v'+re.escape(version)+r'(?:-r[2-9][0-9]*)?', tag)
+    assert re.fullmatch('v'+re.escape(version)+r'(?:-r[2-9][0-9]*|-beta\.[1-9][0-9]*)?', tag)
     pbp = repo_file(meta['eboot']); data = pbp.read_bytes()
     assert sha(pbp) == meta['eboot_sha256']
     offsets = struct.unpack_from('<8I', data, 8)
@@ -76,12 +78,14 @@ def main():
         return
     dest = ROOT/'dist'; dest.mkdir(exist_ok=True)
     assert not list(dest.iterdir()), 'Use an empty dist folder'
-    prefix = 'Rift-Ascent-'+version
+    prefix = 'Rift-Ascent-'+version+meta.get('asset_suffix','')
+    install = 'PSP/GAME/'+meta.get('install_folder','RIFTASCENT')
+    assert re.fullmatch(r'PSP/GAME/[A-Z0-9_]+',install)
     shutil.copyfile(pbp, dest/(prefix+'-EBOOT.PBP'))
     shutil.copyfile(screenshot, dest/(prefix+'-Combat.png'))
     with zipfile.ZipFile(dest/(prefix+'-PSP.zip'), 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
-        archive.write(pbp, 'PSP/GAME/RIFTASCENT/EBOOT.PBP')
-        archive.writestr('README.txt', 'Rift Ascent '+version+'\n\nExtract PSP to the Memory Stick root. Keep SAVE.DAT, PROFILE.DAT and every ASCENT18_ACCOUNT / ASCENT18_RUN file to preserve progress.\n\n'+notes.read_text())
+        archive.write(pbp, install+'/EBOOT.PBP')
+        archive.writestr('README.txt', 'Rift Ascent '+version+'\n\nExtract PSP to the Memory Stick root. Keep existing save/account files to preserve progress. Beta builds use BETA184_* and BETA_PROFILE.DAT; stable builds use ASCENT18_* and PROFILE.DAT.\n\n'+notes.read_text())
     # Keep current build inputs while avoiding an archive of every historical
     # compiled release. Those binaries remain in Git and their own releases.
     source_paths = ['.']
@@ -101,7 +105,7 @@ def main():
         with zipfile.ZipFile(path) as archive:
             assert archive.testzip() is None
             if path.name.endswith('-PSP.zip'):
-                assert hashlib.sha256(archive.read('PSP/GAME/RIFTASCENT/EBOOT.PBP')).hexdigest() == meta['eboot_sha256']
+                assert hashlib.sha256(archive.read(install+'/EBOOT.PBP')).hexdigest() == meta['eboot_sha256']
             else:
                 assert archive.read('rift-ascent/'+meta['eboot']) == data
                 assert archive.read('rift-ascent/release/current.json') == (ROOT/'release/current.json').read_bytes()

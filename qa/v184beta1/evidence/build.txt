@@ -1,0 +1,187 @@
+PASS all artwork and twelve complete encoded music tracks preserved from v1.8.4-r2
+make: Entering directory '/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v184beta1/source'
+psp-gcc -I. -I/workspace/toolchain/pspdev/psp/include -I/workspace/toolchain/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660   -c -o render.o render.c
+render.c: In function 'sprite_scaled_facing':
+render.c:291:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  291 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |    ^~
+render.c:291:15: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  291 |    if(u<0)u=0;if(u>=iw)u=iw-1;
+      |               ^~
+render.c: In function 'r161_centered_text':
+render.c:376:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  376 |    if(advance+xx<left)left=advance+xx;if(advance+xx+1>right)right=advance+xx+1;
+      |    ^~
+render.c:376:39: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  376 |    if(advance+xx<left)left=advance+xx;if(advance+xx+1>right)right=advance+xx+1;
+      |                                       ^~
+render.c:377:4: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  377 |    if(yy<top)top=yy;if(yy+1>bottom)bottom=yy+1;
+      |    ^~
+render.c:377:21: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  377 |    if(yy<top)top=yy;if(yy+1>bottom)bottom=yy+1;
+      |                     ^~
+render.c: In function 'r134_lines':
+render.c:398:3: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+  398 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |   ^~~~~
+render.c:398:31: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+  398 |   while(*s==' '||*s=='\n')s++;if(!*s)break;
+      |                               ^~
+render.c:402:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  402 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |   ^~
+render.c:402:14: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  402 |   if(k<1)k=1;memcpy(rows[count],s,(size_t)k);rows[count][k]=0;count++;s+=k;
+      |              ^~~~~~
+render.c: In function 'r182_shadow':
+render.c:418:109: warning: unused parameter 'ih' [-Wunused-parameter]
+  418 | static void r182_shadow(int x,int y,int w,int h,const void*src,int format,const uint32_t*palette,int iw,int ih,int left,int top,int cw,int ch,int flip,int lean,int opacity){
+      |                                                                                                         ~~~~^~
+render.c: In function 'r134_card_art':
+render.c:444:3: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  444 |   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(pal[src[(top+yy*crop/h)*iw+xx*iw/w]]);}return;
+      |   ^~~
+render.c:444:177: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  444 |   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(pal[src[(top+yy*crop/h)*iw+xx*iw/w]]);}return;
+      |                                                                                                                                                                                 ^~~~~~
+render.c:449:3: warning: this 'for' clause does not guard... [-Wmisleading-indentation]
+  449 |   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(src[(top+yy*crop/h)*iw+xx*iw/w]);}return;
+      |   ^~~
+render.c:449:172: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'for'
+  449 |   for(int yy=0;yy<h;yy++)for(int xx=0;xx<w;xx++){int dx=x+xx,dy=y+yy;if((unsigned)dx>=W||(unsigned)dy>=H)continue;pix[dy*sw+dx]=r134_565(src[(top+yy*crop/h)*iw+xx*iw/w]);}return;
+      |                                                                                                                                                                            ^~~~~~
+render.c: In function 'footer':
+render.c:622:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  622 |   if(width<=462)break;f=&r134_f8;
+      |   ^~
+render.c:622:23: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  622 |   if(width<=462)break;f=&r134_f8;
+      |                       ^
+In file included from render.c:904:
+combat_fx.inc: In function 'r160_particles':
+combat_fx.inc:227:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  227 |  if(g->hp<=0)return;int level=CLAMP(g->regent.stars,0,15),count=r160_star_count(level);
+      |  ^~
+combat_fx.inc:227:21: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  227 |  if(g->hp<=0)return;int level=CLAMP(g->regent.stars,0,15),count=r160_star_count(level);
+      |                     ^~~
+combat_fx.inc:230:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  230 |   if(age<4)opacity=opacity*age/4;r137_blit(x,y,size,size,r160_spark,24,24,opacity,0);
+      |   ^~
+combat_fx.inc:230:34: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  230 |   if(age<4)opacity=opacity*age/4;r137_blit(x,y,size,size,r160_spark,24,24,opacity,0);
+      |                                  ^~~~~~~~~
+combat_fx.inc: In function 'r137_scene':
+combat_fx.inc:237:92: warning: unused variable 'tier' [-Wunused-variable]
+  237 |  if(pa>=0){int a=r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)),tier=game_impact_tier(r137_events[pa].amount);
+      |                                                                                            ^~~~
+combat_fx.inc:242:7: warning: unused variable 'a' [-Wunused-variable]
+  242 |   int a=pre<9?pre:17-pre;dx=0;dy=0;lean=0;
+      |       ^
+combat_fx.inc:241:45: warning: unused variable 'c' [-Wunused-variable]
+  241 |  else if(pre<18&&r136_play_state_valid){int c=cards[CARD_ID(rift120_played_card)].type;
+      |                                             ^
+combat_fx.inc:235:30: warning: unused variable 'ph' [-Wunused-variable]
+  235 |  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
+      |                              ^~
+combat_fx.inc:235:23: warning: unused variable 'pw' [-Wunused-variable]
+  235 |  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
+      |                       ^~
+combat_fx.inc:235:16: warning: variable 'lean' set but not used [-Wunused-but-set-variable]
+  235 |  int dx=0,dy=0,lean=0,pw=150,ph=85,pose=0,pose_frame=5;
+      |                ^~~~
+In file included from render.c:1034:
+ascent_ui.inc: In function 'ascent_unlock_view':
+ascent_ui.inc:88:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   88 |   if(id<0)continue;any=1;int x=n==1?137:37+i*222;
+      |   ^~
+ascent_ui.inc:88:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   88 |   if(id<0)continue;any=1;int x=n==1?137:37+i*222;
+      |                    ^~~
+In file included from render.c:1035:
+custom_ui.inc: In function 'custom_view':
+custom_ui.inc:16:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   16 |   if(g->message[0])r134_center(240,235,g->message,RED,&r134_f8);footer("X CONFIRM   O BACK");return;
+      |   ^~
+custom_ui.inc:16:65: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+   16 |   if(g->message[0])r134_center(240,235,g->message,RED,&r134_f8);footer("X CONFIRM   O BACK");return;
+      |                                                                 ^~~~~~
+render.c: In function 'event_card_screen':
+render.c:1140:6: warning: unused variable 'height' [-Wunused-variable]
+ 1140 |  int height=r135_card_layout(raw,154).height;
+      |      ^~~~~~
+render.c: At top level:
+render.c:486:12: warning: 'rift117_wrapped_text' defined but not used [-Wunused-function]
+  486 | static int rift117_wrapped_text(int x,int y,const char *source,
+      |            ^~~~~~~~~~~~~~~~~~~~
+render.c:473:13: warning: 'fittext' defined but not used [-Wunused-function]
+  473 | static void fittext(int x,int y,const char*s,int n,uint32_t c){char b[128];snprintf(b,sizeof(b),"%.*s",n,s);text(x,y,b,c,1);}
+      |             ^~~~~~~
+render.c:469:13: warning: 'border' defined but not used [-Wunused-function]
+  469 | static void border(int x,int y,int w,int h,uint32_t c){rect(x,y,w,1,c);rect(x,y+h-1,w,1,c);rect(x,y,1,h,c);rect(x+w-1,y,1,h,c);}
+      |             ^~~~~~
+render.c:468:13: warning: 'triangle' defined but not used [-Wunused-function]
+  468 | static void triangle(int x1,int y1,int x2,int y2,int x3,int y3,uint32_t c){int minx=x1<x2?(x1<x3?x1:x3):(x2<x3?x2:x3);int maxx=x1>x2?(x1>x3?x1:x3):(x2>x3?x2:x3);int miny=y1<y2?(y1<y3?y1:y3):(y2<y3?y2:y3);int maxy=y1>y2?(y1>y3?y1:y3):(y2>y3?y2:y3);minx=minx<0?0:minx;miny=miny<0?0:miny;maxx=maxx>=W?W-1:maxx;maxy=maxy>=H?H-1:maxy;int det=(y2-y3)*(x1-x3)+(x3-x2)*(y1-y3);if(det==0)return;for(int y=miny;y<=maxy;y++)for(int x=minx;x<=maxx;x++){int a=(y2-y3)*(x-x3)+(x3-x2)*(y-y3),b=(y3-y1)*(x-x3)+(x1-x3)*(y-y3),d=det-a-b;if(det>0?(a>=0&&b>=0&&d>=0):(a<=0&&b<=0&&d<=0))put(x,y,c);}}
+      |             ^~~~~~~~
+render.c:467:13: warning: 'circle' defined but not used [-Wunused-function]
+  467 | static void circle(int xc,int yc,int r,uint32_t c){for(int y=-r;y<=r;y++)for(int x=-r;x<=r;x++)if(x*x+y*y<=r*r)put(xc+x,yc+y,c);}
+      |             ^~~~~~
+render.c:280:13: warning: 'sprite_scaled_facing' defined but not used [-Wunused-function]
+  280 | static void sprite_scaled_facing(int dx,int dy,int dw,int dh,
+      |             ^~~~~~~~~~~~~~~~~~~~
+render.c:93:25: warning: 'fx_transition_tick' defined but not used [-Wunused-variable]
+   93 | static unsigned fx_tick,fx_transition_tick;
+      |                         ^~~~~~~~~~~~~~~~~~
+In file included from render.c:8:
+rift120_cards.h:1118:24: warning: 'rift120_art' defined but not used [-Wunused-function]
+ 1118 | static const uint16_t *rift120_art(int id,int x,int y){int n=((x/9+y/13)%5+5)%5;return id==0?rift120_strikes[n]:id==1?rift120_defends[n]:rift120_cards[id];}
+      |                        ^~~~~~~~~~~
+psp-gcc -I. -I/workspace/toolchain/pspdev/psp/include -I/workspace/toolchain/pspdev/psp/sdk/include -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 -ffreestanding -fno-builtin -fno-strict-aliasing -fno-stack-protector -D_PSP_FW_VERSION=660  -L. -L/workspace/toolchain/pspdev/psp/lib -L/workspace/toolchain/pspdev/psp/sdk/lib -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128 -Wl,-zmax-page-size=128  ascent_paths.o psp_start.o boot_trace.o mini_libc.o user_syscalls.o file_syscalls.o callback_syscalls.o game.o render.o artwork.o motion_art.o enemy_art.o sound.o asset_stream.o -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc -lpspdebug -lpspdisplay -lpspge -lpspctrl -lpspnet -lpspnet_apctl -o rift_ascent_crt_free.elf
+psp-fixup-imports rift_ascent_crt_free.elf
+psp-strip rift_ascent_crt_free.elf -o rift_ascent_crt_free_strip.elf
+pack-pbp EBOOT.PBP PARAM.SFO ICON0.PNG  \
+	ICON1.PMF NULL PIC1.PNG  \
+	SND0.AT3  rift_ascent_crt_free_strip.elf NULL
+[0]        332 bytes | PARAM.SFO
+[1]      16905 bytes | ICON0.PNG
+[2]     239616 bytes | ICON1.PMF
+[3]          0 bytes | NULL
+[4]      60202 bytes | PIC1.PNG
+[5]     231696 bytes | SND0.AT3
+[6]    6924160 bytes | rift_ascent_crt_free_strip.elf
+[7]          0 bytes | NULL
+rm -f rift_ascent_crt_free_strip.elf
+make: Leaving directory '/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v184beta1/source'
+/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:40: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for rr,gg,bb,aa in art.getdata():
+/workspace/scratch/9a81aefb5adc/rift-ascent/qa/v115/import_114_art.py:63: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for px in im.getdata():
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [5493120]
+ART REUSE: ra_title_bg offset= 5493120 length= 261120
+MATCH rift_hero full-length candidates [5782400]
+ART REUSE: rift_hero offset= 5782400 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
+PASS PSP first-load module-info locator: 0x8804000 -> ELF file offset 0x4ed50
+qa/v184beta1/source/EBOOT.PBP
+  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
+  LoadExecForUser 0x40090000 NIDs 0x05572a5f
+  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324, 0xf27a9c51
+  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
+  LoadExecForUser 0x40090000 NIDs 0x4ac57943
+  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
+  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
+  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
+  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
+PASS: no kernel-only import libraries
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 7704328
+elf_size: 6924160
+segments: 2
+static_memory: 11681792
+resident_span: 11682048
+conservative_startup_bytes: 18606208
+sha256: 3a923bc7922591f4906266b5a6c979a5ed71950d7e01760614e10c6a446cd16d
+98402683 ae242a2581e7dd5ca8b05ca3fb5534bbeaef2325f14b22eb41430058a5f413bb

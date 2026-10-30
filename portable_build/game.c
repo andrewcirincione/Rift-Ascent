@@ -803,7 +803,7 @@ static void heal(Game*g,int n){g->hp=MIN(g->maxhp,g->hp+MAX(n,0));}
 static void player_death(Game*g){
  if(g->hp>0)return;
  if(relic(g,23)&&g->defense_event!=g->act){g->defense_event=g->act;g->hp=MAX(1,g->maxhp/4);msg(g,"Last Ember saved your life!");}
- else{g->hp=0;g->screen=DEFEAT;}
+ else{g->hp=0;g->screen=DEFEAT;g->scroll=g->master_index=0;snprintf(g->subtitle,sizeof(g->subtitle),"Fell to health loss (card or status).");}
 }
 #define RIFT_INFERNO_POWER(g) ((g)->used_potion & 0xffff)
 #define RIFT_INFERNO_COPIES(g) ((g)->used_potion >> 16 ? (g)->used_potion >> 16 : ((g)->used_potion > 0 ? 1 : 0))
@@ -986,23 +986,23 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Brine Witch",50,12,0,{6,0,2,1}},
  {"Stone Giant",87,13,1,{24,10,21,0}},
  {"Fallen Warden",155,18,1,{1,18,10,22}},
- {"THE HOLLOW KING",300,23,2,{4,10,22,20}},
+ {"THE HOLLOW KING",300,23,2,{13,16,10,31}},
  {"Cinder Hound",33,9,0,{7,0,6,0}},
  {"Crypt Archer",37,9,0,{0,3,0,1}},
  {"Glimmer Moth",29,8,0,{8,2,0,9}},
  {"Oathbreaker",42,10,0,{4,0,0,10}},
  {"Ember Seer",78,12,1,{5,19,9,18}},
  {"Bone Captain",85,11,1,{27,7,18,3}},
- {"THE FURNACE MAW",168,15,2,{1,19,10,4}},
+ {"THE FURNACE MAW",168,15,2,{24,19,10,31}},
  {"Rust Reaver",56,12,0,{0,10,1,0}},
  {"Sable Lurker",52,12,0,{7,8,0,2}},
  {"Mire Oracle",50,11,0,{6,9,5,0}},
  {"Wound Collector",62,12,0,{12,0,3,4}},
  {"Chain Keeper",66,14,0,{28,0,1,7}},
  {"Drowned Penitent",53,12,0,{13,2,0,9}},
- {"Ossuary Beast",126,15,1,{1,7,23,10}},
- {"Storm Golem",143,16,1,{13,16,26,21}},
- {"THE CRIMSON JUDGE",240,19,2,{3,18,11,21}},
+ {"Ossuary Beast",126,15,1,{24,7,10,31}},
+ {"Storm Golem",143,16,1,{13,26,16,31}},
+ {"THE CRIMSON JUDGE",240,19,2,{3,14,21,31}},
  {"Void Disciple",82,17,0,{5,8,0,1}},
  {"Bone Harvester",92,17,0,{7,0,12,3}},
  {"Abyss Watcher",78,16,0,{6,9,2,10}},
@@ -1013,7 +1013,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Twilight Shade",88,18,0,{8,6,2,7}},
  {"Infernal Colossus",173,19,1,{4,19,10,21}},
  {"Spectral Marshal",163,19,1,{20,3,7,22}},
- {"Rift Behemoth",185,20,1,{1,10,30,7}},
+ {"Rift Behemoth",185,20,1,{1,10,30,31}},
  {"Gallows Stalker",34,8,0,{0,15,1,0}},
  {"Candle Wretch",32,8,0,{16,0,2,1}},
  {"Sepulcher Guard",62,12,0,{15,1,0,17}},
@@ -1022,13 +1022,13 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Tomb Cantor",94,16,0,{17,0,6,14}},
  {"Oathless Lancer",90,12,1,{14,15,18,16}},
  {"Cathedral Horror",148,17,1,{29,23,16,21}},
- {"THE UNMAKER",340,22,2,{1,11,10,4}},
+ {"THE UNMAKER",340,22,2,{24,11,30,31}},
  {"THE UNBEGOTTEN",610,31,2,{13,16,11,10}},
  {"Crown Eater",174,19,1,{22,7,21,18}},
  {"Cinder Sexton",37,9,0,{1,0,5,14}},
  {"Bellback Vermin",33,8,0,{0,14,1,3}},
  {"Waxbound Acolyte",39,9,0,{1,5,0,2}},
- {"Pyre Castellan",86,12,1,{1,19,25,18}},
+ {"Pyre Castellan",86,12,1,{24,19,25,31}},
  {"Saltglass Eel",57,13,0,{0,14,2,7}},
  {"Silt Reliquary",65,12,0,{1,0,3,14}},
  {"Rime Cantor",53,12,0,{2,0,11,14}},
@@ -1050,25 +1050,25 @@ static void enemy_intent(Game*g,Enemy *e){
  }else if(d->tier==2 && e->phase==0 && e->hp<=e->maxhp/2){e->phase=1;e->strength+=3;}
  unsigned turn=(unsigned)g->turn;
  int slot=(int)(turn%4u);
- if(e->phase&&d->tier==2)slot=(slot+1)%4;
+ /* Phase strengthens the boss without skipping its telegraphed cycle. */
  e->intent=d->moves[slot];
  if(e->art==45){static const unsigned char moves[3][4]={{13,16,11,10},{7,13,10,16},{10,7,13,16}};e->intent=moves[CLAMP(e->phase,0,2)][slot];}
  /* Most heavy openings are deferred; a deterministic one-in-eight exception
     keeps some danger while always showing the actual intended move. */
  if(g->turn==0&&(e->intent==4||e->intent==7||e->intent==10||e->intent==11)&&
     (route_hash(g->seed^(unsigned)e->art*101u^(unsigned)g->floor*37u)&7u))e->intent=0;
- if(e->art!=45&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||(e->intent>=20&&e->intent<=23)||e->intent==25||e->intent==29)&&
+ if(d->tier==0&&(e->intent==1||e->intent==4||e->intent==9||e->intent==11||e->intent==13||(e->intent>=20&&e->intent<=23)||e->intent==25||e->intent==29)&&
     route_hash(g->seed^(unsigned)e->art*313u^(unsigned)g->floor*101u^(unsigned)g->turn*919u)%100u<9u)e->intent=0;
  /* A few basic strikes split their value between damage and protection.
     This adds mixed intents without increasing the number of attacking turns. */
- if(e->intent==0&&route_hash(g->seed^(unsigned)e->art*727u^(unsigned)g->floor*379u^(unsigned)g->turn*1429u)%10u==0)e->intent=24;
+ if(d->tier==0&&e->intent==0&&route_hash(g->seed^(unsigned)e->art*727u^(unsigned)g->floor*379u^(unsigned)g->turn*1429u)%10u==0)e->intent=24;
  long long percent=g->act==1?82:g->act==2?99:124LL+24LL*(g->act-3)+2LL*(g->act-3)*(g->act-3);
  if(g->act==1&&g->battle_type==NODE_FIGHT)percent+=8;
  e->intent_value=(int)CLAMP((d->attack*percent+50)/100+g->floor/7+(e->phase?2:0),1,100000000);
 }
 static const char *intent_titles[INTENT_COUNT]={
  "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
- "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH","BONE BULWARK","CHAIN LASH","GRAVE CHOIR","RIFT REND"
+ "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH","BONE BULWARK","CHAIN LASH","GRAVE CHOIR","RIFT REND","RECOVER"
 };
 static const char *intent_details[INTENT_COUNT]={
  "One direct hit. Block reduces its damage.",
@@ -1101,7 +1101,8 @@ static const char *intent_details[INTENT_COUNT]={
  "A light attack; every living enemy gains 4 Block.",
  "Removes 3 of your Block, makes a light attack, then drains 1 Energy next turn.",
  "All living enemies gain 5 Block; applies 2 Poison to you.",
- "A light attack; applies 2 Vulnerable and adds a Daze to discard."
+ "A light attack; applies 2 Vulnerable and adds a Daze to discard.",
+ "No attack or Block. Becomes Vulnerable for your next turn."
 };
 const char *game_intent_title(int n){return n>=0&&n<INTENT_COUNT?intent_titles[n]:"UNKNOWN";}
 const char *game_intent_description(int n){return n>=0&&n<INTENT_COUNT?intent_details[n]:"No information";}
@@ -1400,6 +1401,7 @@ void game_enemy_intent_text(const Game*g,int index,char*out,int cap){
  case 28:snprintf(out,cap,"Remove 3 Block; deal %d DMG; drain 1 Energy",total);break;
  case 29:snprintf(out,cap,"All foes gain 5 Block; apply 2 Poison");break;
  case 30:snprintf(out,cap,"Deal %d DMG; apply 2 Vulnerable; add Daze",total);break;
+ case 31:snprintf(out,cap,"No attack; exposes itself next turn");break;
  }
 }
 static void enemy_hit(Game*g,Enemy*e,int raw){
@@ -1408,7 +1410,7 @@ static void enemy_hit(Game*g,Enemy*e,int raw){
  if(g->ic[IC_TANK])raw*=2;
  if(e->weak&&relic(g,NR_KRANE)){int full=enemy_encounter_damage(g,e);raw=full*3/5;if(g->ic[IC_COLOSSUS]&&e->vulnerable)raw=(raw+1)/2;if(g->ic[IC_TANK])raw*=2;}
  int old_source=combat_fx_source;combat_fx_source=(int)(e-g->enemies);
- damage_player(g,raw);combat_fx_source=old_source;
+ damage_player(g,raw);if(g->screen==DEFEAT)snprintf(g->subtitle,sizeof(g->subtitle),"Slain by %s / %s",game_enemy_name(e->art),game_intent_title(e->intent));combat_fx_source=old_source;
  if(g->shop_cards[1]>0){
    int n=g->shop_cards[1],blocked=MIN(e->block,n);
    e->block-=blocked;e->hp-=n-blocked;
@@ -1521,6 +1523,7 @@ void game_end_turn(Game*g){
    case 27:enemy_hit(g,e,enemy_attack_value(g,e));for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0)g->enemies[z].block+=4;break;
    case 28:g->block=MAX(0,g->block-3);enemy_hit(g,e,enemy_attack_value(g,e));if(g->screen==COMBAT)g->energy_penalty=MIN(2,g->energy_penalty+1);break;
    case 29:for(int z=0;z<g->enemy_count;z++)if(g->enemies[z].hp>0)g->enemies[z].block+=5;g->poison=MIN(12,g->poison+2);break;
+   case 31:e->vulnerable=MAX(2,e->vulnerable);break;
    case 30:enemy_hit(g,e,enemy_attack_value(g,e));g->vulnerable=MAX(g->vulnerable,2);if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=51;break;
   }
   if(e->block>0)record_combat_fx(GFX_BLOCK,k,k,e->block,0);
@@ -2154,7 +2157,10 @@ static void select_live_enemy(Game*g,int direction){
 static int grid_down(int selected,int count){
  return (selected/3+1)*3<count?MIN(selected+3,count-1):selected;
 }
+
+#include "beta_game.inc"
 void game_action(Game*g,int b){
+ if(beta_action(g,b))return;
  if(custom_action(g,b)||expedition_action(g,b)||ascent_action(g,b))return;
  if(g->screen==COMBAT)g->ic[46]=0;
  if(b==BTN_PAUSE){
@@ -2251,13 +2257,14 @@ void game_action(Game*g,int b){
   }
   break;
  case REWARD:
-  if(g->selection==3)g->selection=5;
-  if(b==BTN_DOWN){if(g->selection<3)g->selection=g->v151.potion_offer>=0?4:5;else g->selection=5;}
-  else if(b==BTN_UP){if(g->selection==5&&g->v151.potion_offer>=0)g->selection=4;else if(g->selection>=4&&!g->v151.card_done)g->selection=1;}
+  if(g->selection==3&&!game_beta_offer(g))g->selection=5;
+  if(b==BTN_DOWN){if(g->selection<3)g->selection=game_beta_offer(g)?3:g->v151.potion_offer>=0?4:5;else if(g->selection==3)g->selection=g->v151.potion_offer>=0?4:5;else g->selection=5;}
+  else if(b==BTN_UP){if(g->selection==5&&g->v151.potion_offer>=0)g->selection=4;else if(g->selection>=4&&!g->v151.card_done)g->selection=game_beta_offer(g)?3:1;else if(g->selection==3)g->selection=1;}
   else if(b==BTN_LEFT&&g->selection<3&&!g->v151.card_done)g->selection=MAX(0,g->selection-1);
   else if(b==BTN_RIGHT&&g->selection<3&&!g->v151.card_done)g->selection=MIN(2,g->selection+1);
   else if(b==BTN_OK||b==BTN_BACK){
     if(b==BTN_BACK)g->selection=5;
+    if(g->selection==3&&game_beta_offer(g)){g->screen=BETA_FORGE;g->selection=0;break;}
     if(g->selection<3&&!g->v151.card_done){
       if(g->deck_count>=MAX_DECK){msg(g,"Deck full. You can leave this card reward.");break;}
       add_card(g,g->reward[g->selection]);g->v151.card_done=1;
@@ -2274,7 +2281,7 @@ void game_action(Game*g,int b){
     g->v151.card_done=1;g->v151.potion_offer=-1;g->ninja.v[NS_BONUS_REWARDS]=0;
     if(g->win_screen){
       int final=g->win_screen==2;g->win_screen=0;
-      if(final){g->screen=VICTORY;msg(g,"THE SPIRE HAS FALLEN");}
+      if(final){g->screen=VICTORY;g->scroll=g->master_index=0;msg(g,"THE SPIRE HAS FALLEN");}
       else{g->hp=g->maxhp;g->act++;g->floor=0;g->lane=1;map_generate(g);begin_act(g);}
     }else{enter_map(g);snprintf(g->message,sizeof(g->message),"Onward, %s.",game_character_name(g));}
   }
@@ -2445,7 +2452,7 @@ int game_validate(const Game*g){
  const int next_limits[5]={30,99,5,5,5};for(int i=0;i<5;i++)if(g->revision182.next_combat[i]<0||g->revision182.next_combat[i]>next_limits[i])return 0;
  if(g->act<1||g->act>100000||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
- if(g->screen<TITLE||g->screen>CUSTOM_CONFIRM||g->deck_count<(g->revision184.building?0:1)||g->deck_count>MAX_DECK)return 0;
+ if(g->screen<TITLE||g->screen>BETA_FORGE_CARD||g->deck_count<(g->revision184.building?0:1)||g->deck_count>MAX_DECK)return 0;
  if((g->screen==STORY_ACT||g->screen==STORY_ACT_BEFORE_BLESSING)&&(g->selection!=0||g->scroll<0||g->scroll>9))return 0;
  if(g->screen==STORY_BOSS&&(g->act>3||g->selection<0||g->selection>2||g->scroll<0||g->scroll>4))return 0;
  if(g->hand_count<0||g->hand_count>MAX_HAND||g->draw_count<0||g->draw_count>MAX_PILE||g->discard_count<0||g->discard_count>MAX_PILE||g->exhaust_count<0||g->exhaust_count>MAX_PILE)return 0;
@@ -2489,6 +2496,8 @@ int game_validate(const Game*g){
  if(g->screen==MAP&&(g->selection<0||g->selection>=MAP_LANES))return 0;
  if(g->screen==COMBAT&&(g->selection<0||g->selection>g->hand_count||g->target<0||g->target>=MAX(1,g->enemy_count)))return 0;
  if(g->v151.potion_offer< -1||g->v151.potion_offer>25||g->v151.card_done<0||g->v151.card_done>1)return 0;
+ if(g->screen==BETA_FORGE&&(g->selection<0||g->selection>2||!game_beta_offer(g)))return 0;
+ if(g->screen==BETA_FORGE_CARD&&(g->effect_turn<0||g->effect_turn>2||g->selection<0||g->selection>=g->deck_count||!game_beta_offer(g)))return 0;
  if(g->screen==REWARD&&(g->selection<0||g->selection>5))return 0;
  if(g->screen==BOSS_REWARD&&(g->selection<0||g->selection>3))return 0;
  if((g->screen==BLESSING||g->screen==REWARD_PREVIEW)&&(g->selection<0||g->selection>2))return 0;

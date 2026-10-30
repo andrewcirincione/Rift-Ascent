@@ -39,13 +39,13 @@ static int ascent_action(Game*g,int b){
   if(b==BTN_OK&&ascent_complete(g,g->selection)){g->screen=g->selection?ASCENT_TRUE_END:ASCENT_ENDING;g->selection=0;}
   return 1;
  case ASCENT_ENDING:
-  if(b==BTN_OK&&++g->selection>=3){g->screen=g->revision184.custom?(g->ascent.secret?ASCENT_REVELATION:VICTORY):ASCENT_CARDS;g->selection=0;}return 1;
+  if(b==BTN_OK&&++g->selection>=3){g->screen=g->revision184.custom?(g->ascent.secret?ASCENT_REVELATION:VICTORY):ASCENT_CARDS;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
  case ASCENT_CARDS:
-  if(b==BTN_OK){g->screen=ASCENT_POTIONS;g->selection=0;}return 1;
+  if(b==BTN_OK){g->screen=ASCENT_POTIONS;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
  case ASCENT_POTIONS:
-  if(b==BTN_OK){g->screen=ASCENT_RELIC;g->selection=0;}return 1;
+  if(b==BTN_OK){g->screen=ASCENT_RELIC;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
  case ASCENT_RELIC:
-  if(b==BTN_OK){g->screen=g->ascent.secret?ASCENT_REVELATION:VICTORY;g->selection=0;}return 1;
+  if(b==BTN_OK){g->screen=g->ascent.secret?ASCENT_REVELATION:VICTORY;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
  case ASCENT_REVELATION:
   if(b==BTN_OK&&++g->selection>=3){
    /* The unlocked fourth act is part of this character's ending. There is
@@ -56,7 +56,7 @@ static int ascent_action(Game*g,int b){
  case ASCENT_BOSS:
   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
  case ASCENT_TRUE_END:
-  if(b==BTN_OK&&++g->selection>=3){g->screen=VICTORY;g->selection=0;}return 1;
+  if(b==BTN_OK&&++g->selection>=3){g->screen=VICTORY;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
  default:return 0;
  }
 }

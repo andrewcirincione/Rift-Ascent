@@ -1,14 +1,17 @@
 {
   "version": "1.8.4",
-  "tag": "v1.8.4-r4",
-  "eboot": "versions/1.8.4-r4/EBOOT.PBP",
-  "eboot_sha256": "d640c98ba4dc8acbae978fa6f4a70ac3938f316bf9794830d350a7f4190865a7",
-  "notes": "versions/1.8.4-r4/PATCH_NOTES.md",
-  "screenshot": "versions/1.8.4-r4/Combat.png",
-  "canonical_source": "qa/v184r4/source",
-  "validation": "qa/v184r4/evidence/final-tests.txt",
-  "resources_manifest": "qa/v184r4/assets.json",
+  "tag": "v1.8.4-beta.1",
+  "eboot": "versions/1.8.4-beta.1/EBOOT.PBP",
+  "eboot_sha256": "ae242a2581e7dd5ca8b05ca3fb5534bbeaef2325f14b22eb41430058a5f413bb",
+  "notes": "versions/1.8.4-beta.1/PATCH_NOTES.md",
+  "screenshot": "versions/1.8.4-beta.1/Combat.png",
+  "canonical_source": "qa/v184beta1/source",
+  "validation": "qa/v184beta1/evidence/final-tests.txt",
+  "resources_manifest": "qa/v184beta1/assets.json",
   "source_dependencies": [
     "versions/1.8.4-r2/EBOOT.PBP"
-  ]
+  ],
+  "prerelease": true,
+  "asset_suffix": "-beta.1",
+  "install_folder": "RIFTASCENT_BETA"
 }

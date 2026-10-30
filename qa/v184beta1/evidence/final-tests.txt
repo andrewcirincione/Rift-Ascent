@@ -1,0 +1,26 @@
+PASS final release EBOOT — Rift Ascent 1.8.4 Beta 1
+SHA256 ae242a2581e7dd5ca8b05ca3fb5534bbeaef2325f14b22eb41430058a5f413bb
+Bytes 98402683
+Base c664fcae0aefc365a7dd0d50d1c436c4ca48680b / stable v1.8.4-r4.
+Branch beta/1.8.4-b1, tag v1.8.4-beta.1, prerelease=true, latest=false. Stable main is not modified.
+Canonical source qa/v184beta1/source; GAME/src and portable_build mirrors match.
+
+Build: PSP SDK v20261001 / GCC 15.2, complete packaged EBOOT.
+Resident span 11,682,048 bytes; conservative startup 18,606,208 bytes.
+ELF/user-mode imports and PBP validation pass. All artwork, twelve music streams, footer and splash media remain byte-identical to the r2 media inputs (unchanged through r4).
+
+ASan/UBSan: beta-native.txt and afterimage.txt pass without sanitizer findings.
+Nine elite/boss cycles, 1,000 seeds each, two rotations and half-health transitions; no skipped recovery or randomized setup turns. Recover deals zero damage, grants no Block and exposes the foe for exactly one player turn. A Strike deals 9 instead of 6 in that opening.
+All three forge options: eligibility, preview, cancellation, exact 4-max-HP Echo cost, low-max-HP exclusion, one reward consumption, Hunt extra pick, potion preservation, save/load before and after selection. 2,540 of 10,000 eligible late non-boss rewards offer a forge; no Act 1 or boss forge.
+Recap tests: lethal enemy attribution, read-only final deck/relic tabs, menu return, death tombstones and endless continuation. Stable account sentinel unchanged; beta file stems isolated. Game struct remains 28,500 bytes.
+Afterimage regression: 192 character/family/mode cases, stacking, previews, choices/save-load, nested autoplay and Echo pass.
+Campaign balance: 40/300 full-unlock Act 3 clears (13.3%), zero policy stalls, ordinary starter decks and legal actions. Stable r4 same policy: 46/300 (15.3%). This bot takes cards rather than forge rewards; results do not predict human win rates. Damage and HP multipliers are unchanged.
+
+Exact packaged EBOOT exercised in PPSSPP 1.20.4, PSP 1000/32 MiB mode.
+Recover overhead OPEN, actual no-damage turn and one-turn Vulnerable verified. All four revised bosses' intentions and cycle descriptions inspected in the enemy tab.
+Forge reward entry, upgrade/Echo previews, cancellation without cost, confirmation, and mid-choice Save & Quit/resume verified through controller input. Corrected dark-panel contrast inspected against the Act 3 background.
+Death recap shows lethal enemy/action, final deck selection/preview and relic selection/description; the retired run cannot resume. Victory recap preserves endless continuation.
+Title music track 10 active with nonzero PCM; zero streamed-art errors in screenshots; no observed runtime memory faults. Runtime log ends with the exact SHA256 above.
+Screenshots inspected: title beta label, Recover/opening, boss patterns, late spoils, forge choices and result previews, defeat/summary/deck/relics/victory recap, and normal-stat combat release screenshot.
+
+Limits: isolated assisted runtime fixtures, software OpenGL, frame skipping/host fast-forward and dummy SDL audio. No claim of physical PSP testing. The recap is shown at run end, not a persistent history archive.

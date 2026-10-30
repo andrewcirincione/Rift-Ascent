@@ -1,0 +1,21 @@
+# 1.8.4 Beta 1 implementation and validation
+
+Base: `c664fcae0aefc365a7dd0d50d1c436c4ca48680b` / stable v1.8.4-r4. Branch: `beta/1.8.4-b1`. In-game version remains 1.8.4, visibly marked BETA 1. The release is a GitHub prerelease and does not change main or latest stable.
+
+Build: `PSPDEV=/path/to/pspdev bash qa/v184beta1/build.sh`. The required r2 EBOOT supplies the artwork and twelve-track music bank, unchanged through r4. `check_media.py` verifies byte equality. Native tests include the game resolver directly; the campaign probe uses legal actions and temporary isolated accounts.
+
+`beta_game.inc` implements deterministic eligibility and forge choices, using existing per-screen fields. No Game struct fields or offsets change (28,500 bytes). Two appended screens are validated and persist through existing alternating checksummed saves. Eligibility is checked again before committing. A modification replaces a card pick; the existing bonus-pick counter is consumed exactly once. HP costs occur only on confirmation, never during previews or cancellation. All runtime save/account/death/settings stems are isolated under BETA184_; the legacy profile has a separate beta filename.
+
+Selected elites/bosses use four-step cycles. All elite/boss defensive moves stop receiving random strike overrides; normal enemy logic is unchanged. Boss phase Strength increases remain, but phase transitions no longer shift the move index. Recover (intent 31) grants no attack or Block and sets two Vulnerable ticks before the normal end-of-enemy-turn decrement, leaving exactly one full player turn to exploit it. No damage/HP multiplier changed. Pattern text is available in the existing enemy inspector.
+
+The recap uses existing end-screen cursors, final deck/relic data and subtitle storage for lethal enemy/action attribution. It does not reopen inventory consumables or allow editing a finished deck. Death tombstones remain written by the existing runtime save path. Summary/deck/relic navigation preserves the victory/endless choice. It is an immediate end-of-run recap, not a persistent run-history archive.
+
+`tests/beta.c`: nine cycles across 1,000 seeds and two rotations, half-health phase stability, Recover timing/damage, all forge choices/costs/cancellation/save/resume, exhausted eligibility, Hunt bonus picks, a 10,000-seed offer-rate sample, recap navigation, death-slot retirement, endless continuation and stable account isolation. It also generates runtime fixtures. `tests/layout.c` exports struct offsets for the emulator. `tests/afterimage.c` retains the 192-case cross-family and replay/save regression. `test.sh` runs these with ASan/UBSan.
+
+`tests/campaigns.c`: 100 runs per character, fully unlocked normal runs, fixed heuristic player, no debug kills or stat boosts. Final beta result 40/300 wins (13.3%), zero policy stalls; stable r4 comparison was 46/300 (15.3%). The policy takes card rewards rather than forge options; it is less capable with Proxy and should not be interpreted as a human success rate. Run with `gcc -O2 -std=gnu11 qa/v184beta1/tests/campaigns.c -o /tmp/beta-campaigns` and `/tmp/beta-campaigns 100 0 1`.
+
+`qa_ppsspp.py` runs the exact full EBOOT in PPSSPP 1.20.4, PSP 1000/32 MiB mode. It uses explicit assisted fixtures and controller input to check recovery, boss inspection, forge previews and confirmation, cancellation, mid-choice Save & Quit/resume, defeat attribution and final build browsers, retired death saves, victory and endless continuation. It checks active music/nonzero PCM, streamed-art errors and observed memory faults, and writes screenshots and the complete binary hash. This is targeted emulator testing with software OpenGL, frame skipping and dummy SDL audio, not physical PSP validation.
+
+Publishing validates source mirrors and exact binary/media, packages into RIFTASCENT_BETA, and publishes v1.8.4-beta.1 with prerelease=true and latest=false. The transfer workflow pushes only the beta branch. User authorization for a separate beta takes precedence over the repository's usual main-release convention.
+
+The stable publishing workflow is retained unchanged. The dedicated temporary beta release job sets RIFT_BETA_PUBLISH=1 and publishes with prerelease=true/latest=false; accidental packaging through the stable workflow is refused.

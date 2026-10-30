@@ -18,8 +18,8 @@ static RiftSound music;
 static short sound_buf[512*2] __attribute__((aligned(64)));
 #define FRAME_STRIDE 512
 #define FRAME_BYTES (FRAME_STRIDE*H*4)
-#define SAVE_PATH "ms0:/PSP/GAME/RIFTASCENT/SAVE.DAT"
-#define PROFILE_PATH "ms0:/PSP/GAME/RIFTASCENT/PROFILE.DAT"
+#define SAVE_PATH "ms0:/PSP/GAME/RIFTASCENT_BETA/BETA_SAVE.DAT"
+#define PROFILE_PATH "ms0:/PSP/GAME/RIFTASCENT_BETA/BETA_PROFILE.DAT"
 static volatile int running=1;
 static volatile int music_battle=0;
 static int audio_thread_id=-1;

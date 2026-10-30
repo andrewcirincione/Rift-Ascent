@@ -1,0 +1,6 @@
+PASS 9 readable elite/boss cycles across 1,000 seeds and two rotations; half-HP phase never skips the announced recovery.
+PASS Recover deals no damage, grants no Block, and exposes the enemy for exactly the next player turn (+50% damage).
+PASS upgrade, rotating modification and paid Echo; cancellation, preview, eligibility, max-HP safety, choice/save/resume, one reward consumption, potion preservation and Hunt bonus pick.
+PASS forge availability 2540/10,000 eligible late non-boss spoils; never Act 1 or bosses.
+PASS lethal enemy attribution; death slot retired before recap; read-only deck/relic tabs; menu exit and endless continuation after victory.
+PASS beta account, slots and settings use BETA184_ stems; stable account untouched. Game struct size remains unchanged.

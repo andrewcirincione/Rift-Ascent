@@ -854,6 +854,7 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   case 27:block=4;break; /* Bone Bulwark shields living allies too. */
   case 28:debuff=4;break; /* Remove three Block and drain one Energy. */
   case 29:block=5;debuff=2;break; /* Grave Choir: shield and Poison. */
+  case 31:break; /* Recovery: an opening, described in intent text. */
   case 30:debuff=3;break; /* Two Vulnerable and a Daze. */
  }
  if(block>=0&&count<3){
@@ -874,7 +875,8 @@ static void rift116_draw_enemy_intent(const Game*g,int index,int cx){
   else value[count][0]=0; /* curse card or energy penalty */
   count++;
  }
- if(!count)return;
+ if(e->intent==31){glyph[count]=r134_utility_icons[5];snprintf(value[count],sizeof(value[count]),"OPEN");count++;}
+  if(!count)return;
  int widths[3],total=0;
  for(int j=0;j<count;j++){
    widths[j]=17+r134_width(value[j],&r134_f9b)+4;
@@ -1056,7 +1058,8 @@ static void reward_screen(const Game*g){
   if(g->v151.potion_offer>=0)button(326,195,125,27,"TAKE POTION",g->selection==4);
   else r161_centered_text(329,197,119,23,"TAKEN",&r138_title9,MUTED);
  }
- button(166,228,148,26,"LEAVE",g->selection>=5||g->selection==3);
+ if(game_beta_offer(g)){button(24,228,225,26,"FORGE INSTEAD OF CARD",g->selection==3);button(272,228,180,26,"LEAVE",g->selection>=5);}
+ else button(166,228,148,26,"LEAVE",g->selection>=5);
  footer("X TAKE  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void boss_reward_screen(const Game*g){
@@ -1363,7 +1366,7 @@ static void title_screen(const Game*g){
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- r135_shadow_text(25,236,"RIFT ASCENT 1.8.4",MUTED,&r134_f8);
+ r135_shadow_text(25,236,"RIFT ASCENT 1.8.4 BETA 1",MUTED,&r134_f8);
 
  footer("X CONFIRM");
 }
@@ -1382,20 +1385,7 @@ static void help_screen(const Game*g){
  text(29,223,"CROSS / CIRCLE   RETURN",GOLD,1);
  footer("RIFT ASCENT  /  THREE CHARACTERS  /  THREE ACTS");
 }
-static void end_screen(const Game*g){
- header(g,g->screen==VICTORY?"ASCENT COMPLETE":"DEFEAT / THE DARKNESS CLAIMS YOU");
- if(g->screen==VICTORY){r134_center(240,74,g->ascent.ascended?"THE TRUE ASCENT":"THE SPIRE HAS FALLEN",GOLD,&r134_f18b);}
- else center(240,77,"THE END",RED,2);
- char b[80];snprintf(b,sizeof(b),"FOES VANQUISHED: %d",g->kill_count);center(240,136,b,WHITE,1);
- snprintf(b,sizeof(b),"DECK: %d CARDS",g->deck_count);center(240,155,b,WHITE,1);
- if(g->screen==VICTORY){
-  for(int i=0;i<2;i++){int x=32+i*220,chosen=g->selection==i;
-   button(x,196,196,38,i?"RETURN TO MENU":"CONTINUE ENDLESS",chosen);
-   if(chosen)r134_blit(x+77,174,42,28,r138_choice,42,28,255);
-  }
-  footer("X CONFIRM   O MENU");
- }else{button(139,190,202,35,"RETURN TO MENU",1);footer("X CONTINUE");}
-}
+#include "beta_ui.inc"
 static void inspector(const Game*g){
  if(!overlay_kind)return;
  dark_rect(0,29,W,226,214);
@@ -1439,6 +1429,7 @@ static void inspector(const Game*g){
     else if(hits)snprintf(b,sizeof(b),"Intent: %d x %d damage",hits,damage/hits);
     else snprintf(b,sizeof(b),"Intent: %s",game_intent_title(foe->intent));
     r134_text(x,211,b,GOLD,&r134_f9);
+    r134_wrap(x,225,194,2,9,game_enemy_plan(foe->art),MUTED,&r134_f8,0);
    }
  }else if(overlay_page==2){
    snprintf(b,sizeof(b),"HP %d/%d   BLOCK %d   ENERGY %d",g->hp,g->maxhp,g->block,g->energy);
@@ -1583,6 +1574,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case DECK_VIEW:deck_screen(g);break;
  case CARD_CHOICE:card_choice_screen(g);break;
  case VICTORY:case DEFEAT:end_screen(g);break;
+ case BETA_FORGE:case BETA_FORGE_CARD:beta_forge_screen(g);break;
  case HELP:help_screen(g);break;
  case RELIC_VIEW:relic_screen(g);break;
  case PAUSE_MENU: {

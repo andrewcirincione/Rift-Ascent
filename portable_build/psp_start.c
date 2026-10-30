@@ -286,7 +286,7 @@ static void step_action(int key,unsigned tick) {
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
     ascent_open(ascent_directory());
-    snprintf(legacy_profile_path,sizeof(legacy_profile_path),"%s/PROFILE.DAT",ascent_directory());
+    snprintf(legacy_profile_path,sizeof(legacy_profile_path),"%s/BETA_PROFILE.DAT",ascent_directory());
     boot_trace("worker entered",1);
     int assets_ready=rift_assets_open();
     boot_trace("streamed artwork bank",assets_ready);

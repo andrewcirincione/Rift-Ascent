@@ -197,3 +197,17 @@ qa/v184r4/source/*.SFO
 qa/v184r4/.*
 qa/v184r4/**/.*
 versions/1.8.4-r4/.*
+
+qa/v184beta1/assets.bin
+qa/v184beta1/soundtrack.bank
+qa/v184beta1/evidence/*.pcm
+qa/v184beta1/evidence/*.ima
+qa/v184beta1/evidence/*.ppm
+qa/v184beta1/evidence/*.wav
+qa/v184beta1/evidence/*.bin
+qa/v184beta1/evidence/*.log
+qa/v184beta1/source/*.SFO
+qa/v184beta1/.*
+qa/v184beta1/**/.*
+
+versions/1.8.4-beta.1/.*

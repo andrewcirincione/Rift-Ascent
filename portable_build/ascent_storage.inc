@@ -34,8 +34,8 @@ static int ascent_account_valid(const AscentAccount*a){
 static int ascent_commit_account(void){
  unsigned gen=ascent_account.generation+1;
  AscentAccount verify;unsigned vg=0;
- if(!ascent_write("ASCENT18_ACCOUNT",&ascent_account,sizeof(ascent_account),gen)||
-    !ascent_read("ASCENT18_ACCOUNT",gen&1u,&verify,sizeof(verify),&vg)||vg!=gen||
+ if(!ascent_write("BETA184_ACCOUNT",&ascent_account,sizeof(ascent_account),gen)||
+    !ascent_read("BETA184_ACCOUNT",gen&1u,&verify,sizeof(verify),&vg)||vg!=gen||
     memcmp(&verify,&ascent_account,sizeof(verify)))return 0;
  ascent_account.generation=gen;return 1;
 }
@@ -44,7 +44,7 @@ const AscentSlot*ascent_slot(int n){return n>=0&&n<ASCENT_SLOTS?&ascent_slots[n]
 int ascent_popcount(unsigned n){int count=0;for(;n;n&=n-1)count++;return count;}
 int ascent_secret(int c){return c>=0&&c<3&&ascent_account.cards[c]==ASCENT_ALL_CARDS;}
 int ascent_fast(void){return ascent_fast_setting!=0;}
-int ascent_set_fast(int enabled){unsigned value=!!enabled;if(!ascent_write("ASCENT18_SPEED",&value,sizeof(value),0))return 0;ascent_fast_setting=value;return 1;}
+int ascent_set_fast(int enabled){unsigned value=!!enabled;if(!ascent_write("BETA184_SPEED",&value,sizeof(value),0))return 0;ascent_fast_setting=value;return 1;}
 int ascent_debug(void){return ascent_account.debug!=0;}
 int ascent_set_debug(int enabled){unsigned old=ascent_account.debug;ascent_account.debug=!!enabled;if(ascent_commit_account())return 1;ascent_account.debug=old;return 0;}
 static void ascent_slot_info(int slot,const Game*g,unsigned gen){
@@ -87,20 +87,20 @@ static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generat
 }
 /* A durable death receipt blocks both alternating snapshots before unlinking.
    A surviving old generation can therefore never revive a dead run. */
-static unsigned ascent_dead_id(int slot){char stem[40];unsigned id=0,gen;snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%d",slot+1);if(!ascent_read(stem,0,&id,sizeof(id),&gen))return 0;return id;}
+static unsigned ascent_dead_id(int slot){char stem[40];unsigned id=0,gen;snprintf(stem,sizeof(stem),"BETA184_DEAD_%d",slot+1);if(!ascent_read(stem,0,&id,sizeof(id),&gen))return 0;return id;}
 int ascent_forget(Game*g){
  if(!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS)return 0;
  unsigned slot=g->ascent.slot,id=g->ascent.id;char stem[40],path[320];
- snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%u",slot+1);
+ snprintf(stem,sizeof(stem),"BETA184_DEAD_%u",slot+1);
  if(!ascent_write(stem,&id,sizeof(id),0))return 0;
- snprintf(stem,sizeof(stem),"ASCENT18_RUN_%u",slot+1);
+ snprintf(stem,sizeof(stem),"BETA184_RUN_%u",slot+1);
  for(int side=0;side<2;side++)if(ascent_path(path,sizeof(path),stem,side))remove(path);
  memset(&ascent_slots[slot],0,sizeof(ascent_slots[slot]));
  int any=0;for(int i=0;i<ASCENT_SLOTS;i++)any|=ascent_slots[i].present;game_set_resume_available(any);return 1;
 }
 int ascent_resume(Game*g,int slot){
  if(slot<0||slot>=ASCENT_SLOTS)return 0;
- char stem[40];snprintf(stem,sizeof(stem),"ASCENT18_RUN_%d",slot+1);
+ char stem[40];snprintf(stem,sizeof(stem),"BETA184_RUN_%d",slot+1);
  Game a,b;unsigned ga=0,gb=0;int va=ascent_read_run(stem,0,&a,&ga),vb=ascent_read_run(stem,1,&b,&gb);
  unsigned dead=ascent_dead_id(slot);
  if(va&&(a.screen==DEFEAT||a.hp<=0)){dead=MAX(dead,a.ascent.id);ascent_forget(&a);}
@@ -116,7 +116,7 @@ int ascent_checkpoint(Game*g){
  if(g->screen==DEFEAT||g->hp<=0)return ascent_forget(g);
  if(!ascent_ready||!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS||!game_validate(g))return 0;
  char stem[40];unsigned slot=g->ascent.slot,gen=ascent_slots[slot].generation+1;
- snprintf(stem,sizeof(stem),"ASCENT18_RUN_%u",slot+1);
+ snprintf(stem,sizeof(stem),"BETA184_RUN_%u",slot+1);
  if(!ascent_write(stem,g,sizeof(*g),gen))return 0;
  Game verify;unsigned vg;
  if(!ascent_read(stem,gen&1,&verify,sizeof(verify),&vg)||vg!=gen||memcmp(&verify,g,sizeof(*g)))return 0;
@@ -126,16 +126,16 @@ int ascent_open(const char*root){
  if(!root||strlen(root)>=sizeof(ascent_root))return 0;
  snprintf(ascent_root,sizeof(ascent_root),"%s",root);
  AscentAccount a,b;unsigned ga=0,gb=0;
- int va=ascent_read("ASCENT18_ACCOUNT",0,&a,sizeof(a),&ga),vb=ascent_read("ASCENT18_ACCOUNT",1,&b,sizeof(b),&gb);
+ int va=ascent_read("BETA184_ACCOUNT",0,&a,sizeof(a),&ga),vb=ascent_read("BETA184_ACCOUNT",1,&b,sizeof(b),&gb);
  va=va&&ascent_account_valid(&a);vb=vb&&ascent_account_valid(&b);
  memset(&ascent_account,0,sizeof(ascent_account));
  if(va||vb){ascent_account=vb&&(!va||gb>ga)?b:a;ascent_account.generation=vb&&(!va||gb>ga)?gb:ga;}
  else {ascent_account.magic=0x52413841u;ascent_account.version=1;ascent_account.next_run=1;}
- ascent_ready=1;ascent_fast_setting=0;{unsigned gen;ascent_read("ASCENT18_SPEED",0,&ascent_fast_setting,sizeof(ascent_fast_setting),&gen);if(ascent_fast_setting>1)ascent_fast_setting=0;}memset(ascent_slots,0,sizeof(ascent_slots));
+ ascent_ready=1;ascent_fast_setting=0;{unsigned gen;ascent_read("BETA184_SPEED",0,&ascent_fast_setting,sizeof(ascent_fast_setting),&gen);if(ascent_fast_setting>1)ascent_fast_setting=0;}memset(ascent_slots,0,sizeof(ascent_slots));
  for(int i=0;i<ASCENT_SLOTS;i++){Game saved;ascent_resume(&saved,i);}
  /* Import the stable single-save prefix once. The old SAVE.DAT is untouched. */
  if(!va&&!vb&&!ascent_slots[0].present){
-  char path[320];Game oldrun;snprintf(path,sizeof(path),"%s/SAVE.DAT",ascent_root);
+  char path[320];Game oldrun;snprintf(path,sizeof(path),"%s/BETA_SAVE.DAT",ascent_root);
   if(game_load(&oldrun,path)&&oldrun.screen!=TITLE&&oldrun.screen!=DEFEAT){
    oldrun.ascent.id=ascent_account.next_run++;oldrun.ascent.slot=0;
    for(int i=0;i<2;i++)oldrun.ascent.unlocked_cards[i]=oldrun.ascent.unlocked_potions[i]=-1;
