@@ -24,6 +24,7 @@ int game_inventory_action(Game*g,int key,int*open,int*tab,int*scroll,int*potion)
   return 1;
  }
  if(*tab==3&&g->potion_count>0&&(key==BTN_OK||key==BTN_POTION)){
+  if(!game_inventory_can_change(g))return 1;
   int count=g->potion_count,in_combat=g->screen==COMBAT;
   if(key==BTN_POTION)game_discard_potion(g,*potion);else game_use_potion(g,*potion);
   *potion=MAX(0,MIN(g->potion_count-1,*potion));

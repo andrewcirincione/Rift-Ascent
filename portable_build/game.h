@@ -341,6 +341,7 @@ int game_enemy_status_count(const Game *g,int enemy);
 void game_enemy_status_line(const Game *g,int enemy,int index,char *out,int cap);
 void game_use_potion(Game*g,int index);
 int game_inventory_available(const Game*g);
+int game_inventory_can_change(const Game*g);
 int game_inventory_action(Game*,int,int*,int*,int*,int*);
 void game_discard_potion(Game*g,int index);
 /* Transient presentation events. Never serialized or emitted by previews. */

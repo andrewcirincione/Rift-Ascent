@@ -401,7 +401,7 @@ static int run_game(SceSize bytes,void *argp) {
         key=game_render_story_input(&game,key,presentation_tick);
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
-        if(game.screen==PAUSE_MENU && key==BTN_OK && game_pause_selection()==0) {
+        if(game.screen==PAUSE_MENU && !inspect_open && key==BTN_OK && game_pause_selection()==0) {
             if(save_and_quit(presentation_tick))pending_card_ticks=0;
             key=0;
         }
@@ -551,7 +551,7 @@ int _start(SceSize args,void *argp) {
     ascent_launch_path(args,argp);
     boot_trace_reset();
     boot_trace("PSP module start",1);
-    boot_trace("build revision",18503);
+    boot_trace("build revision",18504);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
                                   RIFT_GAME_STACK_BYTES,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);

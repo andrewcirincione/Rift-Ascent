@@ -1,0 +1,18 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE gift
+SHOT forge-selected-0
+SHOT forge-deck-0
+SHOT forge-inventory-0
+SHOT forge-selected-1
+SHOT forge-deck-1
+SHOT forge-inventory-1
+SHOT forge-selected-2
+SHOT forge-deck-2
+SHOT forge-inventory-2
+SHOT forge-resumed-selection
+FIXTURE gift
+FIXTURE triple-0
+SHOT release-combat
+PASS final release EBOOT: all three raised Forge focus states; deck and inventory overlay access from each choice and card picker with byte-identical return state; directional wrapping; exact preview selection; cancel and save/resume focus; upgrade; Echo cancellation and exact cost; third-enemy combat; full soundtrack; zero asset errors or memory faults
+SHA256 b07f96bfe4d65ddc55b6a03979c08bcc337e72ab15dfb7753c71e90a3db737d4

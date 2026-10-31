@@ -1332,7 +1332,7 @@ static void card_choice_screen(const Game*g){
   if(pending==23&&game_card_is_upgradeable(c))c|=UPBIT;
   r162_side_preview(c,70);
  }
- footer("X CONFIRM  SELECT SAVE & QUIT");
+ footer("X CONFIRM  SQ DECK  START INVENTORY  SELECT SAVE");
 }
 static void deck_screen(const Game*g){
  if(g->prior_screen==COMBAT){battle_piles_screen(g);return;}
@@ -1470,7 +1470,7 @@ static void inspector(const Game*g){
    }
    if(g->deck_count)r162_side_preview(g->deck[pick],76);
  }
- footer(overlay_page==3?"L/R TABS  X USE  TRI DISCARD  START CLOSE":overlay_page==5?
+ footer(overlay_page==3?(game_inventory_can_change(g)?"L/R TABS  X USE  TRI DISCARD  START CLOSE":"L/R TABS  VIEW ONLY  O CLOSE"):overlay_page==5?
         "L/R TABS   START CLOSE":"L/R TABS  START CLOSE");
 
 }

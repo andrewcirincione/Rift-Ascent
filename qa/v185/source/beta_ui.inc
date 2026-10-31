@@ -6,15 +6,26 @@ static void beta_forge_screen(const Game*g){
   const char*titles[]={"HONE / UPGRADE ONE CARD","TEMPER / MODIFY ONE CARD","BLOOD ETCH / ECHO ONE ATTACK"};
   for(int c=0;c<3;c++){
    int eligible=0;for(int i=0;i<g->deck_count;i++)eligible+=game_beta_eligible(g,c,g->deck[i]);
-   int y=42+c*66;gilded_panel(24,y,432,59,g->selection==c);
-   r134_text(38,y+9,titles[c],eligible?GOLD:MUTED,&r134_f10);
+   int selected=g->selection==c;
+   int x=selected?20:26,y=44+c*66-(selected?3:0),w=selected?440:428,h=selected?61:57;
+   /* Raised focus: independent shape, depth and text cues at native PSP size. */
+   if(selected)dark_rect(x+4,y+5,w,h,190);
+   gilded_panel(x,y,w,h,selected);
+   if(selected){
+    rect(x+10,y+8,w-20,h-16,RGB(63,47,27));
+    border(x+5,y+4,w-10,h-8,RGB(255,222,151));
+    border(x+6,y+5,w-12,h-10,RGB(172,121,53));
+    r134_blit(x+12,y+20,16,13,r1310_arrow,36,28,255);
+    r134_text(x+w-72,y+10,"SELECTED",RGB(255,236,194),&r134_f8);
+   }else dark_rect(x+3,y+3,w-6,h-6,45);
+   r134_text(x+35,y+9,titles[c],selected?RGB(255,244,220):eligible?WHITE:MUTED,&r134_f10);
    char detail[200];
    if(c==0)snprintf(detail,sizeof(detail),"Upgrade any eligible card. No Gold or health cost.");
    else if(c==1)snprintf(detail,sizeof(detail),"%s No Gold or health cost.",game_mod_description(game_beta_modifier(g,c)));
    else snprintf(detail,sizeof(detail),"Lose 4 maximum HP. Echo costs +1 Energy; plays twice.");
-   r134_wrap(38,y+26,399,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?WHITE:MUTED,&r134_f9,0);
+   r134_wrap(x+35,y+27,w-51,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?(selected?WHITE:MUTED):MUTED,&r134_f9,0);
   }
-  footer("X CHOOSE  O BACK");return;
+  footer("X CHOOSE  O BACK  SQ DECK  START INVENTORY");return;
  }
  int page=g->selection/6*6;
  for(int i=page;i<g->deck_count&&i<page+6;i++){
@@ -24,7 +35,7 @@ static void beta_forge_screen(const Game*g){
  }
  r134_text(27,39,g->effect_turn==2?"CONFIRM COST: 4 MAX HP":"CHOOSE A CARD / RESULT PREVIEW",GOLD,&r134_f9);
  r162_side_preview(game_beta_preview(g,g->effect_turn,g->deck[g->selection]),65);
- footer("X CONFIRM  O BACK  SELECT SAVE & QUIT");
+ footer("X CONFIRM  O BACK  SQ DECK  START INVENTORY  SELECT SAVE");
 }
 static void end_screen(const Game*g){
  header(g,g->screen==VICTORY?"RUN RECAP / ASCENT COMPLETE":"RUN RECAP / DEFEAT");

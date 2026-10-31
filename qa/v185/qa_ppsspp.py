@@ -169,6 +169,37 @@ async def check(w):
  if os.environ.get('RIFT_BOOT_ONLY')=='1':
   start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
  fast_frame_ready=True
+ if os.environ.get('RIFT_FORGE_ONLY')=='1':
+  await fixture('gift');await button('cross');assert await screen()==screens['BETA_FORGE']
+  for selected in range(3):
+   assert field(await state(),'selection')==selected
+   await shot('forge-selected-'+str(selected))
+   before=await state();await button('square');assert await val('inspect_open')==1 and await val('inspect_tab')==5
+   await shot('forge-deck-'+str(selected));await button('down');await button('circle');assert await val('inspect_open')==0 and await state()==before
+   await button('start');assert await val('inspect_open')==1;await button('r');await shot('forge-inventory-'+str(selected));await button('circle');assert await state()==before
+   await button('cross');assert await screen()==screens['BETA_FORGE_CARD']
+   before=await state();await button('square');assert await val('inspect_open')==1 and await val('inspect_tab')==5;await button('circle');assert await state()==before
+   await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==selected
+   await button('down')
+  assert field(await state(),'selection')==0
+  await button('up');assert field(await state(),'selection')==2
+  await button('right');assert field(await state(),'selection')==0
+  await button('select');assert await screen()==screens['PAUSE_MENU'];await button('square');assert await val('inspect_open')==1
+  await button('cross');assert await screen()==screens['PAUSE_MENU'] and await val('inspect_open')==1
+  await shot('paused-deck');await button('circle');await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==0
+  await button('cross');await button('select');await button('cross');assert await screen()==screens['TITLE']
+  await button('cross');await button('cross');assert await screen()==screens['BETA_FORGE_CARD']
+  await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==0
+  await shot('forge-resumed-selection');await button('cross');await button('cross');assert await screen()==screens['MAP']
+  await fixture('gift');hp=field(await state(),'maxhp');await button('cross');await button('up');await button('cross');await button('circle');assert field(await state(),'maxhp')==hp
+  await button('cross');await button('cross');assert await screen()==screens['MAP'] and field(await state(),'maxhp')==hp-4
+  await fixture('triple-0');await shot('release-combat');raw=await state();hp3=struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]
+  await button('cross');raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]<hp3
+  assert await val('rift_asset_errors')==0
+  assert 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: all three raised Forge focus states; deck and inventory overlay access from each choice and card picker with byte-identical return state; directional wrapping; exact preview selection; cancel and save/resume focus; upgrade; Echo cancellation and exact cost; third-enemy combat; full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
  for c in range(3):
   await fixture('triple-'+str(c));await shot('triple-'+str(c)+'-target3')
   raw=await state();assert field(raw,'enemy_count')==3

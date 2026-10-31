@@ -2110,13 +2110,36 @@ static void rest_pick(Game*g,int option){
  }
 }
 int game_inventory_available(const Game*g){
- switch(g->screen){case COMBAT:case MAP:case SHOP:case REST:case EVENT:case EVENT_CARD:case EVENT_RESULT:case REWARD:case BOSS_REWARD:case REWARD_PREVIEW:case RELIC_RESULT:case DECK_VIEW:case POTION_VIEW:case RELIC_VIEW:case BLESSING:return 1;default:return 0;}
+ int screen=g->screen;
+ if(screen==PAUSE_MENU)screen=game_pause_source();
+ if(screen==HELP)screen=g->prior_screen;
+ /* Every in-run decision and result can be inspected. Story scenes and
+    front-end setup have no overlay; its cursor never replaces menu state. */
+ switch(screen){
+ case COMBAT:case MAP:case SHOP:case REST:case EVENT:case EVENT_CARD:case EVENT_RESULT:
+ case REWARD:case BOSS_REWARD:case REWARD_PREVIEW:case RELIC_RESULT:case BLESSING:
+ case DECK_VIEW:case POTION_VIEW:case RELIC_VIEW:case CARD_CHOICE:case NINJA_CHOICE:case REGENT_CHOICE:
+ case EXPEDITION_GIFT:case MYSTERY_CARDS:case BETA_FORGE:case BETA_FORGE_CARD:
+ case VICTORY:case DEFEAT:case ASCENT_CARDS:case ASCENT_POTIONS:case ASCENT_RELIC:case ASCENT_SAVE_ERROR:return 1;
+ default:return 0;
+ }
+}
+int game_inventory_can_change(const Game*g){
+ if(!game_inventory_available(g))return 0;
+ /* Inspection must not consume/discard items during an unresolved card
+    effect, paused game or completed run. Between-room choices remain usable. */
+ switch(g->screen){case CARD_CHOICE:case NINJA_CHOICE:case REGENT_CHOICE:case PAUSE_MENU:case HELP:
+ case VICTORY:case DEFEAT:case ASCENT_CARDS:case ASCENT_POTIONS:case ASCENT_RELIC:case ASCENT_SAVE_ERROR:return 0;
+ case DECK_VIEW:return g->prior_screen!=COMBAT;
+ default:return 1;
+ }
 }
 void game_discard_potion(Game*g,int index){
- if(!game_inventory_available(g)||index<0||index>=g->potion_count)return;
+ if(!game_inventory_can_change(g)||index<0||index>=g->potion_count)return;
  for(int i=index;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;msg(g,"Potion discarded.");
 }
 void game_use_potion(Game*g,int index){
+ if(!game_inventory_can_change(g))return;
  int combat=g->screen==COMBAT;
  int outside=game_inventory_available(g)&&!combat;
  if((!combat&&!outside)||g->potion_count<=0)return;
