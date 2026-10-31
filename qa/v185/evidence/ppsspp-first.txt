@@ -1,0 +1,44 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE triple-0
+SHOT triple-0-target3
+SHOT triple-0-target2
+SHOT triple-0-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 312, 'r137_start': 308, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 2, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 324, 'r137_start': 308, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-0-after-turn
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 440, 'r137_start': 384, 'r1311_kill_at': 0, 'r137_duration': 0, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 13, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+FIXTURE triple-1
+SHOT triple-1-target3
+SHOT triple-1-target2
+SHOT triple-1-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 760, 'r137_start': 744, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 776, 'r137_start': 744, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-1-after-turn
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 880, 'r137_start': 820, 'r1311_kill_at': 0, 'r137_duration': 0, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 13, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+FIXTURE triple-2
+SHOT triple-2-target3
+SHOT triple-2-target2
+SHOT triple-2-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1200, 'r137_start': 1180, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-2-after-turn
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 1316, 'r137_start': 1256, 'r1311_kill_at': 0, 'r137_duration': 0, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 13, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume
+FIXTURE reward
+SHOT spoils-no-forge
+FIXTURE story
+SHOT story
+SHOT story-gift
+SHOT forge-menu
+SHOT forge-upgrade-preview
+WAIT settle {'r161_transition_active': 1, 'r1311_finishing': 0, 'animation_tick': 1852, 'r137_start': 1256, 'r1311_kill_at': 0, 'r137_duration': 0, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 13, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT forge-upgrade-complete
+PASS story Forge upgrade, preview, save/quit/resume and return to map
+FIXTURE gift
+SHOT forge-echo-preview
+SHOT forge-echo-complete
+PASS Echo cancellation and exact confirmed 4 max HP cost; no second gift
+FIXTURE triple-0
+SHOT release-combat
+PASS final release EBOOT: triple targeting/inspection/enemy turns/save-resume for all characters; reward without Forge; story Forge upgrade/Echo/cancel/save-resume; zero streamed-art errors or memory faults
+SHA256 887693c90cd93e34a95802e3348b7d4e4ca2fe215b9449bfa9c93a8891a46ceb

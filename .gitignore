@@ -211,3 +211,10 @@ qa/v184beta1/.*
 qa/v184beta1/**/.*
 
 versions/1.8.4-beta.1/.*
+
+qa/v185/assets.bin
+qa/v185/soundtrack.bank
+qa/v185/evidence/*.bin
+qa/v185/evidence/*.log
+qa/v185/evidence/*.pcm
+qa/v185/source/*.SFO

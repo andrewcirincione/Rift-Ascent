@@ -1,0 +1,87 @@
+Rift Ascent 1.8.5 final release validation
+
+
+revision185.txt
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; elites/bosses single.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at story gifts, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.
+
+
+beta.txt
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.
+
+
+cards_three.txt
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.
+
+
+afterimage.txt
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.
+
+
+final-unlocked.txt
+Campaigns 900; wins 278 (30.9%); policy stalls 0
+
+
+final-fresh.txt
+Campaigns 300; wins 82 (27.3%); policy stalls 0
+
+
+native.txt
+PASS every artwork byte, all twelve complete encoded music streams, footer and splash assets remain identical to v1.8.4-r2.
+Bytes 98413315
+SHA256 dd0fb61a40f496e7328bf489399c100c76cedad056ea66b2d775480c73198ce6
+
+
+ppsspp-final.txt
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE triple-0
+SHOT triple-0-target3
+SHOT triple-0-hit3
+SHOT triple-0-target2
+SHOT triple-0-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 268, 'r137_start': 244, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-0-after-turn
+FIXTURE triple-1
+SHOT triple-1-target3
+SHOT triple-1-hit3
+SHOT triple-1-target2
+SHOT triple-1-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 608, 'r137_start': 584, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-1-after-turn
+FIXTURE triple-2
+SHOT triple-2-target3
+SHOT triple-2-hit3
+SHOT triple-2-target2
+SHOT triple-2-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 952, 'r137_start': 924, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-2-after-turn
+PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume
+FIXTURE reward
+SHOT spoils-no-forge
+FIXTURE story
+SHOT story
+SHOT story-gift
+SHOT forge-menu
+SHOT forge-upgrade-preview
+SHOT forge-upgrade-complete
+PASS story Forge upgrade, preview, save/quit/resume and return to map
+FIXTURE gift
+SHOT forge-echo-preview
+SHOT forge-echo-complete
+PASS Echo cancellation and exact confirmed 4 max HP cost; no second gift
+FIXTURE triple-0
+SHOT release-combat
+PASS final release EBOOT: triple targeting/inspection/enemy turns/save-resume for all characters; reward without Forge; story Forge upgrade/Echo/cancel/save-resume; zero streamed-art errors or memory faults
+SHA256 dd0fb61a40f496e7328bf489399c100c76cedad056ea66b2d775480c73198ce6
+

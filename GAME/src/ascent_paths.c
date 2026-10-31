@@ -1,7 +1,7 @@
 #include "ascent_paths.h"
 #include <string.h>
-static char executable[320]="ms0:/PSP/GAME/RIFTASCENT_BETA/EBOOT.PBP";
-static char directory[320]="ms0:/PSP/GAME/RIFTASCENT_BETA";
+static char executable[320]="ms0:/PSP/GAME/RIFTASCENT/EBOOT.PBP";
+static char directory[320]="ms0:/PSP/GAME/RIFTASCENT";
 void ascent_launch_path(unsigned bytes,const void*args){
  const char*s=args;unsigned len=0,slash=0;
  if(!s||!bytes)return;

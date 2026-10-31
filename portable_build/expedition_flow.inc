@@ -1,10 +1,10 @@
-/* One 1% story roll after a completed non-boss map room and its spoils. */
+/* One 5% story roll after a completed non-boss map room and its spoils. */
 static int expedition_relic(Game*g){
  int id=random_relic(g);return id>=0?id:37+rnd(g,3);
 }
 static void expedition_roll(Game*g){
  if(preview_trace||g->revision182.room_type==NODE_BOSS||g->expedition.story_pending)return;
- if(rnd(g,100)!=0)return;
+ if(rnd(g,100)>=5)return;
  unsigned seen=g->expedition.story_seen;if(seen==0xfffffu)seen=0;
  int pool[20],n=0;for(int i=0;i<20;i++)if(!(seen&(1u<<i)))pool[n++]=i;
  int id=pool[rnd(g,n)];g->expedition.story_seen=seen|(1u<<id);
@@ -72,8 +72,10 @@ static int expedition_action(Game*g,int b){
  case EXPEDITION_STORY:
   if(b==BTN_OK&&++g->selection>=3){g->selection=0;g->screen=EXPEDITION_GIFT;}return 1;
  case EXPEDITION_GIFT:
-  if(b==BTN_LEFT||b==BTN_RIGHT)g->selection=1-g->selection;
+  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+(game_beta_offer(g)?2:1))%(game_beta_offer(g)?3:2);
+  else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%(game_beta_offer(g)?3:2);
   else if(b==BTN_OK||b==BTN_BACK){
+   if(b==BTN_OK&&g->selection==2&&game_beta_offer(g)){g->screen=BETA_FORGE;g->selection=0;return 1;}
    if(b==BTN_OK&&g->selection==0){if(g->expedition.gift_kind)add_relic(g,g->expedition.gift);else{if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Leave this gift.");return 1;}add_card(g,g->expedition.gift);}}
    enter_map(g);msg(g,"The encounter passes into memory.");
   }return 1;

@@ -144,7 +144,7 @@ static void ninja_effect(Game*g,NinjaTask t){
  case N_DEADLY_POISON:ninja_poison(g,e,5+2*up);break;
  case N_DEFEND_SILENT:case N_DEFLECT:case N_UNTOUCHABLE:case N_MIRAGE:card_block(g,block);break;
  case N_DODGE_AND_ROLL:card_block(g,block);g->ninja.v[NS_NEXT_BLOCK]+=block+(CARD_MOD(raw)==MOD_WARD?4:0);break;
- case N_ECHOING_SLASH:{int pending=1;for(int i=0;i<MAX_ENEMIES+1&&pending>0;i++){pending--;int before[2];for(int q=0;q<g->enemy_count;q++)before[q]=g->enemies[q].hp;all_damage(g,dmg);for(int q=0;q<g->enemy_count;q++)if(before[q]>0&&g->enemies[q].hp<=0)pending++;}break;}
+ case N_ECHOING_SLASH:{int pending=1;for(int i=0;i<MAX_ENEMIES+1&&pending>0;i++){pending--;int before[MAX_ENEMIES];for(int q=0;q<g->enemy_count;q++)before[q]=g->enemies[q].hp;all_damage(g,dmg);for(int q=0;q<g->enemy_count;q++)if(before[q]>0&&g->enemies[q].hp<=0)pending++;}break;}
  case N_ENVENOM:NP(NS_ENVENOM,1+up);break;
  case N_ESCAPE_PLAN:g->ninja.v[NS_LAST_DRAW]=0;draw_card(g);if(preview_trace)preview_trace->uncertain=1;if(g->ninja.v[NS_LAST_DRAW]&&cards[CARD_ID(g->ninja.v[NS_LAST_DRAW]-1)].type==1)card_block(g,block);break;
  case N_EXPERTISE:ND(MAX(0,6+up-g->hand_count));break;
@@ -169,7 +169,7 @@ static void ninja_effect(Game*g,NinjaTask t){
  case N_NOXIOUS_FUMES:NP(NS_FUMES,2+up);break;
  case N_OUTBREAK:NP(NS_OUTBREAK,11+4*up);break;
  case N_PHANTOM_BLADES:NP(NS_PHANTOM,9+3*up);break;
- case N_PIERCING_WAIL:for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].hp>0){g->enemies[i].strength-=6+2*up;g->ic[IC_MANGLE0+i]+=6+2*up;record_combat_fx(GFX_STATUS,-1,i,8,0);}break;
+ case N_PIERCING_WAIL:for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].hp>0){g->enemies[i].strength-=6+2*up;(*MANGLE_SLOT(g,i))+=6+2*up;record_combat_fx(GFX_STATUS,-1,i,8,0);}break;
  case N_POISONED_STAB:deal(g,e,dmg);ninja_poison(g,e,3+up);break;
  case N_POUNCE:deal(g,e,dmg);g->ninja.v[NS_POUNCE]=1;break;
  case N_PREDATOR:deal(g,e,dmg);g->ninja.v[NS_NEXT_DRAW]+=2;break;
@@ -185,7 +185,7 @@ static void ninja_effect(Game*g,NinjaTask t){
  case N_SNAKEBITE:ninja_poison(g,e,7+3*up);break;
  case N_SPEEDSTER:NP(NS_SPEEDSTER,2);break;
  case N_STORM_OF_STEEL:ninja_push(g,NT_DISCARD_ALL,raw,e,2,up,depth);break;
- case N_STRANGLE:deal(g,e,dmg);if(e>=0&&g->enemies[e].hp>0)g->ninja.v[NS_STRANGLE0+e]+=2+up;break;
+ case N_STRANGLE:deal(g,e,dmg);if(e>=0&&g->enemies[e].hp>0)(*STRANGLE_SLOT(g,e))+=2+up;break;
  case N_SURVIVOR:card_block(g,block);DISC(1);break;
  case N_TACTICIAN:gain_energy(g,1+up);break;
  case N_THE_HUNT:{int before=e>=0?g->enemies[e].hp:0;deal(g,e,dmg);if(before>0&&g->enemies[e].hp<=0)g->ninja.v[NS_BONUS_REWARDS]++;break;}
@@ -221,7 +221,7 @@ static void ninja_finish(Game*g,NinjaTask t){
  int after=t.n,serpent=t.aux;
  if(after)relic_block(g,after);
  if(serpent)ninja_proc(g,random_living_foe(g),serpent,0);
- for(int e=0;e<g->enemy_count;e++)if(g->ninja.v[NS_STRANGLE0+e]){int amount=g->ninja.v[NS_STRANGLE0+e]-(id==N_STRANGLE&&e==t.target?2+CARD_UP(raw):0);ninja_proc(g,e,amount,1);}
+ for(int e=0;e<g->enemy_count;e++)if((*STRANGLE_SLOT(g,e))){int amount=(*STRANGLE_SLOT(g,e))-(id==N_STRANGLE&&e==t.target?2+CARD_UP(raw):0);ninja_proc(g,e,amount,1);}
  g->selection=CLAMP(g->selection,0,MAX(0,g->hand_count-1));
 }
 static int ninja_can_play(const Game*g,int raw){int id=CARD_ID(raw);return id!=N_FLANKING&&id!=N_SNEAKY&&(id!=N_GRAND_FINALE||g->draw_count==0);}

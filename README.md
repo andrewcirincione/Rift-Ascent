@@ -1,17 +1,9 @@
-# Rift Ascent for PSP — 1.8.4 Beta 1
+# Rift Ascent PSP
 
-**[Download this beta](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.4-beta.1)**
+Latest stable: [Rift Ascent 1.8.5](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.5).
 
-This branch contains the experimental **v1.8.4-beta.1** build based on stable v1.8.4-r4. It adds deliberate elite/boss patterns, late-run forge rewards and a browsable run recap. Stable main remains unchanged.
+Install the PSP ZIP or replace `PSP/GAME/RIFTASCENT/EBOOT.PBP`, retaining all save/account files.
 
-Install the beta ZIP alongside stable in `PSP/GAME/RIFTASCENT_BETA`. It uses separate `BETA184_*` saves/account/settings and `BETA_PROFILE.DAT`. For the standalone binary, rename it `EBOOT.PBP` and use the same beta folder.
+Version 1.8.5 adds easier combat, balanced triple-enemy encounters, and story-event Forge choices. See [patch notes](versions/1.8.5/PATCH_NOTES.md) and [implementation, build and validation details](qa/v185/README.md).
 
-- [Beta patch notes](versions/1.8.4-beta.1/PATCH_NOTES.md)
-- [Build and validation](qa/v184beta1/README.md)
-- Canonical source: `qa/v184beta1/source`
-- Complete tested binary: `versions/1.8.4-beta.1/EBOOT.PBP`
-- Branch: `beta/1.8.4-b1`; GitHub prerelease, not latest stable.
-
-## Publishing
-
-The beta workflow validates the exact tested EBOOT, packages source and the PSP install ZIP, verifies uploaded digests, and publishes a prerelease with latest=false. Changes stay on this beta branch until explicitly approved for stable.
+Canonical source: `qa/v185/source`, recorded in `release/current.json`. The complete soundtrack and generated artwork are included in every release.

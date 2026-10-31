@@ -1,0 +1,36 @@
+PASS all artwork and twelve complete encoded music tracks preserved from v1.8.4-r2
+make: Entering directory '/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185/source'
+make: Nothing to be done for 'all'.
+make: Leaving directory '/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185/source'
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v115/import_114_art.py:40: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for rr,gg,bb,aa in art.getdata():
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v115/import_114_art.py:63: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for px in im.getdata():
+PATCH: v1.1.7 knight in great helm, 210x127, no chibi profile
+PASS: PBP splash/title/hero replaced entirely from approved v118 source art
+MATCH ra_title_bg full-length candidates [5501984]
+ART REUSE: ra_title_bg offset= 5501984 length= 261120
+MATCH rift_hero full-length candidates [5791264]
+ART REUSE: rift_hero offset= 5791264 length= 53340
+PASS: new PSP executable uses exact v1.1.4 title, hero and XMB assets
+PASS PSP first-load module-info locator: 0x8804000 -> ELF file offset 0x50f70
+qa/v185/source/EBOOT.PBP
+  ThreadManForUser 0x40090000 NIDs 0x446d8de6, 0xf475845d, 0xceadeb47
+  LoadExecForUser 0x40090000 NIDs 0x05572a5f
+  IoFileMgrForUser 0x40090000 NIDs 0x109f50bc, 0x6a638d83, 0x42ec03ac, 0x810c4bc3, 0x68963324, 0xf27a9c51
+  ThreadManForUser 0x40090000 NIDs 0xe81caf8f, 0x82826f70, 0x369ed59d
+  LoadExecForUser 0x40090000 NIDs 0x4ac57943
+  sceDisplay 0x40090000 NIDs 0x0e20f177, 0x289d82fe, 0x984c27e7
+  sceGe_user 0x40090000 NIDs 0x1f6752ad, 0xe47e40e4
+  sceCtrl 0x40090000 NIDs 0x6a2774f3, 0x1f4011e6, 0x3a622550
+  sceAudio 0x40090000 NIDs 0x136caf51, 0x5ec81c55, 0x6fc46853
+PASS: no kernel-only import libraries
+PBP/ELF structural checks PASS (not a PSP runtime test)
+size: 7713184
+elf_size: 6933024
+segments: 2
+static_memory: 11691200
+resident_span: 11691456
+conservative_startup_bytes: 18624480
+sha256: 27d737c145a072d4a28b95e46cbd62eff795b7ec96a64b93f3cb813803894850
+98411539 887693c90cd93e34a95802e3348b7d4e4ca2fe215b9449bfa9c93a8891a46ceb

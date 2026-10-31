@@ -1,0 +1,41 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE triple-0
+SHOT triple-0-target3
+SHOT triple-0-hit3
+SHOT triple-0-target2
+SHOT triple-0-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 268, 'r137_start': 244, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-0-after-turn
+FIXTURE triple-1
+SHOT triple-1-target3
+SHOT triple-1-hit3
+SHOT triple-1-target2
+SHOT triple-1-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 608, 'r137_start': 584, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-1-after-turn
+FIXTURE triple-2
+SHOT triple-2-target3
+SHOT triple-2-hit3
+SHOT triple-2-target2
+SHOT triple-2-inspection
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 952, 'r137_start': 924, 'r1311_kill_at': 0, 'r137_duration': 35, 'r137_count': 3, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT triple-2-after-turn
+PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume
+FIXTURE reward
+SHOT spoils-no-forge
+FIXTURE story
+SHOT story
+SHOT story-gift
+SHOT forge-menu
+SHOT forge-upgrade-preview
+SHOT forge-upgrade-complete
+PASS story Forge upgrade, preview, save/quit/resume and return to map
+FIXTURE gift
+SHOT forge-echo-preview
+SHOT forge-echo-complete
+PASS Echo cancellation and exact confirmed 4 max HP cost; no second gift
+FIXTURE triple-0
+SHOT release-combat
+PASS final release EBOOT: triple targeting/inspection/enemy turns/save-resume for all characters; reward without Forge; story Forge upgrade/Echo/cancel/save-resume; zero streamed-art errors or memory faults
+SHA256 dd0fb61a40f496e7328bf489399c100c76cedad056ea66b2d775480c73198ce6

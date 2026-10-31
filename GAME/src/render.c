@@ -86,7 +86,7 @@ static int enemy_windup;
 static const Game *card_combat_context;
 void game_render_set_enemy_windup(int ticks){enemy_windup=ticks;}
 
-static int fx_enemy_damage[2],fx_player_damage,fx_heal,fx_block,fx_target,fx_attack;
+static int fx_enemy_damage[MAX_ENEMIES],fx_player_damage,fx_heal,fx_block,fx_target,fx_attack;
 static Game victory_scene;
 static int victory_replay=0;
 static unsigned victory_tick=0;
@@ -199,7 +199,7 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  fx_heal=after->hp>before->hp?after->hp-before->hp:0;
  fx_block=after->block>before->block?after->block-before->block:0;
  fx_target=before->target;fx_attack=(action==BTN_OK && before->screen==COMBAT);
- for(int i=0;i<2;i++)
+ for(int i=0;i<MAX_ENEMIES;i++)
   fx_enemy_damage[i]=(i<before->enemy_count&&i<after->enemy_count &&
                        before->enemies[i].hp>after->enemies[i].hp)
                    ?before->enemies[i].hp-after->enemies[i].hp:0;
@@ -551,7 +551,7 @@ static void rift120_hp_meter(int x,int y,int w,int hp,int maxhp,int shield){
  if(shield>0){rift131_shield(x+w+3,y+2);snprintf(value,sizeof(value),"%d",shield);r1310_block_number(x+w+13,y+7,value);}
 }
 static void r138_player_meter(const Game*g){
- const int x=32,y=36;char value[24];
+ const int x=32,y=g->enemy_count==3?45:36;char value[24];
  rect(x+39,y+14,82,7,RGB(40,17,23));
  if(g->maxhp>0)rect(x+39,y+14,(int)(82LL*CLAMP(g->hp,0,g->maxhp)/g->maxhp),7,RGB(160,30,43));
  r134_blit(x,y,140,30,r138_player_hp,140,30,255);
@@ -703,7 +703,7 @@ static void r135_status_icons(const Game*g,int enemy,int x){
  int values[15]={0};r135_status_values(g,enemy,values);
  const uint32_t*icons[15]={r135_strength,r135_dexterity,r135_weak,r135_vulnerable,r135_poison,r135_energy_drain,r1311_plating,r150b_icons[9],r150b_icons[10],r150b_icons[11],r150b_icons[12],r150b_icons[13],r150b_icons[14],r150b_icons[15],r150b_icons[1]};
  if(enemy<0){values[7]=g->ninja.v[NS_THORNS];values[8]=g->ninja.v[NS_INTANGIBLE];values[9]=g->ninja.v[NS_SHADOW_NOW];values[10]=g->ninja.v[NS_SHADOWMELD];values[11]=g->ninja.v[NS_BLUR];values[12]=g->ninja.v[NS_BURST];values[13]=g->ninja.v[NS_POUNCE];values[14]=g->ninja.v[NS_CORROSIVE];}
- if(enemy>=0){values[11]=g->ninja.v[NS_STRANGLE0+enemy];icons[11]=r150b_icons[14];}
+ if(enemy>=0){values[11]=(*STRANGLE_SLOT(g,enemy));icons[11]=r150b_icons[14];}
  int count=0;for(int i=0;i<15;i++)count+=values[i]!=0;if(!count)return;
  int columns=(count+4)/5,rows=(count+columns-1)/columns,size=columns>1?17:20,step=rows>4?18:23,slot=0;
  for(int i=0;i<15;i++)if(values[i]){
@@ -900,15 +900,15 @@ static int rift133_hand_start(const Game*g){
 
 
 static int r134_playing(void){return (rift120_played_card>=0||rift120_auto_card>=0)&&animation_tick>=rift120_play_tick&&animation_tick-rift120_play_tick<38;}
-static int r134_enemy_x(const Game*g,int i){return g->enemy_count==1?356:(i?409:283);}
+static int r134_enemy_x(const Game*g,int i){return g->enemy_count==1?356:g->enemy_count==2?(i?409:283):258+i*82;}
 #include "combat_fx.inc"
 static void combat(const Game*g){
  card_combat_context=g;unsigned age=animation_tick>=fx_tick?animation_tick-fx_tick:999;
  r137_scene(g);
  if(fx_heal>0&&age<28){char number[24];snprintf(number,sizeof(number),"+%d",fx_heal);r135_shadow_text(98,108-(int)age/2,number,GREEN,&r134_f18b);}
  header(g,"");
- /* Both living enemies get a complete, fixed row; no scrolling or turn log. */
- rect(0,17,480,19,RGB(11,12,16));int row=0;
+ /* Every living enemy gets a complete intent row. */
+ rect(0,17,480,g->enemy_count==3?28:19,RGB(11,12,16));int row=0;
  for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].hp>0){
   char action[112],line[160];game_enemy_intent_text(g,i,action,sizeof(action));
   snprintf(line,sizeof(line),"%s: %s",g->enemies[i].name,action);
@@ -917,9 +917,11 @@ static void combat(const Game*g){
  r138_player_meter(g);
  r135_status_icons(g,-1,5);
  for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].hp>0){
-  const Enemy*e=&g->enemies[i];int ex=r134_enemy_x(g,i),w=g->enemy_count==1?112:88;
-  rift120_hp_meter(ex-w/2,36,w,e->hp,e->maxhp,e->block);rift116_draw_enemy_intent(g,i,ex);
-  r135_status_icons(g,i,MIN(456,ex+(g->enemy_count==1?60:49)));
+  const Enemy*e=&g->enemies[i];int ex=r134_enemy_x(g,i),w=g->enemy_count==1?112:g->enemy_count==2?88:70;
+  rift120_hp_meter(ex-w/2,g->enemy_count==3?45:36,w,e->hp,e->maxhp,g->enemy_count==3?0:e->block);
+  if(g->enemy_count==3&&e->block>0){char shield[16];snprintf(shield,sizeof(shield),"%d",e->block);rift131_shield(ex-10,82);r1310_block_number(ex,87,shield);}
+  rift116_draw_enemy_intent(g,i,ex);
+  r135_status_icons(g,i,MIN(456,ex+(g->enemy_count==1?60:g->enemy_count==2?49:36)));
  }
  /* Opaque native-resolution surface covers every pixel below the battlefield. */
  r134_blit(0,174,480,98,r134_hand_hud,480,98,255);
@@ -1058,8 +1060,7 @@ static void reward_screen(const Game*g){
   if(g->v151.potion_offer>=0)button(326,195,125,27,"TAKE POTION",g->selection==4);
   else r161_centered_text(329,197,119,23,"TAKEN",&r138_title9,MUTED);
  }
- if(game_beta_offer(g)){button(24,228,225,26,"FORGE INSTEAD OF CARD",g->selection==3);button(272,228,180,26,"LEAVE",g->selection>=5);}
- else button(166,228,148,26,"LEAVE",g->selection>=5);
+ button(166,228,148,26,"LEAVE",g->selection>=5);
  footer("X TAKE  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void boss_reward_screen(const Game*g){
@@ -1366,7 +1367,7 @@ static void title_screen(const Game*g){
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- r135_shadow_text(25,236,"RIFT ASCENT 1.8.4 BETA 1",MUTED,&r134_f8);
+ r135_shadow_text(25,236,"RIFT ASCENT 1.8.5",MUTED,&r134_f8);
 
  footer("X CONFIRM");
 }

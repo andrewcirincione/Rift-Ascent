@@ -1,0 +1,8 @@
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; elites/bosses single.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at story gifts, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.

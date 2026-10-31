@@ -47,9 +47,9 @@ static void regent_on_draw(Game*g,int raw){
 }
 static void regent_on_hit(Game*g,int e,int amount){
  (void)amount;if(!r140_attack_context||(g->character!=CHAR_REGENT&&!g->revision184.custom))return;g->regent.hit_count[e]=MIN(1000000,g->regent.hit_count[e]+1);
- int n=RP(g,R_MONARCHS_GAZE);if(n&&g->enemies[e].hp>0){g->enemies[e].strength-=n;g->ic[IC_MANGLE0+e]+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
+ int n=RP(g,R_MONARCHS_GAZE);if(n&&g->enemies[e].hp>0){g->enemies[e].strength-=n;(*MANGLE_SLOT(g,e))+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
 }
-static void regent_temp_weak(Game*g,int e,int n){if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)return;g->enemies[e].strength-=n;g->ic[IC_MANGLE0+e]+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
+static void regent_temp_weak(Game*g,int e,int n){if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)return;g->enemies[e].strength-=n;(*MANGLE_SLOT(g,e))+=n;record_combat_fx(GFX_STATUS,-1,e,1,0);}
 static int regent_base_damage(const Game*g,int raw){
  int id=CARD_ID(raw),up=CARD_UP(raw);if(id<REGENT_FIRST||id>=EXTRA_LAST)return 0;const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];int n=up?d->updamage:d->damage;
  if(id==R_SOVEREIGN_BLADE)n=10+g->regent.forge;

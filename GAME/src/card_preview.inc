@@ -37,7 +37,7 @@ void game_card_preview(const Game*g,int raw,int target,CardPreview*out){
  for(int c=0;c<choices;c++){
   CardPreview p;preview_once(g,raw,target,(id==22||id==87||id==N_RICOCHET||id==R_STARDUST||id==C_VOLLEY)?c:-1,&p);
   if(!c){*out=p;continue;}
-  for(int e=0;e<2;e++)if(p.hits[e]){
+  for(int e=0;e<MAX_ENEMIES;e++)if(p.hits[e]){
    if(!out->hits[e]||p.low[e]<out->low[e])out->low[e]=p.low[e];
    if(!out->hits[e]||p.high[e]>out->high[e])out->high[e]=p.high[e];
    out->hits[e]=MAX(out->hits[e],p.hits[e]);
@@ -129,8 +129,8 @@ static int enemy_status_entries(const Game*g,int enemy,int wanted,char*out,int c
  if(relic(g,NR_KRANE)){FOE_STATUS(e->weak,"Weak: %d turns (-40%% damage)");}else{FOE_STATUS(e->weak,"Weak: %d turns (-25%% damage)");}
  FOE_STATUS(e->vulnerable,"Vulnerable: %d turns (+50%% taken)");
  FOE_STATUS(e->poison,"Poison: %d HP on next trigger");
- FOE_STATUS(g->ninja.v[NS_STRANGLE0+enemy],"Strangle: lose %d HP per card this turn");
- FOE_STATUS(g->ic[IC_MANGLE0+enemy],"Mangle: restore %d STR next turn");
+ FOE_STATUS((*STRANGLE_SLOT(g,enemy)),"Strangle: lose %d HP per card this turn");
+ FOE_STATUS((*MANGLE_SLOT(g,enemy)),"Mangle: restore %d STR next turn");
 #undef FOE_STATUS
  return n;
 }

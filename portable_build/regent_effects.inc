@@ -77,7 +77,7 @@ static void regent_effect(Game*g,RegentTask t){
  case R_SOVEREIGN_BLADE:if(RP(g,R_PARRY))card_block(g,RP(g,R_PARRY));if(RP(g,R_SEEKING_EDGE))all_damage(g,damage);else deal(g,e,damage);break;
  case R_SPECTRUM_SHIFT:POWER(id,1);break;
  case R_SPOILS_OF_BATTLE:regent_forge(g,5+3*up);DRAW(2);break;
- case R_STARDUST:for(int i=0;i<MIN(999,t.aux)&&ninja_has_living(g);i++){int foe=preview_trace&&preview_choice>=0?preview_choice%g->enemy_count:random_living_foe(g);deal(g,foe,damage);}break;
+ case R_STARDUST:for(int i=0;i<MIN(999,t.aux)&&ninja_has_living(g);i++){int foe=preview_trace&&preview_choice>=0?preview_living_foe(g,preview_choice):random_living_foe(g);deal(g,foe,damage);}break;
  case R_SUMMON_FORTH:regent_recall(g,R_SOVEREIGN_BLADE);regent_forge(g,8+3*up);break;
  case R_SWORD_SAGE:POWER(id,1);break;
  case R_TERRAFORMING:g->regent.vigor+=6+2*up;break;
@@ -134,7 +134,7 @@ static void regent_effect(Game*g,RegentTask t){
  case C_THE_GAMBIT:card_block(g,block);g->regent.gambit=1;break;
  case C_THINKING_AHEAD:CHOOSE(RC_TOP,1);DRAW(2);break;
  case C_ULTIMATE_DEFEND:card_block(g,block+RP(g,C_FASTEN));break;
- case C_VOLLEY:for(int i=0;i<MIN(99,x)&&ninja_has_living(g);i++){int foe=preview_trace&&preview_choice>=0?preview_choice%g->enemy_count:random_living_foe(g);deal(g,foe,damage);}break;
+ case C_VOLLEY:for(int i=0;i<MIN(99,x)&&ninja_has_living(g);i++){int foe=preview_trace&&preview_choice>=0?preview_living_foe(g,preview_choice):random_living_foe(g);deal(g,foe,damage);}break;
  }
  if(id==R_ORBIT)POWER(id,1);
  if(cards[id].type==2)g->regent.played[id-REGENT_FIRST]++;

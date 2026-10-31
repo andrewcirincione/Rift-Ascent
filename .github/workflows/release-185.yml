@@ -1,0 +1,71 @@
+name: Build and publish tested 1.8.5
+on:
+  push:
+    branches: ['release/1.8.5']
+    paths: ['release/current.json', '.github/workflows/release-185.yml']
+permissions:
+  contents: write
+concurrency:
+  group: release-185
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned PSPDEV
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://github.com/pspdev/pspdev/releases/download/v20261001/pspdev-ubuntu-latest-x86_64.tar.gz -o "$RUNNER_TEMP/pspdev.tar.gz"
+          tar --no-same-owner -xzf "$RUNNER_TEMP/pspdev.tar.gz" -C "$RUNNER_TEMP"
+          python3 -m pip install Pillow
+      - name: Rebuild and match the exact playtested binary
+        env:
+          PSPDEV: ${{ runner.temp }}/pspdev
+        run: |
+          set -euo pipefail
+          bash qa/v185/build.sh
+          python3 - <<'PY'
+          import hashlib,json,pathlib,shutil
+          meta=json.loads(pathlib.Path('release/current.json').read_text())
+          binary=pathlib.Path('qa/v185/evidence/EBOOT.PBP')
+          digest=hashlib.sha256(binary.read_bytes()).hexdigest()
+          assert digest==meta['eboot_sha256'],f'Rebuild differs from playtested EBOOT: {digest}'
+          shutil.copyfile(binary,meta['eboot'])
+          PY
+          python3 qa/v185/check_media.py
+          python3 tools/prepare_github_release.py --validate-only
+      - name: Commit binary and fast-forward main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f versions/1.8.5/EBOOT.PBP
+          git commit -m 'Package exact playtested Rift Ascent 1.8.5 EBOOT'
+          git fetch origin main
+          git merge-base --is-ancestor origin/main HEAD
+          git push origin HEAD:refs/heads/release/1.8.5 HEAD:refs/heads/main
+      - name: Package and publish verified release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 tools/prepare_github_release.py
+          if gh release view v1.8.5 --json isDraft > "$RUNNER_TEMP/release185.json"; then
+            python3 -c 'import json,sys; assert json.load(open(sys.argv[1]))["isDraft"], "Published tag already exists"' "$RUNNER_TEMP/release185.json"
+          else
+            gh release create v1.8.5 --target "$(git rev-parse HEAD)" --title 'Rift Ascent 1.8.5' --notes-file versions/1.8.5/PATCH_NOTES.md --draft
+          fi
+          gh release upload v1.8.5 dist/* --clobber
+          release_id=$(gh release view v1.8.5 --json databaseId --jq .databaseId)
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" > "$RUNNER_TEMP/uploaded185.json"
+          python3 tools/check_release_upload.py "$RUNNER_TEMP/uploaded185.json"
+          gh release edit v1.8.5 --draft=false --latest
+          gh release view v1.8.5 --json url --jq .url >> "$GITHUB_STEP_SUMMARY"

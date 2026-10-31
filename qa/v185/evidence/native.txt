@@ -1,0 +1,3 @@
+PASS every artwork byte, all twelve complete encoded music streams, footer and splash assets remain identical to v1.8.4-r2.
+Bytes 98413315
+SHA256 dd0fb61a40f496e7328bf489399c100c76cedad056ea66b2d775480c73198ce6

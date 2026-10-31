@@ -1,0 +1,21 @@
+# Rift Ascent 1.8.5
+
+Based on `beta/1.8.4-b1` at `a4de58b07a962f7cc3a1c3b1c81ef0cdfadb689b`. Canonical source: `qa/v185/source`. This is a stable 1.8.5 release carrying forward the beta's elite/boss recovery patterns and run recap.
+
+Enemy per-hit damage is rounded from 123% of the original base, replacing r4/beta's two rounding stages (106%, then 130%). Normal and elite Crush bonuses fall from one quarter to one eighth of intent value; boss Crush retains its shape with the lower global multiplier. Pair damage is 70% per enemy and trio damage 45%; health is 70% and 50% respectively. Reductions use the original encounter size and persist after deaths. Ordinary combats draw 50% single / 25% double / 25% triple; elites and bosses remain single. Each group has distinct species.
+
+Post-room stories roll once at 5% after a completed non-act-boss room and its spoils. Existing map mystery events remain intact. The story's gift choice now offers Forge as an alternative when an eligible card exists, in any act. Upgrade, rotating modification, and 4-max-HP Echo choices retain preview, cancellation and saving. Confirming a forge ends the story without granting its other gift or rolling again. Combat card rewards contain no Forge option.
+
+Third-enemy support covers targeting, AoE/random attacks, previews, temporary Strength reductions, Strangle, Proxy per-target counters, animations, HP/Block/intent displays, inspection and saves. Random-target previews enumerate living indices, including when the middle enemy is dead. Former two-enemy snapshots migrate through a frozen 1.8.4 layout; old beta forge choices return to the unclaimed combat rewards. New saves use ASCENT18_ files. A folder containing only a valid beta account imports its account and living runs into stable files without modifying beta files. Existing stable accounts take precedence.
+
+## Reproducible checks
+
+- Build with PSPDEV v20261001: `PSPDEV=/path/to/pspdev bash qa/v185/build.sh`.
+- Run `bash qa/v185/test.sh` for sanitizer-backed encounter, damage, story, Forge, migration, beta-cycle, card and Afterimage regressions. The all-card sweep covers 2,340 card/upgrade/character cases with three targets and preview immutability.
+- Encounter sample: 20,000 ordinary combats; 10,063 singles, 5,032 doubles, 4,905 triples. Story sample: 4,996/100,000; boss exclusions and no repeat roll checked separately.
+- `tests/campaigns.c` uses legal actions with ordinary starters and fixed heuristic choices. The 1.8.4 beta baseline reproduced 40/300 (13.3%): Warden 15, Vesper 16, Proxy 9. The new driver also services the game's regular update tick for queued card actions; missing that tick caused two diagnostic stalls in the old driver. The game itself already services this queue.
+- Final locked-in parameters: 900 independent fully unlocked campaigns, seed indices 1001–1300 per character, 278 wins (30.9%), zero stalls. Warden 121/300 (40.3%), Vesper 110/300 (36.7%), Proxy 47/300 (15.7%). Fresh accounts: 82/300 (27.3%): Warden 40/100, Vesper 38/100, Proxy 4/100. These are comparative bot results, not human-win predictions. Proxy remains poorly represented by the policy's simple card/synergy evaluation. The policy takes existing story gifts rather than Forge.
+- Earlier tuning and independent-check CSVs are retained, including unsuccessful/stalled diagnostic batches. `final-unlocked.csv` and `final-fresh.csv` are the final results.
+- `qa_ppsspp.py` uses the exact complete EBOOT in PPSSPP 1.20.4, 32 MiB PSP-1000 mode, software OpenGL and dummy audio. Explicit state fixtures plus controller inputs exercise all characters' third-target card plays, target cycling, inspection, enemy turns, save/quit/resume, normal rewards, story Forge upgrades/Echo, cancellation and mid-choice persistence. Final repeated UI transitions may be shortened by the documented presentation-only test option; the first pass observes normal transitions. Artwork errors, music output and memory faults are checked, and screenshots and exact binary SHA-256 are recorded. Physical PSP testing is not available here.
+
+Every artwork byte, all twelve full music streams and splash assets are compared against r2. The final publication workflow rebuilds with the same pinned SDK and refuses to publish unless its complete EBOOT matches the locally playtested SHA-256 exactly.

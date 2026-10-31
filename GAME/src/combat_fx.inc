@@ -81,7 +81,7 @@ static void r137_feedback(const Game*before,const Game*after,int action,unsigned
  if((after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR||after->screen==ABOMINATION_AFTER)&&r137_duration<72)r137_duration=72;
  r1311_kill_at=0;
  if(r1311_finishing){
-  int hp[2]={before->enemies[0].hp,before->enemies[1].hp};
+  int hp[MAX_ENEMIES];for(int i=0;i<MAX_ENEMIES;i++)hp[i]=before->enemies[i].hp;
   for(int i=0;i<r137_count;i++){
    const GameCombatFx*e=&r137_events[i];
    if(e->target>=0&&e->target<before->enemy_count&&(e->kind==GFX_ATTACK||e->kind==GFX_PROC)&&hp[e->target]>0){
@@ -275,7 +275,7 @@ static void r137_scene(const Game*g){
   const Enemy*foe=&g->enemies[e];int hit=-1;
   for(int i=0;i<r137_count;i++)if(r137_events[i].target==e&&(r137_events[i].kind==GFX_ATTACK||r137_events[i].kind==GFX_PROC)&&age>=r137_at[i]&&age-r137_at[i]<28)hit=i;
   if(foe->hp<=0&&hit<0)continue;
-  int art=foe->art,boss=r170_boss_index(foe->art),maxw=g->enemy_count==1?144:112,h=art==45?98:boss>=0||foe->art>=42?98:92;
+  int art=foe->art,boss=r170_boss_index(foe->art),maxw=g->enemy_count==1?144:g->enemy_count==2?112:76,h=art==45?98:boss>=0||foe->art>=42?98:92;
   int w=revision182_enemy_art(art)?aesthetic_enemy_size[art][0]*h/aesthetic_enemy_size[art][1]:ascent_enemy_art(art)?144*h/160:art==45?192*h/224:art==44?160*h/192:boss>=0?r170_boss_size[boss][0]*h/r170_boss_size[boss][1]:art>=36?r150_enemy_size[art-36][0]*h/r150_enemy_size[art-36][1]:art==9?144:r1311_enemy_bounds[art][2]*h/r1311_enemy_bounds[art][3];
   if(w>maxw){h=h*maxw/w;w=maxw;}
   int ex=r134_enemy_x(g,e),y=174-h,tilt=0,flash=0,opacity=255;

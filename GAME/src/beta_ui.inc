@@ -1,6 +1,6 @@
 /* Reuse the game's existing gilded panels, card art and inventory typography. */
 static void beta_forge_screen(const Game*g){
- header(g,"LATE ASCENT / FORGE INSTEAD OF A CARD");
+ header(g,"JOURNEY / FORGE INSTEAD OF A GIFT");
  gilded_panel(10,30,460,223,0);
  if(g->screen==BETA_FORGE){
   const char*titles[]={"HONE / UPGRADE ONE CARD","TEMPER / MODIFY ONE CARD","BLOOD ETCH / ECHO ONE ATTACK"};
@@ -14,7 +14,7 @@ static void beta_forge_screen(const Game*g){
    else snprintf(detail,sizeof(detail),"Lose 4 maximum HP. Echo costs +1 Energy; plays twice.");
    r134_wrap(38,y+26,399,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?WHITE:MUTED,&r134_f9,0);
   }
-  footer("X CHOOSE  O CARD REWARDS");return;
+  footer("X CHOOSE  O STORY GIFT");return;
  }
  int page=g->selection/6*6;
  for(int i=page;i<g->deck_count&&i<page+6;i++){

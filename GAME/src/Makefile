@@ -6,7 +6,7 @@ CFLAGS = -DRIFT_BOOT_TRACE -DRIFT_STREAMED_ART -O2 -G0 -Wall -Wextra -std=gnu11 
 LDFLAGS += -nostdlib -nostartfiles -Wl,-e,_start -Wl,-Map,game.map -Wl,-zmax-page-size=128
 LIBS = -lpspdisplay -lpspge -lpspctrl -lpspaudio -lgcc
 EXTRA_TARGETS = EBOOT.PBP
-PSP_EBOOT_TITLE = RIFT ASCENT 1.8.4 BETA 1
+PSP_EBOOT_TITLE = RIFT ASCENT 1.8.5
 PSP_EBOOT_ICON = ICON0.PNG
 PSP_EBOOT_ICON1 = ICON1.PMF
 PSP_EBOOT_PIC1 = PIC1.PNG
@@ -41,3 +41,5 @@ render.o: custom_ui.inc
 
 game.o: beta_game.inc
 render.o: beta_ui.inc
+
+game.o: save_layout184.h save_v184.inc

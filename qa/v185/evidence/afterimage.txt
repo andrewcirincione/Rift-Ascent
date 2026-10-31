@@ -1,0 +1,4 @@
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.

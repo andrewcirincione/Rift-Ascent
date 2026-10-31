@@ -1,5 +1,4 @@
-/* Beta features use existing per-screen cursors. The serialized Game layout is
-   unchanged; beta files use a separate namespace from stable saves. */
+/* Journey Forge and run recap, carried forward from Beta 1. */
 int game_beta_modifier(const Game*g,int choice){
  if(choice==2)return MOD_ECHO;
  const int mods[]={MOD_KEEN,MOD_WARD,MOD_BOUND};
@@ -15,8 +14,8 @@ int game_beta_preview(const Game*g,int choice,int raw){
  return choice==0?raw|UPBIT:raw|(game_beta_modifier(g,choice)<<CARD_MOD_SHIFT);
 }
 int game_beta_offer(const Game*g){
- if(g->act<2||g->battle_type==NODE_BOSS||g->v151.card_done)return 0;
- if(route_hash(g->seed^(unsigned)g->floor*313u^(unsigned)g->act*101u)%4)return 0;
+ int screen=g->screen==PAUSE_MENU?g->prior_screen:g->screen;
+ if(screen!=EXPEDITION_GIFT&&screen!=BETA_FORGE&&screen!=BETA_FORGE_CARD)return 0;
  for(int i=0;i<g->deck_count;i++)for(int c=0;c<3;c++)if(game_beta_eligible(g,c,g->deck[i]))return 1;
  return 0;
 }
@@ -53,7 +52,7 @@ static int beta_action(Game*g,int b){
  if(g->screen==BETA_FORGE){
   if(b==BTN_UP||b==BTN_LEFT)g->selection=(g->selection+2)%3;
   if(b==BTN_DOWN||b==BTN_RIGHT)g->selection=(g->selection+1)%3;
-  if(b==BTN_BACK){g->screen=REWARD;g->selection=3;}
+  if(b==BTN_BACK){g->screen=EXPEDITION_GIFT;g->selection=2;}
   if(b==BTN_OK){for(int i=0;i<g->deck_count;i++)if(game_beta_eligible(g,g->selection,g->deck[i])){
    g->effect_turn=g->selection;g->selection=i;g->screen=BETA_FORGE_CARD;return 1;
   }msg(g,"No eligible cards for this bargain.");}
@@ -68,8 +67,7 @@ static int beta_action(Game*g,int b){
   if(b==BTN_OK&&game_beta_eligible(g,g->effect_turn,g->deck[g->selection])){
    g->deck[g->selection]=game_beta_preview(g,g->effect_turn,g->deck[g->selection]);
    if(g->effect_turn==2){g->maxhp-=4;g->hp=MIN(g->hp,g->maxhp);}
-   g->v151.card_done=1;g->screen=REWARD;g->selection=g->v151.potion_offer>=0?4:5;
-   if(g->ninja.v[NS_BONUS_REWARDS]>0){g->ninja.v[NS_BONUS_REWARDS]--;fill_rewards(g);g->v151.card_done=0;g->selection=0;}
+   enter_map(g);
    msg(g,"The forge has reshaped your card.");
   }
   return b!=BTN_PAUSE;

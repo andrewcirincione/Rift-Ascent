@@ -7,7 +7,7 @@
 #define MAX_DECK 128
 #define MAX_HAND 10
 #define MAX_PILE 128
-#define MAX_ENEMIES 2
+#define MAX_ENEMIES 3
 #define ENEMY_COUNT 59
 #define INTENT_COUNT 32
 #define MAX_RELICS 96
@@ -15,7 +15,7 @@
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 184
+#define GAME_VERSION 185
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
@@ -218,7 +218,11 @@ typedef struct {
  struct {int rare_offset,room_pending,room_type;unsigned event_seen_hi;int next_combat[5];} revision182;
  /* Append-only: old slots migrate with their original route topology. */
  struct {int custom,building,tab,quantity,item,return_tab,return_selection,route_style,seen_act;unsigned seen[2];} revision184;
+ struct {int strangle2,mangle2;} revision185;
 } Game;
+#define STRANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.strangle2:&(g)->ninja.v[NS_STRANGLE0+(e)])
+#define MANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.mangle2:&(g)->ic[IC_MANGLE0+(e)])
+#include "save_layout184.h"
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
 typedef struct {
@@ -322,7 +326,7 @@ int game_effective_damage(const Game *g,int raw,int target);
 /* Current per-hit damage is before enemy Block. Previewing never advances RNG
    or changes the live run. Ranges represent unresolved random outcomes. */
 typedef struct {
- int low[2],high[2],hits[2],total[2];
+ int low[MAX_ENEMIES],high[MAX_ENEMIES],hits[MAX_ENEMIES],total[MAX_ENEMIES];
  int block_low,block_high,block_first,block_second,block_count,block_total;
  int repeated,repeat_hits,uncertain,random;
 } CardPreview;

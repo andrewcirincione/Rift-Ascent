@@ -7,7 +7,7 @@ typedef struct {
  int deck_count,deck[MAX_DECK],master_index;
  int draw_count,draw[MAX_PILE],discard_count,discard[MAX_PILE],exhaust_count,exhaust[MAX_PILE],hand_count,hand[MAX_HAND];
  int map[MAP_ROWS][MAP_LANES],map_selected[MAP_ROWS],enemy_count,reward[3],reward_gold;
- Enemy enemies[MAX_ENEMIES];
+ Enemy enemies[2];
  int next_screen,battle_type,kill_count,defense_event,shop_cards[3],shop_relic;
  int reward_potion,win_screen,effect_turn,turn_played,used_potion,heal_after_battle;
  int permanent_strength,low_hp_triggered;

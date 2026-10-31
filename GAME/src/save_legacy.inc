@@ -7,7 +7,7 @@ typedef struct {
  int deck_count,deck[MAX_DECK],master_index;
  int draw_count,draw[MAX_PILE],discard_count,discard[MAX_PILE],exhaust_count,exhaust[MAX_PILE],hand_count,hand[MAX_HAND];
  int map[14][MAP_LANES],map_selected[14],enemy_count,reward[3],reward_gold;
- Enemy enemies[MAX_ENEMIES];
+ Enemy enemies[2];
  int next_screen,battle_type,kill_count,defense_event,shop_cards[3],shop_relic;
  int reward_potion,win_screen,effect_turn,turn_played,used_potion,heal_after_battle;
  int permanent_strength,low_hp_triggered;
@@ -29,7 +29,7 @@ static int load_legacy_run(Game*out,const unsigned char*raw,size_t n,uint32_t ve
    memcpy(v18,raw,prefix);memcpy(v18+offsetof(LegacyGame19,enemy_count),raw+tail,n-tail);
   }
   size_t enemy_offset=offsetof(LegacyGame19,enemies);memcpy(&old,v18,enemy_offset);
-  for(int i=0;i<MAX_ENEMIES;i++){
+  for(int i=0;i<2;i++){
    const unsigned char*e=v18+enemy_offset+i*46;memcpy(old.enemies[i].name,e,24);
    int*values=&old.enemies[i].hp;for(int j=0;j<11;j++){short v;memcpy(&v,e+24+j*2,2);values[j]=v;}
   }

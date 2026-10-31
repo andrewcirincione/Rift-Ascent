@@ -1,0 +1,2 @@
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.

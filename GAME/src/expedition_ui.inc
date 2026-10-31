@@ -12,7 +12,8 @@ static void expedition_gift_view(const Game*g){
   r134_wrap(60,122,360,2,14,relic_defs[id].name,GOLD,&r138_title10,0);
   r134_wrap(60,158,360,4,12,relic_defs[id].desc,WHITE,&r134_f9,0);
  }else card_render(172,44,136,167,g->expedition.gift,1,1);
- button(73,215,145,27,"TAKE",g->selection==0);button(263,215,145,27,"LEAVE",g->selection==1);
+ if(game_beta_offer(g)){button(20,215,132,27,"TAKE GIFT",g->selection==0);button(174,215,132,27,"LEAVE",g->selection==1);button(328,215,132,27,"FORGE",g->selection==2);}
+ else{button(73,215,145,27,"TAKE",g->selection==0);button(263,215,145,27,"LEAVE",g->selection==1);}
  if(g->message[0])r134_center(240,246,g->message,GOLD,&r134_f8);
  footer("X CONFIRM   O LEAVE");
 }
