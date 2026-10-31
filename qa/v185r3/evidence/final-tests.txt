@@ -1,0 +1,118 @@
+Rift Ascent 1.8.5-r3 final validation
+EBOOT SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+Bytes 98414563
+
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; elites/bosses single.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at dedicated story outcomes, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.
+
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.
+
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.
+
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.
+
+PASS each character: 4/20 story outcomes offer Forge; all outcomes have exactly two navigation choices.
+PASS old third-choice save migrates to Leave; unavailable Forge falls back to a gift; stale Forge cannot award an unrelated relic.
+PASS Cinder blood/burden/Leave values and affordability; Red Communion and Candle boons apply only once.
+PASS 1.8.5-r3 behavior regression suite.
+
+PASS 516 enemy comparisons: ordinary HP unchanged; elites +8%, bosses +10%; all species, opening intents/damage and RNG identical across 7 acts.
+
+PASS empty/current slot scan: 115352 frame bytes + 8192 tail reserve; 73064 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_resume(57296) + ascent_read_run(28560)
+PASS old stable slot migration: 143872 frame bytes + 8192 tail reserve; 44544 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS legacy SAVE.DAT migration: 122488 frame bytes + 8192 tail reserve; 65928 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + game_load(64472) + migrate_layout184(28520)
+PASS in-game old slot resume: 143216 frame bytes + 8192 tail reserve; 45200 bytes remaining of 196608
+  run_game(160) + step_action(56) + game_action(28624) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS beta-only migration: 144704 frame bytes + 8192 tail reserve; 43712 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_import_beta(58128) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS save and quit: 86008 frame bytes + 8192 tail reserve; 102408 bytes remaining of 196608
+  run_game(160) + save_and_quit(57192) + ascent_checkpoint(28656)
+PASS startup/save stack budget; 192 KiB allocation unchanged
+
+PASS every artwork byte, all twelve complete encoded music streams, footer and splash assets remain identical to v1.8.4-r2.
+Bytes 98414563
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE triple-0
+SHOT triple-0-target3
+SHOT triple-0-hit3
+SHOT triple-0-target2
+SHOT triple-0-inspection
+SHOT triple-0-after-turn
+FIXTURE triple-1
+SHOT triple-1-target3
+SHOT triple-1-hit3
+SHOT triple-1-target2
+SHOT triple-1-inspection
+SHOT triple-1-after-turn
+FIXTURE triple-2
+SHOT triple-2-target3
+SHOT triple-2-hit3
+SHOT triple-2-target2
+SHOT triple-2-inspection
+SHOT triple-2-after-turn
+PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume
+FIXTURE reward
+SHOT spoils-no-forge
+FIXTURE ordinary-gift
+SHOT ordinary-story-gift
+FIXTURE cinder
+SHOT cinder-choice-0
+FIXTURE cinder
+SHOT cinder-choice-1
+FIXTURE cinder
+SHOT cinder-choice-2
+PASS ordinary story gifts have only Take/Leave; Cinder blood, burden and Leave charge exactly the shown costs
+FIXTURE elite
+SHOT elite-challenge
+FIXTURE boss
+SHOT boss-challenge
+FIXTURE story
+SHOT story
+SHOT story-gift
+SHOT forge-menu
+SHOT forge-upgrade-preview
+SHOT forge-upgrade-complete
+PASS story Forge upgrade, preview, save/quit/resume and return to map
+FIXTURE gift
+SHOT forge-echo-preview
+SHOT forge-echo-complete
+PASS Echo cancellation and exact confirmed 4 max HP cost; no second gift
+FIXTURE triple-0
+SHOT release-combat
+PASS final release EBOOT: triple targeting/inspection/enemy turns/save-resume for all characters; reward without Forge; story Forge upgrade/Echo/cancel/save-resume; zero streamed-art errors or memory faults
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+
+PASS fixed-fresh observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-stable185 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-stable184 observed startup stack bytes 143872 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-beta184 observed startup stack bytes 144704 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-legacy184 observed startup stack bytes 122488 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-corrupt observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+
+PASS matched reference campaigns: baseline 360/1200 wins (30.0%); candidate 282/1200 (23.5%); zero stalls.
+PASS independent holdout: baseline 276/900 (30.7%); candidate 220/900 (24.4%).
+PASS decision-aware campaigns: baseline 161/300 (53.7%); candidate 139/300 (46.3%); zero stalls.
+PASS paired decisions: 300 identical states across five events, 833 affordable branches per build; four-room follow-through; no policy stalls.
+LIMITATIONS: assisted emulator fixtures and heuristic players; not a prediction of human win rate. Physical PSP-3000/ARK-5 confirmation remains outstanding.

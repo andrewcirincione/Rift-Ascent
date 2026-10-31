@@ -75,7 +75,7 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"CLAIM THE WEAPON","Lose 6 HP. Take the shown Uncommon Attack.",0,0,6,0},{"CLAIM THE TECHNIQUE","Lose 6 HP. Take the shown Uncommon Skill.",0,0,6,0}},
  {{"OFFER YOUR BLOOD","Gain 10 maximum HP. Lose 17 current HP.",0,0,17,0},{"BUY THE ALTAR'S MERCY","Pay 45 Gold. Heal 30 HP.",0,45,0,0}},
  {{"DRINK DEEPLY","Heal 28 HP. Add Injury: an unplayable card.",0,0,0,0},{"TAKE A SMALL SIP","Heal 9 HP. No card is added.",0,0,0,0}},
- {{"PAY IN BLOOD","Gain 110 Gold. Lose 16 HP.",0,0,16,0},{"TAKE THE BURDEN","Gain 70 Gold. Add Injury: an unplayable card.",0,0,0,0}},
+ {{"PAY IN BLOOD","Gain 150 Gold. Lose 6 HP.",0,0,6,0},{"TAKE THE BURDEN","Gain 180 Gold. Add Injury: an unplayable card.",0,0,0,0}},
  {{"HONE ONE CARD","Pay 25 Gold to upgrade one card.",EVENT_UPGRADE,25,0,0},{"LIGHTEN YOUR DECK","Pay 50 Gold to remove one card.",EVENT_REMOVE,50,0,0}},
  {{"ACCEPT THE DREAD","Take the shown relic. Add Dread: unplayable; if held, costs 1 Energy next turn.",0,0,0,0},{"PAY THE BLOOD PRICE","Lose 12 HP. Take the shown relic without a curse.",0,0,12,0}},
  {{"ECHO / 70 GOLD","Modify one fixed-cost Attack: play it twice; costs 1 more Energy.",MOD_ECHO,70,0,0},{"BOUND / 40 GOLD","Modify one card with Retain: keep it in hand at turn end.",MOD_BOUND,40,0,0}},
@@ -94,7 +94,7 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"SHARPEN","Pay 30 Gold. One Attack gains +2 base damage per hit.",MOD_KEEN,30,0,0},{"REINFORCE","Lose 10 HP. One Block-granting card gains +4 base Block.",MOD_WARD,0,10,0},{"LET IT ANSWER","Pay 65 Gold and lose 5 HP. A fixed-cost Attack plays twice, but costs 1 more Energy.",MOD_ECHO,65,5,0}},
  {{"FOLD YOUR YEARS","Lose 4 maximum HP. One Attack or Skill costs 1 less Energy, but Exhausts. Keep at least 25 maximum HP.",MOD_FLEETING,0,0,4}},
  {{"CARVE A WOUND","Lose 3 maximum HP. One Attack gains +2 base damage per hit. Keep at least 25 maximum HP.",MOD_KEEN,0,0,3},{"CARVE A PROMISE","Pay 25 Gold. Give one card Retain.",MOD_BOUND,25,0,0},{"CARVE A SPARK","Lose 8 HP. One Attack or Skill draws an extra card, but Exhausts.",MOD_KINDLED,0,8,0}},
- {{"DRINK THE IRON","Lose 8 HP. Next combat only: gain 3 Strength and begin with 2 Vulnerable.",0,0,8,0},{"CHOOSE CLEAN WATER","Pay 30 Gold. Heal 18 HP.",0,30,0,0}},
+ {{"DRINK THE IRON","Lose 3 HP. Next combat only: gain 3 Strength and begin with 1 Vulnerable.",0,0,3,0},{"CHOOSE CLEAN WATER","Pay 30 Gold. Heal 18 HP.",0,30,0,0}},
  {{"KNEEL IN THE SALT","Heal 28 HP. Begin your next combat with 2 Weak.",0,0,0,0},{"TAKE A SALT WARD","Pay 15 Gold. Begin your next combat with 12 extra Block.",0,15,0,0}},
  {{"LET THEM FEED","Lose 5 maximum HP, then heal to full. Keep at least 25 maximum HP.",0,0,0,5},{"PRESS TWO FRUITS","Lose 9 HP. Gain two random unlocked potions. Requires two empty belt slots.",0,0,9,0}},
  {{"ACCEPT THE HEART","Gain 12 maximum HP and heal 12. Add an unplayable Injury to your deck.",0,0,0,0},{"CUT A SHARD FREE","Pay 40 Gold to remove one card.",EVENT_REMOVE,40,0,0}},
@@ -104,7 +104,7 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"LEARN ITS RHYTHM","Pay 25 Gold. Gain 3 Strength for your next combat only.",0,25,0,0},{"STRIKE IT WITH BLOOD","Lose 6 HP. Draw 2 extra cards in your next opening hand, up to the hand limit.",0,0,6,0}},
  {{"PAY THE BLOOD TAX","Lose 10 HP. Gain 100 Gold.",0,0,10,0},{"BUY A NIGHT'S SHELTER","Pay 50 Gold. Heal 25 HP and begin your next combat with 12 extra Block.",0,50,0,0}},
  {{"REWRITE A CARD","Pay 20 Gold. Replace one card with a different random Uncommon from your character. Its old upgrade and modifier are lost.",EVENT_TRANSFORM,20,0,0},{"KEEP YOUR OLD NAME","Gain 15 Gold. Your deck stays the same.",0,0,0,0}},
- {{"SHARE YOUR FLAME","Lose 6 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,6,0}},
+ {{"SHARE YOUR FLAME","Lose 4 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,4,0}},
  {{"SHIELD YOUR HEAD","Lose up to 6 HP. This cannot reduce you below 1 HP.",0,0,0,0}},
  {{"PAY THE TITHE","Lose up to 25 Gold. If your purse is empty, the doorway takes nothing.",0,0,0,0}},
  {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}}
@@ -148,7 +148,7 @@ static int event_offer_available(const Game*g,int option){
   if(!n||(o->action==EVENT_REMOVE&&g->deck_count<=1)||(o->action==EVENT_COPY&&g->deck_count>=MAX_DECK))return 0;}
  if((id==2||id==6||(id==8&&!option)||(id==9&&option)||(id==11&&!option))&&g->deck_count>=MAX_DECK)return 0;
  if((id==17||id==21||id==34||(id==31&&!option))&&g->deck_count>=MAX_DECK)return 0;
- if(id==28&&!option&&!event_next_fits(g,3,0,0,0,2))return 0;
+ if(id==28&&!option&&!event_next_fits(g,3,0,0,0,1))return 0;
  if(id==29&&(!option?!event_next_fits(g,0,0,0,2,0):!event_next_fits(g,0,12,0,0,0)))return 0;
  if(id==30&&option&&g->potion_count>MAX_POTIONS-2)return 0;
  if(id==32&&option==2&&g->potion_count>=MAX_POTIONS)return 0;
@@ -234,7 +234,7 @@ static void do_event(Game*g,int option){
  case 5:if(option){g->gold+=45;snprintf(text,sizeof(text),"Gained 45 Gold.");}else{heal(g,16);snprintf(text,sizeof(text),"Healed up to 16 HP.");}break;
  case 7:if(option){heal(g,30);snprintf(text,sizeof(text),"Healed up to 30 HP. Paid 45 Gold.");}else{g->maxhp+=10;snprintf(text,sizeof(text),"Gained 10 maximum HP. Lost 17 current HP.");}break;
  case 8:heal(g,option?9:28);if(!option)add_card(g,52);snprintf(text,sizeof(text),option?"Healed up to 9 HP.":"Healed up to 28 HP. Added Injury.");break;
- case 9:g->gold+=option?70:110;if(option)add_card(g,52);snprintf(text,sizeof(text),option?"Gained 70 Gold. Added Injury.":"Gained 110 Gold. Lost 16 HP.");break;
+ case 9:g->gold+=option?180:150;if(option)add_card(g,52);snprintf(text,sizeof(text),option?"Gained 180 Gold. Added Injury.":"Gained 150 Gold. Lost 6 HP.");break;
  case 11:if(!option)add_card(g,53);relic_id=event_relic_id(g,option);break;
  case 15:relic_id=event_relic_id(g,option);break;
  case 19:if(!option){for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Received two potions. Paid 35 Gold.");}else if(option==1){g->potion_count=0;relic_id=event_relic_id(g,option);}else{for(int i=0;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;heal(g,20);snprintf(text,sizeof(text),"Traded the first potion. Healed up to 20 HP.");}break;
@@ -242,7 +242,7 @@ static void do_event(Game*g,int option){
  case 21:add_card(g,53);relic_id=event_relic_id(g,option);break;
  case 22:if(!option){heal(g,12);snprintf(text,sizeof(text),"Healed up to 12 HP. Paid 15 Gold.");}else{g->gold+=60;snprintf(text,sizeof(text),"Gained 60 Gold. Lost 8 HP.");}break;
  case 23:switch(rnd(g,4)){case 0:g->gold+=80;snprintf(text,sizeof(text),"Paid 15 Gold. Won 80 Gold.");break;case 1:g->gold+=25;snprintf(text,sizeof(text),"Paid 15 Gold. Won 25 Gold.");break;case 2:heal(g,25);snprintf(text,sizeof(text),"Paid 15 Gold. Healed up to 25 HP.");break;default:g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Paid 15 Gold. Gained 5 maximum HP and healed 5.");break;}break;
- case 28:if(!option){g->revision182.next_combat[0]+=3;g->revision182.next_combat[4]+=2;snprintf(text,sizeof(text),"Next combat: +3 Strength, 2 Vulnerable. Lost 8 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Paid 30 Gold. Healed up to 18 HP.");}break;
+ case 28:if(!option){g->revision182.next_combat[0]+=3;g->revision182.next_combat[4]+=1;snprintf(text,sizeof(text),"Next combat: +3 Strength, 1 Vulnerable. Lost 3 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Paid 30 Gold. Healed up to 18 HP.");}break;
  case 29:if(!option){heal(g,28);g->revision182.next_combat[3]+=2;snprintf(text,sizeof(text),"Healed up to 28 HP. Next combat starts with 2 Weak.");}else{g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 15 Gold. Next combat starts with +12 Block.");}break;
  case 30:if(!option){g->hp=g->maxhp;snprintf(text,sizeof(text),"Lost 5 maximum HP. Healed to full.");}else{for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Lost 9 HP. Received two potions.");}break;
  case 31:g->maxhp+=12;heal(g,12);add_card(g,52);snprintf(text,sizeof(text),"Gained 12 maximum HP, healed 12, and added Injury.");break;
@@ -254,7 +254,7 @@ static void do_event(Game*g,int option){
  case 39:{int loss=MIN(6,MAX(0,g->hp-1));g->hp-=loss;snprintf(text,sizeof(text),"Falling bone costs you %d HP.",loss);break;}
  case 40:{int loss=MIN(25,g->gold);g->gold-=loss;snprintf(text,sizeof(text),"The tithe takes %d Gold.",loss);break;}
  case 41:g->revision182.next_combat[3]=MIN(5,g->revision182.next_combat[3]+2);snprintf(text,sizeof(text),"The spores follow: begin your next combat with 2 Weak.");break;
- case 38:g->revision182.next_combat[0]+=2;g->revision182.next_combat[1]+=10;snprintf(text,sizeof(text),"Lost 6 HP. Next combat: +2 Strength and +10 Block.");break;
+ case 38:g->revision182.next_combat[0]+=2;g->revision182.next_combat[1]+=10;snprintf(text,sizeof(text),"Lost 4 HP. Next combat: +2 Strength and +10 Block.");break;
 
  }
  if(relic_id>=0){add_relic(g,relic_id);g->screen=RELIC_RESULT;g->relic_pending=0;g->relic_resume=MAP;g->win_screen=0;g->reward[0]=relic_id;g->selection=0;snprintf(g->message,sizeof(g->message),"Acquired %s.",relic_defs[relic_id].name);return;}

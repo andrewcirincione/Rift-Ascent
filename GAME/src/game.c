@@ -458,6 +458,8 @@ static void fill_rewards(Game*g){
 static void repair_generated_offers(Game*g){
  /* Keep old saves and already-owned cards intact, replacing only unclaimed
     Debris offers produced when its legacy rarity was mistaken for Ancient. */
+ /* The removed third story-gift choice becomes Leave in an old save. */
+ if(g->screen==EXPEDITION_GIFT&&g->selection==2)g->selection=1;
  int screen=g->screen;
  if(screen==DECK_VIEW||screen==POTION_VIEW||screen==RELIC_VIEW)screen=g->prior_screen;
  if((screen==REWARD||screen==REWARD_PREVIEW)&&!g->v151.card_done){
@@ -1201,6 +1203,9 @@ static void init_enemy(Game*g,Enemy*e,int id){
  if(d->tier==2)percent=g->act>=3?182LL+44LL*(g->act-3):84+g->act*24;else percent+=g->floor+MAX(0,g->floor-4)/2;
  if(g->act>3)percent+=5LL*(g->act-3)*(g->act-3);
  long long hp=(d->hp*percent+50)/100;
+ /* A small endurance increase for the optional and act-ending challenges. */
+ if(g->battle_type==NODE_ELITE)hp=(hp*108+50)/100;
+ if(g->battle_type==NODE_BOSS)hp=(hp*110+50)/100;
  if(g->enemy_count>1)hp=(hp*(g->enemy_count==2?70:50)+50)/100;
  e->maxhp=(int)MIN(1000000000LL,hp);
  if(e->maxhp<1)e->maxhp=1;
@@ -2478,8 +2483,8 @@ int game_validate(const Game*g){
  for(int i=0;i<g->relic_count;i++)if(game_relic_id(g,i)<0||game_relic_id(g,i)>=RELIC_COUNT)return 0;
  if(g->expedition.story_seen>0xfffffu||g->expedition.story_pending<0||g->expedition.story_pending>1||g->expedition.story_id<0||g->expedition.story_id>=20)return 0;
  if(expedition_scene(g->screen)&&(g->selection<0||g->selection>2))return 0;
- if(g->screen==EXPEDITION_GIFT&&(g->selection<0||g->selection>2||g->expedition.gift_kind<0||g->expedition.gift_kind>1))return 0;
- if(g->screen==EXPEDITION_GIFT){int id=g->expedition.gift;if(g->expedition.gift_kind?(id<0||id>=RELIC_COUNT):!valid_card_raw(id))return 0;}
+ if(g->screen==EXPEDITION_GIFT&&(g->selection<0||g->selection>2||g->expedition.gift_kind<0||g->expedition.gift_kind>2))return 0;
+ if(g->screen==EXPEDITION_GIFT&&g->expedition.gift_kind!=2){int id=g->expedition.gift;if(g->expedition.gift_kind?(id<0||id>=RELIC_COUNT):!valid_card_raw(id))return 0;}
  if(g->screen==MYSTERY_CARDS){if(g->selection<0||g->selection>3)return 0;for(int i=0;i<3;i++)if(!valid_card_raw(g->reward[i])||cards[CARD_ID(g->reward[i])].rarity!=2)return 0;}
  for(int i=0;i<g->potion_count;i++)if(g->potions[i]<0||g->potions[i]>25)return 0;
  for(int r=0;r<MAP_ROWS;r++)for(int c=0;c<MAP_LANES;c++)if(g->map[r][c]<NODE_FIGHT||g->map[r][c]>NODE_BOSS)return 0;

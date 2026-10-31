@@ -14,7 +14,9 @@ D=M/'PSP/GAME/RIFT184VERIFY';D.mkdir(parents=True,exist_ok=True)
 resume=os.environ.get('RIFT_COLD')=='1';smoke=os.environ.get('RIFT_SMOKE')=='1'
 if not resume and os.environ.get('RIFT_KEEP')!='1':
  for f in D.glob('ASCENT18_*'):f.unlink()
+assert (E/'EBOOT.PBP').read_bytes()[-160:-152]==b'RIFTAU19', 'Incomplete package: soundtrack footer missing'
 shutil.copyfile(E/'EBOOT.PBP',D/'EBOOT.PBP')
+assert hashlib.sha256((D/'EBOOT.PBP').read_bytes()).digest()==hashlib.sha256((E/'EBOOT.PBP').read_bytes()).digest()
 if resume:
  for f in D.glob('ASCENT18_*'):f.unlink()
  shutil.copyfile(E/'legacy182-run.bin',D/'ASCENT18_RUN_1.0')
@@ -180,8 +182,17 @@ async def check(w):
   await button('cross');await button('cross');assert await screen()==screens['COMBAT'] and field(await state(),'enemy_count')==3
  print('PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume',flush=True)
  await fixture('reward');await shot('spoils-no-forge');await button('down');assert field(await state(),'selection')==4;await button('down');assert field(await state(),'selection')==5
+ await fixture('ordinary-gift');await shot('ordinary-story-gift');await button('left');assert field(await state(),'selection')==1;await button('left');assert field(await state(),'selection')==0;await button('cross');assert await screen()==screens['MAP']
+ for choice in [0,1,2]:
+  await fixture('cinder');raw=await state();hp=field(raw,'hp');gold=field(raw,'gold');deck=field(raw,'deck_count')
+  for _ in range(choice):await button('down')
+  await shot('cinder-choice-'+str(choice));await button('cross');raw=await state()
+  assert field(raw,'hp')==hp-(6 if choice==0 else 0) and field(raw,'gold')==gold+([150,180,0][choice]) and field(raw,'deck_count')==deck+(choice==1)
+ print('PASS ordinary story gifts have only Take/Leave; Cinder blood, burden and Leave charge exactly the shown costs',flush=True)
+ for name in ['elite','boss']:
+  await fixture(name);await shot(name+'-challenge');await button('circle');assert await screen()==screens['COMBAT']
  await fixture('story');await shot('story');await button('cross');await button('cross');await button('cross');assert await screen()==screens['EXPEDITION_GIFT'];await shot('story-gift')
- await button('left');await button('cross');assert await screen()==screens['BETA_FORGE'];await shot('forge-menu')
+ await button('cross');assert await screen()==screens['BETA_FORGE'];await shot('forge-menu')
  await button('cross');assert await screen()==screens['BETA_FORGE_CARD'];await shot('forge-upgrade-preview')
  await button('select');await button('cross');assert await screen()==screens['TITLE']
  await button('cross');await button('cross');assert await screen()==screens['BETA_FORGE_CARD']

@@ -1,17 +1,17 @@
 {
   "version": "1.8.5",
-  "tag": "v1.8.5-r2",
-  "eboot": "versions/1.8.5-r2/EBOOT.PBP",
-  "eboot_sha256": "2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850",
-  "notes": "versions/1.8.5-r2/PATCH_NOTES.md",
-  "screenshot": "versions/1.8.5-r2/Combat.png",
+  "tag": "v1.8.5-r3",
+  "eboot": "versions/1.8.5-r3/EBOOT.PBP",
+  "eboot_sha256": "0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b",
+  "notes": "versions/1.8.5-r3/PATCH_NOTES.md",
+  "screenshot": "versions/1.8.5-r3/Combat.png",
   "canonical_source": "qa/v185/source",
-  "validation": "qa/v185r2/evidence/final-tests.txt",
+  "validation": "qa/v185r3/evidence/final-tests.txt",
   "resources_manifest": "qa/v185/assets.json",
   "source_dependencies": [
     "versions/1.8.4-r2/EBOOT.PBP"
   ],
   "prerelease": false,
   "install_folder": "RIFTASCENT",
-  "asset_suffix": "-r2"
+  "asset_suffix": "-r3"
 }

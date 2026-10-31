@@ -14,6 +14,15 @@ static const ExpeditionStory*expedition_current(const Game*g){
  return &expedition_stories[CLAMP(g->character,0,2)][CLAMP(g->expedition.story_id,0,19)];
 }
 static void expedition_prepare_gift(Game*g){
+ /* Four of twenty story outcomes offer card work instead of a gift.
+    The story bag makes this available throughout the run without a bonus
+    Forge button on every other encounter. */
+ int id=g->expedition.story_id;
+ if(id==5||id==6||id==15||id==16){
+  for(int i=0;i<g->deck_count;i++)for(int c=0;c<3;c++)if(game_beta_eligible(g,c,g->deck[i])){
+   g->expedition.gift_kind=2;g->expedition.gift=0;return;
+  }
+ }
  const ExpeditionStory*s=expedition_current(g);g->expedition.gift_kind=s->reward_kind;
  if(s->reward_kind)g->expedition.gift=!relic(g,s->relic)&&g->relic_count<MAX_RELICS?s->relic:expedition_relic(g);
  else if(g->deck_count<MAX_DECK)g->expedition.gift=reward_of_rarity(g,s->rarity,-1,-1);
@@ -43,6 +52,7 @@ const char*expedition_line(const Game*g){
   "Choose one rare lesson from another path, or leave the exchange untouched."
  };
  int page=CLAMP(g->selection,0,2);
+ if(g->screen==EXPEDITION_STORY&&page==2&&g->expedition.gift_kind==2)return "A buried ember wakes. The encounter offers no keepsake: its fire can reshape one card before your journey continues.";
  return g->screen==ABOMINATION_BEFORE?before[page]:g->screen==ABOMINATION_AFTER?after[page]:g->screen==MYSTERY_STORY?mystery[page]:expedition_current(g)->lines[page];
 }
 int expedition_art(const Game*g){return expedition_current(g)->art;}
@@ -72,11 +82,12 @@ static int expedition_action(Game*g,int b){
  case EXPEDITION_STORY:
   if(b==BTN_OK&&++g->selection>=3){g->selection=0;g->screen=EXPEDITION_GIFT;}return 1;
  case EXPEDITION_GIFT:
-  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+(game_beta_offer(g)?2:1))%(game_beta_offer(g)?3:2);
-  else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%(game_beta_offer(g)?3:2);
+  if(g->selection==2)g->selection=1; /* Legacy third choice is now Leave. */
+  if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+1)%2;
+  else if(b==BTN_RIGHT||b==BTN_DOWN)g->selection=(g->selection+1)%2;
   else if(b==BTN_OK||b==BTN_BACK){
-   if(b==BTN_OK&&g->selection==2&&game_beta_offer(g)){g->screen=BETA_FORGE;g->selection=0;return 1;}
-   if(b==BTN_OK&&g->selection==0){if(g->expedition.gift_kind)add_relic(g,g->expedition.gift);else{if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Leave this gift.");return 1;}add_card(g,g->expedition.gift);}}
+   if(b==BTN_OK&&g->selection==0&&game_beta_offer(g)){g->screen=BETA_FORGE;g->selection=0;return 1;}
+   if(b==BTN_OK&&g->selection==0){if(g->expedition.gift_kind==2){msg(g,"No eligible cards. You may leave the forge.");return 1;}else if(g->expedition.gift_kind==1)add_relic(g,g->expedition.gift);else{if(g->deck_count>=MAX_DECK){msg(g,"Deck full. Leave this gift.");return 1;}add_card(g,g->expedition.gift);}}
    enter_map(g);msg(g,"The encounter passes into memory.");
   }return 1;
  case ABOMINATION_BEFORE:

@@ -16,6 +16,7 @@ int game_beta_preview(const Game*g,int choice,int raw){
 int game_beta_offer(const Game*g){
  int screen=g->screen==PAUSE_MENU?g->prior_screen:g->screen;
  if(screen!=EXPEDITION_GIFT&&screen!=BETA_FORGE&&screen!=BETA_FORGE_CARD)return 0;
+ if(screen==EXPEDITION_GIFT&&g->expedition.gift_kind!=2)return 0;
  for(int i=0;i<g->deck_count;i++)for(int c=0;c<3;c++)if(game_beta_eligible(g,c,g->deck[i]))return 1;
  return 0;
 }
@@ -52,7 +53,7 @@ static int beta_action(Game*g,int b){
  if(g->screen==BETA_FORGE){
   if(b==BTN_UP||b==BTN_LEFT)g->selection=(g->selection+2)%3;
   if(b==BTN_DOWN||b==BTN_RIGHT)g->selection=(g->selection+1)%3;
-  if(b==BTN_BACK){g->screen=EXPEDITION_GIFT;g->selection=2;}
+  if(b==BTN_BACK){g->screen=EXPEDITION_GIFT;g->expedition.gift_kind=2;g->selection=0;}
   if(b==BTN_OK){for(int i=0;i<g->deck_count;i++)if(game_beta_eligible(g,g->selection,g->deck[i])){
    g->effect_turn=g->selection;g->selection=i;g->screen=BETA_FORGE_CARD;return 1;
   }msg(g,"No eligible cards for this bargain.");}

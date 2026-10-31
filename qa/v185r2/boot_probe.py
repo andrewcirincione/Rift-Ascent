@@ -10,16 +10,18 @@ import websockets
 
 P=argparse.ArgumentParser(description=__doc__)
 P.add_argument('--baseline',action='store_true');P.add_argument('--scenario',default='fresh')
-a=P.parse_args();R=Path(__file__).resolve().parents[2];Q=R/'qa/v185';E=R/'qa/v185r2/evidence'
+a=P.parse_args();R=Path(__file__).resolve().parents[2];Q=R/'qa/v185';E=Path(os.environ.get('RIFT_BOOT_EVIDENCE',str(R/'qa/v185r2/evidence')));F=R/'qa/v185r2/evidence/boot-fixtures'
 T=Path(os.environ['RIFT_TOOLCHAIN']);name=('baseline-' if a.baseline else 'fixed-')+a.scenario
 C=T/('boot-'+name);M=C/'ppsspp';D=M/'PSP/GAME/RIFTBOOT';D.mkdir(parents=True,exist_ok=True)
 for f in D.iterdir():
  if f.is_file():f.unlink()
-for f in (E/'boot-fixtures'/a.scenario).iterdir():shutil.copyfile(f,D/f.name)
+for f in (F/a.scenario).iterdir():shutil.copyfile(f,D/f.name)
 original={f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in D.iterdir() if f.name.startswith('BETA') or f.name=='SAVE.DAT'}
 pbp=R/'versions/1.8.5/EBOOT.PBP' if a.baseline else Q/'evidence/EBOOT.PBP'
 elf=Path(os.environ.get('RIFT_BASELINE_ELF','/tmp/rift185-baseline.elf')) if a.baseline else Q/'source/rift_ascent_crt_free.elf'
+assert (pbp).read_bytes()[-160:-152]==b'RIFTAU19', 'Incomplete package: soundtrack footer missing'
 shutil.copyfile(pbp,D/'EBOOT.PBP')
+assert hashlib.sha256((D/'EBOOT.PBP').read_bytes()).digest()==hashlib.sha256((pbp).read_bytes()).digest()
 nm=subprocess.check_output([str(T/'pspdev/bin/psp-nm'),str(elf)],text=True)
 syms={p[-1]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split())==3}
 display='603';port=19603
@@ -61,7 +63,7 @@ async def probe(w):
  # a true first migration too. No user directories are used by this tool.
  for f in D.iterdir():
   if f.is_file() and f.name!='EBOOT.PBP':f.unlink()
- for f in (E/'boot-fixtures'/a.scenario).iterdir():shutil.copyfile(f,D/f.name)
+ for f in (F/a.scenario).iterdir():shutil.copyfile(f,D/f.name)
  top=await value('sp');threads=(await req('hle.thread.list'))['threads']
  thread=next(t for t in threads if t['name']=='Rift Bare Game');assert thread['currentStackSize']==192*1024
  # Entry SP already includes a small firmware argument/trampoline reservation;

@@ -1,0 +1,12 @@
+PASS fixed-fresh observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-stable185 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-stable184 observed startup stack bytes 143872 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-beta184 observed startup stack bytes 144704 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-legacy184 observed startup stack bytes 122488 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b
+PASS fixed-corrupt observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 0c07974fed35463b76aa012cc7b9b5493a87de997085e177a995e4b886e4323b

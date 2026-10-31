@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185r2/boot_probe.py", line 126, in <module>
+    asyncio.run(run())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185r2/boot_probe.py", line 123, in run
+    async with w:await probe(w)
+                 ^^^^^^^^^^^^^^
+  File "/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185r2/boot_probe.py", line 56, in probe
+    await req('game.reset',**{'break':True});await asyncio.sleep(.5);await stopped()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v185r2/boot_probe.py", line 36, in req
+    assert d.get('event')!='error',d
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'event': 'error', 'message': 'Game not running', 'level': 2, 'ticket': 4}
