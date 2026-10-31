@@ -551,7 +551,7 @@ int _start(SceSize args,void *argp) {
     ascent_launch_path(args,argp);
     boot_trace_reset();
     boot_trace("PSP module start",1);
-    boot_trace("build revision",18504);
+    boot_trace("build revision",18505);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
                                   RIFT_GAME_STACK_BYTES,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);

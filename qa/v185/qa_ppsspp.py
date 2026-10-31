@@ -169,6 +169,35 @@ async def check(w):
  if os.environ.get('RIFT_BOOT_ONLY')=='1':
   start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
  fast_frame_ready=True
+ if os.environ.get('RIFT_POTION_ONLY')=='1':
+  assert 'r1310_potion_notice' not in syms, 'Legacy combat text popup is still linked'
+  for character,potion in [(0,2),(1,0),(2,1),(0,24),(1,3)]:
+   def setup(raw):
+    for key,value in [('potion_count',1),('potions',potion),('hp',30),('maxhp',80),('block',0),('relic_count',0),('selection',field(raw,'hand_count'))]:struct.pack_into('<i',raw,L[key],value)
+    for enemy in range(3):
+     struct.pack_into('<ii',raw,L['enemies']+enemy*L['enemy_size']+L['enemy_hp'],100,100)
+   await fixture('triple-'+str(character),setup);before=await state()
+   await button('triangle');assert await val('inspect_open')==1 and await val('inspect_tab')==3
+   await button('cross');raw=await state();assert await val('inspect_open')==0 and field(raw,'potion_count')==0 and await screen()==screens['COMBAT']
+   if potion in [2,24]:assert field(raw,'block')==field(before,'block')+(20 if potion==2 else 36)
+   if potion==0:assert field(raw,'hp')==48
+   if potion==1:assert field(raw,'strength')==field(before,'strength')+2
+   if potion==3:
+    for enemy in range(3):assert struct.unpack_from('<i',raw,L['enemies']+enemy*L['enemy_size']+L['enemy_hp'])[0]==80
+   await shot('potion-'+str(character)+'-'+str(potion)+'-quiet');await ticks(40)
+  for potion in [2,0]:
+   def setup_error(raw):
+    struct.pack_into('<i',raw,L['potion_count'],1);struct.pack_into('<i',raw,L['potions'],potion);struct.pack_into('<i',raw,L['hp'],field(raw,'maxhp'))
+   await fixture('gift',setup_error);await button('triangle');await button('cross');raw=await state();assert field(raw,'potion_count')==1 and await val('inspect_open')==1
+   message=raw[L['message']:L['message']+72].split(b'\0')[0]
+   assert message.startswith(b'Use this potion' if potion==2 else b'Already at full'),message
+   await shot('potion-error-'+str(potion));await button('circle')
+  await fixture('gift');await button('cross');await button('down');await shot('forge-focus');before=await state();await button('square');assert await val('inspect_tab')==5;await button('circle');assert await state()==before
+  await fixture('triple-0');await shot('release-combat')
+  assert await val('rift_asset_errors')==0 and 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: Guard/Healing/Strength/Bulwark/Fire potion effects across all three characters; legacy success text popup removed; routine inventory success captions suppressed; failed-use hints retain potions; raised Forge focus and deck return; full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
  if os.environ.get('RIFT_FORGE_ONLY')=='1':
   await fixture('gift');await button('cross');assert await screen()==screens['BETA_FORGE']
   for selected in range(3):

@@ -79,7 +79,6 @@ static void rift120_log_add(const char *s){
  if(rift120_log_count<3)rift120_log_count++;
 }
 static int r140_potion_gained=-1;static unsigned r140_potion_tick;
-static char r1310_potion_notice[72];static unsigned r1310_notice_tick;
 static int overlay_kind,overlay_page,overlay_potion,overlay_status_scroll;
 void game_render_set_status_scroll(int scroll){overlay_status_scroll=scroll;}
 static int enemy_windup;
@@ -129,9 +128,8 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  r137_feedback(before,after,action,tick);
  if(after->potion_count>before->potion_count&&before->screen==SHOP){r140_potion_gained=after->potions[after->potion_count-1];r140_potion_tick=tick;}
  else if(before->screen!=after->screen||(before->screen==SHOP&&before->selection==5&&action==BTN_OK))r140_potion_gained=-1;
- if(action==BTN_POTION&&before->screen==COMBAT&&after->screen==COMBAT&&after->potion_count<before->potion_count){
-  snprintf(r1310_potion_notice,sizeof(r1310_potion_notice),"%s",after->message);r1310_notice_tick=tick;
- }else if(before->screen!=COMBAT||after->screen!=COMBAT)r1310_potion_notice[0]=0;
+ /* Potion success uses the normal meters, icons and combat animation.
+    Do not cover the battlefield with a duplicate text confirmation. */
  if(before->screen==COMBAT && action==BTN_OK &&
     before->selection>=0&&before->selection<before->hand_count){
    int raw=before->hand[before->selection];
@@ -951,9 +949,6 @@ static void combat(const Game*g){
  r134_blit(410,end_selected?213:215,68,29,r1310_end,68,29,end_selected?255:145);
  r135_shadow_text(444-r134_width("END",&r134_f9b)/2,end_selected?224:226,"END",end_selected?RGB(255,245,222):MUTED,&r134_f9b);
  if(end_selected)r134_blit(398,223,13,10,r1310_arrow,36,28,255);
- if(r1310_potion_notice[0]&&animation_tick>=r1310_notice_tick&&animation_tick-r1310_notice_tick<360){
-  int width=r134_width(r1310_potion_notice,&r134_f9)+14;dark_rect(25,65,width,15,225);r135_shadow_text(32,68,r1310_potion_notice,WHITE,&r134_f9);
- }
  int need_energy=g->selection<g->hand_count&&game_card_cost_now(g,g->hand[g->selection])>g->energy;
  int need_stars=g->selection<g->hand_count&&game_card_star_cost(g,g->hand[g->selection])>g->regent.stars;
  card_combat_context=0;footer(need_stars?"NOT ENOUGH STARS   O END   TRI POTIONS   SQ DECK   START STATUS":need_energy?"NOT ENOUGH ENERGY   O END   TRI POTIONS   SQ DECK   START STATUS":"X PLAY   O END   TRI POTIONS   SQ DECK   START STATUS");
@@ -1453,7 +1448,7 @@ static void inspector(const Game*g){
        r134_wrap(112,y+15,300,2,10,game_potion_description_now(g,g->potions[i]),WHITE,&r134_f8,0);
     }
     if(g->potion_count==0)center(240,113,"NO POTIONS IN YOUR BELT",MUTED,1);
-    if(!memcmp(g->message,"Use this potion",15)||!memcmp(g->message,"Already at full",15)||!memcmp(g->message,"Potion discarded",16)||!memcmp(g->message,"Healing potion:",15))r134_wrap(44,225,390,1,10,g->message,GOLD,&r134_f8,0);
+    if(!memcmp(g->message,"Use this potion",15)||!memcmp(g->message,"Already at full",15))r134_wrap(44,225,390,1,10,g->message,GOLD,&r134_f8,0);
  }else if(overlay_page==4){
     int pick=CLAMP(overlay_status_scroll,0,g->relic_count?g->relic_count-1:0),first=CLAMP(pick-2,0,g->relic_count>5?g->relic_count-5:0);
     for(int i=first;i<g->relic_count&&i<first+5;i++){int y=91+(i-first)*27;
@@ -1626,4 +1621,4 @@ void game_render(const Game*g,uint32_t*pixels,int stride){
  game_render_frame(g,pixels,stride,0);
 }
 
-void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=r161_transition_active=r161_transition_drawing=r170_story_queue=0;r140_potion_gained=-1;r1310_potion_notice[0]=0;r182_combat_transition=0;}
+void game_render_reset_fx(void){r137_count=r137_duration=r1311_finishing=r138_death_active=r137_held_valid=0;rift120_played_card=rift120_auto_card=-1;r136_play_state_valid=0;hand_exchange=fx_transition=victory_replay=effect_kind=r161_transition_active=r161_transition_drawing=r170_story_queue=0;r140_potion_gained=-1;r182_combat_transition=0;}
