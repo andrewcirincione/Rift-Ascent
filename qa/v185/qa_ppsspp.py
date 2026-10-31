@@ -169,6 +169,18 @@ async def check(w):
  if os.environ.get('RIFT_BOOT_ONLY')=='1':
   start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
  fast_frame_ready=True
+ if os.environ.get('RIFT_BOSS_ONLY')=='1':
+  for case in json.loads((R/'qa/v185r6/evidence/boss-fixtures.json').read_text()):
+   name=case['fixture'];await fixture(name);assert field(await state(),'hp')==case['hp_before']
+   await shot(name+'-intent');await button('circle');raw=await state()
+   assert await screen()==screens['COMBAT'] and field(raw,'hp')==case['hp_after'],(case,field(raw,'hp'))
+   await shot(name+'-after')
+   print('PASS',name,'shown attack',case['shown'],'actual HP',case['hp_before'],'->',field(raw,'hp'),flush=True)
+  await fixture('boss');await shot('release-combat');await audible()
+  assert await val('rift_asset_errors')==0 and 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: boss single/multi-hit/Weak/Vulnerable actual damage, elite control, combat screenshots, full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
  if os.environ.get('RIFT_POTION_ONLY')=='1':
   assert 'r1310_potion_notice' not in syms, 'Legacy combat text popup is still linked'
   for character,potion in [(0,2),(1,0),(2,1),(0,24),(1,3)]:

@@ -1,0 +1,22 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE r6-elite-0
+SHOT r6-elite-0-intent
+SHOT r6-elite-0-after
+PASS r6-elite-0 shown attack 20 actual HP 80 -> 60
+FIXTURE r6-boss-0
+SHOT r6-boss-0-intent
+SHOT r6-boss-0-after
+PASS r6-boss-0 shown attack 21 actual HP 80 -> 59
+FIXTURE r6-boss-2
+SHOT r6-boss-2-intent
+SHOT r6-boss-2-after
+PASS r6-boss-2 shown attack 42 actual HP 80 -> 53
+FIXTURE r6-boss-4
+SHOT r6-boss-4-intent
+SHOT r6-boss-4-after
+PASS r6-boss-4 shown attack 36 actual HP 80 -> 51
+FIXTURE boss
+SHOT release-combat
+PASS final release EBOOT: boss single/multi-hit/Weak/Vulnerable actual damage, elite control, combat screenshots, full soundtrack; zero asset errors or memory faults
+SHA256 ce54a7e27d83784e2c1c57ee8d3eb5d625c4ddf6f81410391004bc7435069ffc

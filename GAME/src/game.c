@@ -1358,7 +1358,10 @@ static int enemy_encounter_damage(const Game*g,const Enemy*e){
  /* Original encounter size remains fixed after deaths. Combined raw damage
     is 140% for a pair and 135% for a trio, before statuses and multi-hits. */
  int share=g->enemy_count==3?45:g->enemy_count==2?70:100;
- return (int)(((long long)n*share+50)/100);
+ int damage=(int)(((long long)n*share+50)/100);
+ /* Boss attacks gain 5% per hit before statuses and player Block. */
+ if(g->battle_type==NODE_BOSS)damage=(int)(((long long)damage*105+50)/100);
+ return damage;
 }
 static int enemy_attack_value(const Game*g,const Enemy *e){
  int n=enemy_encounter_damage(g,e);

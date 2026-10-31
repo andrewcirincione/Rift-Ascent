@@ -1,0 +1,6 @@
+[
+ {"fixture":"r6-elite-0","shown":20,"hp_before":80,"hp_after":60},
+ {"fixture":"r6-boss-0","shown":21,"hp_before":80,"hp_after":59},
+ {"fixture":"r6-boss-2","shown":42,"hp_before":80,"hp_after":53},
+ {"fixture":"r6-boss-4","shown":36,"hp_before":80,"hp_after":51}
+]

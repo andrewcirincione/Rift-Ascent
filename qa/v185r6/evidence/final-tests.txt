@@ -1,0 +1,94 @@
+Rift Ascent 1.8.5-r6 final validation
+EBOOT SHA256 ce54a7e27d83784e2c1c57ee8d3eb5d625c4ddf6f81410391004bc7435069ffc
+Bytes 98406851
+
+native-tests
+PASS every artwork byte, all twelve complete encoded music streams, footer and splash assets remain identical to v1.8.4-r2.
+Bytes 98406851
+SHA256 ce54a7e27d83784e2c1c57ee8d3eb5d625c4ddf6f81410391004bc7435069ffc
+
+revision185
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; elites/bosses single.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at dedicated story outcomes, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.
+
+beta
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.
+
+cards_three
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.
+
+afterimage
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.
+
+story-regression
+PASS each character: 4/20 story outcomes offer Forge; all outcomes have exactly two navigation choices.
+PASS old third-choice save migrates to Leave; unavailable Forge falls back to a gift; stale Forge cannot award an unrelated relic.
+PASS Cinder blood/burden/Leave values and affordability; Red Communion and Candle boons apply only once.
+PASS 1.8.5-r3 behavior regression suite.
+
+inventory
+PASS 28 in-run screens: deck/inventory browsing preserves the complete underlying Game, selection and pending effect.
+PASS cutscenes/setup stay closed; unfinished effects and recaps remain view-only; Forge healing and pause return preserve focus.
+
+boss-damage
+PASS 18 attack cases: boss +5%, ordinary/elite controls, displayed intent equals actual damage, two/three hits, Block, Weak/Vulnerable and Paper Krane.
+PASS boss save/resume preserves damage exactly once; defensive intents unchanged; four exact-EBOOT fixtures generated.
+
+stack
+PASS empty/current slot scan: 115352 frame bytes + 8192 tail reserve; 73064 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_resume(57296) + ascent_read_run(28560)
+PASS old stable slot migration: 143872 frame bytes + 8192 tail reserve; 44544 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS legacy SAVE.DAT migration: 122488 frame bytes + 8192 tail reserve; 65928 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + game_load(64472) + migrate_layout184(28520)
+PASS in-game old slot resume: 143216 frame bytes + 8192 tail reserve; 45200 bytes remaining of 196608
+  run_game(160) + step_action(56) + game_action(28624) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS beta-only migration: 144704 frame bytes + 8192 tail reserve; 43712 bytes remaining of 196608
+  run_game(160) + ascent_open(29336) + ascent_import_beta(58128) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS save and quit: 86008 frame bytes + 8192 tail reserve; 102408 bytes remaining of 196608
+  run_game(160) + save_and_quit(57192) + ascent_checkpoint(28656)
+PASS startup/save stack budget; 192 KiB allocation unchanged
+
+ppsspp-playtest
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE r6-elite-0
+SHOT r6-elite-0-intent
+SHOT r6-elite-0-after
+PASS r6-elite-0 shown attack 20 actual HP 80 -> 60
+FIXTURE r6-boss-0
+SHOT r6-boss-0-intent
+SHOT r6-boss-0-after
+PASS r6-boss-0 shown attack 21 actual HP 80 -> 59
+FIXTURE r6-boss-2
+SHOT r6-boss-2-intent
+SHOT r6-boss-2-after
+PASS r6-boss-2 shown attack 42 actual HP 80 -> 53
+FIXTURE r6-boss-4
+SHOT r6-boss-4-intent
+SHOT r6-boss-4-after
+PASS r6-boss-4 shown attack 36 actual HP 80 -> 51
+FIXTURE boss
+SHOT release-combat
+PASS final release EBOOT: boss single/multi-hit/Weak/Vulnerable actual damage, elite control, combat screenshots, full soundtrack; zero asset errors or memory faults
+SHA256 ce54a7e27d83784e2c1c57ee8d3eb5d625c4ddf6f81410391004bc7435069ffc
+
+cold-boot
+PASS fixed-fresh observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 ce54a7e27d83784e2c1c57ee8d3eb5d625c4ddf6f81410391004bc7435069ffc
+
+Campaign comparison: unchanged reference policy; ordinary starter decks; all unlocks; victory at act 3 completion.
+Baseline r5: 283/1200 (23.6%), same seed/character pairs.
+Final r6: 252/1200 (21.0%); initial 55/300 (18.3%); held-out 197/900 (21.9%); no stalls.
+PASS screenshots inspected: boss intent 21, multi-hit 2x21, Weak/Vulnerable 36, elite control 20; ordinary boss combat with full hand.
+LIMITATIONS: automated campaign estimates with small observed run-to-run variation; assisted emulator fixtures, not human win-rate predictions. Physical PSP confirmation of this exact binary remains outstanding.
