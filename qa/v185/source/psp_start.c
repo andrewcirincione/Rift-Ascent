@@ -41,6 +41,7 @@ __asm__(
 PSP_MODULE_INFO("Rift Ascent Bare", PSP_MODULE_USER, 1, 1);
 
 #define STRIDE 512
+#define RIFT_GAME_STACK_BYTES (192*1024)
 static Game game;
 static RiftProfile lifetime;
 static char legacy_profile_path[360];
@@ -283,11 +284,35 @@ static void step_action(int key,unsigned tick) {
        (key==BTN_OK&&before_input.screen==SHOP))
         game_render_feedback(&before_input,&game,key,tick);
 }
+/* Keep the two 28 KiB snapshots off run_game's permanent stack frame.
+   Without noinline GCC reserves them during startup as well, overflowing the
+   PSP thread while ascent_open reads/migrates the alternating save slots. */
+static int __attribute__((noinline)) save_and_quit(unsigned presentation_tick) {
+    Game leaving=game;
+    Game snapshot=game;
+    snapshot.screen=game_pause_source();
+    if(!ascent_checkpoint(&snapshot)){
+        boot_trace("save and quit FAILED",-1);
+        return 0;
+    }
+    boot_trace("save and quit result",1);
+    game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
+    game_set_resume_available(1);game.selection=0;
+    inspect_open=0;enemy_turn_delay=plating_delay=0;
+    game_render_reset_fx();
+    game_render_begin_transition(&leaving,presentation_tick);
+    return 1;
+}
 static int run_game(SceSize bytes,void *argp) {
     (void)bytes;(void)argp;
-    ascent_open(ascent_directory());
-    snprintf(legacy_profile_path,sizeof(legacy_profile_path),"%s/PROFILE.DAT",ascent_directory());
     boot_trace("worker entered",1);
+    setup_home_callback();
+    boot_trace("exit callback setup",1);
+    boot_trace("save storage entering",1);
+    int storage_ready=ascent_open(ascent_directory());
+    boot_trace("save storage result",storage_ready);
+    if(!storage_ready){boot_trace("FATAL save storage",-9);sceKernelExitGame();return -9;}
+    snprintf(legacy_profile_path,sizeof(legacy_profile_path),"%s/PROFILE.DAT",ascent_directory());
     int assets_ready=rift_assets_open();
     boot_trace("streamed artwork bank",assets_ready);
     if(!assets_ready){boot_trace("FATAL artwork bank",-8);sceKernelExitGame();return -8;}
@@ -345,8 +370,6 @@ static int run_game(SceSize bytes,void *argp) {
         boot_trace("FATAL initial vblank",initial_vblank);
         sceKernelExitGame();return -6;
     }
-    setup_home_callback();
-    boot_trace("exit callback setup",1);
     unsigned int last=0;
     unsigned int frame=1;
     unsigned int presentation_tick=4;
@@ -379,20 +402,8 @@ static int run_game(SceSize bytes,void *argp) {
         /* Save a validated snapshot from the original screen. NEVER store PAUSE_MENU
            and never exit if the memory-stick write failed. */
         if(game.screen==PAUSE_MENU && key==BTN_OK && game_pause_selection()==0) {
-            Game leaving=game;
-            Game snapshot=game;
-            snapshot.screen=game_pause_source();
-            if(ascent_checkpoint(&snapshot)){
-                boot_trace("save and quit result",1);
-                game_new(&game,0x93ab6711U ^ sceKernelGetSystemTimeLow());
-                game_set_resume_available(1);game.selection=0;key=0;
-                inspect_open=0;pending_card_ticks=enemy_turn_delay=plating_delay=0;
-                game_render_reset_fx();
-                game_render_begin_transition(&leaving,presentation_tick);
-            }else {
-                boot_trace("save and quit FAILED",-1);
-                key=0;
-            }
+            if(save_and_quit(presentation_tick))pending_card_ticks=0;
+            key=0;
         }
         music_paused=game_render_music_paused(presentation_tick);
         game_render_update_fx(presentation_tick);
@@ -540,8 +551,9 @@ int _start(SceSize args,void *argp) {
     ascent_launch_path(args,argp);
     boot_trace_reset();
     boot_trace("PSP module start",1);
+    boot_trace("build revision",18502);
     SceUID th=sceKernelCreateThread("Rift Bare Game",run_game,0x20,
-                                  192*1024,PSP_THREAD_ATTR_USER,0);
+                                  RIFT_GAME_STACK_BYTES,PSP_THREAD_ATTR_USER,0);
     boot_trace("main thread ID",th);
     if(th>=0)boot_trace("main start result",sceKernelStartThread(th,0,0));
     else boot_trace("FATAL could not create thread",th);

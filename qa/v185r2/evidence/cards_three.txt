@@ -1,0 +1,1 @@
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.

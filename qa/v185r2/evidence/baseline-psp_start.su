@@ -1,0 +1,9 @@
+psp_start.c:539:5:_start	16	static
+psp_start.c:208:12:exit_callback	8	static
+psp_start.c:214:12:callbacks_worker	8	static
+psp_start.c:226:12:button	0	static
+psp_start.c:127:12:soundtrack_select	16	static
+psp_start.c:242:13:step_action.part.0	56	static
+psp_start.c:286:12:run_game	57328	static
+psp_start.c:91:12:soundtrack_open.isra	200	static
+psp_start.c:159:12:sound_worker	104	static

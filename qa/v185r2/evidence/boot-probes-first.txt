@@ -1,0 +1,14 @@
+OBSERVED thread stack overflow {"top": 167509696, "bottom": 167313088, "sp": 167308264, "bytes_used": 201432, "allocated": 196608, "at": "0x8808e28"}
+PASS negative control: published 1.8.5 exceeds its PSP thread stack even with an empty save folder
+PASS fixed-fresh observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850
+PASS fixed-stable185 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850
+PASS fixed-stable184 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850
+PASS fixed-beta184 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850
+PASS fixed-legacy184 observed startup stack bytes 115352 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850
+PASS fixed-corrupt observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 2711552b4e9ee0c206fcf20dea3a5eb548ec303c589e06e5c13566cd8438d850

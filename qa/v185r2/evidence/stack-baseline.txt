@@ -1,0 +1,10 @@
+FAIL empty/current slot scan: 201432 frame bytes + 8192 tail reserve; -13016 bytes remaining of 196608
+  run_game(57328) + ascent_open(58248) + ascent_resume(57296) + ascent_read_run(28560)
+FAIL old stable slot migration: 229952 frame bytes + 8192 tail reserve; -41536 bytes remaining of 196608
+  run_game(57328) + ascent_open(58248) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+FAIL legacy SAVE.DAT migration: 208568 frame bytes + 8192 tail reserve; -20152 bytes remaining of 196608
+  run_game(57328) + ascent_open(58248) + game_load(64472) + migrate_layout184(28520)
+FAIL in-game old slot resume: 200384 frame bytes + 8192 tail reserve; -11968 bytes remaining of 196608
+  run_game(57328) + step_action(56) + game_action(28624) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+FAIL run_game must not retain large save snapshots for its entire lifetime
+PASS negative control: exact original 1.8.5 compiler frames rejected

@@ -63,7 +63,7 @@ def main():
     evidence = repo_file(meta['validation']).read_text()
     assert meta['eboot_sha256'] in evidence and 'PASS final release EBOOT' in evidence
     for source in (ROOT/meta['canonical_source']).iterdir():
-        if not source.is_file() or source.suffix in ('.o','.elf','.PBP','.prx','.SFO','.log') or source.name == 'game.map':
+        if not source.is_file() or source.name.startswith('.') or source.suffix in ('.o','.elf','.PBP','.prx','.SFO','.log','.su') or source.name == 'game.map':
             continue
         for folder in ['GAME/src', 'portable_build']:
             if folder == 'GAME/src' and source.name == 'psp_start.c':

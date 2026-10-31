@@ -114,7 +114,9 @@ int ascent_checkpoint(Game*g){
 }
 /* Import a beta folder only when it has no valid stable account. Original
    beta files remain untouched; future writes use the stable namespace. */
-static int ascent_import_beta(void){
+/* Its two run snapshots must not inflate ascent_open's frame while that
+   function calls ascent_resume and the legacy-layout converter. */
+static int __attribute__((noinline)) ascent_import_beta(void){
  AscentAccount stable,a,b;unsigned ga=0,gb=0,gen=0;
  if((ascent_read("ASCENT18_ACCOUNT",0,&stable,sizeof(stable),&gen)&&ascent_account_valid(&stable))||
     (ascent_read("ASCENT18_ACCOUNT",1,&stable,sizeof(stable),&gen)&&ascent_account_valid(&stable)))return 1;

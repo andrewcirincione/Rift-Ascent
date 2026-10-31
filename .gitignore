@@ -1,4 +1,5 @@
 *.o
+qa/v185/source/*.su
 *.elf
 *.prx
 *.sfo

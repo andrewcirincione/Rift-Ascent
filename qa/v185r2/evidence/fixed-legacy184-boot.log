@@ -1,0 +1,31 @@
+PSP module start: 1
+build revision: 18502
+main thread ID: 279
+main start result: 0
+worker entered: 1
+exit callback setup: 1
+save storage entering: 1
+save storage result: 1
+streamed artwork bank: 1
+EDRAM base: 67108864
+VRAM size bytes: 2097152
+sceDisplaySetMode: 0
+game_new entering: 1
+game_new finished: 0
+profile load result: 0
+profile set: 1
+render first entering: 1
+render first finished: 1
+initial framebuffer sync: 1
+first framebuffer result: 0
+initial frame committed at vblank: 0
+frame 1 rendered: 0
+frame flip result: 0
+frame present vblank result: 0
+audio thread start: 1
+audio thread ID: 311
+audio launch result: 0
+Rift 1.8.5 twelve stereo music tracks loaded: 12
+frame flip result: 0
+frame present vblank result: 0
+frame 60 reached: 0
