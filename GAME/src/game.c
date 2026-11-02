@@ -22,6 +22,7 @@ static void expedition_boss_spoils(Game*);
 static int expedition_relic(Game*);
 static void revision182_migrate_room(Game*);
 static void ascent_record_act(Game*);
+static void ascent_repair_ending(Game*);
 static int ascent_random_potion(Game*);
 static int preview_depth,preview_phase,preview_choice=-1,preview_nested;
 /* Transient call-stack value: a repeated X Attack retains its original X. */
@@ -456,6 +457,7 @@ static void fill_rewards(Game*g){
  }
 }
 static void repair_generated_offers(Game*g){
+ ascent_repair_ending(g);
  /* Keep old saves and already-owned cards intact, replacing only unclaimed
     Debris offers produced when its legacy rarity was mistaken for Ancient. */
  /* The removed third story-gift choice becomes Leave in an old save. */
@@ -500,6 +502,7 @@ int game_moon_heal_now(const Game*g){return MIN(20,g->maxhp-g->hp);}
 /* Deterministic branching edges: no save struct layout changes. Edges are
    seeded by the run and act, so maps persist correctly across reloads. */
 static uint32_t route_hash(uint32_t z){z^=z>>16;z*=0x7feb352du;z^=z>>15;z*=0x846ca68bu;return z^(z>>16);}
+#include "journey_rewards.inc"
 /* Two distinct starts, three optional forks, and at most three merges per act.
    Every active room has an exit. Ordered neighbors prevent crossing paths. */
 static unsigned route_layer_legacy(const Game*g,int wanted,int lane){
@@ -1099,7 +1102,11 @@ static void enemy_intent(Game*g,Enemy *e){
  if(d->tier==0&&e->intent==0&&route_hash(g->seed^(unsigned)e->art*727u^(unsigned)g->floor*379u^(unsigned)g->turn*1429u)%10u==0)e->intent=24;
  long long percent=g->act==1?82:g->act==2?99:124LL+24LL*(g->act-3)+2LL*(g->act-3)*(g->act-3);
  if(g->act==1&&g->battle_type==NODE_FIGHT)percent+=8;
- e->intent_value=(int)CLAMP((d->attack*percent+50)/100+g->floor/7+(e->phase?2:0),1,100000000);
+ int attack=d->attack;
+ /* Returning early-act species must meet the celestial encounter baseline.
+    Dedicated minions retain their individually balanced profiles. */
+ if(g->act>=4&&e->art<59)attack=MAX(attack,d->tier==2?23:d->tier==1?19:16);
+ e->intent_value=(int)CLAMP((attack*percent+50)/100+g->floor/7+(e->phase?2:0),1,100000000);
 }
 static const char *intent_titles[INTENT_COUNT]={
  "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
@@ -1228,7 +1235,11 @@ static void init_enemy(Game*g,Enemy*e,int id){
  if(g->act==1&&g->battle_type==NODE_FIGHT)percent+=10;
  if(d->tier==2)percent=g->act>=3?182LL+44LL*(g->act-3):84+g->act*24;else percent+=g->floor+MAX(0,g->floor-4)/2;
  if(g->act>3)percent+=5LL*(g->act-3)*(g->act-3);
- long long hp=(d->hp*percent+50)/100;
+ int base_hp=d->hp;
+ if(g->act>=4&&id<59)base_hp=MAX(base_hp,d->tier==2?300:d->tier==1?163:78);
+ long long hp=(base_hp*percent+50)/100;
+ /* A gentle additional step above the existing act curve; Act 1 is unchanged. */
+ hp=(hp*(100+CLAMP(g->act-1,0,20))+50)/100;
  /* A small endurance increase for the optional and act-ending challenges. */
  if(g->battle_type==NODE_ELITE)hp=(hp*108+50)/100;
  if(g->battle_type==NODE_BOSS)hp=(hp*110+50)/100;
@@ -1404,6 +1415,7 @@ static int enemy_encounter_damage(const Game*g,const Enemy*e){
  int damage=(int)(((long long)n*share+50)/100);
  /* Boss attacks gain 5% per hit before statuses and player Block. */
  if(g->battle_type==NODE_BOSS)damage=(int)(((long long)damage*105+50)/100);
+ damage=(int)(((long long)damage*(100+CLAMP(g->act-1,0,20))+50)/100);
  return damage;
 }
 static int enemy_attack_value(const Game*g,const Enemy *e){

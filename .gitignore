@@ -237,3 +237,9 @@ qa/v186r2/evidence/*.bin
 qa/v186r2/evidence/*.log
 qa/v186r2/evidence/EBOOT.PBP
 qa/v186r2/evidence/act*/
+
+# 1.8.6 progression and ending correction
+qa/v186r3/evidence/*.bin
+qa/v186r3/evidence/*.log
+qa/v186r3/evidence/EBOOT.PBP
+qa/v186r3/evidence/act*/

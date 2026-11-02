@@ -38,7 +38,10 @@ const char*game_loop_story(const Game*g){
   {"I was forged to hold a chain. I can learn to break one.","You can bury a name. You cannot make it stop belonging to me.","A machine can be understood. And anything understood can be unmade."},
   {"Next time, fewer chains.","We will remember each other. Start being afraid.","I will bring back more than a victory."}
  };
- if(game_story_kind(g)==2&&(g->act==3||g->scroll%2==0))return page==0?challenge[stage][c]:page==1?reply[a][stage]:answer[stage][c];
+ if(game_story_kind(g)==2&&(g->act==3||g->scroll%2==0)){
+  if(a==2&&page==1&&!ascent_secret(c))return "The crown remembers every rebellion. Yet here you stand, choosing yours again.";
+  return page==0?challenge[stage][c]:page==1?reply[a][stage]:answer[stage][c];
+ }
  if(game_story_kind(g)==1&&(g->act==1||g->scroll%3==0))return entry[stage][c];
  return 0;
 }
@@ -68,6 +71,13 @@ const char*game_loop_event(const Game*g){
 const char*game_loop_ascent(const Game*g,int kind,int page){
  if(!game_memory_stage(g))return 0;
  int c=CLAMP(g->character,0,2);page=CLAMP(page,0,2);
+ static const char*resolution[3]={
+  "I have stood here before. Still, the gates are open and the living are free. That is a victory worth carrying home.",
+  "I remember another silence after this victory. This one holds voices the choir could not erase. I will carry their names home.",
+  "This sky feels remembered. Yet the stars belong to no crown tonight. Whatever returns, that choice was mine."
+ };
+ if(kind==0&&page==2)return resolution[c];
+ if((kind==1||kind==2)&&!ascent_secret(c))return 0;
  static const char*revelation[3]={
   "The king was a lock, and I have broken it before. Something above the light keeps rebuilding the cage around my oath.",
   "The choir is dead again. The voice behind it remembers all our silences. This time I know where to listen.",

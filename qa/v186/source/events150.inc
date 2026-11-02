@@ -111,6 +111,17 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}},
  {{"PRIME A LESSON / 35 GOLD","One Attack, Skill or Power starts in your opening hand, within the hand limit.",MOD_PRIMED,35,0,0},{"BIND A LESSON / 30 GOLD","Give one card Retain: keep it in hand at turn end.",MOD_BOUND,30,0,0}}
 };
+/* Quote and commit the same act-adjusted modification price. */
+static EventOffer event_offer(const Game*g,int id,int option){
+ EventOffer o=event_offers[id][option];
+ if(o.action>0&&o.action<MOD_COUNT){
+  int steps=CLAMP(g->act-1,0,4);
+  if(o.gold)o.gold=MAX(1,(o.gold*(100-10*steps)+50)/100);
+  if(o.hp)o.hp=MAX(1,o.hp-steps);
+  if(o.maxhp)o.maxhp=MAX(1,o.maxhp-steps);
+ }
+ return o;
+}
 static const unsigned char event_offer_counts[EVENT_COUNT]={2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,2,1,3,1,2,3,1,3,2,2,2,2,3,3,2,2,2,2,1,1,1,1,2};
 static int event_offer_available(const Game*g,int option);
 int game_event_can_leave(const Game*g){
@@ -134,8 +145,21 @@ static int event_relic_id(const Game*g,int option){return g->reward[(g->effect_t
 void game_event_option(const Game*g,int option,char*title,int tc,char*detail,int dc){
  if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]){snprintf(title,tc,"LEAVE");snprintf(detail,dc,"Leave without spending anything.");return;}
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);option=CLAMP(option,0,event_offer_counts[id]-1);
- const EventOffer*o=&event_offers[id][option];snprintf(title,tc,"%s",o->title);snprintf(detail,dc,"%s",o->detail);
- if(id==2||id==6||id==17||id==34){int raw=g->reward[id==17?0:option];if(CARD_ID(raw)<CARD_COUNT)snprintf(title,tc,"%s%s",cards[CARD_ID(raw)].name,CARD_UP(raw)?"+":"");}
+ EventOffer offer=event_offer(g,id,option);const EventOffer*o=&offer;snprintf(title,tc,"%s",o->title);snprintf(detail,dc,"%s",o->detail);
+ if(g->act>=2&&o->action>0&&o->action<MOD_COUNT){
+  char cost[64];if(o->gold&&o->hp)snprintf(cost,sizeof(cost),"%d Gold + %d HP",o->gold,o->hp);
+  else if(o->gold)snprintf(cost,sizeof(cost),"%d Gold",o->gold);
+  else if(o->hp)snprintf(cost,sizeof(cost),"%d HP",o->hp);
+  else snprintf(cost,sizeof(cost),"%d max HP",o->maxhp);
+  snprintf(title,tc,"%s / %s",game_mod_name(o->action),cost);
+  snprintf(detail,dc,"%s%s",game_mod_description(o->action),o->maxhp?" Keep at least 25 maximum HP.":"");
+ }
+ if(id==2||id==6||id==17||id==34){int raw=g->reward[id==17?0:option];if(CARD_ID(raw)<CARD_COUNT){snprintf(title,tc,"%s%s",cards[CARD_ID(raw)].name,CARD_UP(raw)?"+":"");
+  if(g->act>=2){const char*rarity=cards[CARD_ID(raw)].rarity==3?"Ancient":cards[CARD_ID(raw)].rarity==2?"Rare":cards[CARD_ID(raw)].rarity==1?"Uncommon":"Common";
+   char cost[48];if(o->gold)snprintf(cost,sizeof(cost),"Pay %d Gold.",o->gold);else if(o->hp)snprintf(cost,sizeof(cost),"Lose %d HP.",o->hp);else snprintf(cost,sizeof(cost),"Free.");
+   snprintf(detail,dc,"%s Take the shown %s%s card.",cost,CARD_UP(raw)?"upgraded ":"",rarity);
+  }
+ }}
  if((id==4&&!option)||id==11||id==15||(id==19&&option==1)||id==21||(id==32&&option<2)){int r=event_relic_id(g,option);if(r>=0&&r<RELIC_COUNT)snprintf(detail,dc,"%s\n%s: %s",o->detail,relic_defs[r].name,relic_defs[r].desc);else snprintf(detail,dc,"No unowned relic remains for this offer.");}
 }
 static int event_next_fits(const Game*g,int strength,int block,int draw,int weak,int vulnerable){
@@ -144,7 +168,7 @@ static int event_next_fits(const Game*g,int strength,int block,int draw,int weak
 }
 static int event_offer_available(const Game*g,int option){
  if(g->effect_turn<0||g->effect_turn>=EVENT_COUNT||option<0||option>=event_offer_counts[g->effect_turn])return 0;
- const EventOffer*o=&event_offers[g->effect_turn][option];int id=g->effect_turn;
+ int id=g->effect_turn;EventOffer offer=event_offer(g,id,option);const EventOffer*o=&offer;
  if(g->gold<o->gold||g->hp<=o->hp||(o->maxhp>0&&g->maxhp-o->maxhp<25))return 0;
  if(o->action){int n=0;for(int i=0;i<g->deck_count;i++)n+=event_card_ok(g->deck[i],o->action);
   if(!n||(o->action==EVENT_REMOVE&&g->deck_count<=1)||(o->action==EVENT_COPY&&g->deck_count>=MAX_DECK))return 0;}
@@ -190,11 +214,12 @@ void game_begin_event(Game*g,int id){
  if(id==EVENT_COUNT){expedition_mystery(g);return;}
  g->screen=EVENT;g->effect_turn=CLAMP(id,0,EVENT_COUNT-1);g->selection=0;
  g->scroll=MIN(20,MIN(g->gold/2,g->maxhp-g->hp));g->next_screen=0;g->reward[0]=g->reward[1]=g->reward[2]=-1;msg(g,"");
- if(id==2){g->reward[0]=reward_of_rarity(g,1,-1,-1)|UPBIT;g->reward[1]=reward_of_rarity(g,0,-1,-1);}
+ if(id==2){g->reward[0]=reward_of_rarity(g,journey_rarity(g,1,2),-1,-1)|UPBIT;g->reward[1]=reward_of_rarity(g,journey_rarity(g,0,102),-1,-1);}
  if(id==6){g->reward[0]=event_typed_card(g,0);g->reward[1]=event_typed_card(g,1);}
  if(id==17)g->reward[0]=reward_of_rarity(g,3,-1,-1);
- if(id==34){g->reward[0]=reward_of_rarity(g,2,-1,-1);g->reward[1]=reward_of_rarity(g,1,-1,-1)|UPBIT;}
- if(id==4||id==11||id==15||id==19||id==21||id==32){g->reward[0]=random_relic(g);if(id==15||id==32)g->reward[1]=random_relic_except(g,g->reward[0]);}
+ if(id==34){g->reward[0]=reward_of_rarity(g,journey_rarity(g,2,34),-1,-1);g->reward[1]=reward_of_rarity(g,journey_rarity(g,1,134),-1,-1)|UPBIT;}
+ if(id==2||id==6||id==17||id==34)for(int i=0;i<(id==17?1:2);i++)g->reward[i]=journey_upgrade(g,g->reward[i],(unsigned)(id+100*i));
+ if(id==4||id==11||id==15||id==19||id==21||id==32){g->reward[0]=journey_relic(g,-1,-1);if(id==15||id==32)g->reward[1]=journey_relic(g,-1,g->reward[0]);}
 }
 static void event_pay(Game*g,const EventOffer*o){
  g->gold-=o->gold;g->hp-=o->hp;g->maxhp-=o->maxhp;g->hp=MIN(g->hp,g->maxhp);
@@ -206,7 +231,7 @@ static void event_card_commit(Game*g){
  if(g->selection<0||g->selection>=g->deck_count||!game_event_card_eligible(g,g->deck[g->selection])){msg(g,"This card is not eligible. Choose another.");return;}
  if(!game_event_choice_available(g,g->shop_selection)){msg(g,"Cannot afford this choice. No resources spent.");return;}
  int action=g->next_screen,raw=g->deck[g->selection];
- const EventOffer*o=&event_offers[g->effect_turn][g->shop_selection];
+ EventOffer offer=event_offer(g,g->effect_turn,g->shop_selection);const EventOffer*o=&offer;
  if(action!=o->action){msg(g,"Invalid offer. No resources spent.");return;}
  event_pay(g,o);char text[72];
  if(g->effect_turn==33){for(int i=0;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;}
@@ -220,7 +245,7 @@ static void event_card_commit(Game*g){
 static void do_event(Game*g,int option){
  if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]&&game_event_can_leave(g)){enter_map(g);msg(g,"You leave the chamber.");return;}
  if(!game_event_choice_available(g,option)){msg(g,"Unavailable: check costs, deck, potions or queued boons.");return;}
- int id=g->effect_turn;const EventOffer*o=&event_offers[id][option];
+ int id=g->effect_turn;EventOffer offer=event_offer(g,id,option);const EventOffer*o=&offer;
  if(o->action){g->next_screen=o->action;g->shop_selection=option;g->screen=EVENT_CARD;g->selection=0;
   while(g->selection+1<g->deck_count&&!game_event_card_eligible(g,g->deck[g->selection]))g->selection++;
   msg(g,"");return;}

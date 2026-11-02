@@ -98,8 +98,10 @@ static void ascent_unlock_view(const Game*g){
 }
 static void ascent_scene_view(const Game*g){
  int c=CLAMP(g->character,0,2),kind=g->screen==ASCENT_ENDING?0:g->screen==ASCENT_REVELATION?1:g->screen==ASCENT_BOSS?2:3;
- rect(0,0,W,H,RGB(0,0,0));art_blit(72,38,336,126,ascent_scene_art[c][kind],336,126);
- r134_text(72,175,kind==2?"BEFORE THE FIRST THRONE":kind==3?"THE TRUE ASCENT":ascent_names[c],GOLD,&r138_title10);
+ rect(0,0,W,H,RGB(0,0,0));/* The legacy Vesper/Proxy ending slots depict the Unmaker confrontation.
+    Use the existing return-to-the-city aftermath for a resolved Act 3 win. */
+ art_blit(72,38,336,126,ascent_scene_art[c][kind==0?3:kind],336,126);
+ r134_text(72,175,kind==2?"BEFORE THE FIRST THRONE":kind==3?"THE TRUE ASCENT":kind==0?"THE CROWN FALLS":ascent_names[c],GOLD,&r138_title10);
  const char*memory=game_loop_ascent(g,kind,CLAMP(g->selection,0,2));
  r134_wrap(72,194,336,4,12,memory?memory:ascent_dialogue[c][kind][CLAMP(g->selection,0,2)],WHITE,&r134_f9,0);
  r134_blit(343,247,14,14,r135_cross,14,14,255);r134_text(364,250,"CONTINUE",MUTED,&r134_f8);

@@ -7,6 +7,11 @@ static int ascent_action(Game*g,int b){
    g->act++;g->endless=g->act>3;g->floor=0;g->lane=1;g->hp=g->maxhp;g->win_screen=g->relic_pending=0;map_generate(g);begin_act(g);
   }return 1;
  }
+ /* Refresh the threshold at every ending boundary, including older saves. */
+ if(g->act<=3&&(g->screen==ASCENT_ENDING||g->screen==ASCENT_CARDS||g->screen==ASCENT_POTIONS||g->screen==ASCENT_RELIC||g->screen==ASCENT_REVELATION)){
+  g->ascent.secret=ascent_secret(g->character);
+  if(g->screen==ASCENT_REVELATION&&!g->ascent.secret){g->screen=ASCENT_ENDING;g->selection=0;return 1;}
+ }
  switch(g->screen){
  case ASCENT_SLOTS_VIEW:
   if(b==BTN_UP)g->selection=(g->selection+3)%4;

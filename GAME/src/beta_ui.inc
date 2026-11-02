@@ -16,7 +16,8 @@ static void beta_forge_screen(const Game*g){
    char detail[200];
    if(c==0)snprintf(detail,sizeof(detail),"Upgrade any eligible card. No Gold or health cost.");
    else if(c==1)snprintf(detail,sizeof(detail),"%s No Gold or health cost.",game_mod_description(game_beta_modifier(g,c)));
-   else snprintf(detail,sizeof(detail),"Lose 4 maximum HP. Eligible Attacks or defensive Skills cost +1 Energy and play twice.");
+   else if(game_beta_echo_cost(g))snprintf(detail,sizeof(detail),"Lose %d maximum HP. Eligible Attacks or defensive Skills cost +1 Energy and play twice.",game_beta_echo_cost(g));
+   else snprintf(detail,sizeof(detail),"No health cost. Eligible Attacks or defensive Skills cost +1 Energy and play twice.");
    r134_wrap(x+16,y+27,w-32,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?(selected?WHITE:MUTED):MUTED,&r134_f9,0);
   }
   footer("X CHOOSE  O BACK  SQ DECK  START INVENTORY");return;
@@ -27,7 +28,8 @@ static void beta_forge_screen(const Game*g){
   card_render(x,y,82,85,g->deck[i],i==g->selection,1);
   if(!game_beta_eligible(g,g->effect_turn,g->deck[i]))dark_rect(x,y,82,85,150);
  }
- r134_text(27,39,g->effect_turn==2?"CONFIRM COST: 4 MAX HP":"CHOOSE A CARD / RESULT PREVIEW",GOLD,&r134_f9);
+ char cost[64];snprintf(cost,sizeof(cost),"CONFIRM COST: %d MAX HP",game_beta_echo_cost(g));
+ r134_text(27,39,g->effect_turn==2?cost:"CHOOSE A CARD / RESULT PREVIEW",GOLD,&r134_f9);
  r162_side_preview(game_beta_preview(g,g->effect_turn,g->deck[g->selection]),65);
  footer("X CONFIRM  O BACK  SQ DECK  START INVENTORY  SELECT SAVE");
 }

@@ -1,0 +1,111 @@
+{
+  "runs": 3600,
+  "wins": 743,
+  "stalls": 0,
+  "by_character": [
+    {
+      "character": -1,
+      "runs": 3600,
+      "acts": [
+        {
+          "act": 1,
+          "entered": 3600,
+          "lost": 401,
+          "loss_rate": 0.11138888888888888
+        },
+        {
+          "act": 2,
+          "entered": 3199,
+          "lost": 877,
+          "loss_rate": 0.27414817130353236
+        },
+        {
+          "act": 3,
+          "entered": 2322,
+          "lost": 1579,
+          "loss_rate": 0.6800172265288544
+        }
+      ],
+      "wins": 743,
+      "win_rate": 0.2063888888888889
+    },
+    {
+      "character": 0,
+      "runs": 1200,
+      "acts": [
+        {
+          "act": 1,
+          "entered": 1200,
+          "lost": 69,
+          "loss_rate": 0.0575
+        },
+        {
+          "act": 2,
+          "entered": 1131,
+          "lost": 216,
+          "loss_rate": 0.1909814323607427
+        },
+        {
+          "act": 3,
+          "entered": 915,
+          "lost": 566,
+          "loss_rate": 0.6185792349726776
+        }
+      ],
+      "wins": 349,
+      "win_rate": 0.29083333333333333
+    },
+    {
+      "character": 1,
+      "runs": 1200,
+      "acts": [
+        {
+          "act": 1,
+          "entered": 1200,
+          "lost": 123,
+          "loss_rate": 0.1025
+        },
+        {
+          "act": 2,
+          "entered": 1077,
+          "lost": 261,
+          "loss_rate": 0.24233983286908078
+        },
+        {
+          "act": 3,
+          "entered": 816,
+          "lost": 510,
+          "loss_rate": 0.625
+        }
+      ],
+      "wins": 306,
+      "win_rate": 0.255
+    },
+    {
+      "character": 2,
+      "runs": 1200,
+      "acts": [
+        {
+          "act": 1,
+          "entered": 1200,
+          "lost": 209,
+          "loss_rate": 0.17416666666666666
+        },
+        {
+          "act": 2,
+          "entered": 991,
+          "lost": 400,
+          "loss_rate": 0.4036326942482341
+        },
+        {
+          "act": 3,
+          "entered": 591,
+          "lost": 503,
+          "loss_rate": 0.8510998307952623
+        }
+      ],
+      "wins": 88,
+      "win_rate": 0.07333333333333333
+    }
+  ]
+}

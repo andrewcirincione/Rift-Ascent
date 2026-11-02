@@ -47,7 +47,16 @@ static int ascent_commit_account(void){
 const AscentAccount*ascent_profile(void){return &ascent_account;}
 const AscentSlot*ascent_slot(int n){return n>=0&&n<ASCENT_SLOTS?&ascent_slots[n]:0;}
 int ascent_popcount(unsigned n){int count=0;for(;n;n&=n-1)count++;return count;}
-int ascent_secret(int c){return c>=0&&c<3&&ascent_account.cards[c]==ASCENT_ALL_CARDS;}
+int ascent_secret(int c){return c>=0&&c<3&&ascent_account.wins[c]>=10;}
+static void ascent_repair_ending(Game*g){
+ /* Old unlocked collections are not proof of ten wins. Preserve active
+    later-act runs, but repair cached pre-threshold ending routes on resume. */
+ if(g->act<=3){
+  g->ascent.secret=ascent_secret(g->character);
+  int *screen=(g->screen==PAUSE_MENU||g->screen==DECK_VIEW||g->screen==POTION_VIEW||g->screen==RELIC_VIEW)?&g->prior_screen:&g->screen;
+  if(*screen==ASCENT_REVELATION&&!g->ascent.secret){*screen=ASCENT_ENDING;g->selection=0;}
+ }
+}
 int ascent_fast(void){return ascent_fast_setting!=0;}
 int ascent_set_fast(int enabled){unsigned value=!!enabled;if(!ascent_write("ASCENT18_SPEED",&value,sizeof(value),0))return 0;ascent_fast_setting=value;return 1;}
 int ascent_debug(void){return ascent_account.debug!=0;}

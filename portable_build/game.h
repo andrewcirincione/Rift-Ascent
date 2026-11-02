@@ -333,6 +333,7 @@ typedef struct {
 void game_card_preview(const Game *g,int raw,int target,CardPreview *out);
 void game_card_description_now(const Game *g,int raw,int target,char *out,int cap);
 int game_beta_modifier(const Game*,int);
+int game_beta_echo_cost(const Game*);
 int game_memory_stage(const Game*);
 const char*game_loop_story(const Game*);
 const char*game_loop_event(const Game*);

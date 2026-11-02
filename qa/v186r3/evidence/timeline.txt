@@ -1,0 +1,8 @@
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 7: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 7: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS ordinary story-to-story fade retained; leader death alone never starts ending; complete renderer, real combat effects, zero streamed-art errors.
+PASS all 12 scene/character image mappings: normal victory uses resolution artwork, never the secret-boss confrontation; other scenes retain their intended images.

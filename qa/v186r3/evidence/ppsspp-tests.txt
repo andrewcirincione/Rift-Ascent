@@ -1,0 +1,86 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE ending-0-0
+QA skipped repeated finisher presentation after resolution
+SHOT ending-0-0-resolution-1
+SHOT ending-0-0-resolution-3
+PASS exact PSP ending gate character 0 win 1 secret False
+FIXTURE ending-0-8
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 0 win 9 secret False
+FIXTURE ending-0-9
+QA skipped repeated finisher presentation after resolution
+SHOT ending-0-9-resolution-1
+SHOT ending-0-9-resolution-3
+SHOT ending-0-9-secret-reveal
+PASS exact PSP ending gate character 0 win 10 secret True
+FIXTURE ending-0-10
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 0 win 11 secret True
+FIXTURE ending-1-0
+QA skipped repeated finisher presentation after resolution
+SHOT ending-1-0-resolution-1
+SHOT ending-1-0-resolution-3
+PASS exact PSP ending gate character 1 win 1 secret False
+FIXTURE ending-1-8
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 1 win 9 secret False
+FIXTURE ending-1-9
+QA skipped repeated finisher presentation after resolution
+SHOT ending-1-9-resolution-1
+SHOT ending-1-9-resolution-3
+SHOT ending-1-9-secret-reveal
+PASS exact PSP ending gate character 1 win 10 secret True
+FIXTURE ending-1-10
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 1 win 11 secret True
+FIXTURE ending-2-0
+QA skipped repeated finisher presentation after resolution
+SHOT ending-2-0-resolution-1
+SHOT ending-2-0-resolution-3
+PASS exact PSP ending gate character 2 win 1 secret False
+FIXTURE ending-2-8
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 2 win 9 secret False
+FIXTURE ending-2-9
+QA skipped repeated finisher presentation after resolution
+SHOT ending-2-9-resolution-1
+SHOT ending-2-9-resolution-3
+SHOT ending-2-9-secret-reveal
+PASS exact PSP ending gate character 2 win 10 secret True
+FIXTURE ending-2-10
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP ending gate character 2 win 11 secret True
+FIXTURE forge-1
+SHOT forge-1
+SHOT forge-deck-1
+SHOT forge-preview-1
+PASS exact PSP Forge quote, preview, deck/inventory, cancel, Echo payment: Act 1
+FIXTURE forge-3
+SHOT forge-3
+SHOT forge-deck-3
+SHOT forge-preview-3
+PASS exact PSP Forge quote, preview, deck/inventory, cancel, Echo payment: Act 3
+FIXTURE forge-5
+SHOT forge-5
+SHOT forge-deck-5
+SHOT forge-preview-5
+PASS exact PSP Forge quote, preview, deck/inventory, cancel, Echo payment: Act 5
+FIXTURE gift-1
+SHOT gift-1
+FIXTURE gift-3
+SHOT gift-3
+FIXTURE gift-5
+SHOT gift-5
+FIXTURE relic-3
+SHOT relic-3
+FIXTURE mystery-forge-3
+SHOT mystery-forge-3
+FIXTURE mystery-cards-3
+SHOT mystery-cards-3
+FIXTURE foreign-5
+SHOT foreign-5
+FIXTURE combat-4
+SHOT release-combat
+PASS final release EBOOT: all character first/ninth/tenth/eleventh ending routes, reward claims, Forge quotes/preview/inventory/cancel/payment ; full soundtrack, zero art or memory errors
+SHA256 4681c18951baee174be95e0fa7467714237287d06333429b036c6a8036549ab1

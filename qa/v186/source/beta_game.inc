@@ -2,11 +2,14 @@
 int game_beta_modifier(const Game*g,int choice){
  if(choice==2)return MOD_ECHO;
  const int mods[]={MOD_KEEN,MOD_WARD,MOD_BOUND,MOD_FLEETING,MOD_KINDLED,MOD_PRIMED};
- return mods[route_hash(g->seed^(unsigned)g->act*913u^(unsigned)g->floor*37u)%6];
+ const int later[]={MOD_KEEN,MOD_WARD,MOD_BOUND,MOD_PRIMED};
+ unsigned roll=route_hash(g->seed^(unsigned)g->act*913u^(unsigned)g->floor*37u);
+ return g->act>=2?later[roll%4]:mods[roll%6];
 }
+int game_beta_echo_cost(const Game*g){return MAX(0,5-CLAMP(g->act,1,5));}
 int game_beta_eligible(const Game*g,int choice,int raw){
  if(choice==0)return game_card_is_upgradeable(raw);
- if(choice<0||choice>2||(choice==2&&g->maxhp<=10))return 0;
+ if(choice<0||choice>2||(choice==2&&game_beta_echo_cost(g)>0&&g->maxhp<=game_beta_echo_cost(g)+6))return 0;
  return game_can_modify(raw,game_beta_modifier(g,choice));
 }
 int game_beta_preview(const Game*g,int choice,int raw){
@@ -72,7 +75,7 @@ static int beta_action(Game*g,int b){
   if(b==BTN_BACK){g->screen=BETA_FORGE;g->selection=g->effect_turn;}
   if(b==BTN_OK&&game_beta_eligible(g,g->effect_turn,g->deck[g->selection])){
    g->deck[g->selection]=game_beta_preview(g,g->effect_turn,g->deck[g->selection]);
-   if(g->effect_turn==2){g->maxhp-=4;g->hp=MIN(g->hp,g->maxhp);}
+   if(g->effect_turn==2){g->maxhp-=game_beta_echo_cost(g);g->hp=MIN(g->hp,g->maxhp);}
    enter_map(g);
    msg(g,"The forge has reshaped your card.");
   }

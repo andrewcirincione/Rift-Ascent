@@ -47,3 +47,5 @@ game.o: loop_story.inc
 render.o: revision186_art.h aesthetic_art.h beta_ui.inc
 
 game.o: ninja_preview.inc regent_preview.inc
+
+game.o: journey_rewards.inc
