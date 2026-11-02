@@ -247,7 +247,8 @@ static void ninja_process(Game*g){
    int repeat=0;
    if(!(t.raw&CARD_EPHEMERAL)){
     if((g->character==CHAR_REGENT||g->revision184.custom))repeat+=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
-    if(cards[id].type==0){repeat+=CARD_MOD(t.raw)==MOD_ECHO;if(g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}}
+    repeat+=CARD_MOD(t.raw)==MOD_ECHO;
+    if(cards[id].type==0&&g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}
     if(cards[id].type==1&&g->ninja.v[NS_BURST]>0){repeat++;g->ninja.v[NS_BURST]--;}
    }
    if(preview_trace&&t.depth==2)preview_trace->repeated++;

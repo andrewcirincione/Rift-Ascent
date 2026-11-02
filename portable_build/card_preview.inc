@@ -107,7 +107,6 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
    default:preview_replace_number(out,cap,base,(id==14||id==29||id==37)?1:0,damage);break;
   }
   if(id==10){snprintf(temp,sizeof(temp),"Deal %s damage to all enemies %d times (X).",damage,g->energy);snprintf(out,(size_t)cap,"%s",temp);}
-  if(p.repeated){int n=(int)strlen(out);snprintf(out+n,(size_t)(cap-n),p.repeated==1?" Plays twice.":" Plays %d times.",1+p.repeated);}
  }else if(p.block_count){
   if(id==93){snprintf(out,(size_t)cap,"Gain %s Block. Includes +4 if any enemy intends to attack.",block);}
   else if(id==16){char second[20];snprintf(second,sizeof(second),"%d",p.block_count>1?p.block_second:MAX(0,8+3*up+g->dexterity+(relic(g,15)?2:0)+(CARD_MOD(raw)==MOD_WARD?4:0)));
@@ -119,6 +118,7 @@ void game_card_description_now(const Game*g,int raw,int target,char*out,int cap)
   snprintf(out,(size_t)cap,"Each Attack this turn grants %d Block.%s",n,
    g->ic[IC_UNMOVABLE]&&!g->ic[IC_UNMOVABLE_USED]?" Unmovable can double it.":"");
  }
+  if(p.repeated){int n=(int)strlen(out);snprintf(out+n,(size_t)(cap-n),p.repeated==1?" Plays twice.":" Plays %d times.",1+p.repeated);}
  append_mod_rules(raw,out,cap,1);
 }
 static int enemy_status_entries(const Game*g,int enemy,int wanted,char*out,int cap){

@@ -52,6 +52,7 @@ const char*expedition_line(const Game*g){
   "Choose one rare lesson from another path, or leave the exchange untouched."
  };
  int page=CLAMP(g->selection,0,2);
+ const char*memory=game_loop_event(g);if(memory)return memory;
  if(g->screen==EXPEDITION_STORY&&page==2&&g->expedition.gift_kind==2)return "A buried ember wakes. The encounter offers no keepsake: its fire can reshape one card before your journey continues.";
  return g->screen==ABOMINATION_BEFORE?before[page]:g->screen==ABOMINATION_AFTER?after[page]:g->screen==MYSTERY_STORY?mystery[page]:expedition_current(g)->lines[page];
 }

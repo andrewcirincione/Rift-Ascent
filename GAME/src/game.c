@@ -1046,7 +1046,32 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"Starved Herald",91,17,0,{2,0,10,14}},
  {"Throne Husk",99,18,0,{1,0,14,3}},
  {"Eclipse Justiciar",182,20,1,{13,18,22,16}},
+ {"Censer Bailiff",90,12,1,{1,24,0,31}},
+ {"Rime Pallbearer",146,16,1,{1,0,27,31}},
+ {"Vowbreaker Seraph",178,19,1,{24,0,7,31}},
+ {"Crown Tether",44,9,1,{1,0,31,27}},
+ {"Unborn Witness",44,9,1,{0,1,0,31}},
 };
+#ifndef RIFT186_ENCOUNTERS
+#define RIFT186_ENCOUNTERS 1
+#endif
+#ifndef R186_BOSS3_HP
+#define R186_BOSS3_HP 100
+#endif
+#ifndef R186_BOSS3_DAMAGE
+#define R186_BOSS3_DAMAGE 96
+#endif
+#ifndef R186_BOSS7_HP
+#define R186_BOSS7_HP 100
+#endif
+#ifndef R186_BOSS7_DAMAGE
+#define R186_BOSS7_DAMAGE 98
+#endif
+/* Encounter composition is fixed for its lifetime, including after deaths. */
+static int r186_boss_group(const Game*g){
+ return g->battle_type==NODE_BOSS&&((g->act==3&&g->enemy_count==2&&g->enemies[0].art==8)||
+        (g->act==7&&g->enemy_count==3&&g->enemies[0].art==45));
+}
 /* Normal / elite / boss pools are separate so bosses never show up as ordinary foes. */
 static const unsigned char enemy_normal[3][13]={{0,1,2,3,9,10,11,12,36,37,47,48,49},{4,5,16,17,18,19,20,21,38,39,51,52,53},{25,26,27,28,29,30,31,32,40,41,55,56,57}};
 static const unsigned char enemy_elite[3][5]={{6,13,14,42,50},{7,22,23,43,54},{33,34,35,46,58}};
@@ -1059,6 +1084,7 @@ static void enemy_intent(Game*g,Enemy *e){
  }else if(d->tier==2 && e->phase==0 && e->hp<=e->maxhp/2){e->phase=1;e->strength+=3;}
  unsigned turn=(unsigned)g->turn;
  int slot=(int)(turn%4u);
+ if(e->art==63)slot=(int)((turn+(unsigned)(e-g->enemies)-1u)%4u);
  /* Phase strengthens the boss without skipping its telegraphed cycle. */
  e->intent=d->moves[slot];
  if(e->art==45){static const unsigned char moves[3][4]={{13,16,11,10},{7,13,10,16},{10,7,13,16}};e->intent=moves[CLAMP(e->phase,0,2)][slot];}
@@ -1206,7 +1232,10 @@ static void init_enemy(Game*g,Enemy*e,int id){
  /* A small endurance increase for the optional and act-ending challenges. */
  if(g->battle_type==NODE_ELITE)hp=(hp*108+50)/100;
  if(g->battle_type==NODE_BOSS)hp=(hp*110+50)/100;
- if(g->enemy_count>1)hp=(hp*(g->enemy_count==2?70:50)+50)/100;
+ if(r186_boss_group(g)){
+  int scale=id==8?R186_BOSS3_HP:id==45?R186_BOSS7_HP:id==62?55:30;
+  hp=(hp*scale+50)/100;
+ }else if(g->enemy_count>1)hp=(hp*(g->battle_type==NODE_ELITE?65:g->enemy_count==2?70:50)+50)/100;
  e->maxhp=(int)MIN(1000000000LL,hp);
  if(e->maxhp<1)e->maxhp=1;
  e->hp=e->maxhp;
@@ -1222,11 +1251,16 @@ void game_start_battle(Game*g,int mode){
  g->turn=0;
  unsigned encounter=route_hash(g->seed^(unsigned)g->act*7919u^(unsigned)g->floor*101u)%4u;
  g->enemy_count=mode==NODE_FIGHT?(encounter==0?2:encounter==1?3:1):1;
+ int elite_pair=RIFT186_ENCOUNTERS&&mode==NODE_ELITE&&
+  route_hash(g->seed^(unsigned)g->act*18731u^(unsigned)g->floor*619u)%6u==0;
+ if(RIFT186_ENCOUNTERS&&mode==NODE_BOSS&&(g->act==3||g->act==7))g->enemy_count=g->act==3?2:3;
+ if(elite_pair){g->enemy_count=2;if(g->revision184.seen_act!=g->act){g->revision184.seen_act=g->act;g->revision184.seen[0]=g->revision184.seen[1]=0;}}
  memset(&g->revision185,0,sizeof(g->revision185));
  for(int i=0;i<g->enemy_count;i++){
   int act=MIN(2,g->act-1);
   int id;
-  if(mode==NODE_BOSS)id=g->act==7?45:g->act==4&&g->ascent.secret?44:enemy_boss[g->endless&&g->act>3?rnd(g,3):act];
+  if(mode==NODE_BOSS)id=i?(g->act==7?63:62):g->act==7?45:g->act==4&&g->ascent.secret?44:enemy_boss[g->endless&&g->act>3?rnd(g,3):act];
+  else if(elite_pair){static const unsigned char leaders[]={50,54,58};id=i?59+act:leaders[act];g->revision184.seen[id/32]|=1u<<(id%32);}
   else {
    if(g->revision184.seen_act!=g->act){g->revision184.seen_act=g->act;g->revision184.seen[0]=g->revision184.seen[1]=0;}
    int pool[39],fresh[39],n=0,nf=0;
@@ -1298,6 +1332,13 @@ void game_start_turn(Game*g){
  g->turn_played=0;g->reward_potion=0;g->shop_relic=0;g->shop_cards[1]=0;
  if(relic(g,14)&&!g->low_hp_triggered&&g->hp*2<=g->maxhp){g->strength+=3;g->low_hp_triggered=1;}
  int n=5+(g->turn==1&&relic(g,69)?1:0)+(relic(g,18)?1:0)+(g->turn==1?2*relic(g,7)+2*relic(g,NR_SNAKE):0)+(g->turn<=3?2*relic(g,NR_DRAKE):0)-(relic(g,25)?1:0)+g->ninja.v[NS_NEXT_DRAW];g->ninja.v[NS_NEXT_DRAW]=0;
+ /* Draw Primed cards first through the normal draw resolver. More than the
+    hand limit stay in the pile; the operation never creates another copy. */
+ if(g->turn==1){int primed=0;
+  for(int i=g->draw_count-1;i>=0;i--)if(CARD_MOD(g->draw[i])==MOD_PRIMED){
+   int raw=g->draw[i];for(int j=i;j+1<g->draw_count;j++)g->draw[j]=g->draw[j+1];g->draw[g->draw_count-1]=raw;primed++;
+  }n=MAX(n,MIN(primed,MAX_HAND));
+ }
  for(int i=0;i<n;i++)draw_card(g);
  if(g->ic[IC_AGGRESSION]>0){
   for(int j=0;j<g->ic[IC_AGGRESSION];j++){
@@ -1358,6 +1399,8 @@ static int enemy_encounter_damage(const Game*g,const Enemy*e){
  /* Original encounter size remains fixed after deaths. Combined raw damage
     is 140% for a pair and 135% for a trio, before statuses and multi-hits. */
  int share=g->enemy_count==3?45:g->enemy_count==2?70:100;
+ if(r186_boss_group(g))share=e->art==8?R186_BOSS3_DAMAGE:e->art==45?R186_BOSS7_DAMAGE:e->art==62?55:45;
+ else if(g->battle_type==NODE_ELITE&&g->enemy_count>1)share=60;
  int damage=(int)(((long long)n*share+50)/100);
  /* Boss attacks gain 5% per hit before statuses and player Block. */
  if(g->battle_type==NODE_BOSS)damage=(int)(((long long)damage*105+50)/100);
@@ -2056,6 +2099,7 @@ void game_story_start(Game*g,int boss){
  g->scroll=(int)(story_hash(g->seed^((uint32_t)g->character+1u)*0x9e3779b9u^((uint32_t)g->act)*0x85ebca6bu^(boss?0x170b055u:0x170ac7u))%(boss?5u:10u));
 }
 const char*game_story_text(const Game*g){
+ const char*memory=game_loop_story(g);if(memory)return memory;
  int c=CLAMP(g->character,0,2),a=CLAMP(g->act-1,0,3);
  return game_story_kind(g)==2?r170_boss[c][MIN(a,2)][CLAMP(g->scroll,0,4)][CLAMP(g->selection,0,2)]:r170_entry[c][a][CLAMP(g->scroll,0,9)];
 }
@@ -2490,7 +2534,7 @@ int game_validate(const Game*g){
   else if(g->revision184.item<0||g->revision184.item>=((g->revision184.tab==1||g->revision184.tab==3)?26:RELIC_COUNT))return 0;
  }
  if(g->revision182.rare_offset< -5||g->revision182.rare_offset>40||g->revision182.room_pending<0||g->revision182.room_pending>1||g->revision182.room_type<0||g->revision182.room_type>NODE_BOSS)return 0;
- if(g->revision182.event_seen_hi>1023u)return 0;
+ if(g->revision182.event_seen_hi>((1u<<(EVENT_COUNT-32))-1u))return 0;
  const int next_limits[5]={30,99,5,5,5};for(int i=0;i<5;i++)if(g->revision182.next_combat[i]<0||g->revision182.next_combat[i]>next_limits[i])return 0;
  if(g->act<1||g->act>100000||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
@@ -2571,6 +2615,10 @@ int game_save(const Game*g,const char*path){if(!game_validate(g))return 0;FILE*f
 #include "save_legacy.inc"
 #include "save_v22.inc"
 #include "save_v184.inc"
+static void revision186_migrate_actions(Game*g,unsigned version){
+ if(version<186&&(g->screen==EVENT_CARD||(g->screen==PAUSE_MENU&&g->prior_screen==EVENT_CARD))&&g->next_screen>=7&&g->next_screen<=10)g->next_screen++;
+ g->version=GAME_VERSION;
+}
 int game_load(Game*g,const char*path){
  unsigned char raw[sizeof(Game)];Game temp;uint32_t check;
  FILE*f=fopen(path,"rb");if(!f)return 0;
@@ -2578,11 +2626,12 @@ int game_load(Game*g,const char*path){
  unsigned char extra;int trailing=fread(&extra,1,1,f);fclose(f);
  if(!ok||trailing!=0||n<16||check!=hash_bytes(raw,n))return 0;
  memset(&temp,0,sizeof(temp));uint32_t version;memcpy(&version,raw+4,4);
- if(version==GAME_VERSION){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);}
+ if(version==GAME_VERSION||version==185){if(n!=sizeof(Game))return 0;memcpy(&temp,raw,n);temp.version=GAME_VERSION;}
  else if(version>=21&&version<=184){if(!migrate_layout184(&temp,raw,n))return 0;}
  else {if(version==20){if(!load_v20(&temp,raw,n))return 0;}else if(!load_legacy_run(&temp,raw,n,version))return 0;if(!migrate_raw_cards(&temp))return 0;temp.v151.potion_offer=-1;}
  if(version<23&&!migrate_raw22(&temp))return 0;
  if(version<182){temp.revision182.rare_offset=-5;revision182_migrate_room(&temp);}
+ revision186_migrate_actions(&temp,version);
  if(temp.screen==POTION_VIEW&&temp.prior_screen!=MAP)temp.prior_screen=SHOP;
  if(version==180&&temp.screen==RELIC_RESULT&&temp.reward[0]<0)temp.reward[0]=37;
  if(!game_validate(&temp))return 0;
@@ -2802,6 +2851,7 @@ void game_status_line(const Game*g,int index,char*out,int cap){
 #include "card_preview.inc"
 
 #include "ascent_storage.inc"
+#include "loop_story.inc"
 #include "custom_run.inc"
 #include "ascent_flow.inc"
 #include "expedition_flow.inc"

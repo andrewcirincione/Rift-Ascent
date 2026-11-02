@@ -1,9 +1,9 @@
 # Rift Ascent PSP
 
-Latest stable: [Rift Ascent 1.8.5 PSP startup fix](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.5-r2).
+Latest stable: [Rift Ascent 1.8.6](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.6).
 
 Install the PSP ZIP or replace `PSP/GAME/RIFTASCENT/EBOOT.PBP`, retaining all save/account files.
 
-Version 1.8.5 adds easier combat, balanced triple-enemy encounters, and story-event Forge choices. Revision r2 corrects the PSP startup stack overflow. See [patch notes](versions/1.8.5-r2/PATCH_NOTES.md), [startup-fix validation](qa/v185r2/README.md), and [1.8.5 implementation details](qa/v185/README.md).
+Version 1.8.6 improves health readability and Forge focus, adds boss minions and occasional themed elite pairs, expands Forge modifiers, and introduces a story that develops over repeated ascents. See [patch notes](versions/1.8.6/PATCH_NOTES.md) and [implementation and validation](qa/v186/README.md).
 
-Canonical source: `qa/v185/source`, recorded in `release/current.json`. The complete soundtrack and generated artwork are included in every release.
+Canonical source: `qa/v186/source`, recorded in `release/current.json`. The complete soundtrack and generated artwork are included in every release.

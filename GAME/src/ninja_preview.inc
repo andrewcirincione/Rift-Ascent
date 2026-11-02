@@ -35,7 +35,7 @@ static void ninja_description_now(const Game*g,int raw,int target,const CardPrev
  if(raw&CARD_INKY){int n=(int)strlen(out);snprintf(out+n,cap-n," Inky: unblocked hits apply 1 Weak.");}
  if((raw&(CARD_SLY|CARD_SLY_TURN))&&!(ninja_flags(raw)&8)){int n=(int)strlen(out);snprintf(out+n,cap-n,(raw&CARD_SLY_TURN)?" Sly this turn.":" Sly.");}
  if(id==N_SHIV&&g->ninja.v[NS_PHANTOM]){int n=(int)strlen(out);snprintf(out+n,cap-n," Retain.");}
- int repeats=cards[id].type==0?((CARD_MOD(raw)==MOD_ECHO)+(g->ic[IC_NEXT_ATTACK_REPEAT]>0)):cards[id].type==1?(g->ninja.v[NS_BURST]>0):0;
+ int repeats=(CARD_MOD(raw)==MOD_ECHO)+(cards[id].type==0?(g->ic[IC_NEXT_ATTACK_REPEAT]>0):cards[id].type==1?(g->ninja.v[NS_BURST]>0):0);
  if(repeats){int n=(int)strlen(out);snprintf(out+n,cap-n,repeats==1?" Plays twice.":" Plays %d times.",1+repeats);}
  append_mod_rules(raw,out,cap,1);
 }

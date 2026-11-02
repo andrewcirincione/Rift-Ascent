@@ -1,0 +1,257 @@
+Rift Ascent 1.8.6 exact-package validation
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[revision185.txt]
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; revised elite/boss group sizes.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at dedicated story outcomes, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.
+
+[beta.txt]
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.
+
+[cards_three.txt]
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.
+
+[afterimage.txt]
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.
+
+[prior_regression.txt]
+PASS each character: 4/20 story outcomes offer Forge; all outcomes have exactly two navigation choices.
+PASS old third-choice save migrates to Leave; unavailable Forge falls back to a gift; stale Forge cannot award an unrelated relic.
+PASS Cinder blood/burden/Leave values and affordability; Red Communion and Candle boons apply only once.
+PASS 1.8.5-r3 behavior regression suite.
+
+[inventory.txt]
+PASS 28 in-run screens: deck/inventory browsing preserves the complete underlying Game, selection and pending effect.
+PASS cutscenes/setup stay closed; unfinished effects and recaps remain view-only; Forge healing and pause return preserve focus.
+
+[boss_damage.txt]
+PASS 18 attack cases: boss +5%, ordinary/elite controls, displayed intent equals actual damage, two/three hits, Block, Weak/Vulnerable and Paper Krane.
+PASS boss save/resume preserves damage exactly once; defensive intents unchanged; four exact-EBOOT fixtures generated.
+
+[revision186.txt]
+Act 1 elite pairs 329/2000
+Act 2 elite pairs 355/2000
+Act 3 elite pairs 364/2000
+Act 4 elite pairs 319/2000
+Act 5 elite pairs 342/2000
+Act 6 elite pairs 376/2000
+Act 7 elite pairs 330/2000
+PASS exclusive themed elite pairs; boss groups; shown/actual damage; fixed survivor damage; no victory until every foe dies; group save/load.
+PASS all seven Echo Skills, upgraded/base, owned/foreign on all three characters: exactly doubled block/draw, one cost, one physical card, exact preview and repeat text.
+PASS Primed Attack/Skill/Power opening draws, overflow remains in pile, hand cap and save/load; all six Temper variants; new mystery choices/cancel/exact one-time cost.
+PASS 1.8.5 action-ID migration through checksum saves and alternating slots, including paused Upgrade/Remove/Copy/Transform pickers.
+PASS first-run lore unchanged; spare live slots grant no memory; durable completions counted once; repeated losses advance discoveries; first ending/custom excluded; all character Unmaker dialogues.
+PASS 1.8.6 mechanics and migration regression suite.
+
+[stack.txt]
+PASS empty/current slot scan: 115400 frame bytes + 8192 tail reserve; 73016 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_resume(57296) + ascent_read_run(28560)
+PASS old stable slot migration: 143920 frame bytes + 8192 tail reserve; 44496 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS legacy SAVE.DAT migration: 122544 frame bytes + 8192 tail reserve; 65872 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + game_load(64480) + migrate_layout184(28520)
+PASS in-game old slot resume: 143208 frame bytes + 8192 tail reserve; 45208 bytes remaining of 196608
+  run_game(160) + step_action(56) + game_action(28616) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS beta-only migration: 144752 frame bytes + 8192 tail reserve; 43664 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_import_beta(58128) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS save and quit: 86008 frame bytes + 8192 tail reserve; 102408 bytes remaining of 196608
+  run_game(160) + save_and_quit(57192) + ascent_checkpoint(28656)
+PASS startup/save stack budget; 192 KiB allocation unchanged
+
+[media.txt]
+PASS every old artwork byte, all twelve full music streams, and splash assets unchanged; six appended assets checksum verified; 1.8.6 title; package below 100 MiB.
+Bytes 99129571
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[emulator-final.txt]
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE echo0
+SHOT echo-skill-0
+SHOT echo-resolved-0
+FIXTURE echo1
+SHOT echo-skill-1
+SHOT echo-resolved-1
+FIXTURE echo2
+SHOT echo-skill-2
+SHOT echo-resolved-2
+PASS Echo defensive Skills: actual double Block/draw and single energy payment for all three characters
+FIXTURE boss3-c0
+SHOT boss3-played-c0
+FIXTURE boss7-c0
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 496, 'r137_start': 476, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c0
+FIXTURE boss3-c1
+SHOT boss3-played-c1
+FIXTURE boss7-c1
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 764, 'r137_start': 736, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c1
+FIXTURE boss3-c2
+SHOT boss3-played-c2
+FIXTURE boss7-c2
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1124, 'r137_start': 1108, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c2
+PASS both boss groups for all three characters: target minions, real card and enemy turns, save/quit/resume
+FIXTURE finish3
+QA skipped repeated finisher presentation after resolution
+SHOT boss3-complete
+FIXTURE finish7
+QA skipped repeated finisher presentation after resolution
+SHOT boss7-complete
+PASS killing the leader alone cannot finish either encounter; last minion resolves the encounter and original story/reward flow
+FIXTURE forge0
+SHOT forge-deck-0
+FIXTURE forge0
+SHOT forge-deck-1
+FIXTURE forge0
+SHOT forge-deck-2
+FIXTURE forge0
+SHOT primed-power-final-preview
+FIXTURE first-light
+SHOT primed-mystery-complete
+PASS all Forge choices retain deck/inventory access and focus; Primed applies to Power; mystery cancellation, save/resume, and exact one-time 35 Gold payment
+FIXTURE boss7-c0
+SHOT potion-quiet
+FIXTURE health80
+SHOT health80
+FIXTURE health160
+SHOT health160
+FIXTURE health-half
+SHOT health-half
+FIXTURE health-large
+SHOT health-large
+FIXTURE boss3-c0
+SHOT boss3-c0
+FIXTURE boss7-c2
+SHOT boss7-c2
+FIXTURE elite1
+SHOT elite1
+FIXTURE elite2
+SHOT elite2
+FIXTURE elite3
+SHOT elite3
+FIXTURE forge0
+SHOT forge-focus-0
+SHOT forge-focus-1
+SHOT forge-focus-2
+FIXTURE boss7-c2
+SHOT release-combat
+PASS final release EBOOT: actual multi-boss targeting/turns/completion/save-resume; all three skill resolvers; Forge inventory and Primed; potion success text stays quiet; final health/menu/enemy screenshots; full soundtrack; zero art errors or memory faults
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[emulator-lore-final.txt]
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE health80
+SHOT health80
+FIXTURE health160
+SHOT health160
+FIXTURE health-half
+SHOT health-half
+FIXTURE health-large
+SHOT health-large
+FIXTURE boss3-c0
+SHOT boss3-c0
+FIXTURE boss7-c2
+SHOT boss7-c2
+FIXTURE elite1
+SHOT elite1
+FIXTURE elite2
+SHOT elite2
+FIXTURE elite3
+SHOT elite3
+FIXTURE forge0
+SHOT forge-focus-0
+SHOT forge-focus-1
+SHOT forge-focus-2
+SHOT primed-power-preview
+FIXTURE first-light
+SHOT first-light
+FIXTURE entry0
+SHOT first-run-story
+FIXTURE entry0
+SHOT return-entry0
+FIXTURE event-story0
+SHOT return-event0
+FIXTURE boss-story0
+SHOT return-boss0
+FIXTURE unmaker0
+SHOT unmaker0-page0
+SHOT unmaker0-page1
+SHOT unmaker0-page2
+FIXTURE entry1
+SHOT return-entry1
+FIXTURE event-story1
+SHOT return-event1
+FIXTURE boss-story1
+SHOT return-boss1
+FIXTURE unmaker1
+SHOT unmaker1-page0
+SHOT unmaker1-page1
+SHOT unmaker1-page2
+FIXTURE entry2
+SHOT return-entry2
+FIXTURE event-story2
+SHOT return-event2
+FIXTURE boss-story2
+SHOT return-boss2
+FIXTURE unmaker2
+SHOT unmaker2-page0
+SHOT unmaker2-page1
+SHOT unmaker2-page2
+PASS visual fixtures; original-size health numbers/full and grown health bars; every new elite/minion; subtle Forge focus/Primed preview; all repeat-run and Unmaker text; soundtrack active; no art errors
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[emulator-finish-final.txt]
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE finish3
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 180, 'r137_start': 128, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 33, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 220, 'r137_start': 128, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 33, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 256, 'r137_start': 128, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 33, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 296, 'r137_start': 128, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 33, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss3-full-finish
+FIXTURE finish7
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 496, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 44, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 536, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 44, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 1, 'animation_tick': 588, 'r137_start': 444, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 1, 'r138_death_active': 0, 'r137_last_screen': 44, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-full-finish
+PASS both full unchanged finishing timelines and next story/reward screens, without presentation skips
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-fresh.txt]
+PASS v186-fresh observed startup stack bytes 115400 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-stable185.txt]
+PASS v186-stable185 observed startup stack bytes 115400 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-stable184.txt]
+PASS v186-stable184 observed startup stack bytes 143920 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-beta184.txt]
+PASS v186-beta184 observed startup stack bytes 144752 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-legacy184.txt]
+PASS v186-legacy184 observed startup stack bytes 115400 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+[boot-corrupt.txt]
+PASS v186-corrupt observed startup stack bytes 115400 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e
+
+PASS balance: 6,000 baseline campaigns supplied matched boss entries; 3,600 full campaigns per build, zero stalls; 1.8.6 wins 721/3600 (20.0%), 1.8.5-r6 782/3600 (21.7%).
+PASS visually inspected final native-resolution health, Forge, elite/boss/minion, Primed, potion and repeat-run/Unmaker screenshots. Physical PSP testing is not claimed.

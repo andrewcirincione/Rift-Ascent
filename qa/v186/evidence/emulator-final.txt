@@ -1,0 +1,74 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE echo0
+SHOT echo-skill-0
+SHOT echo-resolved-0
+FIXTURE echo1
+SHOT echo-skill-1
+SHOT echo-resolved-1
+FIXTURE echo2
+SHOT echo-skill-2
+SHOT echo-resolved-2
+PASS Echo defensive Skills: actual double Block/draw and single energy payment for all three characters
+FIXTURE boss3-c0
+SHOT boss3-played-c0
+FIXTURE boss7-c0
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 496, 'r137_start': 476, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c0
+FIXTURE boss3-c1
+SHOT boss3-played-c1
+FIXTURE boss7-c1
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 764, 'r137_start': 736, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c1
+FIXTURE boss3-c2
+SHOT boss3-played-c2
+FIXTURE boss7-c2
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1124, 'r137_start': 1108, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT boss7-played-c2
+PASS both boss groups for all three characters: target minions, real card and enemy turns, save/quit/resume
+FIXTURE finish3
+QA skipped repeated finisher presentation after resolution
+SHOT boss3-complete
+FIXTURE finish7
+QA skipped repeated finisher presentation after resolution
+SHOT boss7-complete
+PASS killing the leader alone cannot finish either encounter; last minion resolves the encounter and original story/reward flow
+FIXTURE forge0
+SHOT forge-deck-0
+FIXTURE forge0
+SHOT forge-deck-1
+FIXTURE forge0
+SHOT forge-deck-2
+FIXTURE forge0
+SHOT primed-power-final-preview
+FIXTURE first-light
+SHOT primed-mystery-complete
+PASS all Forge choices retain deck/inventory access and focus; Primed applies to Power; mystery cancellation, save/resume, and exact one-time 35 Gold payment
+FIXTURE boss7-c0
+SHOT potion-quiet
+FIXTURE health80
+SHOT health80
+FIXTURE health160
+SHOT health160
+FIXTURE health-half
+SHOT health-half
+FIXTURE health-large
+SHOT health-large
+FIXTURE boss3-c0
+SHOT boss3-c0
+FIXTURE boss7-c2
+SHOT boss7-c2
+FIXTURE elite1
+SHOT elite1
+FIXTURE elite2
+SHOT elite2
+FIXTURE elite3
+SHOT elite3
+FIXTURE forge0
+SHOT forge-focus-0
+SHOT forge-focus-1
+SHOT forge-focus-2
+FIXTURE boss7-c2
+SHOT release-combat
+PASS final release EBOOT: actual multi-boss targeting/turns/completion/save-resume; all three skill resolvers; Forge inventory and Primed; potion success text stays quiet; final health/menu/enemy screenshots; full soundtrack; zero art errors or memory faults
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e

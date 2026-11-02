@@ -1,0 +1,371 @@
+"""Exercise the packaged EBOOT through PPSSPP's inputs and debugger.
+State fixtures are explicitly assisted; the executable is the release binary.
+"""
+from pathlib import Path
+import os,subprocess,time,asyncio,json,base64,struct,hashlib,shutil
+import signal
+signal.signal(signal.SIGTERM,lambda *_: (_ for _ in ()).throw(SystemExit("QA stopped")))
+import websockets
+from PIL import Image
+R=Path(__file__).resolve().parents[2];Q=R/'qa/v186';E=Q/'evidence';T=Path(os.environ.get('RIFT_TOOLCHAIN','/workspace/toolchain'));instance=os.environ.get('RIFT_INSTANCE','184r2');prefix=os.environ.get('RIFT_PREFIX','');extra_start=int(os.environ.get('RIFT_FROM_EXTRA','0'));display=os.environ.get('RIFT_DISPLAY','601');port=os.environ.get('RIFT_PORT','19601');C=T/('qa'+instance);C.mkdir(exist_ok=True)
+M=C/'ppsspp';S=M/'PSP/SYSTEM';S.mkdir(parents=True,exist_ok=True)
+(S/'controls.ini').write_text('[ControlMapping]\nScreenshot = 1-131\nFast-forward = 1-132\n')
+D=M/'PSP/GAME/RIFT184VERIFY';D.mkdir(parents=True,exist_ok=True)
+resume=os.environ.get('RIFT_COLD')=='1';smoke=os.environ.get('RIFT_SMOKE')=='1'
+if not resume and os.environ.get('RIFT_KEEP')!='1':
+ for f in D.glob('ASCENT18_*'):f.unlink()
+assert (E/'EBOOT.PBP').read_bytes()[-160:-152]==b'RIFTAU19', 'Incomplete package: soundtrack footer missing'
+shutil.copyfile(E/'EBOOT.PBP',D/'EBOOT.PBP')
+assert hashlib.sha256((D/'EBOOT.PBP').read_bytes()).digest()==hashlib.sha256((E/'EBOOT.PBP').read_bytes()).digest()
+if resume:
+ for f in D.glob('ASCENT18_*'):f.unlink()
+ shutil.copyfile(E/'legacy182-run.bin',D/'ASCENT18_RUN_1.0')
+ shutil.copyfile(E/'legacy182-account.bin',D/'ASCENT18_ACCOUNT.0')
+conf=C/'settings.ini';conf.write_text(f'[General]\nRemoteDebuggerOnStartup = True\nRemoteISOPort = {port}\nEnableLogging = True\nScreenshotsAsPNG = True\nScreenshotMode = 1\n[Graphics]\nInternalResolution = 1\nVerticalSync = False\nFrameSkip = 8\nAutoFrameSkip = True\n[Sound]\nEnable = True\n[SystemParam]\nPSPModel = 0\n')
+env=os.environ.copy();env.update(DISPLAY='127.0.0.1:'+display,LIBGL_ALWAYS_SOFTWARE='1',SDL_VIDEODRIVER='x11',SDL_AUDIODRIVER='dummy',SDL_VIDEO_X11_XSHM='0',XDG_CONFIG_HOME=str(C),LD_LIBRARY_PATH=str(T/'sysroot/usr/lib/x86_64-linux-gnu'))
+nm=subprocess.check_output([str(T/'pspdev/bin/psp-nm'),'-S',str(Q/'source/rift_ascent_crt_free.elf')],text=True)
+syms={p[-1]:int(p[0],16) for line in nm.splitlines() if len(p:=line.split()) in (3,4)}
+L=json.loads((E/'state-layout.json').read_text());screens=L['screens'];seq=0
+async def check(w):
+ global seq
+ fast_frame_ready=False
+ async def req(event,**kw):
+  global seq
+  seq+=1;n=seq;await w.send(json.dumps(dict(event=event,ticket=n,**kw)))
+  while True:
+   d=json.loads(await asyncio.wait_for(w.recv(),30))
+   if d.get('ticket')==n:assert d.get('event')!='error',d;return d
+ async def command(event):
+  status=await req('cpu.status')
+  if event=='cpu.stepping' and status['stepping']:return
+  if event=='cpu.resume' and not status['stepping']:return
+  await w.send(json.dumps({'event':event}));deadline=time.monotonic()+30
+  while time.monotonic()<deadline:
+   d=json.loads(await asyncio.wait_for(w.recv(),max(.1,deadline-time.monotonic())))
+   assert d.get('event')!='error',d
+   if d.get('event')==event:return
+  raise AssertionError('CPU command timeout '+event)
+ async def val(n):return (await req('cpu.evaluate',expression=f'[0x{syms[n]:08x}]'))['uintValue']
+ async def put(n,v):await req('memory.write_u32',address=syms[n],value=v&0xffffffff)
+ async def memory(n,size):return base64.b64decode((await req('memory.read',address=syms[n],size=size))['base64'])
+ async def audible():
+  # Avoid sampling the brief zero-fill between the SFX and stereo mixing passes.
+  for _ in range(40):
+   if any(await memory('audio_buffer',2048)):return
+   await asyncio.sleep(.1)
+  raise AssertionError('No PCM output: '+str({k:await val(k) for k in ['soundtrack_active','soundtrack_current','left_samples','music_route','audio_pos']}))
+ async def state():return await memory('game',L['size'])
+ def field(b,k,idx=0):return struct.unpack_from('<i',b,L[k]+idx*4)[0]
+ async def screen():return (await req('cpu.evaluate',expression=f'[0x{syms["game"]+L["screen"]:08x}]'))['uintValue']
+ async def ticks(n):
+  if (E/'STOP_QA').exists():raise SystemExit('QA stopped by operator')
+  if fast_frame_ready and os.environ.get('RIFT_FAST_PRESENTATION')=='1' and await screen()!=screens['COMBAT']:
+   n=min(n,8)
+  start=await val('animation_tick')
+  for attempt in range(600):
+   now=await val('animation_tick')
+   if now>=start+n:return
+   if attempt and attempt%100==0:print('WAIT ticks',start,now,n,await req('cpu.status'),flush=True)
+   await asyncio.sleep(.1)
+  raise AssertionError('Emulated frames stopped')
+ async def settle():
+  keys=['r161_transition_active','r1311_finishing','animation_tick','r137_start','r1311_kill_at','r137_duration','r137_count','r138_death_active','r137_last_screen']
+  first=min(syms[k] for k in keys);end=max(syms[k] for k in keys)+4
+  for attempt in range(800):
+   values={k:await val(k) for k in keys}
+   for k in ['action_cooldown','enemy_turn_delay','plating_delay']:values[k]=await val(k)
+   if os.environ.get('RIFT_FAST_PRESENTATION')=='1' and values['r161_transition_active']:
+    await put('r161_transition_active',0)
+    await ticks(8)
+    continue
+   if os.environ.get('RIFT_FAST_PRESENTATION')=='1' and values['r1311_finishing']:
+    # The first character run observes the full unchanged finishing timeline.
+    # Later repetitions may skip that display-only replay AFTER game resolution.
+    for k in ['r1311_finishing','r137_count','r138_death_active','victory_replay']:await put(k,0)
+    print('QA skipped repeated finisher presentation after resolution',flush=True)
+    await ticks(8)
+    continue
+   fx_end=values['r137_duration']
+   if values['r137_last_screen'] in [screens[k] for k in ['REWARD','RELIC_RESULT','VICTORY','DEFEAT']]:fx_end=max(fx_end,30)+10
+   fx_busy=(values['r137_count'] or values['r138_death_active']) and values['animation_tick']-values['r137_start']<fx_end
+   if not values['r161_transition_active'] and values['action_cooldown']==0 and values['enemy_turn_delay']==0 and values['plating_delay']==0 and not fx_busy and (not values['r1311_finishing'] or values['animation_tick']-values['r137_start']>values['r1311_kill_at']+184):return
+   if attempt and attempt%40==0:print('WAIT settle',values,flush=True)
+   await asyncio.sleep(.1)
+  raise AssertionError('Transition did not settle')
+ async def button(k):
+  k={'l':'ltrigger','r':'rtrigger'}.get(k,k)
+  await settle();await req('input.buttons.send',buttons={k:True});await ticks(8);await req('input.buttons.send',buttons={k:False});await ticks(8)
+  # Card plays intentionally resolve after five rendered presentation frames.
+  # That countdown is a local in main(), not an exported debugger symbol.
+  if k=='cross' and await screen()==screens['COMBAT']:await ticks(24)
+  await settle()
+ async def shot(n):
+  await ticks(8)
+  f=M/'PSP/SCREENSHOT';before=set(f.glob('*.png'))
+  subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'key','F1'],env=env,check=True)
+  for _ in range(200):
+   await asyncio.sleep(.1)
+   for src in set(f.glob('*.png'))-before:
+    try:
+     with Image.open(src) as im:im.load();assert im.size==(480,272)
+     if not src.read_bytes().endswith(bytes.fromhex('49454e44ae426082')):continue
+    except Exception:continue
+    assert await val('rift_asset_errors')==0,n
+    shutil.copyfile(src,E/('ppsspp-'+prefix+n+'.png'));print('SHOT',n,flush=True);return
+  raise AssertionError('Screenshot timeout '+n)
+ async def pause_at_frame():
+  # Swap fixtures only at the next render entry, never through a live blit.
+  await command('cpu.stepping')
+  address=syms['game_render_frame'];await req('cpu.breakpoint.add',address=address)
+  await command('cpu.resume')
+  for _ in range(600):
+   status=await req('cpu.status')
+   if status['stepping']:
+    assert status['pc']==address,status
+    await req('cpu.breakpoint.remove',address=address);return
+   await asyncio.sleep(.05)
+  raise AssertionError('No safe frame boundary for fixture')
+ async def fixture(n,patch=None):
+  print('FIXTURE',n,flush=True)
+  await pause_at_frame();raw=bytearray((E/('fixture-'+n+'.bin')).read_bytes());assert len(raw)==L['size']
+  if patch:patch(raw)
+  await req('memory.write',address=syms['game'],base64=base64.b64encode(raw).decode())
+  for key in ['inspect_open','inspect_tab','inspect_scroll','action_cooldown','pending_card_ticks','r137_count','r137_held_valid','r138_death_active','r1311_finishing','r140_chime_done','enemy_turn_delay','plating_delay','hand_exchange','fx_transition','victory_replay','fx_player_damage','fx_enemy_damage','fx_heal','fx_block','effect_kind','r161_transition_active','r170_story_queue']:
+   if key in syms:await put(key,0)
+  for key in ['rift120_played_card','rift120_auto_card','r140_potion_gained']:await put(key,-1)
+  await command('cpu.resume');await ticks(8);await settle()
+ async def latest_checks():
+  for event in [1,30]:
+   await fixture('full-heal-'+str(event));before=field(await state(),'hp');await shot('full-health-event-'+str(event));await button('cross');raw=await state();assert field(raw,'screen')==screens['EVENT_RESULT'] and field(raw,'hp')==field(raw,'maxhp') and field(raw,'hp')==before-(5 if event==30 else 0);await button('cross');assert await screen()==screens['MAP']
+  await fixture('braced-strike');await shot('braced-strike-intent');await button('circle');raw=await state();assert field(raw,'hp')==74 and struct.unpack_from('<i',raw,L['enemies']+32)[0]==6;await shot('braced-strike-after')
+  print('PASS full-health healing choices and actual simultaneous enemy attack/block with both overhead icons',flush=True)
+  rates=[]
+  for fast in [0,1]:
+   await fixture('options');await put('ascent_fast_setting',1-fast);await button('cross');assert await val('ascent_fast_setting')==fast;await shot('speed-'+str(fast))
+   await fixture('braced-strike');os.environ['RIFT_FAST_PRESENTATION']='0';await pause_at_frame();start_tick=await val('animation_tick')
+   for frame in range(6):
+    await command('cpu.resume');await pause_at_frame()
+   end_tick=await val('animation_tick');rates.append(end_tick-start_tick);await command('cpu.resume')
+  assert rates==[24,72],rates
+  print('PASS Normal/Fast options, persistent setting, exact 3x combat presentation clock:',rates,flush=True)
+  os.environ['RIFT_FAST_PRESENTATION']='1'
+ await asyncio.sleep(2)
+ ids=subprocess.check_output([str(T/'sysroot/usr/bin/xdotool'),'search','--onlyvisible','--name','.*'],env=env,text=True).split()
+ subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'windowfocus',ids[-1]],env=env,check=True)
+ subprocess.run([str(T/'sysroot/usr/bin/xdotool'),'keydown','F2'],env=env,check=True)
+ for _ in range(240):
+  try:
+   await val('animation_tick');break
+  except AssertionError as error:
+   if 'CPU not started' not in str(error):raise
+   await asyncio.sleep(.25)
+ if os.environ.get('RIFT_BOOT_ONLY')=='1':
+  start=await val('animation_tick');await asyncio.sleep(10);print('BOOT BENCHMARK ticks in ten seconds:',(await val('animation_tick'))-start,flush=True);return
+ await ticks(16)
+ for _ in range(600):
+  if await val('soundtrack_active')==1 and await val('soundtrack_current')==10:break
+  await asyncio.sleep(.1)
+ print('BOOT',await screen(),'asset errors',await val('rift_asset_errors'),'stereo streaming',await val('soundtrack_active'),'track',await val('soundtrack_current'),flush=True);assert await screen()==screens['TITLE'];assert await val('soundtrack_active')==1;assert await val('soundtrack_current')==10;await audible();await shot('title')
+ if os.environ.get('RIFT_BOOT_ONLY')=='1':
+  start=await val('animation_tick');await asyncio.sleep(5);print('BOOT BENCHMARK ticks in five seconds:',(await val('animation_tick'))-start,flush=True);return
+ fast_frame_ready=True
+ if os.environ.get('RIFT186_FINISH')=='1':
+  os.environ['RIFT_FAST_PRESENTATION']='0'
+  for act in [3,7]:
+   await fixture('finish'+str(act));n=field(await state(),'enemy_count')
+   for index in range(n):
+    await button('cross');assert (await screen()==screens['COMBAT'])==(index<n-1)
+   await shot('boss'+str(act)+'-full-finish')
+  print('PASS both full unchanged finishing timelines and next story/reward screens, without presentation skips',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);await command('cpu.stepping');return
+ if os.environ.get('RIFT186_PLAY')=='1':
+  for c in range(3):
+   await fixture('echo'+str(c));await shot('echo-skill-'+str(c));await button('cross');raw=await state()
+   assert field(raw,'block')==[16,10,10][c] and field(raw,'energy')==8 and field(raw,'hand_count')==[2,4,0][c],(c,field(raw,'block'),field(raw,'energy'),field(raw,'hand_count'))
+   await shot('echo-resolved-'+str(c))
+  print('PASS Echo defensive Skills: actual double Block/draw and single energy payment for all three characters',flush=True)
+  for c in range(3):
+   for act in [3,7]:
+    await fixture('boss'+str(act)+'-c'+str(c));n=field(await state(),'enemy_count');assert n==(2 if act==3 else 3)
+    for _ in range(n-1):await button('down')
+    before=await state();hp=struct.unpack_from('<i',before,L['enemies']+(n-1)*L['enemy_size']+L['enemy_hp'])[0]
+    await button('cross');raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+(n-1)*L['enemy_size']+L['enemy_hp'])[0]<hp
+    await button('circle');assert await screen()==screens['COMBAT'];await shot('boss'+str(act)+'-played-c'+str(c))
+    if c==2:
+     await button('select');await button('cross');assert await screen()==screens['TITLE'];await button('cross');await button('cross');assert await screen()==screens['COMBAT'] and field(await state(),'enemy_count')==n
+  print('PASS both boss groups for all three characters: target minions, real card and enemy turns, save/quit/resume',flush=True)
+  for act in [3,7]:
+   await fixture('finish'+str(act));n=field(await state(),'enemy_count');await button('cross');assert await screen()==screens['COMBAT']
+   if n==3:await button('cross');assert await screen()==screens['COMBAT']
+   await button('cross');assert await screen()!=screens['COMBAT'];await shot('boss'+str(act)+'-complete')
+  print('PASS killing the leader alone cannot finish either encounter; last minion resolves the encounter and original story/reward flow',flush=True)
+  for selected in range(3):
+   await fixture('forge0')
+   for _ in range(selected):await button('down')
+   before=await state();await button('square');assert await val('inspect_open') and await val('inspect_tab')==5;await shot('forge-deck-'+str(selected));await button('circle');assert before==await state()
+   await button('start');assert await val('inspect_open');await button('circle');assert before==await state()
+   await button('cross');assert await screen()==screens['BETA_FORGE_CARD'];await button('circle');assert field(await state(),'selection')==selected
+  await fixture('forge0');await button('down');await button('cross');await button('right');await button('right');await shot('primed-power-final-preview');await button('cross');raw=await state();assert await screen()==screens['MAP'] and ((field(raw,'deck',2)>>13)&7)==7
+  await fixture('first-light');await button('cross');await button('circle');assert field(await state(),'gold')==100;await button('cross');await button('right');await button('right');await button('select');await button('cross');assert await screen()==screens['TITLE'];await button('cross');await button('cross');assert await screen()==screens['EVENT_CARD'];await button('cross');raw=await state();assert await screen()==screens['EVENT_RESULT'] and field(raw,'gold')==65 and ((field(raw,'deck',2)>>13)&7)==7;await shot('primed-mystery-complete')
+  print('PASS all Forge choices retain deck/inventory access and focus; Primed applies to Power; mystery cancellation, save/resume, and exact one-time 35 Gold payment',flush=True)
+  await fixture('boss7-c0');await button('triangle');await button('cross');assert field(await state(),'block')==20 and field(await state(),'potion_count')==0;assert 'r1310_potion_notice' not in syms;await shot('potion-quiet')
+  for name in ['health80','health160','health-half','health-large','boss3-c0','boss7-c2','elite1','elite2','elite3']:
+   await fixture(name);await shot(name)
+  await fixture('forge0')
+  for selected in range(3):await shot('forge-focus-'+str(selected));await button('down')
+  await fixture('boss7-c2');await shot('release-combat');await audible();assert await val('rift_asset_errors')==0 and 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: actual multi-boss targeting/turns/completion/save-resume; all three skill resolvers; Forge inventory and Primed; potion success text stays quiet; final health/menu/enemy screenshots; full soundtrack; zero art errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);await command('cpu.stepping');return
+ if os.environ.get('RIFT186_VISUAL')=='1':
+  for name in ['health80','health160','health-half','health-large','boss3-c0','boss7-c2','elite1','elite2','elite3']:
+   await fixture(name);await shot(name)
+  await fixture('forge0')
+  for selected in range(3):
+   assert field(await state(),'selection')==selected;await shot('forge-focus-'+str(selected));await button('down')
+  await button('down');await button('cross');await button('right');await button('right');await shot('primed-power-preview')
+  await fixture('first-light');await shot('first-light')
+  await put('ascent_memory',0);await fixture('entry0');await shot('first-run-story')
+  for c in range(3):
+   await put('ascent_memory',1);await fixture('entry'+str(c));await shot('return-entry'+str(c))
+   await put('ascent_memory',4);await fixture('event-story'+str(c));await shot('return-event'+str(c))
+   await fixture('boss-story'+str(c));await shot('return-boss'+str(c))
+   await fixture('unmaker'+str(c))
+   for page in range(3):
+    await shot('unmaker'+str(c)+'-page'+str(page))
+    if page<2:await button('cross')
+  await audible();assert await val('rift_asset_errors')==0
+  print('PASS visual fixtures; original-size health numbers/full and grown health bars; every new elite/minion; subtle Forge focus/Primed preview; all repeat-run and Unmaker text; soundtrack active; no art errors',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);await command('cpu.stepping');return
+ if os.environ.get('RIFT_BOSS_ONLY')=='1':
+  for case in json.loads((Q/'evidence/boss-fixtures.json').read_text()):
+   name=case['fixture'];await fixture(name);assert field(await state(),'hp')==case['hp_before']
+   await shot(name+'-intent');await button('circle');raw=await state()
+   assert await screen()==screens['COMBAT'] and field(raw,'hp')==case['hp_after'],(case,field(raw,'hp'))
+   await shot(name+'-after')
+   print('PASS',name,'shown attack',case['shown'],'actual HP',case['hp_before'],'->',field(raw,'hp'),flush=True)
+  await fixture('boss');await shot('release-combat');await audible()
+  assert await val('rift_asset_errors')==0 and 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: boss single/multi-hit/Weak/Vulnerable actual damage, elite control, combat screenshots, full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
+ if os.environ.get('RIFT_POTION_ONLY')=='1':
+  assert 'r1310_potion_notice' not in syms, 'Legacy combat text popup is still linked'
+  for character,potion in [(0,2),(1,0),(2,1),(0,24),(1,3)]:
+   def setup(raw):
+    for key,value in [('potion_count',1),('potions',potion),('hp',30),('maxhp',80),('block',0),('relic_count',0),('selection',field(raw,'hand_count'))]:struct.pack_into('<i',raw,L[key],value)
+    for enemy in range(3):
+     struct.pack_into('<ii',raw,L['enemies']+enemy*L['enemy_size']+L['enemy_hp'],100,100)
+   await fixture('triple-'+str(character),setup);before=await state()
+   await button('triangle');assert await val('inspect_open')==1 and await val('inspect_tab')==3
+   await button('cross');raw=await state();assert await val('inspect_open')==0 and field(raw,'potion_count')==0 and await screen()==screens['COMBAT']
+   if potion in [2,24]:assert field(raw,'block')==field(before,'block')+(20 if potion==2 else 36)
+   if potion==0:assert field(raw,'hp')==48
+   if potion==1:assert field(raw,'strength')==field(before,'strength')+2
+   if potion==3:
+    for enemy in range(3):assert struct.unpack_from('<i',raw,L['enemies']+enemy*L['enemy_size']+L['enemy_hp'])[0]==80
+   await shot('potion-'+str(character)+'-'+str(potion)+'-quiet');await ticks(40)
+  for potion in [2,0]:
+   def setup_error(raw):
+    struct.pack_into('<i',raw,L['potion_count'],1);struct.pack_into('<i',raw,L['potions'],potion);struct.pack_into('<i',raw,L['hp'],field(raw,'maxhp'))
+   await fixture('gift',setup_error);await button('triangle');await button('cross');raw=await state();assert field(raw,'potion_count')==1 and await val('inspect_open')==1
+   message=raw[L['message']:L['message']+72].split(b'\0')[0]
+   assert message.startswith(b'Use this potion' if potion==2 else b'Already at full'),message
+   await shot('potion-error-'+str(potion));await button('circle')
+  await fixture('gift');await button('cross');await button('down');await shot('forge-focus');before=await state();await button('square');assert await val('inspect_tab')==5;await button('circle');assert await state()==before
+  await fixture('triple-0');await shot('release-combat')
+  assert await val('rift_asset_errors')==0 and 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: Guard/Healing/Strength/Bulwark/Fire potion effects across all three characters; legacy success text popup removed; routine inventory success captions suppressed; failed-use hints retain potions; raised Forge focus and deck return; full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
+ if os.environ.get('RIFT_FORGE_ONLY')=='1':
+  await fixture('gift');await button('cross');assert await screen()==screens['BETA_FORGE']
+  for selected in range(3):
+   assert field(await state(),'selection')==selected
+   await shot('forge-selected-'+str(selected))
+   before=await state();await button('square');assert await val('inspect_open')==1 and await val('inspect_tab')==5
+   await shot('forge-deck-'+str(selected));await button('down');await button('circle');assert await val('inspect_open')==0 and await state()==before
+   await button('start');assert await val('inspect_open')==1;await button('r');await shot('forge-inventory-'+str(selected));await button('circle');assert await state()==before
+   await button('cross');assert await screen()==screens['BETA_FORGE_CARD']
+   before=await state();await button('square');assert await val('inspect_open')==1 and await val('inspect_tab')==5;await button('circle');assert await state()==before
+   await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==selected
+   await button('down')
+  assert field(await state(),'selection')==0
+  await button('up');assert field(await state(),'selection')==2
+  await button('right');assert field(await state(),'selection')==0
+  await button('select');assert await screen()==screens['PAUSE_MENU'];await button('square');assert await val('inspect_open')==1
+  await button('cross');assert await screen()==screens['PAUSE_MENU'] and await val('inspect_open')==1
+  await shot('paused-deck');await button('circle');await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==0
+  await button('cross');await button('select');await button('cross');assert await screen()==screens['TITLE']
+  await button('cross');await button('cross');assert await screen()==screens['BETA_FORGE_CARD']
+  await button('circle');assert await screen()==screens['BETA_FORGE'] and field(await state(),'selection')==0
+  await shot('forge-resumed-selection');await button('cross');await button('cross');assert await screen()==screens['MAP']
+  await fixture('gift');hp=field(await state(),'maxhp');await button('cross');await button('up');await button('cross');await button('circle');assert field(await state(),'maxhp')==hp
+  await button('cross');await button('cross');assert await screen()==screens['MAP'] and field(await state(),'maxhp')==hp-4
+  await fixture('triple-0');await shot('release-combat');raw=await state();hp3=struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]
+  await button('cross');raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]<hp3
+  assert await val('rift_asset_errors')==0
+  assert 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+  print('PASS final release EBOOT: all three raised Forge focus states; deck and inventory overlay access from each choice and card picker with byte-identical return state; directional wrapping; exact preview selection; cancel and save/resume focus; upgrade; Echo cancellation and exact cost; third-enemy combat; full soundtrack; zero asset errors or memory faults',flush=True)
+  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+  await command('cpu.stepping');return
+ for c in range(3):
+  await fixture('triple-'+str(c));await shot('triple-'+str(c)+'-target3')
+  raw=await state();assert field(raw,'enemy_count')==3
+  hp3=struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]
+  await button('cross');raw=await state();assert struct.unpack_from('<i',raw,L['enemies']+2*L['enemy_size']+L['enemy_hp'])[0]<hp3
+  await shot('triple-'+str(c)+'-hit3')
+  await button('down');await button('down');await shot('triple-'+str(c)+'-target2')
+  await button('start');await button('left');await shot('triple-'+str(c)+'-inspection');await button('circle')
+  await button('circle');assert await screen()==screens['COMBAT'];await shot('triple-'+str(c)+'-after-turn')
+  await button('select');await button('cross');assert await screen()==screens['TITLE']
+  await button('cross');await button('cross');assert await screen()==screens['COMBAT'] and field(await state(),'enemy_count')==3
+ print('PASS all three characters: triple enemy targeting, inspection, full enemy turn and save/resume',flush=True)
+ await fixture('reward');await shot('spoils-no-forge');await button('down');assert field(await state(),'selection')==4;await button('down');assert field(await state(),'selection')==5
+ await fixture('ordinary-gift');await shot('ordinary-story-gift');await button('left');assert field(await state(),'selection')==1;await button('left');assert field(await state(),'selection')==0;await button('cross');assert await screen()==screens['MAP']
+ for choice in [0,1,2]:
+  await fixture('cinder');raw=await state();hp=field(raw,'hp');gold=field(raw,'gold');deck=field(raw,'deck_count')
+  for _ in range(choice):await button('down')
+  await shot('cinder-choice-'+str(choice));await button('cross');raw=await state()
+  assert field(raw,'hp')==hp-(6 if choice==0 else 0) and field(raw,'gold')==gold+([150,180,0][choice]) and field(raw,'deck_count')==deck+(choice==1)
+ print('PASS ordinary story gifts have only Take/Leave; Cinder blood, burden and Leave charge exactly the shown costs',flush=True)
+ for name in ['elite','boss']:
+  await fixture(name);await shot(name+'-challenge');await button('circle');assert await screen()==screens['COMBAT']
+ await fixture('story');await shot('story');await button('cross');await button('cross');await button('cross');assert await screen()==screens['EXPEDITION_GIFT'];await shot('story-gift')
+ await button('cross');assert await screen()==screens['BETA_FORGE'];await shot('forge-menu')
+ await button('cross');assert await screen()==screens['BETA_FORGE_CARD'];await shot('forge-upgrade-preview')
+ await button('select');await button('cross');assert await screen()==screens['TITLE']
+ await button('cross');await button('cross');assert await screen()==screens['BETA_FORGE_CARD']
+ await button('cross');raw=await state();assert field(raw,'screen')==screens['MAP'] and field(raw,'deck')&512
+ await shot('forge-upgrade-complete');print('PASS story Forge upgrade, preview, save/quit/resume and return to map',flush=True)
+ await fixture('gift');hp=field(await state(),'maxhp')
+ await button('cross');await button('down');await button('down');await button('cross')
+ await shot('forge-echo-preview');await button('circle');assert field(await state(),'maxhp')==hp
+ await button('cross');await button('cross');raw=await state();assert field(raw,'screen')==screens['MAP'] and field(raw,'maxhp')==hp-4 and (field(raw,'deck')>>13)&7==1
+ await shot('forge-echo-complete');print('PASS Echo cancellation and exact confirmed 4 max HP cost; no second gift',flush=True)
+ await fixture('triple-0');await shot('release-combat')
+ assert 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
+ print('PASS final release EBOOT: triple targeting/inspection/enemy turns/save-resume for all characters; reward without Forge; story Forge upgrade/Echo/cancel/save-resume; zero streamed-art errors or memory faults',flush=True)
+ print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True)
+ await command('cpu.stepping')
+
+p=None;x=None
+try:
+ x=subprocess.Popen([str(T/'sysroot/usr/bin/Xvfb'),':'+display,'-screen','0','960x544x24','-ac','-nolisten','unix','-listen','tcp','-extension','MIT-SHM','-xkbdir','/usr/share/X11/xkb'],env=env,stdout=open(E/(prefix+'xvfb.log'),'w'),stderr=subprocess.STDOUT);time.sleep(.5);assert x.poll() is None
+ launch=[str(T/'squashfs-root/lib/ld-linux-x86-64.so.2'),'--library-path',str(T/'squashfs-root/lib'),str(T/'squashfs-root/shared/bin/PPSSPPSDL')] if os.environ.get('RIFT_DIRECT')=='1' else [str(T/'squashfs-root/AppRun')]
+ p=subprocess.Popen(launch+['--appendconfig='+str(conf),'--graphics=opengl','--windowed',str(D/'EBOOT.PBP')],env=env,stdout=open(E/(prefix+'ppsspp.log'),'w'),stderr=subprocess.STDOUT)
+ async def run():
+  for _ in range(120):
+   await asyncio.sleep(.5)
+   if p.poll() is not None:raise RuntimeError('Emulator exited; see ppsspp.log')
+   try:w=await websockets.connect(f'ws://127.0.0.1:{port}/debugger',subprotocols=['debugger.ppsspp.org'],proxy=None,max_size=10000000)
+   except OSError:continue
+   async with w:await check(w)
+   return
+  raise RuntimeError('Debugger unavailable')
+ asyncio.run(run())
+finally:
+ for proc in [p,x]:
+  if proc:
+   proc.terminate()
+   try:proc.wait(timeout=5)
+   except subprocess.TimeoutExpired:proc.kill()

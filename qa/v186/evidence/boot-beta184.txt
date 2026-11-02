@@ -1,0 +1,2 @@
+PASS v186-beta184 observed startup stack bytes 144752 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
+SHA256 ff971fd0896edca002d2848f58cb9d292fb8f3885ef188908a095b983911d74e

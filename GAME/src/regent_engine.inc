@@ -169,12 +169,12 @@ static void regent_process(Game*g){
   if(preview_trace){preview_phase=t.depth>0&&t.depth<=2;preview_depth=t.depth;}
   switch(t.kind){
   case RT_PLAY:{
-   if(id>=ASCENT_CARD_FIRST){resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
+   if(id>=ASCENT_CARD_FIRST){if(preview_trace)preview_depth=t.depth?t.depth-1:2;resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
    if(id<REGENT_FIRST){
     /* Colorless Splash can create Warden/Nightshade cards. Their own tested
        resolver remains responsible for their choices and physical pile move. */
     if(id>=NINJA_FIRST){ninja_push(g,NT_PLAY,t.raw|CARD_FREE,t.target,t.n,0,t.depth);ninja_process(g);}
-    else resolve_card(g,-1,t.target,t.raw|CARD_FREE);
+    else{if(preview_trace)preview_depth=t.depth?t.depth-1:2;resolve_card(g,-1,t.target,t.raw|CARD_FREE);}
     break;
    }
    if(!ninja_has_living(g)){if(!(t.raw&CARD_EPHEMERAL)&&g->discard_count<MAX_PILE)g->discard[g->discard_count++]=regent_clean(t.raw);break;}
@@ -182,7 +182,8 @@ static void regent_process(Game*g){
    r140_rust_targets=0;int repeat=0;
    if(!(t.raw&CARD_EPHEMERAL)){
     repeat=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
-    if(cards[id].type==0){repeat+=CARD_MOD(t.raw)==MOD_ECHO;if(g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}}
+    repeat+=CARD_MOD(t.raw)==MOD_ECHO;
+    if(cards[id].type==0&&g->ic[IC_NEXT_ATTACK_REPEAT]>0){repeat++;g->ic[IC_NEXT_ATTACK_REPEAT]--;}
     if(id==R_SOVEREIGN_BLADE)repeat+=RP(g,R_SWORD_SAGE);
    }
    if(cards[id].type==0){g->regent.attack_vigor=g->regent.vigor;g->regent.vigor=0;g->ic[IC_UNRELENTING]=0;}

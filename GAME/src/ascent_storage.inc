@@ -3,6 +3,11 @@
  * so a power cut between writes cannot award a completion twice. */
 static AscentAccount ascent_account;
 static AscentSlot ascent_slots[ASCENT_SLOTS];
+/* Separate, alternating history receipt keeps all existing save layouts intact.
+   A run ID is a receipt, never a count: starting spare slots grants no lore. */
+typedef struct {unsigned count,last[ASCENT_SLOTS];} AscentMemory;
+static AscentMemory ascent_memory;
+static unsigned ascent_memory_generation;
 static char ascent_root[256]=".";
 static int ascent_ready;
 static unsigned ascent_fast_setting;
@@ -62,6 +67,7 @@ static void revision182_migrate_room(Game*g){
 static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generation){
  memset(g,0,sizeof(*g));
  if(ascent_read(stem,side,g,sizeof(*g),generation)){
+  if(g->version==185)revision186_migrate_actions(g,185);
   if(g->revision184.custom==1&&g->revision184.building==1&&g->revision184.tab>=0&&g->revision184.tab<4&&g->deck_count>=0&&g->deck_count<=MAX_DECK&&g->relic_count>=0&&g->relic_count<=MAX_RELICS&&g->potion_count>=0&&g->potion_count<=MAX_POTIONS){
    if(g->screen==CUSTOM_QUANTITY&&g->prior_screen==CUSTOM_CARDS&&!ascent_card_available(g,CARD_ID(g->revision184.item))){g->screen=CUSTOM_CARDS;g->revision184.tab=3;}
    if(g->screen==CUSTOM_CARDS||g->screen==CUSTOM_ITEMS)g->selection=CLAMP(g->selection,0,MAX(0,custom_count(g,g->revision184.tab)-1));
@@ -71,15 +77,33 @@ static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generat
  Game184 old;
  const size_t sizes[]={sizeof(old),offsetof(Game184,revision184),offsetof(Game184,revision182),offsetof(Game184,expedition)};
  for(unsigned i=0;i<sizeof(sizes)/sizeof(sizes[0]);i++){
-  if(ascent_read(stem,side,&old,sizes[i],generation)&&migrate_layout184(g,&old,sizes[i]))return game_validate(g);
+  if(ascent_read(stem,side,&old,sizes[i],generation)&&migrate_layout184(g,&old,sizes[i])){revision186_migrate_actions(g,old.version);return game_validate(g);}
  }
  return 0;
 }
 /* A durable death receipt blocks both alternating snapshots before unlinking.
    A surviving old generation can therefore never revive a dead run. */
 static unsigned ascent_dead_id(int slot){char stem[40];unsigned id=0,gen;snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%d",slot+1);if(!ascent_read(stem,0,&id,sizeof(id),&gen))return 0;return id;}
+static void ascent_memory_open(void){
+ AscentMemory a,b;unsigned ga=0,gb=0;
+ int va=ascent_read("ASCENT18_MEMORY",0,&a,sizeof(a),&ga),vb=ascent_read("ASCENT18_MEMORY",1,&b,sizeof(b),&gb);
+ memset(&ascent_memory,0,sizeof(ascent_memory));ascent_memory_generation=0;
+ if(va||vb){ascent_memory=vb&&(!va||gb>ga)?b:a;ascent_memory_generation=vb&&(!va||gb>ga)?gb:ga;return;}
+ /* Older releases retain wins and the last retirement in each slot, not a
+    loss counter. Import only the history that can actually be established. */
+ ascent_memory.count=ascent_account.wins[0]+ascent_account.wins[1]+ascent_account.wins[2];
+ for(int i=0;i<ASCENT_SLOTS;i++){ascent_memory.last[i]=ascent_dead_id(i);if(ascent_memory.last[i])ascent_memory.count=MAX(1,ascent_memory.count);}
+}
+static int ascent_remember(const Game*g){
+ if(g->revision184.custom||(!g->ascent.won&&g->hp>0&&g->screen!=DEFEAT)||g->ascent.id<=ascent_memory.last[g->ascent.slot])return 1;
+ AscentMemory next=ascent_memory,verify;unsigned gen=ascent_memory_generation+1,vg=0;
+ next.last[g->ascent.slot]=g->ascent.id;if(next.count<0xffffffffu)next.count++;
+ if(!ascent_write("ASCENT18_MEMORY",&next,sizeof(next),gen)||!ascent_read("ASCENT18_MEMORY",gen&1,&verify,sizeof(verify),&vg)||vg!=gen||memcmp(&next,&verify,sizeof(next)))return 0;
+ ascent_memory=next;ascent_memory_generation=gen;return 1;
+}
 int ascent_forget(Game*g){
  if(!g->ascent.id||g->ascent.slot>=ASCENT_SLOTS)return 0;
+ if(!ascent_remember(g))return 0;
  unsigned slot=g->ascent.slot,id=g->ascent.id;char stem[40],path[320];
  snprintf(stem,sizeof(stem),"ASCENT18_DEAD_%u",slot+1);
  if(!ascent_write(stem,&id,sizeof(id),0))return 0;
@@ -145,6 +169,7 @@ int ascent_open(const char*root){
  memset(&ascent_account,0,sizeof(ascent_account));
  if(va||vb){ascent_account=vb&&(!va||gb>ga)?b:a;ascent_account.generation=vb&&(!va||gb>ga)?gb:ga;}
  else {ascent_account.magic=0x52413841u;ascent_account.version=1;ascent_account.next_run=1;}
+ ascent_memory_open();
  ascent_ready=1;ascent_fast_setting=0;{unsigned gen;ascent_read("ASCENT18_SPEED",0,&ascent_fast_setting,sizeof(ascent_fast_setting),&gen);if(ascent_fast_setting>1)ascent_fast_setting=0;}memset(ascent_slots,0,sizeof(ascent_slots));
  for(int i=0;i<ASCENT_SLOTS;i++){Game saved;ascent_resume(&saved,i);}
  /* Import the stable single-save prefix once. The old SAVE.DAT is untouched. */

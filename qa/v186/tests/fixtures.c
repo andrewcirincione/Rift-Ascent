@@ -1,0 +1,18 @@
+/* Assisted render/controller fixtures. Balance results use separate legal campaigns. */
+#include <assert.h>
+#include <stdio.h>
+#include <unistd.h>
+#include "../source/game.c"
+static void save(const char*n,Game*g){char p[200];if(!game_validate(g)){fprintf(stderr,"Invalid fixture %s screen %d act %d\n",n,g->screen,g->act);abort();}snprintf(p,sizeof(p),"qa/v186/evidence/fixture-%s.bin",n);FILE*f=fopen(p,"wb");assert(f&&fwrite(g,sizeof(*g),1,f)==1);fclose(f);}
+int main(void){char root[]="/tmp/r186-fixtures-XXXXXX",name[60];assert(mkdtemp(root)&&ascent_open(root));Game g;assert(ascent_begin(&g,0,0,186));
+ for(int c=0;c<3;c++)for(int act=3;act<=7;act+=4){assert(ascent_begin(&g,0,c,186));g.act=act;g.floor=MAP_ROWS;g.endless=act>3;game_start_battle(&g,NODE_BOSS);g.relic_count=0;g.potion_count=1;g.potions[0]=2;g.hp=g.maxhp=120;g.hand_count=3;g.hand[0]=c==0?0:c==1?N_STRIKE_SILENT:R_STRIKE_REGENT;g.hand[1]=c==0?1:c==1?N_DEFEND_SILENT:R_DEFEND_REGENT;g.hand[2]=g.hand[1];g.selection=0;g.target=0;sprintf(name,"boss%d-c%d",act,c);save(name,&g);}
+ for(int act=1;act<=3;act++){for(int seed=1;;seed++){assert(ascent_begin(&g,0,0,seed));g.act=act;g.floor=8;game_start_battle(&g,NODE_ELITE);if(g.enemy_count==2)break;}sprintf(name,"elite%d",act);save(name,&g);}
+ for(int max=80;max<=160;max+=80){assert(ascent_begin(&g,0,0,186));g.act=2;g.floor=8;game_start_battle(&g,NODE_FIGHT);g.enemy_count=3;for(int e=0;e<3;e++)init_enemy(&g,&g.enemies[e],enemy_normal[1][e]);g.target=1;g.hp=g.maxhp=max;g.selection=0;sprintf(name,"health%d",max);save(name,&g);if(max==160){g.hp=80;save("health-half",&g);g.hp=g.maxhp=1000000000;for(int e=0;e<3;e++)g.enemies[e].hp=g.enemies[e].maxhp=1000000000;save("health-large",&g);}}
+ for(int c=0;c<3;c++){for(int seed=1;;seed++){assert(ascent_begin(&g,0,c,seed));if(game_beta_modifier(&g,1)==MOD_PRIMED)break;}g.screen=BETA_FORGE;g.selection=0;g.expedition.gift_kind=2;g.expedition.story_id=5;g.deck_count=3;g.deck[0]=c==0?0:c==1?N_STRIKE_SILENT:R_STRIKE_REGENT;g.deck[1]=c==0?1:c==1?N_BACKFLIP:R_DEFEND_REGENT;g.deck[2]=c==0?8:c==1?N_WRAITH_FORM:R_VOID_FORM;sprintf(name,"forge%d",c);save(name,&g);}
+ assert(ascent_begin(&g,0,0,186));g.screen=EVENT;g.effect_turn=42;g.selection=0;g.gold=100;g.deck_count=3;g.deck[0]=0;g.deck[1]=1;g.deck[2]=8;save("first-light",&g);
+ for(int c=0;c<3;c++){assert(ascent_begin(&g,0,c,186));g.screen=STORY_ACT_BEFORE_BLESSING;g.selection=g.scroll=0;sprintf(name,"entry%d",c);save(name,&g);g.screen=STORY_BOSS;g.act=3;g.selection=1;sprintf(name,"boss-story%d",c);save(name,&g);g.screen=EXPEDITION_STORY;g.selection=1;g.expedition.story_id=2;sprintf(name,"event-story%d",c);save(name,&g);g.screen=ASCENT_BOSS;g.act=4;g.endless=1;g.ascent.secret=1;g.selection=0;sprintf(name,"unmaker%d",c);save(name,&g);}
+ for(int c=0;c<3;c++){
+  assert(ascent_begin(&g,0,c,186));game_start_battle(&g,NODE_FIGHT);g.relic_count=0;g.hand_count=1;g.hand[0]=(c==0?5:c==1?N_BACKFLIP:R_DEFEND_REGENT)|(MOD_ECHO<<CARD_MOD_SHIFT);g.energy=10;g.draw_count=20;g.discard_count=g.exhaust_count=0;for(int i=0;i<20;i++)g.draw[i]=c==0?1:c==1?N_DEFEND_SILENT:R_DEFEND_REGENT;g.block=0;sprintf(name,"echo%d",c);save(name,&g);
+ }
+ for(int act=3;act<=7;act+=4){assert(ascent_begin(&g,0,0,186));g.act=act;g.floor=MAP_ROWS;g.endless=act>3;game_start_battle(&g,NODE_BOSS);g.energy=10;g.hand_count=3;g.hand[0]=g.hand[1]=g.hand[2]=0;g.selection=g.target=0;for(int i=0;i<g.enemy_count;i++){g.enemies[i].hp=1;g.enemies[i].block=0;}sprintf(name,"finish%d",act);save(name,&g);}
+ puts("PASS 1.8.6 UI fixtures validate: original-sized health labels/full and grown bars; bosses/minions; themed elite pairs; Forge and Primed; first/return/Unmaker dialogue.");return 0;}

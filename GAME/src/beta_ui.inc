@@ -3,27 +3,21 @@ static void beta_forge_screen(const Game*g){
  header(g,"JOURNEY / FORGE");
  gilded_panel(10,30,460,223,0);
  if(g->screen==BETA_FORGE){
-  const char*titles[]={"HONE / UPGRADE ONE CARD","TEMPER / MODIFY ONE CARD","BLOOD ETCH / ECHO ONE ATTACK"};
+  const char*titles[]={"HONE / UPGRADE ONE CARD","TEMPER / MODIFY ONE CARD","BLOOD ETCH / ECHO ONE CARD"};
   for(int c=0;c<3;c++){
    int eligible=0;for(int i=0;i<g->deck_count;i++)eligible+=game_beta_eligible(g,c,g->deck[i]);
    int selected=g->selection==c;
-   int x=selected?20:26,y=44+c*66-(selected?3:0),w=selected?440:428,h=selected?61:57;
-   /* Raised focus: independent shape, depth and text cues at native PSP size. */
-   if(selected)dark_rect(x+4,y+5,w,h,190);
+   int x=26,y=44+c*66-(selected?2:0),w=428,h=57;
+   /* Match the quiet two-pixel lift and gilded focus used by other choices. */
+   if(selected)dark_rect(x+2,y+3,w,h,110);
    gilded_panel(x,y,w,h,selected);
-   if(selected){
-    rect(x+10,y+8,w-20,h-16,RGB(63,47,27));
-    border(x+5,y+4,w-10,h-8,RGB(255,222,151));
-    border(x+6,y+5,w-12,h-10,RGB(172,121,53));
-    r134_blit(x+12,y+20,16,13,r1310_arrow,36,28,255);
-    r134_text(x+w-72,y+10,"SELECTED",RGB(255,236,194),&r134_f8);
-   }else dark_rect(x+3,y+3,w-6,h-6,45);
-   r134_text(x+35,y+9,titles[c],selected?RGB(255,244,220):eligible?WHITE:MUTED,&r134_f10);
+   if(!selected)dark_rect(x+3,y+3,w-6,h-6,35);
+   r134_text(x+16,y+9,titles[c],selected?GOLD:eligible?WHITE:MUTED,&r134_f10);
    char detail[200];
    if(c==0)snprintf(detail,sizeof(detail),"Upgrade any eligible card. No Gold or health cost.");
    else if(c==1)snprintf(detail,sizeof(detail),"%s No Gold or health cost.",game_mod_description(game_beta_modifier(g,c)));
-   else snprintf(detail,sizeof(detail),"Lose 4 maximum HP. Echo costs +1 Energy; plays twice.");
-   r134_wrap(x+35,y+27,w-51,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?(selected?WHITE:MUTED):MUTED,&r134_f9,0);
+   else snprintf(detail,sizeof(detail),"Lose 4 maximum HP. Eligible Attacks or defensive Skills cost +1 Energy and play twice.");
+   r134_wrap(x+16,y+27,w-32,2,11,eligible?detail:"Unavailable: no eligible card or insufficient maximum HP.",eligible?(selected?WHITE:MUTED):MUTED,&r134_f9,0);
   }
   footer("X CHOOSE  O BACK  SQ DECK  START INVENTORY");return;
  }

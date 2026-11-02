@@ -219,3 +219,15 @@ qa/v185/evidence/*.bin
 qa/v185/evidence/*.log
 qa/v185/evidence/*.pcm
 qa/v185/source/*.SFO
+
+# 1.8.6 build intermediates
+qa/v186/assets.bin
+qa/v186/soundtrack.bank
+qa/v186/evidence/*.bin
+qa/v186/evidence/*.log
+qa/v186/evidence/*.pcm
+qa/v186/source/*.SFO
+qa/v186/evidence/boot-fixtures/
+qa/v186/evidence/core
+qa/v186/source/*.su
+qa/v186/source/.*

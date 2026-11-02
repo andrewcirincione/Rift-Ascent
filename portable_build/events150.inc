@@ -21,7 +21,7 @@ static const char*event_titles[EVENT_COUNT]={
  "WAR DRUM",
  "TAX ON BREATH",
  "THE FACELESS DRAFTER",
- "CANDLE FOR A STRANGER","FALLING OSSUARY","THE EMPTY TITHE","SPORE WAKE"};
+ "CANDLE FOR A STRANGER","FALLING OSSUARY","THE EMPTY TITHE","SPORE WAKE","FIRST LIGHT FORGE"};
 static const char*event_lore[EVENT_COUNT]={
  "A scorched purse is caught in a thorned iron trap.",
  "Moonwater mends wounds. Its silver root can strengthen your mortal heart.",
@@ -64,7 +64,8 @@ static const char*event_lore[EVENT_COUNT]={
  "A stranded soul needs a little warmth to find the road.",
  "A ceiling of old bones breaks before you can turn back.",
  "The doorway takes its toll from the coins at your belt.",
- "Pale spores burst beneath your feet. Their chill follows you."};
+ "Pale spores burst beneath your feet. Their chill follows you.",
+ "A smith keeps the first light of dawn beneath a lid. One lesson can be ready before the battle begins."};
 static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"SEIZE THE PURSE","Gain 75 Gold. Lose 8 HP.",0,0,8,0},{"GATHER LOOSE COINS","Gain 25 Gold. No HP cost.",0,0,0,0}},
  {{"DRINK","Heal 20 HP for free, up to your maximum.",0,0,0,0},{"TAKE THE SILVER ROOT","Pay 35 Gold. Gain 6 maximum HP and heal 6.",0,35,0,0}},
@@ -78,7 +79,7 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"PAY IN BLOOD","Gain 150 Gold. Lose 6 HP.",0,0,6,0},{"TAKE THE BURDEN","Gain 180 Gold. Add Injury: an unplayable card.",0,0,0,0}},
  {{"HONE ONE CARD","Pay 25 Gold to upgrade one card.",EVENT_UPGRADE,25,0,0},{"LIGHTEN YOUR DECK","Pay 50 Gold to remove one card.",EVENT_REMOVE,50,0,0}},
  {{"ACCEPT THE DREAD","Take the shown relic. Add Dread: unplayable; if held, costs 1 Energy next turn.",0,0,0,0},{"PAY THE BLOOD PRICE","Lose 12 HP. Take the shown relic without a curse.",0,0,12,0}},
- {{"ECHO / 70 GOLD","Modify one fixed-cost Attack: play it twice; costs 1 more Energy.",MOD_ECHO,70,0,0},{"BOUND / 40 GOLD","Modify one card with Retain: keep it in hand at turn end.",MOD_BOUND,40,0,0}},
+ {{"ECHO / 70 GOLD","Modify an eligible Attack or defensive Skill: play it twice; costs 1 more Energy.",MOD_ECHO,70,0,0},{"BOUND / 40 GOLD","Modify one card with Retain: keep it in hand at turn end.",MOD_BOUND,40,0,0}},
  {{"KEEN / 8 HP","Modify one Attack: +2 base damage per hit, before Strength, Weak and Vulnerable.",MOD_KEEN,0,8,0},{"WARD / 8 HP","Modify one card that grants Block: +4 base Block per card effect, before Dexterity.",MOD_WARD,0,8,0}},
  {{"FLEETING / 55 GOLD","Modify an Attack or Skill: costs 1 less Energy, but Exhausts when played.",MOD_FLEETING,55,0,0},{"KINDLED / 35 GOLD","Modify an Attack or Skill: draw 1 extra card when played, but Exhaust it.",MOD_KINDLED,35,0,0}},
  {{"BID WITH GOLD / 95 GOLD","Pay 95 Gold for this relic.",0,95,0,0},{"BID WITH VITALITY","Lose 10 maximum HP for this other relic. Current HP is capped at the new maximum; at least 25 maximum HP must remain.",0,0,0,10}},
@@ -91,7 +92,7 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"REST IN THE BOAT","Pay 15 Gold. Heal 12 HP.",0,15,0,0},{"PAY IN BLOOD","Lose 8 HP. Gain 60 Gold.",0,0,8,0},{"SURRENDER A MEMORY","Pay 50 Gold to remove one card.",EVENT_REMOVE,50,0,0}},
  {{"CALL THE TOSS","Pay 15 Gold. Equal chances: gain 80 Gold, gain 25 Gold, heal 25 HP, or gain 5 maximum HP and heal 5.",0,15,0,0}},
  {{"STITCH A MEMORY","Lose 9 HP. Give one card Retain.",MOD_BOUND,0,9,0},{"LIGHT THE THREAD","Pay 35 Gold. One Attack or Skill draws an extra card, but Exhausts.",MOD_KINDLED,35,0,0}},
- {{"SHARPEN","Pay 30 Gold. One Attack gains +2 base damage per hit.",MOD_KEEN,30,0,0},{"REINFORCE","Lose 10 HP. One Block-granting card gains +4 base Block.",MOD_WARD,0,10,0},{"LET IT ANSWER","Pay 65 Gold and lose 5 HP. A fixed-cost Attack plays twice, but costs 1 more Energy.",MOD_ECHO,65,5,0}},
+ {{"SHARPEN","Pay 30 Gold. One Attack gains +2 base damage per hit.",MOD_KEEN,30,0,0},{"REINFORCE","Lose 10 HP. One Block-granting card gains +4 base Block.",MOD_WARD,0,10,0},{"LET IT ANSWER","Pay 65 Gold and lose 5 HP. An eligible Attack or defensive Skill plays twice, but costs 1 more Energy.",MOD_ECHO,65,5,0}},
  {{"FOLD YOUR YEARS","Lose 4 maximum HP. One Attack or Skill costs 1 less Energy, but Exhausts. Keep at least 25 maximum HP.",MOD_FLEETING,0,0,4}},
  {{"CARVE A WOUND","Lose 3 maximum HP. One Attack gains +2 base damage per hit. Keep at least 25 maximum HP.",MOD_KEEN,0,0,3},{"CARVE A PROMISE","Pay 25 Gold. Give one card Retain.",MOD_BOUND,25,0,0},{"CARVE A SPARK","Lose 8 HP. One Attack or Skill draws an extra card, but Exhausts.",MOD_KINDLED,0,8,0}},
  {{"DRINK THE IRON","Lose 3 HP. Next combat only: gain 3 Strength and begin with 1 Vulnerable.",0,0,3,0},{"CHOOSE CLEAN WATER","Pay 30 Gold. Heal 18 HP.",0,30,0,0}},
@@ -107,14 +108,15 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"SHARE YOUR FLAME","Lose 4 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,4,0}},
  {{"SHIELD YOUR HEAD","Lose up to 6 HP. This cannot reduce you below 1 HP.",0,0,0,0}},
  {{"PAY THE TITHE","Lose up to 25 Gold. If your purse is empty, the doorway takes nothing.",0,0,0,0}},
- {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}}
+ {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}},
+ {{"PRIME A LESSON / 35 GOLD","One Attack, Skill or Power starts in your opening hand, within the hand limit.",MOD_PRIMED,35,0,0},{"BIND A LESSON / 30 GOLD","Give one card Retain: keep it in hand at turn end.",MOD_BOUND,30,0,0}}
 };
-static const unsigned char event_offer_counts[EVENT_COUNT]={2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,2,1,3,1,2,3,1,3,2,2,2,2,3,3,2,2,2,2,1,1,1,1};
+static const unsigned char event_offer_counts[EVENT_COUNT]={2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,3,3,2,1,3,1,2,3,1,3,2,2,2,2,3,3,2,2,2,2,1,1,1,1,2};
 static int event_offer_available(const Game*g,int option);
 int game_event_can_leave(const Game*g){
  int id=CLAMP(g->effect_turn,0,EVENT_COUNT-1);
  /* Existing events retain their original choices and Leave option. */
- if(id<39)return 1;
+ if(id<39||id>41)return 1;
  for(int i=0;i<event_offer_counts[id];i++)if(event_offer_available(g,i))return 0;
  return 1; /* No affordable/eligible choice: never strand the player. */
 }
@@ -172,7 +174,7 @@ static int event_typed_card(Game*g,int type){
   pool[n]=id;weights[n]=owned?1:3;total+=weights[n++];}
  int roll=rnd(g,total);for(int i=0;i<n;i++){if(roll<weights[i])return pool[i];roll-=weights[i];}return type?5:11;
 }
-static int event_is_modification(int id){return (id>=12&&id<=14)||(id>=24&&id<=27);}
+static int event_is_modification(int id){if(id==42)return 1;return (id>=12&&id<=14)||(id>=24&&id<=27);}
 int game_next_event(Game*g){
  if(rnd(g,25)==0)return EVENT_COUNT; /* Rare optional cross-character offer. */
  uint64_t full=(1ull<<EVENT_COUNT)-1ull,seen=((uint64_t)g->revision182.event_seen_hi<<32)|(uint32_t)g->v151.relic[R162_EVENT_SEEN];seen&=full;

@@ -1,0 +1,1 @@
+PASS 1.8.6 UI fixtures validate: original-sized health labels/full and grown bars; bosses/minions; themed elite pairs; Forge and Primed; first/return/Unmaker dialogue.

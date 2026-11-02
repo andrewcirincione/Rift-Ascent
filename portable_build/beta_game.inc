@@ -1,8 +1,8 @@
 /* Journey Forge and run recap, carried forward from Beta 1. */
 int game_beta_modifier(const Game*g,int choice){
  if(choice==2)return MOD_ECHO;
- const int mods[]={MOD_KEEN,MOD_WARD,MOD_BOUND};
- return mods[route_hash(g->seed^(unsigned)g->act*913u^(unsigned)g->floor*37u)%3];
+ const int mods[]={MOD_KEEN,MOD_WARD,MOD_BOUND,MOD_FLEETING,MOD_KINDLED,MOD_PRIMED};
+ return mods[route_hash(g->seed^(unsigned)g->act*913u^(unsigned)g->floor*37u)%6];
 }
 int game_beta_eligible(const Game*g,int choice,int raw){
  if(choice==0)return game_card_is_upgradeable(raw);
@@ -22,6 +22,11 @@ int game_beta_offer(const Game*g){
 }
 const char*game_enemy_plan(int art){
  switch(art){
+ case 59:return "Cycle: Guard > Sear > Strike > Recover";
+ case 60:return "Cycle: Guard > Strike > Rally > Recover";
+ case 61:return "Cycle: Sear > Strike > Double > Recover";
+ case 62:return "Cycle: Guard > Strike > Recover > Rally";
+ case 63:return "Cycle: Strike > Guard > Strike > Recover";
  case 6:return "Cycle: Brace > Crush > Purge > Strike";
  case 15:return "Cycle: Brace > Sear > Crush > Recover";
  case 24:return "Cycle: Expose > Pierce > Purge > Recover";

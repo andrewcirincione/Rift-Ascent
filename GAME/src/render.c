@@ -540,20 +540,31 @@ static void r1310_block_number(int cx,int y,const char*value){
  r134_text(x,y,value,RGB(255,255,244),&r134_f9b);
 }
 static void rift131_shield(int x,int y){r134_blit(x-4,y-4,28,30,r139_shield,28,30,255);}
+static void r186_hp_value(char*out,int cap,int value){
+ if(value>=1000000)snprintf(out,cap,"%dm",value/1000000);
+ else if(value>=10000)snprintf(out,cap,"%dk",value/1000);
+ else snprintf(out,cap,"%d",value);
+}
+static void r186_hp_label(char*out,int cap,int hp,int maxhp,int width){
+ snprintf(out,cap,"%d/%d",hp,maxhp);
+ if(r134_width(out,&r134_f9b)>width){char a[16],b[16];r186_hp_value(a,sizeof(a),hp);r186_hp_value(b,sizeof(b),maxhp);snprintf(out,cap,"%s/%s",a,b);}
+}
 static void rift120_hp_meter(int x,int y,int w,int hp,int maxhp,int shield){
  char value[24];int inset=w*22/100,inner=w-2*inset;
  rect(x+inset,y+5,inner,14,RGB(35,17,22));
  if(maxhp>0)rect(x+inset,y+14,(int)((long long)inner*CLAMP(hp,0,maxhp)/maxhp),4,RGB(195,36,46));
  r134_blit(x,y,w,24,r134_health_frame,112,24,255);
- snprintf(value,sizeof(value),"%d/%d",hp,maxhp);r134_center(x+w/2,y+5,value,WHITE,w<100?&r134_f8:&r134_f9b);
+ r186_hp_label(value,sizeof(value),hp,maxhp,w-16);r134_center(x+w/2,y+5,value,WHITE,&r134_f9b);
  if(shield>0){rift131_shield(x+w+3,y+2);snprintf(value,sizeof(value),"%d",shield);r1310_block_number(x+w+13,y+7,value);}
 }
 static void r138_player_meter(const Game*g){
  const int x=32,y=g->enemy_count==3?45:36;char value[24];
- rect(x+39,y+14,82,7,RGB(40,17,23));
- if(g->maxhp>0)rect(x+39,y+14,(int)(82LL*CLAMP(g->hp,0,g->maxhp)/g->maxhp),7,RGB(160,30,43));
+ /* The generated frame's opening spans x=38..126, not 39..120.
+    Its opaque rim masks the fixed-width fill; maximum HP never widens it. */
+ rect(x+38,y+14,89,7,RGB(40,17,23));
+ if(g->maxhp>0)rect(x+38,y+14,(int)(89LL*CLAMP(g->hp,0,g->maxhp)/g->maxhp),7,RGB(160,30,43));
  r134_blit(x,y,140,30,r138_player_hp,140,30,255);
- snprintf(value,sizeof(value),"%d/%d",g->hp,g->maxhp);r135_shadow_text(x+82-r134_width(value,&r134_f9b)/2,y+13,value,WHITE,&r134_f9b);
+ r186_hp_label(value,sizeof(value),g->hp,g->maxhp,78);r135_shadow_text(x+82-r134_width(value,&r134_f9b)/2,y+13,value,WHITE,&r134_f9b);
  if(g->block>0){rift131_shield(x+143,y+5);snprintf(value,sizeof(value),"%d",g->block);r1310_block_number(x+153,y+10,value);}
 }
 static const uint16_t *rift130_fight(const Game *g){
@@ -594,7 +605,7 @@ static void ambient_particles(const Game*g){
 static void header(const Game*g,const char*caption){
  r134_blit(0,0,480,17,r134_header,480,17,255);
  char b[96];r134_text(8,3,"RIFT ASCENT",GOLD,&r134_f9b);
- snprintf(b,sizeof(b),"HP %d/%d",g->hp,g->maxhp);r134_text(120,3,b,WHITE,&r134_f9);
+ char health[32];r186_hp_label(health,sizeof(health),g->hp,g->maxhp,94);snprintf(b,sizeof(b),"HP %s",health);r134_text(120,3,b,WHITE,&r134_f9);
  snprintf(b,sizeof(b),"%d GOLD",g->gold);r134_text(237,3,b,GOLD,&r134_f9);
  snprintf(b,sizeof(b),"ACT %d   FLOOR %02d",g->act,g->floor+1);r134_text(353,3,b,WHITE,&r134_f9);
  dark_rect(0,17,480,13,180);r134_text(12,19,caption,MUTED,&r134_f9);
@@ -786,7 +797,7 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  }
  int mod=CARD_MOD(raw);if(mod>0&&mod<MOD_COUNT){
   int seal=small?17:24;
-  r134_blit(x+w-art_inset-seal,arty+(arth-seal)/2,seal,seal,r150_seals[mod-1],40,40,255);
+  r134_blit(x+w-art_inset-seal,arty+(arth-seal)/2,seal,seal,mod==MOD_PRIMED?r186_primed:r150_seals[mod-1],40,40,255);
  }
  int by=arty+arth+3,bottom=y+h-(small?10:18),lead=small?9:layout.leading;
  const RiftFont*body=small?&r134_f8:layout.font;const char*rules=rift131_clean_rules(r136_rules(raw));
@@ -915,7 +926,7 @@ static void combat(const Game*g){
  r138_player_meter(g);
  r135_status_icons(g,-1,5);
  for(int i=0;i<g->enemy_count;i++)if(g->enemies[i].hp>0){
-  const Enemy*e=&g->enemies[i];int ex=r134_enemy_x(g,i),w=g->enemy_count==1?112:g->enemy_count==2?88:70;
+  const Enemy*e=&g->enemies[i];int ex=r134_enemy_x(g,i),w=g->enemy_count==1?112:g->enemy_count==2?88:80;
   rift120_hp_meter(ex-w/2,g->enemy_count==3?45:36,w,e->hp,e->maxhp,g->enemy_count==3?0:e->block);
   if(g->enemy_count==3&&e->block>0){char shield[16];snprintf(shield,sizeof(shield),"%d",e->block);rift131_shield(ex-10,82);r1310_block_number(ex,87,shield);}
   rift116_draw_enemy_intent(g,i,ex);
@@ -1011,7 +1022,7 @@ static void relic_result_screen(const Game*g){
  footer(g->relic_pending?"X CONFIRM   O SKIP":"X CONTINUE");
 }
 static const uint32_t*event_art(int id){
- static const unsigned char art_map[]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3,11,0,8};
+ static const unsigned char art_map[]={3,12,8,16,11,5,0,14,13,14,12,8,3,8,7,15,8,2,11,0,16,3,11,0,8,8};
  _Static_assert(sizeof(art_map)==EVENT_COUNT-17,"Every added event needs an art mapping");
  id=CLAMP(id,0,16+(int)sizeof(art_map));int artid=id<17?id:art_map[id-17];
  return artid>=12?r150_events[artid-12]:r134_event_icons[artid];
@@ -1362,7 +1373,7 @@ static void title_screen(const Game*g){
   r134_blit(279,y,176,26,r138_button_on,176,32,enabled?(selected?255:145):80);
   r161_centered_text(289,y+2,156,22,buttons[i],&r138_title9,!enabled?RGB(95,98,102):selected?RGB(255,234,184):WHITE);
  }
- r135_shadow_text(25,236,"RIFT ASCENT 1.8.5",MUTED,&r134_f8);
+ r135_shadow_text(25,236,"RIFT ASCENT 1.8.6",MUTED,&r134_f8);
 
  footer("X CONFIRM");
 }
