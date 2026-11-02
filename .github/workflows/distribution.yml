@@ -2,7 +2,7 @@ name: Build and publish isolated distribution edition
 on:
   push:
     branches: ['distribution']
-    paths: ['release/current.json', '.github/workflows/distribution.yml']
+    paths: ['release/current.json', '.github/workflows/distribution.yml', 'distribution/build.sh']
 permissions:
   contents: write
 concurrency:

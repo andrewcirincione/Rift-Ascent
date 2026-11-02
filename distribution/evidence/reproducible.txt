@@ -1,0 +1,3 @@
+PASS full clean rebuild: 99103871 bytes; SHA-256 b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0.
+PSP menu title remains RIFT ASCENT 1.8.6; build regenerates PARAM.SFO every time.
+The entire rebuilt EBOOT, including metadata, equals the binary used for all six final PPSSPP phases.

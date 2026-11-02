@@ -69,6 +69,8 @@ available in this environment, so no physical-device validation is claimed.
   unchanged; the tightest checked chain leaves 100,912 bytes after its 8 KiB
   small-callee allowance, exceeding the separate 32 KiB margin. This bounded
   call-chain audit is not a whole-program stack proof.
+- A clean local rebuild matches the fully tested executable byte-for-byte. The
+  build always regenerates PSP menu metadata to avoid a stale incremental title.
 - Release CI rebuilds with the same pinned toolchain and requires an exact match
   to the locally playtested EBOOT digest before packaging. Source archives contain
   only the distribution snapshot and preserved media, not legacy catalogs or
