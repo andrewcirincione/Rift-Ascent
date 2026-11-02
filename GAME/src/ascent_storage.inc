@@ -47,15 +47,17 @@ static int ascent_commit_account(void){
 const AscentAccount*ascent_profile(void){return &ascent_account;}
 const AscentSlot*ascent_slot(int n){return n>=0&&n<ASCENT_SLOTS?&ascent_slots[n]:0;}
 int ascent_popcount(unsigned n){int count=0;for(;n;n&=n-1)count++;return count;}
-int ascent_secret(int c){return c>=0&&c<3&&ascent_account.wins[c]>=10;}
+int ascent_secret(int c){return c>=0&&c<3&&ascent_account.wins[c]>=ASCENT_SECRET_WINS;}
+#include "finale_storage.inc"
 static void ascent_repair_ending(Game*g){
- /* Old unlocked collections are not proof of ten wins. Preserve active
+ /* Old unlocked collections are not proof of five wins. Preserve active
     later-act runs, but repair cached pre-threshold ending routes on resume. */
  if(g->act<=3){
   g->ascent.secret=ascent_secret(g->character);
   int *screen=(g->screen==PAUSE_MENU||g->screen==DECK_VIEW||g->screen==POTION_VIEW||g->screen==RELIC_VIEW)?&g->prior_screen:&g->screen;
   if(*screen==ASCENT_REVELATION&&!g->ascent.secret){*screen=ASCENT_ENDING;g->selection=0;}
  }
+ ascent_finale_repair(g);
 }
 int ascent_fast(void){return ascent_fast_setting!=0;}
 int ascent_set_fast(int enabled){unsigned value=!!enabled;if(!ascent_write("ASCENT18_SPEED",&value,sizeof(value),0))return 0;ascent_fast_setting=value;return 1;}
@@ -179,6 +181,7 @@ int ascent_open(const char*root){
  if(va||vb){ascent_account=vb&&(!va||gb>ga)?b:a;ascent_account.generation=vb&&(!va||gb>ga)?gb:ga;}
  else {ascent_account.magic=0x52413841u;ascent_account.version=1;ascent_account.next_run=1;}
  ascent_memory_open();
+ ascent_finale_open();
  ascent_ready=1;ascent_fast_setting=0;{unsigned gen;ascent_read("ASCENT18_SPEED",0,&ascent_fast_setting,sizeof(ascent_fast_setting),&gen);if(ascent_fast_setting>1)ascent_fast_setting=0;}memset(ascent_slots,0,sizeof(ascent_slots));
  for(int i=0;i<ASCENT_SLOTS;i++){Game saved;ascent_resume(&saved,i);}
  /* Import the stable single-save prefix once. The old SAVE.DAT is untouched. */
@@ -249,7 +252,15 @@ static int ascent_complete(Game*g,int true_end){
  AscentAccount old=ascent_account;AscentReceipt*r=&ascent_account.receipts[g->ascent.slot];
  if(r->run>g->ascent.id){msg(g,"This run has been superseded in its save slot.");return 0;}
  if(r->run!=g->ascent.id){memset(r,0,sizeof(*r));r->run=g->ascent.id;r->cards[0]=r->cards[1]=r->potions[0]=r->potions[1]=r->relic=-1;}
- if(true_end){if(!r->ascended){r->ascended=1;ascent_account.ascended|=1u<<g->character;}}
+ if(true_end){if(!r->ascended){
+  unsigned completed=ascent_account.ascended|(1u<<g->character);
+  /* Prepare the one-time receipt BEFORE committing the third character.
+     A failed account write can retry without losing or duplicating it. */
+  if(ascent_account.ascended!=7&&completed==7&&!ascent_finale_prepare(g)){
+   ascent_account=old;msg(g,"Could not save finale. Press X to retry.");return 0;
+  }
+  r->ascended=1;ascent_account.ascended=completed;
+ }}
  else if(!r->won){
   r->won=1;ascent_account.wins[g->character]++;ascent_unlock_cards(g,r->cards);
   for(int i=0;i<2;i++){int id=ascent_pick_locked(ascent_account.potions,0,20,g);r->potions[i]=id<0?-1:id+6;if(id>=0)ascent_account.potions|=1u<<id;}

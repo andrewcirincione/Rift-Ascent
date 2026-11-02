@@ -49,3 +49,5 @@ render.o: revision186_art.h aesthetic_art.h beta_ui.inc
 game.o: ninja_preview.inc regent_preview.inc
 
 game.o: journey_rewards.inc
+game.o: finale_storage.inc
+render.o: finale_art.h ascent_progress.h

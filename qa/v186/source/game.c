@@ -2550,7 +2550,8 @@ int game_validate(const Game*g){
  const int next_limits[5]={30,99,5,5,5};for(int i=0;i<5;i++)if(g->revision182.next_combat[i]<0||g->revision182.next_combat[i]>next_limits[i])return 0;
  if(g->act<1||g->act>100000||(!g->endless&&g->act>3)||g->floor<0||g->floor>MAP_ROWS||g->lane<0||g->lane>=3)return 0;
  if(g->maxhp<=0||g->hp<0||g->hp>g->maxhp||g->gold<0)return 0;
- if(g->screen<TITLE||g->screen>BETA_FORGE_CARD||g->deck_count<(g->revision184.building?0:1)||g->deck_count>MAX_DECK)return 0;
+ if(g->screen<TITLE||g->screen>ASCENT_FINALE||g->deck_count<(g->revision184.building?0:1)||g->deck_count>MAX_DECK)return 0;
+ if(g->screen==ASCENT_FINALE&&(g->act!=4||!g->ascent.ascended||g->selection<0||g->selection>=ASCENT_FINALE_PAGES))return 0;
  if((g->screen==STORY_ACT||g->screen==STORY_ACT_BEFORE_BLESSING)&&(g->selection!=0||g->scroll<0||g->scroll>9))return 0;
  if(g->screen==STORY_BOSS&&(g->act>3||g->selection<0||g->selection>2||g->scroll<0||g->scroll>4))return 0;
  if(g->hand_count<0||g->hand_count>MAX_HAND||g->draw_count<0||g->draw_count>MAX_PILE||g->discard_count<0||g->discard_count>MAX_PILE||g->exhaust_count<0||g->exhaust_count>MAX_PILE)return 0;

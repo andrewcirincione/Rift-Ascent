@@ -1,0 +1,13 @@
+PASS empty/current slot scan: 115400 frame bytes + 8192 tail reserve; 73016 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_resume(57296) + ascent_read_run(28560)
+PASS old stable slot migration: 143920 frame bytes + 8192 tail reserve; 44496 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS legacy SAVE.DAT migration: 122544 frame bytes + 8192 tail reserve; 65872 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + game_load(64480) + migrate_layout184(28520)
+PASS in-game old slot resume: 143240 frame bytes + 8192 tail reserve; 45176 bytes remaining of 196608
+  run_game(160) + step_action(56) + game_action(28648) + ascent_resume(57296) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS beta-only migration: 144752 frame bytes + 8192 tail reserve; 43664 bytes remaining of 196608
+  run_game(160) + ascent_open(29384) + ascent_import_beta(58128) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS save and quit: 86008 frame bytes + 8192 tail reserve; 102408 bytes remaining of 196608
+  run_game(160) + save_and_quit(57192) + ascent_checkpoint(28656)
+PASS startup/save stack budget; 192 KiB allocation unchanged

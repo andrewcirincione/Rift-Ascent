@@ -243,3 +243,9 @@ qa/v186r3/evidence/*.bin
 qa/v186r3/evidence/*.log
 qa/v186r3/evidence/EBOOT.PBP
 qa/v186r3/evidence/act*/
+/qa/v186r4/evidence/*.bin
+/qa/v186r4/evidence/*.log
+/qa/v186r4/evidence/EBOOT.PBP
+/qa/v186r4/evidence/act*/
+/qa/v186r4/__pycache__/
+/qa/v186r4/evidence/.EBOOT.PBP.*

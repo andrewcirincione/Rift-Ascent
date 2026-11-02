@@ -4,6 +4,8 @@
 #define ASCENT_CARD_LAST 394
 #define ASCENT_SLOTS 4
 #define ASCENT_ALL_CARDS 0xfffffu
+#define ASCENT_SECRET_WINS 5
+#define ASCENT_FINALE_PAGES 5
 typedef struct {
  unsigned id,slot,cards,potions,relics,secret,won,ascended;
  int unlocked_cards[2],unlocked_potions[2],unlocked_relic;

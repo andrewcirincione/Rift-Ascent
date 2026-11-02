@@ -1,0 +1,1 @@
+PASS legal assisted PSP fixtures: fourth/fifth/tenth/eleventh gates, all six character orders, repeat victories, golden A, full-frame finishing controls.

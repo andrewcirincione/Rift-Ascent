@@ -1,4 +1,5 @@
 /* Menus use the same generated frames, type and measured pixel layout as 1.71-r2. */
+#include "finale_art.h"
 static const char*const ascent_names[3]={"WARDEN","VESPER","PROXY"};
 static void ascent_heading(const char*title){
  dark_rect(0,0,W,H,150);gilded_panel(10,36,460,216,1);
@@ -18,7 +19,7 @@ static void ascent_badges(int x,int y,int character){
  snprintf(b,sizeof(b),"%u",a->wins[character]);r135_shadow_text(x+20-r134_width(b,&r134_f8)/2,y+18,b,WHITE,&r134_f8);
  r134_blit(x+111,y+4,27,29,ascent_badge_rift,40,40,255);
  snprintf(b,sizeof(b),"%u",a->best_act[character]);r135_shadow_text(x+124-r134_width(b,&r134_f8)/2,y+18,b,WHITE,&r134_f8);
- if(a->ascended&(1u<<character))r135_shadow_text(x+64,y+31,"A",RGB(255,210,89),&r134_f18b);
+ if(ascent_secret(character))r135_shadow_text(x+64,y+31,"A",RGB(255,210,89),&r134_f18b);
 }
 static void ascent_slots_view(const Game*g){
  ascent_heading(g->scroll==2?"CUSTOM RUN / SAVE SLOT":g->scroll?"BEGIN ASCENT / SAVE SLOT":"RESUME / SAVE SLOT");
@@ -97,6 +98,13 @@ static void ascent_unlock_view(const Game*g){
  footer(kind==0?"X NEXT / POTIONS":kind==1?"X NEXT / RELIC":"X CONTINUE");
 }
 static void ascent_scene_view(const Game*g){
+ if(g->screen==ASCENT_FINALE){
+  rect(0,0,W,H,RGB(0,0,0));art_blit(72,38,336,126,ascent_finale_art,336,126);
+  r134_text(72,175,"THREE AS ONE",GOLD,&r138_title10);
+  r134_wrap(72,194,336,4,12,ascent_finale_dialogue[CLAMP(g->selection,0,ASCENT_FINALE_PAGES-1)],WHITE,&r134_f9,0);
+  if(!memcmp(g->message,"Could not save finale",21))r134_text(72,237,g->message,RED,&r134_f8);
+  r134_blit(343,247,14,14,r135_cross,14,14,255);r134_text(364,250,"CONTINUE",MUTED,&r134_f8);return;
+ }
  int c=CLAMP(g->character,0,2),kind=g->screen==ASCENT_ENDING?0:g->screen==ASCENT_REVELATION?1:g->screen==ASCENT_BOSS?2:3;
  rect(0,0,W,H,RGB(0,0,0));/* The legacy Vesper/Proxy ending slots depict the Unmaker confrontation.
     Use the existing return-to-the-city aftermath for a resolved Act 3 win. */
@@ -104,5 +112,6 @@ static void ascent_scene_view(const Game*g){
  r134_text(72,175,kind==2?"BEFORE THE FIRST THRONE":kind==3?"THE TRUE ASCENT":kind==0?"THE CROWN FALLS":ascent_names[c],GOLD,&r138_title10);
  const char*memory=game_loop_ascent(g,kind,CLAMP(g->selection,0,2));
  r134_wrap(72,194,336,4,12,memory?memory:ascent_dialogue[c][kind][CLAMP(g->selection,0,2)],WHITE,&r134_f9,0);
+ if(!memcmp(g->message,"Could not save finale",21))r134_text(72,237,g->message,RED,&r134_f8);
  r134_blit(343,247,14,14,r135_cross,14,14,255);r134_text(364,250,"CONTINUE",MUTED,&r134_f8);
 }

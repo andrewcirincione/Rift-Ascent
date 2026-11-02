@@ -1,0 +1,13 @@
+Act 1 elite pairs 329/2000
+Act 2 elite pairs 355/2000
+Act 3 elite pairs 364/2000
+Act 4 elite pairs 319/2000
+Act 5 elite pairs 342/2000
+Act 6 elite pairs 376/2000
+Act 7 elite pairs 330/2000
+PASS exclusive themed elite pairs; boss groups; shown/actual damage; fixed survivor damage; no victory until every foe dies; group save/load.
+PASS all seven Echo Skills, upgraded/base, owned/foreign on all three characters: exactly doubled block/draw, one cost, one physical card, exact preview and repeat text.
+PASS Primed Attack/Skill/Power opening draws, overflow remains in pile, hand cap and save/load; all six Temper variants; new mystery choices/cancel/exact one-time cost.
+PASS 1.8.5 action-ID migration through checksum saves and alternating slots, including paused Upgrade/Remove/Copy/Transform pickers.
+PASS first-run lore unchanged; spare live slots grant no memory; durable completions counted once; repeated losses advance discoveries; first ending/custom excluded; all character Unmaker dialogues.
+PASS 1.8.6 mechanics and migration regression suite.

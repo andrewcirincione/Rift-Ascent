@@ -1,4 +1,4 @@
-"""Append six generated 1.8.6 assets to the existing bank; preserve old pixels/music."""
+"""Append the six 1.8.6 assets and shared finale; preserve existing pixels/music."""
 from pathlib import Path
 import hashlib,json,struct,zlib,re,shutil
 from PIL import Image
@@ -30,12 +30,21 @@ for i,name in enumerate(names):
     manifest['assets'].append({'name':symbol,'file':str(path.relative_to(q)),'width':im.width,'height':im.height,'bytes':len(pixels),'offset':offset,'crc32':f'{crc:08x}','sha256':hashlib.sha256(pixels).hexdigest(),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
     if i<5:sizes.append(im.size)
 header+=['#endif'];(q/'source/revision186_art.h').write_text('\n'.join(header)+'\n')
+# One new shared ending image, appended without changing any existing pixels.
+path=repo/'qa/v186r4/art/three-as-one.png'
+im=Image.open(path).convert('RGB').resize((336,126),Image.Resampling.LANCZOS)
+pixels=b''.join(struct.pack('<H',((r>>3)<<11)|((g>>2)<<5)|(b>>3)) for r,g,b in im.get_flattened_data())
+offset=len(bank);bank.extend(pixels);crc=zlib.crc32(pixels)
+descriptor=b'RIFTSIMG'+struct.pack('<4I',offset,len(pixels),2,crc)
+(q/'source/finale_art.h').write_text('#ifndef FINALE_ART_H\n#define FINALE_ART_H\n#include <stdint.h>\nstatic const unsigned char ascent_finale_art_data[24] __attribute__((aligned(4)))={'+','.join(map(str,descriptor))+'};\n#define ascent_finale_art ((const uint16_t*)ascent_finale_art_data)\n#endif\n')
+manifest['assets'].append({'name':'ascent_finale_art','file':'../v186r4/art/three-as-one.png','width':336,'height':126,'bytes':len(pixels),'offset':offset,'crc32':f'{crc:08x}','sha256':hashlib.sha256(pixels).hexdigest(),'source_sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
 art=(repo/'qa/v185/source/aesthetic_art.h').read_text().replace('#include <stdint.h>','#include <stdint.h>\n#include "revision186_art.h"')
 art=re.sub(r'(aesthetic_enemies)\[59\]=\{([^}]+)\};',lambda m:m[1]+'[64]={'+m[2]+','+','.join(f'aesthetic_enemy_{i}' for i in range(59,64))+'};',art)
 art=re.sub(r'(aesthetic_enemy_size)\[59\]\[2\]=\{(.+?)\};',lambda m:m[1]+'[64][2]={'+m[2]+','+','.join('{%d,%d}'%s for s in sizes)+'};',art)
 (q/'source/aesthetic_art.h').write_text(art)
 manifest['bytes']=len(bank);manifest['sha256']=hashlib.sha256(bank).hexdigest();manifest['draft_missing']=[]
 manifest['revision186']={'base_bytes':old_length,'new_assets':6,'generator':'Built-in image generation','pillow':'12.3.0'}
+manifest['revision186r4']={'new_assets':1,'generator':'Built-in image generation','pillow':'12.3.0'}
 (q/'assets.json').write_text(json.dumps(manifest,indent=2)+'\n')
 (q/'assets.bin').write_bytes(bank+b'RIFTART1'+struct.pack('<II',len(bank),zlib.crc32(bank)))
-print('PASS preserved base artwork and twelve music tracks; appended five enemies and Primed seal:',len(bank)-old_length,'bytes')
+print('PASS preserved base artwork and twelve music tracks; appended five enemies, Primed seal and Three as One finale:',len(bank)-old_length,'bytes')

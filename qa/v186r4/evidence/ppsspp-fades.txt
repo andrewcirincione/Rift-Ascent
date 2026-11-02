@@ -1,0 +1,20 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE finish3
+PASS exact EBOOT sequence act3-normal-leader-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish3
+PASS exact EBOOT sequence act3-normal-minion-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish3
+PASS exact EBOOT sequence act3-fast-leader-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish4
+PASS exact EBOOT sequence act4-normal-leader-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish7
+PASS exact EBOOT sequence act7-normal-minion-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish7
+PASS exact EBOOT sequence act7-fast-minion-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame shared-finale-destination 1568
+PASS exact PSP Act 4 individual ending to one-time shared finale: 10 completed frames, black midpoint, correct shared destination, no combat return
+PASS final release EBOOT: all Normal/Fast full-frame ending sequences ; full soundtrack, zero art or memory errors
+SHA256 d144cea99ae30e0e7c571e06515454ff253b3a284450d69296472c00e9a847eb

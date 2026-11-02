@@ -1,6 +1,6 @@
 {
-  "bytes": 53228016,
-  "sha256": "296e395bd145884043a4709ea886cebde6f24419a3edd45ec165dc589214255e",
+  "bytes": 53312688,
+  "sha256": "ae0455d856b0a920d1afc0ad1ff1a4528c5814a75e0cbd4a89c5e6a20335e036",
   "assets": [
     {
       "name": "ascent_card_334",
@@ -2025,6 +2025,17 @@
       "crc32": "0bf58e11",
       "sha256": "8cc8ac71cf645fd296c1afd8217b66cffdfd0401aa5300b48a009a3298a5631e",
       "source_sha256": "dae51663e70f93e831be3379187d9a4162bf6ad2dbea1615fe96f08cd3518588"
+    },
+    {
+      "name": "ascent_finale_art",
+      "file": "../v186r4/art/three-as-one.png",
+      "width": 336,
+      "height": 126,
+      "bytes": 84672,
+      "offset": 53228016,
+      "crc32": "e2b158a9",
+      "sha256": "ddad75fb08655e82b1635d1aa8a22651c848b7a2b089c16b69f39715dcbb65d4",
+      "source_sha256": "e392c9d57b21321478f9010a0c492344ca3635116bf10c83154ede6ec7f8cc44"
     }
   ],
   "base": "v1.8.3",
@@ -2047,6 +2058,11 @@
   "revision186": {
     "base_bytes": 52515568,
     "new_assets": 6,
+    "generator": "Built-in image generation",
+    "pillow": "12.3.0"
+  },
+  "revision186r4": {
+    "new_assets": 1,
     "generator": "Built-in image generation",
     "pillow": "12.3.0"
   }

@@ -1,0 +1,1 @@
+PASS every byte of the complete 1.8.6-r3 artwork bank and all twelve soundtrack streams preserved; exactly one 84,672-byte RGB565 scene appended.

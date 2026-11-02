@@ -1,4 +1,4 @@
-int ascent_story_screen(int s){return s==ASCENT_ENDING||s==ASCENT_REVELATION||s==ASCENT_BOSS||s==ASCENT_TRUE_END;}
+int ascent_story_screen(int s){return s==ASCENT_ENDING||s==ASCENT_REVELATION||s==ASCENT_BOSS||s==ASCENT_TRUE_END||s==ASCENT_FINALE;}
 static int ascent_action(Game*g,int b){
  if(b==BTN_PAUSE&&(ascent_story_screen(g->screen)||g->screen==ASCENT_CARDS||g->screen==ASCENT_POTIONS||g->screen==ASCENT_RELIC))return 0;
  if(ascent_debug()&&(b==BTN_DEBUG_KILL||b==BTN_DEBUG_ACT)){
@@ -12,6 +12,7 @@ static int ascent_action(Game*g,int b){
   g->ascent.secret=ascent_secret(g->character);
   if(g->screen==ASCENT_REVELATION&&!g->ascent.secret){g->screen=ASCENT_ENDING;g->selection=0;return 1;}
  }
+ if(g->screen==ASCENT_TRUE_END||g->screen==ASCENT_FINALE){int old=g->screen;ascent_finale_repair(g);if(g->screen!=old)return 1;}
  switch(g->screen){
  case ASCENT_SLOTS_VIEW:
   if(b==BTN_UP)g->selection=(g->selection+3)%4;
@@ -61,7 +62,13 @@ static int ascent_action(Game*g,int b){
  case ASCENT_BOSS:
   if(b==BTN_OK&&++g->selection>=3)game_start_battle(g,NODE_BOSS);return 1;
  case ASCENT_TRUE_END:
-  if(b==BTN_OK&&++g->selection>=3){g->screen=VICTORY;g->selection=0;if(g->screen==VICTORY)g->scroll=g->master_index=0;}return 1;
+  if(b==BTN_OK){
+   if(g->selection<2)g->selection++;
+   else if(ascent_finale_owner(g)&&ascent_finale.state!=FINALE_DONE)ascent_finale_advance(g,0);
+   else ascent_finale_victory(g);
+  }return 1;
+ case ASCENT_FINALE:
+  if(b==BTN_OK)ascent_finale_advance(g,(unsigned)g->selection+1);return 1;
  default:return 0;
  }
 }
