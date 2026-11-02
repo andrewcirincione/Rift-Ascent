@@ -1,0 +1,192 @@
+beta
+PASS retained beta elite/boss cycles: 9 species, 1,000 seeds, phase stability.
+PASS Recover window, death retirement and recap tabs.
+
+cards_three
+PASS 2340 card/upgrade/character cases with three foes, target 3 and immutable previews.
+
+afterimage
+PASS 192 Attack/Skill/Power/token plays across all families and all characters, normal/custom, base/upgraded Afterimage; previewing cards leaves the live combat unchanged.
+PASS first/second activation, stacking, later turns, combat save/load, no Dexterity scaling, Shadowmeld, Block cap, rejected plays and drawing without playing.
+PASS Echo replays in every resolver, autoplayed Shivs and nested Afterimage activation: one trigger per play, captured before that card's effects.
+PASS pending Afterimage survives a colorless card's selection screen and save/load, then awards Block exactly once.
+
+prior_regression
+PASS each character: 4/20 story outcomes offer Forge; all outcomes have exactly two navigation choices.
+PASS old third-choice save migrates to Leave; unavailable Forge falls back to a gift; stale Forge cannot award an unrelated relic.
+PASS Cinder blood/burden/Leave values and affordability; Red Communion and Candle boons apply only once.
+PASS 1.8.5-r3 behavior regression suite.
+
+inventory
+PASS 28 in-run screens: deck/inventory browsing preserves the complete underlying Game, selection and pending effect.
+PASS cutscenes/setup stay closed; unfinished effects and recaps remain view-only; Forge healing and pause return preserve focus.
+
+boss_damage
+PASS 18 attack cases: boss +5%, ordinary/elite controls, displayed intent equals actual damage, two/three hits, Block, Weak/Vulnerable and Paper Krane.
+PASS boss save/resume preserves damage exactly once; defensive intents unchanged; four exact-EBOOT fixtures generated.
+
+revision185
+PASS 20,000 ordinary encounters: single 10063 double 5032 triple 4905; unique species; revised elite/boss group sizes.
+PASS attack intent/actual damage, multi-hit, Weak/Vulnerable and fixed group reduction after deaths.
+PASS all three characters target foe 3; exact previews; AoE; dead-target cycling; third-foe Mangle and Strangle do not corrupt Pyre or Hunt.
+PASS story rate 4996/100,000; boss excluded without consuming RNG.
+PASS one story roll per completed non-boss room; Forge only at dedicated story outcomes, all 3 options, free cancellation/save/resume, exact Echo cost, no double gift or post-forge reroll; reward navigation excludes Forge.
+PASS 1.8.4 layout migration, old beta interrupted forge returns to unclaimed spoils; new triple-target status snapshot round trip.
+PASS real stable 1.8.4 slot migration and beta-only account/run import; stable account takes priority.
+PASS 1.8.5 regression suite.
+
+prior186
+Act 1 elite pairs 329/2000
+Act 2 elite pairs 355/2000
+Act 3 elite pairs 364/2000
+Act 4 elite pairs 319/2000
+Act 5 elite pairs 342/2000
+Act 6 elite pairs 376/2000
+Act 7 elite pairs 330/2000
+PASS exclusive themed elite pairs; boss groups; shown/actual damage; fixed survivor damage; no victory until every foe dies; group save/load.
+PASS all seven Echo Skills, upgraded/base, owned/foreign on all three characters: exactly doubled block/draw, one cost, one physical card, exact preview and repeat text.
+PASS Primed Attack/Skill/Power opening draws, overflow remains in pile, hand cap and save/load; all six Temper variants; new mystery choices/cancel/exact one-time cost.
+PASS 1.8.5 action-ID migration through checksum saves and alternating slots, including paused Upgrade/Remove/Copy/Transform pickers.
+PASS first-run lore unchanged; spare live slots grant no memory; durable completions counted once; repeated losses advance discoveries; first ending/custom excluded; all character Unmaker dialogues.
+PASS 1.8.6 mechanics and migration regression suite.
+
+relic_tests
+PASS replayed Void Form on all three characters resolves both Powers and ends the turn exactly once; no sentinel deadlock.
+PASS three-engine stacking, Ice Cream income/reset, Tears, Choker cap, Pyramid, Shuriken/Kunai, exhaust and replay preview parity.
+PASS per-award gold triggers, Ectoplasm priority, Sozu event blocking, shop/event-exclusive acquisition, Soup-bound transformation protection.
+PASS starter upgrade, duplicate discard procs, mitigation/revival, expanded belt and save roundtrip.
+PASS 180,000 same-rarity draws: soft unseen weighting, repeat availability, marks, act/save persistence and old-prefix migration.
+PASS 1,800 act-start boon offers across all characters and acts, legal claims and selection screens.
+PASS full 296-entry catalog: pickup, both copy counts, combat turns, choices, validation and save/load under sanitizers.
+PASS Act 6 Abomination with two minions and dedicated track; acts 5, 7 and 8 remain random bosses.
+
+ending-regression
+PASS all characters: first/fourth/fifth/sixth/tenth/eleventh Act 3 routes; exactly two distinct-rarity cards per win through ten; no unlocks lost at five; independent character gate; cached old save repair; idempotent wins.
+PASS all six character clear orders and all four save slots: first/second clear skip shared finale, third first-clear gets all five pages, every page cold-resumes, stale saves/receipts and subsequent character wins never replay it.
+PASS existing all-three-clear profiles do not receive a retroactive replay; custom runs do not award or consume the finale.
+PASS injected preparation, account-commit, scene-entry, page-progress and final-completion write failures: retry preserves rewards and cannot lose or duplicate the finale.
+Act 1 story cards: Rare/Ancient 0/1500, upgraded 0/1500
+Act 2 story cards: Rare/Ancient 771/1500, upgraded 399/1500
+Act 3 story cards: Rare/Ancient 1500/1500, upgraded 747/1500
+Act 4 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 5 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 6 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 7 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+PASS 10,500 act-scaled card gifts; stronger unowned relic pools; exact four Forge outcomes; frozen preview/save/claim; full-inventory fallback; upgraded cross-character rares remain distinct and legal.
+PASS all acts: three Journey Forge choices, reduced Echo cost, safer Temper pool, preview/cancel/save/exact payment; every mystery modification uses one shared adjusted quote and commit price.
+PASS 126 intent/actual/save checks across all acts, encounter sizes and weaknesses; returning enemies meet the Act 3 stat floor.
+PASS five-win secret access, ten-win unlock progression and one-time Three as One finale.
+
+timeline
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 6: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 6: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS ordinary story-to-story fade retained; leader death alone never starts ending; complete renderer, real combat effects, zero streamed-art errors.
+PASS individual Act 4 ending transitions once through black into the shared finale artwork.
+PASS all five finale pages use shared artwork; golden A absent at four wins even with an Act 4 clear, present at five before any Act 4 clear.
+PASS all 12 scene/character image mappings: normal victory uses resolution artwork, never the secret-boss confrontation; other scenes retain their intended images.
+
+media
+PASS every old artwork byte, all twelve original full music streams, and splash assets unchanged; complete RiftAbomination track verified; seven appended assets checksum verified; 1.8.6 title; package below 100 MiB.
+Bytes 102814549
+SHA256 13c02039daa2a907be4e4a5e5502f7c2681553e545adf1bff07a8a35b5008b2a
+
+stack
+PASS empty/current slot scan: 121600 frame bytes + 8192 tail reserve; 66816 bytes remaining of 196608
+  run_game(160) + ascent_open(31448) + ascent_resume(61432) + ascent_read_run(28560)
+PASS old stable slot migration: 150120 frame bytes + 8192 tail reserve; 38296 bytes remaining of 196608
+  run_game(160) + ascent_open(31448) + ascent_resume(61432) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS legacy SAVE.DAT migration: 128736 frame bytes + 8192 tail reserve; 59680 bytes remaining of 196608
+  run_game(160) + ascent_open(31448) + game_load(68608) + migrate_layout184(28520)
+PASS in-game old slot resume: 118776 frame bytes + 8192 tail reserve; 69640 bytes remaining of 196608
+  run_game(160) + step_action(56) + game_action(48) + ascent_resume(61432) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS beta-only migration: 150952 frame bytes + 8192 tail reserve; 37464 bytes remaining of 196608
+  run_game(160) + ascent_open(31448) + ascent_import_beta(62264) + ascent_read_run(28560) + migrate_layout184(28520)
+PASS save and quit: 92208 frame bytes + 8192 tail reserve; 96208 bytes remaining of 196608
+  run_game(160) + save_and_quit(61328) + ascent_checkpoint(30720)
+PASS startup/save stack budget; 192 KiB allocation unchanged
+
+ppsspp-final
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE boons-0
+SHOT completed frame boons-0 80
+SHOT completed frame boons-highlight-0 108
+SHOT completed frame boon-inventory-0 136
+FIXTURE boons-1
+SHOT completed frame boons-1 172
+SHOT completed frame boons-highlight-1 200
+SHOT completed frame boon-inventory-1 228
+FIXTURE boons-2
+SHOT completed frame boons-2 264
+SHOT completed frame boons-highlight-2 292
+SHOT completed frame boon-inventory-2 320
+FIXTURE ancient-pick
+SHOT completed frame ancient-pick 356
+SHOT completed frame ancient-pick-highlight 384
+FIXTURE camp
+SHOT completed frame camp 456
+SHOT completed frame camp-train 500
+SHOT completed frame camp-after-train 528
+FIXTURE belt
+SHOT completed frame belt 548
+SHOT completed frame belt-scroll 576
+FIXTURE carry
+SHOT completed frame carry-before 596
+SHOT completed frame carry-after 648
+PASS actual PSP Ice Cream retains 17 Energy and adds 3
+FIXTURE void-form
+SHOT completed frame void-form-replay 716
+PASS actual PSP replayed Void Form ends once without locking combat
+FIXTURE act6-entry
+SHOT completed frame act6-intro 736
+SHOT completed frame act6-abomination 820
+PASS actual PSP Act 6 intro -> Abomination + two minions; RiftAbomination track 12 streams nonzero stereo PCM
+FIXTURE act7-entry
+SHOT completed frame act7-random 840
+PASS actual PSP Act 7 uses random boss without Abomination cutscene
+FIXTURE gate-0-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-0-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-1-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-1-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-2-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-2-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame shared-finale 2104
+FIXTURE repeat-0
+QA skipped repeated finisher presentation after resolution
+PASS PSP fifth-win gate and once-only shared finale preserved
+PASS final release EBOOT: Ancient boons, retained Energy, belt, Act 6 music, Act 7 rotation and ending gates ; full soundtrack, zero art or memory errors
+SHA256 13c02039daa2a907be4e4a5e5502f7c2681553e545adf1bff07a8a35b5008b2a
+
+ppsspp-fade
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE finish6
+PASS exact EBOOT sequence act6-normal-minion-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish6
+PASS exact EBOOT sequence act6-normal-leader-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish6
+PASS exact EBOOT sequence act6-fast-minion-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish6
+PASS exact EBOOT sequence act6-fast-leader-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame shared-finale-destination 1124
+PASS exact PSP Act 4 individual ending to one-time shared finale: 10 completed frames, black midpoint, correct shared destination, no combat return
+PASS final release EBOOT: all Normal/Fast full-frame ending sequences ; full soundtrack, zero art or memory errors
+SHA256 13c02039daa2a907be4e4a5e5502f7c2681553e545adf1bff07a8a35b5008b2a
+
+900 paired campaigns: baseline 184/900 Act 3 wins (20.44%); candidate 233/900 (25.89%); no unresolved stalls. Replay bug cases rerun from the start after correction.
+
+PASS final release EBOOT 13c02039daa2a907be4e4a5e5502f7c2681553e545adf1bff07a8a35b5008b2a

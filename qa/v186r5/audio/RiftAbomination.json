@@ -1,0 +1,13 @@
+{
+  "source_filename": "RiftAbomination(1).wav",
+  "source_sha256": "2f04efe35b43d4af94bdbb13f5aa8a37ff17c33423ca4dc4a84c9886f5845faa",
+  "pcm_sha256": "c4c9a6d74ceabf56ae95b372f7949a4b0b5224ffab21f952e1ff351731dfd701",
+  "rate": 22050,
+  "frames": 3505106,
+  "seconds": 158.96172335600906,
+  "channels": 2,
+  "bytes": 3505106,
+  "sha256": "8756cdfd5fdc9e699fd90e008433f26f1fe200c25c0df5ddb5f65a64ccbf8f99",
+  "format": "continuous stereo IMA ADPCM, low nibble left, high nibble right; predictor/index start at zero",
+  "track_index": 12
+}

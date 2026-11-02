@@ -51,3 +51,6 @@ game.o: ninja_preview.inc regent_preview.inc
 game.o: journey_rewards.inc
 game.o: finale_storage.inc
 render.o: finale_art.h ascent_progress.h
+
+game.o: ancient_hooks.h ancient_ids.h ancient_meta.inc ancient_catalog.inc ancient_engine.inc
+render.o: ancient_ids.h

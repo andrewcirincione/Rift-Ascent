@@ -85,6 +85,13 @@ static int ascent_read_run(const char*stem,unsigned side,Game*g,unsigned*generat
   }
   return game_validate(g);
  }
+ /* Same published version, append-only r5 state. Import both alternating
+    old generations using their original checksummed length. */
+ memset(g,0,sizeof(*g));
+ if(ascent_read(stem,side,g,offsetof(Game,revision186),generation)){
+  if(g->version!=185&&g->version!=186)return 0;
+  revision186_migrate_actions(g,g->version);return game_validate(g);
+ }
  Game184 old;
  const size_t sizes[]={sizeof(old),offsetof(Game184,revision184),offsetof(Game184,revision182),offsetof(Game184,expedition)};
  for(unsigned i=0;i<sizeof(sizes)/sizeof(sizes[0]);i++){

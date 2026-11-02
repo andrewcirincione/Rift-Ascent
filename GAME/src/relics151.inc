@@ -23,18 +23,21 @@ static void r151_played(Game*g,int type){
   if(g->v151.relic[9]==7){g->v151.relic[9]|=8;gain_energy(g,2);draw_card(g);draw_card(g);}
  }
 }
-static void r151_status_snapshot(const Game*g,int out[6]){
- for(int i=0;i<2;i++){out[3*i]=g->enemies[i].weak;out[3*i+1]=g->enemies[i].vulnerable;out[3*i+2]=g->enemies[i].poison;}
+static void r151_status_snapshot(const Game*g,int out[3*MAX_ENEMIES]){
+ for(int i=0;i<MAX_ENEMIES;i++){out[3*i]=g->enemies[i].weak;out[3*i+1]=g->enemies[i].vulnerable;out[3*i+2]=g->enemies[i].poison;}
 }
-static void r151_after_effect(Game*g,const int before[6]){
+static void r151_after_effect(Game*g,const int before[3*MAX_ENEMIES]){
+ if(relic(g,SR_UNSETTLING_LAMP)&&!SB(g,SB_LAMP)){
+  int changed=0;for(int i=0;i<g->enemy_count;i++){int*values[]={&g->enemies[i].weak,&g->enemies[i].vulnerable,&g->enemies[i].poison};for(int j=0;j<3;j++){int delta=*values[j]-before[3*i+j];if(delta>0){*values[j]=MIN(1000000,*values[j]+delta*relic(g,SR_UNSETTLING_LAMP));changed=1;}}}if(changed)SB(g,SB_LAMP)=1;
+ }
  if(g->screen!=COMBAT||!g->ic[IC_OWN_TURN]||!relic(g,58)||g->v151.relic[5])return;
- int now[6];r151_status_snapshot(g,now);
+ int now[3*MAX_ENEMIES];r151_status_snapshot(g,now);
  for(int i=0;i<g->enemy_count*3;i++)if(now[i]>before[i]){g->v151.relic[5]=1;draw_card(g);break;}
 }
 static void r151_skip_reward(Game*g){
  if(relic(g,92)){g->maxhp++;heal(g,1);}
  if(relic(g,27))heal(g,6);
- if(!relic(g,60))return;g->gold+=8;
+ if(!relic(g,60))return;sr_gain_gold(g,8);
  if(++g->v151.relic[7]>=3){
   g->v151.relic[7]=0;int choices[MAX_DECK],n=0;
   for(int i=0;i<g->deck_count;i++)if(game_card_is_upgradeable(g->deck[i]))choices[n++]=i;

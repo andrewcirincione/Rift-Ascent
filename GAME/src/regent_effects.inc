@@ -2,7 +2,7 @@
 static void regent_effect(Game*g,RegentTask t){
  int raw=t.raw,id=CARD_ID(raw),up=CARD_UP(raw),e=t.target,x=t.n,depth=t.depth;
  const RegentCardDef*d=&regent_cards[id-REGENT_FIRST];int damage=regent_base_damage(g,raw),block=up?d->upblock:d->block;
- int before[6];r151_status_snapshot(g,before);
+ int before[3*MAX_ENEMIES];r151_status_snapshot(g,before);
 #define DRAW(n) regent_push(g,RT_DRAW,raw,e,n,0,depth)
 #define CHOOSE(k,n) regent_push(g,RT_CHOOSE,raw,e,k,n,depth)
 #define POWER(id,n) do{RP(g,id)=MIN(1000000,RP(g,id)+(n));}while(0)
@@ -89,7 +89,7 @@ static void regent_effect(Game*g,RegentTask t){
  case R_VOID_FORM:POWER(id,1);regent_push(g,RT_ENDTURN,raw,e,0,0,0);break;
  case R_WROUGHT_IN_WAR:deal(g,e,damage);regent_forge(g,7+2*up);break;
  /* Full solo Colorless generation pool, using the same choice and replay machinery. */
- case C_ALCHEMIZE:if(g->potion_count<MAX_POTIONS)g->potions[g->potion_count++]=rnd(g,6);else msg(g,"Potion belt full.");break;
+ case C_ALCHEMIZE:if(!relic(g,SR_SOZU)&&g->potion_count<game_potion_capacity(g))*sr_potion_slot(g,g->potion_count++)=rnd(g,6);else msg(g,"Potion belt full.");break;
  case C_ANOINTED:for(int i=g->draw_count-1;i>=0&&g->hand_count<MAX_HAND;i--)if(cards[CARD_ID(g->draw[i])].rarity==2)regent_to_hand(g,regent_take(g->draw,&g->draw_count,i));break;
  case C_AUTOMATION:POWER(id,1);g->regent.automation_phase[g->regent.draws%10]++;break;
  case C_CALAMITY:case C_ENTROPY:case C_MAYHEM:case C_NOSTALGIA:case C_STRATAGEM:POWER(id,1);break;
@@ -106,7 +106,7 @@ static void regent_effect(Game*g,RegentTask t){
  case C_FISTICUFFS:{int dealt=e>=0?attack_amount(g,e,damage):0;deal(g,e,damage);card_block(g,dealt);break;}
  case C_FLASH_OF_STEEL:deal(g,e,damage);DRAW(1);break;
  case C_GOLD_AXE:case C_MIND_BLAST:case C_ULTIMATE_STRIKE:deal(g,e,damage);break;
- case C_HAND_OF_GREED:{int hp=e>=0?g->enemies[e].hp:0;deal(g,e,damage);if(hp>0&&g->enemies[e].hp<=0)g->gold+=20+5*up;break;}
+ case C_HAND_OF_GREED:{int hp=e>=0?g->enemies[e].hp:0;deal(g,e,damage);if(hp>0&&g->enemies[e].hp<=0)sr_gain_gold(g,20+5*up);break;}
  case C_HIDDEN_GEM:{int pool[MAX_PILE],n=0;for(int i=0;i<g->draw_count;i++)if(!g->regent.instance_replay[CARD_INSTANCE(g->draw[i])]&&CARD_MOD(g->draw[i])!=MOD_ECHO)pool[n++]=i;if(n){int k=pool[rnd(g,n)];g->draw[k]=regent_stamp(g,g->draw[k]);g->regent.instance_replay[CARD_INSTANCE(g->draw[k])]=2+up;}break;}
  case C_IMPATIENCE:{int n=0;for(int i=0;i<g->hand_count;i++)if(cards[CARD_ID(g->hand[i])].type==0)n++;if(!n)DRAW(2+up);break;}
  case C_JACK_OF_ALL_TRADES:for(int i=0;i<1+up;i++)regent_create(g,regent_colorless(g,0));break;

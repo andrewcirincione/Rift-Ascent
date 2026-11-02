@@ -58,8 +58,8 @@ static int plating_delay=0;
 static RiftSound music;
 static short audio_buffer[1024] __attribute__((aligned(64)));
 static int audio_thread_id=-1;
-#define RIFT_TRACK_COUNT 12
-#define RIFT_MUSIC_FOOTER 160
+#define RIFT_TRACK_COUNT 13
+#define RIFT_MUSIC_FOOTER 172
 static SceUID soundtrack_fd=-1;
 static unsigned soundtrack_offset[RIFT_TRACK_COUNT],soundtrack_samples[RIFT_TRACK_COUNT],soundtrack_rate[RIFT_TRACK_COUNT];
 static unsigned soundtrack_base=0,soundtrack_total=0;
@@ -102,11 +102,11 @@ static int soundtrack_open(void){
  if(sceIoRead(soundtrack_fd,footer,sizeof(footer))!=(int)sizeof(footer)){
    soundtrack_close();return 0;
  }
- const char magic[8]={'R','I','F','T','A','U','1','9'};
+ const char magic[8]={'R','I','F','T','A','U','2','0'};
  for(int i=0;i<8;i++)if(footer[i]!=(unsigned char)magic[i]){
    soundtrack_close();return 0;
  }
- soundtrack_total=read_u32(footer+152);
+ soundtrack_total=read_u32(footer+164);
  if(soundtrack_total==0||soundtrack_total>(unsigned)(end-RIFT_MUSIC_FOOTER)){
    soundtrack_close();return 0;
  }
@@ -122,7 +122,7 @@ static int soundtrack_open(void){
    }
  }
  soundtrack_active=1;
- boot_trace("Rift 1.8.5 twelve stereo music tracks loaded",RIFT_TRACK_COUNT);
+ boot_trace("Rift 1.8.6 thirteen stereo music tracks loaded",RIFT_TRACK_COUNT);
  return 1;
 }
 static int soundtrack_select(int track){

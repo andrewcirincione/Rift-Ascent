@@ -81,7 +81,7 @@ static int expedition_action(Game*g,int b){
  if(b==BTN_PAUSE)return 0;
  switch(g->screen){
  case EXPEDITION_STORY:
-  if(b==BTN_OK&&++g->selection>=3){g->selection=0;g->screen=EXPEDITION_GIFT;}return 1;
+  if(b==BTN_OK&&++g->selection>=3){g->selection=0;g->screen=EXPEDITION_GIFT;if(!g->expedition.gift_kind)reward_mark(g,g->expedition.gift);}return 1;
  case EXPEDITION_GIFT:
   if(g->selection==2)g->selection=1; /* Legacy third choice is now Leave. */
   if(b==BTN_LEFT||b==BTN_UP)g->selection=(g->selection+1)%2;
@@ -96,7 +96,7 @@ static int expedition_action(Game*g,int b){
  case ABOMINATION_AFTER:
   if(b==BTN_OK&&++g->selection>=3)expedition_boss_spoils(g);return 1;
  case MYSTERY_STORY:
-  if(b==BTN_OK&&++g->selection>=3){g->screen=MYSTERY_CARDS;g->selection=0;}return 1;
+  if(b==BTN_OK&&++g->selection>=3){g->screen=MYSTERY_CARDS;g->selection=0;for(int i=0;i<3;i++)reward_mark(g,g->reward[i]);}return 1;
  case MYSTERY_CARDS:
   if(b==BTN_LEFT)g->selection=MAX(0,g->selection-1);
   else if(b==BTN_RIGHT)g->selection=MIN(3,g->selection+1);

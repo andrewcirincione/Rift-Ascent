@@ -1,0 +1,10 @@
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 3: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 4: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 6: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS Act 6: one finishing fade, black midpoint, exact cutscene reveal, no combat return, all 185 frames
+PASS ordinary story-to-story fade retained; leader death alone never starts ending; complete renderer, real combat effects, zero streamed-art errors.
+PASS individual Act 4 ending transitions once through black into the shared finale artwork.
+PASS all five finale pages use shared artwork; golden A absent at four wins even with an Act 4 clear, present at five before any Act 4 clear.
+PASS all 12 scene/character image mappings: normal victory uses resolution artwork, never the secret-boss confrontation; other scenes retain their intended images.

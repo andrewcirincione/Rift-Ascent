@@ -1,0 +1,8 @@
+PASS replayed Void Form on all three characters resolves both Powers and ends the turn exactly once; no sentinel deadlock.
+PASS three-engine stacking, Ice Cream income/reset, Tears, Choker cap, Pyramid, Shuriken/Kunai, exhaust and replay preview parity.
+PASS per-award gold triggers, Ectoplasm priority, Sozu event blocking, shop/event-exclusive acquisition, Soup-bound transformation protection.
+PASS starter upgrade, duplicate discard procs, mitigation/revival, expanded belt and save roundtrip.
+PASS 180,000 same-rarity draws: soft unseen weighting, repeat availability, marks, act/save persistence and old-prefix migration.
+PASS 1,800 act-start boon offers across all characters and acts, legal claims and selection screens.
+PASS full 296-entry catalog: pickup, both copy counts, combat turns, choices, validation and save/load under sanitizers.
+PASS Act 6 Abomination with two minions and dedicated track; acts 5, 7 and 8 remain random bosses.

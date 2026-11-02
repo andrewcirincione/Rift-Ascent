@@ -1,0 +1,9 @@
+STALLED c=1 seed=60239 screen=2 message=The enemy is preparing an attack.
+Campaigns 300; Act 3 wins 84 (28.00%); Act 7 wins 10 (3.33%); stalls 1
+Act 1: entered 300; lost 30 (10.00% of entrants)
+Act 2: entered 270; lost 95 (35.19% of entrants)
+Act 3: entered 175; lost 91 (52.00% of entrants)
+Act 4: entered 84; lost 8 (9.52% of entrants)
+Act 5: entered 76; lost 18 (23.68% of entrants)
+Act 6: entered 57; lost 46 (80.70% of entrants)
+Act 7: entered 11; lost 1 (9.09% of entrants)

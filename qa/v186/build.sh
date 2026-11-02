@@ -3,6 +3,7 @@ set -euo pipefail
 : "${PSPDEV:?Set PSPDEV to the PSP SDK root}"
 export PATH="$PSPDEV/bin:$PATH"
 python3 qa/v186/pack_art.py "$@"
+python3 qa/v186r5/audio/append.py
 make -C qa/v186/source -j4
 python3 qa/v186/check_stack.py
 python3 qa/v115/import_114_art.py GAME/src qa/v186/source/EBOOT.PBP

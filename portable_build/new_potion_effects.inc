@@ -11,7 +11,7 @@ case 15: {lose_hp(g,4);if(g->hp>0)gain_energy(g,3+(bonus>0));} break;
 case 16: {for(int k=0;k<4;k++)add_generated(g,N_SHIV|UPBIT);} break;
 case 17: {g->strength+=3+(bonus>0);g->dexterity++;} break;
 case 18: {for(int k=0;k<g->enemy_count;k++){g->enemies[k].weak+=3;apply_vulnerable(g,&g->enemies[k],3);}} break;
-case 19: {g->gold+=40+bonus;} break;
+case 19: {sr_gain_gold(g,40+bonus);} break;
 case 20: {all_damage(g,14+bonus);relic_block(g,14+bonus);} break;
 case 21: {g->maxhp+=4;heal(g,10+bonus);} break;
 case 22: {draw_card(g);draw_card(g);gain_energy(g,2);} break;

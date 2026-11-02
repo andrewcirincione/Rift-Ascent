@@ -1,0 +1,8 @@
+Campaigns 1; Act 3 wins 1 (100.00%); Act 7 wins 0 (0.00%); stalls 0
+Act 1: entered 1; lost 0 (0.00% of entrants)
+Act 2: entered 1; lost 0 (0.00% of entrants)
+Act 3: entered 1; lost 0 (0.00% of entrants)
+Act 4: entered 1; lost 0 (0.00% of entrants)
+Act 5: entered 1; lost 0 (0.00% of entrants)
+Act 6: entered 1; lost 1 (100.00% of entrants)
+Act 7: entered 0; lost 0 (0.00% of entrants)

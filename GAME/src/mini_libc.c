@@ -152,3 +152,8 @@ int fclose(FILE *stream) {
 }
 
 int remove(const char*path){return sceIoRemove(path)<0?-1:0;}
+
+char *strstr(const char *text,const char *needle){
+ if(!*needle)return (char*)text;
+ for(;*text;text++){const char*a=text,*b=needle;while(*a&&*a==*b){a++;b++;}if(!*b)return (char*)text;}return 0;
+}

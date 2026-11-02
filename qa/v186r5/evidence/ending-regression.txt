@@ -1,0 +1,15 @@
+PASS all characters: first/fourth/fifth/sixth/tenth/eleventh Act 3 routes; exactly two distinct-rarity cards per win through ten; no unlocks lost at five; independent character gate; cached old save repair; idempotent wins.
+PASS all six character clear orders and all four save slots: first/second clear skip shared finale, third first-clear gets all five pages, every page cold-resumes, stale saves/receipts and subsequent character wins never replay it.
+PASS existing all-three-clear profiles do not receive a retroactive replay; custom runs do not award or consume the finale.
+PASS injected preparation, account-commit, scene-entry, page-progress and final-completion write failures: retry preserves rewards and cannot lose or duplicate the finale.
+Act 1 story cards: Rare/Ancient 0/1500, upgraded 0/1500
+Act 2 story cards: Rare/Ancient 771/1500, upgraded 399/1500
+Act 3 story cards: Rare/Ancient 1500/1500, upgraded 747/1500
+Act 4 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 5 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 6 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+Act 7 story cards: Rare/Ancient 1500/1500, upgraded 1500/1500
+PASS 10,500 act-scaled card gifts; stronger unowned relic pools; exact four Forge outcomes; frozen preview/save/claim; full-inventory fallback; upgraded cross-character rares remain distinct and legal.
+PASS all acts: three Journey Forge choices, reduced Echo cost, safer Temper pool, preview/cancel/save/exact payment; every mystery modification uses one shared adjusted quote and commit price.
+PASS 126 intent/actual/save checks across all acts, encounter sizes and weaknesses; returning enemies meet the Act 3 stat floor.
+PASS five-win secret access, ten-win unlock progression and one-time Three as One finale.

@@ -9,8 +9,8 @@ static int custom_card_tab(int id){
 static int custom_unique(const Game*g,int type,int index){
  int count=type==0?g->deck_count:type==1?g->relic_count:g->potion_count;
  for(int i=0;i<count;i++){
-  int raw=type==0?g->deck[i]:type==1?game_relic_id(g,i):g->potions[i],seen=0;
-  for(int j=0;j<i;j++)if(raw==(type==0?g->deck[j]:type==1?game_relic_id(g,j):g->potions[j])){seen=1;break;}
+  int raw=type==0?g->deck[i]:type==1?game_relic_id(g,i):game_potion_id(g,i),seen=0;
+  for(int j=0;j<i;j++)if(raw==(type==0?g->deck[j]:type==1?game_relic_id(g,j):game_potion_id(g,j))){seen=1;break;}
   if(!seen&&index--==0)return raw;
  }return -1;
 }
@@ -30,23 +30,23 @@ int custom_copies(const Game*g,int tab,int id){
  int cards=g->screen==CUSTOM_CARDS||(g->screen==CUSTOM_QUANTITY&&g->prior_screen==CUSTOM_CARDS),n=0;
  if(cards){for(int i=0;i<g->deck_count;i++)n+=g->deck[i]==id;}
  else if(tab==0||tab==2){for(int i=0;i<g->relic_count;i++)n+=game_relic_id(g,i)==id;}
- else for(int i=0;i<g->potion_count;i++)n+=g->potions[i]==id;
+ else for(int i=0;i<g->potion_count;i++)n+=game_potion_id(g,i)==id;
  return n;
 }
 static int custom_limit(const Game*g){
  int cards=g->prior_screen==CUSTOM_CARDS,tab=g->revision184.tab;
  if(cards&&tab==3||!cards&&tab>=2)return custom_copies(g,tab,g->revision184.item);
- return cards?MAX_DECK-g->deck_count:tab==0?MAX_RELICS-g->relic_count:MAX_POTIONS-g->potion_count;
+ return cards?MAX_DECK-g->deck_count:tab==0?MAX_RELICS-g->relic_count:game_potion_capacity(g)-g->potion_count;
 }
 static void custom_apply_quantity(Game*g){
  int tab=g->revision184.tab,id=g->revision184.item,n=g->revision184.quantity,cards=g->prior_screen==CUSTOM_CARDS;
  int removing=cards?tab==3:tab>=2;
  if(n<1||n>custom_limit(g)){msg(g,"No room for that quantity.");return;}
  if(!removing&&cards&&!ascent_card_available(g,CARD_ID(id))){msg(g,"This card has not been unlocked.");return;}
- if(!removing){for(int i=0;i<n;i++){if(cards)g->deck[g->deck_count++]=id;else if(tab==0)*relic_slot(g,g->relic_count++)=id;else g->potions[g->potion_count++]=id;}}
+ if(!removing){for(int i=0;i<n;i++){if(cards)g->deck[g->deck_count++]=id;else if(tab==0)*relic_slot(g,g->relic_count++)=id;else *sr_potion_slot(g,g->potion_count++)=id;}}
  else{int count=cards?g->deck_count:tab==2?g->relic_count:g->potion_count,out=0;
-  for(int i=0;i<count;i++){int value=cards?g->deck[i]:tab==2?game_relic_id(g,i):g->potions[i];if(value==id&&n){n--;continue;}
-   if(cards)g->deck[out++]=value;else if(tab==2)*relic_slot(g,out++)=value;else g->potions[out++]=value;}
+  for(int i=0;i<count;i++){int value=cards?g->deck[i]:tab==2?game_relic_id(g,i):game_potion_id(g,i);if(value==id&&n){n--;continue;}
+   if(cards)g->deck[out++]=value;else if(tab==2)*relic_slot(g,out++)=value;else *sr_potion_slot(g,out++)=value;}
   if(cards)g->deck_count=out;else if(tab==2)g->relic_count=out;else g->potion_count=out;
  }
  g->screen=g->prior_screen;g->selection=MIN(g->revision184.return_selection,MAX(0,custom_count(g,tab)-1));msg(g,"");

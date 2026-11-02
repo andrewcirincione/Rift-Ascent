@@ -1,0 +1,2666 @@
+[
+  {
+    "key": "AKABEKO",
+    "id": 94,
+    "name": "Akabeko",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Opening attack: +8 damage per hit.",
+    "adapted": false
+  },
+  {
+    "key": "ALCHEMICAL_COFFER",
+    "id": 95,
+    "name": "Alchemical Coffer",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Add 4 potion slots; fill the new slots. Belt cap: 11.",
+    "adapted": false
+  },
+  {
+    "key": "AMETHYST_AUBERGINE",
+    "id": 96,
+    "name": "Amethyst Aubergine",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat spoils: +15 Gold per defeated foe.",
+    "adapted": false
+  },
+  {
+    "key": "ANCHOR",
+    "id": 97,
+    "name": "Anchor",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: 10 Block.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_ANCHOR",
+    "id": 98,
+    "name": "Anchor???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Combat opening: 4 Block.",
+    "adapted": false
+  },
+  {
+    "key": "ARCANE_SCROLL",
+    "id": 99,
+    "name": "Arcane Scroll",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a Rare card reward.",
+    "adapted": false
+  },
+  {
+    "key": "ARCHAIC_TOOTH",
+    "id": 100,
+    "name": "Archaic Tooth",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a starter to replace with an Ancient card.",
+    "adapted": false
+  },
+  {
+    "key": "ART_OF_WAR",
+    "id": 54,
+    "name": "Art of War",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Attack-free turn: +1 Energy next turn.",
+    "adapted": false
+  },
+  {
+    "key": "ASTROLABE",
+    "id": 101,
+    "name": "Astrolabe",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose 3 cards to transform and upgrade.",
+    "adapted": false
+  },
+  {
+    "key": "BAG_OF_MARBLES",
+    "id": 102,
+    "name": "Bag of Marbles",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: all foes gain 1 Vulnerable.",
+    "adapted": false
+  },
+  {
+    "key": "BAG_OF_PREPARATION",
+    "id": 7,
+    "name": "Bag of Preparation",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Opening hand: draw 2 more cards.",
+    "adapted": false
+  },
+  {
+    "key": "BEATING_REMNANT",
+    "id": 103,
+    "name": "Beating Remnant",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Limit total HP lost each turn to 20. Extra copies lower the limit by 2, minimum 2.",
+    "adapted": false
+  },
+  {
+    "key": "BEAUTIFUL_BRACELET",
+    "id": 104,
+    "name": "Beautiful Bracelet",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: give 3 chosen cards Bound, retaining them between turns.",
+    "adapted": true
+  },
+  {
+    "key": "BELLOWS",
+    "id": 105,
+    "name": "Bellows",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Upgrade the opening hand for this combat.",
+    "adapted": false
+  },
+  {
+    "key": "BELT_BUCKLE",
+    "id": 106,
+    "name": "Belt Buckle",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Empty potion belt: +2 Dexterity for card Block.",
+    "adapted": false
+  },
+  {
+    "key": "BIG_HAT",
+    "id": 107,
+    "name": "Big Hat",
+    "pool": "necrobinder",
+    "rarity": "Rare",
+    "effect": "Adapted: create 2 random Ethereal colorless cards at combat start.",
+    "adapted": true
+  },
+  {
+    "key": "BIG_MUSHROOM",
+    "id": 108,
+    "name": "Big Mushroom",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Gain 20 Max HP. Opening hand draws 2 fewer cards.",
+    "adapted": false
+  },
+  {
+    "key": "BIIIG_HUG",
+    "id": 109,
+    "name": "Biiig Hug",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Remove 4 chosen cards. Each reshuffle adds a Dazed to the draw pile.",
+    "adapted": false
+  },
+  {
+    "key": "BING_BONG",
+    "id": 110,
+    "name": "Bing Bong",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each card added to your deck brings one extra copy. Copies do not duplicate again.",
+    "adapted": false
+  },
+  {
+    "key": "BLACK_BLOOD",
+    "id": 111,
+    "name": "Black Blood",
+    "pool": "ironclad",
+    "rarity": "Starter",
+    "effect": "Combat victory: heal 12 HP. Replaces Burning Blood.",
+    "adapted": false
+  },
+  {
+    "key": "BLACK_STAR",
+    "id": 112,
+    "name": "Black Star",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Elite victory: gain an extra relic.",
+    "adapted": false
+  },
+  {
+    "key": "BLESSED_ANTLER",
+    "id": 113,
+    "name": "Blessed Antler",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn; start fights with 3 Dazed in your draw pile.",
+    "adapted": false
+  },
+  {
+    "key": "BLOOD_VIAL",
+    "id": 114,
+    "name": "Blood Vial",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: heal 2 HP.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_BLOOD_VIAL",
+    "id": 115,
+    "name": "Blood Vial???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Combat opening: heal 1 HP.",
+    "adapted": false
+  },
+  {
+    "key": "BLOOD_SOAKED_ROSE",
+    "id": 116,
+    "name": "Blood-Soaked Rose",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: +1 Energy each turn; add an unplayable Injury to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "BONE_FLUTE",
+    "id": 117,
+    "name": "Bone Flute",
+    "pool": "necrobinder",
+    "rarity": "Common",
+    "effect": "Adapted: each generated Attack played grants 2 Block.",
+    "adapted": true
+  },
+  {
+    "key": "BONE_TEA",
+    "id": 118,
+    "name": "Bone Tea",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Upgrade your opening hand in the next combat only.",
+    "adapted": false
+  },
+  {
+    "key": "BOOK_REPAIR_KNIFE",
+    "id": 119,
+    "name": "Book Repair Knife",
+    "pool": "necrobinder",
+    "rarity": "Uncommon",
+    "effect": "Adapted: a foe dying to Poison heals you 3 HP.",
+    "adapted": true
+  },
+  {
+    "key": "BOOK_OF_FIVE_RINGS",
+    "id": 120,
+    "name": "Book of Five Rings",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Every fifth card added to the deck heals 20 HP.",
+    "adapted": false
+  },
+  {
+    "key": "BOOKMARK",
+    "id": 121,
+    "name": "Bookmark",
+    "pool": "necrobinder",
+    "rarity": "Rare",
+    "effect": "Adapted: at turn end, a retained card becomes free until played.",
+    "adapted": true
+  },
+  {
+    "key": "BOOMING_CONCH",
+    "id": 122,
+    "name": "Booming Conch",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Elite opening: draw 2 more cards and gain 1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "BOUND_PHYLACTERY",
+    "id": 123,
+    "name": "Bound Phylactery",
+    "pool": "necrobinder",
+    "rarity": "Starter",
+    "effect": "Adapted: start turns with 1 Block and 1 Vigor.",
+    "adapted": true
+  },
+  {
+    "key": "BOWLER_HAT",
+    "id": 124,
+    "name": "Bowler Hat",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Gold gains increase by 25% per copy.",
+    "adapted": false
+  },
+  {
+    "key": "BREAD",
+    "id": 125,
+    "name": "Bread",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Turn 1: -1 Energy. Later turns: +1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "BRILLIANT_SCARF",
+    "id": 126,
+    "name": "Brilliant Scarf",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Every fifth card played from your hand each turn is free.",
+    "adapted": false
+  },
+  {
+    "key": "BRIMSTONE",
+    "id": 127,
+    "name": "Brimstone",
+    "pool": "ironclad",
+    "rarity": "Shop",
+    "effect": "Each turn: gain 2 Strength; all foes gain 1 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "BRONZE_SCALES",
+    "id": 128,
+    "name": "Bronze Scales",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Enemy attack hits reflect 3 damage, even when blocked.",
+    "adapted": false
+  },
+  {
+    "key": "BURNING_BLOOD",
+    "id": 0,
+    "name": "Burning Blood",
+    "pool": "ironclad",
+    "rarity": "Starter",
+    "effect": "Combat victory: heal 6 HP.",
+    "adapted": false
+  },
+  {
+    "key": "BURNING_STICKS",
+    "id": 129,
+    "name": "Burning Sticks",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "First Skill exhausted per combat: create a copy in hand.",
+    "adapted": false
+  },
+  {
+    "key": "BYRDPIP",
+    "id": 130,
+    "name": "Byrdpip",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Adapted: add an upgraded Minion Strike to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "CALLING_BELL",
+    "id": 131,
+    "name": "Calling Bell",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 3 relics and add an Injury to your deck.",
+    "adapted": false
+  },
+  {
+    "key": "CANDELABRA",
+    "id": 132,
+    "name": "Candelabra",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn 2: gain 2 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "CAPTAINS_WHEEL",
+    "id": 133,
+    "name": "Captain's Wheel",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Turn 3: gain 18 Block.",
+    "adapted": false
+  },
+  {
+    "key": "CAULDRON",
+    "id": 134,
+    "name": "Cauldron",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Brew 5 potions; keep those that fit in the belt.",
+    "adapted": false
+  },
+  {
+    "key": "CENTENNIAL_PUZZLE",
+    "id": 135,
+    "name": "Centennial Puzzle",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "First HP loss per combat: draw 3 cards.",
+    "adapted": false
+  },
+  {
+    "key": "CHANDELIER",
+    "id": 136,
+    "name": "Chandelier",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Turn 3: gain 3 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "CHARONS_ASHES",
+    "id": 137,
+    "name": "Charon's Ashes",
+    "pool": "ironclad",
+    "rarity": "Rare",
+    "effect": "Each exhausted card deals 3 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "CHEMICAL_X",
+    "id": 138,
+    "name": "Chemical X",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Add 2 to X-card effects without spending extra Energy or Stars.",
+    "adapted": false
+  },
+  {
+    "key": "CHOICES_PARADOX",
+    "id": 139,
+    "name": "Choices Paradox",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: choose a random colorless opening card; it retains.",
+    "adapted": true
+  },
+  {
+    "key": "CIRCLET",
+    "id": 140,
+    "name": "Circlet",
+    "pool": "shared",
+    "rarity": "Relic",
+    "effect": "A souvenir. No combat effect.",
+    "adapted": false
+  },
+  {
+    "key": "CLAWS",
+    "id": 141,
+    "name": "Claws",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: transform up to 6 chosen cards into upgraded Giant Rock attacks.",
+    "adapted": true
+  },
+  {
+    "key": "CLOAK_CLASP",
+    "id": 142,
+    "name": "Cloak Clasp",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Turn end: gain 1 Block per card left in hand.",
+    "adapted": false
+  },
+  {
+    "key": "CRACKED_CORE",
+    "id": 143,
+    "name": "Cracked Core",
+    "pool": "defect",
+    "rarity": "Starter",
+    "effect": "Adapted: at turn end, deal 3 damage to a random foe.",
+    "adapted": true
+  },
+  {
+    "key": "CROSSBOW",
+    "id": 144,
+    "name": "Crossbow",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each turn creates a random Attack that is free this turn.",
+    "adapted": false
+  },
+  {
+    "key": "CURSED_PEARL",
+    "id": 145,
+    "name": "Cursed Pearl",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 333 Gold and add an Injury to your deck.",
+    "adapted": false
+  },
+  {
+    "key": "DARKSTONE_PERIAPT",
+    "id": 146,
+    "name": "Darkstone Periapt",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each curse added grants and heals 6 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "DATA_DISK",
+    "id": 147,
+    "name": "Data Disk",
+    "pool": "defect",
+    "rarity": "Common",
+    "effect": "Adapted: your Core and Virus relic damage increases by 1.",
+    "adapted": true
+  },
+  {
+    "key": "DAUGHTER_OF_THE_WIND",
+    "id": 148,
+    "name": "Daughter of the Wind",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each Attack played grants 1 Block.",
+    "adapted": false
+  },
+  {
+    "key": "DELICATE_FROND",
+    "id": 149,
+    "name": "Delicate Frond",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Refill empty potion slots at each combat opening.",
+    "adapted": false
+  },
+  {
+    "key": "DEMON_TONGUE",
+    "id": 150,
+    "name": "Demon Tongue",
+    "pool": "ironclad",
+    "rarity": "Rare",
+    "effect": "Refund the first actual HP loss on your own turn as healing.",
+    "adapted": false
+  },
+  {
+    "key": "DIAMOND_DIADEM",
+    "id": 151,
+    "name": "Diamond Diadem",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "After playing at most 2 cards, halve incoming enemy damage.",
+    "adapted": false
+  },
+  {
+    "key": "DINGY_RUG",
+    "id": 152,
+    "name": "Dingy Rug",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Colorless cards can appear in your card rewards.",
+    "adapted": false
+  },
+  {
+    "key": "DISTINGUISHED_CAPE",
+    "id": 153,
+    "name": "Distinguished Cape",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: lose 9 Max HP; gain 3 Ethereal copies of Panic Button.",
+    "adapted": true
+  },
+  {
+    "key": "DIVINE_DESTINY",
+    "id": 154,
+    "name": "Divine Destiny",
+    "pool": "regent",
+    "rarity": "Starter",
+    "effect": "Combat opening: 6 Stars instead of Divine Right's 3.",
+    "adapted": false
+  },
+  {
+    "key": "DIVINE_RIGHT",
+    "id": 63,
+    "name": "Divine Right",
+    "pool": "regent",
+    "rarity": "Starter",
+    "effect": "Combat opening: 3 Stars. Stars survive turn changes.",
+    "adapted": false
+  },
+  {
+    "key": "DOLLYS_MIRROR",
+    "id": 155,
+    "name": "Dolly's Mirror",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Choose a deck card to copy, preserving its upgrade and forge.",
+    "adapted": false
+  },
+  {
+    "key": "DRAGON_FRUIT",
+    "id": 156,
+    "name": "Dragon Fruit",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Each positive Gold gain grants and heals 1 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "DREAM_CATCHER",
+    "id": 157,
+    "name": "Dream Catcher",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "After resting, choose a card reward.",
+    "adapted": false
+  },
+  {
+    "key": "DRIFTWOOD",
+    "id": 158,
+    "name": "Driftwood",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Reroll each card reward once with Square. Rarity tiers stay unchanged.",
+    "adapted": false
+  },
+  {
+    "key": "DUSTY_TOME",
+    "id": 159,
+    "name": "Dusty Tome",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a reward from your character's Ancient cards.",
+    "adapted": false
+  },
+  {
+    "key": "ECTOPLASM",
+    "id": 160,
+    "name": "Ectoplasm",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn. Gold gains are disabled.",
+    "adapted": false
+  },
+  {
+    "key": "ELECTRIC_SHRYMP",
+    "id": 161,
+    "name": "Electric Shrymp",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: choose a Skill type; prime one copy and make its copies free on opening turns.",
+    "adapted": true
+  },
+  {
+    "key": "EMBER_TEA",
+    "id": 162,
+    "name": "Ember Tea",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Next 5 combats: start with 2 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "EMOTION_CHIP",
+    "id": 163,
+    "name": "Emotion Chip",
+    "pool": "defect",
+    "rarity": "Rare",
+    "effect": "Adapted: after a turn with HP loss, repeat Core and Virus damage at turn start.",
+    "adapted": true
+  },
+  {
+    "key": "EMPTY_CAGE",
+    "id": 164,
+    "name": "Empty Cage",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Remove 2 chosen cards from your deck.",
+    "adapted": false
+  },
+  {
+    "key": "ETERNAL_FEATHER",
+    "id": 165,
+    "name": "Eternal Feather",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "At camp, heal 3 HP per 5 cards in your deck.",
+    "adapted": false
+  },
+  {
+    "key": "FENCING_MANUAL",
+    "id": 166,
+    "name": "Fencing Manual",
+    "pool": "regent",
+    "rarity": "Common",
+    "effect": "Combat opening: Forge 10 and create your Sovereign Blade.",
+    "adapted": false
+  },
+  {
+    "key": "FESTIVE_POPPER",
+    "id": 167,
+    "name": "Festive Popper",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: deal 9 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "FIDDLE",
+    "id": 168,
+    "name": "Fiddle",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Draw 2 more cards at turn start. Other draws are blocked.",
+    "adapted": false
+  },
+  {
+    "key": "FISHING_ROD",
+    "id": 169,
+    "name": "Fishing Rod",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Every third normal fight victory upgrades a random deck card.",
+    "adapted": false
+  },
+  {
+    "key": "FORGOTTEN_SOUL",
+    "id": 170,
+    "name": "Forgotten Soul",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each exhausted card deals 1 damage to a random foe.",
+    "adapted": false
+  },
+  {
+    "key": "FRAGRANT_MUSHROOM",
+    "id": 171,
+    "name": "Fragrant Mushroom",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Lose 15 HP, then upgrade 2 random deck cards.",
+    "adapted": false
+  },
+  {
+    "key": "FRESNEL_LENS",
+    "id": 172,
+    "name": "Fresnel Lens",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Adapted: newly acquired Block cards gain Ward if unmodified.",
+    "adapted": true
+  },
+  {
+    "key": "FROZEN_EGG",
+    "id": 173,
+    "name": "Frozen Egg",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "New Powers enter your deck upgraded.",
+    "adapted": false
+  },
+  {
+    "key": "FUNERARY_MASK",
+    "id": 174,
+    "name": "Funerary Mask",
+    "pool": "necrobinder",
+    "rarity": "Uncommon",
+    "effect": "Adapted: add 3 Ethereal Finesse cards to your draw pile each fight.",
+    "adapted": true
+  },
+  {
+    "key": "FUR_COAT",
+    "id": 175,
+    "name": "Fur Coat",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Next 7 normal fights start with foes at 1 HP. Elites and bosses excluded.",
+    "adapted": false
+  },
+  {
+    "key": "GALACTIC_DUST",
+    "id": 176,
+    "name": "Galactic Dust",
+    "pool": "regent",
+    "rarity": "Uncommon",
+    "effect": "Every 10 Stars spent grants 10 Block. Remainder carries between turns.",
+    "adapted": false
+  },
+  {
+    "key": "GAMBLING_CHIP",
+    "id": 177,
+    "name": "Gambling Chip",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Adapted: opening hand replaces unplayable cards and unupgraded starters once.",
+    "adapted": true
+  },
+  {
+    "key": "GAME_PIECE",
+    "id": 178,
+    "name": "Game Piece",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Playing a Power draws 1 card.",
+    "adapted": false
+  },
+  {
+    "key": "GHOST_SEED",
+    "id": 179,
+    "name": "Ghost Seed",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Unplayed Strikes and Defends exhaust at turn end.",
+    "adapted": false
+  },
+  {
+    "key": "GIRYA",
+    "id": 180,
+    "name": "Girya",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Camp option: gain 1 permanent Strength, up to 3 times per copy.",
+    "adapted": false
+  },
+  {
+    "key": "GLASS_EYE",
+    "id": 181,
+    "name": "Glass Eye",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 2 Common, 2 Uncommon and 1 Rare card reward.",
+    "adapted": false
+  },
+  {
+    "key": "GLITTER",
+    "id": 182,
+    "name": "Glitter",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: all unmodified card rewards gain Keen or Ward for their card type.",
+    "adapted": true
+  },
+  {
+    "key": "GNARLED_HAMMER",
+    "id": 183,
+    "name": "Gnarled Hammer",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Adapted: choose 3 Attacks to forge Keen.",
+    "adapted": true
+  },
+  {
+    "key": "GOLD_PLATED_CABLES",
+    "id": 184,
+    "name": "Gold-Plated Cables",
+    "pool": "defect",
+    "rarity": "Uncommon",
+    "effect": "Adapted: repeat one Core or Virus pulse at turn end.",
+    "adapted": true
+  },
+  {
+    "key": "GOLDEN_COMPASS",
+    "id": 185,
+    "name": "Golden Compass",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: this act permits any lane and turns normal fights into treasures.",
+    "adapted": true
+  },
+  {
+    "key": "GOLDEN_PEARL",
+    "id": 186,
+    "name": "Golden Pearl",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 150 Gold.",
+    "adapted": false
+  },
+  {
+    "key": "GORGET",
+    "id": 187,
+    "name": "Gorget",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: gain 4 Plating.",
+    "adapted": false
+  },
+  {
+    "key": "GREMLIN_HORN",
+    "id": 188,
+    "name": "Gremlin Horn",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Each foe killed grants 1 Energy and draws 1 card.",
+    "adapted": false
+  },
+  {
+    "key": "HAND_DRILL",
+    "id": 189,
+    "name": "Hand Drill",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Breaking a foe's Block applies 2 Vulnerable.",
+    "adapted": false
+  },
+  {
+    "key": "HAPPY_FLOWER",
+    "id": 190,
+    "name": "Happy Flower",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Every third turn grants 1 Energy; count continues between fights.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_HAPPY_FLOWER",
+    "id": 191,
+    "name": "Happy Flower???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Every fifth turn grants 1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "HEFTY_TABLET",
+    "id": 192,
+    "name": "Hefty Tablet",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a Rare reward; add an Injury to your deck.",
+    "adapted": false
+  },
+  {
+    "key": "HELICAL_DART",
+    "id": 51,
+    "name": "Helical Dart",
+    "pool": "silent",
+    "rarity": "Rare",
+    "effect": "Each Shiv played grants 1 Dexterity for the current turn.",
+    "adapted": false
+  },
+  {
+    "key": "HISTORY_COURSE",
+    "id": 193,
+    "name": "History Course",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Replay your last Attack or Skill for free at the next turn start.",
+    "adapted": false
+  },
+  {
+    "key": "HORN_CLEAT",
+    "id": 194,
+    "name": "Horn Cleat",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn 2: gain 14 Block.",
+    "adapted": false
+  },
+  {
+    "key": "ICE_CREAM",
+    "id": 195,
+    "name": "Ice Cream",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "All unspent Energy carries to the next turn, before new income. Combat reset still applies.",
+    "adapted": false
+  },
+  {
+    "key": "INFUSED_CORE",
+    "id": 196,
+    "name": "Infused Core",
+    "pool": "defect",
+    "rarity": "Starter",
+    "effect": "Adapted: at turn end, hit random foes 3 times for 4 damage each.",
+    "adapted": true
+  },
+  {
+    "key": "INTIMIDATING_HELMET",
+    "id": 197,
+    "name": "Intimidating Helmet",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Playing a card with printed cost 2+ grants 4 Block.",
+    "adapted": false
+  },
+  {
+    "key": "IRON_CLUB",
+    "id": 198,
+    "name": "Iron Club",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Every fourth card played draws 1 card.",
+    "adapted": false
+  },
+  {
+    "key": "IVORY_TILE",
+    "id": 199,
+    "name": "Ivory Tile",
+    "pool": "necrobinder",
+    "rarity": "Rare",
+    "effect": "Playing a card with printed cost 3+ grants 1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "JEWELED_MASK",
+    "id": 200,
+    "name": "Jeweled Mask",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Opening hand receives a random Power from your draw pile, free until played.",
+    "adapted": false
+  },
+  {
+    "key": "JEWELRY_BOX",
+    "id": 201,
+    "name": "Jewelry Box",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: upgrade every upgradeable card currently in your deck.",
+    "adapted": true
+  },
+  {
+    "key": "JOSS_PAPER",
+    "id": 202,
+    "name": "Joss Paper",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every fifth exhausted card draws 1 card.",
+    "adapted": false
+  },
+  {
+    "key": "JUZU_BRACELET",
+    "id": 203,
+    "name": "Juzu Bracelet",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Adapted: mystery rooms grant 8 Block for your next combat.",
+    "adapted": true
+  },
+  {
+    "key": "KALEIDOSCOPE",
+    "id": 204,
+    "name": "Kaleidoscope",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose 2 card rewards from other characters.",
+    "adapted": false
+  },
+  {
+    "key": "KIFUDA",
+    "id": 205,
+    "name": "Kifuda",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Adapted: forge Bound on 3 chosen cards.",
+    "adapted": true
+  },
+  {
+    "key": "KUNAI",
+    "id": 206,
+    "name": "Kunai",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Every third Attack in a turn grants 1 Dexterity.",
+    "adapted": false
+  },
+  {
+    "key": "KUSARIGAMA",
+    "id": 207,
+    "name": "Kusarigama",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every third Attack in a turn hits a random foe for 6.",
+    "adapted": false
+  },
+  {
+    "key": "LANTERN",
+    "id": 1,
+    "name": "Lantern",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Opening turn: +1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "LARGE_CAPSULE",
+    "id": 208,
+    "name": "Large Capsule",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 2 relics and add a Strike and Defend to your deck.",
+    "adapted": false
+  },
+  {
+    "key": "LASTING_CANDY",
+    "id": 209,
+    "name": "Lasting Candy",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every second combat adds a separate Power-only card reward.",
+    "adapted": false
+  },
+  {
+    "key": "LAVA_LAMP",
+    "id": 210,
+    "name": "Lava Lamp",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Take no HP damage during a fight: all its card rewards upgrade.",
+    "adapted": false
+  },
+  {
+    "key": "LAVA_ROCK",
+    "id": 211,
+    "name": "Lava Rock",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Your next Act 1 boss victory grants 2 extra relics.",
+    "adapted": false
+  },
+  {
+    "key": "LEAD_PAPERWEIGHT",
+    "id": 212,
+    "name": "Lead Paperweight",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a colorless card reward.",
+    "adapted": false
+  },
+  {
+    "key": "LEAFY_POULTICE",
+    "id": 213,
+    "name": "Leafy Poultice",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Transform one Strike and one Defend; lose 12 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "LEES_WAFFLE",
+    "id": 214,
+    "name": "Lee's Waffle",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Gain 7 Max HP, then heal fully.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_LEES_WAFFLE",
+    "id": 215,
+    "name": "Lee's Waffle???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Heal 10% of maximum HP on pickup.",
+    "adapted": false
+  },
+  {
+    "key": "LETTER_OPENER",
+    "id": 216,
+    "name": "Letter Opener",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every third Skill in a turn deals 5 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "LIZARD_TAIL",
+    "id": 217,
+    "name": "Lizard Tail",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Lethal damage: revive at half Max HP. One charge per copy per run.",
+    "adapted": false
+  },
+  {
+    "key": "LOOMING_FRUIT",
+    "id": 218,
+    "name": "Looming Fruit",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain and heal 31 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "LORDS_PARASOL",
+    "id": 219,
+    "name": "Lord's Parasol",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "On entering a shop, take its cards, relic and potion for free.",
+    "adapted": false
+  },
+  {
+    "key": "LOST_COFFER",
+    "id": 220,
+    "name": "Lost Coffer",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose a card reward and brew one potion.",
+    "adapted": false
+  },
+  {
+    "key": "LOST_WISP",
+    "id": 221,
+    "name": "Lost Wisp",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each Power played deals 8 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "LUCKY_FYSH",
+    "id": 222,
+    "name": "Lucky Fysh",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Each card added to your deck grants 15 Gold.",
+    "adapted": false
+  },
+  {
+    "key": "LUNAR_PASTRY",
+    "id": 223,
+    "name": "Lunar Pastry",
+    "pool": "regent",
+    "rarity": "Rare",
+    "effect": "Turn end: gain 1 Star.",
+    "adapted": false
+  },
+  {
+    "key": "MANGO",
+    "id": 4,
+    "name": "Mango",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Gain and heal 14 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_MANGO",
+    "id": 224,
+    "name": "Mango???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Gain and heal 3 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "MASSIVE_SCROLL",
+    "id": 225,
+    "name": "Massive Scroll",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted for solo: choose an upgraded Rare colorless reward.",
+    "adapted": false
+  },
+  {
+    "key": "MAW_BANK",
+    "id": 226,
+    "name": "Maw Bank",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Each floor grants 12 Gold until you spend Gold in a shop.",
+    "adapted": false
+  },
+  {
+    "key": "MEAL_TICKET",
+    "id": 227,
+    "name": "Meal Ticket",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Entering a shop heals 15 HP.",
+    "adapted": false
+  },
+  {
+    "key": "MEAT_CLEAVER",
+    "id": 228,
+    "name": "Meat Cleaver",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Camp option: gain and heal 5 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "MEAT_ON_THE_BONE",
+    "id": 229,
+    "name": "Meat on the Bone",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Win a fight at half HP or below: heal 12 HP.",
+    "adapted": false
+  },
+  {
+    "key": "MEMBERSHIP_CARD",
+    "id": 230,
+    "name": "Membership Card",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Shop prices are halved. Additional copies halve them again.",
+    "adapted": false
+  },
+  {
+    "key": "MERCURY_HOURGLASS",
+    "id": 231,
+    "name": "Mercury Hourglass",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn start: deal 3 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "METRONOME",
+    "id": 232,
+    "name": "Metronome",
+    "pool": "defect",
+    "rarity": "Rare",
+    "effect": "Adapted: seventh generated card per combat deals 30 damage to all foes.",
+    "adapted": true
+  },
+  {
+    "key": "MINI_REGENT",
+    "id": 233,
+    "name": "Mini Regent",
+    "pool": "regent",
+    "rarity": "Rare",
+    "effect": "First Star payment per turn: gain 1 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "MINIATURE_CANNON",
+    "id": 234,
+    "name": "Miniature Cannon",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Upgraded Attacks gain 3 damage per hit.",
+    "adapted": false
+  },
+  {
+    "key": "MINIATURE_TENT",
+    "id": 235,
+    "name": "Miniature Tent",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "At each camp, you may use each available action once.",
+    "adapted": false
+  },
+  {
+    "key": "MOLTEN_EGG",
+    "id": 236,
+    "name": "Molten Egg",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "New Attacks enter your deck upgraded.",
+    "adapted": false
+  },
+  {
+    "key": "MR_STRUGGLES",
+    "id": 237,
+    "name": "Mr. Struggles",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Turn start: deal the turn number as damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "MUMMIFIED_HAND",
+    "id": 238,
+    "name": "Mummified Hand",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Each Power played makes one random hand card free this turn.",
+    "adapted": false
+  },
+  {
+    "key": "MUSIC_BOX",
+    "id": 239,
+    "name": "Music Box",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "First Attack per turn creates an Ethereal copy in hand.",
+    "adapted": false
+  },
+  {
+    "key": "MYSTIC_LIGHTER",
+    "id": 240,
+    "name": "Mystic Lighter",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Forged Attacks gain 9 damage per hit.",
+    "adapted": false
+  },
+  {
+    "key": "NEOWS_BONES",
+    "id": 241,
+    "name": "Neow's Bones",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: gain 2 random ordinary relics and an Injury.",
+    "adapted": true
+  },
+  {
+    "key": "NEOWS_TALISMAN",
+    "id": 242,
+    "name": "Neow's Talisman",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Upgrade one Strike and one Defend in your deck.",
+    "adapted": false
+  },
+  {
+    "key": "NEOWS_TORMENT",
+    "id": 243,
+    "name": "Neow's Torment",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: add an upgraded Whirlwind to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "NEW_LEAF",
+    "id": 244,
+    "name": "New Leaf",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Transform one chosen deck card.",
+    "adapted": false
+  },
+  {
+    "key": "NINJA_SCROLL",
+    "id": 49,
+    "name": "Ninja Scroll",
+    "pool": "silent",
+    "rarity": "Shop",
+    "effect": "Combat opening: create 3 Shivs.",
+    "adapted": false
+  },
+  {
+    "key": "NUNCHAKU",
+    "id": 245,
+    "name": "Nunchaku",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every tenth Attack played grants 1 Energy.",
+    "adapted": false
+  },
+  {
+    "key": "NUTRITIOUS_OYSTER",
+    "id": 246,
+    "name": "Nutritious Oyster",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain and heal 11 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "NUTRITIOUS_SOUP",
+    "id": 247,
+    "name": "Nutritious Soup",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Strikes cost 0 Energy, but cannot be removed or transformed.",
+    "adapted": false
+  },
+  {
+    "key": "ODDLY_SMOOTH_STONE",
+    "id": 248,
+    "name": "Oddly Smooth Stone",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: 1 Dexterity.",
+    "adapted": false
+  },
+  {
+    "key": "OLD_COIN",
+    "id": 249,
+    "name": "Old Coin",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Gain 300 Gold.",
+    "adapted": false
+  },
+  {
+    "key": "ORANGE_DOUGH",
+    "id": 250,
+    "name": "Orange Dough",
+    "pool": "regent",
+    "rarity": "Rare",
+    "effect": "Combat opening: create 2 random colorless cards.",
+    "adapted": false
+  },
+  {
+    "key": "ORICHALCUM",
+    "id": 251,
+    "name": "Orichalcum",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn end with no Block: gain 6 Block.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_ORICHALCUM",
+    "id": 252,
+    "name": "Orichalcum???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Turn end with no Block: gain 3 Block.",
+    "adapted": false
+  },
+  {
+    "key": "ORNAMENTAL_FAN",
+    "id": 253,
+    "name": "Ornamental Fan",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every third Attack in a turn grants 4 Block.",
+    "adapted": false
+  },
+  {
+    "key": "ORRERY",
+    "id": 254,
+    "name": "Orrery",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Choose 5 separate card rewards.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_BLOOD",
+    "id": 255,
+    "name": "Pael's Blood",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Draw 1 additional card at each turn start.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_CLAW",
+    "id": 256,
+    "name": "Pael's Claw",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: Defends retain and cost 1 less Energy.",
+    "adapted": true
+  },
+  {
+    "key": "PAELS_EYE",
+    "id": 257,
+    "name": "Pael's Eye",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Once per combat, end a turn with no plays to exhaust your hand and skip the enemy turn.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_FLESH",
+    "id": 258,
+    "name": "Pael's Flesh",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "From turn 3 onward: +1 Energy each turn.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_GROWTH",
+    "id": 259,
+    "name": "Pael's Growth",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: forge Echo on one chosen card, replaying it once.",
+    "adapted": true
+  },
+  {
+    "key": "PAELS_HORN",
+    "id": 260,
+    "name": "Pael's Horn",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: add 2 upgraded Bound Shrug It Off cards to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "PAELS_LEGION",
+    "id": 261,
+    "name": "Pael's Legion",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Double the first card Block gain, then recharge for 2 turns.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_TEARS",
+    "id": 262,
+    "name": "Pael's Tears",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "End with spare Energy: gain 1 additional Energy next turn.",
+    "adapted": false
+  },
+  {
+    "key": "PAELS_TOOTH",
+    "id": 263,
+    "name": "Pael's Tooth",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: remove 5 chosen cards. Next 5 victories each add an upgraded reward.",
+    "adapted": true
+  },
+  {
+    "key": "PAELS_WING",
+    "id": 264,
+    "name": "Pael's Wing",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each second skipped card reward grants a relic.",
+    "adapted": false
+  },
+  {
+    "key": "PANDORAS_BOX",
+    "id": 265,
+    "name": "Pandora's Box",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Transform every Strike and Defend into a nonstarter of matching rarity or better.",
+    "adapted": false
+  },
+  {
+    "key": "PANTOGRAPH",
+    "id": 266,
+    "name": "Pantograph",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Boss opening: heal 25 HP.",
+    "adapted": false
+  },
+  {
+    "key": "PAPER_KRANE",
+    "id": 50,
+    "name": "Paper Krane",
+    "pool": "silent",
+    "rarity": "Rare",
+    "effect": "Weak foes deal 40% less damage. Additional copies reduce it a further 5%, cap 75%.",
+    "adapted": false
+  },
+  {
+    "key": "PAPER_PHROG",
+    "id": 267,
+    "name": "Paper Phrog",
+    "pool": "ironclad",
+    "rarity": "Uncommon",
+    "effect": "Vulnerable foes take +75% damage; extra copies add another 25%.",
+    "adapted": false
+  },
+  {
+    "key": "PARRYING_SHIELD",
+    "id": 268,
+    "name": "Parrying Shield",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn end with 10+ Block: hit a random foe for 6.",
+    "adapted": false
+  },
+  {
+    "key": "PEAR",
+    "id": 269,
+    "name": "Pear",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Gain and heal 10 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "PEN_NIB",
+    "id": 270,
+    "name": "Pen Nib",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every tenth Attack deals double damage. Copies add another base multiplier.",
+    "adapted": false
+  },
+  {
+    "key": "PENDULUM",
+    "id": 271,
+    "name": "Pendulum",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Every third turn draws 1 extra card; count persists between fights.",
+    "adapted": false
+  },
+  {
+    "key": "PERMAFROST",
+    "id": 272,
+    "name": "Permafrost",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "First Power played each combat: gain 7 Block.",
+    "adapted": false
+  },
+  {
+    "key": "PETRIFIED_TOAD",
+    "id": 273,
+    "name": "Petrified Toad",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Adapted: brew a Fire Potion at combat start if a slot is free.",
+    "adapted": true
+  },
+  {
+    "key": "PHIAL_HOLSTER",
+    "id": 274,
+    "name": "Phial Holster",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Add a potion slot and brew 2 potions. Belt cap: 11.",
+    "adapted": false
+  },
+  {
+    "key": "PHILOSOPHERS_STONE",
+    "id": 275,
+    "name": "Philosopher's Stone",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy per turn; each foe starts with 1 extra Strength.",
+    "adapted": false
+  },
+  {
+    "key": "PHYLACTERY_UNBOUND",
+    "id": 276,
+    "name": "Phylactery Unbound",
+    "pool": "necrobinder",
+    "rarity": "Starter",
+    "effect": "Adapted: opening 5 Block; each turn grants 2 Block and 2 Vigor.",
+    "adapted": true
+  },
+  {
+    "key": "PLANISPHERE",
+    "id": 277,
+    "name": "Planisphere",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Entering a mystery room heals 5 HP.",
+    "adapted": false
+  },
+  {
+    "key": "POCKETWATCH",
+    "id": 278,
+    "name": "Pocketwatch",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "After playing at most 3 cards, draw 3 more cards next turn.",
+    "adapted": false
+  },
+  {
+    "key": "POLLINOUS_CORE",
+    "id": 279,
+    "name": "Pollinous Core",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Every fourth turn draws 2 extra cards.",
+    "adapted": false
+  },
+  {
+    "key": "POMANDER",
+    "id": 280,
+    "name": "Pomander",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Upgrade a chosen deck card.",
+    "adapted": false
+  },
+  {
+    "key": "POTION_BELT",
+    "id": 281,
+    "name": "Potion Belt",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Add 2 potion slots. Belt cap: 11.",
+    "adapted": false
+  },
+  {
+    "key": "POWER_CELL",
+    "id": 282,
+    "name": "Power Cell",
+    "pool": "defect",
+    "rarity": "Rare",
+    "effect": "Opening hand receives up to 2 zero-cost cards from the draw pile.",
+    "adapted": false
+  },
+  {
+    "key": "PRAYER_WHEEL",
+    "id": 283,
+    "name": "Prayer Wheel",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Normal victories offer one extra card reward.",
+    "adapted": false
+  },
+  {
+    "key": "PRECARIOUS_SHEARS",
+    "id": 284,
+    "name": "Precarious Shears",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Remove 2 chosen cards, then lose 16 HP.",
+    "adapted": false
+  },
+  {
+    "key": "PRECISE_SCISSORS",
+    "id": 285,
+    "name": "Precise Scissors",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Remove one chosen deck card.",
+    "adapted": false
+  },
+  {
+    "key": "PRESERVED_FOG",
+    "id": 286,
+    "name": "Preserved Fog",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: remove 3 chosen cards and add a Wound.",
+    "adapted": true
+  },
+  {
+    "key": "PRISMATIC_GEM",
+    "id": 287,
+    "name": "Prismatic Gem",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy per turn; rewards can come from all three characters.",
+    "adapted": false
+  },
+  {
+    "key": "PUMPKIN_CANDLE",
+    "id": 288,
+    "name": "Pumpkin Candle",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Next 5 combats: +1 Energy per turn. Camps can renew its 5 charges.",
+    "adapted": false
+  },
+  {
+    "key": "PUNCH_DAGGER",
+    "id": 289,
+    "name": "Punch Dagger",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Adapted: forge Keen on an Attack, then upgrade it.",
+    "adapted": true
+  },
+  {
+    "key": "RADIANT_PEARL",
+    "id": 290,
+    "name": "Radiant Pearl",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: each opening hand receives a free Ethereal Prep Time.",
+    "adapted": true
+  },
+  {
+    "key": "RAINBOW_RING",
+    "id": 291,
+    "name": "Rainbow Ring",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Play all 3 card types in one turn: gain 1 Strength and Dexterity once.",
+    "adapted": false
+  },
+  {
+    "key": "RAZOR_TOOTH",
+    "id": 292,
+    "name": "Razor Tooth",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Attacks and Skills upgrade after being played, for the rest of combat.",
+    "adapted": false
+  },
+  {
+    "key": "RED_MASK",
+    "id": 293,
+    "name": "Red Mask",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: all foes gain 1 Weak.",
+    "adapted": false
+  },
+  {
+    "key": "RED_SKULL",
+    "id": 294,
+    "name": "Red Skull",
+    "pool": "ironclad",
+    "rarity": "Common",
+    "effect": "At half HP or below: +3 Strength for Attack damage.",
+    "adapted": false
+  },
+  {
+    "key": "REGAL_PILLOW",
+    "id": 295,
+    "name": "Regal Pillow",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Resting heals 15 additional HP.",
+    "adapted": false
+  },
+  {
+    "key": "REGALITE",
+    "id": 296,
+    "name": "Regalite",
+    "pool": "regent",
+    "rarity": "Uncommon",
+    "effect": "Each newly created combat card grants 2 Block.",
+    "adapted": false
+  },
+  {
+    "key": "REPTILE_TRINKET",
+    "id": 297,
+    "name": "Reptile Trinket",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Using a potion grants 3 Strength for this turn.",
+    "adapted": false
+  },
+  {
+    "key": "RING_OF_THE_DRAKE",
+    "id": 52,
+    "name": "Ring of the Drake",
+    "pool": "silent",
+    "rarity": "Starter",
+    "effect": "First 3 turns: draw 2 more cards. Replaces Ring of the Snake.",
+    "adapted": false
+  },
+  {
+    "key": "RING_OF_THE_SNAKE",
+    "id": 44,
+    "name": "Ring of the Snake",
+    "pool": "silent",
+    "rarity": "Starter",
+    "effect": "Opening hand: draw 2 more cards.",
+    "adapted": false
+  },
+  {
+    "key": "RINGING_TRIANGLE",
+    "id": 298,
+    "name": "Ringing Triangle",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Keep unplayed cards after the first turn.",
+    "adapted": false
+  },
+  {
+    "key": "RIPPLE_BASIN",
+    "id": 299,
+    "name": "Ripple Basin",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn end without an Attack: gain 4 Block.",
+    "adapted": false
+  },
+  {
+    "key": "ROYAL_POISON",
+    "id": 300,
+    "name": "Royal Poison",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Combat opening: lose 4 HP.",
+    "adapted": false
+  },
+  {
+    "key": "ROYAL_STAMP",
+    "id": 301,
+    "name": "Royal Stamp",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Adapted: forge Echo on a chosen Attack or Skill.",
+    "adapted": true
+  },
+  {
+    "key": "RUINED_HELMET",
+    "id": 302,
+    "name": "Ruined Helmet",
+    "pool": "ironclad",
+    "rarity": "Rare",
+    "effect": "The first Strength gain each fight is doubled.",
+    "adapted": false
+  },
+  {
+    "key": "RUNIC_CAPACITOR",
+    "id": 303,
+    "name": "Runic Capacitor",
+    "pool": "defect",
+    "rarity": "Shop",
+    "effect": "Adapted: increase Core and Virus pulses by 3 per turn.",
+    "adapted": true
+  },
+  {
+    "key": "RUNIC_PYRAMID",
+    "id": 304,
+    "name": "Runic Pyramid",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Keep unplayed cards between turns. Ethereal cards still exhaust.",
+    "adapted": false
+  },
+  {
+    "key": "SAI",
+    "id": 305,
+    "name": "Sai",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each turn starts with 7 Block.",
+    "adapted": false
+  },
+  {
+    "key": "SAND_CASTLE",
+    "id": 306,
+    "name": "Sand Castle",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Upgrade 6 random cards in your deck.",
+    "adapted": false
+  },
+  {
+    "key": "SCREAMING_FLAGON",
+    "id": 307,
+    "name": "Screaming Flagon",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Turn end with an empty hand: deal 20 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "SCROLL_BOXES",
+    "id": 308,
+    "name": "Scroll Boxes",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: choose 3 upgraded Uncommon card rewards.",
+    "adapted": true
+  },
+  {
+    "key": "SEA_GLASS",
+    "id": 309,
+    "name": "Sea Glass",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: choose up to 5 rewards from other characters; each may be skipped.",
+    "adapted": true
+  },
+  {
+    "key": "SEAL_OF_GOLD",
+    "id": 310,
+    "name": "Seal of Gold",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each turn, pay 5 Gold for 1 extra Energy when affordable.",
+    "adapted": false
+  },
+  {
+    "key": "SELF_FORMING_CLAY",
+    "id": 311,
+    "name": "Self-Forming Clay",
+    "pool": "ironclad",
+    "rarity": "Uncommon",
+    "effect": "Each HP-loss event in combat grants 3 Block next turn.",
+    "adapted": false
+  },
+  {
+    "key": "SERE_TALON",
+    "id": 312,
+    "name": "Sere Talon",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: add 2 Injuries and 3 upgraded Jack of All Trades cards.",
+    "adapted": true
+  },
+  {
+    "key": "SHOVEL",
+    "id": 313,
+    "name": "Shovel",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Camp option: dig up an ordinary relic.",
+    "adapted": false
+  },
+  {
+    "key": "SHURIKEN",
+    "id": 5,
+    "name": "Shuriken",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Every third Attack in a turn grants 1 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "SIGNET_RING",
+    "id": 314,
+    "name": "Signet Ring",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain 999 Gold.",
+    "adapted": false
+  },
+  {
+    "key": "SILKEN_TRESS",
+    "id": 315,
+    "name": "Silken Tress",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Lose all Gold; your next card reward gains Keen or Ward.",
+    "adapted": false
+  },
+  {
+    "key": "SILVER_CRUCIBLE",
+    "id": 316,
+    "name": "Silver Crucible",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Next 3 card rewards are upgraded; next treasure chest is empty.",
+    "adapted": false
+  },
+  {
+    "key": "SLING_OF_COURAGE",
+    "id": 317,
+    "name": "Sling of Courage",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Elite opening: gain 2 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "SMALL_CAPSULE",
+    "id": 318,
+    "name": "Small Capsule",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Gain one ordinary relic.",
+    "adapted": false
+  },
+  {
+    "key": "SNECKO_EYE",
+    "id": 319,
+    "name": "Snecko Eye",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Draw 2 extra cards each turn; drawn playable cards get a random 0-3 Energy cost.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_SNECKO_EYE",
+    "id": 320,
+    "name": "Snecko Eye???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Drawn playable cards receive a random 0-3 Energy cost this combat.",
+    "adapted": false
+  },
+  {
+    "key": "SNECKO_SKULL",
+    "id": 45,
+    "name": "Snecko Skull",
+    "pool": "silent",
+    "rarity": "Common",
+    "effect": "Each Poison application adds 1 Poison.",
+    "adapted": false
+  },
+  {
+    "key": "SOZU",
+    "id": 321,
+    "name": "Sozu",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn; cannot acquire potions.",
+    "adapted": false
+  },
+  {
+    "key": "SPARKLING_ROUGE",
+    "id": 322,
+    "name": "Sparkling Rouge",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Turn 3: gain 1 Strength and 1 Dexterity.",
+    "adapted": false
+  },
+  {
+    "key": "SPIKED_GAUNTLETS",
+    "id": 323,
+    "name": "Spiked Gauntlets",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn; Powers cost 1 extra Energy.",
+    "adapted": false
+  },
+  {
+    "key": "STONE_CALENDAR",
+    "id": 324,
+    "name": "Stone Calendar",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "At the end of turn 7, deal 52 damage to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "STONE_CRACKER",
+    "id": 325,
+    "name": "Stone Cracker",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Upgrade 2 random draw-pile cards for each combat.",
+    "adapted": false
+  },
+  {
+    "key": "STONE_HUMIDIFIER",
+    "id": 326,
+    "name": "Stone Humidifier",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Resting grants and heals 5 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "STORYBOOK",
+    "id": 327,
+    "name": "Storybook",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: add an upgraded Offering to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "STRAWBERRY",
+    "id": 328,
+    "name": "Strawberry",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Gain and heal 7 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "STRIKE_DUMMY",
+    "id": 329,
+    "name": "Strike Dummy",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Strike-tagged Attacks gain 3 damage per hit.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_STRIKE_DUMMY",
+    "id": 330,
+    "name": "Strike Dummy???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Strike-tagged attacks gain 1 damage per hit.",
+    "adapted": false
+  },
+  {
+    "key": "STURDY_CLAMP",
+    "id": 331,
+    "name": "Sturdy Clamp",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Keep up to 10 Block when your next turn begins.",
+    "adapted": false
+  },
+  {
+    "key": "SWORD_OF_JADE",
+    "id": 332,
+    "name": "Sword of Jade",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Combat opening: gain 3 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "SWORD_OF_STONE",
+    "id": 333,
+    "name": "Sword of Stone",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "After 5 elite victories, becomes Sword of Jade.",
+    "adapted": false
+  },
+  {
+    "key": "SYMBIOTIC_VIRUS",
+    "id": 334,
+    "name": "Symbiotic Virus",
+    "pool": "defect",
+    "rarity": "Uncommon",
+    "effect": "Adapted: turn-end pulse deals 6 damage, growing by 6 each turn.",
+    "adapted": true
+  },
+  {
+    "key": "TANXS_WHISTLE",
+    "id": 335,
+    "name": "Tanx's Whistle",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: add upgraded Summon Forth to your deck.",
+    "adapted": true
+  },
+  {
+    "key": "TEA_OF_DISCOURTESY",
+    "id": 336,
+    "name": "Tea of Discourtesy",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Next fight only: add 2 Dazed to your draw pile.",
+    "adapted": false
+  },
+  {
+    "key": "THE_ABACUS",
+    "id": 337,
+    "name": "The Abacus",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Each reshuffle grants 6 Block.",
+    "adapted": false
+  },
+  {
+    "key": "THE_BOOT",
+    "id": 338,
+    "name": "The Boot",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Unblocked Attack hits of 1-4 damage become 5.",
+    "adapted": false
+  },
+  {
+    "key": "CHOSEN_CHEESE",
+    "id": 339,
+    "name": "The Chosen Cheese",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "Combat victory: gain and heal 1 Max HP.",
+    "adapted": false
+  },
+  {
+    "key": "THE_COURIER",
+    "id": 340,
+    "name": "The Courier",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Shop goods restock after purchase. Prices fall by 20% per copy.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_MERCHANTS_RUG",
+    "id": 341,
+    "name": "The Merchant's Rug???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "A counterfeit souvenir. No gameplay effect.",
+    "adapted": false
+  },
+  {
+    "key": "THROWING_AXE",
+    "id": 342,
+    "name": "Throwing Axe",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Replay the first card each combat once for free.",
+    "adapted": false
+  },
+  {
+    "key": "TINGSHA",
+    "id": 46,
+    "name": "Tingsha",
+    "pool": "silent",
+    "rarity": "Uncommon",
+    "effect": "Each manual discard deals 3 damage to a random foe.",
+    "adapted": false
+  },
+  {
+    "key": "TINY_MAILBOX",
+    "id": 343,
+    "name": "Tiny Mailbox",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Resting brews 2 potions, limited by belt space.",
+    "adapted": false
+  },
+  {
+    "key": "TOASTY_MITTENS",
+    "id": 344,
+    "name": "Toasty Mittens",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each turn: exhaust the draw pile's top card, then gain 1 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "TOOLBOX",
+    "id": 345,
+    "name": "Toolbox",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Choose a colorless opening card from 3 options.",
+    "adapted": false
+  },
+  {
+    "key": "TOUCH_OF_OROBAS",
+    "id": 346,
+    "name": "Touch of Orobas",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Replace your starter with Black Blood, Ring of the Drake or Divine Destiny.",
+    "adapted": false
+  },
+  {
+    "key": "TOUGH_BANDAGES",
+    "id": 47,
+    "name": "Tough Bandages",
+    "pool": "silent",
+    "rarity": "Rare",
+    "effect": "Each manual discard grants 3 Block.",
+    "adapted": false
+  },
+  {
+    "key": "TOXIC_EGG",
+    "id": 347,
+    "name": "Toxic Egg",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "New Skills enter your deck upgraded.",
+    "adapted": false
+  },
+  {
+    "key": "TOY_BOX",
+    "id": 348,
+    "name": "Toy Box",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: gain 4 temporary relics; one is removed every 3 victories.",
+    "adapted": true
+  },
+  {
+    "key": "TRI_BOOMERANG",
+    "id": 349,
+    "name": "Tri-Boomerang",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Adapted: forge Bound on 3 chosen Attacks and upgrade them.",
+    "adapted": true
+  },
+  {
+    "key": "TUNGSTEN_ROD",
+    "id": 350,
+    "name": "Tungsten Rod",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Reduce each HP-loss event by 1, after Block. Copies stack.",
+    "adapted": false
+  },
+  {
+    "key": "TUNING_FORK",
+    "id": 351,
+    "name": "Tuning Fork",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Every tenth Skill grants 7 Block.",
+    "adapted": false
+  },
+  {
+    "key": "TWISTED_FUNNEL",
+    "id": 48,
+    "name": "Twisted Funnel",
+    "pool": "silent",
+    "rarity": "Uncommon",
+    "effect": "Combat opening: apply 4 Poison to all foes.",
+    "adapted": false
+  },
+  {
+    "key": "UNCEASING_TOP",
+    "id": 352,
+    "name": "Unceasing Top",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Empty hand during your turn: draw a card. Extra copies draw extra cards.",
+    "adapted": false
+  },
+  {
+    "key": "UNDYING_SIGIL",
+    "id": 353,
+    "name": "Undying Sigil",
+    "pool": "necrobinder",
+    "rarity": "Shop",
+    "effect": "Adapted: foes with Poison at least equal to HP deal half damage.",
+    "adapted": true
+  },
+  {
+    "key": "UNSETTLING_LAMP",
+    "id": 354,
+    "name": "Unsettling Lamp",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "First card that adds enemy debuffs each fight doubles those additions.",
+    "adapted": false
+  },
+  {
+    "key": "VAJRA",
+    "id": 355,
+    "name": "Vajra",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Combat opening: gain 1 Strength.",
+    "adapted": false
+  },
+  {
+    "key": "VAMBRACE",
+    "id": 356,
+    "name": "Vambrace",
+    "pool": "shared",
+    "rarity": "Uncommon",
+    "effect": "Double the first card Block gain of each fight.",
+    "adapted": false
+  },
+  {
+    "key": "VELVET_CHOKER",
+    "id": 357,
+    "name": "Velvet Choker",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn; at most 6 cards can resolve each turn, including replays.",
+    "adapted": false
+  },
+  {
+    "key": "VENERABLE_TEA_SET",
+    "id": 358,
+    "name": "Venerable Tea Set",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "After entering camp, next combat starts with 2 extra Energy.",
+    "adapted": false
+  },
+  {
+    "key": "FAKE_VENERABLE_TEA_SET",
+    "id": 359,
+    "name": "Venerable Tea Set???",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "After entering camp, next combat starts with 1 extra Energy.",
+    "adapted": false
+  },
+  {
+    "key": "VERY_HOT_COCOA",
+    "id": 360,
+    "name": "Very Hot Cocoa",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Opening turn: gain 4 extra Energy.",
+    "adapted": false
+  },
+  {
+    "key": "VEXING_PUZZLEBOX",
+    "id": 361,
+    "name": "Vexing Puzzlebox",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Create a random opening card that is free for that turn.",
+    "adapted": false
+  },
+  {
+    "key": "VITRUVIAN_MINION",
+    "id": 362,
+    "name": "Vitruvian Minion",
+    "pool": "regent",
+    "rarity": "Shop",
+    "effect": "Minion-tagged cards deal double damage and grant double Block.",
+    "adapted": false
+  },
+  {
+    "key": "WAR_HAMMER",
+    "id": 363,
+    "name": "War Hammer",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Each elite victory upgrades 4 random deck cards.",
+    "adapted": false
+  },
+  {
+    "key": "WAR_PAINT",
+    "id": 364,
+    "name": "War Paint",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Upgrade 2 random Skills in your deck.",
+    "adapted": false
+  },
+  {
+    "key": "WHETSTONE",
+    "id": 365,
+    "name": "Whetstone",
+    "pool": "shared",
+    "rarity": "Common",
+    "effect": "Upgrade 2 random Attacks in your deck.",
+    "adapted": false
+  },
+  {
+    "key": "WHISPERING_EARRING",
+    "id": 366,
+    "name": "Whispering Earring",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "+1 Energy each turn. Your first turn autoplays affordable cards in hand order.",
+    "adapted": false
+  },
+  {
+    "key": "WHITE_BEAST_STATUE",
+    "id": 367,
+    "name": "White Beast Statue",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Every combat reward includes a potion, unless Sozu blocks it.",
+    "adapted": false
+  },
+  {
+    "key": "WHITE_STAR",
+    "id": 368,
+    "name": "White Star",
+    "pool": "shared",
+    "rarity": "Rare",
+    "effect": "Each elite victory offers an extra Rare card reward.",
+    "adapted": false
+  },
+  {
+    "key": "WING_CHARM",
+    "id": 369,
+    "name": "Wing Charm",
+    "pool": "shared",
+    "rarity": "Shop",
+    "effect": "Adapted: one unmodified card per reward gains Bound.",
+    "adapted": true
+  },
+  {
+    "key": "WINGED_BOOTS",
+    "id": 370,
+    "name": "Winged Boots",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Choose any map lane 3 times per copy, ignoring paths.",
+    "adapted": false
+  },
+  {
+    "key": "WONGO_CUSTOMER_APPRECIATION_BADGE",
+    "id": 371,
+    "name": "Wongo Customer Appreciation Badge",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "A loyalty souvenir. No gameplay effect.",
+    "adapted": false
+  },
+  {
+    "key": "WONGOS_MYSTERY_TICKET",
+    "id": 372,
+    "name": "Wongo's Mystery Ticket",
+    "pool": "shared",
+    "rarity": "Event",
+    "effect": "After 5 combat victories, gain 3 random relics.",
+    "adapted": false
+  },
+  {
+    "key": "YUMMY_COOKIE",
+    "id": 373,
+    "name": "Yummy Cookie",
+    "pool": "shared",
+    "rarity": "Ancient",
+    "effect": "Upgrade 4 chosen deck cards.",
+    "adapted": false
+  }
+]

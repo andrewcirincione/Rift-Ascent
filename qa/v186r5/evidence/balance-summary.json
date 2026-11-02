@@ -1,0 +1,51 @@
+{
+  "baseline": {
+    "runs": 900,
+    "act3_wins": 184,
+    "act7_wins": 22,
+    "stalls": 0,
+    "characters": [
+      {
+        "character": 0,
+        "wins": 89,
+        "runs": 300
+      },
+      {
+        "character": 1,
+        "wins": 78,
+        "runs": 300
+      },
+      {
+        "character": 2,
+        "wins": 17,
+        "runs": 300
+      }
+    ]
+  },
+  "candidate": {
+    "runs": 900,
+    "act3_wins": 233,
+    "act7_wins": 41,
+    "stalls": 0,
+    "characters": [
+      {
+        "character": 0,
+        "wins": 112,
+        "runs": 300
+      },
+      {
+        "character": 1,
+        "wins": 84,
+        "runs": 300
+      },
+      {
+        "character": 2,
+        "wins": 37,
+        "runs": 300
+      }
+    ]
+  },
+  "seeds": "60001..60300, all three characters",
+  "policy": "same legal heuristic, ordinary starter decks, all account card unlocks; no combat assistance",
+  "repair": "The two stalled campaigns were replayed from their beginning after the Void Form end-turn fix. Other 898 results unchanged."
+}

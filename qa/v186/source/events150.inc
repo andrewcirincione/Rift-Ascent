@@ -140,7 +140,7 @@ static int event_card_ok(int raw,int action){
  if(action==EVENT_REMOVE||action==EVENT_TRANSFORM)return CARD_ID(raw)<CARD_COUNT;
  return game_card_is_playable(raw)&&CARD_ID(raw)!=63&&CARD_ID(raw)!=85&&CARD_ID(raw)!=CARD_GIANT_ROCK;
 }
-int game_event_card_eligible(const Game*g,int raw){return event_card_ok(raw,g->next_screen);}
+int game_event_card_eligible(const Game*g,int raw){if((g->next_screen==EVENT_REMOVE||g->next_screen==EVENT_TRANSFORM)&&relic(g,SR_NUTRITIOUS_SOUP)&&sr_is_strike(raw))return 0;return event_card_ok(raw,g->next_screen);}
 static int event_relic_id(const Game*g,int option){return g->reward[(g->effect_turn==15||g->effect_turn==32)?option:0];}
 void game_event_option(const Game*g,int option,char*title,int tc,char*detail,int dc){
  if(option==event_offer_counts[CLAMP(g->effect_turn,0,EVENT_COUNT-1)]){snprintf(title,tc,"LEAVE");snprintf(detail,dc,"Leave without spending anything.");return;}
@@ -176,13 +176,14 @@ static int event_offer_available(const Game*g,int option){
  if((id==17||id==21||id==34||(id==31&&!option))&&g->deck_count>=MAX_DECK)return 0;
  if(id==28&&!option&&!event_next_fits(g,3,0,0,0,1))return 0;
  if(id==29&&(!option?!event_next_fits(g,0,0,0,2,0):!event_next_fits(g,0,12,0,0,0)))return 0;
- if(id==30&&option&&g->potion_count>MAX_POTIONS-2)return 0;
- if(id==32&&option==2&&g->potion_count>=MAX_POTIONS)return 0;
+ if(relic(g,SR_SOZU)&&((id==30&&option)||(id==32&&option==2)||(id==19&&!option)))return 0;
+ if(id==30&&option&&g->potion_count>game_potion_capacity(g)-2)return 0;
+ if(id==32&&option==2&&g->potion_count>=game_potion_capacity(g))return 0;
  if(id==33&&g->potion_count<(option==1?2:1))return 0;
  if(id==35&&!event_next_fits(g,option?0:3,0,option?2:0,0,0))return 0;
  if(id==36&&option&&!event_next_fits(g,0,12,0,0,0))return 0;
  if(id==38&&!event_next_fits(g,2,10,0,0,0))return 0;
- if(id==19){if(!option&&g->potion_count>MAX_POTIONS-2)return 0;if(option&&g->potion_count<1)return 0;}
+ if(id==19){if(!option&&g->potion_count>game_potion_capacity(g)-2)return 0;if(option&&g->potion_count<1)return 0;}
  if(id==20&&option==1&&count_upgradeable(g)<2)return 0;
  if((id==4&&!option)||id==11||id==15||(id==19&&option==1)||id==21||(id==32&&option<2)){int r=event_relic_id(g,option);if(r<0||r>=RELIC_COUNT||relic(g,r)||g->relic_count>=MAX_RELICS)return 0;if(o->maxhp&&g->maxhp-o->maxhp-(r==11?12:0)<25)return 0;}
  return 1;
@@ -218,7 +219,7 @@ void game_begin_event(Game*g,int id){
  if(id==6){g->reward[0]=event_typed_card(g,0);g->reward[1]=event_typed_card(g,1);}
  if(id==17)g->reward[0]=reward_of_rarity(g,3,-1,-1);
  if(id==34){g->reward[0]=reward_of_rarity(g,journey_rarity(g,2,34),-1,-1);g->reward[1]=reward_of_rarity(g,journey_rarity(g,1,134),-1,-1)|UPBIT;}
- if(id==2||id==6||id==17||id==34)for(int i=0;i<(id==17?1:2);i++)g->reward[i]=journey_upgrade(g,g->reward[i],(unsigned)(id+100*i));
+ if(id==2||id==6||id==17||id==34)for(int i=0;i<(id==17?1:2);i++){g->reward[i]=journey_upgrade(g,g->reward[i],(unsigned)(id+100*i));reward_mark(g,g->reward[i]);}
  if(id==4||id==11||id==15||id==19||id==21||id==32){g->reward[0]=journey_relic(g,-1,-1);if(id==15||id==32)g->reward[1]=journey_relic(g,-1,g->reward[0]);}
 }
 static void event_pay(Game*g,const EventOffer*o){
@@ -231,10 +232,11 @@ static void event_card_commit(Game*g){
  if(g->selection<0||g->selection>=g->deck_count||!game_event_card_eligible(g,g->deck[g->selection])){msg(g,"This card is not eligible. Choose another.");return;}
  if(!game_event_choice_available(g,g->shop_selection)){msg(g,"Cannot afford this choice. No resources spent.");return;}
  int action=g->next_screen,raw=g->deck[g->selection];
+ if(!game_event_card_eligible(g,raw)){msg(g,"This card cannot be changed by this offer.");return;}
  EventOffer offer=event_offer(g,g->effect_turn,g->shop_selection);const EventOffer*o=&offer;
  if(action!=o->action){msg(g,"Invalid offer. No resources spent.");return;}
  event_pay(g,o);char text[72];
- if(g->effect_turn==33){for(int i=0;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;}
+ if(g->effect_turn==33){for(int i=0;i+1<g->potion_count;i++)*sr_potion_slot(g,i)=game_potion_id(g,i+1);g->potion_count--;}
  if(action<MOD_COUNT){raw|=action<<CARD_MOD_SHIFT;g->deck[g->selection]=raw;snprintf(text,sizeof(text),"%s gained %s.",cards[CARD_ID(raw)].name,game_mod_name(action));}
  else if(action==EVENT_UPGRADE){raw|=UPBIT;g->deck[g->selection]=raw;snprintf(text,sizeof(text),"Upgraded %s.",cards[CARD_ID(raw)].name);}
  else if(action==EVENT_TRANSFORM){raw=reward_of_rarity(g,1,CARD_ID(raw),-1);g->deck[g->selection]=raw;snprintf(text,sizeof(text),"Rewritten as %s.",cards[CARD_ID(raw)].name);}
@@ -252,32 +254,32 @@ static void do_event(Game*g,int option){
  int card=-1,relic_id=-1;char text[72]="";
  event_pay(g,o);
  switch(id){
- case 0:g->gold+=option?25:75;snprintf(text,sizeof(text),option?"Gained 25 Gold.":"Gained 75 Gold. Lost 8 HP.");break;
+ case 0:sr_gain_gold(g,option?25:75);snprintf(text,sizeof(text),option?"Gained 25 Gold.":"Gained 75 Gold. Lost 8 HP.");break;
  case 1:if(option){g->maxhp+=6;heal(g,6);snprintf(text,sizeof(text),"Gained 6 maximum HP and healed 6. Paid 35 Gold.");}else{int n=game_moon_heal_now(g);heal(g,n);snprintf(text,sizeof(text),"Healed %d HP.",n);}break;
  case 17:card=g->reward[0];add_card(g,card);snprintf(text,sizeof(text),"The bell remembers your voice. Received %s.",cards[CARD_ID(card)].name);break;
  case 2:case 6:case 34:card=g->reward[option];add_card(g,card);snprintf(text,sizeof(text),"Received %s%s.",cards[CARD_ID(card)].name,CARD_UP(card)?"+":"");break;
  case 3:if(!option){g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Gained 5 maximum HP and healed 5 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Healed up to 18 HP.");}break;
- case 4:if(option){g->gold+=40;snprintf(text,sizeof(text),"Gained 40 Gold.");}else relic_id=event_relic_id(g,option);break;
- case 5:if(option){g->gold+=45;snprintf(text,sizeof(text),"Gained 45 Gold.");}else{heal(g,16);snprintf(text,sizeof(text),"Healed up to 16 HP.");}break;
+ case 4:if(option){sr_gain_gold(g,40);snprintf(text,sizeof(text),"Gained 40 Gold.");}else relic_id=event_relic_id(g,option);break;
+ case 5:if(option){sr_gain_gold(g,45);snprintf(text,sizeof(text),"Gained 45 Gold.");}else{heal(g,16);snprintf(text,sizeof(text),"Healed up to 16 HP.");}break;
  case 7:if(option){heal(g,30);snprintf(text,sizeof(text),"Healed up to 30 HP. Paid 45 Gold.");}else{g->maxhp+=10;snprintf(text,sizeof(text),"Gained 10 maximum HP. Lost 17 current HP.");}break;
  case 8:heal(g,option?9:28);if(!option)add_card(g,52);snprintf(text,sizeof(text),option?"Healed up to 9 HP.":"Healed up to 28 HP. Added Injury.");break;
- case 9:g->gold+=option?180:150;if(option)add_card(g,52);snprintf(text,sizeof(text),option?"Gained 180 Gold. Added Injury.":"Gained 150 Gold. Lost 6 HP.");break;
+ case 9:sr_gain_gold(g,option?180:150);if(option)add_card(g,52);snprintf(text,sizeof(text),option?"Gained 180 Gold. Added Injury.":"Gained 150 Gold. Lost 6 HP.");break;
  case 11:if(!option)add_card(g,53);relic_id=event_relic_id(g,option);break;
  case 15:relic_id=event_relic_id(g,option);break;
- case 19:if(!option){for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Received two potions. Paid 35 Gold.");}else if(option==1){g->potion_count=0;relic_id=event_relic_id(g,option);}else{for(int i=0;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;heal(g,20);snprintf(text,sizeof(text),"Traded the first potion. Healed up to 20 HP.");}break;
+ case 19:if(!option){for(int i=0;i<2;i++)*sr_potion_slot(g,g->potion_count++)=ascent_random_potion(g);snprintf(text,sizeof(text),"Received two potions. Paid 35 Gold.");}else if(option==1){g->potion_count=0;relic_id=event_relic_id(g,option);}else{for(int i=0;i+1<g->potion_count;i++)*sr_potion_slot(g,i)=game_potion_id(g,i+1);g->potion_count--;heal(g,20);snprintf(text,sizeof(text),"Traded the first potion. Healed up to 20 HP.");}break;
  case 20:if(!option){g->permanent_strength+=2;snprintf(text,sizeof(text),"Gained 2 permanent Strength. Lost 6 maximum HP.");}else{for(int k=0;k<2;k++){int pool[MAX_DECK],n=0;for(int i=0;i<g->deck_count;i++)if(game_card_is_upgradeable(g->deck[i]))pool[n++]=i;if(n)g->deck[pool[rnd(g,n)]]|=UPBIT;}snprintf(text,sizeof(text),"Upgraded two cards. Paid 60 Gold.");}break;
  case 21:add_card(g,53);relic_id=event_relic_id(g,option);break;
- case 22:if(!option){heal(g,12);snprintf(text,sizeof(text),"Healed up to 12 HP. Paid 15 Gold.");}else{g->gold+=60;snprintf(text,sizeof(text),"Gained 60 Gold. Lost 8 HP.");}break;
- case 23:switch(rnd(g,4)){case 0:g->gold+=80;snprintf(text,sizeof(text),"Paid 15 Gold. Won 80 Gold.");break;case 1:g->gold+=25;snprintf(text,sizeof(text),"Paid 15 Gold. Won 25 Gold.");break;case 2:heal(g,25);snprintf(text,sizeof(text),"Paid 15 Gold. Healed up to 25 HP.");break;default:g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Paid 15 Gold. Gained 5 maximum HP and healed 5.");break;}break;
+ case 22:if(!option){heal(g,12);snprintf(text,sizeof(text),"Healed up to 12 HP. Paid 15 Gold.");}else{sr_gain_gold(g,60);snprintf(text,sizeof(text),"Gained 60 Gold. Lost 8 HP.");}break;
+ case 23:switch(rnd(g,4)){case 0:sr_gain_gold(g,80);snprintf(text,sizeof(text),"Paid 15 Gold. Won 80 Gold.");break;case 1:sr_gain_gold(g,25);snprintf(text,sizeof(text),"Paid 15 Gold. Won 25 Gold.");break;case 2:heal(g,25);snprintf(text,sizeof(text),"Paid 15 Gold. Healed up to 25 HP.");break;default:g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Paid 15 Gold. Gained 5 maximum HP and healed 5.");break;}break;
  case 28:if(!option){g->revision182.next_combat[0]+=3;g->revision182.next_combat[4]+=1;snprintf(text,sizeof(text),"Next combat: +3 Strength, 1 Vulnerable. Lost 3 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Paid 30 Gold. Healed up to 18 HP.");}break;
  case 29:if(!option){heal(g,28);g->revision182.next_combat[3]+=2;snprintf(text,sizeof(text),"Healed up to 28 HP. Next combat starts with 2 Weak.");}else{g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 15 Gold. Next combat starts with +12 Block.");}break;
- case 30:if(!option){g->hp=g->maxhp;snprintf(text,sizeof(text),"Lost 5 maximum HP. Healed to full.");}else{for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Lost 9 HP. Received two potions.");}break;
+ case 30:if(!option){g->hp=g->maxhp;snprintf(text,sizeof(text),"Lost 5 maximum HP. Healed to full.");}else{for(int i=0;i<2;i++)*sr_potion_slot(g,g->potion_count++)=ascent_random_potion(g);snprintf(text,sizeof(text),"Lost 9 HP. Received two potions.");}break;
  case 31:g->maxhp+=12;heal(g,12);add_card(g,52);snprintf(text,sizeof(text),"Gained 12 maximum HP, healed 12, and added Injury.");break;
- case 32:if(option<2)relic_id=event_relic_id(g,option);else{int id=ascent_random_potion(g);g->potions[g->potion_count++]=id;snprintf(text,sizeof(text),"Paid 20 Gold. Received %s.",game_potion_name(id));}break;
- case 33:if(option==1){for(int i=0;i+2<g->potion_count;i++)g->potions[i]=g->potions[i+2];g->potion_count-=2;g->maxhp+=8;heal(g,8);snprintf(text,sizeof(text),"Traded two potions. Gained 8 maximum HP and healed 8.");}else{int gold=g->potion_count*18;g->potion_count=0;g->gold+=gold;snprintf(text,sizeof(text),"Sold the belt for %d Gold.",gold);}break;
+ case 32:if(option<2)relic_id=event_relic_id(g,option);else{int id=ascent_random_potion(g);*sr_potion_slot(g,g->potion_count++)=id;snprintf(text,sizeof(text),"Paid 20 Gold. Received %s.",game_potion_name(id));}break;
+ case 33:if(option==1){for(int i=0;i+2<g->potion_count;i++)*sr_potion_slot(g,i)=game_potion_id(g,i+2);g->potion_count-=2;g->maxhp+=8;heal(g,8);snprintf(text,sizeof(text),"Traded two potions. Gained 8 maximum HP and healed 8.");}else{int gold=g->potion_count*18;g->potion_count=0;sr_gain_gold(g,gold);snprintf(text,sizeof(text),"Sold the belt for %d Gold.",gold);}break;
  case 35:if(!option){g->revision182.next_combat[0]+=3;snprintf(text,sizeof(text),"Paid 25 Gold. Next combat: +3 Strength.");}else{g->revision182.next_combat[2]+=2;snprintf(text,sizeof(text),"Lost 6 HP. Next opening hand: draw 2 extra cards.");}break;
- case 36:if(!option){g->gold+=100;snprintf(text,sizeof(text),"Lost 10 HP. Gained 100 Gold.");}else{heal(g,25);g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 50 Gold. Heal 25; next combat starts with +12 Block.");}break;
- case 37:g->gold+=15;snprintf(text,sizeof(text),"Kept your cards. Gained 15 Gold.");break;
+ case 36:if(!option){sr_gain_gold(g,100);snprintf(text,sizeof(text),"Lost 10 HP. Gained 100 Gold.");}else{heal(g,25);g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 50 Gold. Heal 25; next combat starts with +12 Block.");}break;
+ case 37:sr_gain_gold(g,15);snprintf(text,sizeof(text),"Kept your cards. Gained 15 Gold.");break;
  case 39:{int loss=MIN(6,MAX(0,g->hp-1));g->hp-=loss;snprintf(text,sizeof(text),"Falling bone costs you %d HP.",loss);break;}
  case 40:{int loss=MIN(25,g->gold);g->gold-=loss;snprintf(text,sizeof(text),"The tithe takes %d Gold.",loss);break;}
  case 41:g->revision182.next_combat[3]=MIN(5,g->revision182.next_combat[3]+2);snprintf(text,sizeof(text),"The spores follow: begin your next combat with 2 Weak.");break;

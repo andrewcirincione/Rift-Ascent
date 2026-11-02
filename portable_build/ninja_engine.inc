@@ -29,7 +29,7 @@ static void ninja_reduce_instance(Game*g,int raw){
 }
 static int ninja_flags(int raw){int id=CARD_ID(raw);if(id<NINJA_FIRST||id>=NINJA_LAST)return 0;const NinjaCardDef*d=&ninja_cards[id-NINJA_FIRST];return CARD_UP(raw)?d->upflags:d->flags;}
 int game_card_is_sly(const Game*g,int raw){(void)g;return (raw&(CARD_SLY|CARD_SLY_TURN))||(ninja_flags(raw)&8);}
-int game_card_is_retained(const Game*g,int raw){return (regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
+int game_card_is_retained(const Game*g,int raw){return relic(g,SR_RUNIC_PYRAMID)||(g->turn==1&&relic(g,SR_RINGING_TRIANGLE))||(sr_is_defend(raw)&&relic(g,SR_PAELS_CLAW))||(regent_flags(raw)&2)||g->regent.retain_all||CARD_MOD(raw)==MOD_BOUND||(raw&CARD_RETAIN_TURN)||(ninja_flags(raw)&2)||(CARD_ID(raw)==N_SHIV&&g->ninja.v[NS_PHANTOM]);}
 static int card_character(int id){
  if(id<0||id>=CARD_COUNT)return -1;
  if(id>=ASCENT_CARD_FIRST)return (id-ASCENT_CARD_FIRST)/20;
@@ -88,8 +88,8 @@ static void ninja_power(Game*g,int raw,int counter,int amount){
 static void ninja_shivs(Game*g,int count,int up,int ink){for(int i=0;i<count;i++)add_generated(g,N_SHIV|(up?UPBIT:0)|(ink?CARD_INKY:0));}
 static void ninja_discard_effects(Game*g,int raw,int depth){
  raw&=~CARD_RETAIN_TURN;g->ninja.v[NS_DISCARDS_TURN]=MIN(1000000,g->ninja.v[NS_DISCARDS_TURN]+1);
- if(relic(g,NR_TINGSHA))ninja_proc(g,random_living_foe(g),3,0);
- if(relic(g,NR_BANDAGES))relic_block(g,3);
+ if(relic(g,NR_TINGSHA))ninja_proc(g,random_living_foe(g),3*relic(g,NR_TINGSHA),0);
+ if(relic(g,NR_BANDAGES))relic_block(g,3*relic(g,NR_BANDAGES));
  if(game_card_is_sly(g,raw)&&cards[CARD_ID(raw)].cost!=-2&&ninja_has_living(g)){
   ninja_push(g,NT_PLAY,raw|CARD_FREE,g->target,game_card_cost(raw)==-1?g->energy:0,0,depth>0?3:0);
  }else if(g->discard_count<MAX_PILE)g->discard[g->discard_count++]=ninja_clean(raw);
@@ -110,7 +110,7 @@ static void ninja_open_choice(Game*g,int kind,int count,int source,int target,in
 }
 static void ninja_effect(Game*g,NinjaTask t){
  int raw=t.raw,id=CARD_ID(raw),up=CARD_UP(raw),e=t.target,x=t.n,depth=t.depth;
- int r151_before[6];r151_status_snapshot(g,r151_before);
+ int r151_before[3*MAX_ENEMIES];r151_status_snapshot(g,r151_before);
  int dmg=ninja_base_damage(g,raw,0),block=ninja_block_base(g,raw);
  if(e<0||e>=g->enemy_count||g->enemies[e].hp<=0)e=random_living_foe(g);
 #define NP(counter,amount) ninja_power(g,raw,counter,amount)
@@ -212,11 +212,11 @@ static void ninja_finish(Game*g,NinjaTask t){
   else if(type!=2&&g->discard_count<MAX_PILE)g->discard[g->discard_count++]=ninja_clean(raw);
  }
  g->turn_played++;
- if(type==0){g->ic[IC_ATTACKS_THIS_TURN]++;g->shop_relic++;if(g->ic[IC_ATTACKS_THIS_TURN]%3==0){if(relic(g,5))g->strength++;if(relic(g,24))heal(g,3);}int rage=(g->reward_potion>>8)&255;if(rage)gain_block(g,rage);}
+ if(type==0){g->ic[IC_ATTACKS_THIS_TURN]++;g->shop_relic++;if(g->ic[IC_ATTACKS_THIS_TURN]%3==0){if(relic(g,5))g->strength+=relic(g,5);if(relic(g,24))heal(g,3);}int rage=(g->reward_potion>>8)&255;if(rage)gain_block(g,rage);}
  if(type==1){g->ninja.v[NS_SKILLS_TURN]++;if(++g->ic[36]%3==0&&relic(g,22))g->dexterity++;}
- if(id==N_SHIV){g->ninja.v[NS_SHIVS_TURN]++;if(relic(g,NR_DART)){g->dexterity++;g->ninja.v[NS_TEMP_DEX]++;}}
+ if(id==N_SHIV){g->ninja.v[NS_SHIVS_TURN]++;if(relic(g,NR_DART)){g->dexterity+=relic(g,NR_DART);g->ninja.v[NS_TEMP_DEX]+=relic(g,NR_DART);}}
  if(relic(g,43)&&(type==0||type==1)){g->ic[IC_DUELIST]|=type==0?1:2;if(g->ic[IC_DUELIST]==3){g->ic[IC_DUELIST]|=4;gain_energy(g,1);}}
- r151_played(g,type);regent_foreign_finish(g,raw);
+ r151_played(g,type);regent_foreign_finish(g,raw);sr_play_finish(g,raw);
  /* Only powers that existed before this card fire for this play. */
  int after=t.n,serpent=t.aux;
  if(after)relic_block(g,after);
@@ -235,6 +235,7 @@ static void ninja_process(Game*g){
   if(preview_trace){preview_phase=t.depth>0&&t.depth<=2;preview_depth=t.depth;}
   switch(t.kind){
   case NT_PLAY:{
+   if(!sr_can_play(g)){if(!(t.raw&CARD_EPHEMERAL)&&g->discard_count<MAX_PILE)g->discard[g->discard_count++]=ninja_clean(t.raw);break;}
    if(id>=ASCENT_CARD_FIRST){resolve_card(g,-1,t.target,t.raw|CARD_FREE);break;}
    if(!ninja_has_living(g)||!ninja_can_play(g,t.raw)){
     if(!(t.raw&CARD_EPHEMERAL)&&g->discard_count<MAX_PILE)g->discard[g->discard_count++]=ninja_clean(t.raw);
@@ -244,7 +245,7 @@ static void ninja_process(Game*g){
    if(cards[id].type==1)g->ninja.v[NS_POUNCE]=0;
    if(cards[id].type==0)g->ic[IC_UNRELENTING]=0;
    r140_rust_targets=0;regent_foreign_begin(g,t.raw);
-   int repeat=0;
+   int repeat=sr_repeat(g,t.raw);sr_play_begin(g,t.raw);
    if(!(t.raw&CARD_EPHEMERAL)){
     if((g->character==CHAR_REGENT||g->revision184.custom))repeat+=g->regent.instance_replay[CARD_INSTANCE(t.raw)];
     repeat+=CARD_MOD(t.raw)==MOD_ECHO;
@@ -277,12 +278,12 @@ static void ninja_process(Game*g){
  if(g->screen==COMBAT&&g->ninja.task_count==0){if(g->hp<=0)player_death(g);if(g->screen==COMBAT)check_win(g);}
 }
 static void ninja_play_from_hand(Game*g,int index,int target){
- if(g->screen!=COMBAT||index<0||index>=g->hand_count||g->ninja.task_count)return;
+ if(g->screen!=COMBAT||index<0||index>=g->hand_count||g->ninja.task_count||!sr_can_play(g))return;
  int raw=ninja_stamp(g,g->hand[index]),id=CARD_ID(raw),cost=game_card_cost_now(g,raw);
  if(!ninja_can_play(g,raw)){msg(g,id==N_GRAND_FINALE?"Your draw pile must be empty.":"Requires a multiplayer ally.");return;}
  if(cost==-1)cost=g->energy;
  if(cost<0||cost>g->energy){msg(g,"Not enough Energy.");return;}
- int x=game_card_cost(raw)==-1?g->energy:0;g->energy-=cost;
+ int x=game_card_cost(raw)==-1?g->energy+sr_x(g):0;g->energy-=cost;sr_paid(g,raw,0);
  for(int i=index;i+1<g->hand_count;i++)g->hand[i]=g->hand[i+1];g->hand_count--;
  if(cards[id].type==1&&g->ninja.v[NS_POUNCE])g->ninja.v[NS_POUNCE]=0;
  if(cards[id].type==0&&g->ic[IC_UNRELENTING])g->ic[IC_UNRELENTING]=0;
@@ -323,7 +324,7 @@ static void ninja_start_turn_before(Game*g){
 static void ninja_start_turn_after(Game*g){
  g->ninja.v[NS_OPENING_DRAW]=0;
  if(g->ninja.v[NS_FUMES])ninja_poison_all(g,g->ninja.v[NS_FUMES]);
- if(g->turn==1){if(relic(g,NR_FUNNEL))ninja_poison_all(g,4);if(relic(g,NR_SCROLL))ninja_shivs(g,3,0,0);}
+ if(g->turn==1){if(relic(g,NR_FUNNEL))ninja_poison_all(g,4*relic(g,NR_FUNNEL));if(relic(g,NR_SCROLL))ninja_shivs(g,3*relic(g,NR_SCROLL),0,0);}
  ninja_shivs(g,g->ninja.v[NS_BLADES],0,0);
  for(int i=0;i<g->ninja.nightmare_count;i++)for(int j=0;j<g->ninja.nightmare_n[i];j++)add_generated(g,g->ninja.nightmare_raw[i]&~CARD_INSTANCE_MASK);g->ninja.nightmare_count=0;
  if(g->ninja.v[NS_TOOLS]){ninja_push(g,NT_DISCARD,0,0,g->ninja.v[NS_TOOLS],0,0);ninja_push(g,NT_DRAW,0,0,g->ninja.v[NS_TOOLS],0,0);ninja_process(g);}

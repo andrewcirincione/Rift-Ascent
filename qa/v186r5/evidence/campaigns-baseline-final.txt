@@ -1,0 +1,8 @@
+Campaigns 900; Act 3 wins 184 (20.44%); Act 7 wins 22 (2.44%); stalls 0
+Act 1: entered 900; lost 81 (9.00% of entrants)
+Act 2: entered 819; lost 239 (29.18% of entrants)
+Act 3: entered 580; lost 396 (68.28% of entrants)
+Act 4: entered 184; lost 19 (10.33% of entrants)
+Act 5: entered 165; lost 35 (21.21% of entrants)
+Act 6: entered 130; lost 14 (10.77% of entrants)
+Act 7: entered 116; lost 94 (81.03% of entrants)

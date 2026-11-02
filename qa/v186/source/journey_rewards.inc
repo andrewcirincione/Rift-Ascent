@@ -15,6 +15,7 @@ static int journey_upgrade(const Game*g,int raw,unsigned salt){
 }
 static int journey_relic(Game*g,int preferred,int excluded){
  if(g->relic_count>=MAX_RELICS)return -1;
+ if(preferred<0&&journey_quality(g,179)%3u==0)return sr_special_relic(g,6,excluded);
  if(g->act<=1)return preferred>=0&&!relic(g,preferred)&&preferred!=excluded?preferred:random_relic_except(g,excluded);
  /* Reliable immediate or recurring combat benefits replace narrow late gifts.
     Act 3 adds Severed Psalm; all candidates remain unowned and unlock-safe. */

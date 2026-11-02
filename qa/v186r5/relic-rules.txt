@@ -1,0 +1,296 @@
+AKABEKO|Opening attack: +8 damage per hit.
+ALCHEMICAL_COFFER|Add 4 potion slots; fill the new slots. Belt cap: 11.
+AMETHYST_AUBERGINE|Combat spoils: +15 Gold per defeated foe.
+ANCHOR|Combat opening: 10 Block.
+FAKE_ANCHOR|Combat opening: 4 Block.
+ARCANE_SCROLL|Choose a Rare card reward.
+ARCHAIC_TOOTH|Choose a starter to replace with an Ancient card.
+ART_OF_WAR|Attack-free turn: +1 Energy next turn.
+ASTROLABE|Choose 3 cards to transform and upgrade.
+BAG_OF_MARBLES|Combat opening: all foes gain 1 Vulnerable.
+BAG_OF_PREPARATION|Opening hand: draw 2 more cards.
+BEATING_REMNANT|Limit total HP lost each turn to 20. Extra copies lower the limit by 2, minimum 2.
+BEAUTIFUL_BRACELET|Adapted: give 3 chosen cards Bound, retaining them between turns.
+BELLOWS|Upgrade the opening hand for this combat.
+BELT_BUCKLE|Empty potion belt: +2 Dexterity for card Block.
+BIG_HAT|Adapted: create 2 random Ethereal colorless cards at combat start.
+BIG_MUSHROOM|Gain 20 Max HP. Opening hand draws 2 fewer cards.
+BIIIG_HUG|Remove 4 chosen cards. Each reshuffle adds a Dazed to the draw pile.
+BING_BONG|Each card added to your deck brings one extra copy. Copies do not duplicate again.
+BLACK_BLOOD|Combat victory: heal 12 HP. Replaces Burning Blood.
+BLACK_STAR|Elite victory: gain an extra relic.
+BLESSED_ANTLER|+1 Energy each turn; start fights with 3 Dazed in your draw pile.
+BLOOD_VIAL|Combat opening: heal 2 HP.
+FAKE_BLOOD_VIAL|Combat opening: heal 1 HP.
+BLOOD_SOAKED_ROSE|Adapted: +1 Energy each turn; add an unplayable Injury to your deck.
+BONE_FLUTE|Adapted: each generated Attack played grants 2 Block.
+BONE_TEA|Upgrade your opening hand in the next combat only.
+BOOK_REPAIR_KNIFE|Adapted: a foe dying to Poison heals you 3 HP.
+BOOK_OF_FIVE_RINGS|Every fifth card added to the deck heals 20 HP.
+BOOKMARK|Adapted: at turn end, a retained card becomes free until played.
+BOOMING_CONCH|Elite opening: draw 2 more cards and gain 1 Energy.
+BOUND_PHYLACTERY|Adapted: start turns with 1 Block and 1 Vigor.
+BOWLER_HAT|Gold gains increase by 25% per copy.
+BREAD|Turn 1: -1 Energy. Later turns: +1 Energy.
+BRILLIANT_SCARF|Every fifth card played from your hand each turn is free.
+BRIMSTONE|Each turn: gain 2 Strength; all foes gain 1 Strength.
+BRONZE_SCALES|Enemy attack hits reflect 3 damage, even when blocked.
+BURNING_BLOOD|Combat victory: heal 6 HP.
+BURNING_STICKS|First Skill exhausted per combat: create a copy in hand.
+BYRDPIP|Adapted: add an upgraded Minion Strike to your deck.
+CALLING_BELL|Gain 3 relics and add an Injury to your deck.
+CANDELABRA|Turn 2: gain 2 Energy.
+CAPTAINS_WHEEL|Turn 3: gain 18 Block.
+CAULDRON|Brew 5 potions; keep those that fit in the belt.
+CENTENNIAL_PUZZLE|First HP loss per combat: draw 3 cards.
+CHANDELIER|Turn 3: gain 3 Energy.
+CHARONS_ASHES|Each exhausted card deals 3 damage to all foes.
+CHEMICAL_X|Add 2 to X-card effects without spending extra Energy or Stars.
+CHOICES_PARADOX|Adapted: choose a random colorless opening card; it retains.
+CIRCLET|A souvenir. No combat effect.
+CLAWS|Adapted: transform up to 6 chosen cards into upgraded Giant Rock attacks.
+CLOAK_CLASP|Turn end: gain 1 Block per card left in hand.
+CRACKED_CORE|Adapted: at turn end, deal 3 damage to a random foe.
+CROSSBOW|Each turn creates a random Attack that is free this turn.
+CURSED_PEARL|Gain 333 Gold and add an Injury to your deck.
+DARKSTONE_PERIAPT|Each curse added grants and heals 6 Max HP.
+DATA_DISK|Adapted: your Core and Virus relic damage increases by 1.
+DAUGHTER_OF_THE_WIND|Each Attack played grants 1 Block.
+DELICATE_FROND|Refill empty potion slots at each combat opening.
+DEMON_TONGUE|Refund the first actual HP loss on your own turn as healing.
+DIAMOND_DIADEM|After playing at most 2 cards, halve incoming enemy damage.
+DINGY_RUG|Colorless cards can appear in your card rewards.
+DISTINGUISHED_CAPE|Adapted: lose 9 Max HP; gain 3 Ethereal copies of Panic Button.
+DIVINE_DESTINY|Combat opening: 6 Stars instead of Divine Right's 3.
+DIVINE_RIGHT|Combat opening: 3 Stars. Stars survive turn changes.
+DOLLYS_MIRROR|Choose a deck card to copy, preserving its upgrade and forge.
+DRAGON_FRUIT|Each positive Gold gain grants and heals 1 Max HP.
+DREAM_CATCHER|After resting, choose a card reward.
+DRIFTWOOD|Reroll each card reward once with Square. Rarity tiers stay unchanged.
+DUSTY_TOME|Choose a reward from your character's Ancient cards.
+ECTOPLASM|+1 Energy each turn. Gold gains are disabled.
+ELECTRIC_SHRYMP|Adapted: choose a Skill type; prime one copy and make its copies free on opening turns.
+EMBER_TEA|Next 5 combats: start with 2 Strength.
+EMOTION_CHIP|Adapted: after a turn with HP loss, repeat Core and Virus damage at turn start.
+EMPTY_CAGE|Remove 2 chosen cards from your deck.
+ETERNAL_FEATHER|At camp, heal 3 HP per 5 cards in your deck.
+FENCING_MANUAL|Combat opening: Forge 10 and create your Sovereign Blade.
+FESTIVE_POPPER|Combat opening: deal 9 damage to all foes.
+FIDDLE|Draw 2 more cards at turn start. Other draws are blocked.
+FISHING_ROD|Every third normal fight victory upgrades a random deck card.
+FORGOTTEN_SOUL|Each exhausted card deals 1 damage to a random foe.
+FRAGRANT_MUSHROOM|Lose 15 HP, then upgrade 2 random deck cards.
+FRESNEL_LENS|Adapted: newly acquired Block cards gain Ward if unmodified.
+FROZEN_EGG|New Powers enter your deck upgraded.
+FUNERARY_MASK|Adapted: add 3 Ethereal Finesse cards to your draw pile each fight.
+FUR_COAT|Next 7 normal fights start with foes at 1 HP. Elites and bosses excluded.
+GALACTIC_DUST|Every 10 Stars spent grants 10 Block. Remainder carries between turns.
+GAMBLING_CHIP|Adapted: opening hand replaces unplayable cards and unupgraded starters once.
+GAME_PIECE|Playing a Power draws 1 card.
+GHOST_SEED|Unplayed Strikes and Defends exhaust at turn end.
+GIRYA|Camp option: gain 1 permanent Strength, up to 3 times per copy.
+GLASS_EYE|Gain 2 Common, 2 Uncommon and 1 Rare card reward.
+GLITTER|Adapted: all unmodified card rewards gain Keen or Ward for their card type.
+GNARLED_HAMMER|Adapted: choose 3 Attacks to forge Keen.
+GOLD_PLATED_CABLES|Adapted: repeat one Core or Virus pulse at turn end.
+GOLDEN_COMPASS|Adapted: this act permits any lane and turns normal fights into treasures.
+GOLDEN_PEARL|Gain 150 Gold.
+GORGET|Combat opening: gain 4 Plating.
+GREMLIN_HORN|Each foe killed grants 1 Energy and draws 1 card.
+HAND_DRILL|Breaking a foe's Block applies 2 Vulnerable.
+HAPPY_FLOWER|Every third turn grants 1 Energy; count continues between fights.
+FAKE_HAPPY_FLOWER|Every fifth turn grants 1 Energy.
+HEFTY_TABLET|Choose a Rare reward; add an Injury to your deck.
+HELICAL_DART|Each Shiv played grants 1 Dexterity for the current turn.
+HISTORY_COURSE|Replay your last Attack or Skill for free at the next turn start.
+HORN_CLEAT|Turn 2: gain 14 Block.
+ICE_CREAM|All unspent Energy carries to the next turn, before new income. Combat reset still applies.
+INFUSED_CORE|Adapted: at turn end, hit random foes 3 times for 4 damage each.
+INTIMIDATING_HELMET|Playing a card with printed cost 2+ grants 4 Block.
+IRON_CLUB|Every fourth card played draws 1 card.
+IVORY_TILE|Playing a card with printed cost 3+ grants 1 Energy.
+JEWELED_MASK|Opening hand receives a random Power from your draw pile, free until played.
+JEWELRY_BOX|Adapted: upgrade every upgradeable card currently in your deck.
+JOSS_PAPER|Every fifth exhausted card draws 1 card.
+JUZU_BRACELET|Adapted: mystery rooms grant 8 Block for your next combat.
+KALEIDOSCOPE|Choose 2 card rewards from other characters.
+KIFUDA|Adapted: forge Bound on 3 chosen cards.
+KUNAI|Every third Attack in a turn grants 1 Dexterity.
+KUSARIGAMA|Every third Attack in a turn hits a random foe for 6.
+LANTERN|Opening turn: +1 Energy.
+LARGE_CAPSULE|Gain 2 relics and add a Strike and Defend to your deck.
+LASTING_CANDY|Every second combat adds a separate Power-only card reward.
+LAVA_LAMP|Take no HP damage during a fight: all its card rewards upgrade.
+LAVA_ROCK|Your next Act 1 boss victory grants 2 extra relics.
+LEAD_PAPERWEIGHT|Choose a colorless card reward.
+LEAFY_POULTICE|Transform one Strike and one Defend; lose 12 Max HP.
+LEES_WAFFLE|Gain 7 Max HP, then heal fully.
+FAKE_LEES_WAFFLE|Heal 10% of maximum HP on pickup.
+LETTER_OPENER|Every third Skill in a turn deals 5 damage to all foes.
+LIZARD_TAIL|Lethal damage: revive at half Max HP. One charge per copy per run.
+LOOMING_FRUIT|Gain and heal 31 Max HP.
+LORDS_PARASOL|On entering a shop, take its cards, relic and potion for free.
+LOST_COFFER|Choose a card reward and brew one potion.
+LOST_WISP|Each Power played deals 8 damage to all foes.
+LUCKY_FYSH|Each card added to your deck grants 15 Gold.
+LUNAR_PASTRY|Turn end: gain 1 Star.
+MANGO|Gain and heal 14 Max HP.
+FAKE_MANGO|Gain and heal 3 Max HP.
+MASSIVE_SCROLL|Adapted for solo: choose an upgraded Rare colorless reward.
+MAW_BANK|Each floor grants 12 Gold until you spend Gold in a shop.
+MEAL_TICKET|Entering a shop heals 15 HP.
+MEAT_CLEAVER|Camp option: gain and heal 5 Max HP.
+MEAT_ON_THE_BONE|Win a fight at half HP or below: heal 12 HP.
+MEMBERSHIP_CARD|Shop prices are halved. Additional copies halve them again.
+MERCURY_HOURGLASS|Turn start: deal 3 damage to all foes.
+METRONOME|Adapted: seventh generated card per combat deals 30 damage to all foes.
+MINI_REGENT|First Star payment per turn: gain 1 Strength.
+MINIATURE_CANNON|Upgraded Attacks gain 3 damage per hit.
+MINIATURE_TENT|At each camp, you may use each available action once.
+MOLTEN_EGG|New Attacks enter your deck upgraded.
+MR_STRUGGLES|Turn start: deal the turn number as damage to all foes.
+MUMMIFIED_HAND|Each Power played makes one random hand card free this turn.
+MUSIC_BOX|First Attack per turn creates an Ethereal copy in hand.
+MYSTIC_LIGHTER|Forged Attacks gain 9 damage per hit.
+NEOWS_BONES|Adapted: gain 2 random ordinary relics and an Injury.
+NEOWS_TALISMAN|Upgrade one Strike and one Defend in your deck.
+NEOWS_TORMENT|Adapted: add an upgraded Whirlwind to your deck.
+NEW_LEAF|Transform one chosen deck card.
+NINJA_SCROLL|Combat opening: create 3 Shivs.
+NUNCHAKU|Every tenth Attack played grants 1 Energy.
+NUTRITIOUS_OYSTER|Gain and heal 11 Max HP.
+NUTRITIOUS_SOUP|Strikes cost 0 Energy, but cannot be removed or transformed.
+ODDLY_SMOOTH_STONE|Combat opening: 1 Dexterity.
+OLD_COIN|Gain 300 Gold.
+ORANGE_DOUGH|Combat opening: create 2 random colorless cards.
+ORICHALCUM|Turn end with no Block: gain 6 Block.
+FAKE_ORICHALCUM|Turn end with no Block: gain 3 Block.
+ORNAMENTAL_FAN|Every third Attack in a turn grants 4 Block.
+ORRERY|Choose 5 separate card rewards.
+PAELS_BLOOD|Draw 1 additional card at each turn start.
+PAELS_CLAW|Adapted: Defends retain and cost 1 less Energy.
+PAELS_EYE|Once per combat, end a turn with no plays to exhaust your hand and skip the enemy turn.
+PAELS_FLESH|From turn 3 onward: +1 Energy each turn.
+PAELS_GROWTH|Adapted: forge Echo on one chosen card, replaying it once.
+PAELS_HORN|Adapted: add 2 upgraded Bound Shrug It Off cards to your deck.
+PAELS_LEGION|Double the first card Block gain, then recharge for 2 turns.
+PAELS_TEARS|End with spare Energy: gain 1 additional Energy next turn.
+PAELS_TOOTH|Adapted: remove 5 chosen cards. Next 5 victories each add an upgraded reward.
+PAELS_WING|Each second skipped card reward grants a relic.
+PANDORAS_BOX|Transform every Strike and Defend into a nonstarter of matching rarity or better.
+PANTOGRAPH|Boss opening: heal 25 HP.
+PAPER_KRANE|Weak foes deal 40% less damage. Additional copies reduce it a further 5%, cap 75%.
+PAPER_PHROG|Vulnerable foes take +75% damage; extra copies add another 25%.
+PARRYING_SHIELD|Turn end with 10+ Block: hit a random foe for 6.
+PEAR|Gain and heal 10 Max HP.
+PEN_NIB|Every tenth Attack deals double damage. Copies add another base multiplier.
+PENDULUM|Every third turn draws 1 extra card; count persists between fights.
+PERMAFROST|First Power played each combat: gain 7 Block.
+PETRIFIED_TOAD|Adapted: brew a Fire Potion at combat start if a slot is free.
+PHIAL_HOLSTER|Add a potion slot and brew 2 potions. Belt cap: 11.
+PHILOSOPHERS_STONE|+1 Energy per turn; each foe starts with 1 extra Strength.
+PHYLACTERY_UNBOUND|Adapted: opening 5 Block; each turn grants 2 Block and 2 Vigor.
+PLANISPHERE|Entering a mystery room heals 5 HP.
+POCKETWATCH|After playing at most 3 cards, draw 3 more cards next turn.
+POLLINOUS_CORE|Every fourth turn draws 2 extra cards.
+POMANDER|Upgrade a chosen deck card.
+POTION_BELT|Add 2 potion slots. Belt cap: 11.
+POWER_CELL|Opening hand receives up to 2 zero-cost cards from the draw pile.
+PRAYER_WHEEL|Normal victories offer one extra card reward.
+PRECARIOUS_SHEARS|Remove 2 chosen cards, then lose 16 HP.
+PRECISE_SCISSORS|Remove one chosen deck card.
+PRESERVED_FOG|Adapted: remove 3 chosen cards and add a Wound.
+PRISMATIC_GEM|+1 Energy per turn; rewards can come from all three characters.
+PUMPKIN_CANDLE|Next 5 combats: +1 Energy per turn. Camps can renew its 5 charges.
+PUNCH_DAGGER|Adapted: forge Keen on an Attack, then upgrade it.
+RADIANT_PEARL|Adapted: each opening hand receives a free Ethereal Prep Time.
+RAINBOW_RING|Play all 3 card types in one turn: gain 1 Strength and Dexterity once.
+RAZOR_TOOTH|Attacks and Skills upgrade after being played, for the rest of combat.
+RED_MASK|Combat opening: all foes gain 1 Weak.
+RED_SKULL|At half HP or below: +3 Strength for Attack damage.
+REGAL_PILLOW|Resting heals 15 additional HP.
+REGALITE|Each newly created combat card grants 2 Block.
+REPTILE_TRINKET|Using a potion grants 3 Strength for this turn.
+RING_OF_THE_DRAKE|First 3 turns: draw 2 more cards. Replaces Ring of the Snake.
+RING_OF_THE_SNAKE|Opening hand: draw 2 more cards.
+RINGING_TRIANGLE|Keep unplayed cards after the first turn.
+RIPPLE_BASIN|Turn end without an Attack: gain 4 Block.
+ROYAL_POISON|Combat opening: lose 4 HP.
+ROYAL_STAMP|Adapted: forge Echo on a chosen Attack or Skill.
+RUINED_HELMET|The first Strength gain each fight is doubled.
+RUNIC_CAPACITOR|Adapted: increase Core and Virus pulses by 3 per turn.
+RUNIC_PYRAMID|Keep unplayed cards between turns. Ethereal cards still exhaust.
+SAI|Each turn starts with 7 Block.
+SAND_CASTLE|Upgrade 6 random cards in your deck.
+SCREAMING_FLAGON|Turn end with an empty hand: deal 20 damage to all foes.
+SCROLL_BOXES|Adapted: choose 3 upgraded Uncommon card rewards.
+SEA_GLASS|Adapted: choose up to 5 rewards from other characters; each may be skipped.
+SEAL_OF_GOLD|Each turn, pay 5 Gold for 1 extra Energy when affordable.
+SELF_FORMING_CLAY|Each HP-loss event in combat grants 3 Block next turn.
+SERE_TALON|Adapted: add 2 Injuries and 3 upgraded Jack of All Trades cards.
+SHOVEL|Camp option: dig up an ordinary relic.
+SHURIKEN|Every third Attack in a turn grants 1 Strength.
+SIGNET_RING|Gain 999 Gold.
+SILKEN_TRESS|Lose all Gold; your next card reward gains Keen or Ward.
+SILVER_CRUCIBLE|Next 3 card rewards are upgraded; next treasure chest is empty.
+SLING_OF_COURAGE|Elite opening: gain 2 Strength.
+SMALL_CAPSULE|Gain one ordinary relic.
+SNECKO_EYE|Draw 2 extra cards each turn; drawn playable cards get a random 0-3 Energy cost.
+FAKE_SNECKO_EYE|Drawn playable cards receive a random 0-3 Energy cost this combat.
+SNECKO_SKULL|Each Poison application adds 1 Poison.
+SOZU|+1 Energy each turn; cannot acquire potions.
+SPARKLING_ROUGE|Turn 3: gain 1 Strength and 1 Dexterity.
+SPIKED_GAUNTLETS|+1 Energy each turn; Powers cost 1 extra Energy.
+STONE_CALENDAR|At the end of turn 7, deal 52 damage to all foes.
+STONE_CRACKER|Upgrade 2 random draw-pile cards for each combat.
+STONE_HUMIDIFIER|Resting grants and heals 5 Max HP.
+STORYBOOK|Adapted: add an upgraded Offering to your deck.
+STRAWBERRY|Gain and heal 7 Max HP.
+STRIKE_DUMMY|Strike-tagged Attacks gain 3 damage per hit.
+FAKE_STRIKE_DUMMY|Strike-tagged attacks gain 1 damage per hit.
+STURDY_CLAMP|Keep up to 10 Block when your next turn begins.
+SWORD_OF_JADE|Combat opening: gain 3 Strength.
+SWORD_OF_STONE|After 5 elite victories, becomes Sword of Jade.
+SYMBIOTIC_VIRUS|Adapted: turn-end pulse deals 6 damage, growing by 6 each turn.
+TANXS_WHISTLE|Adapted: add upgraded Summon Forth to your deck.
+TEA_OF_DISCOURTESY|Next fight only: add 2 Dazed to your draw pile.
+THE_ABACUS|Each reshuffle grants 6 Block.
+THE_BOOT|Unblocked Attack hits of 1-4 damage become 5.
+CHOSEN_CHEESE|Combat victory: gain and heal 1 Max HP.
+THE_COURIER|Shop goods restock after purchase. Prices fall by 20% per copy.
+FAKE_MERCHANTS_RUG|A counterfeit souvenir. No gameplay effect.
+THROWING_AXE|Replay the first card each combat once for free.
+TINGSHA|Each manual discard deals 3 damage to a random foe.
+TINY_MAILBOX|Resting brews 2 potions, limited by belt space.
+TOASTY_MITTENS|Each turn: exhaust the draw pile's top card, then gain 1 Strength.
+TOOLBOX|Choose a colorless opening card from 3 options.
+TOUCH_OF_OROBAS|Replace your starter with Black Blood, Ring of the Drake or Divine Destiny.
+TOUGH_BANDAGES|Each manual discard grants 3 Block.
+TOXIC_EGG|New Skills enter your deck upgraded.
+TOY_BOX|Adapted: gain 4 temporary relics; one is removed every 3 victories.
+TRI_BOOMERANG|Adapted: forge Bound on 3 chosen Attacks and upgrade them.
+TUNGSTEN_ROD|Reduce each HP-loss event by 1, after Block. Copies stack.
+TUNING_FORK|Every tenth Skill grants 7 Block.
+TWISTED_FUNNEL|Combat opening: apply 4 Poison to all foes.
+UNCEASING_TOP|Empty hand during your turn: draw a card. Extra copies draw extra cards.
+UNDYING_SIGIL|Adapted: foes with Poison at least equal to HP deal half damage.
+UNSETTLING_LAMP|First card that adds enemy debuffs each fight doubles those additions.
+VAJRA|Combat opening: gain 1 Strength.
+VAMBRACE|Double the first card Block gain of each fight.
+VELVET_CHOKER|+1 Energy each turn; at most 6 cards can resolve each turn, including replays.
+VENERABLE_TEA_SET|After entering camp, next combat starts with 2 extra Energy.
+FAKE_VENERABLE_TEA_SET|After entering camp, next combat starts with 1 extra Energy.
+VERY_HOT_COCOA|Opening turn: gain 4 extra Energy.
+VEXING_PUZZLEBOX|Create a random opening card that is free for that turn.
+VITRUVIAN_MINION|Minion-tagged cards deal double damage and grant double Block.
+WAR_HAMMER|Each elite victory upgrades 4 random deck cards.
+WAR_PAINT|Upgrade 2 random Skills in your deck.
+WHETSTONE|Upgrade 2 random Attacks in your deck.
+WHISPERING_EARRING|+1 Energy each turn. Your first turn autoplays affordable cards in hand order.
+WHITE_BEAST_STATUE|Every combat reward includes a potion, unless Sozu blocks it.
+WHITE_STAR|Each elite victory offers an extra Rare card reward.
+WING_CHARM|Adapted: one unmodified card per reward gains Bound.
+WINGED_BOOTS|Choose any map lane 3 times per copy, ignoring paths.
+WONGO_CUSTOMER_APPRECIATION_BADGE|A loyalty souvenir. No gameplay effect.
+WONGOS_MYSTERY_TICKET|After 5 combat victories, gain 3 random relics.
+YUMMY_COOKIE|Upgrade 4 chosen deck cards.

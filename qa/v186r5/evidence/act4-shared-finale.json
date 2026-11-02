@@ -1,0 +1,82 @@
+[
+  {
+    "frame": 0,
+    "tick": 1076,
+    "screen": 39,
+    "transition": 0,
+    "age": 64,
+    "brightness": 10646491
+  },
+  {
+    "frame": 1,
+    "tick": 1080,
+    "screen": 53,
+    "transition": 1,
+    "age": 0,
+    "brightness": 10646491
+  },
+  {
+    "frame": 2,
+    "tick": 1084,
+    "screen": 53,
+    "transition": 1,
+    "age": 4,
+    "brightness": 7971755
+  },
+  {
+    "frame": 3,
+    "tick": 1088,
+    "screen": 53,
+    "transition": 1,
+    "age": 8,
+    "brightness": 5305488
+  },
+  {
+    "frame": 4,
+    "tick": 1092,
+    "screen": 53,
+    "transition": 1,
+    "age": 12,
+    "brightness": 2651492
+  },
+  {
+    "frame": 5,
+    "tick": 1096,
+    "screen": 53,
+    "transition": 1,
+    "age": 16,
+    "brightness": 0
+  },
+  {
+    "frame": 6,
+    "tick": 1100,
+    "screen": 53,
+    "transition": 1,
+    "age": 20,
+    "brightness": 2993457
+  },
+  {
+    "frame": 7,
+    "tick": 1104,
+    "screen": 53,
+    "transition": 1,
+    "age": 24,
+    "brightness": 5983003
+  },
+  {
+    "frame": 8,
+    "tick": 1108,
+    "screen": 53,
+    "transition": 1,
+    "age": 28,
+    "brightness": 8992016
+  },
+  {
+    "frame": 9,
+    "tick": 1112,
+    "screen": 53,
+    "transition": 0,
+    "age": 32,
+    "brightness": 12007521
+  }
+]

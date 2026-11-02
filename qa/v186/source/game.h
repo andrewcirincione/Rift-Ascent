@@ -32,7 +32,7 @@ enum {EVENT_UPGRADE=8,EVENT_REMOVE,EVENT_COPY,EVENT_TRANSFORM};
 #define EVENT_COUNT 43
 enum {R162_EVENT_SEEN=12,R162_EVENT_LAST=13};
 
-enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR,EXPEDITION_STORY,EXPEDITION_GIFT,ABOMINATION_BEFORE,ABOMINATION_AFTER,MYSTERY_STORY,MYSTERY_CARDS,CUSTOM_CARDS,CUSTOM_ITEMS,CUSTOM_QUANTITY,CUSTOM_CONFIRM,BETA_FORGE,BETA_FORGE_CARD,ASCENT_FINALE};
+enum {TITLE,MAP,COMBAT,REWARD,REST,SHOP,EVENT,DECK_VIEW,VICTORY,DEFEAT,HELP,BOSS_REWARD,RELIC_VIEW,PAUSE_MENU,EVENT_RESULT,RELIC_RESULT,CARD_CHOICE,POTION_VIEW,BLESSING,REWARD_PREVIEW,ACT_INTRO,EVENT_CARD,CHARACTER_SELECT,NINJA_CHOICE,REGENT_CHOICE,NEW_RUN_CONFIRM,STORY_ACT,STORY_BOSS,STORY_ACT_BEFORE_BLESSING,ASCENT_SLOTS_VIEW,ASCENT_OVERWRITE,ASCENT_COLLECTION,ASCENT_OPTIONS,ASCENT_ENDING,ASCENT_CARDS,ASCENT_POTIONS,ASCENT_RELIC,ASCENT_REVELATION,ASCENT_BOSS,ASCENT_TRUE_END,ASCENT_SAVE_ERROR,EXPEDITION_STORY,EXPEDITION_GIFT,ABOMINATION_BEFORE,ABOMINATION_AFTER,MYSTERY_STORY,MYSTERY_CARDS,CUSTOM_CARDS,CUSTOM_ITEMS,CUSTOM_QUANTITY,CUSTOM_CONFIRM,BETA_FORGE,BETA_FORGE_CARD,ASCENT_FINALE,ANCIENT_PICK};
 enum {NODE_FIGHT,NODE_ELITE,NODE_EVENT,NODE_SHOP,NODE_REST,NODE_TREASURE,NODE_BOSS};
 enum {
  IC_AGGRESSION,IC_BARRICADE,IC_COLOSSUS,IC_CORRUPTION,
@@ -169,6 +169,7 @@ enum {
 
 
 #include "regent_ids.h"
+#include "ancient_ids.h"
 #define REGENT_TASK_MAX 128
 #define REGENT_INSTANCE_MAX 512
 typedef struct {int kind,raw,target,n,aux,depth;} RegentTask;
@@ -219,6 +220,17 @@ typedef struct {
  /* Append-only: old slots migrate with their original route topology. */
  struct {int custom,building,tab,quantity,item,return_tab,return_selection,route_style,seen_act;unsigned seen[2];} revision184;
  struct {int strangle2,mangle2;} revision185;
+ /* Append only: the 1.8.6-r4 prefix remains importable byte for byte. */
+ struct {
+  unsigned reward_seen[13];
+  unsigned short relic_counter[384];
+  int battle[64], run[32];
+  signed char card_cost[512];
+  unsigned char generated[64],ethereal[64];
+  short wax[96];
+  int extra_potions[8];
+ } revision186;
+
 } Game;
 #define STRANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.strangle2:&(g)->ninja.v[NS_STRANGLE0+(e)])
 #define MANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.mangle2:&(g)->ic[IC_MANGLE0+(e)])
@@ -242,6 +254,18 @@ extern const int CARD_COUNT;
 extern const RelicDef relic_defs[];
 extern const int RELIC_COUNT;
 int game_relic_id(const Game*,int);
+int game_potion_id(const Game*,int);
+int game_potion_capacity(const Game*);
+int game_ancient_count(const Game*);
+int game_ancient_card(const Game*,int);
+int game_ancient_eligible(const Game*,int);
+const char*game_ancient_title(const Game*);
+int game_ancient_reward(const Game*);
+int game_relic_is_ancient(int);
+int game_shop_price(const Game*,int);
+int game_rest_count(const Game*);
+const char*game_rest_title(const Game*,int);
+const char*game_rest_detail(const Game*,int);
 int expedition_scene(int screen);
 const char*expedition_title(const Game*);
 const char*expedition_line(const Game*);

@@ -30,10 +30,11 @@ def main():
     assert data[offsets[5]:offsets[5]+4] == b'RIFF', 'Missing home-screen music'
     assert offsets[3]-offsets[2]+offsets[6]-offsets[5] <= 480*1024, 'ICON1 + SND0 exceed safe combined PSP XMB budget'
 
-    expanded = data[-160:-152] == b'RIFTAU19'
+    abomination = data[-172:-164] == b'RIFTAU20'
+    expanded = abomination or data[-160:-152] == b'RIFTAU19'
     modern = expanded or data[-136:-128] == b'RIFTAU18'
-    track_count = 12 if expanded else 10 if modern else 5
-    footer = 160 if expanded else 136 if modern else 56
+    track_count = 13 if abomination else 12 if expanded else 10 if modern else 5
+    footer = 172 if abomination else 160 if expanded else 136 if modern else 56
     assert modern or data[-56:-48] == b'RIFTM311', 'Missing complete soundtrack'
     size, crc = struct.unpack('<II', data[-8:])
     payload = data[-footer-size:-footer]
@@ -42,7 +43,7 @@ def main():
     for i in range(track_count):
         if modern:
             offset, samples, rate = struct.unpack_from('<III', data, len(data)-footer+8+i*12)
-            assert rate == (44100 if i == 0 or i >= 10 else 22050)
+            assert rate == (44100 if i in (0,10,11) else 22050)
         else:
             offset, samples = struct.unpack_from('<II', data, len(data)-48+i*8)
         assert offset == cursor and samples > 11025

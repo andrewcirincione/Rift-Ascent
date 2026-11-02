@@ -1,4 +1,7 @@
 #include "game.h"
+#ifndef MAX
+#define MAX(a,b) ((a)>(b)?(a):(b))
+#endif
 #include "asset_stream.h"
 #include "font_smooth.h"
 #include "artwork.h"
@@ -126,7 +129,7 @@ void game_render_set_overlay(int kind,int page,int potion){
 static void r137_feedback(const Game*,const Game*,int,unsigned);
 void game_render_feedback(const Game *before,const Game *after,int action,unsigned tick){
  r137_feedback(before,after,action,tick);
- if(after->potion_count>before->potion_count&&before->screen==SHOP){r140_potion_gained=after->potions[after->potion_count-1];r140_potion_tick=tick;}
+ if(after->potion_count>before->potion_count&&before->screen==SHOP){r140_potion_gained=game_potion_id(after,after->potion_count-1);r140_potion_tick=tick;}
  else if(before->screen!=after->screen||(before->screen==SHOP&&before->selection==5&&action==BTN_OK))r140_potion_gained=-1;
  /* Potion success uses the normal meters, icons and combat animation.
     Do not cover the battlefield with a duplicate text confirmation. */
@@ -571,7 +574,7 @@ static void r138_player_meter(const Game*g){
  if(g->block>0){rift131_shield(x+143,y+5);snprintf(value,sizeof(value),"%d",g->block);r1310_block_number(x+153,y+10,value);}
 }
 static const uint16_t *rift130_fight(const Game *g){
- if(g->act==7&&g->battle_type==NODE_BOSS)return expedition_god_arena;
+ if(g->act==6&&g->battle_type==NODE_BOSS)return expedition_god_arena;
  if(g->act>=4)return g->act==4&&g->ascent.secret&&g->battle_type==NODE_BOSS?ascent_unmaker_arena:ascent_act4_fight;
  int act=CLAMP(g->act-1,0,2),variant=(g->floor+g->lane)&1;
  return r162_world[act][g->battle_type==NODE_BOSS?6:g->battle_type==NODE_ELITE?4+variant:2+variant];
@@ -728,6 +731,7 @@ static void r150b_relic_icon(int x,int y,int size,int id){
  /* The oldest forty relic IDs formerly shared one generic icon. Reuse the
     broader themed icon library so old and newly unlocked items belong together. */
  static const unsigned char legacy_art[40]={72,76,70,69,53,64,66,74,68,55,47,85,66,43,61,70,67,69,80,73,64,59,56,64,72,66,45,81,70,68,73,57,60,40,53,71,68,61,79,87};
+ if(id>=94)id=74+(id-94)%20;
  if(id>=0&&id<40)id=legacy_art[id];
  static const unsigned char expedition_icons[20]={0,1,2,3,4,5,6,7,2,1,7,4,0,5,3,6,1,2,7,5};
  if(id>=74&&id<94)r134_blit(x,y,size,size,expedition_relic_art[expedition_icons[id-74]],80,80,255);
@@ -1087,17 +1091,12 @@ static void boss_reward_screen(const Game*g){
  footer("X CONFIRM  O SKIP");
 }
 static void rest_screen(const Game*g){
- header(g,"REST SITE / A MOMENT OF PEACE");
- for(int i=0;i<2;i++){
-  int x=30+i*230;gilded_panel(x,47,190,199,g->selection==i);
-  r134_blit(x+55,69,80,80,i?r134_event_icons[10]:r134_campfire,80,80,255);
-  r134_center(x+95,158,i?"TEMPER YOUR STEEL":"THE EMBERS REMAIN",GOLD,&r134_f9b);
-  int chosen=g->selection==i;
-  if(!chosen)dark_rect(x+6,53,178,187,125);
-  button(x+7,197,176,32,i?"UPGRADE A CARD":"HEAL 30% HP",chosen);
-  if(chosen)r134_blit(x+74,42,42,28,r138_choice,42,28,255);
- }
- footer("X CONFIRM  TRI POTIONS  SQ DECK  START INVENTORY");
+ header(g,"CAMPFIRE");
+ int count=game_rest_count(g),first=MAX(0,g->selection-4);
+ for(int i=first;i<count&&i<first+5;i++){int y=57+(i-first)*36;gilded_panel(25,y,204,31,i==g->selection);r134_text(40,y+10,game_rest_title(g,i),i==g->selection?GOLD:WHITE,&r134_f10);}
+ r134_wrap(257,80,191,9,14,game_rest_detail(g,g->selection),WHITE,&r134_f10,0);
+ if(g->message[0])r134_wrap(253,210,194,3,11,g->message,GOLD,&r134_f9,0);
+ footer("D-PAD CHOOSE   X CONFIRM   TRIANGLE INVENTORY");
 }
 static void event_screen(const Game*g){
  header(g,"A CHOICE IN THE DARK");
@@ -1175,7 +1174,7 @@ static void shop_screen(const Game*g){
    }else if(i==3)snprintf(label,sizeof(label),"RELIC %s",
         g->shop_relic>=0?relic_defs[g->shop_relic].name:"SOLD OUT");
    else if(i==4)snprintf(label,sizeof(label),"SERVICE REMOVE CARD");
-   else if(i==5)snprintf(label,sizeof(label),"POTION RANDOM  %d/%d",g->potion_count,MAX_POTIONS);
+   else if(i==5)snprintf(label,sizeof(label),"POTION RANDOM  %d/%d",g->potion_count,game_potion_capacity(g));
    else if(i==6)snprintf(label,sizeof(label),"LEAVE THE STORE");
    r134_wrap(36,y+8,195,1,10,label,chosen?WHITE:MUTED,&r134_f9,0);
  }
@@ -1186,30 +1185,30 @@ static void shop_screen(const Game*g){
     else{
       snprintf(title,sizeof(title),"%s",cards[id].name);
       snprintf(caption,sizeof(caption),"%s",cards[id].desc);
-      price=50+25*cards[id].rarity-discount;
+      price=game_shop_price(g,50+25*cards[CARD_ID(id)].rarity);
     }
  }else if(selected==3){
     if(g->shop_relic<0){snprintf(title,sizeof(title),"SOLD OUT");snprintf(caption,sizeof(caption),"The relic has been purchased.");}
     else{
       snprintf(title,sizeof(title),"%s",relic_defs[g->shop_relic].name);
       snprintf(caption,sizeof(caption),"%s",relic_defs[g->shop_relic].desc);
-      price=155-discount;
+      price=game_shop_price(g,155);
     }
  }else if(selected==4){
     snprintf(title,sizeof(title),"CARD REMOVAL");
     snprintf(caption,sizeof(caption),"Permanently remove one card from the deck. You pay only upon removal.");
-    price=60;
+    price=game_shop_price(g,60);
  }else if(selected==5){
     snprintf(title,sizeof(title),"RANDOM POTION");
-    snprintf(caption,sizeof(caption),g->potion_count==MAX_POTIONS?"Belt full (3/3). Use a potion to make room.":"Gain one random potion. Belt: %d/3 slots.",g->potion_count);
-    price=50;
+    snprintf(caption,sizeof(caption),g->potion_count==game_potion_capacity(g)?"Belt full. Use or discard a potion to make room.":"Gain one random potion. Belt: %d slots used.",g->potion_count);
+    price=game_shop_price(g,50);
  }else if(selected==6){
     snprintf(title,sizeof(title),"LEAVE SHOP");
     snprintf(caption,sizeof(caption),"Keep your purchases and continue along the connected route.");
  }else{
     snprintf(title,sizeof(title),"RANDOM POTION");
     snprintf(caption,sizeof(caption),"Receive one random potion if your three-slot belt has space.");
-    price=50;
+    price=game_shop_price(g,50);
  }
  if(selected<3&&g->shop_cards[selected]>=0){
    card_render(295,51,126,166,g->shop_cards[selected],1,1);
@@ -1220,23 +1219,23 @@ static void shop_screen(const Game*g){
    r134_wrap(265,134,186,6,13,caption,WHITE,&r134_f10,0);
  }
  if(price){
-   if(selected==5&&g->potion_count==MAX_POTIONS)snprintf(cost,sizeof(cost),"BELT FULL");
+   if(selected==5&&g->potion_count==game_potion_capacity(g))snprintf(cost,sizeof(cost),"BELT FULL");
    else snprintf(cost,sizeof(cost),"PRICE %d GOLD",price);
-   text(270,227,cost,g->gold>=price&&!(selected==5&&g->potion_count==MAX_POTIONS)?GREEN:RED,1);
+   text(270,227,cost,g->gold>=price&&!(selected==5&&g->potion_count==game_potion_capacity(g))?GREEN:RED,1);
  }
  if(r140_potion_gained>=0&&animation_tick-r140_potion_tick<720)r140_potion_card(g,r140_potion_gained,28,209,424);
  footer("X BUY  O LEAVE  TRI POTIONS  SQ DECK  START INVENTORY");
 }
 static void potion_screen(const Game*g){
- char title[32];snprintf(title,sizeof(title),"POTION BELT / %d OF %d",g->potion_count,MAX_POTIONS);header(g,title);
- for(int i=0;i<g->potion_count;i++){
-  int y=53+i*56;if(i==g->selection)r134_blit(27,y,426,54,r140_selection,208,28,255);
-  ascent_potion_icon(42,y+8,36,g->potions[i]);
-  r134_text(112,y+10,game_potion_name(g->potions[i]),GOLD,&r134_f10);
-  r134_wrap(89,y+27,341,2,12,game_potion_description_now(g,g->potions[i]),WHITE,&r134_f9,0);
+ char title[32];snprintf(title,sizeof(title),"POTION BELT / %d OF %d",g->potion_count,game_potion_capacity(g));header(g,title);
+ for(int i=MAX(0,g->selection-2);i<g->potion_count&&i<MAX(0,g->selection-2)+3;i++){
+  int y=53+(i-MAX(0,g->selection-2))*56;if(i==g->selection)r134_blit(27,y,426,54,r140_selection,208,28,255);
+  ascent_potion_icon(42,y+8,36,game_potion_id(g,i));
+  r134_text(112,y+10,game_potion_name(game_potion_id(g,i)),GOLD,&r134_f10);
+  r134_wrap(89,y+27,341,2,12,game_potion_description_now(g,game_potion_id(g,i)),WHITE,&r134_f9,0);
  }
  if(!g->potion_count)center(240,110,"NO POTIONS",MUTED,1);
- const char*hint=g->message[0]?g->message:g->potion_count&&g->potions[g->selection]!=0?"Use this potion during combat.":"Healing potions can be used here.";
+ const char*hint=g->message[0]?g->message:g->potion_count&&game_potion_id(g,g->selection)!=0?"Use this potion during combat.":"Healing potions can be used here.";
  r134_center(240,228,hint,WHITE,&r134_f8);
  footer("X USE  O RETURN");
 }
@@ -1283,14 +1282,20 @@ static void ninja_choice_screen(const Game*g){
  footer(g->ninja.choice_kind==4?"X RETAIN   O FINISH":"X CONFIRM   SELECT SAVE & QUIT");
 }
 static void blessing_screen(const Game*g){
- char title[60];snprintf(title,sizeof(title),"ACT %d / CHOOSE YOUR BLESSING",g->act);header(g,title);
- for(int i=0;i<3;i++){int x=22+i*149,id=g->reward[i],chosen=i==g->selection,dy=chosen?-4:0;
-  gilded_panel(x,48+dy,140,196,chosen);
-  if(id>=1000){int raw=id-1000;r134_card_art(x+19,72+dy,102,55,raw);r134_wrap(x+13,135+dy,114,2,13,cards[raw].name,GOLD,&r138_title9,0);r134_wrap(x+13,166+dy,114,6,11,raw==R_METEOR_SHOWER?"Transform Falling Star into Meteor Shower, or gain it if absent.":raw==R_THE_SEALED_THRONE?card_description(raw):raw==N_SUPPRESS?"Transform Neutralize into Suppress, or gain it if you have no Neutralize.":"Add Wraith Form to your deck. Gain Intangible; lose Dexterity each turn.",WHITE,&r134_f9,0);}
-  else{r150b_relic_icon(x+49,69+dy,42,id);r134_wrap(x+13,119+dy,114,2,13,relic_defs[id].name,GOLD,&r138_title9,0);r134_wrap(x+13,154+dy,114,7,11,relic_defs[id].desc,WHITE,&r134_f9,0);}
-  if(chosen)r134_blit(x+49,35,42,28,r138_choice,42,28,255);else dark_rect(x+7,55,126,182,70);
+ char title[64];snprintf(title,sizeof(title),"ACT %d / ANCIENT BLESSING",g->act);header(g,title);
+ for(int i=0;i<3;i++){int x=15+i*152,chosen=i==g->selection,dy=chosen?-3:0,id=g->reward[i];
+  gilded_panel(x,57+dy,145,186,chosen);
+  if(id>=1000){int raw=id-1000;r134_card_art(x+30,64+dy,85,48,raw);r134_wrap(x+10,117+dy,125,2,12,cards[CARD_ID(raw)].name,GOLD,&r138_title9,0);r134_wrap(x+10,146+dy,125,8,11,card_description(raw),WHITE,&r134_f9,0);}
+  else{r150b_relic_icon(x+55,64+dy,34,id);r134_wrap(x+10,104+dy,125,2,12,relic_defs[id].name,GOLD,&r138_title9,0);r134_wrap(x+10,135+dy,125,9,11,relic_defs[id].desc,WHITE,&r134_f9,0);}
  }
- footer("X ACCEPT BLESSING");
+ footer("LEFT / RIGHT CHOOSE   X ACCEPT   TRIANGLE INVENTORY");
+}
+static void ancient_pick_screen(const Game*g){
+ header(g,game_ancient_title(g));int n=game_ancient_count(g),first=g->selection/6*6;
+ if(game_ancient_reward(g)){for(int i=0;i<3;i++)card_render(26+i*153,61,124,173,game_ancient_card(g,i),i==g->selection,1);}
+ else{for(int i=first;i<n&&i<first+6;i++){int x=26+(i-first)%3*96,y=59+(i-first)/3*96;card_render(x,y,80,92,game_ancient_card(g,i),i==g->selection,game_ancient_eligible(g,i));}if(n)r162_side_preview(game_ancient_card(g,g->selection),62);}
+ if(g->message[0])r134_wrap(24,237,432,1,11,g->message,GOLD,&r134_f9,1);
+ footer("X CHOOSE   O FINISH / SKIP   TRIANGLE INVENTORY");
 }
 static void reward_preview_screen(const Game*g){
  header(g,"CARD REWARD / INSPECT");int raw=g->reward[g->selection];
@@ -1453,13 +1458,13 @@ static void inspector(const Game*g){
    if(!count)r134_text(39,119,"No active powers or status effects.",MUTED,&r134_f9);
    if(count>7){snprintf(b,sizeof(b),"%d-%d / %d",first+1,MIN(first+7,count),count);r134_text(370,225,b,GOLD,&r134_f8);}
  }else if(overlay_page==3) {
-    for(int i=0;i<g->potion_count;i++){
-       int y=82+i*44;int selected=(i==overlay_potion);
+    for(int i=MAX(0,overlay_potion-2);i<g->potion_count&&i<MAX(0,overlay_potion-2)+3;i++){
+       int y=82+(i-MAX(0,overlay_potion-2))*44;int selected=(i==overlay_potion);
        if(selected)r134_blit(30,y-5,420,43,r151_selection,420,60,255);
-       snprintf(b,sizeof(b),"%d. %s",i+1,game_potion_name(g->potions[i]));
+       snprintf(b,sizeof(b),"%d. %s",i+1,game_potion_name(game_potion_id(g,i)));
        r134_text(112,y+1,b,selected?GOLD:WHITE,&r134_f9b);
-       ascent_potion_icon(78,y+1,27,g->potions[i]);
-       r134_wrap(112,y+15,300,2,10,game_potion_description_now(g,g->potions[i]),WHITE,&r134_f8,0);
+       ascent_potion_icon(78,y+1,27,game_potion_id(g,i));
+       r134_wrap(112,y+15,300,2,10,game_potion_description_now(g,game_potion_id(g,i)),WHITE,&r134_f8,0);
     }
     if(g->potion_count==0)center(240,113,"NO POTIONS IN YOUR BELT",MUTED,1);
     if(!memcmp(g->message,"Use this potion",15)||!memcmp(g->message,"Already at full",15))r134_wrap(44,225,390,1,10,g->message,GOLD,&r134_f8,0);
@@ -1584,6 +1589,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  case RELIC_RESULT:relic_result_screen(g);break;
  case REWARD:reward_screen(g);break;
  case BLESSING:blessing_screen(g);break;
+ case ANCIENT_PICK:ancient_pick_screen(g);break;
  case REWARD_PREVIEW:reward_preview_screen(g);break;
  case BOSS_REWARD:boss_reward_screen(g);break;
  case REST:rest_screen(g);break;

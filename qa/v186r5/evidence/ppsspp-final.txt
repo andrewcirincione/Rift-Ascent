@@ -1,0 +1,58 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE boons-0
+SHOT completed frame boons-0 80
+SHOT completed frame boons-highlight-0 108
+SHOT completed frame boon-inventory-0 136
+FIXTURE boons-1
+SHOT completed frame boons-1 172
+SHOT completed frame boons-highlight-1 200
+SHOT completed frame boon-inventory-1 228
+FIXTURE boons-2
+SHOT completed frame boons-2 264
+SHOT completed frame boons-highlight-2 292
+SHOT completed frame boon-inventory-2 320
+FIXTURE ancient-pick
+SHOT completed frame ancient-pick 356
+SHOT completed frame ancient-pick-highlight 384
+FIXTURE camp
+SHOT completed frame camp 456
+SHOT completed frame camp-train 500
+SHOT completed frame camp-after-train 528
+FIXTURE belt
+SHOT completed frame belt 548
+SHOT completed frame belt-scroll 576
+FIXTURE carry
+SHOT completed frame carry-before 596
+SHOT completed frame carry-after 648
+PASS actual PSP Ice Cream retains 17 Energy and adds 3
+FIXTURE void-form
+SHOT completed frame void-form-replay 716
+PASS actual PSP replayed Void Form ends once without locking combat
+FIXTURE act6-entry
+SHOT completed frame act6-intro 736
+SHOT completed frame act6-abomination 820
+PASS actual PSP Act 6 intro -> Abomination + two minions; RiftAbomination track 12 streams nonzero stereo PCM
+FIXTURE act7-entry
+SHOT completed frame act7-random 840
+PASS actual PSP Act 7 uses random boss without Abomination cutscene
+FIXTURE gate-0-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-0-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-1-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-1-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-2-3
+QA skipped repeated finisher presentation after resolution
+FIXTURE gate-2-4
+QA skipped repeated finisher presentation after resolution
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame shared-finale 2104
+FIXTURE repeat-0
+QA skipped repeated finisher presentation after resolution
+PASS PSP fifth-win gate and once-only shared finale preserved
+PASS final release EBOOT: Ancient boons, retained Energy, belt, Act 6 music, Act 7 rotation and ending gates ; full soundtrack, zero art or memory errors
+SHA256 13c02039daa2a907be4e4a5e5502f7c2681553e545adf1bff07a8a35b5008b2a
