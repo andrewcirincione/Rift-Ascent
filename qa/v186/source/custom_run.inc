@@ -2,7 +2,7 @@
    are applied once, only after the player confirms the complete loadout. */
 int custom_setup_screen(int s){return s>=CUSTOM_CARDS&&s<=CUSTOM_CONFIRM;}
 static int custom_card_tab(int id){
- if(id==63||id==85||id==N_FLANKING||id==N_SNEAKY)return -1;
+ if(id==63||id==85||id==RIFT_CARD_130||id==RIFT_CARD_169)return -1;
  if(id>=ASCENT_CARD_FIRST)return (id-ASCENT_CARD_FIRST)/20;
  if(id<NINJA_FIRST)return 0;if(id<NINJA_LAST)return 1;return 2;
 }

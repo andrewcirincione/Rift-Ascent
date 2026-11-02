@@ -808,7 +808,7 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
  if(!small&&r134_lines(rules,inner,body,check)>rows){body=&r134_f8;lead=9;rows=(bottom-by)/lead;}
  if(rows>0)r134_wrap(x+inset,by,inner,rows,lead,rules,WHITE,body,small);
  if(selected&&!active&&card_combat_context&&!small&&(energy>card_combat_context->energy||star>card_combat_context->regent.stars)){
-  char missing[40];if(energy>card_combat_context->energy)snprintf(missing,sizeof(missing),"NEED %d MORE ENERGY",energy-card_combat_context->energy);else snprintf(missing,sizeof(missing),"NEED %d MORE STARS",star-card_combat_context->regent.stars);
+  char missing[40];if(energy>card_combat_context->energy)snprintf(missing,sizeof(missing),"NEED %d MORE ENERGY",energy-card_combat_context->energy);else snprintf(missing,sizeof(missing),"NEED %d MORE ECHO",star-card_combat_context->regent.stars);
   r134_blit(x,y-16,w,17,r140_selection,208,28,255);
   r134_center(x+w/2,y-12,missing,RGB(255,160,130),&r134_f8);
  }
@@ -940,7 +940,7 @@ static void combat(const Game*g){
  char b[16];
  if(game_shows_stars(g)){r134_blit(8,180,38,38,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,190,b,WHITE,&r134_f18b);
   snprintf(b,sizeof(b),"%d",g->regent.stars);const RiftFont*f=g->regent.stars>99?&r134_f9b:&r134_f18b;
-  r160_star_badge(7,217,40,b,f,g->regent.stars>0,0);
+  r160_star_badge(7,217,40,b,f,g->regent.stars>0,0);r134_center(27,246,"ECHO",GOLD,&r134_f8);
  }else{r134_blit(4,199,46,46,g->energy==0?r140_energy_empty:r134_energy,46,46,255);snprintf(b,sizeof(b),"%d",g->energy);r134_center(27,212,b,WHITE,&r134_f18b);}
  int start=rift133_hand_start(g),playing=r134_playing();
  for(int i=start;i<g->hand_count&&i<start+5;i++){
@@ -965,7 +965,7 @@ static void combat(const Game*g){
  if(end_selected)r134_blit(398,223,13,10,r1310_arrow,36,28,255);
  int need_energy=g->selection<g->hand_count&&game_card_cost_now(g,g->hand[g->selection])>g->energy;
  int need_stars=g->selection<g->hand_count&&game_card_star_cost(g,g->hand[g->selection])>g->regent.stars;
- card_combat_context=0;footer(need_stars?"NOT ENOUGH STARS   O END   TRI POTIONS   SQ DECK   START STATUS":need_energy?"NOT ENOUGH ENERGY   O END   TRI POTIONS   SQ DECK   START STATUS":"X PLAY   O END   TRI POTIONS   SQ DECK   START STATUS");
+ card_combat_context=0;footer(need_stars?"NOT ENOUGH ECHO   O END   TRI POTIONS   SQ DECK   START STATUS":need_energy?"NOT ENOUGH ENERGY   O END   TRI POTIONS   SQ DECK   START STATUS":"X PLAY   O END   TRI POTIONS   SQ DECK   START STATUS");
 }
 
 static uint32_t node_color(int n){switch(n){case NODE_FIGHT:return RED;case NODE_ELITE:return PURPLE;case NODE_EVENT:return BLUE;case NODE_REST:return GREEN;case NODE_SHOP:return GOLD;case NODE_TREASURE:return RGB(209,160,72);default:return WHITE;}}
@@ -1158,8 +1158,7 @@ static void shop_screen(const Game*g){
  dark_rect(0,28,480,224,165);
 
  header(g,"BLACK MARKET / INSPECT BEFORE YOU BUY");
- int discount=0;
- for(int i=0;i<g->relic_count;i++)if(game_relic_id(g,i)==6)discount=30;
+ int discount=game_shop_discount(g);
  char label[90],caption[140],title[52],cost[24];
  int selected=g->selection,price=0;
  gilded_panel(10,44,230,204,0);
@@ -1186,7 +1185,7 @@ static void shop_screen(const Game*g){
     else{
       snprintf(title,sizeof(title),"%s",cards[id].name);
       snprintf(caption,sizeof(caption),"%s",cards[id].desc);
-      price=50+25*cards[id].rarity-discount;
+      price=50+25*cards[id].rarity-discount;if(price<5)price=5;
     }
  }else if(selected==3){
     if(g->shop_relic<0){snprintf(title,sizeof(title),"SOLD OUT");snprintf(caption,sizeof(caption),"The relic has been purchased.");}
@@ -1254,7 +1253,7 @@ static void character_screen(const Game*g){
  Game display=*g;display.hp=display.maxhp=g->selection==1?70:g->selection==2?75:80;display.gold=g->selection?99:95;
  header(&display,g->endless?"ENDLESS / CHOOSE YOUR CHARACTER":"ASCENT / CHOOSE YOUR CHARACTER");
  const char*names[]={"WARDEN","VESPER","PROXY"};const char*hp[]={"80 HP / 3 ENERGY","70 HP / 3 ENERGY","75 HP / 3 ENERGY"};
- const char*build[]={"Strength / Block","Shivs / Poison","Stars / Forge"};const char*gift[]={"Heal 6 after victory","Draw 2 at combat start","Start combat: 3 Stars"};
+ const char*build[]={"Guard / Release","Cadence / Wither","Reserve / Release"};const char*gift[]={"Start: 2 Echo; heal 3 on win","Start: draw 1; switches guard","Start: 2 Echo; turn 3: draw 1"};
  for(int i=0;i<3;i++){int x=12+i*156,chosen=g->selection==i,dy=chosen?-4:0;gilded_panel(x,47+dy,144,194,chosen);
   r134_center(x+72,57+dy,names[i],chosen?GOLD:WHITE,&r138_title10);
   r160_sprite(x,78+dy,144,96,i==1?&r161_vesper[0]:i==2?&r161_proxy_idle[0]:&r161_warden[0],0);
@@ -1286,7 +1285,7 @@ static void blessing_screen(const Game*g){
  char title[60];snprintf(title,sizeof(title),"ACT %d / CHOOSE YOUR BLESSING",g->act);header(g,title);
  for(int i=0;i<3;i++){int x=22+i*149,id=g->reward[i],chosen=i==g->selection,dy=chosen?-4:0;
   gilded_panel(x,48+dy,140,196,chosen);
-  if(id>=1000){int raw=id-1000;r134_card_art(x+19,72+dy,102,55,raw);r134_wrap(x+13,135+dy,114,2,13,cards[raw].name,GOLD,&r138_title9,0);r134_wrap(x+13,166+dy,114,6,11,raw==R_METEOR_SHOWER?"Transform Falling Star into Meteor Shower, or gain it if absent.":raw==R_THE_SEALED_THRONE?card_description(raw):raw==N_SUPPRESS?"Transform Neutralize into Suppress, or gain it if you have no Neutralize.":"Add Wraith Form to your deck. Gain Intangible; lose Dexterity each turn.",WHITE,&r134_f9,0);}
+  if(id>=1000){int raw=id-1000;r134_card_art(x+19,72+dy,102,55,raw);r134_wrap(x+13,135+dy,114,2,13,cards[raw].name,GOLD,&r138_title9,0);r134_wrap(x+13,166+dy,114,6,11,card_description(raw),WHITE,&r134_f9,0);}
   else{r150b_relic_icon(x+49,69+dy,42,id);r134_wrap(x+13,119+dy,114,2,13,relic_defs[id].name,GOLD,&r138_title9,0);r134_wrap(x+13,154+dy,114,7,11,relic_defs[id].desc,WHITE,&r134_f9,0);}
   if(chosen)r134_blit(x+49,35,42,28,r138_choice,42,28,255);else dark_rect(x+7,55,126,182,70);
  }
@@ -1382,7 +1381,7 @@ static void title_screen(const Game*g){
 }
 
 static void help_screen(const Game*g){
- header(g,"WALK THE SPIRE / CONTROLS");
+ header(g,"RIFT ASCENT / CONTROLS");
  text(29,67,"Choose cards, paths and menus",WHITE,1);
  text(29,87,"CROSS  Select or play a card",WHITE,1);
  text(29,107,"RIGHT  Move to END, CROSS ends turn",WHITE,1);
@@ -1390,8 +1389,8 @@ static void help_screen(const Game*g){
  text(29,147,"TRIANGLE  Open potion belt / use any",WHITE,1);
 
  text(29,167,"Win fights, grow your deck, defeat 3 bosses.",GOLD,1);
- text(29,187,"Weak -25% dealt; Vulnerable +50% taken.",MUTED,1);
- text(29,202,"Sly: active discards play the card free.",MUTED,1);
+ text(29,187,"Falter -25% dealt; Fracture +50% taken.",MUTED,1);
+ text(29,202,"Echo persists; release it for card bonuses.",MUTED,1);
  text(29,223,"CROSS / CIRCLE   RETURN",GOLD,1);
  footer("RIFT ASCENT  /  THREE CHARACTERS  /  THREE ACTS");
 }
@@ -1420,7 +1419,7 @@ static void inspector(const Game*g){
        snprintf(b,sizeof(b),"%s: %s per hit",g->enemies[e].name,p.uncertain?"variable":value);
        r134_text(176,y,b,GOLD,&r134_f9);y+=14;
       }
-      r134_text(176,207,"Damage is before enemy Block.",MUTED,&r134_f9);
+      r134_text(176,207,"Damage is before enemy Guard.",MUTED,&r134_f9);
       if(p.random||p.uncertain)r134_text(176,221,"Random effects can change the result.",MUTED,&r134_f8);
       card_combat_context=0;
    }else r134_text(43,99,g->screen==COMBAT?"END TURN selected.":"Browse your cards in the DECK tab.",WHITE,&r134_f9);
@@ -1429,7 +1428,7 @@ static void inspector(const Game*g){
    for(int e=0;g->screen==COMBAT&&e<g->enemy_count;e++){
     const Enemy*foe=&g->enemies[e];int x=37+e*216;
     r134_wrap(x,82,194,2,11,foe->name,e==g->target?GOLD:WHITE,&r134_f9b,0);
-    snprintf(b,sizeof(b),"HP %d/%d   Block %d",(foe->hp>0?foe->hp:0),foe->maxhp,foe->block);
+    snprintf(b,sizeof(b),"HP %d/%d   Guard %d",(foe->hp>0?foe->hp:0),foe->maxhp,foe->block);
     r134_text(x,109,b,WHITE,&r134_f9);
     int count=game_enemy_status_count(g,e);
     for(int i=0;i<count;i++){game_enemy_status_line(g,e,i,b,sizeof(b));r134_wrap(x,127+i*15,194,1,11,b,WHITE,&r134_f8,0);}

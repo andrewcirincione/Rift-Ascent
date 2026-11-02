@@ -1,0 +1,47 @@
+[
+  {
+    "name": "fresh-a",
+    "runs": 3000,
+    "wins": 654,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 3,
+    "policy": 0,
+    "unlocked": 0
+  },
+  {
+    "name": "fresh-b",
+    "runs": 3000,
+    "wins": 676,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 3,
+    "policy": 0,
+    "unlocked": 0
+  },
+  {
+    "name": "unlocked",
+    "runs": 3000,
+    "wins": 746,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 3,
+    "policy": 0,
+    "unlocked": 1
+  },
+  {
+    "name": "defensive",
+    "runs": 1800,
+    "wins": 476,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 3,
+    "policy": 1,
+    "unlocked": 0
+  },
+  {
+    "name": "secret",
+    "runs": 900,
+    "wins": 225,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 4,
+    "policy": 0,
+    "unlocked": 1
+  }
+]

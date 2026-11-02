@@ -1,0 +1,132 @@
+[
+  {
+    "id": 0,
+    "name": "Hearth Sip",
+    "description": "Recover 15 HP. Gain 7 Gold."
+  },
+  {
+    "id": 1,
+    "name": "Rivet Tonic",
+    "description": "Gain 1 Force and 8 Guard."
+  },
+  {
+    "id": 2,
+    "name": "Slate Draught",
+    "description": "Gain 17 Guard and 2 Echo."
+  },
+  {
+    "id": 3,
+    "name": "Censer Spark",
+    "description": "Hit all foes for 13. Apply 2 Wither to all."
+  },
+  {
+    "id": 4,
+    "name": "Lantern Cordial",
+    "description": "Gain 1 Energy and 3 Echo."
+  },
+  {
+    "id": 5,
+    "name": "Murmur Ink",
+    "description": "Draw 2. Gain 6 Guard."
+  },
+  {
+    "id": 6,
+    "name": "Kiln Nectar",
+    "description": "Recover 9 HP. Gain 2 Echo."
+  },
+  {
+    "id": 7,
+    "name": "Rime Decanter",
+    "description": "Gain 19 Guard. Apply 2 Falter to the target."
+  },
+  {
+    "id": 8,
+    "name": "Silt Essence",
+    "description": "Apply 6 Wither to all. Gain 4 Guard."
+  },
+  {
+    "id": 9,
+    "name": "Meridian Milk",
+    "description": "Gain 5 Echo. Draw 1."
+  },
+  {
+    "id": 10,
+    "name": "Brass Infusion",
+    "description": "Gain 3 Echo and 13 Guard."
+  },
+  {
+    "id": 11,
+    "name": "Pilgrim Dew",
+    "description": "Recover 21 HP. Gain 5 Gold. Use anywhere."
+  },
+  {
+    "id": 12,
+    "name": "Flue Extract",
+    "description": "Hit the target for 27. Gain 1 Echo."
+  },
+  {
+    "id": 13,
+    "name": "Opal Solvent",
+    "description": "Clear Falter and Fracture. Gain 11 Guard."
+  },
+  {
+    "id": 14,
+    "name": "Choir Distillate",
+    "description": "Draw 3. Gain 2 Echo."
+  },
+  {
+    "id": 15,
+    "name": "Scoria Elixir",
+    "description": "Gain 2 Energy and 7 Guard. Lose 3 HP."
+  },
+  {
+    "id": 16,
+    "name": "Needle Phial",
+    "description": "Create 3 Needlewakes. Gain 5 Guard."
+  },
+  {
+    "id": 17,
+    "name": "Foundry Resin",
+    "description": "Gain 2 Force and 2 Echo."
+  },
+  {
+    "id": 18,
+    "name": "Veil Solution",
+    "description": "Apply 2 Falter to all. Gain 9 Guard."
+  },
+  {
+    "id": 19,
+    "name": "Wayfarer Oil",
+    "description": "Gain 31 Gold. Recover 4 HP. Use anywhere."
+  },
+  {
+    "id": 20,
+    "name": "Twilight Syrup",
+    "description": "Hit all for 11. Gain 15 Guard."
+  },
+  {
+    "id": 21,
+    "name": "Cairn Marrow",
+    "description": "Gain 3 max HP. Recover 9 HP. Use anywhere."
+  },
+  {
+    "id": 22,
+    "name": "Horizon Condensate",
+    "description": "Draw 1. Gain 1 Energy and 2 Echo."
+  },
+  {
+    "id": 23,
+    "name": "Saltwash",
+    "description": "Remove 12 Guard from all foes. Apply 5 Wither to all."
+  },
+  {
+    "id": 24,
+    "name": "Basalt Suspension",
+    "description": "Gain 29 Guard. Lose 2 Echo, if held."
+  },
+  {
+    "id": 25,
+    "name": "Echo Bile",
+    "description": "Apply 7 Wither and 1 Fracture to the target."
+  }
+]

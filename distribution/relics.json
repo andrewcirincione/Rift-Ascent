@@ -1,0 +1,754 @@
+[
+  {
+    "id": 0,
+    "name": "Hearth Remnant",
+    "trigger": "WARDEN",
+    "a": 3,
+    "b": 2,
+    "description": "Combat start: 2 Echo. After victory: recover 3 HP."
+  },
+  {
+    "id": 1,
+    "name": "Saltglass Token",
+    "trigger": "POTION",
+    "a": 7,
+    "b": 2,
+    "description": "Using a potion in combat: gain 7 Guard and 2 Echo."
+  },
+  {
+    "id": 2,
+    "name": "Meridian Token",
+    "trigger": "SHOP",
+    "a": 17,
+    "b": 1,
+    "description": "Shop prices fall by 17 Gold. Combat start: 1 Echo."
+  },
+  {
+    "id": 3,
+    "name": "Censer Token",
+    "trigger": "RELEASE3",
+    "a": 7,
+    "b": 1,
+    "description": "First release of 3+ Echo each combat: 7 Guard and 1 Energy."
+  },
+  {
+    "id": 4,
+    "name": "Basalt Token",
+    "trigger": "FOURTH",
+    "a": 4,
+    "b": 1,
+    "description": "Fourth card each turn: 4 Guard and 1 Echo."
+  },
+  {
+    "id": 5,
+    "name": "Tallow Token",
+    "trigger": "BANK",
+    "a": 5,
+    "b": 1,
+    "description": "Turn end with unused Energy: 5 Guard and 1 Wither to all foes."
+  },
+  {
+    "id": 6,
+    "name": "Solstice Token",
+    "trigger": "FIRST",
+    "a": 5,
+    "b": 1,
+    "description": "First Attack each combat: 5 Guard and 1 Echo."
+  },
+  {
+    "id": 7,
+    "name": "Rime Token",
+    "trigger": "TURN2",
+    "a": 6,
+    "b": 1,
+    "description": "Turn 2: gain 6 Guard and draw 1."
+  },
+  {
+    "id": 8,
+    "name": "Cairn Token",
+    "trigger": "HURT",
+    "a": 8,
+    "b": 2,
+    "description": "First enemy hit that costs HP each combat: 8 Guard and 2 Echo."
+  },
+  {
+    "id": 9,
+    "name": "Opal Token",
+    "trigger": "WITHER",
+    "a": 3,
+    "b": 5,
+    "description": "Combat start: apply 3 Wither to all foes; gain 5 Guard."
+  },
+  {
+    "id": 10,
+    "name": "Scoria Token",
+    "trigger": "LOWTURN",
+    "a": 6,
+    "b": 1,
+    "description": "Turn start below half HP: 6 Guard and 1 Echo. Once per combat."
+  },
+  {
+    "id": 11,
+    "name": "Volatile Charter",
+    "trigger": "ENERGY",
+    "a": 2,
+    "b": 7,
+    "description": "On pickup: +1 Energy per turn. Combat start: 2 Falter and 7 Guard."
+  },
+  {
+    "id": 12,
+    "name": "Kiln Vessel",
+    "trigger": "SKIP",
+    "a": 13,
+    "b": 1,
+    "description": "Skip a card reward: gain 13 Gold and recover 1 HP."
+  },
+  {
+    "id": 13,
+    "name": "Saltglass Vessel",
+    "trigger": "THIRD_SKILL",
+    "a": 5,
+    "b": 2,
+    "description": "Third Skill each turn: 5 Guard and 2 Wither to all foes."
+  },
+  {
+    "id": 14,
+    "name": "Meridian Vessel",
+    "trigger": "SWITCH",
+    "a": 4,
+    "b": 1,
+    "description": "First Attack/Skill switch each turn: 4 Guard and 1 Echo."
+  },
+  {
+    "id": 15,
+    "name": "Censer Vessel",
+    "trigger": "POWER",
+    "a": 6,
+    "b": 1,
+    "description": "First Power each combat: 6 Guard and draw 1."
+  },
+  {
+    "id": 16,
+    "name": "Basalt Vessel",
+    "trigger": "TURN4",
+    "a": 7,
+    "b": 1,
+    "description": "Turn 4: gain 7 Guard and 1 Force."
+  },
+  {
+    "id": 17,
+    "name": "Tallow Vessel",
+    "trigger": "TWOFOES",
+    "a": 7,
+    "b": 1,
+    "description": "Combat start with 2+ foes: 7 Guard and 1 Force."
+  },
+  {
+    "id": 18,
+    "name": "Solstice Vessel",
+    "trigger": "WIN",
+    "a": 3,
+    "b": 9,
+    "description": "After victory: recover 3 HP and gain 9 Gold."
+  },
+  {
+    "id": 19,
+    "name": "Rime Vessel",
+    "trigger": "REST",
+    "a": 5,
+    "b": 11,
+    "description": "Resting recovers 5 extra HP and grants 11 Gold."
+  },
+  {
+    "id": 20,
+    "name": "Cairn Vessel",
+    "trigger": "SIXTH",
+    "a": 8,
+    "b": 2,
+    "description": "Sixth card each combat: 8 Guard and 2 Echo."
+  },
+  {
+    "id": 21,
+    "name": "Opal Vessel",
+    "trigger": "RELEASE",
+    "a": 5,
+    "b": 1,
+    "description": "First Echo release each turn: 5 Guard and 1 Echo after the card."
+  },
+  {
+    "id": 22,
+    "name": "Scoria Vessel",
+    "trigger": "EMPTY",
+    "a": 6,
+    "b": 1,
+    "description": "Turn end with no Echo: gain 6 Guard and 1 Echo."
+  },
+  {
+    "id": 23,
+    "name": "Unspent Farewell",
+    "trigger": "REVIVE",
+    "a": 17,
+    "b": 2,
+    "description": "Once per act, lethal damage restores 17 HP and grants 2 Echo."
+  },
+  {
+    "id": 24,
+    "name": "Kiln Clasp",
+    "trigger": "START",
+    "a": 8,
+    "b": 2,
+    "description": "Combat start: gain 8 Guard and 2 Echo."
+  },
+  {
+    "id": 25,
+    "name": "Dawn Obligation",
+    "trigger": "ENERGY",
+    "a": 3,
+    "b": 11,
+    "description": "On pickup: +1 Energy per turn. Combat start: 3 Falter and 11 Guard."
+  },
+  {
+    "id": 26,
+    "name": "Meridian Clasp",
+    "trigger": "SHOP",
+    "a": 18,
+    "b": 1,
+    "description": "Shop prices fall by 18 Gold. Combat start: 1 Echo."
+  },
+  {
+    "id": 27,
+    "name": "Censer Clasp",
+    "trigger": "RELEASE3",
+    "a": 8,
+    "b": 1,
+    "description": "First release of 3+ Echo each combat: 8 Guard and 1 Energy."
+  },
+  {
+    "id": 28,
+    "name": "Basalt Clasp",
+    "trigger": "FOURTH",
+    "a": 5,
+    "b": 1,
+    "description": "Fourth card each turn: 5 Guard and 1 Echo."
+  },
+  {
+    "id": 29,
+    "name": "Tallow Clasp",
+    "trigger": "BANK",
+    "a": 6,
+    "b": 1,
+    "description": "Turn end with unused Energy: 6 Guard and 1 Wither to all foes."
+  },
+  {
+    "id": 30,
+    "name": "Passage Impression",
+    "trigger": "TURN2",
+    "a": 6,
+    "b": 1,
+    "description": "Turn 2: gain 6 Guard and draw 1."
+  },
+  {
+    "id": 31,
+    "name": "Rime Clasp",
+    "trigger": "TURN2",
+    "a": 7,
+    "b": 1,
+    "description": "Turn 2: gain 7 Guard and draw 1."
+  },
+  {
+    "id": 32,
+    "name": "Cairn Clasp",
+    "trigger": "HURT",
+    "a": 9,
+    "b": 2,
+    "description": "First enemy hit that costs HP each combat: 9 Guard and 2 Echo."
+  },
+  {
+    "id": 33,
+    "name": "Opal Clasp",
+    "trigger": "WITHER",
+    "a": 4,
+    "b": 5,
+    "description": "Combat start: apply 4 Wither to all foes; gain 5 Guard."
+  },
+  {
+    "id": 34,
+    "name": "Scoria Clasp",
+    "trigger": "LOWTURN",
+    "a": 7,
+    "b": 1,
+    "description": "Turn start below half HP: 7 Guard and 1 Echo. Once per combat."
+  },
+  {
+    "id": 35,
+    "name": "Ivory Clasp",
+    "trigger": "TURN3",
+    "a": 7,
+    "b": 1,
+    "description": "Turn 3: gain 7 Guard and 1 Energy."
+  },
+  {
+    "id": 36,
+    "name": "Kiln Spindle",
+    "trigger": "SKIP",
+    "a": 14,
+    "b": 1,
+    "description": "Skip a card reward: gain 14 Gold and recover 1 HP."
+  },
+  {
+    "id": 37,
+    "name": "Lasting Resolve",
+    "trigger": "PICKFORCE",
+    "a": 1,
+    "b": 6,
+    "description": "On pickup: gain 1 permanent Force and recover 6 HP. Repeatable gift."
+  },
+  {
+    "id": 38,
+    "name": "Lasting Shelter",
+    "trigger": "PICKHP",
+    "a": 7,
+    "b": 29,
+    "description": "On pickup: gain 7 max HP, recover 7 HP, gain 29 Gold."
+  },
+  {
+    "id": 39,
+    "name": "Lasting Passage",
+    "trigger": "PICKGOLD",
+    "a": 113,
+    "b": 4,
+    "description": "On pickup: gain 113 Gold and recover 4 HP. Repeatable gift."
+  },
+  {
+    "id": 40,
+    "name": "Basalt Spindle",
+    "trigger": "TURN4",
+    "a": 8,
+    "b": 1,
+    "description": "Turn 4: gain 8 Guard and 1 Force."
+  },
+  {
+    "id": 41,
+    "name": "Tallow Spindle",
+    "trigger": "TWOFOES",
+    "a": 8,
+    "b": 1,
+    "description": "Combat start with 2+ foes: 8 Guard and 1 Force."
+  },
+  {
+    "id": 42,
+    "name": "Solstice Spindle",
+    "trigger": "WIN",
+    "a": 4,
+    "b": 9,
+    "description": "After victory: recover 4 HP and gain 9 Gold."
+  },
+  {
+    "id": 43,
+    "name": "Rime Spindle",
+    "trigger": "REST",
+    "a": 6,
+    "b": 11,
+    "description": "Resting recovers 6 extra HP and grants 11 Gold."
+  },
+  {
+    "id": 44,
+    "name": "Choir Keepsake",
+    "trigger": "VESPER",
+    "a": 3,
+    "b": 1,
+    "description": "Combat start: draw 1. First switch each turn: 3 Guard."
+  },
+  {
+    "id": 45,
+    "name": "Opal Spindle",
+    "trigger": "RELEASE",
+    "a": 6,
+    "b": 1,
+    "description": "First Echo release each turn: 6 Guard and 1 Echo after the card."
+  },
+  {
+    "id": 46,
+    "name": "Scoria Spindle",
+    "trigger": "EMPTY",
+    "a": 7,
+    "b": 1,
+    "description": "Turn end with no Echo: gain 7 Guard and 1 Echo."
+  },
+  {
+    "id": 47,
+    "name": "Ivory Spindle",
+    "trigger": "PICKHP",
+    "a": 10,
+    "b": 23,
+    "description": "On pickup: gain 10 max HP, recover 10 HP, gain 23 Gold."
+  },
+  {
+    "id": 48,
+    "name": "Kiln Gauge",
+    "trigger": "START",
+    "a": 9,
+    "b": 2,
+    "description": "Combat start: gain 9 Guard and 2 Echo."
+  },
+  {
+    "id": 49,
+    "name": "Saltglass Gauge",
+    "trigger": "POTION",
+    "a": 9,
+    "b": 2,
+    "description": "Using a potion in combat: gain 9 Guard and 2 Echo."
+  },
+  {
+    "id": 50,
+    "name": "Meridian Gauge",
+    "trigger": "SHOP",
+    "a": 19,
+    "b": 1,
+    "description": "Shop prices fall by 19 Gold. Combat start: 1 Echo."
+  },
+  {
+    "id": 51,
+    "name": "Censer Gauge",
+    "trigger": "RELEASE3",
+    "a": 9,
+    "b": 1,
+    "description": "First release of 3+ Echo each combat: 9 Guard and 1 Energy."
+  },
+  {
+    "id": 52,
+    "name": "Basalt Gauge",
+    "trigger": "FOURTH",
+    "a": 6,
+    "b": 1,
+    "description": "Fourth card each turn: 6 Guard and 1 Echo."
+  },
+  {
+    "id": 53,
+    "name": "Tallow Gauge",
+    "trigger": "BANK",
+    "a": 7,
+    "b": 1,
+    "description": "Turn end with unused Energy: 7 Guard and 1 Wither to all foes."
+  },
+  {
+    "id": 54,
+    "name": "Solstice Gauge",
+    "trigger": "FIRST",
+    "a": 7,
+    "b": 1,
+    "description": "First Attack each combat: 7 Guard and 1 Echo."
+  },
+  {
+    "id": 55,
+    "name": "Rime Gauge",
+    "trigger": "TURN2",
+    "a": 8,
+    "b": 1,
+    "description": "Turn 2: gain 8 Guard and draw 1."
+  },
+  {
+    "id": 56,
+    "name": "Cairn Gauge",
+    "trigger": "HURT",
+    "a": 10,
+    "b": 2,
+    "description": "First enemy hit that costs HP each combat: 10 Guard and 2 Echo."
+  },
+  {
+    "id": 57,
+    "name": "Opal Gauge",
+    "trigger": "WITHER",
+    "a": 5,
+    "b": 5,
+    "description": "Combat start: apply 5 Wither to all foes; gain 5 Guard."
+  },
+  {
+    "id": 58,
+    "name": "Scoria Gauge",
+    "trigger": "LOWTURN",
+    "a": 8,
+    "b": 1,
+    "description": "Turn start below half HP: 8 Guard and 1 Echo. Once per combat."
+  },
+  {
+    "id": 59,
+    "name": "Ivory Gauge",
+    "trigger": "TURN3",
+    "a": 8,
+    "b": 1,
+    "description": "Turn 3: gain 8 Guard and 1 Energy."
+  },
+  {
+    "id": 60,
+    "name": "Kiln Seal",
+    "trigger": "SKIP",
+    "a": 15,
+    "b": 1,
+    "description": "Skip a card reward: gain 15 Gold and recover 1 HP."
+  },
+  {
+    "id": 61,
+    "name": "Saltglass Seal",
+    "trigger": "THIRD_SKILL",
+    "a": 7,
+    "b": 2,
+    "description": "Third Skill each turn: 7 Guard and 2 Wither to all foes."
+  },
+  {
+    "id": 62,
+    "name": "Meridian Seal",
+    "trigger": "SWITCH",
+    "a": 6,
+    "b": 1,
+    "description": "First Attack/Skill switch each turn: 6 Guard and 1 Echo."
+  },
+  {
+    "id": 63,
+    "name": "Unclaimed Diadem",
+    "trigger": "PROXY",
+    "a": 2,
+    "b": 1,
+    "description": "Combat start: 2 Echo. Turn 3: draw 1."
+  },
+  {
+    "id": 64,
+    "name": "Basalt Seal",
+    "trigger": "TURN4",
+    "a": 9,
+    "b": 1,
+    "description": "Turn 4: gain 9 Guard and 1 Force."
+  },
+  {
+    "id": 65,
+    "name": "Tallow Seal",
+    "trigger": "TWOFOES",
+    "a": 9,
+    "b": 1,
+    "description": "Combat start with 2+ foes: 9 Guard and 1 Force."
+  },
+  {
+    "id": 66,
+    "name": "Solstice Seal",
+    "trigger": "WIN",
+    "a": 5,
+    "b": 9,
+    "description": "After victory: recover 5 HP and gain 9 Gold."
+  },
+  {
+    "id": 67,
+    "name": "Rime Seal",
+    "trigger": "REST",
+    "a": 7,
+    "b": 11,
+    "description": "Resting recovers 7 extra HP and grants 11 Gold."
+  },
+  {
+    "id": 68,
+    "name": "Cairn Seal",
+    "trigger": "SIXTH",
+    "a": 10,
+    "b": 2,
+    "description": "Sixth card each combat: 10 Guard and 2 Echo."
+  },
+  {
+    "id": 69,
+    "name": "Opal Seal",
+    "trigger": "RELEASE",
+    "a": 7,
+    "b": 1,
+    "description": "First Echo release each turn: 7 Guard and 1 Echo after the card."
+  },
+  {
+    "id": 70,
+    "name": "Scoria Seal",
+    "trigger": "EMPTY",
+    "a": 8,
+    "b": 1,
+    "description": "Turn end with no Echo: gain 8 Guard and 1 Echo."
+  },
+  {
+    "id": 71,
+    "name": "Ivory Seal",
+    "trigger": "PICKHP",
+    "a": 11,
+    "b": 23,
+    "description": "On pickup: gain 11 max HP, recover 11 HP, gain 23 Gold."
+  },
+  {
+    "id": 72,
+    "name": "Kiln Lens",
+    "trigger": "START",
+    "a": 10,
+    "b": 2,
+    "description": "Combat start: gain 10 Guard and 2 Echo."
+  },
+  {
+    "id": 73,
+    "name": "Saltglass Lens",
+    "trigger": "POTION",
+    "a": 10,
+    "b": 2,
+    "description": "Using a potion in combat: gain 10 Guard and 2 Echo."
+  },
+  {
+    "id": 74,
+    "name": "Meridian Lens",
+    "trigger": "SHOP",
+    "a": 20,
+    "b": 1,
+    "description": "Shop prices fall by 20 Gold. Combat start: 1 Echo."
+  },
+  {
+    "id": 75,
+    "name": "Censer Lens",
+    "trigger": "RELEASE3",
+    "a": 10,
+    "b": 1,
+    "description": "First release of 3+ Echo each combat: 10 Guard and 1 Energy."
+  },
+  {
+    "id": 76,
+    "name": "Basalt Lens",
+    "trigger": "FOURTH",
+    "a": 7,
+    "b": 1,
+    "description": "Fourth card each turn: 7 Guard and 1 Echo."
+  },
+  {
+    "id": 77,
+    "name": "Tallow Lens",
+    "trigger": "BANK",
+    "a": 8,
+    "b": 1,
+    "description": "Turn end with unused Energy: 8 Guard and 1 Wither to all foes."
+  },
+  {
+    "id": 78,
+    "name": "Solstice Lens",
+    "trigger": "FIRST",
+    "a": 8,
+    "b": 1,
+    "description": "First Attack each combat: 8 Guard and 1 Echo."
+  },
+  {
+    "id": 79,
+    "name": "Rime Lens",
+    "trigger": "TURN2",
+    "a": 9,
+    "b": 1,
+    "description": "Turn 2: gain 9 Guard and draw 1."
+  },
+  {
+    "id": 80,
+    "name": "Cairn Lens",
+    "trigger": "HURT",
+    "a": 11,
+    "b": 2,
+    "description": "First enemy hit that costs HP each combat: 11 Guard and 2 Echo."
+  },
+  {
+    "id": 81,
+    "name": "Opal Lens",
+    "trigger": "WITHER",
+    "a": 6,
+    "b": 5,
+    "description": "Combat start: apply 6 Wither to all foes; gain 5 Guard."
+  },
+  {
+    "id": 82,
+    "name": "Scoria Lens",
+    "trigger": "LOWTURN",
+    "a": 9,
+    "b": 1,
+    "description": "Turn start below half HP: 9 Guard and 1 Echo. Once per combat."
+  },
+  {
+    "id": 83,
+    "name": "Ivory Lens",
+    "trigger": "TURN3",
+    "a": 9,
+    "b": 1,
+    "description": "Turn 3: gain 9 Guard and 1 Energy."
+  },
+  {
+    "id": 84,
+    "name": "Kiln Buckle",
+    "trigger": "SKIP",
+    "a": 16,
+    "b": 1,
+    "description": "Skip a card reward: gain 16 Gold and recover 1 HP."
+  },
+  {
+    "id": 85,
+    "name": "Saltglass Buckle",
+    "trigger": "THIRD_SKILL",
+    "a": 8,
+    "b": 2,
+    "description": "Third Skill each turn: 8 Guard and 2 Wither to all foes."
+  },
+  {
+    "id": 86,
+    "name": "Meridian Buckle",
+    "trigger": "SWITCH",
+    "a": 7,
+    "b": 1,
+    "description": "First Attack/Skill switch each turn: 7 Guard and 1 Echo."
+  },
+  {
+    "id": 87,
+    "name": "Censer Buckle",
+    "trigger": "POWER",
+    "a": 9,
+    "b": 1,
+    "description": "First Power each combat: 9 Guard and draw 1."
+  },
+  {
+    "id": 88,
+    "name": "Basalt Buckle",
+    "trigger": "TURN4",
+    "a": 10,
+    "b": 1,
+    "description": "Turn 4: gain 10 Guard and 1 Force."
+  },
+  {
+    "id": 89,
+    "name": "Tallow Buckle",
+    "trigger": "TWOFOES",
+    "a": 10,
+    "b": 1,
+    "description": "Combat start with 2+ foes: 10 Guard and 1 Force."
+  },
+  {
+    "id": 90,
+    "name": "Solstice Buckle",
+    "trigger": "WIN",
+    "a": 6,
+    "b": 9,
+    "description": "After victory: recover 6 HP and gain 9 Gold."
+  },
+  {
+    "id": 91,
+    "name": "Rime Buckle",
+    "trigger": "REST",
+    "a": 8,
+    "b": 11,
+    "description": "Resting recovers 8 extra HP and grants 11 Gold."
+  },
+  {
+    "id": 92,
+    "name": "Cairn Buckle",
+    "trigger": "SIXTH",
+    "a": 11,
+    "b": 2,
+    "description": "Sixth card each combat: 11 Guard and 2 Echo."
+  },
+  {
+    "id": 93,
+    "name": "Opal Buckle",
+    "trigger": "RELEASE",
+    "a": 8,
+    "b": 1,
+    "description": "First Echo release each turn: 8 Guard and 1 Echo after the card."
+  }
+]

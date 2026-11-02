@@ -1,3 +1,0 @@
-SHOT boot
-SHOT cold-resume-boss
-PASS cold Resume into saved boss dialogue, RiftBoss selected

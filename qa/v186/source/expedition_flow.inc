@@ -61,8 +61,8 @@ int expedition_art(const Game*g){return expedition_current(g)->art;}
  * character-only upkeep: the selected card actually works for its recipient. */
 static const int expedition_foreign[3][8]={
  {9,36,38,42,47,74,75,76},
- {N_ADRENALINE,N_ASSASSINATE,N_BLADE_OF_INK,N_BULLET_TIME,N_ECHOING_SLASH,N_MALAISE,N_SHADOWMELD,N_STORM_OF_STEEL},
- {R_CRASH_LANDING,R_HEAVENLY_DRILL,R_HEIRLOOM_HAMMER,R_GUARDS,-1,-1,-1,-1}
+ {RIFT_CARD_100,RIFT_CARD_103,RIFT_CARD_107,RIFT_CARD_111,RIFT_CARD_123,RIFT_CARD_142,RIFT_CARD_164,RIFT_CARD_171},
+ {RIFT_CARD_205,RIFT_CARD_225,RIFT_CARD_227,RIFT_CARD_222,-1,-1,-1,-1}
 };
 static void expedition_mystery(Game*g){
  int first=(g->character+1+rnd(g,2))%3,second=3-g->character-first;

@@ -1,3 +1,0 @@
-PASS every old artwork byte, all twelve full music streams, and splash assets unchanged; six appended assets checksum verified; 1.8.6 title; package below 100 MiB.
-Bytes 99136823
-SHA256 4681c18951baee174be95e0fa7467714237287d06333429b036c6a8036549ab1

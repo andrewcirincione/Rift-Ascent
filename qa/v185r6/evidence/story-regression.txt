@@ -1,4 +1,0 @@
-PASS each character: 4/20 story outcomes offer Forge; all outcomes have exactly two navigation choices.
-PASS old third-choice save migrates to Leave; unavailable Forge falls back to a gift; stale Forge cannot award an unrelated relic.
-PASS Cinder blood/burden/Leave values and affordability; Red Communion and Candle boons apply only once.
-PASS 1.8.5-r3 behavior regression suite.

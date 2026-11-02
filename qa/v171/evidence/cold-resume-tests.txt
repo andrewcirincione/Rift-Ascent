@@ -1,3 +1,0 @@
-SHOT boot
-SHOT cold-resume-combat
-PASS cold Resume into saved combat, RiftBoss selected

@@ -38,7 +38,7 @@ int game_render_fx_busy(unsigned tick){
  if(r137_last_screen==REWARD||r137_last_screen==RELIC_RESULT||r137_last_screen==VICTORY||r137_last_screen==DEFEAT)end=(end>30?end:30)+10;
  return (r137_count||r138_death_active||r1311_finishing)&&a<end?end-a:0;
 }
-static int r137_all(int raw){int c=CARD_ID(raw);return c==3||c==10||c==14||c==19||c==36||c==37||c==70||c==R_ASTRAL_PULSE||c==R_CRASH_LANDING||c==R_CRUSH_UNDER||c==R_DYING_STAR||c==R_METEOR_SHOWER||c==R_RADIATE||c==R_SEVEN_STARS||c==C_DRAMATIC_ENTRANCE;}
+static int r137_all(int raw){int c=CARD_ID(raw);return c==3||c==10||c==14||c==19||c==36||c==37||c==70||c==RIFT_CARD_187||c==RIFT_CARD_205||c==RIFT_CARD_207||c==RIFT_CARD_212||c==RIFT_CARD_238||c==RIFT_CARD_255||c==RIFT_CARD_262||c==RIFT_CARD_290;}
 static void r137_feedback(const Game*before,const Game*after,int action,unsigned tick){
  int n=0;const GameCombatFx*events=game_combat_fx_events(&n);
  if(before->screen!=COMBAT){r1311_finishing=0;r137_count=0;r137_held_valid=0;r138_death_active=0;return;}
@@ -251,7 +251,7 @@ static void r137_scene(const Game*g){
    if(r137_events[i].absorbed>0&&t<12){pose=2;pose_frame=2;dy=3;}
   }
  }
- if(g->character==CHAR_NIGHTSHADE||g->character==CHAR_REGENT){
+ if(g->character==CHAR_VESPER||g->character==CHAR_PROXY){
   int frame=0;
   if(g->hp<=0&&r138_death_active)frame=16+CLAMP((age-r138_death_start)/12,0,3);
   else if(pose==1){int local=pa>=0?r137_local_time(age-r137_at[pa],game_impact_tier(r137_events[pa].amount)):pre;frame=pa<0?5:local<3?6:local<13?7:9;}
@@ -259,9 +259,9 @@ static void r137_scene(const Game*g){
   else if(pose==3){int local=pp>=0?age-r137_at[pp]:pre;frame=local<10?13:14;}
   else if(player_flash)frame=15;
   else {static const int cycle[8]={0,1,2,3,4,3,2,1};frame=cycle[(animation_tick/32u)%8];}
-  if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,0);
-  r160_sprite(48+dx,78,144,96,g->character==CHAR_NIGHTSHADE?&r161_vesper[frame]:frame<5?&r161_proxy_idle[frame]:&r160_regent[frame],1);
-  if(g->character==CHAR_REGENT)r160_particles(g,animation_tick/4,1);
+  if(g->character==CHAR_PROXY)r160_particles(g,animation_tick/4,0);
+  r160_sprite(48+dx,78,144,96,g->character==CHAR_VESPER?&r161_vesper[frame]:frame<5?&r161_proxy_idle[frame]:&r160_regent[frame],1);
+  if(g->character==CHAR_PROXY)r160_particles(g,animation_tick/4,1);
  }else if(g->hp<=0&&r138_death_active){
   int frame=CLAMP((age-r138_death_start)/9,0,5);
   r138_hero_clip=1;r137_blit(41,61,150,113,r138_death[frame],192,144,255,0);r138_hero_clip=0;
@@ -312,7 +312,7 @@ static void r137_scene(const Game*g){
   if(e->kind==GFX_ATTACK||e->kind==GFX_PROC){
    int t=r137_local_time(a,tier),size=54+tier*16,phase=MIN(5,t/3);
    if(t<18){
-    if(e->kind==GFX_ATTACK)r137_blit(cx-size/2,124-size/2,size,size,(g->character==CHAR_NIGHTSHADE&&e->source<0?r150b_dagger_fx[phase]:r134_attack_fx[phase]),112,112,220,e->target<0);
+    if(e->kind==GFX_ATTACK)r137_blit(cx-size/2,124-size/2,size,size,(g->character==CHAR_VESPER&&e->source<0?r150b_dagger_fx[phase]:r134_attack_fx[phase]),112,112,220,e->target<0);
     r137_blit(cx-size/2+4,124-size/2,size,size,r137_impact_frames[phase],96,96,(18-t)*255/18,e->target<0);
     if(e->absorbed>0)r137_blit(cx-27,98,54,62,r137_shield_frames[MIN(5,3+t/5)],96,96,(18-t)*235/18,0);
    }
@@ -332,7 +332,7 @@ static void r137_scene(const Game*g){
   }else if(e->kind==GFX_POWER&&a<16){
    int phase=a<4?1:a<12?3:5,size=65+(a<8?a:16-a);
    if(g->character==CHAR_WARDEN)r137_blit(118-size/2,120-size/2,size,size,r137_power_frames[phase],96,96,a>11?(16-a)*255/5:240,0);
-  }else if(e->kind==GFX_STARS&&a<36&&g->character==CHAR_REGENT){
+  }else if(e->kind==GFX_STARS&&a<36&&g->character==CHAR_PROXY){
    /* A short gain burst uses the existing generated golden spark artwork. */
    for(int j=0;j<10;j++){
     unsigned seed=particle_hash(161u+j*7919u);

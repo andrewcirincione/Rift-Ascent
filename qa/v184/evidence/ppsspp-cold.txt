@@ -1,5 +1,0 @@
-BOOT 0 asset errors 0 stereo streaming 1 track 0
-SHOT title
-SHOT cold-183-migration
-PASS cold 1.8.3 slot import into 1.8.4 retains gold, map and rarity state
-SHA256 a299459763b2712f8a065de9b488f66bd2754d95b0ea27bb4248154d9395942a

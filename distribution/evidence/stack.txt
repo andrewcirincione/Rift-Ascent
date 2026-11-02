@@ -1,0 +1,13 @@
+PASS startup slot scan: 87504 reported frame bytes + 8192 tail reserve; 100912 bytes remain (minimum 32768)
+  run_game(160) + ascent_open(29400) + ascent_resume(57944)
+PASS in-game slot resume: 87136 reported frame bytes + 8192 tail reserve; 101280 bytes remain (minimum 32768)
+  run_game(160) + step_action(56) + game_action(28976) + ascent_resume(57944)
+PASS save and quit: 86976 reported frame bytes + 8192 tail reserve; 101440 bytes remain (minimum 32768)
+  run_game(160) + save_and_quit(57840) + ascent_checkpoint(28976)
+PASS standalone load: 29096 reported frame bytes + 8192 tail reserve; 159320 bytes remain (minimum 32768)
+  run_game(160) + game_load(28936)
+PASS rendered card preview: 58824 reported frame bytes + 8192 tail reserve; 129592 bytes remain (minimum 32768)
+  run_game(160) + game_render_frame(29568) + game_card_preview(24) + preview_once(28936) + game_play_card(0) + resolve_card(136)
+PASS card action: 29328 reported frame bytes + 8192 tail reserve; 159088 bytes remain (minimum 32768)
+  run_game(160) + step_action(56) + game_action(28976) + game_play_card(0) + resolve_card(136)
+PASS 192 KiB thread unchanged; bounded startup/save/preview paths retain at least 32 KiB margin

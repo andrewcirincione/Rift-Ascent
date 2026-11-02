@@ -1,2 +1,0 @@
-STALLED c=1 seed=25 screen=2 selection=0 message=The enemy is preparing an attack.
-Campaigns 1; wins 0 (0.0%); policy stalls 1

@@ -1,2 +1,0 @@
-PASS 18 attack cases: boss +5%, ordinary/elite controls, displayed intent equals actual damage, two/three hits, Block, Weak/Vulnerable and Paper Krane.
-PASS boss save/resume preserves damage exactly once; defensive intents unchanged; four exact-EBOOT fixtures generated.

@@ -1,15 +1,56 @@
-# Rift Ascent PSP
+# Rift Ascent — distribution edition
 
-Latest stable: [Rift Ascent 1.8.6-r4](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.6-r4).
+A free PSP deckbuilding adventure about three people caught in a repeating ascent.
+This branch contains the distribution ruleset. The development edition remains on
+`main`; its decks and saves are separate.
 
-Install the PSP ZIP or replace `PSP/GAME/RIFTASCENT/EBOOT.PBP`, retaining all save/account files.
+## Install
 
-The 1.8.6-r4 update opens the secret fourth act and awards the golden A after five Act 3 wins per character, while card unlocks continue through ten wins. Defeating the Act 4 boss with the third distinct character adds a one-time shared finale. See [patch notes](versions/1.8.6-r4/PATCH_NOTES.md) and [validation](qa/v186r4/README.md).
+Download the PSP ZIP from the `v1.8.6-dist1` release. Extract it to your memory
+stick so the executable is `PSP/GAME/RIFTASCENT_DIST/EBOOT.PBP`. It includes the
+complete soundtrack. The distribution edition starts a separate profile and
+never imports development saves.
 
-The 1.8.6-r3 update added the gentle act difficulty ramp, stronger later journey rewards and resolved Act 3 endings retained here. See [patch notes](versions/1.8.6-r3/PATCH_NOTES.md) and [validation](qa/v186r3/README.md).
+Warden earns Echo by using guarding Skills while threatened. Vesper earns it by
+alternating Attacks and Skills. Proxy gains it from unused Energy at the next
+turn. Echo persists between turns, is capped at nine, and can be released by
+cards for additional effects. Wither damages its bearer and decreases by two
+at each trigger. The in-game STATUS and card inspector explain current effects.
 
-The 1.8.6-r2 correction fixes the Act 3 boss ending double fade and abrupt cutscene change. See [correction notes](versions/1.8.6-r2/PATCH_NOTES.md) and [frame-by-frame validation](qa/v186r2/README.md).
+Five wins with a character open the secret boss and award the golden A. Cards
+continue unlocking through ten wins. Clearing the secret boss with all three
+characters reveals the shared finale once.
 
-Version 1.8.6 improves health readability and Forge focus, adds boss minions and occasional themed elite pairs, expands Forge modifiers, and introduces a story that develops over repeated ascents. See [patch notes](versions/1.8.6/PATCH_NOTES.md) and [implementation and validation](qa/v186/README.md).
+## Source and build
 
-Canonical source: `qa/v186/source`, recorded in `release/current.json`. The complete soundtrack and generated artwork are included in every release.
+Use a shallow checkout to obtain this branch's current snapshot:
+
+```sh
+git clone --depth 1 --single-branch --branch distribution https://github.com/andrewcirincione/Rift-Ascent.git
+cd Rift-Ascent
+PSPDEV=/path/to/pspdev bash distribution/build.sh
+bash distribution/test.sh
+```
+
+The toolchain is PSPDEV `v20261001`. The source is `qa/v186/source`; the complete
+build is `distribution/evidence/EBOOT.PBP`. Declarative card and relic catalogs,
+original rule generators, simulator source, validation records, and the unchanged
+media banks are under `distribution/`. The media bootstrap checks a pinned digest
+if banks are missing; released source archives include the banks directly.
+
+`python3 distribution/tools/run_campaigns.py` repeats the large deterministic
+balance study. `--quick` runs a smoke sample. Native simulations are comparative
+balance probes, not estimates of every human player's win rate. Emulator fixtures
+are explicitly assisted setups for checking real executable behavior and scene
+routing. See `distribution/BALANCE.md` and `distribution/VALIDATION.md`.
+
+## Distribution scope
+
+This project is free of charge. It is independent and has no affiliation with
+Mega Crit. See `distribution/REVIEW.md` for the differentiation work and its limits.
+Use this edition's release downloads for sharing: the repository's older branches,
+commits, and releases retain historical material and were not erased.
+
+This notice does not grant rights in another party's work or certify legal
+clearance. Existing component notices remain applicable. No new open-source
+license or commercial permission is being asserted on the owner's behalf.

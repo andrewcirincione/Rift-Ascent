@@ -15,11 +15,11 @@
 #define MAX_POTIONS 3
 #define MAP_ROWS 18
 #define MAP_LANES 3
-#define GAME_VERSION 186
+#define GAME_VERSION 18601
 #define CARD_STATUS_MIN 50
 #define CARD_STATUS_MAX 53
 #define CARD_PLAYABLE 87
-#define CARD_GIANT_ROCK 91
+#define RIFT_CARD_91 91
 #define CARD_FREE 0x400
 #define CARD_FORCE_EXHAUST 0x800
 #define CARD_EPHEMERAL 0x1000
@@ -64,114 +64,114 @@ enum {BTN_UP=1,BTN_DOWN=2,BTN_LEFT=4,BTN_RIGHT=8,BTN_OK=16,BTN_BACK=32,BTN_ALT=6
 #define NINJA_FIRST 96
 #define NINJA_COUNT 89
 #define NINJA_LAST (NINJA_FIRST+NINJA_COUNT)
-enum {CHAR_WARDEN,CHAR_NIGHTSHADE,CHAR_REGENT};
+enum {CHAR_WARDEN,CHAR_VESPER,CHAR_PROXY};
 enum {NR_SNAKE=44,NR_SKULL,NR_TINGSHA,NR_BANDAGES,NR_FUNNEL,NR_SCROLL,NR_KRANE,NR_DART,NR_DRAKE};
 enum {NS_ACCURACY,NS_AFTERIMAGE,NS_THORNS,NS_ACCELERANT,NS_ENVENOM,NS_FAN,NS_PHANTOM,NS_BLADES,NS_FUMES,NS_OUTBREAK,NS_OUTBREAK_COUNT,NS_PLANNER,NS_SERPENT,NS_SPEEDSTER,NS_TOOLS,NS_PLANS,NS_TRACKING,NS_WRAITH,NS_INTANGIBLE,NS_TEMP_DEX,NS_BLUR,NS_NEXT_BLOCK,NS_NEXT_DRAW,NS_SHADOW_NEXT,NS_SHADOW_NOW,NS_SHADOWMELD,NS_BURST,NS_POUNCE,NS_CORROSIVE,NS_DRAWS_COMBAT,NS_DISCARDS_TURN,NS_SKILLS_TURN,NS_SHIVS_TURN,NS_STRANGLE0,NS_STRANGLE1,NS_BONUS_REWARDS,NS_SNEAKY,NS_RETAIN_READY,NS_OPENING_DRAW,NS_LAST_DRAW,NS_RESOLVING,NS_COUNT};
 #define NINJA_TASK_MAX 512
-typedef struct {int kind,raw,target,n,aux,depth;} NinjaTask;
+typedef struct {int kind,raw,target,n,aux,depth;} VesperTask;
 typedef struct {
  int v[NS_COUNT],powers[NINJA_COUNT];int next_instance;
- NinjaTask tasks[NINJA_TASK_MAX];int task_count;
+ VesperTask tasks[NINJA_TASK_MAX];int task_count;
  int choice_kind,choice_remaining,choice_count,choice_raws[MAX_HAND],choice_source,choice_target,choice_depth;
  int nightmare_raw[MAX_HAND],nightmare_n[MAX_HAND],nightmare_count;
-} NinjaState;
+} VesperState;
 enum {
- N_ABRASIVE=96,
- N_ACCELERANT=97,
- N_ACCURACY=98,
- N_ACROBATICS=99,
- N_ADRENALINE=100,
- N_AFTERIMAGE=101,
- N_ANTICIPATE=102,
- N_ASSASSINATE=103,
- N_BACKFLIP=104,
- N_BACKSTAB=105,
- N_BLADE_DANCE=106,
- N_BLADE_OF_INK=107,
- N_BLUR=108,
- N_BOUNCING_FLASK=109,
- N_BUBBLE_BUBBLE=110,
- N_BULLET_TIME=111,
- N_BURST=112,
- N_CALCULATED_GAMBLE=113,
- N_CLOAK_AND_DAGGER=114,
- N_CORROSIVE_WAVE=115,
- N_DAGGER_SPRAY=116,
- N_DAGGER_THROW=117,
- N_DASH=118,
- N_DEADLY_POISON=119,
- N_DEFEND_SILENT=120,
- N_DEFLECT=121,
- N_DODGE_AND_ROLL=122,
- N_ECHOING_SLASH=123,
- N_ENVENOM=124,
- N_ESCAPE_PLAN=125,
- N_EXPERTISE=126,
- N_EXPOSE=127,
- N_FAN_OF_KNIVES=128,
- N_FINISHER=129,
- N_FLANKING=130,
- N_FLECHETTES=131,
- N_FLICK_FLACK=132,
- N_FOOTWORK=133,
- N_GRAND_FINALE=134,
- N_HAND_TRICK=135,
- N_HAZE=136,
- N_HIDDEN_DAGGERS=137,
- N_INFINITE_BLADES=138,
- N_KNIFE_TRAP=139,
- N_LEADING_STRIKE=140,
- N_LEG_SWEEP=141,
- N_MALAISE=142,
- N_MASTER_PLANNER=143,
- N_MEMENTO_MORI=144,
- N_MIRAGE=145,
- N_MURDER=146,
- N_NEUTRALIZE=147,
- N_NIGHTMARE=148,
- N_NOXIOUS_FUMES=149,
- N_OUTBREAK=150,
- N_PHANTOM_BLADES=151,
- N_PIERCING_WAIL=152,
- N_PINPOINT=153,
- N_POISONED_STAB=154,
- N_POUNCE=155,
- N_PRECISE_CUT=156,
- N_PREDATOR=157,
- N_PREPARED=158,
- N_REFLEX=159,
- N_RICOCHET=160,
- N_SCARE=161,
- N_SERPENT_FORM=162,
- N_SHADOW_STEP=163,
- N_SHADOWMELD=164,
- N_SHIV=165,
- N_SKEWER=166,
- N_SLICE=167,
- N_SNAKEBITE=168,
- N_SNEAKY=169,
- N_SPEEDSTER=170,
- N_STORM_OF_STEEL=171,
- N_STRANGLE=172,
- N_STRIKE_SILENT=173,
- N_SUCKER_PUNCH=174,
- N_SUPPRESS=175,
- N_SURVIVOR=176,
- N_TACTICIAN=177,
- N_THE_HUNT=178,
- N_TOOLS_OF_THE_TRADE=179,
- N_TRACKING=180,
- N_UNTOUCHABLE=181,
- N_UP_MY_SLEEVE=182,
- N_WELL_LAID_PLANS=183,
- N_WRAITH_FORM=184
+ RIFT_CARD_96=96,
+ RIFT_CARD_97=97,
+ RIFT_CARD_98=98,
+ RIFT_CARD_99=99,
+ RIFT_CARD_100=100,
+ RIFT_CARD_101=101,
+ RIFT_CARD_102=102,
+ RIFT_CARD_103=103,
+ RIFT_CARD_104=104,
+ RIFT_CARD_105=105,
+ RIFT_CARD_106=106,
+ RIFT_CARD_107=107,
+ RIFT_CARD_108=108,
+ RIFT_CARD_109=109,
+ RIFT_CARD_110=110,
+ RIFT_CARD_111=111,
+ RIFT_CARD_112=112,
+ RIFT_CARD_113=113,
+ RIFT_CARD_114=114,
+ RIFT_CARD_115=115,
+ RIFT_CARD_116=116,
+ RIFT_CARD_117=117,
+ RIFT_CARD_118=118,
+ RIFT_CARD_119=119,
+ RIFT_CARD_120=120,
+ RIFT_CARD_121=121,
+ RIFT_CARD_122=122,
+ RIFT_CARD_123=123,
+ RIFT_CARD_124=124,
+ RIFT_CARD_125=125,
+ RIFT_CARD_126=126,
+ RIFT_CARD_127=127,
+ RIFT_CARD_128=128,
+ RIFT_CARD_129=129,
+ RIFT_CARD_130=130,
+ RIFT_CARD_131=131,
+ RIFT_CARD_132=132,
+ RIFT_CARD_133=133,
+ RIFT_CARD_134=134,
+ RIFT_CARD_135=135,
+ RIFT_CARD_136=136,
+ RIFT_CARD_137=137,
+ RIFT_CARD_138=138,
+ RIFT_CARD_139=139,
+ RIFT_CARD_140=140,
+ RIFT_CARD_141=141,
+ RIFT_CARD_142=142,
+ RIFT_CARD_143=143,
+ RIFT_CARD_144=144,
+ RIFT_CARD_145=145,
+ RIFT_CARD_146=146,
+ RIFT_CARD_147=147,
+ RIFT_CARD_148=148,
+ RIFT_CARD_149=149,
+ RIFT_CARD_150=150,
+ RIFT_CARD_151=151,
+ RIFT_CARD_152=152,
+ RIFT_CARD_153=153,
+ RIFT_CARD_154=154,
+ RIFT_CARD_155=155,
+ RIFT_CARD_156=156,
+ RIFT_CARD_157=157,
+ RIFT_CARD_158=158,
+ RIFT_CARD_159=159,
+ RIFT_CARD_160=160,
+ RIFT_CARD_161=161,
+ RIFT_CARD_162=162,
+ RIFT_CARD_163=163,
+ RIFT_CARD_164=164,
+ RIFT_CARD_165=165,
+ RIFT_CARD_166=166,
+ RIFT_CARD_167=167,
+ RIFT_CARD_168=168,
+ RIFT_CARD_169=169,
+ RIFT_CARD_170=170,
+ RIFT_CARD_171=171,
+ RIFT_CARD_172=172,
+ RIFT_CARD_173=173,
+ RIFT_CARD_174=174,
+ RIFT_CARD_175=175,
+ RIFT_CARD_176=176,
+ RIFT_CARD_177=177,
+ RIFT_CARD_178=178,
+ RIFT_CARD_179=179,
+ RIFT_CARD_180=180,
+ RIFT_CARD_181=181,
+ RIFT_CARD_182=182,
+ RIFT_CARD_183=183,
+ RIFT_CARD_184=184
 };
 
 
-#include "regent_ids.h"
+#include "card_ids.h"
 #define REGENT_TASK_MAX 128
 #define REGENT_INSTANCE_MAX 512
-typedef struct {int kind,raw,target,n,aux,depth;} RegentTask;
+typedef struct {int kind,raw,target,n,aux,depth;} ProxyTask;
 typedef struct {
  int stars,forge,blade_created,created,stars_gained,skills,plays_combat;
  int shuffle_pending,shuffle_draws;
@@ -184,9 +184,9 @@ typedef struct {
  int bomb_ticks[16],bomb_damage[16];
  int choice_kind,choice_remaining,choice_raw,choice_target,choice_aux,choice_depth;
  int options[MAX_PILE],option_count;
- int task_count,resolving;RegentTask tasks[REGENT_TASK_MAX];
+ int task_count,resolving;ProxyTask tasks[REGENT_TASK_MAX];
  int automation_phase[10],panache_phase[5];
-} RegentState;
+} ProxyState;
 
 #include "ascent_progress.h"
 #include "expedition.h"
@@ -208,10 +208,10 @@ typedef struct {
  int ic[48];
  int relic_pending,relic_resume,deck_readonly,shop_selection;
  int endless,combat_music;
- int character;NinjaState ninja;
+ int character;VesperState ninja;
  /* Appended to preserve the complete v21 prefix for migration. */
  struct {int potion_offer,card_done;int relic[16];} v151;
- RegentState regent;
+ ProxyState regent;
  AscentRun ascent;
  Expedition181 expedition;
  /* Append-only 1.8.2 state: leave every older save offset intact. */
@@ -219,10 +219,11 @@ typedef struct {
  /* Append-only: old slots migrate with their original route topology. */
  struct {int custom,building,tab,quantity,item,return_tab,return_selection,route_style,seen_act;unsigned seen[2];} revision184;
  struct {int strangle2,mangle2;} revision185;
+ struct {int power[12],power_raw[12],last_type,earned,skills,spent,flags,bank,next_guard,next_draw,next_energy,cards_played;unsigned char relic_used[94],relic_turn[94];} dist;
 } Game;
 #define STRANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.strangle2:&(g)->ninja.v[NS_STRANGLE0+(e)])
 #define MANGLE_SLOT(g,e) ((e)==2?&(g)->revision185.mangle2:&(g)->ic[IC_MANGLE0+(e)])
-#include "save_layout184.h"
+
 
 /* Persistent lifetime achievements are stored separately from the run slot. */
 typedef struct {
@@ -390,3 +391,5 @@ int custom_setup_screen(int screen);
 int game_event_can_leave(const Game*g);
 int ascent_story_screen(int screen);
 #endif
+
+int game_shop_discount(const Game*g);

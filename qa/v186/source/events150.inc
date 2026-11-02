@@ -80,35 +80,35 @@ static const EventOffer event_offers[EVENT_COUNT][3]={
  {{"HONE ONE CARD","Pay 25 Gold to upgrade one card.",EVENT_UPGRADE,25,0,0},{"LIGHTEN YOUR DECK","Pay 50 Gold to remove one card.",EVENT_REMOVE,50,0,0}},
  {{"ACCEPT THE DREAD","Take the shown relic. Add Dread: unplayable; if held, costs 1 Energy next turn.",0,0,0,0},{"PAY THE BLOOD PRICE","Lose 12 HP. Take the shown relic without a curse.",0,0,12,0}},
  {{"ECHO / 70 GOLD","Modify an eligible Attack or defensive Skill: play it twice; costs 1 more Energy.",MOD_ECHO,70,0,0},{"BOUND / 40 GOLD","Modify one card with Retain: keep it in hand at turn end.",MOD_BOUND,40,0,0}},
- {{"KEEN / 8 HP","Modify one Attack: +2 base damage per hit, before Strength, Weak and Vulnerable.",MOD_KEEN,0,8,0},{"WARD / 8 HP","Modify one card that grants Block: +4 base Block per card effect, before Dexterity.",MOD_WARD,0,8,0}},
- {{"FLEETING / 55 GOLD","Modify an Attack or Skill: costs 1 less Energy, but Exhausts when played.",MOD_FLEETING,55,0,0},{"KINDLED / 35 GOLD","Modify an Attack or Skill: draw 1 extra card when played, but Exhaust it.",MOD_KINDLED,35,0,0}},
+ {{"KEEN / 8 HP","Modify one Attack: +2 base damage per hit, before Force, Falter and Fracture.",MOD_KEEN,0,8,0},{"WARD / 8 HP","Modify one card that grants Guard: +4 base Guard per card effect, before Poise.",MOD_WARD,0,8,0}},
+ {{"FLEETING / 55 GOLD","Modify an Attack or Skill: costs 1 less Energy, but Exhausts when played.",MOD_FLEETING,55,0,0},{"KINDLED / 35 GOLD","Modify an Attack or Skill: draw 1 extra card when played, but Exile it.",MOD_KINDLED,35,0,0}},
  {{"BID WITH GOLD / 95 GOLD","Pay 95 Gold for this relic.",0,95,0,0},{"BID WITH VITALITY","Lose 10 maximum HP for this other relic. Current HP is capped at the new maximum; at least 25 maximum HP must remain.",0,0,0,10}},
  {{"CUT A PAGE / 35 GOLD","Remove one card from your deck. You must keep at least one card.",EVENT_REMOVE,35,0,0},{"BIND A TWIN / 60 GOLD","Copy one playable card, including its upgrade and modification. Add the copy to your deck.",EVENT_COPY,60,0,0}},
  {{"RING THE BELL","Lose 7 HP. Receive the shown Ancient card, or a Rare if no Ancient is unlocked.",0,0,7,0}},
  {{"BREAK THE REFLECTION","Lose 8 HP to remove one card.",EVENT_REMOVE,0,8,0},{"STEAL ITS HAND","Pay 30 Gold to copy one playable card.",EVENT_COPY,30,0,0},{"REMEMBER ITS FACE","Pay 25 Gold. Give one card Retain.",MOD_BOUND,25,0,0}},
  {{"BUY TWO VIALS","Pay 35 Gold. Gain two random unlocked potions. Requires two empty belt slots.",0,35,0,0},{"EMPTY YOUR BELT","Trade every carried potion for the shown relic. Requires at least one potion.",0,0,0,0},{"DRINK THE ANTIDOTE","Trade your first carried potion to heal 20 HP.",0,0,0,0}},
- {{"BORROW YOUR TOMORROWS","Lose 6 maximum HP. Gain 2 permanent Strength for future combats. At least 25 maximum HP must remain.",0,0,0,6},{"TURN BACK TWO HANDS","Pay 60 Gold. Upgrade two random eligible cards. Requires two upgradeable cards.",0,60,0,0}},
+ {{"BORROW YOUR TOMORROWS","Lose 6 maximum HP. Gain 2 permanent Force for future combats. At least 25 maximum HP must remain.",0,0,0,6},{"TURN BACK TWO HANDS","Pay 60 Gold. Upgrade two random eligible cards. Requires two upgradeable cards.",0,60,0,0}},
  {{"TAKE THE COFFIN'S GIFT","Receive the shown relic. Add Dread: unplayable; if held, costs 1 Energy next turn.",0,0,0,0}},
  {{"REST IN THE BOAT","Pay 15 Gold. Heal 12 HP.",0,15,0,0},{"PAY IN BLOOD","Lose 8 HP. Gain 60 Gold.",0,0,8,0},{"SURRENDER A MEMORY","Pay 50 Gold to remove one card.",EVENT_REMOVE,50,0,0}},
  {{"CALL THE TOSS","Pay 15 Gold. Equal chances: gain 80 Gold, gain 25 Gold, heal 25 HP, or gain 5 maximum HP and heal 5.",0,15,0,0}},
  {{"STITCH A MEMORY","Lose 9 HP. Give one card Retain.",MOD_BOUND,0,9,0},{"LIGHT THE THREAD","Pay 35 Gold. One Attack or Skill draws an extra card, but Exhausts.",MOD_KINDLED,35,0,0}},
- {{"SHARPEN","Pay 30 Gold. One Attack gains +2 base damage per hit.",MOD_KEEN,30,0,0},{"REINFORCE","Lose 10 HP. One Block-granting card gains +4 base Block.",MOD_WARD,0,10,0},{"LET IT ANSWER","Pay 65 Gold and lose 5 HP. An eligible Attack or defensive Skill plays twice, but costs 1 more Energy.",MOD_ECHO,65,5,0}},
+ {{"SHARPEN","Pay 30 Gold. One Attack gains +2 base damage per hit.",MOD_KEEN,30,0,0},{"REINFORCE","Lose 10 HP. One Guard-granting card gains +4 base Guard.",MOD_WARD,0,10,0},{"LET IT ANSWER","Pay 65 Gold and lose 5 HP. An eligible Attack or defensive Skill plays twice, but costs 1 more Energy.",MOD_ECHO,65,5,0}},
  {{"FOLD YOUR YEARS","Lose 4 maximum HP. One Attack or Skill costs 1 less Energy, but Exhausts. Keep at least 25 maximum HP.",MOD_FLEETING,0,0,4}},
  {{"CARVE A WOUND","Lose 3 maximum HP. One Attack gains +2 base damage per hit. Keep at least 25 maximum HP.",MOD_KEEN,0,0,3},{"CARVE A PROMISE","Pay 25 Gold. Give one card Retain.",MOD_BOUND,25,0,0},{"CARVE A SPARK","Lose 8 HP. One Attack or Skill draws an extra card, but Exhausts.",MOD_KINDLED,0,8,0}},
- {{"DRINK THE IRON","Lose 3 HP. Next combat only: gain 3 Strength and begin with 1 Vulnerable.",0,0,3,0},{"CHOOSE CLEAN WATER","Pay 30 Gold. Heal 18 HP.",0,30,0,0}},
- {{"KNEEL IN THE SALT","Heal 28 HP. Begin your next combat with 2 Weak.",0,0,0,0},{"TAKE A SALT WARD","Pay 15 Gold. Begin your next combat with 12 extra Block.",0,15,0,0}},
+ {{"DRINK THE IRON","Lose 3 HP. Next combat only: gain 3 Force and begin with 1 Fracture.",0,0,3,0},{"CHOOSE CLEAN WATER","Pay 30 Gold. Heal 18 HP.",0,30,0,0}},
+ {{"KNEEL IN THE SALT","Heal 28 HP. Begin your next combat with 2 Falter.",0,0,0,0},{"TAKE A SALT WARD","Pay 15 Gold. Begin your next combat with 12 extra Guard.",0,15,0,0}},
  {{"LET THEM FEED","Lose 5 maximum HP, then heal to full. Keep at least 25 maximum HP.",0,0,0,5},{"PRESS TWO FRUITS","Lose 9 HP. Gain two random unlocked potions. Requires two empty belt slots.",0,0,9,0}},
  {{"ACCEPT THE HEART","Gain 12 maximum HP and heal 12. Add an unplayable Injury to your deck.",0,0,0,0},{"CUT A SHARD FREE","Pay 40 Gold to remove one card.",EVENT_REMOVE,40,0,0}},
  {{"PAY IN BLOOD","Lose 8 HP. Receive this relic.",0,0,8,0},{"PAY IN COIN","Pay 65 Gold. Receive this other relic.",0,65,0,0},{"SETTLE THE SMALL DEBT","Pay 20 Gold. Gain one random unlocked potion.",0,20,0,0}},
  {{"DISTILL A LESSON","Pay 20 Gold and trade your first potion to upgrade one chosen card.",EVENT_UPGRADE,20,0,0},{"DISTILL A HEARTBEAT","Trade your first two potions. Gain 8 maximum HP and heal 8.",0,0,0,0},{"SELL THE WHOLE BELT","Lose every carried potion. Gain 18 Gold for each potion sold.",0,0,0,0}},
  {{"BUY THE GOLDEN FRUIT","Pay 45 Gold. Receive the shown Rare card.",0,45,0,0},{"PLUCK THE THORNED FRUIT","Lose 7 HP. Receive the shown upgraded Uncommon card.",0,0,7,0}},
- {{"LEARN ITS RHYTHM","Pay 25 Gold. Gain 3 Strength for your next combat only.",0,25,0,0},{"STRIKE IT WITH BLOOD","Lose 6 HP. Draw 2 extra cards in your next opening hand, up to the hand limit.",0,0,6,0}},
- {{"PAY THE BLOOD TAX","Lose 10 HP. Gain 100 Gold.",0,0,10,0},{"BUY A NIGHT'S SHELTER","Pay 50 Gold. Heal 25 HP and begin your next combat with 12 extra Block.",0,50,0,0}},
+ {{"LEARN ITS RHYTHM","Pay 25 Gold. Gain 3 Force for your next combat only.",0,25,0,0},{"STRIKE IT WITH BLOOD","Lose 6 HP. Draw 2 extra cards in your next opening hand, up to the hand limit.",0,0,6,0}},
+ {{"PAY THE BLOOD TAX","Lose 10 HP. Gain 100 Gold.",0,0,10,0},{"BUY A NIGHT'S SHELTER","Pay 50 Gold. Heal 25 HP and begin your next combat with 12 extra Guard.",0,50,0,0}},
  {{"REWRITE A CARD","Pay 20 Gold. Replace one card with a different random Uncommon from your character. Its old upgrade and modifier are lost.",EVENT_TRANSFORM,20,0,0},{"KEEP YOUR OLD NAME","Gain 15 Gold. Your deck stays the same.",0,0,0,0}},
- {{"SHARE YOUR FLAME","Lose 4 HP. Next combat only: gain 2 Strength and begin with 10 extra Block.",0,0,4,0}},
+ {{"SHARE YOUR FLAME","Lose 4 HP. Next combat only: gain 2 Force and begin with 10 extra Guard.",0,0,4,0}},
  {{"SHIELD YOUR HEAD","Lose up to 6 HP. This cannot reduce you below 1 HP.",0,0,0,0}},
  {{"PAY THE TITHE","Lose up to 25 Gold. If your purse is empty, the doorway takes nothing.",0,0,0,0}},
- {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Weak. You keep your health and belongings.",0,0,0,0}},
+ {{"WALK THROUGH THE SPORES","Begin your next combat with 2 Falter. You keep your health and belongings.",0,0,0,0}},
  {{"PRIME A LESSON / 35 GOLD","One Attack, Skill or Power starts in your opening hand, within the hand limit.",MOD_PRIMED,35,0,0},{"BIND A LESSON / 30 GOLD","Give one card Retain: keep it in hand at turn end.",MOD_BOUND,30,0,0}}
 };
 /* Quote and commit the same act-adjusted modification price. */
@@ -138,7 +138,7 @@ static int event_card_ok(int raw,int action){
  if(action<MOD_COUNT)return game_can_modify(raw,action);
  if(action==EVENT_UPGRADE)return game_card_is_upgradeable(raw);
  if(action==EVENT_REMOVE||action==EVENT_TRANSFORM)return CARD_ID(raw)<CARD_COUNT;
- return game_card_is_playable(raw)&&CARD_ID(raw)!=63&&CARD_ID(raw)!=85&&CARD_ID(raw)!=CARD_GIANT_ROCK;
+ return game_card_is_playable(raw)&&CARD_ID(raw)!=63&&CARD_ID(raw)!=85&&CARD_ID(raw)!=RIFT_CARD_91;
 }
 int game_event_card_eligible(const Game*g,int raw){return event_card_ok(raw,g->next_screen);}
 static int event_relic_id(const Game*g,int option){return g->reward[(g->effect_turn==15||g->effect_turn==32)?option:0];}
@@ -265,23 +265,23 @@ static void do_event(Game*g,int option){
  case 11:if(!option)add_card(g,53);relic_id=event_relic_id(g,option);break;
  case 15:relic_id=event_relic_id(g,option);break;
  case 19:if(!option){for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Received two potions. Paid 35 Gold.");}else if(option==1){g->potion_count=0;relic_id=event_relic_id(g,option);}else{for(int i=0;i+1<g->potion_count;i++)g->potions[i]=g->potions[i+1];g->potion_count--;heal(g,20);snprintf(text,sizeof(text),"Traded the first potion. Healed up to 20 HP.");}break;
- case 20:if(!option){g->permanent_strength+=2;snprintf(text,sizeof(text),"Gained 2 permanent Strength. Lost 6 maximum HP.");}else{for(int k=0;k<2;k++){int pool[MAX_DECK],n=0;for(int i=0;i<g->deck_count;i++)if(game_card_is_upgradeable(g->deck[i]))pool[n++]=i;if(n)g->deck[pool[rnd(g,n)]]|=UPBIT;}snprintf(text,sizeof(text),"Upgraded two cards. Paid 60 Gold.");}break;
+ case 20:if(!option){g->permanent_strength+=2;snprintf(text,sizeof(text),"Gained 2 permanent Force. Lost 6 maximum HP.");}else{for(int k=0;k<2;k++){int pool[MAX_DECK],n=0;for(int i=0;i<g->deck_count;i++)if(game_card_is_upgradeable(g->deck[i]))pool[n++]=i;if(n)g->deck[pool[rnd(g,n)]]|=UPBIT;}snprintf(text,sizeof(text),"Upgraded two cards. Paid 60 Gold.");}break;
  case 21:add_card(g,53);relic_id=event_relic_id(g,option);break;
  case 22:if(!option){heal(g,12);snprintf(text,sizeof(text),"Healed up to 12 HP. Paid 15 Gold.");}else{g->gold+=60;snprintf(text,sizeof(text),"Gained 60 Gold. Lost 8 HP.");}break;
  case 23:switch(rnd(g,4)){case 0:g->gold+=80;snprintf(text,sizeof(text),"Paid 15 Gold. Won 80 Gold.");break;case 1:g->gold+=25;snprintf(text,sizeof(text),"Paid 15 Gold. Won 25 Gold.");break;case 2:heal(g,25);snprintf(text,sizeof(text),"Paid 15 Gold. Healed up to 25 HP.");break;default:g->maxhp+=5;heal(g,5);snprintf(text,sizeof(text),"Paid 15 Gold. Gained 5 maximum HP and healed 5.");break;}break;
- case 28:if(!option){g->revision182.next_combat[0]+=3;g->revision182.next_combat[4]+=1;snprintf(text,sizeof(text),"Next combat: +3 Strength, 1 Vulnerable. Lost 3 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Paid 30 Gold. Healed up to 18 HP.");}break;
- case 29:if(!option){heal(g,28);g->revision182.next_combat[3]+=2;snprintf(text,sizeof(text),"Healed up to 28 HP. Next combat starts with 2 Weak.");}else{g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 15 Gold. Next combat starts with +12 Block.");}break;
+ case 28:if(!option){g->revision182.next_combat[0]+=3;g->revision182.next_combat[4]+=1;snprintf(text,sizeof(text),"Next combat: +3 Force, 1 Fracture. Lost 3 HP.");}else{heal(g,18);snprintf(text,sizeof(text),"Paid 30 Gold. Healed up to 18 HP.");}break;
+ case 29:if(!option){heal(g,28);g->revision182.next_combat[3]+=2;snprintf(text,sizeof(text),"Healed up to 28 HP. Next combat starts with 2 Falter.");}else{g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 15 Gold. Next combat starts with +12 Guard.");}break;
  case 30:if(!option){g->hp=g->maxhp;snprintf(text,sizeof(text),"Lost 5 maximum HP. Healed to full.");}else{for(int i=0;i<2;i++)g->potions[g->potion_count++]=ascent_random_potion(g);snprintf(text,sizeof(text),"Lost 9 HP. Received two potions.");}break;
  case 31:g->maxhp+=12;heal(g,12);add_card(g,52);snprintf(text,sizeof(text),"Gained 12 maximum HP, healed 12, and added Injury.");break;
  case 32:if(option<2)relic_id=event_relic_id(g,option);else{int id=ascent_random_potion(g);g->potions[g->potion_count++]=id;snprintf(text,sizeof(text),"Paid 20 Gold. Received %s.",game_potion_name(id));}break;
  case 33:if(option==1){for(int i=0;i+2<g->potion_count;i++)g->potions[i]=g->potions[i+2];g->potion_count-=2;g->maxhp+=8;heal(g,8);snprintf(text,sizeof(text),"Traded two potions. Gained 8 maximum HP and healed 8.");}else{int gold=g->potion_count*18;g->potion_count=0;g->gold+=gold;snprintf(text,sizeof(text),"Sold the belt for %d Gold.",gold);}break;
- case 35:if(!option){g->revision182.next_combat[0]+=3;snprintf(text,sizeof(text),"Paid 25 Gold. Next combat: +3 Strength.");}else{g->revision182.next_combat[2]+=2;snprintf(text,sizeof(text),"Lost 6 HP. Next opening hand: draw 2 extra cards.");}break;
- case 36:if(!option){g->gold+=100;snprintf(text,sizeof(text),"Lost 10 HP. Gained 100 Gold.");}else{heal(g,25);g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 50 Gold. Heal 25; next combat starts with +12 Block.");}break;
+ case 35:if(!option){g->revision182.next_combat[0]+=3;snprintf(text,sizeof(text),"Paid 25 Gold. Next combat: +3 Force.");}else{g->revision182.next_combat[2]+=2;snprintf(text,sizeof(text),"Lost 6 HP. Next opening hand: draw 2 extra cards.");}break;
+ case 36:if(!option){g->gold+=100;snprintf(text,sizeof(text),"Lost 10 HP. Gained 100 Gold.");}else{heal(g,25);g->revision182.next_combat[1]+=12;snprintf(text,sizeof(text),"Paid 50 Gold. Heal 25; next combat starts with +12 Guard.");}break;
  case 37:g->gold+=15;snprintf(text,sizeof(text),"Kept your cards. Gained 15 Gold.");break;
  case 39:{int loss=MIN(6,MAX(0,g->hp-1));g->hp-=loss;snprintf(text,sizeof(text),"Falling bone costs you %d HP.",loss);break;}
  case 40:{int loss=MIN(25,g->gold);g->gold-=loss;snprintf(text,sizeof(text),"The tithe takes %d Gold.",loss);break;}
- case 41:g->revision182.next_combat[3]=MIN(5,g->revision182.next_combat[3]+2);snprintf(text,sizeof(text),"The spores follow: begin your next combat with 2 Weak.");break;
- case 38:g->revision182.next_combat[0]+=2;g->revision182.next_combat[1]+=10;snprintf(text,sizeof(text),"Lost 4 HP. Next combat: +2 Strength and +10 Block.");break;
+ case 41:g->revision182.next_combat[3]=MIN(5,g->revision182.next_combat[3]+2);snprintf(text,sizeof(text),"The spores follow: begin your next combat with 2 Falter.");break;
+ case 38:g->revision182.next_combat[0]+=2;g->revision182.next_combat[1]+=10;snprintf(text,sizeof(text),"Lost 4 HP. Next combat: +2 Force and +10 Guard.");break;
 
  }
  if(relic_id>=0){add_relic(g,relic_id);g->screen=RELIC_RESULT;g->relic_pending=0;g->relic_resume=MAP;g->win_screen=0;g->reward[0]=relic_id;g->selection=0;snprintf(g->message,sizeof(g->message),"Acquired %s.",relic_defs[relic_id].name);return;}

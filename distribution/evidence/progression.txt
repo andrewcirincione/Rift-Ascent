@@ -1,0 +1,5 @@
+PASS all characters: first/fourth/fifth/sixth/tenth/eleventh Act 3 routes; exactly two distinct-rarity cards per win through ten; no unlocks lost at five; independent character gate; cached old save repair; idempotent wins.
+PASS all six character clear orders and all four save slots: first/second clear skip shared finale, third first-clear gets all five pages, every page cold-resumes, stale saves/receipts and subsequent character wins never replay it.
+PASS existing all-three-clear profiles do not receive a retroactive replay; custom runs do not award or consume the finale.
+PASS injected preparation, account-commit, scene-entry, page-progress and final-completion write failures: retry preserves rewards and cannot lose or duplicate the finale.
+PASS five-win secret access, ten-win unlock progression and one-time Three as One finale.

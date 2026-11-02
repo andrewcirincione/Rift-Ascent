@@ -1,1 +1,0 @@
-PASS four independent slots; torn-write recovery; global debug; failed-write rollback; Vesper/Proxy synergies and discard triggers; locked generation; 500 ten-win rarity schedules; stable-save import

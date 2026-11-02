@@ -1,2 +1,0 @@
-PASS 28 in-run screens: deck/inventory browsing preserves the complete underlying Game, selection and pending effect.
-PASS cutscenes/setup stay closed; unfinished effects and recaps remain view-only; Forge healing and pause return preserve focus.

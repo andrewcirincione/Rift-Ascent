@@ -1,0 +1,12 @@
+Rift Ascent — distribution edition
+
+Provided free of charge by the project owner. This is an independent project,
+with no affiliation, sponsorship or endorsement by Mega Crit.
+
+The owner identifies the game's artwork and music as distinct. They are retained
+unchanged. This distribution does not assert rights in any other party's work.
+No new open-source license or commercial permission is granted by this notice.
+Existing component notices remain applicable. Link to the official distribution
+release when sharing the project.
+
+Engineering changes and automated audits are not legal clearance. See REVIEW.md.

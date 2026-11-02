@@ -1,0 +1,100 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE order-0-0
+WAIT ticks 88 104 24 {'event': 'cpu.status', 'ticket': 453, 'stepping': False, 'paused': False, 'pc': 134217728, 'ticks': 499838309}
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame order-0-0-individual-ending 132
+PASS exact PSP order (0, 1, 2) first-cleared characters 1 shared finale False
+FIXTURE order-0-1
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame order-0-1-individual-ending 260
+PASS exact PSP order (0, 1, 2) first-cleared characters 2 shared finale False
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame order-0-2-individual-ending 392
+SHOT completed frame finale-order-0-page-1 464
+SHOT completed frame finale-order-0-page-2 492
+SHOT completed frame finale-order-0-page-3 520
+SHOT completed frame finale-order-0-page-4 548
+SHOT completed frame finale-order-0-page-5 576
+PASS exact PSP order (0, 1, 2) first-cleared characters 3 shared finale True
+FIXTURE repeat-0
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (0, 1, 2)
+FIXTURE order-1-0
+WAIT ticks 744 760 24 {'event': 'cpu.status', 'ticket': 3255, 'stepping': False, 'paused': False, 'pc': 134217728, 'ticks': 2147984829}
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (0, 2, 1) first-cleared characters 1 shared finale False
+FIXTURE order-1-1
+WAIT ticks 860 880 24 {'event': 'cpu.status', 'ticket': 3934, 'stepping': False, 'paused': False, 'pc': 142628528, 'ticks': 2507243709}
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (0, 2, 1) first-cleared characters 2 shared finale False
+FIXTURE order-1-2
+WAIT ticks 976 996 24 {'event': 'cpu.status', 'ticket': 4474, 'stepping': False, 'paused': False, 'pc': 134217728, 'ticks': 2840576709}
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame finale-order-1-page-1 1080
+PASS exact PSP order (0, 2, 1) first-cleared characters 3 shared finale True
+FIXTURE repeat-1
+WAIT ticks 1196 1212 24 {'event': 'cpu.status', 'ticket': 5410, 'stepping': False, 'paused': False, 'pc': 134217728, 'ticks': 3329465143}
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (0, 2, 1)
+FIXTURE order-2-0
+WAIT ticks 1312 1328 24 {'event': 'cpu.status', 'ticket': 5947, 'stepping': False, 'paused': False, 'pc': 134217728, 'ticks': 3666501808}
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (1, 0, 2) first-cleared characters 1 shared finale False
+FIXTURE order-2-1
+WAIT ticks 1428 1448 24 {'event': 'cpu.status', 'ticket': 6657, 'stepping': False, 'paused': False, 'pc': 142628528, 'ticks': 4029464409}
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (1, 0, 2) first-cleared characters 2 shared finale False
+FIXTURE order-2-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame finale-order-2-page-1 1652
+PASS exact PSP order (1, 0, 2) first-cleared characters 3 shared finale True
+FIXTURE repeat-2
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (1, 0, 2)
+FIXTURE order-3-0
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (1, 2, 0) first-cleared characters 1 shared finale False
+FIXTURE order-3-1
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (1, 2, 0) first-cleared characters 2 shared finale False
+FIXTURE order-3-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame finale-order-3-page-1 2220
+PASS exact PSP order (1, 2, 0) first-cleared characters 3 shared finale True
+FIXTURE repeat-3
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (1, 2, 0)
+FIXTURE order-4-0
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (2, 0, 1) first-cleared characters 1 shared finale False
+FIXTURE order-4-1
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (2, 0, 1) first-cleared characters 2 shared finale False
+FIXTURE order-4-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame finale-order-4-page-1 2788
+PASS exact PSP order (2, 0, 1) first-cleared characters 3 shared finale True
+FIXTURE repeat-4
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (2, 0, 1)
+FIXTURE order-5-0
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (2, 1, 0) first-cleared characters 1 shared finale False
+FIXTURE order-5-1
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP order (2, 1, 0) first-cleared characters 2 shared finale False
+FIXTURE order-5-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame finale-order-5-page-1 3356
+PASS exact PSP order (2, 1, 0) first-cleared characters 3 shared finale True
+FIXTURE repeat-5
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP repeat victory skips consumed finale, order (2, 1, 0)
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame cold-before-exit-page-3 3740
+PASS saved real third-character finale at page 3 for cold restart
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: orders ; full soundtrack, zero art or memory errors
+SHA256 b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0

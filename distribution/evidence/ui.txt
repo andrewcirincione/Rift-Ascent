@@ -1,0 +1,1 @@
+PASS 4842 full card previews: complete names/rules across upgrades and all valid forge modifiers fit the combat HUD; all characters render with 1/2/3 enemies and large max HP.

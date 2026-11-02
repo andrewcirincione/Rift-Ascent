@@ -1,0 +1,11 @@
+[
+  {
+    "name": "fresh-holdout",
+    "runs": 3000,
+    "wins": 657,
+    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "goal": 3,
+    "policy": 0,
+    "unlocked": 0
+  }
+]

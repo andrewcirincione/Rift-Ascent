@@ -1,28 +1,23 @@
-# Rift Ascent project instructions
+# Rift Ascent distribution branch instructions
 
-The owner requires the source and compiled EBOOT for version 1.3.11 and every
-future release to be pushed to this GitHub repository and published as a GitHub
-Release. Delivering files only in chat does not complete a release.
+The owner requested an independent, free distribution edition on a separate
+GitHub branch. All work on this branch targets `distribution`; its workflow must
+never update `main`. Preserve history and existing releases. Do not force-push.
 
-- Keep the requested game version. Do not increment it without instruction.
-- Implement the changes, run appropriate native checks, and playtest the exact
-  packaged EBOOT in PPSSPP. Inspect screenshots when visuals change.
-- Aesthetic redesigns require generated artwork. Do not substitute arbitrary
-  decorative lines. Integrate and inspect the art in the actual game.
-- Keep source, generated assets, build scripts and validation evidence together.
-  The current canonical source is identified by `release/current.json`.
-- Put the exact tested complete EBOOT at `versions/<version>/EBOOT.PBP`, with
-  patch notes, a combat screenshot and SHA-256. Include the intended soundtrack;
-  do not silently publish an engine-only or NO MUSIC substitute.
-- Update `release/current.json`, commit the corresponding source and push to
-  `main`. The Publish PSP release workflow validates and publishes the assets.
-- Use a new release tag for a changed, already-published binary. A correction
-  can keep the in-game version and use a tag such as `v1.3.11-r2`. Never move an
-  existing published tag or silently overwrite its assets.
-- Wait for publishing to succeed. Verify that the public EBOOT asset digest
-  matches the tested local binary and provide the GitHub release link.
-- Preserve existing history and user work. Do not force-push.
-
-The owner's October 26, 2026 instruction authorizes publishing the current
-complete EBOOT and future requested releases. The previous engine-only public
-release convention is superseded by this instruction.
+- Keep the in-game version 1.8.6 unless the owner requests another version.
+- The canonical source is `qa/v186/source`. The distribution catalog replaces
+  the development edition's card/relic rules; never restore the old catalogs.
+- The owner confirms artwork and music are distinct. Preserve these assets;
+  provenance inspection or regeneration is outside this task's scope.
+- Compile with the pinned PSPDEV toolchain, run native functional/balance tests,
+  and playtest the exact complete EBOOT in PPSSPP. Inspect changed UI text/layout.
+- Preserve five-win secret access, ten-win unlocks, once-only shared finale,
+  inventory access and the corrected boss ending transitions.
+- Every release includes the complete soundtrack, source, validation, notes,
+  a combat screenshot, and SHA-256. Verify public download bytes after publication.
+- Use a fresh immutable distribution release tag for a changed published binary.
+  Distribution releases do not replace the development edition as latest stable.
+- Only the allowlisted current distribution source and resources belong in its
+  release archives. Exclude legacy executables, reference catalogs and QA archives.
+- Card/name/stat changes are engineering differentiation, not legal clearance.
+  Never promise immunity from claims or infer that free distribution is exempt.

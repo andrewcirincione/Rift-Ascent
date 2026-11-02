@@ -1,0 +1,1 @@
+PASS 20496 available story-event choices across all characters/Acts 1-7, 63 forge transactions with deck access, and all 26 potion consumption/notification paths.

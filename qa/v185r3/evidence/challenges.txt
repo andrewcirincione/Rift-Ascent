@@ -1,1 +1,0 @@
-PASS 516 enemy comparisons: ordinary HP unchanged; elites +8%, bosses +10%; all species, opening intents/damage and RNG identical across 7 acts.

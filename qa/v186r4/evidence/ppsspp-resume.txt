@@ -1,7 +1,0 @@
-BOOT 0 asset errors 0 stereo streaming 1 track 10
-SHOT title
-SHOT completed frame cold-resumed-page-3 152
-SHOT completed frame cold-finale-completed 224
-PASS cold boot resumes at saved finale page 3 and commits completion
-PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: resume ; full soundtrack, zero art or memory errors
-SHA256 d144cea99ae30e0e7c571e06515454ff253b3a284450d69296472c00e9a847eb

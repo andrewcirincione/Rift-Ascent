@@ -1,0 +1,65 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE gate-0-3
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-0-3-resolution 128
+PASS exact PSP character 0 Act 3 win 4 secret False unlocked cards 8
+FIXTURE gate-0-4
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-0-4-resolution 328
+SHOT completed frame gate-0-4-unlocks 400
+SHOT completed frame gate-0-4-revelation 488
+PASS exact PSP character 0 Act 3 win 5 secret True unlocked cards 10
+FIXTURE gate-0-9
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-0-9-unlocks 616
+PASS exact PSP character 0 Act 3 win 10 secret True unlocked cards 20
+FIXTURE gate-0-10
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-0-10-unlocks 824
+PASS exact PSP character 0 Act 3 win 11 secret True unlocked cards 20
+FIXTURE gate-1-3
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-1-3-resolution 968
+PASS exact PSP character 1 Act 3 win 4 secret False unlocked cards 8
+FIXTURE gate-1-4
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-1-4-resolution 1172
+SHOT completed frame gate-1-4-unlocks 1244
+SHOT completed frame gate-1-4-revelation 1336
+PASS exact PSP character 1 Act 3 win 5 secret True unlocked cards 10
+FIXTURE gate-1-9
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-1-9-unlocks 1464
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1488, 'r137_start': 1364, 'r1311_kill_at': 0, 'r137_duration': 72, 'r137_count': 0, 'r138_death_active': 0, 'r137_last_screen': 33, 'action_cooldown': 1, 'enemy_turn_delay': 0, 'plating_delay': 0}
+PASS exact PSP character 1 Act 3 win 10 secret True unlocked cards 20
+FIXTURE gate-1-10
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-1-10-unlocks 1668
+PASS exact PSP character 1 Act 3 win 11 secret True unlocked cards 20
+FIXTURE gate-2-3
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-2-3-resolution 1812
+PASS exact PSP character 2 Act 3 win 4 secret False unlocked cards 8
+FIXTURE gate-2-4
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-2-4-resolution 2012
+SHOT completed frame gate-2-4-unlocks 2084
+SHOT completed frame gate-2-4-revelation 2172
+PASS exact PSP character 2 Act 3 win 5 secret True unlocked cards 10
+FIXTURE gate-2-9
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-2-9-unlocks 2300
+PASS exact PSP character 2 Act 3 win 10 secret True unlocked cards 20
+FIXTURE gate-2-10
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame gate-2-10-unlocks 2504
+PASS exact PSP character 2 Act 3 win 11 secret True unlocked cards 20
+FIXTURE badges-4
+SHOT completed frame badges-4 2600
+FIXTURE badges-5
+SHOT completed frame badges-5 2620
+FIXTURE combat
+SHOT completed frame release-combat 2640
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: gates ; full soundtrack, zero art or memory errors
+SHA256 b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0

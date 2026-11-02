@@ -1,0 +1,7 @@
+Generated 394 original card slots; 390 playable; unique names.
+Generated 94 relic contracts.
+Generated 26 original potion contracts.
+PASS cards.json 394 unique names, no exact inherited-name matches
+PASS relics.json 94 unique names, no exact inherited-name matches
+PASS potions.json 26 unique names, no exact inherited-name matches
+PASS deterministic catalog/rules regeneration; retired card engines and catalogs absent

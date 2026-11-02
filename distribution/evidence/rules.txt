@@ -1,0 +1,4 @@
+PASS 58008 card cases: all playable slots, upgrades, legal forge modifiers, one/two/three foes, 0/3/6/9 Echo; preview immutability, damage/Guard parity, bounded piles/resources, exile and replay.
+PASS character Echo generators, cap, all relic pickup/turn/event/card trigger contracts.
+PASS live Echo, power/once flags and deferred effects round-trip through alternating and standalone saves.
+PASS all four redesigned burdens at empty/stocked Echo: HP, Guard and resource payments match printed rules.

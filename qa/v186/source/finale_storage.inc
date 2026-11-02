@@ -13,15 +13,15 @@ static int ascent_finale_valid(const AscentFinale*f){
 }
 static void ascent_finale_open(void){
  AscentFinale a,b;unsigned ga=0,gb=0;
- int va=ascent_read("ASCENT18_FINALE",0,&a,sizeof(a),&ga)&&ascent_finale_valid(&a);
- int vb=ascent_read("ASCENT18_FINALE",1,&b,sizeof(b),&gb)&&ascent_finale_valid(&b);
+ int va=ascent_read("RIFTD186_FINALE",0,&a,sizeof(a),&ga)&&ascent_finale_valid(&a);
+ int vb=ascent_read("RIFTD186_FINALE",1,&b,sizeof(b),&gb)&&ascent_finale_valid(&b);
  memset(&ascent_finale,0,sizeof(ascent_finale));ascent_finale_generation=0;
  if(va||vb){ascent_finale=vb&&(!va||gb>ga)?b:a;ascent_finale_generation=vb&&(!va||gb>ga)?gb:ga;}
 }
 static int ascent_finale_write(const AscentFinale*next){
  AscentFinale verify;unsigned gen=ascent_finale_generation+1,vg=0;
- if(!ascent_write("ASCENT18_FINALE",next,sizeof(*next),gen)||
-    !ascent_read("ASCENT18_FINALE",gen&1,&verify,sizeof(verify),&vg)||vg!=gen||
+ if(!ascent_write("RIFTD186_FINALE",next,sizeof(*next),gen)||
+    !ascent_read("RIFTD186_FINALE",gen&1,&verify,sizeof(verify),&vg)||vg!=gen||
     memcmp(next,&verify,sizeof(verify)))return 0;
  ascent_finale=*next;ascent_finale_generation=gen;return 1;
 }

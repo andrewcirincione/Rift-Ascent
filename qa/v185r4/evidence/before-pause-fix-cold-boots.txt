@@ -1,4 +1,0 @@
-PASS fixed-fresh observed startup stack bytes 115352 of 196608 slot present 0 music active; frame 60; original beta/legacy files unchanged
-SHA256 b07f96bfe4d65ddc55b6a03979c08bcc337e72ab15dfb7753c71e90a3db737d4
-PASS fixed-beta184 observed startup stack bytes 144704 of 196608 slot present 1 music active; frame 60; original beta/legacy files unchanged
-SHA256 b07f96bfe4d65ddc55b6a03979c08bcc337e72ab15dfb7753c71e90a3db737d4

@@ -1,2 +1,0 @@
-READY launcher.png
-Launcher preview RMS 0.0

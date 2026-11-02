@@ -1,0 +1,6 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+SHOT completed frame cold-completed-no-replay 152
+PASS second cold boot resumes Victory, finale permanently consumed
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: done ; full soundtrack, zero art or memory errors
+SHA256 b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0

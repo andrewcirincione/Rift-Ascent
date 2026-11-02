@@ -1,5 +1,0 @@
-SHOT boot
-SHOT resumed-choice
-SHOT resumed-sly-resolved
-PASS final release EBOOT: pending Sly choice resumes and resolves once
-SHA256 819af839606a893bb00cb6848de43140f071d3292e556b8469fc9bef8dc32fe5

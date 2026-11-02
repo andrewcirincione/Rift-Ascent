@@ -1,0 +1,73 @@
+name: Build and publish isolated distribution edition
+on:
+  push:
+    branches: ['distribution']
+    paths: ['release/current.json', '.github/workflows/distribution.yml']
+permissions:
+  contents: write
+concurrency:
+  group: distribution-release
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned PSPDEV
+        run: |
+          set -euo pipefail
+          curl -fsSL https://github.com/pspdev/pspdev/releases/download/v20261001/pspdev-ubuntu-latest-x86_64.tar.gz -o "$RUNNER_TEMP/pspdev.tar.gz"
+          tar --no-same-owner -xzf "$RUNNER_TEMP/pspdev.tar.gz" -C "$RUNNER_TEMP"
+      - name: Rebuild exact playtested executable and run regressions
+        env:
+          PSPDEV: ${{ runner.temp }}/pspdev
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = distribution
+          python3 distribution/tools/check_catalog.py
+          bash distribution/build.sh
+          python3 distribution/tools/check_stack.py
+          bash distribution/test.sh
+          python3 distribution/tools/run_campaigns.py --quick
+          python3 - <<'PY'
+          import hashlib,json,pathlib,shutil
+          meta=json.loads(pathlib.Path('release/current.json').read_text())
+          assert meta['tag']=='v1.8.6-dist1' and meta['prerelease'] is True
+          p=pathlib.Path('distribution/evidence/EBOOT.PBP')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==meta['eboot_sha256'], 'Rebuild differs from playtested binary'
+          assert p.stat().st_size==meta['eboot_bytes']
+          shutil.copyfile(p,meta['eboot'])
+          PY
+      - name: Commit full executable and unchanged media on distribution only
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f versions/1.8.6-dist1/EBOOT.PBP distribution/resources
+          if ! git diff --cached --quiet; then
+            git commit -m 'Package exact playtested distribution build and preserved media'
+            git push origin HEAD:refs/heads/distribution
+          fi
+      - name: Package and publish distribution prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python3 distribution/tools/prepare_release.py
+          if gh release view v1.8.6-dist1 --json isDraft > "$RUNNER_TEMP/distribution-release.json"; then
+            python3 -c 'import json,sys; assert json.load(open(sys.argv[1]))["isDraft"], "Published immutable release already exists"' "$RUNNER_TEMP/distribution-release.json"
+          else
+            gh release create v1.8.6-dist1 --target "$(git rev-parse HEAD)" --title 'Rift Ascent 1.8.6-dist1 — distribution edition' --notes-file versions/1.8.6-dist1/PATCH_NOTES.md --draft --prerelease --latest=false
+          fi
+          gh release upload v1.8.6-dist1 dist/* --clobber
+          release_id=$(gh release view v1.8.6-dist1 --json databaseId --jq .databaseId)
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" > "$RUNNER_TEMP/distribution-upload.json"
+          python3 tools/check_release_upload.py "$RUNNER_TEMP/distribution-upload.json"
+          gh release edit v1.8.6-dist1 --draft=false --prerelease --latest=false
+          gh release view v1.8.6-dist1 --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
