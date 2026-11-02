@@ -1,0 +1,42 @@
+{
+  "reviewed_main_commit": "cb1b2e3635f312f50e8269d2186e0a814182d98e",
+  "scope": "Four selected development catalogs; evidence that distribution branch cleanup does not alter main, not an exhaustive old-release audit",
+  "files": [
+    {
+      "path": "qa/v186/source/ninja_cards.inc",
+      "sha256": "b22f12ad22c67d609b0b3eb0cfd8f68d325fe58f978f71368cc64e0e3ec93249",
+      "exact_name_matches": 89,
+      "examples": [
+        "Abrasive",
+        "Accelerant",
+        "Accuracy",
+        "Acrobatics",
+        "Adrenaline"
+      ]
+    },
+    {
+      "path": "qa/v186/source/regent_cards.inc",
+      "sha256": "7fe9ec8fe70fd3b9508f3fa7291d1e5fa7859ef7fa1ae8bfe1da216698c9c30c",
+      "exact_name_matches": 146,
+      "examples": [
+        "Alchemize",
+        "Alignment",
+        "Anointed",
+        "Arsenal",
+        "Astral Pulse"
+      ]
+    },
+    {
+      "path": "qa/v186/source/new_cards.inc",
+      "sha256": "c89175dad635d8669a6945f0865369360ec74f8967f72d40d79dc98011614e7e",
+      "exact_name_matches": 0,
+      "examples": []
+    },
+    {
+      "path": "qa/v186/source/new_relics.inc",
+      "sha256": "a77888272b16171274e57c73aa0a0ca094c63f51439d65152258a268a2d2d567",
+      "exact_name_matches": 0,
+      "examples": []
+    }
+  ]
+}

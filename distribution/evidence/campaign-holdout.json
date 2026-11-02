@@ -3,7 +3,7 @@
     "name": "fresh-holdout",
     "runs": 3000,
     "wins": 657,
-    "source_sha256": "9cde75d77c74fd95a60a1dda8cdb4db465a6f3b1217bd6e2bca4d0872202ce4a",
+    "source_sha256": "faf7ebf940f18be646c6d32f22af2cdcf0ae26e3246a4b4a51c4f95085c1acb4",
     "goal": 3,
     "policy": 0,
     "unlocked": 0

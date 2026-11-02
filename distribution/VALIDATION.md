@@ -1,9 +1,9 @@
 # Distribution validation record
 
-Target: `v1.8.6-dist1`, in-game version 1.8.6, PSPDEV `v20261001`.
+Target: `v1.8.6-dist2`, in-game version 1.8.6, PSPDEV `v20261001`.
 The full executable includes the unchanged artwork and complete soundtrack.
 
-SHA-256: `b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0` (99103871 bytes).
+SHA-256: `f42eff279f0f1754b176a34d5d7ba70a3bb584fc9e6126ceb39397799bc951b1` (99103503 bytes).
 
 ## Native checks
 
@@ -22,6 +22,9 @@ All native suites run with AddressSanitizer and UndefinedBehaviorSanitizer.
 - 4,842 full card previews fit complete names/rules, including upgrades and all
   permitted forge modifiers. Combat renders for every character with one, two
   and three enemies and 987 maximum HP.
+- 2,723 story text samples fit the four-line PSP dialogue box, including first
+  journeys, return histories, ordinary resolutions, five-win revelations and
+  the shared finale.
 - Progression checks cover all characters, wins 1–11, five-win secret access,
   exactly twenty unlock cards through ten wins, all six secret-clear orders,
   all five finale pages, repeated victories, stale saves, cold restoration and
@@ -31,8 +34,11 @@ All native suites run with AddressSanitizer and UndefinedBehaviorSanitizer.
   interval for Act 3, Act 4 and Act 7, including leader/minion last kills. They
   reject combat returns, double fades, premature boss endings and wrong scene
   artwork. The shared finale has one transition with a black midpoint.
-- 14,700 complete simulated campaigns, including 3,000 independent holdout seeds,
-  finish without stalls. Detailed balance and decision data are in `BALANCE.md`.
+- All 14,700 complete simulated campaigns were rerun, including the original
+  3,000-seed holdout cohort. Results and per-card decision CSVs are byte-identical
+  to dist1, with no stalls. `dist2-balance-equivalence.json` records the hashes.
+  These are paired regressions; the reused holdout seeds are not a new holdout.
+  Detailed balance and decision data are in `BALANCE.md`.
 
 ## PSP executable checks
 
@@ -43,14 +49,21 @@ unassisted human campaign completions. Repeated scene-routing checks skip alread
 resolved presentation delays; a separate phase observes the actual finishing
 transitions without that shortcut.
 
-Completed executable checks include all twelve character/win gates, all six
-character clear orders and repeat victories, two cold restarts, six full ending
-sequences plus the shared finale transition, and each character's card/replay/
-power/potion/end-turn state compared with a native oracle. The three-enemy HUD
-and high-maximum-HP bar were visually inspected at PSP resolution. Forge choice
-and deck-overlay screenshots are also included in the evidence.
+For this dist2 executable, completed phases are `review`, `cards`, `gates`,
+and `review-finale`. They cover the twelve fourth/fifth/tenth/eleventh-win gates;
+each character's card/replay/power/potion/end-turn state against a native oracle;
+three forge choices and deck overlays; all four revised Proxy entry settings,
+a three-line boss exchange, three complete revised story events, the first-run
+Act 3 resolution, corrected character/forge gift text, and the third-character
+individual/shared ending followed by a repeat victory that skips the finale.
 
-The final per-phase logs and screenshots are stored under `distribution/evidence/`.
+Representative revised scenes and HUD/menu screenshots were visually inspected
+at 480x272. The native suites rerun all six finale orders, cold restoration,
+write-failure handling and complete transition frames. Dist1's broader emulator
+cold-restart and six-order/full-fade evidence remains historical; it is not
+represented as a fresh run of every emulator phase on dist2.
+
+The final per-phase logs and representative screenshots are stored under `distribution/evidence/`.
 They record the tested executable's SHA-256. Physical PSP hardware has not been
 available in this environment, so no physical-device validation is claimed.
 
@@ -60,6 +73,9 @@ available in this environment, so no physical-device validation is claimed.
   known inherited-name regression hashes, deterministic generated rules, and
   removal of the retired catalogs. This is not an exhaustive comparison with
   every published game or a legal clearance check.
+- `review_text.py` adds pinned two-game reference-name regression hashes and
+  checks removal of the identified identity/rule remnants. The broader text
+  comparison and its limitations are in `LEGAL_REVIEW.md`.
 - Preserved media bank and embedded-image SHA-256 values match the exact prior
   release. Title music produces nonzero stereo PCM in PPSSPP. Artwork/music
   creative provenance was not audited, as directed by the owner.

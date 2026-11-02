@@ -1,1 +1,2 @@
 PASS 4842 full card previews: complete names/rules across upgrades and all valid forge modifiers fit the combat HUD; all characters render with 1/2/3 enemies and large max HP.
+PASS 2723 story text samples fit the four-line PSP dialogue area, including return history and five-win revelations.

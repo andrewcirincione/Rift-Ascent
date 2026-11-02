@@ -1,5 +1,11 @@
 # Distribution differentiation review
 
+The deeper 2 November 2026 review and dist2 remediation are documented in
+[LEGAL_REVIEW.md](LEGAL_REVIEW.md), including the pinned two-game text comparison,
+Proxy narrative rewrite, Mega Crit's published policy/enforcement example,
+remaining public development builds and the separate title-use collision.
+The project has not received legal clearance for a broad public launch.
+
 This is an engineering record, not a legal clearance opinion. The owner requests
 free distribution and confirms that the artwork and music are distinct. Those
 assets have been retained byte-for-byte; their creative provenance was not audited.
@@ -22,9 +28,10 @@ assets have been retained byte-for-byte; their creative provenance was not audit
   snapshots from distributable archives. The version-control parent history and
   the separate development branch remain intact, as requested.
 
-Names are checked against hashes of the inherited card/relic-name inventory.
-This is a regression check for known matches, not an exhaustive search of every
-published game. No automated comparison can establish non-infringement.
+Names are checked against hashes of the inherited card/relic-name inventory and
+the separate pinned Slay the Spire 1/2 review snapshot. These are regression
+checks for known matches, not an exhaustive search of every published game.
+No automated comparison can establish non-infringement.
 
 ## Legal framing and remaining limits
 

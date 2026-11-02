@@ -777,7 +777,7 @@ static const EnemyDef enemy_defs[ENEMY_COUNT]={
  {"THE CRIMSON JUDGE",240,19,2,{3,14,21,31}},
  {"Void Disciple",82,17,0,{5,8,0,1}},
  {"Bone Harvester",92,17,0,{7,0,12,3}},
- {"Abyss Watcher",78,16,0,{6,9,2,10}},
+ {"Hollow Surveyor",78,16,0,{6,9,2,10}},
  {"Rift Channeler",79,16,0,{11,5,9,0}},
  {"Pale Executioner",103,18,0,{10,0,3,1}},
  {"Crownless Saint",91,16,0,{13,12,3,0}},
@@ -869,8 +869,8 @@ static void enemy_intent(Game*g,Enemy *e){
  e->intent_value=(int)CLAMP((attack*percent+50)/100+g->floor/7+(e->phase?2:0),1,100000000);
 }
 static const char *intent_titles[INTENT_COUNT]={
- "STRIKE","GUARD","WEAKEN","EXPOSE","EMPOWER","HEX","VENOM",
- "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","SUNDER","FLURRY","ENTOMB","FRACTURE","SEAR","RALLY","PURGE","GLOOM","BLIGHT","BRACED STRIKE","CINDER GUARD","STATIC CRUSH","BONE BULWARK","CHAIN LASH","GRAVE CHOIR","RIFT REND","RECOVER"
+ "IMPACT","GUARD","WEAKEN","BREACH","EMPOWER","CURSE","VENOM",
+ "DOUBLE","DRAIN","MEND","CRUSH","DREAD","LEECH","FORTIFY","PIERCE","RENDING","FLURRY","ENTOMB","FRACTURE","SEAR","MUSTER","PURGE","GLOOM","BLIGHT","BRACED IMPACT","CINDER GUARD","STATIC CRUSH","BONE BULWARK","CHAIN LASH","GRAVE CHOIR","RIFT REND","RECOVER"
 };
 static const char *intent_details[INTENT_COUNT]={
  "One direct hit. Guard reduces its damage.",

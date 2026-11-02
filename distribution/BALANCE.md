@@ -1,6 +1,11 @@
 # Distribution balance validation
 
-Final compiled ruleset: `b4b7250dc2a97ce9172fdaa5e98c88a0de5aedf08919f4de8989129c07f783e0`.
+Dist2 checkpoint: all 14,700 simulations below were rerun after text/identity
+cleanup. Every per-run and per-card decision CSV is byte-identical to dist1;
+see `evidence/dist2-balance-equivalence.json`. No combat rules or balance values
+changed. The same holdout cohort was reused as a regression, not a new holdout.
+
+Dist2 executable: `f42eff279f0f1754b176a34d5d7ba70a3bb584fc9e6126ceb39397799bc951b1`.
 
 ## Scope and limits
 

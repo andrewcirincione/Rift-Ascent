@@ -6,7 +6,7 @@ This branch contains the distribution ruleset. The development edition remains o
 
 ## Install
 
-Download the PSP ZIP from the `v1.8.6-dist1` release. Extract it to your memory
+Download the PSP ZIP from the `v1.8.6-dist2` release. Extract it to your memory
 stick so the executable is `PSP/GAME/RIFTASCENT_DIST/EBOOT.PBP`. It includes the
 complete soundtrack. The distribution edition starts a separate profile and
 never imports development saves.
@@ -47,7 +47,9 @@ routing. See `distribution/BALANCE.md` and `distribution/VALIDATION.md`.
 ## Distribution scope
 
 This project is free of charge. It is independent and has no affiliation with
-Mega Crit. See `distribution/REVIEW.md` for the differentiation work and its limits.
+Mega Crit. See [the detailed IP review](distribution/LEGAL_REVIEW.md) for the
+differentiation work, title-use collision and unresolved clearance questions.
+This prerelease is not a legal clearance certificate for a broad public launch.
 Use this edition's release downloads for sharing: the repository's older branches,
 commits, and releases retain historical material and were not erased.
 

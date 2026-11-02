@@ -15,23 +15,23 @@ const char*game_loop_story(const Game*g){
  static const char*entry[3][3]={
   {"The ash holds my bootprints. Same stride. Same broken heel. I have climbed these steps before, and the tower has kept the marks.",
    "That bell rang before I touched the door. I know the note. I heard it at the end of another life.",
-   "The stars are in the same impossible positions. This is not a second sky. Someone has wound the first one back."},
+   "The same correction appears beneath my signature. This is not a new ledger. Someone has restored the page I crossed out."},
   {"The scars return before the wounds. Whatever drags me back cannot quite remember how to make me forget.",
    "The choir has changed one word of its prayer. My name. It remembers more each time I come back.",
-   "Every ascent leaves a star out of place. The reset is imperfect. I can learn where its seams are."},
-  {"An oath, a name, a stolen sky. Three anchors holding the same prison shut. This time I climb to find where mine was fastened.",
+   "Every ascent leaves an omission the next record cannot explain. The reset is imperfect. I can learn where its seams are."},
+  {"An oath, a name, a stolen testimony. Three anchors holding the same prison shut. This time I climb to find where mine was fastened.",
    "They erased my name to make a perfect anchor. But every return teaches someone to say it. The tower cannot silence all of us.",
-   "It resets the heavens, not what we have learned. Every lesson carried back is another piece of its machinery coming loose."}
+   "It resets the record, not what we have learned. Every lesson carried back is another piece of its machinery coming loose."}
  };
  static const char*challenge[3][3]={
   {"I remember killing something behind this door.","You know my footsteps. Why?","We have held this audience before."},
   {"The tower keeps bringing me back. Tell me what it wants.","You remember every death. I can hear them in your voice.","Someone has made a mechanism out of our lives."},
-  {"You are guarding an anchor, not a throne.","The prison remembers me. Now I remember it.","I know what keeps this sky turning. Move."}
+  {"You are guarding an anchor, not a throne.","The prison remembers me. Now I remember it.","I know who keeps rewriting this record. Move."}
  };
  static const char*reply[3][3]={
   {"The furnace consumes the body. The oath survives. We burn you again because it does.","Ash keeps the shape of every offering. Even yours.","I keep the fire beneath the lock. Break me, and you still have a lock."},
   {"A sentence is not ended merely because the condemned has died.","The record is corrected. Your name returns to the first page.","I judge the lives the tower repeats. I did not write its law."},
-  {"You have taken this crown before. You mistake a lock for its keeper.","Three lives hold the seal: an oath, a name, a stolen sky. None were given willingly.","Kill the keeper. Climb to the maker. Until the anchors are freed, the rift will call you home."}
+  {"You have taken this crown before. You mistake a lock for its keeper.","Three lives hold the seal: an oath, a name, a stolen testimony. None were given willingly.","Kill the keeper. Climb to the maker. Until the anchors are freed, the rift will call you home."}
  };
  static const char*answer[3][3]={
   {"Then this time I take the answer with me.","Keep listening. I intend to leave an echo.","Then I shall remember what you refuse to say."},
@@ -58,13 +58,13 @@ const char*game_loop_event(const Game*g){
  static const char*lines[3][3]={
   {"For an instant, another scar lies beneath the one on your hand. The encounter feels remembered rather than discovered.",
    "A voice nearly calls you by a name you lost. It stops, as though warned. You know you have heard that hesitation before.",
-   "A star carved into the stone is missing from your crown. You remember leaving it here, though this body never did."},
+   "A correction in the stone matches your handwriting. You remember making it here, though these hands never did."},
   {"An old inscription calls the Warden an anchor. Beneath it, in your own hand: I did not agree to this.",
    "The same prayer is scratched out twice. A third line survives: what the tower cannot erase, it must carry into the next life.",
-   "The pattern is an inventory, not a constellation. Beside each star is a life spent restoring the same broken heaven."},
-  {"Beneath the marks of your weapon are two other signs: a silent blade and a fallen crown. Other hands are working at the same chain.",
+   "The lights mark missing testimony. Beside each is a life spent restoring the same false account of what happened."},
+  {"Beneath the marks of your weapon are two other signs: a nameless blade and an unsigned page. Other hands are working at the same chain.",
    "Someone has left three names beneath the prayer. Yours is intact. You add the mark of a broken chain beside it.",
-   "Three paths cross in the carving. The sky cannot be reclaimed by a sovereign alone. The oath and the nameless blade must remember too."}
+   "Three paths cross in the carving. One witness cannot free the record alone. The oath and the nameless blade must remember too."}
  };
  return lines[stage][c];
 }
@@ -74,14 +74,14 @@ const char*game_loop_ascent(const Game*g,int kind,int page){
  static const char*resolution[3]={
   "I have stood here before. Still, the gates are open and the living are free. That is a victory worth carrying home.",
   "I remember another silence after this victory. This one holds voices the choir could not erase. I will carry their names home.",
-  "This sky feels remembered. Yet the stars belong to no crown tonight. Whatever returns, that choice was mine."
+  "I have signed this ending before. Tonight the names remain legible. Whatever returns, those people have had one day of their own."
  };
  if(kind==0&&page==2)return resolution[c];
  if((kind==1||kind==2)&&!ascent_secret(c))return 0;
  static const char*revelation[3]={
   "The king was a lock, and I have broken it before. Something above the light keeps rebuilding the cage around my oath.",
   "The choir is dead again. The voice behind it remembers all our silences. This time I know where to listen.",
-  "The stars are being recalled to their first positions. The throne was only a dial. Its maker is still turning it."};
+  "The names are vanishing in the order they returned. The court was only a copying desk. Its author is still revising the record."};
  static const char*unmaker[3][3]={
   {"UNMAKER: I bound your oath to the rift. Each death restores the seal. Each victory repairs what the climb has broken.",
    "WARDEN: You made a prison and called us its walls.",
@@ -89,8 +89,8 @@ const char*game_loop_ascent(const Game*g,int kind,int page){
   {"UNMAKER: I erased your name to leave an empty place the rift could always fill. That is how you return.",
    "VESPER: And every time, someone learns to say it again.",
    "UNMAKER: A remembered name is an anchor coming loose. You were never supposed to remember one another."},
-  {"UNMAKER: The stars you claimed are the coordinates of the seal. I return them, and you with them, whenever the prison weakens.",
-   "PROXY: Then every altered star is a path you cannot close.",
+  {"UNMAKER: Your testimony certifies the seal. When the prison weakens, I restore the record and the witness who signed it.",
+   "PROXY: Then every name I restore is a correction you cannot silence.",
    "UNMAKER: The thing above us devours worlds. I gave it three lives to repeat instead. Do you understand what your freedom may cost?"}
  };
  if(kind==1&&page==0)return revelation[c];

@@ -1,0 +1,67 @@
+{
+  "baseline": "v1.8.6-dist1",
+  "candidate": "v1.8.6-dist2",
+  "all_campaign_and_card_decisions_identical": true,
+  "files": [
+    {
+      "file": "final-defensive-cards.csv",
+      "sha256": "f76a1b745265d3088e009f9a712b7c27e844a308d26f8d997bea0dddb8086044",
+      "identical": true
+    },
+    {
+      "file": "final-defensive.csv",
+      "sha256": "5742195e973fb3b147782d8a385239aca262ac90c6fb481164c4e0676fad3dd9",
+      "identical": true
+    },
+    {
+      "file": "final-fresh-a-cards.csv",
+      "sha256": "8d43e9f3ee7524f855a9edd25d7e3963a1bd918a6729102c81b1cf07f5836825",
+      "identical": true
+    },
+    {
+      "file": "final-fresh-a.csv",
+      "sha256": "db1a1fc992fce0ac45b8bc8985ff5fc47ff04f1f5321877f1b98f73d5666f893",
+      "identical": true
+    },
+    {
+      "file": "final-fresh-b-cards.csv",
+      "sha256": "fb85eb34342241276d4c60a8bd2d587b1a562d13abee5b8f78af950eb42d073d",
+      "identical": true
+    },
+    {
+      "file": "final-fresh-b.csv",
+      "sha256": "0a83d9332c23c7de6935f3c2b508f85abf8e75060074d1128ef1d2c1725edd63",
+      "identical": true
+    },
+    {
+      "file": "final-secret-cards.csv",
+      "sha256": "f20c336e7286b3acebd6ef4eb9f43b00de7e65515b8812804d45dc0443e97e64",
+      "identical": true
+    },
+    {
+      "file": "final-secret.csv",
+      "sha256": "d77a7be27ba32c23f55151738b6809639e56cc2220ffa270cb45f5a6a843b5b4",
+      "identical": true
+    },
+    {
+      "file": "final-unlocked-cards.csv",
+      "sha256": "bbfc2a4dc600ce8c6b6d32de44adaf58471989c83d7217e345bd2e6e0a67cf4c",
+      "identical": true
+    },
+    {
+      "file": "final-unlocked.csv",
+      "sha256": "088a28c18d9306575443f8d22d310c2952475fac9fe25fdacdef9ad7d7bcdd35",
+      "identical": true
+    },
+    {
+      "file": "holdout-fresh-holdout-cards.csv",
+      "sha256": "adc2f1bc90f85e1056042a2ed0820fd4a2c397dba7ad05a44fdb13885eb221e3",
+      "identical": true
+    },
+    {
+      "file": "holdout-fresh-holdout.csv",
+      "sha256": "e7aea005204e75082bcc06f1d6c2da216f3104f24a9020ee8f55074a592d6619",
+      "identical": true
+    }
+  ]
+}

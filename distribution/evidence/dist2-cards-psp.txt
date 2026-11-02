@@ -1,0 +1,38 @@
+Coverage: only the named phase below; historical generic harness summary lists other available phases. See VALIDATION.md.
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE cards-0
+SHOT completed frame cards-0-three-foes 80
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 200, 'r137_start': 160, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT completed frame cards-0-potion-menu 336
+SHOT completed frame cards-0-after-potion 392
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 432, 'r137_start': 420, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+PASS exact PSP character 0 four cards including Twinwoven and Power, potion, turn end match native oracle; no potion text box
+FIXTURE cards-1
+SHOT completed frame cards-1-three-foes 472
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 588, 'r137_start': 552, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 9, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT completed frame cards-1-potion-menu 736
+SHOT completed frame cards-1-after-potion 788
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 832, 'r137_start': 816, 'r1311_kill_at': 0, 'r137_duration': 29, 'r137_count': 5, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+PASS exact PSP character 1 four cards including Twinwoven and Power, potion, turn end match native oracle; no potion text box
+FIXTURE cards-2
+SHOT completed frame cards-2-three-foes 868
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 924, 'r137_start': 892, 'r1311_kill_at': 0, 'r137_duration': 36, 'r137_count': 2, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 988, 'r137_start': 948, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 4, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+SHOT completed frame cards-2-potion-menu 1124
+SHOT completed frame cards-2-after-potion 1180
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1212, 'r137_start': 1208, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 5, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 2, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1228, 'r137_start': 1208, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 5, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+WAIT settle {'r161_transition_active': 0, 'r1311_finishing': 0, 'animation_tick': 1240, 'r137_start': 1208, 'r1311_kill_at': 0, 'r137_duration': 44, 'r137_count': 5, 'r138_death_active': 0, 'r137_last_screen': 2, 'action_cooldown': 0, 'enemy_turn_delay': 0, 'plating_delay': 0}
+PASS exact PSP character 2 four cards including Twinwoven and Power, potion, turn end match native oracle; no potion text box
+FIXTURE forge
+SHOT completed frame forge-choice-0 1272
+SHOT completed frame forge-deck-0 1300
+SHOT completed frame forge-choice-1 1344
+SHOT completed frame forge-deck-1 1372
+SHOT completed frame forge-choice-2 1416
+SHOT completed frame forge-deck-2 1444
+SHOT completed frame forge-card-preview 1496
+PASS exact PSP three forge choices, deck overlay preserves each cursor, forged-card preview
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: cards ; full soundtrack, zero art or memory errors
+SHA256 f42eff279f0f1754b176a34d5d7ba70a3bb584fc9e6126ceb39397799bc951b1

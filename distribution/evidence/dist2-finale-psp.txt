@@ -1,0 +1,18 @@
+Coverage: only the named phase below; historical generic harness summary lists other available phases. See VALIDATION.md.
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE order-0-2
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame review-true-ending-0 128
+SHOT completed frame review-true-ending-1 156
+SHOT completed frame review-true-ending-2 184
+SHOT completed frame review-finale-0 224
+SHOT completed frame review-finale-1 252
+SHOT completed frame review-finale-2 280
+SHOT completed frame review-finale-3 308
+SHOT completed frame review-finale-4 336
+FIXTURE repeat-0
+QA skipped repeated finisher presentation after resolution
+PASS exact PSP revised individual/shared finale text; third-character clear triggers once and repeat clear skips it
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: review-finale ; full soundtrack, zero art or memory errors
+SHA256 f42eff279f0f1754b176a34d5d7ba70a3bb584fc9e6126ceb39397799bc951b1

@@ -9,4 +9,6 @@ No new open-source license or commercial permission is granted by this notice.
 Existing component notices remain applicable. Link to the official distribution
 release when sharing the project.
 
-Engineering changes and automated audits are not legal clearance. See REVIEW.md.
+Engineering changes and automated audits are not legal clearance. See REVIEW.md
+and LEGAL_REVIEW.md for the review, remaining title/provenance questions and the
+separate exposure from publicly available development builds.

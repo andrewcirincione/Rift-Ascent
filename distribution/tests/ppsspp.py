@@ -271,7 +271,34 @@ async def check(w):
   async def finale_value(index):return struct.unpack_from('<I',await memory('ascent_finale',20),index*4)[0]
   async def click_n(n):
    for _ in range(n):await button('cross')
-  if phase=='gates':
+  if phase=='review':
+   for act in range(1,5):
+    await fixture('review-entry-'+str(act));await shot('review-entry-'+str(act))
+   await fixture('review-boss')
+   for page in range(3):
+    assert await screen()==screens['STORY_BOSS'];await shot('review-boss-'+str(page));await button('cross')
+   for event in [2,7,13]:
+    await fixture('review-event-'+str(event))
+    for page in range(3):
+     assert await screen()==screens['EXPEDITION_STORY'];await shot(f'review-event-{event}-{page}');await button('cross')
+   await fixture('review-first-ending');await button('cross')
+   for page in range(3):
+    assert await screen()==screens['ASCENT_ENDING'];await shot('review-first-ending-'+str(page));await button('cross')
+   await fixture('review-forge-gift');await shot('review-forge-gift')
+   await fixture('badges-5');await shot('review-character-hp')
+   print('PASS exact PSP revised Proxy entries/boss/events/first resolution and corrected forge/character text',flush=True)
+  elif phase=='review-finale':
+   await fixture('order-0-2');await button('cross')
+   for page in range(3):
+    assert await screen()==screens['ASCENT_TRUE_END'];await shot('review-true-ending-'+str(page));await button('cross')
+   for page in range(5):
+    assert await screen()==screens['ASCENT_FINALE'] and field(await state(),'selection')==page
+    await shot('review-finale-'+str(page));await button('cross')
+   assert await screen()==screens['VICTORY'] and await finale_value(3)==3
+   await fixture('repeat-0');await button('cross');await click_n(3)
+   assert await screen()==screens['VICTORY'] and await finale_value(3)==3
+   print('PASS exact PSP revised individual/shared finale text; third-character clear triggers once and repeat clear skips it',flush=True)
+  elif phase=='gates':
    for c in range(3):
     for prior in [3,4,9,10]:
      label=f'gate-{c}-{prior}'
@@ -362,7 +389,7 @@ async def check(w):
   else:raise AssertionError('Unknown test phase '+phase)
  assert await val('rift_asset_errors')==0
  assert 'Bad memory access' not in (E/(prefix+'ppsspp.log')).read_text()
- print('PASS final release EBOOT:', 'all Normal/Fast full-frame ending sequences' if os.environ.get('RIFT_FADE_ONLY')=='1' else 'five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: '+os.environ.get('RIFT_PHASE','gates'), '; full soundtrack, zero art or memory errors',flush=True)
+ print('PASS final release EBOOT:', 'all Normal/Fast full-frame ending sequences' if os.environ.get('RIFT_FADE_ONLY')=='1' else 'completed phase: '+os.environ.get('RIFT_PHASE','gates'), '; full soundtrack, zero art or memory errors',flush=True)
  print('SHA256',hashlib.sha256((D/'EBOOT.PBP').read_bytes()).hexdigest(),flush=True);await command('cpu.stepping')
 
 p=None;x=None

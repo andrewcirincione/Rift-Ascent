@@ -2,12 +2,12 @@
 from pathlib import Path
 import hashlib,json,subprocess,zipfile,shutil
 R=Path(__file__).resolve().parents[2];meta=json.loads((R/'release/current.json').read_text());D=R/'dist';D.mkdir(exist_ok=True)
-assert meta['tag']=='v1.8.6-dist1' and meta['install_folder']=='RIFTASCENT_DIST' and meta['prerelease'] is True
+assert meta['tag']=='v1.8.6-dist2' and meta['install_folder']=='RIFTASCENT_DIST' and meta['prerelease'] is True
 binary=R/meta['eboot'];data=binary.read_bytes();assert hashlib.sha256(data).hexdigest()==meta['eboot_sha256'];assert len(data)==meta['eboot_bytes'];assert data[-160:-152]==b'RIFTAU19'
 for p in D.iterdir():
  assert p.is_file();p.unlink()
-prefix='RiftAscent-1.8.6-dist1';shutil.copyfile(binary,D/(prefix+'-EBOOT.PBP'))
-docs={'README.md':R/'README.md','PATCH_NOTES.md':R/meta['notes'],'BALANCE.md':R/'distribution/BALANCE.md','VALIDATION.md':R/'distribution/VALIDATION.md','REVIEW.md':R/'distribution/REVIEW.md','NOTICE.txt':R/'distribution/NOTICE.txt'}
+prefix='RiftAscent-1.8.6-dist2';shutil.copyfile(binary,D/(prefix+'-EBOOT.PBP'))
+docs={'README.md':R/'README.md','PATCH_NOTES.md':R/meta['notes'],'BALANCE.md':R/'distribution/BALANCE.md','VALIDATION.md':R/'distribution/VALIDATION.md','REVIEW.md':R/'distribution/REVIEW.md','LEGAL_REVIEW.md':R/'distribution/LEGAL_REVIEW.md','NOTICE.txt':R/'distribution/NOTICE.txt'}
 for n,p in docs.items():shutil.copyfile(p,D/n)
 shutil.copyfile(R/meta['screenshot'],D/'Combat.png')
 install='PSP/GAME/'+meta['install_folder']
@@ -17,7 +17,7 @@ with zipfile.ZipFile(D/(prefix+'-PSP.zip'),'w',compression=zipfile.ZIP_DEFLATED,
  for p in sorted((R/'distribution/licenses').iterdir()):z.write(p,install+'/licenses/'+p.name)
 # This tree is itself allowlisted at commit creation. Apply another release boundary.
 tracked=subprocess.check_output(['git','ls-files'],cwd=R,text=True).splitlines()
-allowed_prefixes=('qa/v186/source/','distribution/','tools/','release/','versions/1.8.6-dist1/','.github/workflows/distribution.yml')
+allowed_prefixes=('qa/v186/source/','distribution/','tools/','release/','versions/1.8.6-dist2/','.github/workflows/distribution.yml')
 allowed_roots={'README.md','AGENTS.md','.gitignore','qa/v186/assets.json'}
 with zipfile.ZipFile(D/(prefix+'-Source.zip'),'w',compression=zipfile.ZIP_DEFLATED,compresslevel=6) as z:
  for n in tracked:

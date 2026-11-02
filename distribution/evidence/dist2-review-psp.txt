@@ -1,0 +1,39 @@
+Coverage: only the named phase below; historical generic harness summary lists other available phases. See VALIDATION.md.
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE review-entry-1
+SHOT completed frame review-entry-1 84
+FIXTURE review-entry-2
+SHOT completed frame review-entry-2 104
+FIXTURE review-entry-3
+SHOT completed frame review-entry-3 124
+FIXTURE review-entry-4
+SHOT completed frame review-entry-4 144
+FIXTURE review-boss
+SHOT completed frame review-boss-0 164
+SHOT completed frame review-boss-1 192
+SHOT completed frame review-boss-2 220
+FIXTURE review-event-2
+SHOT completed frame review-event-2-0 280
+SHOT completed frame review-event-2-1 308
+SHOT completed frame review-event-2-2 336
+FIXTURE review-event-7
+SHOT completed frame review-event-7-0 384
+SHOT completed frame review-event-7-1 412
+SHOT completed frame review-event-7-2 440
+FIXTURE review-event-13
+SHOT completed frame review-event-13-0 488
+SHOT completed frame review-event-13-1 516
+SHOT completed frame review-event-13-2 544
+FIXTURE review-first-ending
+QA skipped repeated finisher presentation after resolution
+SHOT completed frame review-first-ending-0 640
+SHOT completed frame review-first-ending-1 668
+SHOT completed frame review-first-ending-2 696
+FIXTURE review-forge-gift
+SHOT completed frame review-forge-gift 744
+FIXTURE badges-5
+SHOT completed frame review-character-hp 764
+PASS exact PSP revised Proxy entries/boss/events/first resolution and corrected forge/character text
+PASS final release EBOOT: five-win gates and ten-win unlocks / all six finale orders and repeats / cold-restart persistence: review ; full soundtrack, zero art or memory errors
+SHA256 f42eff279f0f1754b176a34d5d7ba70a3bb584fc9e6126ceb39397799bc951b1

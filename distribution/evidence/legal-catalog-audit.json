@@ -1,0 +1,192 @@
+{
+  "date": "2026-11-02",
+  "scope": "English community snapshot; not exhaustive, authoritative, semantic equivalence or legal clearance",
+  "reference_repository": "https://github.com/nkhoit/spire-archive",
+  "reference_commit": "4e6b0e040ccd00eb04fb1ab7fb0b298c222d2f29",
+  "reference_files": [
+    {
+      "file": "sts1-cards.json",
+      "rows": 360,
+      "sha256": "01fbd640d83c4455aa9631443e60784b9a0ff0b6e5034ea4f5ffdd0f63558360"
+    },
+    {
+      "file": "sts1-relics.json",
+      "rows": 181,
+      "sha256": "6d80107642b4add6c4f2c0219a19266b7476ab36ef0dd425fc7e1290e4fe85cf"
+    },
+    {
+      "file": "sts1-potions.json",
+      "rows": 42,
+      "sha256": "0efcd00f0d30c8a5e7627d584084f50299b1df34e72205fd41abd0929e561a2a"
+    },
+    {
+      "file": "sts1-characters.json",
+      "rows": 4,
+      "sha256": "f7cbd0177d38f7deb693444eaf0aeacc6164d9d3eecd12a75eed5b7196a16bdc"
+    },
+    {
+      "file": "sts1-events.json",
+      "rows": 52,
+      "sha256": "b3c3b2ac7f51c3bcda4e67e3c3f2f46a8c06de4a7b0bfad0e76ccbe4b27b3ac2"
+    },
+    {
+      "file": "sts1-monsters.json",
+      "rows": 68,
+      "sha256": "3664e3542252e1a6cb35646fc514546f0e0d2df72827c61f086cb0910176ad7e"
+    },
+    {
+      "file": "sts1-powers.json",
+      "rows": 146,
+      "sha256": "3d84b96daa44b189689429bed698990efbdaab774a52fde7aecc7bc06ceee325"
+    },
+    {
+      "file": "sts2-cards.json",
+      "rows": 577,
+      "sha256": "22ef381db9d184a3d739b7805cdd730cdc30950735564b7d614966fbbe124aa7"
+    },
+    {
+      "file": "sts2-relics.json",
+      "rows": 296,
+      "sha256": "1092dea97f3de009528efdc39008e6d159cf6023fb4e10158076cf05eca90ae2"
+    },
+    {
+      "file": "sts2-potions.json",
+      "rows": 63,
+      "sha256": "6ceaf3e3f745c239b2abb8a16507fbc11ec5233e75ff32070c33e6aa54796d10"
+    },
+    {
+      "file": "sts2-characters.json",
+      "rows": 5,
+      "sha256": "bad2cb04b190d01bef8cbcfbd40edecefe87164e675b2e866caeb54673e858af"
+    },
+    {
+      "file": "sts2-events.json",
+      "rows": 66,
+      "sha256": "e30270a8d19df84927b4a79f4ea2c3f406ed9ef134543657ad1e743fd85ae215"
+    },
+    {
+      "file": "sts2-monsters.json",
+      "rows": 111,
+      "sha256": "d2665468c27f0b89f5672f7f0841ae79313e1e5bdd9e1bd8904078ff4064b3dc"
+    },
+    {
+      "file": "sts2-powers.json",
+      "rows": 241,
+      "sha256": "41280029a1261761a036e5db0ac54f0b84e4bba3731e1c03c4dedf09d9228468"
+    }
+  ],
+  "reference_rows": 2212,
+  "unique_reference_names": 1642,
+  "own_collectibles": {
+    "cards": 394,
+    "relics": 94,
+    "potions": 26
+  },
+  "collectible_name_hits": [],
+  "full_description_hits": [],
+  "source_literal_name_hits": [
+    {
+      "path": "qa/v186/source/game.c",
+      "text": "Strike",
+      "reference": [
+        {
+          "file": "sts1-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts1-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts1-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts1-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts2-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts2-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts2-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts2-cards.json",
+          "name": "Strike"
+        },
+        {
+          "file": "sts2-cards.json",
+          "name": "Strike"
+        }
+      ]
+    },
+    {
+      "path": "qa/v186/source/mini_libc.c",
+      "text": "(null)",
+      "reference": [
+        {
+          "file": "sts2-cards.json",
+          "name": "Null"
+        }
+      ]
+    },
+    {
+      "path": "qa/v186/source/render.c",
+      "text": "DRAW",
+      "reference": [
+        {
+          "file": "sts1-powers.json",
+          "name": "Draw"
+        }
+      ]
+    }
+  ],
+  "shared_eight_word_sequences": [],
+  "source_files": 36,
+  "source_literals": 3373,
+  "source_text_sha256": {
+    "qa/v186/source/aesthetic_art.h": "b036c6ed12f9bbd96b997515abac683cb49d3ef77a91cb038e57030f3351a680",
+    "qa/v186/source/artwork.c": "b27d4c73742ba81c63632e448a1e8358c273bf9aa6b831f29518d4f49d9cb798",
+    "qa/v186/source/ascent_dialogue.h": "bcb648f3bf8b04c46fd901375bc8ac3202c9421d54490ae2eaee8e551afa3e19",
+    "qa/v186/source/ascent_flow.inc": "2495e1a3b50f0ef9f6e018892419bdc6afdcab500d8deaff4d2d6f0c99f67aa4",
+    "qa/v186/source/ascent_paths.c": "9e878e43b61c5307da5626e3c772697be9fc269d73d3ce8c43c2aaf4f33e3a00",
+    "qa/v186/source/ascent_storage.inc": "fef0893847c6283e01249cc1a1b951149504e8d12cc367246b7bd3c4c46f9b26",
+    "qa/v186/source/ascent_ui.inc": "73d7bddbebd7a444f06760d11a168e75f5730cabec5edfb5f773bf8f85217b6b",
+    "qa/v186/source/asset_stream.c": "f3d52f654bf467c83305175ca5fcbb4d5d625ee84a852636211aac8b3f97f64b",
+    "qa/v186/source/beta_game.inc": "394db5421ae47d66b3271403cfc18caa4549c61d08c0367cf5696b2286b26043",
+    "qa/v186/source/beta_ui.inc": "f4a11577033e50a8e766326bbbb9e5156ea9ef4854d1979f5fe2071c6392ce7a",
+    "qa/v186/source/boot_trace.c": "28c3aee84805cf16b7e2c8729ced88b009aac9dbc1ae4d9286cf48d30abd28d6",
+    "qa/v186/source/card_mods.inc": "b6cf4f0d250a87ecbc939d4dfcef3df34064c2d50bfb80293760f305128e0620",
+    "qa/v186/source/card_preview.inc": "9a149d74cf92c5468f4ee3b2d0e8fdf98f044bf0fc5ad175efe1ac99fb8a5234",
+    "qa/v186/source/combat_fx.inc": "bcddc6257e418316812c466d59dc444a9b6459e6016aa2f86be7e26c696fe45e",
+    "qa/v186/source/custom_run.inc": "8d65e48d2950a9b336f48bc51395d0975c92af90c2209daa6f34a70782c11dba",
+    "qa/v186/source/custom_ui.inc": "49aed1866ea5e9ebfdbb3dd53db2447da7f03c0f2efadaa9e6116016e6a160de",
+    "qa/v186/source/distribution_catalog.inc": "58bda8c65e945ea31c66fd8a368f8e2dfd5e2ac2aa94307883d1e1ab75d5e647",
+    "qa/v186/source/distribution_engine.inc": "20cff687958823ffa12cf7c7a107482da230aee6d679d71995bac61a74a43dcd",
+    "qa/v186/source/distribution_relics.inc": "1cd48c13469323751e94457f5a13cf438f937023c296cc71a3b00d1b17e470f4",
+    "qa/v186/source/enemy_art.c": "e61fd39f91a50268e02c268eae76b7198dc869be9686e25af69624cd14a651ac",
+    "qa/v186/source/events150.inc": "f4409dd8601e27d08e7920f8c45bc864472c9a78f46aed148c8fbc68d3940110",
+    "qa/v186/source/expedition_flow.inc": "fe00844b604a74d6c2c7c3d8d5fa30bdf20ff597ce596a36d85560de9bca8868",
+    "qa/v186/source/expedition_stories.h": "5027b40694d1ddde3abd39cdad780205e94b7ec7e48490744864964f97e6a01f",
+    "qa/v186/source/expedition_ui.inc": "8bc1739dc088ad82ebca906e5adab44c6b5a0db2b2a75a3d8da8a8cc777d631c",
+    "qa/v186/source/finale_storage.inc": "5a8f4d2ba7fb7d88e902e0317f1cf52799a6089e9842f8275cda4bbc01773110",
+    "qa/v186/source/game.c": "104832006956689c6f4994f07495d56a1ecb3e720d3ca806d8c348972cc44b8a",
+    "qa/v186/source/game.h": "4b549c2db70011a1bca12f10765d0c2ef6e1a2b7588cb6708a53c67a17113848",
+    "qa/v186/source/loop_story.inc": "6941491477f6a920039b50a7c8e9f7a08307ba22db40345d3063d15e3c037862",
+    "qa/v186/source/mini_libc.c": "06953cfa64466bee722ce843d023892e8fcc717d92f6209cee24a440b80abbfe",
+    "qa/v186/source/motion_art.c": "ba9cad1e65550f6826901e7ee045643322f6ea7aa3f12c4271a459e3abaa30f4",
+    "qa/v186/source/new_potions.h": "b72ecba037814755034927aa09732c76462c7377e2ef9a052837a346f5099b25",
+    "qa/v186/source/psp_start.c": "8a4bb037fe3dbd222190fa6f7d8532f7f7504363322e0cdfd410ff052c72ee8a",
+    "qa/v186/source/relics151.inc": "c62178d4a91c6834add1add1aab7f8b2b923641a2ebd675346f913992ca2f517",
+    "qa/v186/source/render.c": "9a4c5d936aae124d7c71dbe0c84e6be6ca023fd393cccf2fba7344a45f61d6ce",
+    "qa/v186/source/sound.c": "1afe1f6d9368aed8ee90658fdce1c319466dfeabc7983ea6802be29aa4661d20",
+    "qa/v186/source/story170_data.h": "cbd267aac12a1e14376ff233e7026464b2f551d72703941f199eccd5efdd8698"
+  }
+}

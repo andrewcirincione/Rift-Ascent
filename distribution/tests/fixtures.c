@@ -5,7 +5,7 @@
 static AscentAccount empty;
 static void reset(void){ascent_account=empty;memset(&ascent_finale,0,sizeof(ascent_finale));ascent_finale_generation=0;}
 static void save(const char*name,const Game*g){
- char path[240];assert(game_validate(g));const void*data[]={g,&ascent_account,&ascent_finale};const unsigned size[]={sizeof(*g),sizeof(ascent_account),sizeof(ascent_finale)};const char*kind[]={"fixture","account","finale"};
+ char path[240];if(!game_validate(g)){fprintf(stderr,"Invalid fixture: %s screen=%d act=%d\n",name,g->screen,g->act);abort();}const void*data[]={g,&ascent_account,&ascent_finale};const unsigned size[]={sizeof(*g),sizeof(ascent_account),sizeof(ascent_finale)};const char*kind[]={"fixture","account","finale"};
  for(int i=0;i<3;i++){snprintf(path,sizeof(path),"distribution/evidence/%s-%s.bin",kind[i],name);FILE*f=fopen(path,"wb");assert(f&&fwrite(data[i],size[i],1,f)==1);fclose(f);}
 }
 static void battle(Game*g,int act){g->act=act;g->endless=act>3;g->floor=MAP_ROWS;g->hp=g->maxhp=120;g->relic_count=0;game_start_battle(g,NODE_BOSS);g->energy=10;g->hand_count=3;for(int i=0;i<3;i++)g->hand[i]=g->character==0?0:g->character==1?RIFT_CARD_173:RIFT_CARD_269;g->selection=g->target=0;for(int e=0;e<g->enemy_count;e++){g->enemies[e].hp=e?0:1;g->enemies[e].block=0;}}
@@ -45,5 +45,16 @@ int main(void){
   }
  }
  reset();assert(ascent_begin(&g,0,0,2000));g.screen=BETA_FORGE;g.expedition.gift_kind=2;g.selection=0;save("forge",&g);
+ for(int a=1;a<=4;a++){
+  reset();assert(ascent_begin(&g,0,2,2100+a));g.act=a;g.endless=a>3;g.screen=STORY_ACT;g.scroll=a==3?9:0;g.selection=0;
+  snprintf(name,sizeof(name),"review-entry-%d",a);save(name,&g);
+ }
+ reset();assert(ascent_begin(&g,0,2,2200));g.act=3;g.screen=STORY_BOSS;g.scroll=4;g.selection=0;save("review-boss",&g);
+ for(int id=2;id<=13;id+=id==2?5:6){
+  reset();assert(ascent_begin(&g,0,2,2300+id));g.screen=EXPEDITION_STORY;g.expedition.story_id=id;g.selection=0;
+  snprintf(name,sizeof(name),"review-event-%d",id);save(name,&g);
+ }
+ reset();assert(ascent_begin(&g,0,2,2400));battle(&g,3);save("review-first-ending",&g);
+ reset();assert(ascent_begin(&g,0,2,2500));g.screen=EXPEDITION_GIFT;g.expedition.gift_kind=2;g.selection=0;save("review-forge-gift",&g);
  puts("PASS legal assisted PSP fixtures: fourth/fifth/tenth/eleventh gates, all six character orders, repeat victories, golden A, full-frame finishing controls.");return 0;
 }

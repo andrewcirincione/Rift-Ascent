@@ -9,7 +9,7 @@ static void expedition_gift_view(const Game*g){
  ascent_heading("A GIFT FROM THE JOURNEY");
  if(g->expedition.gift_kind==2){
   r134_center(240,90,"THE JOURNEY FORGE",GOLD,&r138_title10);
-  char detail[180];snprintf(detail,sizeof(detail),"Work on one card: upgrade it, add a modifier, or apply Echo for %d maximum HP. Echo costs +1 Energy and plays twice.",game_beta_echo_cost(g));
+  char detail[180];snprintf(detail,sizeof(detail),"Work on one card: upgrade it, add a modifier, or apply Twinwoven for %d maximum HP. Twinwoven costs +1 Energy and plays twice.",game_beta_echo_cost(g));
   r134_wrap(70,125,340,4,14,detail,WHITE,&r134_f9,0);
  }else if(g->expedition.gift_kind){
   int id=g->expedition.gift;r150b_relic_icon(210,51,60,id);

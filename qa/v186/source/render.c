@@ -794,10 +794,6 @@ static void card_render(int x,int y,int w,int h,int raw,int selected,int active)
   int glowing=!card_combat_context||(card_combat_context->regent.stars>0&&!shortfall);
   r160_star_badge(sx,arty,orb,sb,&r134_f9b,glowing,shortfall);
  }
- if(id>=NINJA_FIRST&&(game_card_is_sly(card_combat_context,raw)||(raw&CARD_INKY))){
-  const char*mark=(raw&CARD_INKY)?"INKY":"SLY";int mw=r134_width(mark,&r134_f8)+4,mx=x+w/2-mw/2,my=arty+arth-9;
-  dark_rect(mx,my,mw,9,220);r134_center(x+w/2,my,mark,RGB(171,225,189),&r134_f8);
- }
  int mod=CARD_MOD(raw);if(mod>0&&mod<MOD_COUNT){
   int seal=small?17:24;
   r134_blit(x+w-art_inset-seal,arty+(arth-seal)/2,seal,seal,mod==MOD_PRIMED?r186_primed:r150_seals[mod-1],40,40,255);
@@ -1052,7 +1048,7 @@ static void r140_potion_card(const Game*g,int id,int x,int y,int w){
  r134_wrap(x+49,y+20,w-70,2,10,game_potion_description_now(g,id),WHITE,&r134_f8,0);
 }
 static void reward_screen(const Game*g){
- header(g,!memcmp(g->message,"Belt full.",10)?g->message:g->battle_type==NODE_BOSS?"BOSS SPOILS":"SPOILS OF BATTLE");
+ header(g,!memcmp(g->message,"Belt full.",10)?g->message:g->battle_type==NODE_BOSS?"BOSS SPOILS":"SALVAGE FOUND");
  gilded_panel(10,30,460,227,0);
  for(int i=0;i<3;i++){
   int chosen=!g->v151.card_done&&g->selection==i,x=27+i*144,y=41;
@@ -1250,9 +1246,9 @@ static void relic_screen(const Game*g){
  footer("X/CIRCLE RETURN");
 }
 static void character_screen(const Game*g){
- Game display=*g;display.hp=display.maxhp=g->selection==1?70:g->selection==2?75:80;display.gold=g->selection?99:95;
+ Game display=*g;display.hp=display.maxhp=g->selection==1?73:g->selection==2?76:78;display.gold=g->selection?99:95;
  header(&display,g->endless?"ENDLESS / CHOOSE YOUR CHARACTER":"ASCENT / CHOOSE YOUR CHARACTER");
- const char*names[]={"WARDEN","VESPER","PROXY"};const char*hp[]={"80 HP / 3 ENERGY","70 HP / 3 ENERGY","75 HP / 3 ENERGY"};
+ const char*names[]={"WARDEN","VESPER","PROXY"};const char*hp[]={"78 HP / 3 ENERGY","73 HP / 3 ENERGY","76 HP / 3 ENERGY"};
  const char*build[]={"Guard / Release","Cadence / Wither","Reserve / Release"};const char*gift[]={"Start: 2 Echo; heal 3 on win","Start: draw 1; switches guard","Start: 2 Echo; turn 3: draw 1"};
  for(int i=0;i<3;i++){int x=12+i*156,chosen=g->selection==i,dy=chosen?-4:0;gilded_panel(x,47+dy,144,194,chosen);
   r134_center(x+72,57+dy,names[i],chosen?GOLD:WHITE,&r138_title10);
@@ -1272,9 +1268,7 @@ static void regent_choice_screen(const Game*g){
 }
 static void ninja_choice_screen(const Game*g){
  header(g,game_ninja_choice_title(g));char b[96];
- if(g->ninja.choice_kind==1)snprintf(b,sizeof(b),"Choose %d more. Sly cards play for free when discarded.",g->ninja.choice_remaining);
- else if(g->ninja.choice_kind==4)snprintf(b,sizeof(b),"Retain up to %d more cards. Circle finishes selection.",g->ninja.choice_remaining);
- else snprintf(b,sizeof(b),g->ninja.choice_kind==2?"Give one Skill Sly for this turn.":"Receive 3 independent copies next turn.");
+ snprintf(b,sizeof(b),"Choose up to %d more cards.",g->ninja.choice_remaining);
  r134_center(240,47,b,GOLD,&r134_f9);
  int first=g->selection/6*6;
  for(int i=first;i<g->hand_count&&i<first+6;i++){int off=i-first,x=26+off%3*98,y=69+off/3*91,eligible=game_ninja_choice_eligible(g,i);card_render(x,y,82,86,g->hand[i],i==g->selection,eligible);if(!eligible)dark_rect(x+7,y+9,68,69,115);}
