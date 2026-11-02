@@ -1,8 +1,10 @@
 # Rift Ascent PSP
 
-Latest stable: [Rift Ascent 1.8.6](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.6).
+Latest stable: [Rift Ascent 1.8.6-r2](https://github.com/andrewcirincione/Rift-Ascent/releases/tag/v1.8.6-r2).
 
 Install the PSP ZIP or replace `PSP/GAME/RIFTASCENT/EBOOT.PBP`, retaining all save/account files.
+
+The 1.8.6-r2 correction fixes the Act 3 boss ending double fade and abrupt cutscene change. See [correction notes](versions/1.8.6-r2/PATCH_NOTES.md) and [frame-by-frame validation](qa/v186r2/README.md).
 
 Version 1.8.6 improves health readability and Forge focus, adds boss minions and occasional themed elite pairs, expands Forge modifiers, and introduces a story that develops over repeated ascents. See [patch notes](versions/1.8.6/PATCH_NOTES.md) and [implementation and validation](qa/v186/README.md).
 

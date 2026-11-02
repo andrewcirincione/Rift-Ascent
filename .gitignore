@@ -231,3 +231,9 @@ qa/v186/evidence/boot-fixtures/
 qa/v186/evidence/core
 qa/v186/source/*.su
 qa/v186/source/.*
+
+# 1.8.6 ending-transition correction
+qa/v186r2/evidence/*.bin
+qa/v186r2/evidence/*.log
+qa/v186r2/evidence/EBOOT.PBP
+qa/v186r2/evidence/act*/

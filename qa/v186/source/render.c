@@ -221,7 +221,10 @@ void game_render_feedback(const Game *before,const Game *after,int action,unsign
  }
  if(before->screen==COMBAT && (after->screen==REWARD||after->screen==RELIC_RESULT||after->screen==VICTORY||after->screen==DEFEAT||after->screen==ASCENT_ENDING||after->screen==ASCENT_TRUE_END||after->screen==ASCENT_SAVE_ERROR||after->screen==ABOMINATION_AFTER)){
     victory_scene=*after;
-    fx_transition=0; /* The finishing clip has its own fade after contact. */
+    fx_transition=0; /* The finishing clip owns the only fade after contact.
+        Cancel the generic story transition scheduled above: it would fade
+        out now, reveal the replayed fight again, then cut to the ending. */
+     r161_transition_active=0;r182_combat_transition=0;
     victory_tick=tick;
     victory_replay=1;
  }
@@ -1480,6 +1483,16 @@ static void inspector(const Game*g){
         "L/R TABS   START CLOSE":"L/R TABS  START CLOSE");
 
 }
+/* Cutscene renderers return early, so they must share the same reveal as
+   reward screens. At the midpoint the destination is fully black; it then
+   fades in without drawing the combat scene again. */
+static void r186_finish_reveal(const Game*g,unsigned tick){
+ if(victory_replay&&r1311_finishing&&g->screen!=COMBAT){
+  int reveal=r137_raw_age(tick)-r1311_finish_end();
+  if(reveal>=0&&reveal<12)dark_rect(0,0,W,H,(12-reveal)*255/12);
+  else if(reveal>=12)victory_replay=0;
+ }
+}
 void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
  animation_tick=tick;pix=pixels;sw=stride;rect(0,0,W,H,RGB(9,10,14));
  if(r161_transition_active&&!r161_transition_drawing){
@@ -1517,8 +1530,8 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    return;
  }
  pix=pixels;sw=stride;
- if(expedition_scene(g->screen)){expedition_scene_view(g);return;}
- if(ascent_story_screen(g->screen)){ascent_scene_view(g);return;}
+ if(expedition_scene(g->screen)){expedition_scene_view(g);r186_finish_reveal(g,tick);return;}
+ if(ascent_story_screen(g->screen)){ascent_scene_view(g);r186_finish_reveal(g,tick);return;}
  if(g->screen==STORY_ACT||g->screen==STORY_BOSS||g->screen==STORY_ACT_BEFORE_BLESSING){
   rect(0,0,W,H,RGB(0,0,0));
   int a=CLAMP(g->act-1,0,3),c=CLAMP(g->character,0,2);
@@ -1597,11 +1610,7 @@ void game_render_frame(const Game*g,uint32_t*pixels,int stride,unsigned tick){
    break;
  }
  }
- if(victory_replay&&r1311_finishing&&g->screen!=COMBAT){
-  int reveal=r137_raw_age(tick)-r1311_finish_end();
-  if(reveal>=0&&reveal<12)dark_rect(0,0,W,H,(12-reveal)*255/12);
-  else if(reveal>=12)victory_replay=0;
- }
+ r186_finish_reveal(g,tick);
  if(g->screen==COMBAT){
    if(r134_playing()){
     int age=(int)(tick-rift120_play_tick),t=CLAMP(age,0,18),ease=t*(36-t);

@@ -1,0 +1,42 @@
+BOOT 0 asset errors 0 stereo streaming 1 track 10
+SHOT title
+FIXTURE finish3
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act3-normal-leader-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish3
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act3-normal-minion-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish3
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act3-fast-leader-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish4
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act4-normal-leader-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish7
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act7-normal-minion-last frames 52 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish7
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:206: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  luminosity=sum(sum(p) for p in picture.getdata());rows.append(dict(frame=index,tick=tick,age=age,kill_at=kill_at,finish_end=finish_end,screen=field(raw,'screen'),finishing=finishing,replay=replay,transition=transition,brightness=luminosity));pictures.append(picture)
+/workspace/scratch/f8d07c3dc089/Rift-Ascent/qa/v186r2/qa_ppsspp.py:210: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  if age<finish_end-12:assert sum(sum(p) for p in picture.crop((0,0,480,17)).getdata())>0,(label,rows[-1])
+PASS exact EBOOT sequence act7-fast-minion-last frames 19 one final fade, no generic fade/return, cutscene revealed; zero art errors
+FIXTURE finish3
+SHOT release-combat
+PASS final release EBOOT: frame-complete PSP rendering of Act 3 leader/minion-last endings, Normal/Fast speeds, Act 4 and Act 7 controls, exact fade ordering and black midpoint, full audio, zero asset or memory errors
+SHA256 350c4407133058929083faa835533e6259c814ddfb99f71b5610c52deced34a4

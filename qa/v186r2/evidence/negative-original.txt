@@ -1,0 +1,1 @@
+r186r2-negative-original: qa/v186r2/timeline.c:19: check_sequence: Assertion `!game_render_transition_busy(start)' failed.
