@@ -2,29 +2,9 @@
   "provenance": "Artwork and music confirmed distinct by the owner; unchanged bytes from prior release.",
   "baseline_sha256": "d144cea99ae30e0e7c571e06515454ff253b3a284450d69296472c00e9a847eb",
   "files": {
-    "hero565.bin": {
-      "bytes": 53340,
-      "sha256": "f9c5511f4f873a9754d6040babaa48940d84d6e755bd9c213e46341c1d0301a1"
-    },
-    "SND0.AT3": {
-      "bytes": 231696,
-      "sha256": "8cfb91a6c45de6a73126b433a96d9c0d3b7756e3c56f3304c4ddbdd0c32fa2a8"
-    },
-    "art.bank": {
-      "bytes": 53312704,
-      "sha256": "c457d44b29c014e1b41876bed6d5e9f341c542079ab691cd65d913acec85bbe3"
-    },
-    "soundtrack.bank": {
-      "bytes": 38182771,
-      "sha256": "c2a9876f8b898511177dfa61c7db5f13b3ca1e755cad894dd9ca00afe18a19b9"
-    },
     "PIC1.PNG": {
       "bytes": 291579,
       "sha256": "d9c971f5432a73e60f2a1278deb6e5f178ecc38ac8eb1a81de811156c9e320d4"
-    },
-    "ICON0.PNG": {
-      "bytes": 16905,
-      "sha256": "7eff3e8016b58a30a620c888f47c0b8e8ba69cff4d20658427b06dd198a1eb7a"
     },
     "title565.bin": {
       "bytes": 261120,
@@ -33,6 +13,26 @@
     "ICON1.PMF": {
       "bytes": 239616,
       "sha256": "e55ceb23abd84e0672fb67e0a7a9ba02cdfd6cd49c37a661aabad14e3f4de23a"
+    },
+    "art.bank": {
+      "bytes": 53312704,
+      "sha256": "c457d44b29c014e1b41876bed6d5e9f341c542079ab691cd65d913acec85bbe3"
+    },
+    "ICON0.PNG": {
+      "bytes": 16905,
+      "sha256": "7eff3e8016b58a30a620c888f47c0b8e8ba69cff4d20658427b06dd198a1eb7a"
+    },
+    "hero565.bin": {
+      "bytes": 53340,
+      "sha256": "f9c5511f4f873a9754d6040babaa48940d84d6e755bd9c213e46341c1d0301a1"
+    },
+    "SND0.AT3": {
+      "bytes": 231696,
+      "sha256": "8cfb91a6c45de6a73126b433a96d9c0d3b7756e3c56f3304c4ddbdd0c32fa2a8"
+    },
+    "soundtrack.bank": {
+      "bytes": 38182771,
+      "sha256": "c2a9876f8b898511177dfa61c7db5f13b3ca1e755cad894dd9ca00afe18a19b9"
     }
   }
 }
